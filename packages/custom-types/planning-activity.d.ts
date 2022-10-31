@@ -103,13 +103,20 @@ export interface PlanningActivity {
   color?: ForceData['color']
 }
 
-export interface PerceptionOutcome {
+export interface CoreOutcome {
+  /** asset the outcome relates to */
+  asset: Asset['uniqid']
+
+  /** description of outcome */
+  narrative?: string
+
+  /** private record of outcome */
+  private?: string
+}
+
+export interface PerceptionOutcome extends CoreOutcome {
   /** force with new perception */
   force: ForceData['uniqid']
-  /** reason for new perception */
-  narrative?: string
-  /** asset in question */
-  asset: Asset['uniqid']
   /** new perceived force or undefined for unknown */
   perceivedForce?: ForceData['uniqid']
   /** new perceived platform type or undefined for unknown */
@@ -120,22 +127,12 @@ export interface PerceptionOutcome {
   perceivedName?: ForceData['uniqid']
 }
 
-export interface LocationOutcome {
-  /** asset in question */
-  asset: Asset['uniqid']
-  /** reason for new location */
-  narrative?: string
+export interface LocationOutcome extends CoreOutcome  {
   /** new location */
   location: number[]
 }
 
-export interface HealthOutcome {
-  /** asset in question */
-  asset: Asset['uniqid']
-
-  /** reason for new health */
-  narrative?: string
-
+export interface HealthOutcome extends CoreOutcome  {
   /** new location (zero for destroyed) */
   condition: number
 }

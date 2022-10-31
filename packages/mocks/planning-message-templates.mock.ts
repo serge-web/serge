@@ -2,32 +2,88 @@ import { TemplateBody } from "@serge/custom-types"
 
 const planningMessageTemplatesMock: TemplateBody[] = [
   {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Adjudication Feedback',
-    details: {
+    "lastUpdated": "2019-09-30T12:37:26.705Z",
+    "title": "Adjudication Feedback",
+    "details": {
       "$id": "https://example.com/arrays.schema.json",
       "$schema": "http://json-schema.org/draft-07/schema#",
       "description": "Outcomes from a set of orders",
       "type": "object",
       "title": "Adjudication Outcomes",
+      "format": "grid",
       "properties": {
-        "GeneralFeedback": {
+        "reference": {
+          "title": "Reference",
+          "type": "string"
+        },
+        "orders1": {
+          "title": "Orders 1",
+          "type": "string"
+        },
+        "orders2": {
+          "title": "Orders 2",
+          "type": "string"
+        },
+        "narrative": {
           "title": "General Feedback",
           "type": "string",
           "format": "textarea"
         },
-        "ISR": {
+        "startTime": {
+          "format": "datetime-local",
+          "type": "string",
+          "title": "Start date",
+          "propertyOrder": 30,
+          "options": {
+            "flatpickr": {
+              "wrap": false,
+              "time_24hr": true,
+              "dateFormat": "d/m/Y"
+            }
+          }
+        },
+        "endTime": {
+          "format": "datetime-local",
+          "type": "string",
+          "propertyOrder": 40,
+          "title": "End date",
+          "options": {
+            "flatpickr": {
+              "wrap": false,
+              "time_24hr": true,
+              "dateFormat": "d/m/Y"
+            }
+          }
+        },
+        "location": {
+          "title": "Location",
+          "type": "string"
+        },
+        "perceptionOutcomes": {
           "type": "array",
+          "title": "Perception Outcomes",
           "format": "table",
           "additionalProperties": false,
           "items": {
-            "title": "ISR Outcome",
+            "title": "Perception Outcome",
             "type": "object",
             "required": [
-              "Asset"
+              "force",
+              "asset"
             ],
             "properties": {
-              "Asset": {
+              "force": {
+                "title": "By",
+                "type": "string",
+                "format": "radio",
+                "enum": [
+                  "Blue",
+                  "Red",
+                  "Green",
+                  "White"
+                ]
+              },
+              "asset": {
                 "title": "Asset",
                 "type": "string",
                 "enum": [
@@ -40,18 +96,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "By": {
-                "title": "By",
-                "type": "string",
-                "format": "radio",
-                "enum": [
-                  "Blue",
-                  "Red",
-                  "Green",
-                  "White"
-                ]
-              },
-              "Force": {
+              "perceivedForce": {
                 "title": "Force",
                 "type": "string",
                 "enum": [
@@ -65,7 +110,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "Type": {
+              "perceivedType": {
                 "title": "Platform Type",
                 "type": "string",
                 "enum": [
@@ -79,50 +124,52 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "Condition": {
-                "title": "Condition",
+              "healty": {
+                "title": "Health",
                 "type": "string",
                 "enum": [
-                  "Unknown",
-                  "Working",
-                  "Damaged",
-                  "Destroyed"
+                  "100",
+                  "75",
+                  "50",
+                  "25",
+                  "0"
                 ],
                 "options": {
                   "grid_columns": 3
                 }
               },
-              "ID": {
-                "title": "ID",
-                "type": "boolean",
-                "format": "checkbox"
+              "perceivedName": {
+                "title": "Name",
+                "type": "string"
               },
-              "Comment": {
+              "narrative": {
                 "title": "Comment",
                 "type": "string",
                 "format": "textarea"
               },
-              "Private": {
+              "private": {
                 "title": "Private",
                 "type": "string",
                 "format": "textarea"
               }
+
             }
           }
         },
-        "Damage": {
+        "healthOutcomes": {
           "type": "array",
           "format": "table",
+          "title": "Health Outcomes",
           "additionalProperties": false,
           "items": {
-            "title": "Damage Outcome",
+            "title": "Health Outcome",
             "type": "object",
             "required": [
-              "Asset",
-              "Condition"
+              "asset",
+              "health"
             ],
             "properties": {
-              "Asset": {
+              "asset": {
                 "title": "Asset",
                 "type": "string",
                 "enum": [
@@ -135,24 +182,26 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "Condition": {
+              "health": {
                 "title": "Condition",
                 "type": "string",
                 "enum": [
-                  "Working",
-                  "Damaged",
-                  "Destroyed"
+                  "100",
+                  "75",
+                  "50",
+                  "25",
+                  "0"
                 ],
                 "options": {
                   "grid_columns": 3
                 }
               },
-              "Comment": {
+              "narrative": {
                 "title": "Comment",
                 "type": "string",
                 "format": "textarea"
               },
-              "Private": {
+              "private": {
                 "title": "Private",
                 "type": "string",
                 "format": "textarea"
@@ -160,19 +209,20 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             }
           }
         },
-        "Movement": {
+        "movementOutcomes": {
           "type": "array",
           "format": "table",
+          "title": "Movement Outcomes",
           "additionalProperties": false,
           "items": {
             "title": "Movement Outcome",
             "type": "object",
             "required": [
-              "Asset",
-              "Location"
+              "asset",
+              "location"
             ],
             "properties": {
-              "Asset": {
+              "asset": {
                 "title": "Asset",
                 "type": "string",
                 "enum": [
@@ -185,7 +235,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "Location": {
+              "location": {
                 "title": "Location",
                 "type": "string",
                 "enum": [
@@ -197,12 +247,12 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "Comment": {
+              "narrative": {
                 "title": "Comment",
                 "type": "string",
                 "format": "textarea"
               },
-              "Private": {
+              "private": {
                 "title": "Private",
                 "type": "string",
                 "format": "textarea"
@@ -211,64 +261,63 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           }
         }
       }
-    }
-    ,
-    completed: false,
-    _id: 'k16-adjud',
-    _rev: '1-7fa1e6dd6b4ac5b6afc45b596ee7af61'
+    },
+    "completed": false,
+    "_id": "k16-adjud",
+    "_rev": "1-7fa1e6dd6b4ac5b6afc45b596ee7af61"
   },
   {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Link',
-    details: {
-      type: 'object',
-      properties: {
-        Title: {
-          type: 'string',
-          format: 'text'
+    "lastUpdated": "2019-09-30T12:37:26.705Z",
+    "title": "Link",
+    "details": {
+      "type": "object",
+      "properties": {
+        "Title": {
+          "type": "string",
+          "format": "text"
         },
-        URL: {
-          type: 'string',
-          format: 'url'
+        "URL": {
+          "type": "string",
+          "format": "url"
         }
       },
-      title: 'Link',
-      format: 'grid'
+      "title": "Link",
+      "format": "grid"
     },
-    completed: false,
-    _id: 'k16eedkm',
-    _rev: '1-7fa1e6dd6b4ac5b6afc45b596ee7af61'
+    "completed": false,
+    "_id": "k16eedkm",
+    "_rev": "1-7fa1e6dd6b4ac5b6afc45b596ee7af61"
   },
   {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Chat',
-    details: {
-      type: 'object',
-      properties: {
-        content: {
-          type: 'string',
-          format: 'textarea',
-          options: {
-            inputAttributes: {
-              placeholder: 'type the text'
+    "lastUpdated": "2019-09-30T12:37:26.705Z",
+    "title": "Chat",
+    "details": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "string",
+          "format": "textarea",
+          "options": {
+            "inputAttributes": {
+              "placeholder": "type the text"
             }
           }
         }
       },
-      title: 'Chat',
-      format: 'grid'
+      "title": "Chat",
+      "format": "grid"
     },
-    completed: false,
-    _id: 'k16eedkl',
-    _rev: '1-09ab7a18ff677cec5d9a56f02a45788d'
+    "completed": false,
+    "_id": "k16eedkl",
+    "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
   },
   {
-    completed: false,
-    details: {
-      title: "COA",
-      type: "object",
-      format: "grid",
-      required: [
+    "completed": false,
+    "details": {
+      "title": "COA",
+      "type": "object",
+      "format": "grid",
+      "required": [
         "reference",
         "title",
         "LOCATION",
@@ -293,198 +342,198 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         "PEER_REVIEW",
         "INSIGHT"
       ],
-      properties: {
-        reference: {
-          type: "string",
-          title: "Reference (sys generated)",
-          readonly: "readonly"
+      "properties": {
+        "reference": {
+          "type": "string",
+          "title": "Reference (sys generated)",
+          "readonly": "readonly"
         },
-        title: {
-          type: "string",
-          title: "*COA / Op Name",
-          format: "textarea"
+        "title": {
+          "type": "string",
+          "title": "*COA / Op Name",
+          "format": "textarea"
         },
-        LOCATION: {
-          title: "*Location of activities in this turn",
-          type: "object",
-          properties: {
-            region: {
-              title: "Region",
-              type: "string",
-              enum: [
+        "LOCATION": {
+          "title": "*Location of activities in this turn",
+          "type": "object",
+          "properties": {
+            "region": {
+              "title": "Region",
+              "type": "string",
+              "enum": [
                 "Asia Pacific",
                 "Europe",
                 "Americas"
               ],
-              default: "Europe"
+              "default": "Europe"
             },
-            Europe: {
-              title: "Country",
-              type: "string",
-              enum: [
+            "Europe": {
+              "title": "Country",
+              "type": "string",
+              "enum": [
                 "United Kingdom",
                 "Germany"
               ],
-              options: {
-                dependencies: {
-                  region: "Europe"
+              "options": {
+                "dependencies": {
+                  "region": "Europe"
                 }
               }
             },
-            Americas: {
-              title: "Country",
-              type: "string",
-              enum: [
+            "Americas": {
+              "title": "Country",
+              "type": "string",
+              "enum": [
                 "United State of America",
                 "Brazil"
               ],
-              options: {
-                dependencies: {
-                  region: "Americas"
+              "options": {
+                "dependencies": {
+                  "region": "Americas"
                 }
               }
             },
-            AsiaPacific: {
-              title: "Country",
-              type: "string",
-              enum: [
+            "AsiaPacific": {
+              "title": "Country",
+              "type": "string",
+              "enum": [
                 "India",
                 "China"
               ],
-              options: {
-                dependencies: {
-                  region: "Asia Pacific"
+              "options": {
+                "dependencies": {
+                  "region": "Asia Pacific"
                 }
               }
             }
           }
         },
-        PRESCRIPTED: {
-          type: "boolean",
-          format: "checkbox",
-          title: "*Is this a pre-scripted activity? E.g. DXP",
-          default: "Yes",
-          items: {
-            type: "string",
-            enum: [
+        "PRESCRIPTED": {
+          "type": "boolean",
+          "format": "checkbox",
+          "title": "*Is this a pre-scripted activity? E.g. DXP",
+          "default": "Yes",
+          "items": {
+            "type": "string",
+            "enum": [
               "Yes",
               "No"
             ]
           }
         },
-        VISIBILITY: {
-          type: "string",
-          title: "*Intended visibility to adversary",
-          enum: [
+        "VISIBILITY": {
+          "type": "string",
+          "title": "*Intended visibility to adversary",
+          "enum": [
             "Overt",
             "Covert",
             "Clandestine",
             "Complex"
           ]
         },
-        COA_SUPPORTS_AS: {
-          type: "boolean",
-          format: "checkbox",
-          title: "*This COA supports / uses an AS plan / effect",
-          default: "Yes",
-          items: {
-            type: "string",
-            enum: [
+        "COA_SUPPORTS_AS": {
+          "type": "boolean",
+          "format": "checkbox",
+          "title": "*This COA supports / uses an AS plan / effect",
+          "default": "Yes",
+          "items": {
+            "type": "string",
+            "enum": [
               "Yes",
               "No"
             ]
           }
         },
-        TARGET: {
-          type: "string",
-          title: "*Target(s) – Adversary, Ally, specific audience within Adversary or allied polity etc",
-          format: "textarea",
-          notEmpty: true
+        "TARGET": {
+          "type": "string",
+          "title": "*Target(s) – Adversary, Ally, specific audience within Adversary or allied polity etc",
+          "format": "textarea",
+          "notEmpty": true
         },
-        STRAT_COMMS: {
-          type: "string",
-          title: "Outline of associated Strategic Communications",
-          format: "textarea"
+        "STRAT_COMMS": {
+          "type": "string",
+          "title": "Outline of associated Strategic Communications",
+          "format": "textarea"
         },
-        OBJECTIVES_TURN: {
-          type: "string",
-          title: "Objectives in this turn",
-          format: "textarea"
+        "OBJECTIVES_TURN": {
+          "type": "string",
+          "title": "Objectives in this turn",
+          "format": "textarea"
         },
-        OBJECTIVES_OVERALL: {
-          type: "string",
-          title: "Overall Objectives",
-          format: "textarea"
+        "OBJECTIVES_OVERALL": {
+          "type": "string",
+          "title": "Overall Objectives",
+          "format": "textarea"
         },
-        TARGET_CENTRE_OF_GRAVITY: {
-          type: "string",
-          title: "Target’s Centre of Gravity",
-          format: "textarea"
+        "TARGET_CENTRE_OF_GRAVITY": {
+          "type": "string",
+          "title": "Target’s Centre of Gravity",
+          "format": "textarea"
         },
-        DESIRED_ENDSTATE_TURN: {
-          type: "string",
-          title: "*Desired Endstate in this turn",
-          format: "textarea"
+        "DESIRED_ENDSTATE_TURN": {
+          "type": "string",
+          "title": "*Desired Endstate in this turn",
+          "format": "textarea"
         },
-        DESIRED_ENDSTATE_OVERALL: {
-          type: "string",
-          title: "Desired Endstate Overall, if NOT in this turn",
-          format: "textarea"
+        "DESIRED_ENDSTATE_OVERALL": {
+          "type": "string",
+          "title": "Desired Endstate Overall, if NOT in this turn",
+          "format": "textarea"
         },
-        EFFECTS_AND_ACTIONS: {
-          type: "string",
-          title: "*Effects and actions",
-          format: "textarea"
+        "EFFECTS_AND_ACTIONS": {
+          "type": "string",
+          "title": "*Effects and actions",
+          "format": "textarea"
         },
-        SEQUENCING_AND_PHASES: {
-          type: "string",
-          title: "Sequencing and phases",
-          format: "textarea"
+        "SEQUENCING_AND_PHASES": {
+          "type": "string",
+          "title": "Sequencing and phases",
+          "format": "textarea"
         },
-        ADVERSARY_UNDERSTANDING: {
-          type: "string",
-          title: "What would my adversary see / understand of this activity / messaging?",
-          format: "textarea"
+        "ADVERSARY_UNDERSTANDING": {
+          "type": "string",
+          "title": "What would my adversary see / understand of this activity / messaging?",
+          "format": "textarea"
         },
-        ADVERSARY_REACTION_COUNTER_ACTION: {
-          properties: {
-            ADVERSARY_MLCOA: {
-              title: "Adversary MLCOA",
-              type: "string",
-              format: "textarea"
+        "ADVERSARY_REACTION_COUNTER_ACTION": {
+          "properties": {
+            "ADVERSARY_MLCOA": {
+              "title": "Adversary MLCOA",
+              "type": "string",
+              "format": "textarea"
             },
-            MLCOA_RESPONSE: {
-              title: "Own Response",
-              type: "string",
-              format: "textarea"
+            "MLCOA_RESPONSE": {
+              "title": "Own Response",
+              "type": "string",
+              "format": "textarea"
             },
-            ADVERSARY_MDCOA: {
-              title: "Adversary MDCOA",
-              type: "string",
-              format: "textarea"
+            "ADVERSARY_MDCOA": {
+              "title": "Adversary MDCOA",
+              "type": "string",
+              "format": "textarea"
             },
-            MDCOA_RESPONSE: {
-              title: "Own Response",
-              type: "string",
-              format: "textarea"
+            "MDCOA_RESPONSE": {
+              "title": "Own Response",
+              "type": "string",
+              "format": "textarea"
             }
           },
-          title: "Adversary reaction & counter-action",
-          type: "object"
+          "title": "Adversary reaction & counter-action",
+          "type": "object"
         },
-        ORBAT: {
-          type: "array",
-          format: "table",
-          minItems: 1,
-          title: "*ORBAT – FEs used (Inc logistics and enablers)",
-          items: {
-            type: "object",
-            title: "FE",
-            properties: {
-              FEName: {
-                type: "string",
-                title: "FE Name",
-                enum: [
+        "ORBAT": {
+          "type": "array",
+          "format": "table",
+          "minItems": 1,
+          "title": "*ORBAT – FEs used (Inc logistics and enablers)",
+          "items": {
+            "type": "object",
+            "title": "FE",
+            "properties": {
+              "FEName": {
+                "type": "string",
+                "title": "FE Name",
+                "enum": [
                   "Tank",
                   "Infantry",
                   "Plane",
@@ -492,9 +541,9 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "other"
                 ]
               },
-              Readiness: {
-                type: "string",
-                enum: [
+              "Readiness": {
+                "type": "string",
+                "enum": [
                   "Level-1",
                   "Level-2",
                   "Level-3",
@@ -502,197 +551,197 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "Level-5"
                 ]
               },
-              Number: {
-                type: "number"
+              "Number": {
+                "type": "number"
               },
-              StartDate: {
-                type: "string",
-                title: "Start date",
-                format: "date",
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: "d/m/Y"
+              "StartDate": {
+                "type": "string",
+                "title": "Start date",
+                "format": "date",
+                "options": {
+                  "flatpickr": {
+                    "wrap": false,
+                    "time_24hr": true,
+                    "dateFormat": "d/m/Y"
                   }
                 }
               },
-              EndDate: {
-                type: "string",
-                title: "End date",
-                format: "date",
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: "d/m/Y"
+              "EndDate": {
+                "type": "string",
+                "title": "End date",
+                "format": "date",
+                "options": {
+                  "flatpickr": {
+                    "wrap": false,
+                    "time_24hr": true,
+                    "dateFormat": "d/m/Y"
                   }
                 }
               }
             }
           }
         },
-        TIMINGS: {
-          properties: {
-            START_PLANNING: {
-              title: "Start planning",
-              type: "string",
-              format: "date",
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: "d/m/Y"
+        "TIMINGS": {
+          "properties": {
+            "START_PLANNING": {
+              "title": "Start planning",
+              "type": "string",
+              "format": "date",
+              "options": {
+                "flatpickr": {
+                  "wrap": false,
+                  "time_24hr": true,
+                  "dateFormat": "d/m/Y"
                 }
               }
             },
-            START_DEPLOYMENT: {
-              title: "Start deployment",
-              type: "string",
-              format: "date",
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: "d/m/Y"
+            "START_DEPLOYMENT": {
+              "title": "Start deployment",
+              "type": "string",
+              "format": "date",
+              "options": {
+                "flatpickr": {
+                  "wrap": false,
+                  "time_24hr": true,
+                  "dateFormat": "d/m/Y"
                 }
               }
             },
-            START_OPERATION: {
-              title: "Start Operation",
-              type: "string",
-              format: "date",
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: "d/m/Y"
+            "START_OPERATION": {
+              "title": "Start Operation",
+              "type": "string",
+              "format": "date",
+              "options": {
+                "flatpickr": {
+                  "wrap": false,
+                  "time_24hr": true,
+                  "dateFormat": "d/m/Y"
                 }
               }
             },
-            END_OPERATION: {
-              title: "End Operation",
-              type: "string",
-              format: "date",
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: "d/m/Y"
+            "END_OPERATION": {
+              "title": "End Operation",
+              "type": "string",
+              "format": "date",
+              "options": {
+                "flatpickr": {
+                  "wrap": false,
+                  "time_24hr": true,
+                  "dateFormat": "d/m/Y"
                 }
               }
             },
-            END_RECOVERY: {
-              title: "End recovery",
-              type: "string",
-              format: "date",
-              options: {
-                flatpickr: {
-                  wrap: false,
-                  time_24hr: true,
-                  dateFormat: "d/m/Y"
+            "END_RECOVERY": {
+              "title": "End recovery",
+              "type": "string",
+              "format": "date",
+              "options": {
+                "flatpickr": {
+                  "wrap": false,
+                  "time_24hr": true,
+                  "dateFormat": "d/m/Y"
                 }
               }
             }
           },
-          title: "Timings",
-          type: "object",
-          format: "grid"
+          "title": "Timings",
+          "type": "object",
+          "format": "grid"
         },
-        CONTINUES_INTO_NEXT_TURN: {
-          type: "boolean",
-          format: "checkbox",
-          title: "*Will this activity continue into next turn?",
-          default: "Yes",
-          items: {
-            type: "string",
-            enum: [
+        "CONTINUES_INTO_NEXT_TURN": {
+          "type": "boolean",
+          "format": "checkbox",
+          "title": "*Will this activity continue into next turn?",
+          "default": "Yes",
+          "items": {
+            "type": "string",
+            "enum": [
               "Yes",
               "No"
             ]
           }
         },
-        DEPENDENCIES: {
-          type: "string",
-          title: "Dependencies on Allied capability: Please indicate which allies (if any) and which of their capabilities you are dependent on. E.g. US Space capabilities, Allied ABO",
-          format: "textarea"
+        "DEPENDENCIES": {
+          "type": "string",
+          "title": "Dependencies on Allied capability: Please indicate which allies (if any) and which of their capabilities you are dependent on. E.g. US Space capabilities, Allied ABO",
+          "format": "textarea"
         },
-        AdjudicationSupport: {
-          type: "array",
-          format: "checkbox",
-          title: "Adjudication support",
-          uniqueItems: true,
-          items: {
-            type: "string",
-            enum: [
+        "AdjudicationSupport": {
+          "type": "array",
+          "format": "checkbox",
+          "title": "Adjudication support",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
               "Space",
               "CEMA",
               "Influence",
               "Logistics"
             ]
           },
-          options: {
-            grid_columns: 12
+          "options": {
+            "grid_columns": 12
           }
         },
-        PEER_REVIEW: {
-          type: "string",
-          title: "Peer Review by",
-          format: "textarea"
+        "PEER_REVIEW": {
+          "type": "string",
+          "title": "Peer Review by",
+          "format": "textarea"
         },
-        INSIGHT: {
-          type: "string",
-          title: "Insight – What would you have done differently with other policies / permissions / risk appetite?",
-          format: "textarea"
+        "INSIGHT": {
+          "type": "string",
+          "title": "Insight – What would you have done differently with other policies / permissions / risk appetite?",
+          "format": "textarea"
         }
       }
     },
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'COA',
-    _id: 'k16eedkk',
-    _rev: '1-4c3969d57f8cf470858dd1819ee5c2e8'
+    "lastUpdated": "2019-09-30T12:37:26.705Z",
+    "title": "COA",
+    "_id": "k16eedkk",
+    "_rev": "1-4c3969d57f8cf470858dd1819ee5c2e8"
   },
   {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'RFI',
-    details: {
-      format: "grid",
-      properties: {
-        Reference: {
-          readonly: "readonly",
-          title: "Reference (sys generated)",
-          options: {
-            grid_columns: 4
+    "lastUpdated": "2019-09-30T12:37:26.705Z",
+    "title": "RFI",
+    "details": {
+      "format": "grid",
+      "properties": {
+        "Reference": {
+          "readonly": "readonly",
+          "title": "Reference (sys generated)",
+          "options": {
+            "grid_columns": 4
           },
-          type: "string"
+          "type": "string"
         },
-        Title: {
-          format: "text",
-          options: {
-            grid_columns: 8
+        "Title": {
+          "format": "text",
+          "options": {
+            "grid_columns": 8
           },
-          title: "Title",
-          type: "string"
+          "title": "Title",
+          "type": "string"
         },
-        RFI: {
-          format: "textarea",
-          options: {
-            grid_columns: 12
+        "RFI": {
+          "format": "textarea",
+          "options": {
+            "grid_columns": 12
           },
-          title: "RFI",
-          type: "string"
+          "title": "RFI",
+          "type": "string"
         },
-        Priority: {
-          enum: [
+        "Priority": {
+          "enum": [
             "High",
             "Medium",
             "Low"
           ],
-          title: "Priority",
-          type: "string"
+          "title": "Priority",
+          "type": "string"
         },
-        FAO: {
-          enum: [
+        "FAO": {
+          "enum": [
             "J2",
             "SME – CEMA",
             "SME – Space",
@@ -703,21 +752,21 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "Actor – Red",
             "Other"
           ],
-          title: "FAO",
-          type: "string"
+          "title": "FAO",
+          "type": "string"
         },
-        ResponseRequiredBy: {
-          enum: [
+        "ResponseRequiredBy": {
+          "enum": [
             "Within an hour",
             "NLT 1300",
             "NLT 1600",
             "Not urgent"
           ],
-          title: "Response required by",
-          type: "string"
+          "title": "Response required by",
+          "type": "string"
         }
       },
-      required: [
+      "required": [
         "Reference",
         "Title",
         "FAO",
@@ -725,143 +774,143 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         "Priority",
         "ResponseRequiredBy"
       ],
-      title: "RFI",
-      type: "object"
+      "title": "RFI",
+      "type": "object"
     },
-    completed: false,
-    _id: 'k16eedkj',
-    _rev: '1-683379b9418a2ba688eb4a8dfec4de11'
+    "completed": false,
+    "_id": "k16eedkj",
+    "_rev": "1-683379b9418a2ba688eb4a8dfec4de11"
   },
   {
-    lastUpdated: '2019-09-30T12:37:26.705Z',
-    title: 'Message',
-    details: {
-      type: 'object',
-      properties: {
-        title: {
-          type: 'string'
+    "lastUpdated": "2019-09-30T12:37:26.705Z",
+    "title": "Message",
+    "details": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
         },
-        content: {
-          type: 'string',
-          format: 'textarea'
+        "content": {
+          "type": "string",
+          "format": "textarea"
         }
       },
-      title: 'Message',
-      format: 'grid'
+      "title": "Message",
+      "format": "grid"
     },
-    completed: false,
-    _id: 'k16eedki',
-    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+    "completed": false,
+    "_id": "k16eedki",
+    "_rev": "1-7de33e447b392eeaf7164f4ec331bc57"
   },
   {
-    completed: false,
-    details: {
-      format: "grid",
-      properties: {
-        Reference: {
-          propertyOrder: 20,
-          type: "string"
+    "completed": false,
+    "details": {
+      "format": "grid",
+      "properties": {
+        "Reference": {
+          "propertyOrder": 20,
+          "type": "string"
         },
-        title: {
-          propertyOrder: 25,
-          type: "string"
+        "title": {
+          "propertyOrder": 25,
+          "type": "string"
         },
-        Activity: {
-          propertyOrder: 30,
-          type: "string"
+        "Activity": {
+          "propertyOrder": 30,
+          "type": "string"
         },
-        Date: {
-          propertyOrder: 40,
-          format: "datetime-local",
-          type: "string"
+        "Date": {
+          "propertyOrder": 40,
+          "format": "datetime-local",
+          "type": "string"
         },
-        Description: {
-          propertyOrder: 50,
-          format: "textarea",
-          type: "string"
+        "Description": {
+          "propertyOrder": 50,
+          "format": "textarea",
+          "type": "string"
         },
-        Status: {
-          propertyOrder: 60,
-          enum: [
+        "Status": {
+          "propertyOrder": 60,
+          "enum": [
             "Minor",
             "Major",
             "Critical"
           ],
-          type: "string"
+          "type": "string"
         }
       },
-      title: "Maritime Activity",
-      type: "object"
+      "title": "Maritime Activity",
+      "type": "object"
     },
-    lastUpdated: "2022-08-30T11:53:02.969Z",
-    title: "Maritime Activity",
-    _id: 'k16e-maritime',
-    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+    "lastUpdated": "2022-08-30T11:53:02.969Z",
+    "title": "Maritime Activity",
+    "_id": "k16e-maritime",
+    "_rev": "1-7de33e447b392eeaf7164f4ec331bc57"
   },
   {
-    completed: false,
-    details: {
-      format: "grid",
-      properties: {
-        reference: {
-          type: "string",
-          title: "Reference (sys generated)",
-          readonly: "readonly",
-          propertyOrder: 25
+    "completed": false,
+    "details": {
+      "format": "grid",
+      "properties": {
+        "reference": {
+          "type": "string",
+          "title": "Reference (sys generated)",
+          "readonly": "readonly",
+          "propertyOrder": 25
         },
-        title: {
-          type: "string",
-          propertyOrder: 20
+        "title": {
+          "type": "string",
+          "propertyOrder": 20
         },
-        StartDate2: {
-          type: "string",
-          title: "Start date2",
-          propertyOrder: 28,
-          format: "date",
-          options: {
-            flatpickr: {
-              wrap: false,
-              time_24hr: true,
-              dateFormat: "d/m/Y"
+        "StartDate2": {
+          "type": "string",
+          "title": "Start date2",
+          "propertyOrder": 28,
+          "format": "date",
+          "options": {
+            "flatpickr": {
+              "wrap": false,
+              "time_24hr": true,
+              "dateFormat": "d/m/Y"
             }
           }
         },
-        startDate: {
-          format: "datetime-local",
-          type: "string",
-          title: "Start date",
-          propertyOrder: 30,
-          options: {
-            flatpickr: {
-              wrap: false,
-              time_24hr: true,
-              dateFormat: "d/m/Y"
+        "startDate": {
+          "format": "datetime-local",
+          "type": "string",
+          "title": "Start date",
+          "propertyOrder": 30,
+          "options": {
+            "flatpickr": {
+              "wrap": false,
+              "time_24hr": true,
+              "dateFormat": "d/m/Y"
             }
           }
         },
-        endDate: {
-          format: "datetime-local",
-          type: "string",
-          propertyOrder: 40,
-          title: "End date",
-          options: {
-            flatpickr: {
-              wrap: false,
-              time_24hr: true,
-              dateFormat: "d/m/Y"
+        "endDate": {
+          "format": "datetime-local",
+          "type": "string",
+          "propertyOrder": 40,
+          "title": "End date",
+          "options": {
+            "flatpickr": {
+              "wrap": false,
+              "time_24hr": true,
+              "dateFormat": "d/m/Y"
             }
           }
         },
-        Description: {
-          format: "textarea",
-          propertyOrder: 50,
-          type: "string"
+        "Description": {
+          "format": "textarea",
+          "propertyOrder": 50,
+          "type": "string"
         },
-        Location: {
-          format: "textarea",
-          type: "string",
-          propertyOrder: 60,
-          enum: [
+        "Location": {
+          "format": "textarea",
+          "type": "string",
+          "propertyOrder": 60,
+          "enum": [
             "Point-A",
             "Point-B",
             "Region-A",
@@ -870,29 +919,29 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "Polyline-B"
           ]
         },
-        ActivityType: {
-          enum: [
+        "ActivityType": {
+          "enum": [
             "Transit",
             "Kinetic",
             "Asymmetric"
           ],
-          type: "string",
-          propertyOrder: 70
+          "type": "string",
+          "propertyOrder": 70
         },
-        ownAssets: {
-          type: "array",
-          format: "table",
-          minItems: 1,
-          propertyOrder: 80,
-          title: "Own Assets",
-          items: {
-            type: "object",
-            title: "Asset",
-            properties: {
-              FEName: {
-                type: "string",
-                title: "FE Name",
-                enum: [
+        "ownAssets": {
+          "type": "array",
+          "format": "table",
+          "minItems": 1,
+          "propertyOrder": 80,
+          "title": "Own Assets",
+          "items": {
+            "type": "object",
+            "title": "Asset",
+            "properties": {
+              "FEName": {
+                "type": "string",
+                "title": "FE Name",
+                "enum": [
                   "Tank-A",
                   "Tank-B",
                   "Infantry-A",
@@ -901,50 +950,50 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "other"
                 ]
               },
-              Number: {
-                type: "number"
+              "Number": {
+                "type": "number"
               },
-              StartDate: {
-                type: "string",
-                title: "Start date",
-                format: "date",
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: "d/m/Y"
+              "StartDate": {
+                "type": "string",
+                "title": "Start date",
+                "format": "date",
+                "options": {
+                  "flatpickr": {
+                    "wrap": false,
+                    "time_24hr": true,
+                    "dateFormat": "d/m/Y"
                   }
                 }
               },
-              EndDate: {
-                type: "string",
-                title: "End date",
-                format: "date",
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: "d/m/Y"
+              "EndDate": {
+                "type": "string",
+                "title": "End date",
+                "format": "date",
+                "options": {
+                  "flatpickr": {
+                    "wrap": false,
+                    "time_24hr": true,
+                    "dateFormat": "d/m/Y"
                   }
                 }
               }
             }
           }
         },
-        oppAssets: {
-          type: "array",
-          propertyOrder: 90,
-          format: "table",
-          minItems: 0,
-          title: "Subject(s) of orders",
-          items: {
-            type: "object",
-            title: "Target",
-            properties: {
-              FEName: {
-                type: "string",
-                title: "FE Name",
-                enum: [
+        "oppAssets": {
+          "type": "array",
+          "propertyOrder": 90,
+          "format": "table",
+          "minItems": 0,
+          "title": "Subject(s) of orders",
+          "items": {
+            "type": "object",
+            "title": "Target",
+            "properties": {
+              "FEName": {
+                "type": "string",
+                "title": "FE Name",
+                "enum": [
                   "Structure-A",
                   "Structure-B",
                   "Asset-A",
@@ -953,86 +1002,86 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "Organisation-B"
                 ]
               },
-              Number: {
-                type: "number"
+              "Number": {
+                "type": "number"
               }
             }
           }
-        },
-      },
-      title: "Land Activity",
-      type: "object"
-    },
-    lastUpdated: "2022-08-30T11:51:13.579Z",
-    title: "Land Activity",
-    _id: 'k16e-land',
-    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
-  }, {
-    completed: false,
-    details: {
-      format: "grid",
-      properties: {
-        Date: {
-          format: "datetime-local",
-          type: "string"
-        },
-        Description: {
-          format: "textarea",
-          type: "string"
-        },
-        Status: {
-          enum: [
-            "Minor",
-            "Major",
-            "Critical"
-          ],
-          type: "string"
-        },
-        title: {
-          type: "string"
         }
       },
-      title: "Air Activity",
-      type: "object"
+      "title": "Land Activity",
+      "type": "object"
     },
-    lastUpdated: "2022-08-30T11:53:17.485Z",
-    title: "Air Activity",
-    _id: 'k16e-air',
-    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+    "lastUpdated": "2022-08-30T11:51:13.579Z",
+    "title": "Land Activity",
+    "_id": "k16e-land",
+    "_rev": "1-7de33e447b392eeaf7164f4ec331bc57"
   },
   {
-    completed: false,
-    details: {
-      format: "grid",
-      properties: {
-        Date: {
-          format: "datetime-local",
-          type: "string"
+    "completed": false,
+    "details": {
+      "format": "grid",
+      "properties": {
+        "Date": {
+          "format": "datetime-local",
+          "type": "string"
         },
-        Description: {
-          format: "textarea",
-          type: "string"
+        "Description": {
+          "format": "textarea",
+          "type": "string"
         },
-        Status: {
-          enum: [
+        "Status": {
+          "enum": [
             "Minor",
             "Major",
             "Critical"
           ],
-          type: "string"
+          "type": "string"
         },
-        title: {
-          type: "string"
+        "title": {
+          "type": "string"
         }
       },
-      title: "Other Activity",
-      type: "object"
+      "title": "Air Activity",
+      "type": "object"
     },
-    lastUpdated: "2022-08-30T11:52:40.848Z",
-    title: "Other Activity",
-    _id: 'k16e-other',
-    _rev: '1-7de33e447b392eeaf7164f4ec331bc57'
+    "lastUpdated": "2022-08-30T11:53:17.485Z",
+    "title": "Air Activity",
+    "_id": "k16e-air",
+    "_rev": "1-7de33e447b392eeaf7164f4ec331bc57"
+  },
+  {
+    "completed": false,
+    "details": {
+      "format": "grid",
+      "properties": {
+        "Date": {
+          "format": "datetime-local",
+          "type": "string"
+        },
+        "Description": {
+          "format": "textarea",
+          "type": "string"
+        },
+        "Status": {
+          "enum": [
+            "Minor",
+            "Major",
+            "Critical"
+          ],
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "title": "Other Activity",
+      "type": "object"
+    },
+    "lastUpdated": "2022-08-30T11:52:40.848Z",
+    "title": "Other Activity",
+    "_id": "k16e-other",
+    "_rev": "1-7de33e447b392eeaf7164f4ec331bc57"
   }
 ]
-
 export default planningMessageTemplatesMock
