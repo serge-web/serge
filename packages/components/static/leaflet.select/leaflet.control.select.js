@@ -165,11 +165,8 @@ L.Control.Select = L.Control.extend({
   _setState(newState) {
     // events
     if (
-      this.options.onSelect &&
-      newState.selected &&
-      ((this.options.multi &&
-        newState.selected.length !== this.state.selected.length) ||
-        (!this.options.multi && newState.selected !== this.state.selected))
+      this.options.onSelect && newState.selected &&
+      ((this.options.multi && newState.selected.length !== this.state.selected.length) || !this.options.multi)
     ) {
       this.options.onSelect(newState.selected)
     }
