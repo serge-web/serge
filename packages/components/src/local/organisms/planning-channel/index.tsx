@@ -287,7 +287,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }, [activityPlanned])
 
-  const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): {(): void} => {
+  const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
     const unmangledMessage = expandLocation(message)
     return saveMessage(dbName, details, unmangledMessage)
   }
@@ -320,17 +320,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           : <>
             <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
-              <PlanningForces opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+              <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             <LayerGroup key={'opp-forces'}>
-              <PlanningForces opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+              <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
           </>
         }
       </>
     )
-  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep, showInteractionGenerator, planningMessages, selectedOrders])
+  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep, showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>

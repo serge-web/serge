@@ -10,4 +10,5 @@ export default interface PropTypes {
   /** id of selected asset */
   selectedAssets: string[]
   setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  interactive?: boolean
 }
