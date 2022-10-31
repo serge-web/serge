@@ -48,7 +48,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
         className: styles['map-icon']
       })
     }
-  }, [])
+  }, [selectedAssets])
 
   return <>
     {
