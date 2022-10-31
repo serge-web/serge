@@ -108,12 +108,14 @@ export interface PerceptionOutcome {
   force: ForceData['uniqid']
   /** reason for new perception */
   narrative?: string
-  /** asset(s) in question */
-  assetIds: Array<Asset['uniqid']>
+  /** asset in question */
+  asset: Asset['uniqid']
   /** new perceived force or undefined for unknown */
   perceivedForce?: ForceData['uniqid']
   /** new perceived platform type or undefined for unknown */
   perceivedType?: PlatformTypeData['uniqid']
+  /** new perceived health type or undefined for unknown */
+  perceivedHealth?: Asset['health']
   /** new perceived name or undefined for unknown */
   perceivedName?: ForceData['uniqid']
 }
