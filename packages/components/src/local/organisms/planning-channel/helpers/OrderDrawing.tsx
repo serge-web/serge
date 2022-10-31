@@ -7,6 +7,7 @@ import cx from 'classnames'
 import { Geometry } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
+import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
@@ -38,6 +39,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+
+  // this next state is a workaround, to prevent GeoMan calling
+  // onCreate multiple times
+  const [lastPendingGeometry, setLastPendingGeometry] = useState<PendingItem | undefined>(undefined)
 
   const map = useMap()
 
@@ -209,7 +214,23 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }
 
   const onCreate = (e: { shape: string, layer: Layer }): void => {
-    setPendingGeometry(e)
+    // note: this is a workaround.  Each time we start to plot a new activity,
+    // it appears that another `onCreate` handler gets declared
+    // this workaround prevents successive create events
+    // propagating
+    if (lastPendingGeometry) {
+      const layer = lastPendingGeometry.layer as any
+      const oldLatLngs = layer._latlngs
+      const newE = layer as any
+      const newLatLngs = newE._latlngs
+      if (!_.isEqual(oldLatLngs, newLatLngs)) {
+        setLastPendingGeometry(e)
+        setPendingGeometry(e)
+      }
+    } else {
+      setLastPendingGeometry(e)
+      setPendingGeometry(e)
+    }
   }
 
   return (
