@@ -3,7 +3,7 @@ import {
   COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
-import { Asset, ChannelCore, ForceData, ForceRole, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, LocationOutcome, PerceptionOutcome, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -92,6 +92,33 @@ export interface PlanningMessageStructure {
   activity?: PlanningActivity['uniqid']
   /** remainder of fields generated from message template */
   [property: string]: any
+}
+
+
+/** templates contents for planning messages, provides extra
+ * detail as required for PlanningChannel
+ */
+ export interface InteractionMessageStructure {
+  /** unique id for this message thread */
+  reference: string
+  /** first set of orders this relates to */
+  orders1: string
+  /** second (optional) set of orders this relates to */
+  orders2?: string
+  /** textual description of interaction */
+  narrative: string
+  /** interaction start time */
+  startTime: string
+  /** interaction end time */
+  endTime: string
+  /** geometry describing area of interaction */
+  geometry?: GeoJSON.Feature
+  /** perception outcomes */
+  perceptionOutcomes: PerceptionOutcome[]
+  /** location outcomes */
+  locationOutcomes: LocationOutcome[]
+  /** condition outcomes */
+  healthOutcomes: HealthOutcome[]
 }
 
 export interface CoreMessage {
@@ -185,6 +212,12 @@ export interface ChatMessage extends CoreMessage {
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
+  message: PlanningMessageStructure
+}
+
+/** messages being used in support of adjudicating an interaction */
+export interface MessageInteraction extends CoreMessage {
+  readonly messageType: typeof INTERACTION_MESSAGE,
   message: PlanningMessageStructure
 }
 

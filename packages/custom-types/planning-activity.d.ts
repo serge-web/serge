@@ -1,4 +1,5 @@
 import { GeometryType } from "@serge/config"
+import { Asset, PlatformTypeData } from "."
 import ForceData from "./force-data"
 import { TemplateBody } from "./template"
 
@@ -22,7 +23,7 @@ export interface GroupedActivitySet {
 
 /** 
  * a geometry that can be planned (drawn) in the PlanningChannel
- */ 
+ */
 export interface PlanningActivityGeometry {
   /**
    * the type of geometery that represents part of this activity
@@ -55,7 +56,7 @@ export interface PlannedActivityGeometry {
    * the set of geometries that 
    */
   geometry: GeoJSON.Feature
-} 
+}
 
 /** structure for how we store date in props */
 export interface PlannedProps {
@@ -87,7 +88,7 @@ export interface PlanningActivity {
   /** 
    * human readable name for this activity
    */
-  name: string 
+  name: string
   /**
    * id of template to open on completion
    */
@@ -100,4 +101,39 @@ export interface PlanningActivity {
    * color for the activity
    */
   color?: ForceData['color']
+}
+
+export interface PerceptionOutcome {
+  /** force with new perception */
+  force: ForceData['uniqid']
+  /** reason for new perception */
+  narrative?: string
+  /** asset(s) in question */
+  assetIds: Array<Asset['uniqid']>
+  /** new perceived force or undefined for unknown */
+  perceivedForce?: ForceData['uniqid']
+  /** new perceived platform type or undefined for unknown */
+  perceivedType?: PlatformTypeData['uniqid']
+  /** new perceived name or undefined for unknown */
+  perceivedName?: ForceData['uniqid']
+}
+
+export interface LocationOutcome {
+  /** asset in question */
+  asset: Asset['uniqid']
+  /** reason for new location */
+  narrative?: string
+  /** new location */
+  location: number[]
+}
+
+export interface HealthOutcome {
+  /** asset in question */
+  asset: Asset['uniqid']
+
+  /** reason for new health */
+  narrative?: string
+
+  /** new location (zero for destroyed) */
+  condition: number
 }
