@@ -41,6 +41,8 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const [toAdjudicateFeature, setToAdjudicateFeature] = useState<React.ReactElement | undefined>(undefined)
   const [layersToDelete] = useState<Layer[]>([])
 
+  console.log('=> OrderPlotter', orders.length)
+
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
     geometries.forEach((me: GeomWithOrders, myIndex: number) => {
@@ -85,6 +87,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
 
   useEffect(() => {
     if (bins.length === 0 && !binningComplete) {
+      console.log('binning', geometriesWithOrders.length)
       const cleanGeoms = geometriesWithOrders.map((geom: GeomWithOrders): GeomWithOrders => {
         const clean: GeomWithOrders = deepCopy(geom)
         const props = clean.geometry.properties as PlannedProps
