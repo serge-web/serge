@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
@@ -8,7 +8,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MessageDetails, MessageDetailsFrom, PlanningMessageStructure } from '@serge/custom-types/message'
+import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructure } from '@serge/custom-types/message'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -85,6 +85,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [thisForcePlanningActivities, setThisForcePlanningActivities] = useState<PerForcePlanningActivitySet | undefined>(undefined)
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
+  const [interactionMessages, setInteractionMessages] = useState<MessageInteraction[]>([])
 
   const [debugStep, setDebugStep] = useState<number>(0)
 
@@ -96,6 +97,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
   const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
+
+  const adjudicationTemplateId = 'k16-adjud'
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -181,8 +184,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // drop the turn markers
-    const myMessages: MessagePlanning[] = messages.filter((msg: MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as MessagePlanning[]
-    setPlanningMessages(myMessages)
+    const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+
+    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+    const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === INTERACTION_MESSAGE) as MessageInteraction[]
+
+    setPlanningMessages(myPlanningMessages)
+    setInteractionMessages(myInteractionMessages)
   }, [messages])
 
   const onRead = (detail: MessagePlanning): void => {
@@ -226,7 +234,37 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const handleAdjudication = (contact: PlanningContact): void => {
-    console.log('Apply some adjudication for', contact.id)
+    console.log('Apply some adjudication for', contact.id, contact)
+    const interDetails: InteractionDetails = {}
+    const from: MessageDetailsFrom = {
+      force: selectedForce.uniqid,
+      forceId: selectedForce.uniqid,
+      forceColor: selectedForce.color,
+      iconURL: selectedForce.iconURL,
+      roleId: selectedRoleId,
+      roleName: selectedRoleName
+    }
+    const details: MessageDetails = {
+      channel: channel.uniqid,
+      from: from,
+      interaction: interDetails,
+      messageType: adjudicationTemplateId,
+      timestamp: moment().toISOString(),
+      turnNumber: turnNumber
+    }
+    const message: InteractionMessageStructure = {
+      orders1: contact.first.activity._id,
+      orders2: contact.second.activity._id,
+      reference: 'unset',
+      startTime: moment(contact.timeStart).toISOString(),
+      endTime: moment(contact.timeEnd).toISOString(),
+      perceptionOutcomes: [],
+      locationOutcomes: [],
+      healthOutcomes: [],
+      geometry: contact.intersection
+    }
+    // store the new adjudication
+    saveMessage(currentWargame, details, message)()
   }
 
   useEffect(() => {
@@ -338,7 +376,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <SupportPanel
           channel={channel}
           platformTypes={platformTypes}
-          messages={planningMessages as MessagePlanning[]}
+          planningMessages={planningMessages}
+          interactionMessages={interactionMessages}
           onReadAll={onReadAll}
           onUnread={onUnread}
           onRead={onRead}

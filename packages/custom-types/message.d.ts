@@ -1,8 +1,9 @@
 import {
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
+  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
+import { Geometry } from 'geojson'
 import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, LocationOutcome, PerceptionOutcome, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
@@ -46,6 +47,10 @@ export interface MessageDetails {
    * extra data for when message being edited collaboratively
    */
   collaboration?: CollaborationDetails
+  /** 
+   * extra detail for managing an interaction
+   */
+  interaction?: InteractionDetails
   /** ID of template for this message */
   messageType: TemplateBody['_id'],
   /** time message sent */
@@ -106,13 +111,13 @@ export interface PlanningMessageStructure {
   /** second (optional) set of orders this relates to */
   orders2?: string
   /** textual description of interaction */
-  narrative: string
+  narrative?: string
   /** interaction start time */
   startTime: string
   /** interaction end time */
   endTime: string
   /** geometry describing area of interaction */
-  geometry?: GeoJSON.Feature
+  geometry?: Geometry
   /** perception outcomes */
   perceptionOutcomes: PerceptionOutcome[]
   /** location outcomes */
@@ -173,6 +178,14 @@ export interface CollaborationDetails {
   feedback?: Array<FeedbackItem>
 }
 
+/** extra details regarding details of interactions 
+ * NOTE: we use `From` details to denote who is adjudicating the interactions
+*/
+export interface InteractionDetails {
+  /** whether adjudication of this interaction is complete */
+  complete?: boolean
+}
+
 export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE,
   /** the strutured message */
@@ -218,11 +231,8 @@ export interface MessagePlanning extends CoreMessage {
 /** messages being used in support of adjudicating an interaction */
 export interface MessageInteraction extends CoreMessage {
   readonly messageType: typeof INTERACTION_MESSAGE,
-  message: PlanningMessageStructure
+  message: InteractionMessageStructure
 }
-
-
-
 
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,
@@ -296,7 +306,6 @@ export interface MessageVisibilityChanges {
   readonly assetId: string,
   condition?: string
 }
-
 
 export interface MessageDeletePlatform {
   readonly messageType: typeof DELETE_PLATFORM,

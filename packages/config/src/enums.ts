@@ -110,7 +110,6 @@ export enum CollaborativeMessageStates {
   Closed = 'Closed',
 }
 
-
 /** the commands that can be appled to a collaborative message
  */
 export enum CollaborativeMessageCommands {

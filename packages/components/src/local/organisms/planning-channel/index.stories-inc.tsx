@@ -1,7 +1,7 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
-import { Phase } from '@serge/config'
+import { Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -187,6 +187,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   />
 }
 const doNotDoIt = 7 // don't transform the messages
+const planningMessages = PlanningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
   // drop the legacy entries

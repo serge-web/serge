@@ -27,7 +27,9 @@ export { default as MarkerPerception } from './marker-perception.d'
 export * from './message-types-actions.d'
 export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export {
-  ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem, MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
+  ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem, InteractionDetails
+  // All template based messages
+  , InteractionMessageStructure, MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
   // All template based messages
   MessageCustom, MessageDeleteMarker, MessageDeletePlatform, MessageDetails,
   MessageDetailsFrom,
@@ -35,7 +37,8 @@ export {
   MessageFeedback,
   // Map Types
   MessageForceLaydown, MessageHostPlatform, MessageInfoType,
-  MessageInfoTypeClipped, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact, MessagePlanning, MessageStateOfWorld, MessageStructure, MessageSubmitPlans, MessageUpdateMarker, MessageVisibilityChanges, PlanningMessageStructure
+  MessageInfoTypeClipped, MessageInteraction, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact, MessagePlanning,
+  MessageStateOfWorld, MessageStructure, MessageSubmitPlans, MessageUpdateMarker, MessageVisibilityChanges, PlanningMessageStructure
 } from './message.d'
 export { MessagesActionTypes, MessagesDispatch, SetCurrentViewFromURI } from './messages-action'
 export * from './participant.d'

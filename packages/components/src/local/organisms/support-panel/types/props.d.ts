@@ -1,10 +1,12 @@
 import { TurnFormats } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {
-  messages: MessagePlanning[]
+  planningMessages: MessagePlanning[]
+  interactionMessages: MessageInteraction[]
   turnPresentation?: TurnFormats
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessagePlanning) => void

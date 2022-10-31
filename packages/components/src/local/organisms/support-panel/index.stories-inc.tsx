@@ -1,6 +1,7 @@
-import { ChannelPlanning, ForceData, MessageDetails, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
+import { INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -23,6 +24,9 @@ forces.forEach((force: ForceData) => {
     allRoles.push(force.uniqid + ' ~ ' + role.roleId)
   })
 })
+
+const planningMessages = planningChannelMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE)
+const interactionMessages = planningChannelMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE)
 
 export default {
   title: 'local/organisms/SupportPanel',
@@ -91,7 +95,8 @@ const Template: Story<SupportPanelProps> = (args) => {
 
   return <SupportPanel
     platformTypes={platformTypes}
-    messages={planningMessages}
+    planningMessages={planningMessages}
+    interactionMessages={interactionMessages}
     onReadAll={noop}
     selectedAssets={[]}
     setSelectedAssets={noop}

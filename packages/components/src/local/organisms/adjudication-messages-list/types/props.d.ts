@@ -1,8 +1,9 @@
+import { TurnFormats } from '@serge/config'
+import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
+import { MessageInteraction } from '@serge/custom-types/message'
+import { ForceStyle } from '@serge/helpers'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
-import { TurnFormats } from '@serge/config'
-import { ForceStyle } from '@serge/helpers'
 
 export type AdjudicationRow = {
   id: string
@@ -17,7 +18,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * The list of channel messages properties required
    * for ChannelMessage components
    */
-  messages: Array<MessagePlanning>
+  messages: Array<MessageInteraction>
   /** forces in this game
    *
    */

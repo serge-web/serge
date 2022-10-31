@@ -1,7 +1,7 @@
 
-import { MessagePlanning } from '@serge/custom-types'
+import { MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 
-export const planningMessages: MessagePlanning[] = [
+export const planningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = [
     {
         messageType: "PlanningMessage",
         details: {

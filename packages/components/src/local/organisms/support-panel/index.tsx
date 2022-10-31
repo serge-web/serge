@@ -19,7 +19,8 @@ export const SupportPanelContext = createContext<SupportPanelContextInterface>({
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
-  messages,
+  planningMessages,
+  interactionMessages,
   turnPresentation,
   onRead,
   onUnread,
@@ -178,7 +179,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
                   <PlanningMessagesList
-                    messages={messages}
+                    messages={planningMessages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
@@ -233,7 +234,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
                   <AdjudicationMessagesList
-                    messages={messages}
+                    messages={interactionMessages}
                     forces={allForces}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
@@ -268,7 +269,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    messages,
+    planningMessages,
+    interactionMessages,
     selectedRoleId
   ]
   )
