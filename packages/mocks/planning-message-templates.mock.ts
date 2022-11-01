@@ -54,12 +54,18 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                 "title": "Asset",
                 "type": "string",
                 "enum": [
-                  "Tank A",
-                  "Tank B",
-                  "Tank C",
-                  "Plane A"
+                  "ta",
+                  "tb",
+                  "tc",
+                  "pa"
                 ],
                 "options": {
+                  "enum_titles": [
+                    "Tank A",
+                    "Tank B",
+                    "Tank C",
+                    "Plane A"  
+                  ],
                   "grid_columns": 3
                 }
               },
@@ -91,7 +97,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                   "grid_columns": 3
                 }
               },
-              "healty": {
+              "health": {
                 "title": "Health",
                 "type": "string",
                 "enum": [
@@ -140,12 +146,18 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                 "title": "Asset",
                 "type": "string",
                 "enum": [
-                  "Bunker 114",
-                  "Bunker 143",
-                  "Airfield C234",
-                  "Port D23"
+                  "ta",
+                  "tb",
+                  "tc",
+                  "pa"
                 ],
                 "options": {
+                  "enum_titles": [
+                    "Tank A",
+                    "Tank B",
+                    "Tank C",
+                    "Plane A"  
+                  ],
                   "grid_columns": 3
                 }
               },
@@ -193,12 +205,18 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                 "title": "Asset",
                 "type": "string",
                 "enum": [
-                  "Tank A",
-                  "Tank B",
-                  "Tank C",
-                  "Plane A"
+                  "ta",
+                  "tb",
+                  "tc",
+                  "pa"
                 ],
                 "options": {
+                  "enum_titles": [
+                    "Tank A",
+                    "Tank B",
+                    "Tank C",
+                    "Plane A"  
+                  ],
                   "grid_columns": 3
                 }
               },
