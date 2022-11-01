@@ -64,10 +64,8 @@ export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): 
   return force
 }
 
-
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
   planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData => {
-    
   const intMsg = interactionMessages.find((value) => value._id === intId)
   if (!intMsg) {
     throw Error('Failed to find interaction message:' + intId)
@@ -95,10 +93,10 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   const uniqIds = _.uniq(allIds)
   const allAssets = uniqIds.map((id: string) => findAsset(forces, id))
   const sortedAllAssets = _.sortBy(allAssets, (a: Asset) => a.name)
-  const sortedAllAssetNames = sortedAllAssets.map((asset: Asset) =>  {
-    const force = order1AssetsIds.includes(asset.uniqid) ?
-      forceStyles.find((force) => force.forceId = order1.details.from.forceId) :
-      forceStyles.find((force) => force.forceId = order2 && order2.details.from.forceId)
+  const sortedAllAssetNames = sortedAllAssets.map((asset: Asset) => {
+    const force = order1AssetsIds.includes(asset.uniqid)
+      ? forceStyles.find((force) => force.forceId === order1.details.from.forceId)
+      : forceStyles.find((force) => force.forceId === (order2 && order2.details.from.forceId))
     if (!force) {
       throw Error('Failed to find force for:' + asset.uniqid)
     }

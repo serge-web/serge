@@ -22,7 +22,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
-
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   useEffect(() => {
     setMyMessages(interactionMessages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
