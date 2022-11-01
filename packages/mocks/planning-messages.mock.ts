@@ -340,6 +340,36 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         _rev: "2"
     },
     {
+        messageType: "InteractionMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Logs",
+                roleId: "rk116f5e",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
+            },
+            messageType: "Land Activity",
+            timestamp: "2022-09-23T14:47:47.015Z",
+            turnNumber: 3
+        },
+        message: {
+            reference: "Blue-15",
+            startTime: "2022-11-15T00:00:00.000Z",
+            endTime: "2022-11-15T05:30:00.000Z",
+            orders1: "m_F-Blue_12",
+            orders2: "m_F-Red_27",
+            locationOutcomes: [],
+            perceptionOutcomes: [],
+            healthOutcomes: []
+        },
+        hasBeenRead: false,
+        _id: "adjud_23423",
+        _rev: "m_F-Red_27"
+    },
+    {
         messageType: "PlanningMessage",
         details: {
             channel: "channel-blue-planning",
