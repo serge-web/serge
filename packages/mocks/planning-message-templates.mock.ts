@@ -42,13 +42,21 @@ const planningMessageTemplatesMock: TemplateBody[] = [
               "force": {
                 "title": "By",
                 "type": "string",
-                "format": "radio",
                 "enum": [
-                  "Blue",
-                  "Red",
-                  "Green",
-                  "White"
-                ]
+                  "f-a",
+                  "f-b",
+                  "f-c",
+                  "f-d"
+                ],
+                "options": {
+                  "enum_titles": [
+                    "Red",
+                    "Blue",
+                    "White",
+                    "Green"  
+                  ],
+                  "grid_columns": 3
+                }
               },
               "asset": {
                 "title": "Asset",
