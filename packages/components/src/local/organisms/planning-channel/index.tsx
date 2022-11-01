@@ -190,8 +190,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === INTERACTION_MESSAGE) as MessageInteraction[]
 
-    console.log('planning', planningMessages.length)
-
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)
   }, [messages])
@@ -352,10 +350,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
-  console.log('planning channel render', planningMessages.length)
-
   const mapChildren = useMemo(() => {
-    console.log('planning channel memo', planningMessages.length)
     return (
       <>
         <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
