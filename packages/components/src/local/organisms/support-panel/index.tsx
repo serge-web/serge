@@ -179,7 +179,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
                   <PlanningMessagesList
-                    interactionMessages={planningMessages}
+                    messages={planningMessages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}

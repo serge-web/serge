@@ -1,9 +1,11 @@
 import { Table } from '@material-ui/core'
 import { Asset, ForceData, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
+import { noop } from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import styles from './styles.module.scss'
@@ -123,7 +125,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             template={template}
             disabled={false}
             gameDate={gameDate}
-          /></>
+          />
+          <div className='button-wrap' >
+            <Button color='secondary' onClick={noop} icon='save'>Submit Adjudication</Button>
+          </div>
+        </>
       } else {
         return <div>Template not found for {message.details.messageType}</div>
       }
@@ -136,6 +142,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']}>
+      <div className='button-wrap' >
+        <Button color='secondary' onClick={noop} icon='save'>Get next interaction</Button>
+      </div>
+
       <MaterialTable
         title={'Adjudication'}
         columns={columns}
