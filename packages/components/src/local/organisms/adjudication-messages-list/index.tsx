@@ -1,27 +1,24 @@
-import { faSearchLocation } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Chip, Table } from '@material-ui/core'
-import { ForceData, MessagePlanning } from '@serge/custom-types'
-import { findAsset, ForceStyle } from '@serge/helpers'
+import { Table } from '@material-ui/core'
+import { ForceData, MessageInteraction } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-import { arrToDict, collateActivities, getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, messages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, forceColors
+  customiseTemplate, playerForceId, playerRoleId
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
-  const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
+  const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   useEffect(() => {
-    setMyMessages(messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId))
+    setMyMessages(messages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
   }, [messages, playerForceId])
 
   /** custom date formatter, for compact date/time display */
@@ -30,27 +27,24 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const dataTable = myMessages.map(message => {
-      const forceName = forceColors.find((force: ForceStyle) => force.forceId === message.details.from.forceId)
+    const dataTable = myMessages.map((message: MessageInteraction): AdjudicationRow => {
       return {
         id: message._id,
-        title: message.message.title,
-        force: (forceName && forceName.force) || 'unknown',
-        role: message.details.from.roleName,
-        activity: message.message.ActivityType,
-        period: shortDate(message.message.startDate) + '-' + shortDate(message.message.endDate)
+        order1: message.message.orders1,
+        order2: message.message.orders2 || 'n/a',
+        activity: message.message.reference,
+        period: shortDate(message.message.startTime) + '-' + shortDate(message.message.endTime)
       }
     })
     setRows(dataTable)
 
     const umpireForce = forces.find((force: ForceData) => force.umpire)
     const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-    const activities = collateActivities(myMessages)
     const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
       { title: 'ID', field: 'id' },
-      { title: 'Title', field: 'title' },
-      { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
-      { title: 'Activity', field: 'activity', lookup: arrToDict(activities) },
+      { title: 'Order 1', field: 'order1' },
+      { title: 'Order 2', field: 'order2' },
+      { title: 'Activity', field: 'reference' },
       { title: 'Duration', field: 'period' }
     ]
     setColumns(columnsData)
@@ -60,30 +54,30 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
-  const assetClick = (objName: string): void => {
-    const asset = findAsset(forces, undefined, objName)
-    if (asset) {
-      // don't change selection yet - it collapses the panel
-      // const doSetSelected = false
-      // doSetSelected && setSelectedAssets([asset.uniqid])
-    }
-  }
+  // const assetClick = (objName: string): void => {
+  //   const asset = findAsset(forces, undefined, objName)
+  //   if (asset) {
+  //     // don't change selection yet - it collapses the panel
+  //     // const doSetSelected = false
+  //     // doSetSelected && setSelectedAssets([asset.uniqid])
+  //   }
+  // }
 
-  const formatOwnAsset = (obj: any): any => <><span>
-    <Chip onClick={(): void => assetClick(obj.FEName)} color='primary' variant='outlined'
-      clickable icon={<FontAwesomeIcon icon={faSearchLocation} />} label={obj.FEName + '  [#' + obj.Number + ']'} /> [{obj.StartDate} - {obj.EndDate}]
-  </span><br /></>
+  // const formatOwnAsset = (obj: any): any => <><span>
+  //   <Chip onClick={(): void => assetClick(obj.FEName)} color='primary' variant='outlined'
+  //     clickable icon={<FontAwesomeIcon icon={faSearchLocation} />} label={obj.FEName + '  [#' + obj.Number + ']'} /> [{obj.StartDate} - {obj.EndDate}]
+  // </span><br /></>
 
-  const formatOppAsset = (obj: any): any => {
-    return <><span>
-      <Chip onClick={(): void => assetClick(obj.FEName)} clickable variant='outlined' icon={<FontAwesomeIcon icon={faSearchLocation} />}
-        color='secondary' label={obj.FEName + '  [#' + obj.Number + ']'} />
-    </span><br /></>
-  }
+  // const formatOppAsset = (obj: any): any => {
+  //   return <><span>
+  //     <Chip onClick={(): void => assetClick(obj.FEName)} clickable variant='outlined' icon={<FontAwesomeIcon icon={faSearchLocation} />}
+  //       color='secondary' label={obj.FEName + '  [#' + obj.Number + ']'} />
+  //   </span><br /></>
+  // }
 
   const detailPanel = (rowData: AdjudicationRow): any => {
     // retrieve the message & template
-    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = messages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
@@ -92,38 +86,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
       if (message && template) {
         const msg = message.message
-        console.log(msg)
+        console.log('message', msg)
+        console.log('template', template)
         return <>
           <Table>
             <tbody>
               <tr>
-                <td>Overview:</td><td>{msg.reference} - <b>{msg.title} <FontAwesomeIcon icon={faSearchLocation} /></b></td>
-              </tr>
-              <tr>
-                <td>Detail:</td><td>{msg.Description}</td>
-              </tr>
-              <tr>
-                <td>Activity: </td><td><b>{msg.ActivityType}</b></td>
-              </tr>
-              <tr>
-                <td>Timing: </td><td>{msg.Date}</td>
-              </tr>
-              <tr>
-                <td>Location: </td><td>{msg.Location} <FontAwesomeIcon icon={faSearchLocation} /></td>
-              </tr>
-              <tr>
-                <td>Own Assets: <FontAwesomeIcon icon={faSearchLocation} /></td><td>{msg.Assets.map((obj: any): any => formatOwnAsset(obj))}</td>
-              </tr>
-              <tr>
-                <td>Targets: <FontAwesomeIcon icon={faSearchLocation} /></td><td>{msg.Targets.map((obj: any): any => formatOppAsset(obj))}</td>
+                <td>Interaction overview in here</td>
               </tr>
             </tbody>
           </Table>
           <JsonEditor
-            messageContent={{
-              GeneralFeedback: '',
-              FeedbackItems: []
-            }}
+            messageContent={msg}
             customiseTemplate={customiseTemplate}
             messageId={rowData.id}
             template={template}

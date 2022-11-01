@@ -1,4 +1,4 @@
-import { INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
@@ -25,8 +25,9 @@ forces.forEach((force: ForceData) => {
   })
 })
 
-const planningMessages = planningChannelMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE)
-const interactionMessages = planningChannelMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE)
+const nonInfoMessage = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+const planningMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
+const interactionMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
 
 export default {
   title: 'local/organisms/SupportPanel',

@@ -3,13 +3,14 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState } from 'react'
 
 // Import component files
-import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
-import { forceColors, mostRecentPlanningOnly } from '@serge/helpers'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE } from '@serge/config'
+import { ChannelPlanning, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { forceColors } from '@serge/helpers'
 import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { noop } from 'lodash'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
-import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -59,13 +60,14 @@ const Template: Story<MessageListPropTypes> = (args) => {
   }
 
   // remove later versions
-  const newestMessages = mostRecentPlanningOnly(planningMessages)
+  const nonInfoMessages = planningMessages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+  const interactionMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
 
   return <AdjudicationMessagesList
     forces={forces}
     setSelectedOrders={noop}
     selectedOrders={[]}
-    messages={newestMessages}
+    messages={interactionMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}

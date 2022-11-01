@@ -3,9 +3,9 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState } from 'react'
 
 // Import component files
-import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
-import { mostRecentPlanningOnly } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import PlanningMessagesList from './index'
 import docs from './README.md'
@@ -58,10 +58,11 @@ const Template: Story<MessageListPropTypes> = (args) => {
   }
 
   // remove later versions
-  const newestMessages = mostRecentPlanningOnly(planningMessages)
+  const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+  const planningMessages= nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
   return <PlanningMessagesList
-    messages={newestMessages}
+    messages={planningMessages}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}
     templates={planningMessageTemplatesMock}
