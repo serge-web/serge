@@ -1,20 +1,27 @@
-import { MessagePlanning, TemplateBody } from '@serge/custom-types'
+import { MessagePlanning, TemplateBody, MessageDetails } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
+import { expiredStorage } from '@serge/config'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
+import { Confirm } from '../../atoms/confirm'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, templates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, setSelectedOrders
+  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, onCancel, channel, selectedForce, selectedRoleName, currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
+  const [selsectScema, setSelectScema] = useState<any>([])
+  const [updateColume, setUpdateColumn] = useState(false)
   const [filter, setFilter] = useState<boolean>(false)
+  const [clearName, setClearName] = useState<string>('')
+  const [formValue, setFormValue] = useState<any>({})
+  if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
@@ -26,6 +33,28 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
     return value ? moment(value).format('DDHHmm[Z]') : ''
+  }
+
+  const sendMessage = (removName: string) => {
+    const details: MessageDetails = {
+      channel: channel.uniqid,
+      from: {
+        force: selectedForce.name,
+        forceColor: selectedForce.color,
+        roleName: selectedRoleName,
+        roleId: playerRoleId,
+        iconURL: selectedForce.iconURL || selectedForce.icon || ''
+      },
+      messageType: selsectScema.title,
+      timestamp: new Date().toISOString(),
+      turnNumber: currentTurn
+    }
+
+    if (formValue.content === '') return
+
+    expiredStorage.removeItem(removName)
+    setClearName('')
+    postBack && postBack(details, formValue)
   }
 
   useEffect(() => {
@@ -64,8 +93,28 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // drop the force column, since player only sees their force
       columns.splice(2, 1)
     }
+    setUpdateColumn(false)
     setColumns(columnData)
-  }, [myMessages])
+  }, [myMessages, updateColume])
+
+  const onPopupCancel = (): void => {
+    setClearName('')
+  }
+
+  const openConfirmPopup = (removName: string): void => {
+    setClearName(removName)
+  }
+
+  const editorValue = (val: { [property: string]: any }): void => {
+    setFormValue(val)
+  }
+
+  const onPopupConfirm = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    expiredStorage.removeItem(clearName)
+    setUpdateColumn(true)
+    setClearName('')
+    onCancel && onCancel(event)
+  }
 
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
@@ -76,6 +125,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // check if message is being edited
       const localTemplates = templates || []
       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+      setSelectScema(template)
       if (!template) {
         console.log('template not found for', message.details.messageType, 'templates:', templates)
       }
@@ -83,8 +133,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const canEdit = message.details.from.roleId === playerRoleId
         return <JsonEditor
           messageContent={message.message}
+          formId={'formTemplate'}
+          saveMessage={sendMessage}
+          openConfirmPopup={openConfirmPopup}
           customiseTemplate={customiseTemplate}
+          storeNewValue={editorValue}
+          onCancel={onCancel}
           messageId={rowData.id}
+          confirmCancel={confirmCancel}
           template={template}
           disabled={!canEdit}
           gameDate={gameDate}
@@ -112,6 +168,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
+      <Confirm
+        isOpen={!!clearName}
+        message="Are you sure you wish to cancel this message?"
+        onCancel={onPopupCancel}
+        onConfirm={onPopupConfirm}
+      />
       <MaterialTable
         title={'Orders'}
         columns={columns}

@@ -4,11 +4,11 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
-import { Editor } from '@serge/custom-types'
+import { Editor, TemplateBody } from '@serge/custom-types'
 import Props from './types/props'
+import { usePrevious, configDateTimeLocal } from '@serge/helpers'
 
 import { expiredStorage } from '@serge/config'
-import { configDateTimeLocal } from '@serge/helpers'
 import { Button } from '../../atoms/button'
 import setupEditor from './helpers/setupEditor'
 
@@ -33,11 +33,14 @@ export const JsonEditor: React.FC<Props> = ({
   clearCachedName,
   saveMessage,
   modifyForEdit,
-  modifyForSave
+  modifyForSave,
+  confirmCancel = false,
+  onCancel,
+  openConfirmPopup
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
-
+  const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
       color: '#f00',
@@ -65,6 +68,18 @@ export const JsonEditor: React.FC<Props> = ({
     }
 
     return memoryName
+  }
+
+  const OnSave = () => {
+    saveMessage && saveMessage(genLocalStorageId())
+  }
+
+  const cancelMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
+    if (confirmCancel) {
+      openConfirmPopup && openConfirmPopup(genLocalStorageId())
+    } else {
+      onCancel && onCancel(event)
+    }
   }
 
   const initEditor = (): () => void => {
@@ -181,7 +196,7 @@ export const JsonEditor: React.FC<Props> = ({
     }
 
     return (): void => destroyEditor(editor)
-  }, [template.details, messageId, cachedName, messageContent])
+  }, [template.details, messageId, cachedName, messageContent, prevTemplates])
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
@@ -201,7 +216,15 @@ export const JsonEditor: React.FC<Props> = ({
   const SaveMessageButton = () => (
     editor && formId ? (
       <div className='button-wrap' >
-        {!disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null}
+        {!disabled
+          ? <>
+            <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
+            {
+              confirmCancel
+                ? <Button color='secondary' onClick={cancelMessage} icon='delete'>Cancel</Button>
+                : null}
+          </>
+          : null}
       </div>
     ) : null
   )

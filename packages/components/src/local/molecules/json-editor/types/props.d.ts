@@ -25,7 +25,10 @@ export default interface Props {
   title?: string
   cachedName?: string | boolean
   clearCachedName?: React.Dispatch<string>
-  saveMessage?: () => void
+  saveMessage?: (removeName: string) => void
+  openConfirmPopup?: (removeName: string) => void
+  confirmCancel?: boolean
+  onCancel?: {(event: React.MouseEvent<HTMLButtonElement>): void}
   /**
    * whether the form is editable (disable for read-only view)
    */

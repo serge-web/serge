@@ -269,7 +269,7 @@ exports[`GameSetup component: renders correctly 1`] = `
                 className="actions"
               >
                 <button
-                  className="MuiButtonBase-root MuiButton-root makeStyles-root-10 makeStyles-root-12 MuiButton-contained makeStyles-contained-11 makeStyles-contained-13 MuiButton-containedSecondary Mui-disabled Mui-disabled"
+                  className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary Mui-disabled Mui-disabled"
                   data-qa-type="save"
                   disabled={true}
                   onBlur={[Function]}

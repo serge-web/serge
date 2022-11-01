@@ -16,7 +16,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
         <button
           aria-controls="channel-add-menu"
           aria-haspopup="true"
-          className="MuiButtonBase-root MuiButton-root makeStyles-root-7 makeStyles-root-9 MuiButton-contained makeStyles-contained-8 makeStyles-contained-10 MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary MuiButton-containedSizeLarge MuiButton-sizeLarge"
           data-qa-type="add"
           disabled={false}
           onBlur={[Function]}
@@ -51,7 +51,7 @@ exports[`SettingPlatformTypes component: renders correctly 1`] = `
             className="MuiFormControl-root MuiTextField-root MuiFormControl-fullWidth"
           >
             <div
-              className="MuiInputBase-root MuiInput-root makeStyles-root-14 makeStyles-root-16 MuiInput-underline makeStyles-underline-15 makeStyles-underline-17 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
+              className="MuiInputBase-root MuiInput-root makeStyles-root-10 makeStyles-root-12 MuiInput-underline makeStyles-underline-11 makeStyles-underline-13 MuiInputBase-fullWidth MuiInput-fullWidth MuiInputBase-formControl MuiInput-formControl"
               onClick={[Function]}
             >
               <input
