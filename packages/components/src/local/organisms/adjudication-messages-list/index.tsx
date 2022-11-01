@@ -1,6 +1,6 @@
 import { Table } from '@material-ui/core'
-import { Asset, ForceData, MessageInteraction, MessagePlanning } from '@serge/custom-types'
-import { findAsset } from '@serge/helpers'
+import { Asset, ForceData, MessageInteraction, MessagePlanning, PlanningActivity } from '@serge/custom-types'
+import { forceColors, ForceStyle } from '@serge/helpers'
 import { noop } from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
@@ -8,16 +8,20 @@ import React, { useEffect, useState } from 'react'
 import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { collateInteraction, InteractionData, updateAssets, updateForces } from './helpers/collate-interaction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, playerRoleId
+  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+
+  const forceStyles: Array<ForceStyle> = forceColors(forces, true)
+
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   useEffect(() => {
@@ -33,12 +37,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (uniqid: Asset['uniqid']): React.ReactElement => {
-    const asset = findAsset(forces, uniqid)
-    return <span>{asset.name}</span>
+  const renderAsset = (uniqid: Asset['uniqid'], assets: Asset[], index: number): React.ReactElement => {
+    const asset = assets.find((asset) => asset.uniqid === uniqid)
+    if (!asset) {
+      throw Error('Failed to find asset:' + uniqid)
+    }
+    return <li key={index}>{asset.name}</li>
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, assets: Asset[], activity?: PlanningActivity): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
@@ -47,9 +54,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
     return <div>
       <span><b>Title: </b> {plan.message.title} </span>
-      <span><b>Activity: </b> {plan.message.activity} </span>
-      <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.map((str) => renderAsset(str))} </span>
-      <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.map((str) => renderAsset(str))} </span>
+      <span><b>Activity: </b> {activity && activity.name} </span><br/>
+      <span><b>Own: </b> {plan.message.ownAssets &&
+        <ul> {
+          plan.message.ownAssets.map((str, index) => renderAsset(str, assets, index))}
+        </ul>}</span>
+      <span><b>Other: </b> {plan.message.otherAssets &&
+        <ul> {
+          plan.message.otherAssets.map((str, index) => renderAsset(str, assets, index))}
+        </ul>}</span>
     </div>
   }
 
@@ -99,6 +112,30 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
+  const localCustomiseTemplate = (schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
+    // run the parent first
+    const firstUpdate = customiseTemplate ? customiseTemplate(schema) : schema
+
+    // now our local changes
+    updateAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction)
+    updateAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction)
+    updateAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction)
+
+    // now the perceived forces
+    updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
+    updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
+
+    return firstUpdate
+  }
+
+  const localSubmitAdjudication = (): void => {
+    console.log('save message ')
+  }
+
+  const localStoreNewValue = (value: { [property: string]: any }): void => {
+    console.log('store new value', value)
+  }
+
   const detailPanel = (rowData: AdjudicationRow): any => {
     // retrieve the message & template
     const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
@@ -110,21 +147,25 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
       if (message && template) {
         const msg = message.message
+        const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
         return <>
           <Table>
             <tbody>
               <tr>
-                <td>{renderOrderDetail(true, rowData)}</td> <td>{renderOrderDetail(false, rowData)}</td>
+                <td>{renderOrderDetail(true, rowData, data.allAssets, data.order1Activity)}</td>
+                <td>{renderOrderDetail(false, rowData, data.allAssets, data.order2Activity)}</td>
               </tr>
             </tbody>
           </Table>
           <JsonEditor
             messageContent={msg}
-            customiseTemplate={customiseTemplate}
+            customiseTemplate={(schema) => localCustomiseTemplate(schema, data)}
             messageId={rowData.id}
             template={template}
             disabled={false}
             gameDate={gameDate}
+            saveMessage={localSubmitAdjudication}
+            storeNewValue={localStoreNewValue}
           />
           <div className='button-wrap' >
             <Button color='secondary' onClick={noop} icon='save'>Submit Adjudication</Button>
