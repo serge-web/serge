@@ -183,7 +183,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('load messages', messages.length)
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 

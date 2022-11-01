@@ -26,14 +26,24 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return value ? moment(value).format('DDHHmm[Z]') : ''
   }
 
+  const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
+    return <span>{row.complete ? 'Y' : 'N'}</span>
+  }
+
   useEffect(() => {
     const dataTable = myMessages.map((message: MessageInteraction): AdjudicationRow => {
+      const interaction = message.details.interaction
+      if (!interaction) {
+        throw Error('Interaction details missing')
+      }
+      const complete = interaction.complete || false
       return {
         id: message._id,
-        order1: message.message.orders1,
-        order2: message.message.orders2 || 'n/a',
+        order1: interaction.orders1,
+        order2: interaction.orders2 || 'n/a',
+        complete: complete,
         activity: message.message.reference,
-        period: shortDate(message.message.startTime) + '-' + shortDate(message.message.endTime)
+        period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime)
       }
     })
     setRows(dataTable)
@@ -42,6 +52,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
     const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
       { title: 'ID', field: 'id' },
+      { title: 'Complete', field: 'complete', render: renderBoolean },
       { title: 'Order 1', field: 'order1' },
       { title: 'Order 2', field: 'order2' },
       { title: 'Activity', field: 'reference' },
@@ -86,8 +97,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
       if (message && template) {
         const msg = message.message
-        console.log('message', msg)
-        console.log('template', template)
         return <>
           <Table>
             <tbody>

@@ -7,6 +7,7 @@ import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/pro
 
 export type AdjudicationRow = {
   id: string
+  complete: boolean
   order1: string
   order2: string
   activity: string

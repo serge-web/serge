@@ -100,24 +100,15 @@ export interface PlanningMessageStructure {
 }
 
 
-/** templates contents for planning messages, provides extra
- * detail as required for PlanningChannel
+/** Content of an interaction. Note: the fixed 
+ * metadata is in the details.  It's the new (Editable)
+ * content that is in here
  */
  export interface InteractionMessageStructure {
   /** unique id for this message thread */
   reference: string
-  /** first set of orders this relates to */
-  orders1: string
-  /** second (optional) set of orders this relates to */
-  orders2?: string
   /** textual description of interaction */
   narrative?: string
-  /** interaction start time */
-  startTime: string
-  /** interaction end time */
-  endTime: string
-  /** geometry describing area of interaction */
-  geometry?: Geometry
   /** perception outcomes */
   perceptionOutcomes: PerceptionOutcome[]
   /** location outcomes */
@@ -184,6 +175,17 @@ export interface CollaborationDetails {
 export interface InteractionDetails {
   /** whether adjudication of this interaction is complete */
   complete?: boolean
+    /** first set of orders this relates to */
+    orders1: string
+    /** second (optional) set of orders this relates to */
+    orders2?: string
+    /** interaction start time */
+    startTime: string
+    /** interaction end time */
+    endTime: string
+    /** geometry describing area of interaction */
+    geometry?: Geometry
+  
 }
 
 export interface MessageCustom extends CoreMessage {

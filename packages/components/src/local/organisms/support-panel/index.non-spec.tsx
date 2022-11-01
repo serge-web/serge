@@ -21,7 +21,7 @@ const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody): a
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE ) as Array<MessagePlanning>
+const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {

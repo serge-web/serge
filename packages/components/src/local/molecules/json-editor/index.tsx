@@ -146,8 +146,6 @@ export const JsonEditor: React.FC<Props> = ({
       }
     }
 
-    console.log('setting editor', nextEditor)
-
     setEditor(nextEditor)
 
     // handle textarea height to fit its content

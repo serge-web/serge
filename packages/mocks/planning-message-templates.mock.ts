@@ -11,49 +11,16 @@ const planningMessageTemplatesMock: TemplateBody[] = [
       "type": "object",
       "title": "Adjudication Outcomes",
       "format": "grid",
+      "required": ["narrative"],
       "properties": {
         "reference": {
           "title": "Reference",
-          "type": "string"
-        },
-        "orders1": {
-          "title": "Orders 1",
-          "type": "string"
-        },
-        "orders2": {
-          "title": "Orders 2",
           "type": "string"
         },
         "narrative": {
           "title": "General Feedback",
           "type": "string",
           "format": "textarea"
-        },
-        "startTime": {
-          "format": "datetime-local",
-          "type": "string",
-          "title": "Start date",
-          "propertyOrder": 30,
-          "options": {
-            "flatpickr": {
-              "wrap": false,
-              "time_24hr": true,
-              "dateFormat": "d/m/Y"
-            }
-          }
-        },
-        "endTime": {
-          "format": "datetime-local",
-          "type": "string",
-          "propertyOrder": 40,
-          "title": "End date",
-          "options": {
-            "flatpickr": {
-              "wrap": false,
-              "time_24hr": true,
-              "dateFormat": "d/m/Y"
-            }
-          }
         },
         "location": {
           "title": "Location",
