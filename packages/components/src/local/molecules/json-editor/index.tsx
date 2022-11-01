@@ -146,6 +146,8 @@ export const JsonEditor: React.FC<Props> = ({
       }
     }
 
+    console.log('setting editor', nextEditor)
+
     setEditor(nextEditor)
 
     // handle textarea height to fit its content
@@ -185,7 +187,8 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
-    return initEditor()
+    // NOTE: commented out next line, since we were getting two editor instances
+    //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
