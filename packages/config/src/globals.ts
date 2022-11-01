@@ -58,7 +58,7 @@ export const CHAT_MESSAGE = 'ChatMessage'
 export const PLANNING_MESSAGE = 'PlanningMessage'
 
 // capture the results of an interaction
-export const INTERACTION_MESSAGE = 'PlanningInteractions'
+export const INTERACTION_MESSAGE = 'InteractionMessage'
 
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'
