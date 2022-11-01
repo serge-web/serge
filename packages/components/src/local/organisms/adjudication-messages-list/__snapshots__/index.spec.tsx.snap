@@ -138,29 +138,28 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
               className="MuiTableBody-root-310"
             >
               <tr
-                actions={Array []}
                 className="MuiTableRow-root-305"
-                index={0}
-                level={0}
-                localization={
-                  Object {
-                    "cancelTooltip": "Cancel",
-                    "deleteText": "Are you sure delete this row?",
-                    "saveTooltip": "Save",
-                  }
-                }
-                onClick={[Function]}
-                path={
-                  Array [
-                    0,
-                  ]
-                }
                 style={
                   Object {
-                    "transition": "all ease 300ms",
+                    "height": 49,
                   }
                 }
-              />
+              >
+                <td
+                  aria-sort={null}
+                  className="MuiTableCell-root-311 MuiTableCell-body-313"
+                  colSpan={0}
+                  style={
+                    Object {
+                      "paddingBottom": 0,
+                      "paddingTop": 0,
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  No records to display
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
