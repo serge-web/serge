@@ -1,5 +1,6 @@
 import { Table } from '@material-ui/core'
-import { ForceData, MessageInteraction } from '@serge/custom-types'
+import { Asset, ForceData, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { findAsset } from '@serge/helpers'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -9,7 +10,7 @@ import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, messages, template, isUmpire, gameDate,
+  forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, playerRoleId
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
@@ -18,8 +19,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   useEffect(() => {
-    setMyMessages(messages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
-  }, [messages, playerForceId])
+    setMyMessages(interactionMessages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
+  }, [interactionMessages, playerForceId])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -28,6 +29,35 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
+  }
+
+  const renderAsset = (uniqid: Asset['uniqid']): React.ReactElement => {
+    const asset = findAsset(forces, uniqid)
+    return <span>{asset.name}</span>
+  }
+
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
+    const id = order1 ? row.order1 : row.order2
+    const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
+    if (!plan) {
+      throw Error('Failed to find message:' + id)
+    }
+
+    return <div>
+      <span><b>Title: </b> {plan.message.title} </span>
+      <span><b>Activity: </b> {plan.message.activity} </span>
+      <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.map((str) => renderAsset(str))} </span>
+      <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.map((str) => renderAsset(str))} </span>
+    </div>
+  }
+
+  const renderOrderTitle = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
+    const id = order1 ? row.order1 : row.order2
+    const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
+    if (!plan) {
+      throw Error('Failed to find message:' + id)
+    }
+    return <span>Title: {plan.message.title}</span>
   }
 
   useEffect(() => {
@@ -44,6 +74,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         complete: complete,
         activity: message.message.reference,
         period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
+        // if the item is incomplete
         tableData: { showDetailPanel: complete ? undefined : detailPanel }
       }
     })
@@ -54,8 +85,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
       { title: 'ID', field: 'id' },
       { title: 'Complete', field: 'complete', render: renderBoolean },
-      { title: 'Order 1', field: 'order1' },
-      { title: 'Order 2', field: 'order2' },
+      { title: 'Order 1', field: 'order1', render: (row) => renderOrderTitle(true, row) },
+      { title: 'Order 2', field: 'order2', render: (row) => renderOrderTitle(false, row) },
       { title: 'Activity', field: 'reference' },
       { title: 'Duration', field: 'period' }
     ]
@@ -66,32 +97,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
-  // const assetClick = (objName: string): void => {
-  //   const asset = findAsset(forces, undefined, objName)
-  //   if (asset) {
-  //     // don't change selection yet - it collapses the panel
-  //     // const doSetSelected = false
-  //     // doSetSelected && setSelectedAssets([asset.uniqid])
-  //   }
-  // }
-
-  // const formatOwnAsset = (obj: any): any => <><span>
-  //   <Chip onClick={(): void => assetClick(obj.FEName)} color='primary' variant='outlined'
-  //     clickable icon={<FontAwesomeIcon icon={faSearchLocation} />} label={obj.FEName + '  [#' + obj.Number + ']'} /> [{obj.StartDate} - {obj.EndDate}]
-  // </span><br /></>
-
-  // const formatOppAsset = (obj: any): any => {
-  //   return <><span>
-  //     <Chip onClick={(): void => assetClick(obj.FEName)} clickable variant='outlined' icon={<FontAwesomeIcon icon={faSearchLocation} />}
-  //       color='secondary' label={obj.FEName + '  [#' + obj.Number + ']'} />
-  //   </span><br /></>
-  // }
-
   const detailPanel = (rowData: AdjudicationRow): any => {
     // retrieve the message & template
-    const message: MessageInteraction | undefined = messages.find((value: MessageInteraction) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
-      console.error('message not found, id:', rowData.id, 'messages:', messages)
+      console.error('message not found, id:', rowData.id, 'messages:', interactionMessages)
     } else {
       if (!template) {
         console.log('template not found for', message.details.messageType, 'template:', template)
@@ -102,7 +112,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <Table>
             <tbody>
               <tr>
-                <td>Interaction overview in here</td>
+                <td>{renderOrderDetail(true, rowData)}</td> <td>{renderOrderDetail(false, rowData)}</td>
               </tr>
             </tbody>
           </Table>

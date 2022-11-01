@@ -179,7 +179,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
                   <PlanningMessagesList
-                    messages={planningMessages}
+                    interactionMessages={planningMessages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
@@ -234,7 +234,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
                   <AdjudicationMessagesList
-                    messages={interactionMessages}
+                    interactionMessages={interactionMessages}
+                    planningMessages={planningMessages}
                     forces={allForces}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}

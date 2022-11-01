@@ -1,5 +1,5 @@
 /* global it expect */
-import { ChannelPlanning, MessageInteraction } from '@serge/custom-types'
+import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -19,10 +19,11 @@ describe('AdjudicationMessagesList component: ', () => {
     moment.tz.setDefault('Etc/UTC')
     const markAllAsRead = (): void => window.alert('Callback on mark all as read')
     const messages: MessageInteraction[] = []
+    const planningMessages: MessagePlanning[] = []
 
     const tree = renderer
-      .create(<AdjudicationMessagesList selectedOrders={[]} setSelectedOrders={noop} forces={forces} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
-        messages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
+      .create(<AdjudicationMessagesList planningMessages={planningMessages} selectedOrders={[]} setSelectedOrders={noop} forces={forces} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
+        interactionMessages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
