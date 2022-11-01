@@ -409,6 +409,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onPanelWidthChange={onPanelWidthChange}
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
+          forcePlanningActivities={forcePlanningActivities}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

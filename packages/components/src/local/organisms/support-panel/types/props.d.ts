@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
@@ -45,6 +45,7 @@ export default interface PropTypes {
   /** a draft copy of an new orders */
   draftMessage?: MessagePlanning
   onCancelDraftMessage?: {(): void}
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
 }
 
 export type TabPanelProps = {

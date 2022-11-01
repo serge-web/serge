@@ -46,7 +46,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allOwnAssets,
   onPanelWidthChange,
   draftMessage,
-  onCancelDraftMessage
+  onCancelDraftMessage,
+  forcePlanningActivities
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -252,6 +253,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
+                    forcePlanningActivities={forcePlanningActivities}
                   />
                 </div>
               }

@@ -393,7 +393,8 @@ const findGeometryInGroup = (geomId: string, group: GroupedActivitySet): Plannin
   return activity
 }
 
-const findActivityInGroup = (activityId: string, group: GroupedActivitySet): PlanningActivity => {
+/** find an activity if we don't know what group it's in */
+export const findActivityInGroup = (activityId: string, group: GroupedActivitySet): PlanningActivity => {
   const activity = group.activities.find((act: string | PlanningActivity) => {
     if (typeof act === 'string') {
       throw new Error('Found string definition for activity. Should be real activity')
