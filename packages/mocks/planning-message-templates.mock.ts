@@ -209,7 +209,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             }
           }
         },
-        "movementOutcomes": {
+        "locationOutcomes": {
           "type": "array",
           "format": "table",
           "title": "Movement Outcomes",
