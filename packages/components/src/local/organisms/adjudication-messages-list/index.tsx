@@ -43,7 +43,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         order2: interaction.orders2 || 'n/a',
         complete: complete,
         activity: message.message.reference,
-        period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime)
+        period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
+        tableData: { showDetailPanel: complete ? undefined : detailPanel }
       }
     })
     setRows(dataTable)

@@ -235,7 +235,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const handleAdjudication = (contact: PlanningContact): void => {
     console.log('Apply some adjudication for', contact.id, contact)
-    const interDetails: InteractionDetails = {}
+    const interDetails: InteractionDetails = {
+      orders1: contact.first.activity._id,
+      orders2: contact.second.activity._id,
+      startTime: moment(contact.timeStart).toISOString(),
+      endTime: moment(contact.timeEnd).toISOString(),
+      geometry: contact.intersection,
+      complete: false
+    }
     const from: MessageDetailsFrom = {
       force: selectedForce.uniqid,
       forceId: selectedForce.uniqid,
@@ -253,15 +260,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       turnNumber: turnNumber
     }
     const message: InteractionMessageStructure = {
-      orders1: contact.first.activity._id,
-      orders2: contact.second.activity._id,
       reference: 'unset',
-      startTime: moment(contact.timeStart).toISOString(),
-      endTime: moment(contact.timeEnd).toISOString(),
+      narrative: '',
       perceptionOutcomes: [],
       locationOutcomes: [],
-      healthOutcomes: [],
-      geometry: contact.intersection
+      healthOutcomes: []
     }
     // store the new adjudication
     saveMessage(currentWargame, details, message)()

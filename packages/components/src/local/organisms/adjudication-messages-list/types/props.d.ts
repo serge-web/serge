@@ -12,6 +12,7 @@ export type AdjudicationRow = {
   order2: string
   activity: string
   period: string
+  tableData?: { showDetailPanel: any }
 }
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {

@@ -362,7 +362,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             turnNumber: 3
         },
         message: {
-            reference: "Blue-15",
+            reference: "Blue-21",
             locationOutcomes: [],
             perceptionOutcomes: [],
             healthOutcomes: []
