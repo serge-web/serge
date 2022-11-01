@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, PerForcePlanningActivitySet, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import React from 'react'
@@ -79,4 +79,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
+  /** the range of planning activities for each force */
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
 }

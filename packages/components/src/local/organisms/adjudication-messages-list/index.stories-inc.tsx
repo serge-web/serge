@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
-import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
@@ -41,6 +41,32 @@ export default {
     }
   }
 }
+
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
+  return {
+    force: force.force,
+    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
+      const res: GroupedActivitySet = {
+        category: group.category,
+        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
+          if (typeof act === 'string') {
+            const actId = act as string
+            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
+            if (!activity) {
+              throw Error('Planning activity not found:' + actId)
+            }
+            return activity
+          } else {
+            return act
+          }
+        })
+      }
+      return res
+    })
+  }
+})
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { interactionMessages: messages, playerForceId, playerRoleId, hideForcesInChannel } = args
@@ -80,6 +106,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     onRead={onRead}
     isUmpire={true}
     hideForcesInChannel={hideForcesInChannel}
+    forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
 
