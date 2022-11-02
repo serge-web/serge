@@ -1,6 +1,6 @@
 import { Asset } from '@serge/custom-types'
-import MaterialTable, { Column, MTableBody } from 'material-table'
-import React, { useContext, useEffect, useState } from 'react'
+import MaterialTable, { Column, MTableBody, MTableBodyRow } from 'material-table'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
@@ -9,7 +9,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-
+  const preventScroll = useRef<boolean>(false)
   const { selectedAssets } = useContext(SupportPanelContext)
 
   useEffect(() => {
@@ -17,7 +17,21 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
     // TODO - swap next line for
     // setRows(assets)
     setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets))
+    if (selectedAssets.length) {
+      const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
+      const elmRow = document.getElementById(lastSelectedAssetId)
+      if (elmRow && !preventScroll.current) {
+        const smoothScroll: ScrollIntoViewOptions = { behavior: 'smooth' }
+        elmRow.scrollIntoView(smoothScroll)
+      }
+    }
+    preventScroll.current = false
   }, [playerForce, forces, selectedAssets, assets])
+
+  const onSelectionChangeLocal = (rows: AssetRow[]) => {
+    preventScroll.current = !!rows.length
+    onSelectionChange && onSelectionChange(rows)
+  }
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
@@ -67,7 +81,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
       filtering: filter,
       selection: !jestWorkerId // fix unit-test for material table,
     }}
-    onSelectionChange={onSelectionChange}
+    onSelectionChange={onSelectionChangeLocal}
     components={{
       Body: (props): React.ReactElement => {
         if (props.columns.length && onVisibleRowsChange) {
@@ -76,7 +90,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
         return (<MTableBody
           {...props}
         />)
-      }
+      },
+      Row: props => <MTableBodyRow id={props.data.id} {...props} />
     }}
   />
 }
