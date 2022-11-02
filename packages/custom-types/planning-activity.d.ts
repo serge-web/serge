@@ -68,6 +68,8 @@ export interface PlannedProps {
   startTime: number
   // unix epoch, for quicker date comparison
   endTime: number
+  /** force for this set of orders */
+  force: ForceData['uniqid']
 
   /** this order is involved in a contact */
   inContact?: boolean

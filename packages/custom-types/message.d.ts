@@ -97,7 +97,7 @@ export interface PlanningMessageStructureCore {
   /** other assets involved in plan */
   otherAssets?: Array<Asset['uniqid']>
   /** id of the activity being conducted */
-  activity?: PlanningActivity['uniqid']
+  activity: PlanningActivity['uniqid']
 }
 
 /** extend planning message to allow template entries
