@@ -17,6 +17,7 @@ const sample: MessagePlanning = {
     channel: 'channel-blue-planning',
     from: {
       force: 'Blue',
+      forceId: 'F-Blue',
       forceColor: '#00F',
       roleName: 'Mar-1',
       roleId: 'rk116f5e',
@@ -32,6 +33,7 @@ const sample: MessagePlanning = {
     Description: 'More land operations',
     Location: 'Region-A',
     Status: 'Minor',
+    activity: "point-recce",
     title: 'Operation Bravo-12',
     Assets: [
       {
@@ -183,7 +185,7 @@ const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
   return [props.startTime || -1, props.endTime || -1]
 }
 
-const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
+const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
   activity: PlanningActivity): Feature => {
   const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
@@ -191,6 +193,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
     id: activity.name + '//' + geometry.name,
     startDate: timeStart,
     endDate: timeFinish,
+    force: ownForce,
     startTime: moment(timeStart).valueOf(),
     endTime: moment(timeFinish).valueOf()
   }
@@ -255,7 +258,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
 }
 
 /** produce some planned geometries */
-export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
+export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
   const own = randomArrayItem(ownAssets, ctr++)
   const other = randomArrayItem(targets, ctr++)
   const geoms = activity.geometries
@@ -266,7 +269,7 @@ export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: Pl
       const timeEnd = timeStart.clone().add(minsOffset, 'm')
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(own, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
+        geometry: geometryFor(own, ownForce, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
       }
       timeNow = timeEnd
       return planned
@@ -333,7 +336,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   })
 
   const activity = randomArrayItem(activityTypes, ctr - 3)
-  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)],
+  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
     randomArrayItem(orderTypes, ctr++), 5 * psora(4 * ctr), timeNow)
 
   // sort out the overall time period
@@ -370,7 +373,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     Description: 'Order description ' + ctr,
     Location: randomArrayItem(locations, ctr + 8),
     location: geometries,
-    ActivityType: activity,
+    activity: activity,
     Assets: assetObj,
     Targets: targetObj
   }
