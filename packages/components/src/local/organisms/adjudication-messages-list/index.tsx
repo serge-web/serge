@@ -53,7 +53,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
     return <div>
       <span><b>Title: </b> {plan.message.title} </span>
-      <span><b>Activity: </b> {activity && activity.name} </span><br/>
+      <span><b>Activity: </b> {activity && activity.name} </span><br />
       <span><b>Own: </b> {plan.message.ownAssets &&
         <ul> {
           plan.message.ownAssets.map((str, index) => renderAsset(str, assets, index))}
@@ -115,14 +115,19 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     // run the parent first
     const firstUpdate = customiseTemplate ? customiseTemplate(schema) : schema
 
-    // now our local changes
-    updateAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction)
-    updateAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction)
-    updateAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction)
+    // wrap manipulation code in `try` in case the template structure doesn't match
+    try {
+      // now our local changes
+      updateAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction)
+      updateAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction)
+      updateAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction)
 
-    // now the perceived forces
-    updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
-    updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
+      // now the perceived forces
+      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
+      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
+    } catch (e) {
+      console.warn('Failed to customise template. Does it not match expected adjudication template?', e)
+    }
 
     return firstUpdate
   }
