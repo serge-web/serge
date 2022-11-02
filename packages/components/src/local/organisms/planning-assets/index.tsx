@@ -21,7 +21,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
       const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
       const elmRow = document.getElementById(lastSelectedAssetId)
       if (elmRow && !preventScroll.current) {
-        elmRow.scrollIntoView()
+        const smoothScroll: ScrollIntoViewOptions = {behavior: 'smooth'}
+        elmRow.scrollIntoView(smoothScroll)
       }
     }
     preventScroll.current = false
