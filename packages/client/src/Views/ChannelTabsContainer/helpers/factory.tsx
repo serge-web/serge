@@ -159,6 +159,8 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_PLANNING:
           // TODO: get activity data from the database
           const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForceMockActivityData
+          // TODO: take this template id from the channel definition
+          const adjudicationTemplateId = 'k16-adjud'
           // // NOTE: block of code to force mock messages into database
           // const mockPlanningMessages2 = mockPlanningMessages
           // console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
@@ -174,7 +176,7 @@ const factory = (state: PlayerUi): Factory => {
           return <PlanningChannel
             channelTemplates={channel.templates}
             allTemplates={allTemplates}
-            adjudicationTemplate={state.allTemplatesByKey['k16-adjud']}
+            adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
             messages={channel.messages}
             channel={channel.cData as ChannelPlanning}
             selectedRoleId={state.selectedRole}
