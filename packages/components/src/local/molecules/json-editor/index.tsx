@@ -40,6 +40,7 @@ export const JsonEditor: React.FC<Props> = ({
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
+  const [editButton, setEditButton] = useState<boolean>(false)
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
@@ -71,7 +72,8 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const OnSave = () => {
-    saveMessage && saveMessage(genLocalStorageId())
+    saveMessage && saveMessage()
+    expiredStorage.removeItem(genLocalStorageId())
   }
 
   const cancelMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -190,7 +192,9 @@ export const JsonEditor: React.FC<Props> = ({
         expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
+        setEditButton(false)
       } else {
+        setEditButton(false)
         initEditor()
       }
     }
@@ -205,26 +209,31 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) {
-      if (disabled) {
+      if (formId && !editButton) {
+        editor.disable()
+      } else if (disabled && !formId) {
         editor.disable()
       } else {
         editor.enable()
       }
     }
-  }, [editor])
+  }, [editor, editButton])
 
   const SaveMessageButton = () => (
     editor && formId ? (
       <div className='button-wrap' >
-        {!disabled
+        {!disabled && editButton
           ? <>
             <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
             {
               confirmCancel
                 ? <Button color='secondary' onClick={cancelMessage} icon='delete'>Cancel</Button>
-                : null}
+                : null
+            }
           </>
-          : null}
+          : !disabled ? <Button color='secondary' onClick={() => { setEditButton(true) }} icon='edit'>Edit</Button> 
+            : null 
+            }
       </div>
     ) : null
   )
@@ -238,7 +247,7 @@ export const JsonEditor: React.FC<Props> = ({
             <div id={formId} ref={jsonEditorRef} />
             <SaveMessageButton />
           </>
-          : <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+          : <div className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
       }
     </>
   )
