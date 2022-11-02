@@ -75,10 +75,13 @@ export interface MessageStructure {
   content?: string
 }
 
-/** templates contents for planning messages, provides extra
- * detail as required for PlanningChannel
+/** Core elements of planning messages. These are the fields
+ * we directly manipulate, or expect to be present. It is
+ * defined as a `core` type to avoid the [property: string]
+ * undefined elements that allow mis-named objects to fall
+ * through TypeScript checking.
  */
-export interface PlanningMessageStructure {
+export interface PlanningMessageStructureCore {
   /** unique id for this message thread */
   reference: string
   /** title for this plan */
@@ -95,9 +98,15 @@ export interface PlanningMessageStructure {
   otherAssets?: Array<Asset['uniqid']>
   /** id of the activity being conducted */
   activity?: PlanningActivity['uniqid']
-  /** remainder of fields generated from message template */
+}
+
+/** extend planning message to allow template entries
+ */
+ export interface PlanningMessageStructure extends PlanningMessageStructureCore {
+  /** allow template properties */
   [property: string]: any
 }
+
 
 
 /** Content of an interaction. Note: the fixed 

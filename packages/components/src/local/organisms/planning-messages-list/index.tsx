@@ -1,4 +1,5 @@
 import { MessagePlanning, TemplateBody } from '@serge/custom-types'
+import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -35,13 +36,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       if (!roles.includes(author)) {
         roles.push(author)
       }
+      const plan = message.message as PlanningMessageStructureCore
       const row: OrderRow = {
         id: message._id,
-        title: message.message.title,
+        title: plan.title,
         role: author,
-        activity: message.message.activity || 'n/a',
-        startDate: shortDate(message.message.startDate),
-        endDate: shortDate(message.message.endDate)
+        activity: plan.activity || 'n/a',
+        startDate: shortDate(plan.startDate),
+        endDate: shortDate(plan.endDate)
       }
       return row
     })
