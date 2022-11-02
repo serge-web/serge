@@ -1,6 +1,6 @@
 import * as ActionConstant from '@serge/config'
-import copyState from '../../Helpers/copyStateHelper'
 import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'
+import copyState from '../../Helpers/copyStateHelper'
 
 const initialState: MessageTypes = {
   isLoading: false,
