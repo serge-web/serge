@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
@@ -98,6 +98,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
 
+  const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
+  const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
+
   const adjudicationTemplateId = 'k16-adjud'
 
   useEffect(() => {
@@ -112,6 +115,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
     }
   }, [selectedForce, forcePlanningActivities])
+
+
+  useEffect(() => {
+    const isUmpire = !!selectedForce.umpire
+    const planningPhase = phase === PLANNING_PHASE
+    setPlayerInPlanning(!isUmpire && planningPhase)
+    setUmpireInAdjudication(isUmpire && !planningPhase)
+  }, [selectedForce, phase])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -354,8 +365,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const mapChildren = useMemo(() => {
     return (
-      <>
-        <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+      <>{ playerInPlanning &&  <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
