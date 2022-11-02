@@ -167,7 +167,7 @@ export const renderOwner = (row: AssetRow, roles: Record<string, string>): React
 export const collateActivities = (rows: MessagePlanning[]): string[] => {
   const activities: string[] = []
   rows.forEach((row: MessagePlanning) => {
-    const activity = row.message.ActivityType
+    const activity = row.message.activity
     if (!activities.includes(activity)) {
       activities.push(activity)
     }
