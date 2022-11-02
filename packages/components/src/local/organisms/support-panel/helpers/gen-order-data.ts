@@ -459,7 +459,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
-        newItem.geometry.properties.name = message.message.title + '//' + activity
+        newItem.geometry.properties.name = message.details.from.force + '//' +  message.message.title + '//' + activity
         newItem.geometry.properties.geomId = plan.uniqid
         newItem.geometry.properties.force = forceId
         res.push(newItem)
