@@ -159,9 +159,9 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_PLANNING:
           // TODO: get activity data from the database
           const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForceMockActivityData
-          // NOTE: block of code to force mock messages into database
+          // // NOTE: block of code to force mock messages into database
           // const mockPlanningMessages2 = mockPlanningMessages
-          // console.log('channel', channel.messages, channel.messages === undefined, channel.message?.length)
+          // console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
           // if (channel.messages === undefined || channel.messages.length <= 5) {
           //   // push them
           //   console.log('about to store', mockPlanningMessages2.length, ' to ', state.currentWargame)
