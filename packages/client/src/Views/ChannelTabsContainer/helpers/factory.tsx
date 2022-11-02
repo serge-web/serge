@@ -172,7 +172,7 @@ const factory = (state: PlayerUi): Factory => {
           //   })
           // }
           return <PlanningChannel
-            templates={channel.templates}
+            channelTemplates={channel.templates}
             allTemplates={allTemplates}
             adjudicationTemplate={state.allTemplatesByKey['k16e-land']}
             messages={channel.messages}

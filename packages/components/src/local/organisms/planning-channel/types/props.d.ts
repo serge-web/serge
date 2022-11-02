@@ -3,7 +3,10 @@ import { ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTyp
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
-  templates: TemplateBody[]
+  /** the set of templates for this user, in this channel */
+  channelTemplates: TemplateBody[]
+  /** the full set of templates (used for rendering third party messages) */
+  allTemplates: TemplateBody[]
   adjudicationTemplate: TemplateBody
   channel: ChannelPlanning
   messages: Array<MessagePlanning | MessageInteraction | MessageInfoTypeClipped>

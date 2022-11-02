@@ -163,7 +163,8 @@ const Template: Story<PlanningChannelProps> = (args) => {
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
     messages={messages}
-    templates={templateBodies}
+    allTemplates={templateBodies}
+    channelTemplates={templateBodies}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
     getAllWargameMessages={(): any => noop}

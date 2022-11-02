@@ -105,7 +105,8 @@ const Template: Story<SupportPanelProps> = (args) => {
     setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
     channel={planningChannel}
-    templates={myTemplates}
+    channelTemplates={myTemplates}
+    allTemplates={myTemplates}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     activityTimeChanel={noop}
     allForces={P9Mock.data.forces.forces}

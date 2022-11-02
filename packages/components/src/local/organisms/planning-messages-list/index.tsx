@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
-  messages, templates, isUmpire, gameDate, customiseTemplate,
+  messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, setSelectedOrders
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
@@ -77,10 +77,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
       // check if message is being edited
-      const localTemplates = templates || []
+      const localTemplates = allTemplates || []
       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
       if (!template) {
-        console.log('template not found for', message.details.messageType, 'templates:', templates)
+        console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
         const canEdit = message.details.from.roleId === playerRoleId

@@ -27,9 +27,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   channel: ChannelPlanning
   /**
-   * templates for new types of orders created by this role
+   * full set of templates, used for rendering messagse
    */
-  templates?: TemplateBody[]
+  allTemplates?: TemplateBody[]
   /**
    * Callback on expanding message item
    */

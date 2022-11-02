@@ -41,8 +41,6 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const [toAdjudicateFeature, setToAdjudicateFeature] = useState<React.ReactElement | undefined>(undefined)
   const [layersToDelete] = useState<Layer[]>([])
 
-  console.log('=> OrderPlotter', orders.length)
-
   const findTouching = (geometries: GeomWithOrders[]): PlanningContact[] => {
     const res: PlanningContact[] = []
     geometries.forEach((me: GeomWithOrders, myIndex: number) => {
@@ -186,6 +184,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   useEffect(() => {
     if (binningComplete) {
       const withTime = contacts.filter((contact: PlanningContact) => contact.timeStart !== -1)
+      console.log('matches', withTime.length)
       // sort by start time
       const sorted = _.sortBy(withTime, ['timeStart'])
       if (sorted.length > 0) {
@@ -276,22 +275,29 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const styleForFeatures: StyleFunction<any> = (feature?: Feature<any>): PathOptions => {
     if (feature) {
       const props = feature.properties as PlannedProps
-      const inContact = props.inContact
-      const newContact = props.newContact
+      const force = props.force
+      const forceStyle = forceCols.find((val) => val.forceId === force)
+      const useForceColor = true
       let color
-      if (inContact) {
-        if (newContact) {
-          color = '#0f0'
-        } else {
-          color = '#080'
-        }
+      if (useForceColor) {
+        color = forceStyle ? forceStyle.color : '#0ff'
       } else {
-        color = '#aaa'
+        const inContact = props.inContact
+        const newContact = props.newContact
+        if (inContact) {
+          if (newContact) {
+            color = '#0f0'
+          } else {
+            color = '#080'
+          }
+        } else {
+          color = '#aaa'
+        }
       }
       return {
         color: color,
         weight: 1,
-        fillColor: '#00f',
+        fillColor: color,
         className: 'leaflet-default-icon-path'
       }
     } else {

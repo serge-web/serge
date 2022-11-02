@@ -80,7 +80,8 @@ describe('Planning Channel component: ', () => {
     const tree = mount(<PlanningChannel
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
-      templates={templateBodies}
+      allTemplates={templateBodies}
+      channelTemplates={templateBodies}
       adjudicationTemplate={planningMessageTemplatesMock[0]}
       dispatch={noop}
       getAllWargameMessages={(): any => noop}

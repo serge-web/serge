@@ -48,7 +48,7 @@ it('produces planned goemetries', () => {
     const targets = [redForce.assets[0], redForce.assets[1]]
     const activity = MockPlanningActivities[1]
     const startTime = moment('2022-11-15T00:00:00.000Z')
-    const orders = geometriesFor(ownAssets, targets, activity, 22, startTime)
+    const orders = geometriesFor(ownAssets, blueForce.uniqid, targets, activity, 22, startTime)
     expect(orders).toBeTruthy()
     expect(orders.length).toEqual(3)
     const geom = orders[1].geometry.geometry as any

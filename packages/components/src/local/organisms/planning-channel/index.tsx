@@ -37,7 +37,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveNewActivityTimeMessage,
   openMessage,
   saveMessage,
-  templates,
+  channelTemplates,
+  allTemplates,
   messages,
   channel,
   adjudicationTemplate,
@@ -199,6 +200,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
     const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === INTERACTION_MESSAGE) as MessageInteraction[]
+      
+    console.log('new messages', messages.length, myInteractionMessages.length)
+    if (!myInteractionMessages.length) {
+      console.log(messages)
+    }
 
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)
@@ -240,6 +246,25 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const incrementDebugStep = (): void => {
+    
+    // do something
+    // const msgs = dummyMessages.map((plan: MessagePlanning) => {
+    //   const force = plan.details.from.forceId
+    //   if (!force) {
+    //     console.log('force', plan._id)
+    //     throw Error('force missing for:' + plan._id)
+    //   }
+    //   const forceActs = forcePlanningActivities && forcePlanningActivities.find((value) => value.force === force)
+    //   if (forceActs) {
+    //     const cats = forceActs.groupedActivities
+    //     const randType = cats[Math.floor(Math.random() * cats.length)]
+    //     const acts = randType.activities[Math.floor(randType.activities.length * Math.random())] as PlanningActivity
+    //     plan.message.activity = acts.uniqid
+    //   }
+    //   return plan
+    // })
+    // console.log(msgs)
+
     console.log('debug step', debugStep)
     setDebugStep(1 + debugStep)
   }
@@ -394,7 +419,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onReadAll={onReadAll}
           onUnread={onUnread}
           onRead={onRead}
-          templates={templates}
+          channelTemplates={channelTemplates}
+          allTemplates={allTemplates}
           adjudicationTemplate={adjudicationTemplate}
           activityTimeChanel={newActiveMessage}
           saveMessage={saveMessageLocal}
@@ -437,12 +463,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               mapWidth={mapWidth}
               toolbarChildren={
                 <>
-                  {!activityBeingPlanned &&
+                  {!activityBeingPlanned && 
                     <>
+                    {
+                      umpireInAdjudication &&
                       <div className={cx('leaflet-control')}>
                         <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
                           onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
                       </div>
+                    }
                       {showInteractionGenerator ? <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
                       </div>

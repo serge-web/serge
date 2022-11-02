@@ -26,7 +26,8 @@ describe('ChannelMessagesList component: ', () => {
           forceColor: '#F00',
           iconURL: 'default_img/umpireDefault.png',
           roleName: 'CO',
-          roleId: 'u345'
+          roleId: 'u345',
+          forceId: 'F-Reed'
         },
         messageType: 'Chat',
         timestamp: '2020-10-13T08:52:04.394Z',
@@ -34,6 +35,7 @@ describe('ChannelMessagesList component: ', () => {
       },
       message: {
         reference: 'Message-1',
+        activity: 'pres-strike',
         title: 'Message Title',
         startDate: '2020-10-13T08:52:04.394Z',
         endDate: '2020-10-15T08:52:04.394Z'

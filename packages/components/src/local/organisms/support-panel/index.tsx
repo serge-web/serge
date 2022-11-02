@@ -26,7 +26,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onUnread,
   onReadAll,
   channel,
-  templates,
+  channelTemplates,
+  allTemplates,
   adjudicationTemplate,
   saveMessage,
   saveNewActivityTimeMessage,
@@ -191,7 +192,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
-                    templates={templates}
+                    allTemplates={allTemplates}
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
@@ -199,7 +200,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
-                    templates={templates}
+                    templates={channelTemplates}
                     selectedRole={selectedRoleId}
                     selectedForce={selectedForce}
                     selectedRoleName={selectedRoleName}

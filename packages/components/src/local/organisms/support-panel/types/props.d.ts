@@ -16,7 +16,9 @@ export default interface PropTypes {
    */
   channel: ChannelPlanning
   /** new orders templates for this player */
-  templates: TemplateBody[]
+  channelTemplates: TemplateBody[]
+  /** full set of templates, used for rendering third-party messages */
+  allTemplates: TemplateBody[]
   /** adjudication template */
   adjudicationTemplate: TemplateBody
   /** descriptions of platform types (used to generate icons) */
