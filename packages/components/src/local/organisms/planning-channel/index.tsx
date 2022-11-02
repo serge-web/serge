@@ -246,7 +246,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const incrementDebugStep = (): void => {
-    
+  
     // do something
     // const msgs = dummyMessages.map((plan: MessagePlanning) => {
     //   const force = plan.details.from.forceId
