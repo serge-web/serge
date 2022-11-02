@@ -23,7 +23,6 @@ export const populateDb = () => {
 
   return new Promise((resolve, reject) => {
     db.allDocs().then(entries => {
-      console.log('templates 2', entries, databasePath + MSG_TYPE_STORE)
       if (entries.length === 0) {
         var machine = {
           _id: uniqid.time(),
