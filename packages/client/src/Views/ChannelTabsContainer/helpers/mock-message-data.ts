@@ -19,7 +19,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue-6',
+      Reference: 'Blue-6',
       title: 'Order item 6 Transit',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T04:30:00.000Z',
@@ -166,7 +166,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue Force-9',
+      Reference: 'Blue Force-9',
       title: 'Order item 9 Transit',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T04:50:00.000Z',
@@ -318,7 +318,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue-12',
+      Reference: 'Blue-12',
       title: 'Order item 12 Kinetic',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T00:40:00.000Z',
@@ -356,7 +356,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue-15',
+      Reference: 'Blue-15',
       title: 'Order item 15 Kinetic',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T05:30:00.000Z',
@@ -478,7 +478,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue-18',
+      Reference: 'Blue-18',
       title: 'Order item 18 Asymmetric',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T00:50:00.000Z',
@@ -549,7 +549,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue-21',
+      Reference: 'Blue-21',
       title: 'Order item 21 Asymmetric',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T06:50:00.000Z',
@@ -693,7 +693,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Blue-24',
+      Reference: 'Blue-24',
       title: 'Order item 24 Kinetic',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T03:40:00.000Z',
@@ -813,7 +813,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Red Force-27',
+      Reference: 'Red Force-27',
       title: 'Order item 27 Kinetic',
       startDate: '2022-11-15T00:00:00.000Z',
       endDate: '2022-11-15T03:30:00.000Z',
@@ -956,7 +956,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Red Force-30',
+      Reference: 'Red Force-30',
       title: 'Order item 30 Transit',
       startDate: '2022-11-15T00:05:00.000Z',
       endDate: '2022-11-15T03:15:00.000Z',
@@ -992,7 +992,7 @@ export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | 
       turnNumber: 3
     },
     message: {
-      reference: 'Red Force-33',
+      Reference: 'Red Force-33',
       title: 'Order item 33 Kinetic',
       startDate: '2022-11-15T00:20:00.000Z',
       endDate: '2022-11-15T02:40:00.000Z',
