@@ -30,19 +30,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const roles: string[] = []
-    const dataTable = myMessages.map(message => {
+    const dataTable: OrderRow[] = myMessages.map(message => {
       const author = message.details.from.roleName
       if (!roles.includes(author)) {
         roles.push(author)
       }
-      return {
+      const row: OrderRow = {
         id: message._id,
         title: message.message.title,
         role: author,
-        activity: message.message.ActivityType,
+        activity: message.message.activity || 'n/a',
         startDate: shortDate(message.message.startDate),
         endDate: shortDate(message.message.endDate)
       }
+      return row
     })
     setRows(dataTable)
 
