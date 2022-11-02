@@ -101,7 +101,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       { title: 'Complete', field: 'complete', render: renderBoolean },
       { title: 'Order 1', field: 'order1', render: (row) => renderOrderTitle(true, row) },
       { title: 'Order 2', field: 'order2', render: (row) => renderOrderTitle(false, row) },
-      { title: 'Activity', field: 'reference' },
+      { title: 'Activity', field: 'Reference' },
       { title: 'Duration', field: 'period' }
     ]
     setColumns(columnsData)

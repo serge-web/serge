@@ -13,7 +13,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
       "format": "grid",
       "required": ["narrative"],
       "properties": {
-        "reference": {
+        "Reference": {
           "title": "Reference",
           "type": "string"
         },
@@ -311,7 +311,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
       "type": "object",
       "format": "grid",
       "required": [
-        "reference",
+        "Reference",
         "title",
         "LOCATION",
         "PRESCRIPTED",
@@ -336,7 +336,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         "INSIGHT"
       ],
       "properties": {
-        "reference": {
+        "Reference": {
           "type": "string",
           "title": "Reference (sys generated)",
           "readonly": "readonly"
@@ -845,7 +845,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     "details": {
       "format": "grid",
       "properties": {
-        "reference": {
+        "Reference": {
           "type": "string",
           "title": "Reference (sys generated)",
           "readonly": "readonly",

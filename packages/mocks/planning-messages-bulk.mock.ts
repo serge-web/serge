@@ -19,7 +19,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-6",
+            Reference: "Blue-6",
             title: "Order item 6 Transit",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T04:30:00.000Z",
@@ -160,7 +160,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-9",
+            Reference: "Red Force-9",
             title: "Order item 9 Transit",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T04:50:00.000Z",
@@ -308,7 +308,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-12",
+            Reference: "Blue-12",
             title: "Order item 12 Kinetic",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T00:40:00.000Z",
@@ -344,7 +344,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-15",
+            Reference: "Blue-15",
             title: "Order item 15 Kinetic",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T05:30:00.000Z",
@@ -465,7 +465,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-18",
+            Reference: "Blue-18",
             title: "Order item 18 Asymmetric",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T00:50:00.000Z",
@@ -532,7 +532,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-21",
+            Reference: "Blue-21",
             title: "Order item 21 Asymmetric",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T06:50:00.000Z",
@@ -666,7 +666,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-24",
+            Reference: "Blue-24",
             title: "Order item 24 Kinetic",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T03:40:00.000Z",
@@ -784,7 +784,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-27",
+            Reference: "Red Force-27",
             title: "Order item 27 Kinetic",
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T03:30:00.000Z",
@@ -919,7 +919,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-30",
+            Reference: "Red Force-30",
             title: "Order item 30 Transit",
             startDate: "2022-11-15T00:05:00.000Z",
             endDate: "2022-11-15T03:15:00.000Z",
@@ -953,7 +953,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-33",
+            Reference: "Red Force-33",
             title: "Order item 33 Kinetic",
             startDate: "2022-11-15T00:20:00.000Z",
             endDate: "2022-11-15T02:40:00.000Z",
@@ -1082,7 +1082,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-36",
+            Reference: "Blue-36",
             title: "Order item 36 Transit",
             startDate: "2022-11-15T00:35:00.000Z",
             endDate: "2022-11-15T02:35:00.000Z",
@@ -1208,7 +1208,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-39",
+            Reference: "Red Force-39",
             title: "Order item 39 Kinetic",
             startDate: "2022-11-15T00:35:00.000Z",
             endDate: "2022-11-15T03:45:00.000Z",
@@ -1335,7 +1335,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-42",
+            Reference: "Red Force-42",
             title: "Order item 42 Kinetic",
             startDate: "2022-11-15T00:35:00.000Z",
             endDate: "2022-11-15T01:25:00.000Z",
@@ -1405,7 +1405,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-45",
+            Reference: "Blue-45",
             title: "Order item 45 Asymmetric",
             startDate: "2022-11-15T00:50:00.000Z",
             endDate: "2022-11-15T02:50:00.000Z",
@@ -1443,7 +1443,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-48",
+            Reference: "Red Force-48",
             title: "Order item 48 Asymmetric",
             startDate: "2022-11-15T00:50:00.000Z",
             endDate: "2022-11-15T03:10:00.000Z",
@@ -1478,7 +1478,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-51",
+            Reference: "Blue-51",
             title: "Order item 51 Transit",
             startDate: "2022-11-15T00:50:00.000Z",
             endDate: "2022-11-15T04:50:00.000Z",
@@ -1601,7 +1601,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-54",
+            Reference: "Red Force-54",
             title: "Order item 54 Transit",
             startDate: "2022-11-15T00:50:00.000Z",
             endDate: "2022-11-15T04:20:00.000Z",
@@ -1721,7 +1721,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-57",
+            Reference: "Red Force-57",
             title: "Order item 57 Asymmetric",
             startDate: "2022-11-15T00:50:00.000Z",
             endDate: "2022-11-15T04:30:00.000Z",
@@ -1862,7 +1862,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-60",
+            Reference: "Red Force-60",
             title: "Order item 60 Transit",
             startDate: "2022-11-15T01:00:00.000Z",
             endDate: "2022-11-15T07:20:00.000Z",
@@ -1987,7 +1987,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-63",
+            Reference: "Blue-63",
             title: "Order item 63 Asymmetric",
             startDate: "2022-11-15T01:00:00.000Z",
             endDate: "2022-11-15T01:40:00.000Z",
@@ -2024,7 +2024,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-66",
+            Reference: "Red Force-66",
             title: "Order item 66 Asymmetric",
             startDate: "2022-11-15T01:00:00.000Z",
             endDate: "2022-11-15T05:10:00.000Z",
@@ -2136,7 +2136,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-69",
+            Reference: "Blue-69",
             title: "Order item 69 Asymmetric",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T01:05:00.000Z",
@@ -2171,7 +2171,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-72",
+            Reference: "Blue-72",
             title: "Order item 72 Transit",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T01:55:00.000Z",
@@ -2242,7 +2242,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-75",
+            Reference: "Blue-75",
             title: "Order item 75 Transit",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T02:45:00.000Z",
@@ -2277,7 +2277,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-78",
+            Reference: "Blue-78",
             title: "Order item 78 Kinetic",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T04:45:00.000Z",
@@ -2391,7 +2391,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-81",
+            Reference: "Blue-81",
             title: "Order item 81 Kinetic",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T04:05:00.000Z",
@@ -2521,7 +2521,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-84",
+            Reference: "Red Force-84",
             title: "Order item 84 Asymmetric",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T02:05:00.000Z",
@@ -2555,7 +2555,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-87",
+            Reference: "Blue-87",
             title: "Order item 87 Transit",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T03:15:00.000Z",
@@ -2676,7 +2676,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-90",
+            Reference: "Red Force-90",
             title: "Order item 90 Asymmetric",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T06:15:00.000Z",
@@ -2803,7 +2803,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-93",
+            Reference: "Blue-93",
             title: "Order item 93 Asymmetric",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T03:15:00.000Z",
@@ -2953,7 +2953,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-96",
+            Reference: "Red Force-96",
             title: "Order item 96 Kinetic",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T07:35:00.000Z",
@@ -3095,7 +3095,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-99",
+            Reference: "Red Force-99",
             title: "Order item 99 Asymmetric",
             startDate: "2022-11-15T01:05:00.000Z",
             endDate: "2022-11-15T01:55:00.000Z",
@@ -3172,7 +3172,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-102",
+            Reference: "Blue-102",
             title: "Order item 102 Asymmetric",
             startDate: "2022-11-15T01:15:00.000Z",
             endDate: "2022-11-15T04:55:00.000Z",
@@ -3295,7 +3295,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-105",
+            Reference: "Blue-105",
             title: "Order item 105 Transit",
             startDate: "2022-11-15T01:15:00.000Z",
             endDate: "2022-11-15T02:05:00.000Z",
@@ -3361,7 +3361,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-108",
+            Reference: "Red Force-108",
             title: "Order item 108 Transit",
             startDate: "2022-11-15T01:15:00.000Z",
             endDate: "2022-11-15T03:35:00.000Z",
@@ -3478,7 +3478,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-111",
+            Reference: "Blue-111",
             title: "Order item 111 Kinetic",
             startDate: "2022-11-15T01:15:00.000Z",
             endDate: "2022-11-15T01:35:00.000Z",
@@ -3516,7 +3516,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-114",
+            Reference: "Red Force-114",
             title: "Order item 114 Kinetic",
             startDate: "2022-11-15T01:15:00.000Z",
             endDate: "2022-11-15T05:15:00.000Z",
@@ -3622,7 +3622,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-117",
+            Reference: "Red Force-117",
             title: "Order item 117 Transit",
             startDate: "2022-11-15T01:15:00.000Z",
             endDate: "2022-11-15T02:05:00.000Z",
@@ -3695,7 +3695,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-120",
+            Reference: "Blue-120",
             title: "Order item 120 Transit",
             startDate: "2022-11-15T01:30:00.000Z",
             endDate: "2022-11-15T05:50:00.000Z",
@@ -3809,7 +3809,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-123",
+            Reference: "Red Force-123",
             title: "Order item 123 Asymmetric",
             startDate: "2022-11-15T01:30:00.000Z",
             endDate: "2022-11-15T02:20:00.000Z",
@@ -3876,7 +3876,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-126",
+            Reference: "Red Force-126",
             title: "Order item 126 Transit",
             startDate: "2022-11-15T01:30:00.000Z",
             endDate: "2022-11-15T03:50:00.000Z",
@@ -4005,7 +4005,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-129",
+            Reference: "Red Force-129",
             title: "Order item 129 Asymmetric",
             startDate: "2022-11-15T01:30:00.000Z",
             endDate: "2022-11-15T03:50:00.000Z",
@@ -4147,7 +4147,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-132",
+            Reference: "Blue-132",
             title: "Order item 132 Transit",
             startDate: "2022-11-15T01:40:00.000Z",
             endDate: "2022-11-15T03:50:00.000Z",
@@ -4265,7 +4265,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-135",
+            Reference: "Red Force-135",
             title: "Order item 135 Transit",
             startDate: "2022-11-15T01:40:00.000Z",
             endDate: "2022-11-15T06:00:00.000Z",
@@ -4386,7 +4386,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-138",
+            Reference: "Red Force-138",
             title: "Order item 138 Kinetic",
             startDate: "2022-11-15T01:40:00.000Z",
             endDate: "2022-11-15T05:00:00.000Z",
@@ -4494,7 +4494,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-141",
+            Reference: "Blue-141",
             title: "Order item 141 Kinetic",
             startDate: "2022-11-15T01:55:00.000Z",
             endDate: "2022-11-15T06:05:00.000Z",
@@ -4624,7 +4624,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-144",
+            Reference: "Red Force-144",
             title: "Order item 144 Transit",
             startDate: "2022-11-15T01:55:00.000Z",
             endDate: "2022-11-15T05:05:00.000Z",
@@ -4738,7 +4738,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-147",
+            Reference: "Red Force-147",
             title: "Order item 147 Transit",
             startDate: "2022-11-15T02:00:00.000Z",
             endDate: "2022-11-15T04:20:00.000Z",
@@ -4772,7 +4772,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-150",
+            Reference: "Red Force-150",
             title: "Order item 150 Asymmetric",
             startDate: "2022-11-15T02:15:00.000Z",
             endDate: "2022-11-15T03:05:00.000Z",
@@ -4838,7 +4838,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-153",
+            Reference: "Blue-153",
             title: "Order item 153 Asymmetric",
             startDate: "2022-11-15T02:25:00.000Z",
             endDate: "2022-11-15T03:45:00.000Z",
@@ -4872,7 +4872,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-156",
+            Reference: "Blue-156",
             title: "Order item 156 Kinetic",
             startDate: "2022-11-15T02:25:00.000Z",
             endDate: "2022-11-15T06:05:00.000Z",
@@ -4986,7 +4986,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-159",
+            Reference: "Blue-159",
             title: "Order item 159 Asymmetric",
             startDate: "2022-11-15T02:25:00.000Z",
             endDate: "2022-11-15T05:05:00.000Z",
@@ -5021,7 +5021,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-162",
+            Reference: "Blue-162",
             title: "Order item 162 Kinetic",
             startDate: "2022-11-15T02:25:00.000Z",
             endDate: "2022-11-15T04:55:00.000Z",
@@ -5136,7 +5136,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-165",
+            Reference: "Red Force-165",
             title: "Order item 165 Asymmetric",
             startDate: "2022-11-15T02:25:00.000Z",
             endDate: "2022-11-15T06:45:00.000Z",
@@ -5277,7 +5277,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-168",
+            Reference: "Red Force-168",
             title: "Order item 168 Asymmetric",
             startDate: "2022-11-15T02:30:00.000Z",
             endDate: "2022-11-15T06:10:00.000Z",
@@ -5403,7 +5403,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-171",
+            Reference: "Red Force-171",
             title: "Order item 171 Transit",
             startDate: "2022-11-15T02:45:00.000Z",
             endDate: "2022-11-15T05:15:00.000Z",
@@ -5517,7 +5517,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-174",
+            Reference: "Blue-174",
             title: "Order item 174 Transit",
             startDate: "2022-11-15T02:55:00.000Z",
             endDate: "2022-11-15T04:05:00.000Z",
@@ -5551,7 +5551,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-177",
+            Reference: "Red Force-177",
             title: "Order item 177 Asymmetric",
             startDate: "2022-11-15T02:55:00.000Z",
             endDate: "2022-11-15T05:35:00.000Z",
@@ -5586,7 +5586,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-180",
+            Reference: "Red Force-180",
             title: "Order item 180 Asymmetric",
             startDate: "2022-11-15T03:00:00.000Z",
             endDate: "2022-11-15T03:50:00.000Z",
@@ -5648,7 +5648,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-183",
+            Reference: "Blue-183",
             title: "Order item 183 Kinetic",
             startDate: "2022-11-15T03:15:00.000Z",
             endDate: "2022-11-15T07:35:00.000Z",
@@ -5758,7 +5758,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-186",
+            Reference: "Red Force-186",
             title: "Order item 186 Asymmetric",
             startDate: "2022-11-15T03:15:00.000Z",
             endDate: "2022-11-15T08:35:00.000Z",
@@ -5867,7 +5867,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-189",
+            Reference: "Red Force-189",
             title: "Order item 189 Kinetic",
             startDate: "2022-11-15T03:15:00.000Z",
             endDate: "2022-11-15T05:15:00.000Z",
@@ -5980,7 +5980,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-192",
+            Reference: "Red Force-192",
             title: "Order item 192 Asymmetric",
             startDate: "2022-11-15T03:15:00.000Z",
             endDate: "2022-11-15T03:45:00.000Z",
@@ -6015,7 +6015,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-195",
+            Reference: "Blue-195",
             title: "Order item 195 Asymmetric",
             startDate: "2022-11-15T03:25:00.000Z",
             endDate: "2022-11-15T07:35:00.000Z",
@@ -6157,7 +6157,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-198",
+            Reference: "Red Force-198",
             title: "Order item 198 Transit",
             startDate: "2022-11-15T03:25:00.000Z",
             endDate: "2022-11-15T06:45:00.000Z",
@@ -6278,7 +6278,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-201",
+            Reference: "Red Force-201",
             title: "Order item 201 Asymmetric",
             startDate: "2022-11-15T03:25:00.000Z",
             endDate: "2022-11-15T05:45:00.000Z",
@@ -6424,7 +6424,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-204",
+            Reference: "Blue-204",
             title: "Order item 204 Kinetic",
             startDate: "2022-11-15T03:40:00.000Z",
             endDate: "2022-11-15T04:30:00.000Z",
@@ -6502,7 +6502,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-207",
+            Reference: "Red Force-207",
             title: "Order item 207 Kinetic",
             startDate: "2022-11-15T03:40:00.000Z",
             endDate: "2022-11-15T08:20:00.000Z",
@@ -6651,7 +6651,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-210",
+            Reference: "Blue-210",
             title: "Order item 210 Transit",
             startDate: "2022-11-15T03:40:00.000Z",
             endDate: "2022-11-15T03:40:00.000Z",
@@ -6689,7 +6689,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-213",
+            Reference: "Blue-213",
             title: "Order item 213 Transit",
             startDate: "2022-11-15T03:40:00.000Z",
             endDate: "2022-11-15T04:30:00.000Z",
@@ -6760,7 +6760,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-216",
+            Reference: "Red Force-216",
             title: "Order item 216 Asymmetric",
             startDate: "2022-11-15T03:40:00.000Z",
             endDate: "2022-11-15T09:40:00.000Z",
@@ -6905,7 +6905,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-219",
+            Reference: "Red Force-219",
             title: "Order item 219 Transit",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T08:05:00.000Z",
@@ -7015,7 +7015,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-222",
+            Reference: "Blue-222",
             title: "Order item 222 Asymmetric",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T08:15:00.000Z",
@@ -7122,7 +7122,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-225",
+            Reference: "Red Force-225",
             title: "Order item 225 Transit",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T04:35:00.000Z",
@@ -7188,7 +7188,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-228",
+            Reference: "Blue-228",
             title: "Order item 228 Transit",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T06:35:00.000Z",
@@ -7222,7 +7222,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-231",
+            Reference: "Red Force-231",
             title: "Order item 231 Kinetic",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T06:45:00.000Z",
@@ -7337,7 +7337,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-234",
+            Reference: "Blue-234",
             title: "Order item 234 Kinetic",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T07:25:00.000Z",
@@ -7470,7 +7470,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-237",
+            Reference: "Blue-237",
             title: "Order item 237 Transit",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T04:55:00.000Z",
@@ -7591,7 +7591,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-240",
+            Reference: "Blue-240",
             title: "Order item 240 Transit",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T03:45:00.000Z",
@@ -7628,7 +7628,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-243",
+            Reference: "Blue-243",
             title: "Order item 243 Asymmetric",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T04:35:00.000Z",
@@ -7694,7 +7694,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-246",
+            Reference: "Blue-246",
             title: "Order item 246 Asymmetric",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T06:05:00.000Z",
@@ -7731,7 +7731,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-249",
+            Reference: "Red Force-249",
             title: "Order item 249 Kinetic",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T06:35:00.000Z",
@@ -7765,7 +7765,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-252",
+            Reference: "Blue-252",
             title: "Order item 252 Asymmetric",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T04:35:00.000Z",
@@ -7799,7 +7799,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-255",
+            Reference: "Red Force-255",
             title: "Order item 255 Asymmetric",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T09:25:00.000Z",
@@ -7940,7 +7940,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-258",
+            Reference: "Red Force-258",
             title: "Order item 258 Transit",
             startDate: "2022-11-15T03:45:00.000Z",
             endDate: "2022-11-15T07:45:00.000Z",
@@ -8087,7 +8087,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-261",
+            Reference: "Red Force-261",
             title: "Order item 261 Asymmetric",
             startDate: "2022-11-15T03:55:00.000Z",
             endDate: "2022-11-15T06:25:00.000Z",
@@ -8210,7 +8210,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-264",
+            Reference: "Blue-264",
             title: "Order item 264 Kinetic",
             startDate: "2022-11-15T03:55:00.000Z",
             endDate: "2022-11-15T06:15:00.000Z",
@@ -8323,7 +8323,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-267",
+            Reference: "Red Force-267",
             title: "Order item 267 Kinetic",
             startDate: "2022-11-15T03:55:00.000Z",
             endDate: "2022-11-15T07:45:00.000Z",
@@ -8435,7 +8435,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-270",
+            Reference: "Blue-270",
             title: "Order item 270 Asymmetric",
             startDate: "2022-11-15T03:55:00.000Z",
             endDate: "2022-11-15T09:15:00.000Z",
@@ -8577,7 +8577,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-273",
+            Reference: "Red Force-273",
             title: "Order item 273 Transit",
             startDate: "2022-11-15T03:55:00.000Z",
             endDate: "2022-11-15T07:15:00.000Z",
@@ -8699,7 +8699,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-276",
+            Reference: "Red Force-276",
             title: "Order item 276 Asymmetric",
             startDate: "2022-11-15T03:55:00.000Z",
             endDate: "2022-11-15T08:55:00.000Z",
@@ -8849,7 +8849,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-279",
+            Reference: "Blue-279",
             title: "Order item 279 Asymmetric",
             startDate: "2022-11-15T04:10:00.000Z",
             endDate: "2022-11-15T10:40:00.000Z",
@@ -8968,7 +8968,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-282",
+            Reference: "Red Force-282",
             title: "Order item 282 Asymmetric",
             startDate: "2022-11-15T04:10:00.000Z",
             endDate: "2022-11-15T07:50:00.000Z",
@@ -9100,7 +9100,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-285",
+            Reference: "Red Force-285",
             title: "Order item 285 Transit",
             startDate: "2022-11-15T04:10:00.000Z",
             endDate: "2022-11-15T07:50:00.000Z",
@@ -9238,7 +9238,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-288",
+            Reference: "Red Force-288",
             title: "Order item 288 Asymmetric",
             startDate: "2022-11-15T04:25:00.000Z",
             endDate: "2022-11-15T09:45:00.000Z",
@@ -9361,7 +9361,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-291",
+            Reference: "Blue-291",
             title: "Order item 291 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T10:35:00.000Z",
@@ -9499,7 +9499,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-294",
+            Reference: "Blue-294",
             title: "Order item 294 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T06:35:00.000Z",
@@ -9536,7 +9536,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-297",
+            Reference: "Blue-297",
             title: "Order item 297 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T08:15:00.000Z",
@@ -9657,7 +9657,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-300",
+            Reference: "Blue-300",
             title: "Order item 300 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T08:25:00.000Z",
@@ -9770,7 +9770,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-303",
+            Reference: "Blue-303",
             title: "Order item 303 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T07:55:00.000Z",
@@ -9898,7 +9898,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-306",
+            Reference: "Red Force-306",
             title: "Order item 306 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T09:05:00.000Z",
@@ -10043,7 +10043,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-309",
+            Reference: "Blue-309",
             title: "Order item 309 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T07:35:00.000Z",
@@ -10080,7 +10080,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-312",
+            Reference: "Red Force-312",
             title: "Order item 312 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T07:25:00.000Z",
@@ -10209,7 +10209,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-315",
+            Reference: "Blue-315",
             title: "Order item 315 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T06:35:00.000Z",
@@ -10247,7 +10247,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-318",
+            Reference: "Blue-318",
             title: "Order item 318 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T05:25:00.000Z",
@@ -10309,7 +10309,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-321",
+            Reference: "Red Force-321",
             title: "Order item 321 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T04:45:00.000Z",
@@ -10344,7 +10344,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-324",
+            Reference: "Blue-324",
             title: "Order item 324 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T09:15:00.000Z",
@@ -10490,7 +10490,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-327",
+            Reference: "Red Force-327",
             title: "Order item 327 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T05:25:00.000Z",
@@ -10564,7 +10564,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-330",
+            Reference: "Blue-330",
             title: "Order item 330 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T09:05:00.000Z",
@@ -10701,7 +10701,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-333",
+            Reference: "Red Force-333",
             title: "Order item 333 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T05:35:00.000Z",
@@ -10739,7 +10739,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-336",
+            Reference: "Blue-336",
             title: "Order item 336 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T05:25:00.000Z",
@@ -10809,7 +10809,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-339",
+            Reference: "Blue-339",
             title: "Order item 339 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T09:45:00.000Z",
@@ -10939,7 +10939,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-342",
+            Reference: "Red Force-342",
             title: "Order item 342 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T05:35:00.000Z",
@@ -10974,7 +10974,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-345",
+            Reference: "Blue-345",
             title: "Order item 345 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T08:55:00.000Z",
@@ -11088,7 +11088,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-348",
+            Reference: "Red Force-348",
             title: "Order item 348 Transit",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T05:25:00.000Z",
@@ -11164,7 +11164,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-351",
+            Reference: "Blue-351",
             title: "Order item 351 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T08:25:00.000Z",
@@ -11285,7 +11285,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-354",
+            Reference: "Blue-354",
             title: "Order item 354 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T07:25:00.000Z",
@@ -11418,7 +11418,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-357",
+            Reference: "Blue-357",
             title: "Order item 357 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T11:15:00.000Z",
@@ -11553,7 +11553,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-360",
+            Reference: "Blue-360",
             title: "Order item 360 Asymmetric",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T08:15:00.000Z",
@@ -11693,7 +11693,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-363",
+            Reference: "Blue-363",
             title: "Order item 363 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T06:55:00.000Z",
@@ -11831,7 +11831,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-366",
+            Reference: "Red Force-366",
             title: "Order item 366 Kinetic",
             startDate: "2022-11-15T04:35:00.000Z",
             endDate: "2022-11-15T07:25:00.000Z",
@@ -11967,7 +11967,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-369",
+            Reference: "Red Force-369",
             title: "Order item 369 Transit",
             startDate: "2022-11-15T04:40:00.000Z",
             endDate: "2022-11-15T09:40:00.000Z",
@@ -12085,7 +12085,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-372",
+            Reference: "Red Force-372",
             title: "Order item 372 Kinetic",
             startDate: "2022-11-15T04:55:00.000Z",
             endDate: "2022-11-15T11:45:00.000Z",
@@ -12223,7 +12223,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-375",
+            Reference: "Blue-375",
             title: "Order item 375 Transit",
             startDate: "2022-11-15T05:05:00.000Z",
             endDate: "2022-11-15T09:15:00.000Z",
@@ -12367,7 +12367,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-378",
+            Reference: "Red Force-378",
             title: "Order item 378 Kinetic",
             startDate: "2022-11-15T05:05:00.000Z",
             endDate: "2022-11-15T07:45:00.000Z",
@@ -12402,7 +12402,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-381",
+            Reference: "Red Force-381",
             title: "Order item 381 Transit",
             startDate: "2022-11-15T05:05:00.000Z",
             endDate: "2022-11-15T09:35:00.000Z",
@@ -12541,7 +12541,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-384",
+            Reference: "Blue-384",
             title: "Order item 384 Asymmetric",
             startDate: "2022-11-15T05:20:00.000Z",
             endDate: "2022-11-15T09:00:00.000Z",
@@ -12659,7 +12659,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-387",
+            Reference: "Red Force-387",
             title: "Order item 387 Asymmetric",
             startDate: "2022-11-15T05:20:00.000Z",
             endDate: "2022-11-15T09:20:00.000Z",
@@ -12780,7 +12780,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-390",
+            Reference: "Blue-390",
             title: "Order item 390 Transit",
             startDate: "2022-11-15T05:20:00.000Z",
             endDate: "2022-11-15T08:20:00.000Z",
@@ -12914,7 +12914,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-393",
+            Reference: "Red Force-393",
             title: "Order item 393 Transit",
             startDate: "2022-11-15T05:20:00.000Z",
             endDate: "2022-11-15T06:40:00.000Z",
@@ -12952,7 +12952,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-396",
+            Reference: "Red Force-396",
             title: "Order item 396 Asymmetric",
             startDate: "2022-11-15T05:20:00.000Z",
             endDate: "2022-11-15T09:00:00.000Z",
@@ -13087,7 +13087,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-399",
+            Reference: "Red Force-399",
             title: "Order item 399 Asymmetric",
             startDate: "2022-11-15T05:30:00.000Z",
             endDate: "2022-11-15T08:40:00.000Z",
@@ -13123,7 +13123,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-402",
+            Reference: "Blue-402",
             title: "Order item 402 Asymmetric",
             startDate: "2022-11-15T05:30:00.000Z",
             endDate: "2022-11-15T12:00:00.000Z",
@@ -13234,7 +13234,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-405",
+            Reference: "Red Force-405",
             title: "Order item 405 Asymmetric",
             startDate: "2022-11-15T05:30:00.000Z",
             endDate: "2022-11-15T09:00:00.000Z",
@@ -13376,7 +13376,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-408",
+            Reference: "Blue-408",
             title: "Order item 408 Asymmetric",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T10:05:00.000Z",
@@ -13506,7 +13506,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-411",
+            Reference: "Blue-411",
             title: "Order item 411 Transit",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T09:25:00.000Z",
@@ -13639,7 +13639,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-414",
+            Reference: "Blue-414",
             title: "Order item 414 Asymmetric",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T11:05:00.000Z",
@@ -13759,7 +13759,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-417",
+            Reference: "Blue-417",
             title: "Order item 417 Kinetic",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T06:45:00.000Z",
@@ -13886,7 +13886,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-420",
+            Reference: "Blue-420",
             title: "Order item 420 Kinetic",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T06:25:00.000Z",
@@ -13964,7 +13964,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-423",
+            Reference: "Red Force-423",
             title: "Order item 423 Asymmetric",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T09:45:00.000Z",
@@ -14113,7 +14113,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-426",
+            Reference: "Blue-426",
             title: "Order item 426 Transit",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T08:05:00.000Z",
@@ -14148,7 +14148,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-429",
+            Reference: "Red Force-429",
             title: "Order item 429 Asymmetric",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T10:15:00.000Z",
@@ -14279,7 +14279,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-432",
+            Reference: "Blue-432",
             title: "Order item 432 Asymmetric",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T08:45:00.000Z",
@@ -14396,7 +14396,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-435",
+            Reference: "Blue-435",
             title: "Order item 435 Kinetic",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T07:25:00.000Z",
@@ -14522,7 +14522,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-438",
+            Reference: "Red Force-438",
             title: "Order item 438 Asymmetric",
             startDate: "2022-11-15T05:35:00.000Z",
             endDate: "2022-11-15T10:45:00.000Z",
@@ -14655,7 +14655,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-441",
+            Reference: "Blue-441",
             title: "Order item 441 Asymmetric",
             startDate: "2022-11-15T05:40:00.000Z",
             endDate: "2022-11-15T10:40:00.000Z",
@@ -14793,7 +14793,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-444",
+            Reference: "Blue-444",
             title: "Order item 444 Transit",
             startDate: "2022-11-15T05:40:00.000Z",
             endDate: "2022-11-15T11:40:00.000Z",
@@ -14944,7 +14944,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-447",
+            Reference: "Red Force-447",
             title: "Order item 447 Transit",
             startDate: "2022-11-15T05:40:00.000Z",
             endDate: "2022-11-15T08:00:00.000Z",
@@ -14979,7 +14979,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-450",
+            Reference: "Blue-450",
             title: "Order item 450 Kinetic",
             startDate: "2022-11-15T05:40:00.000Z",
             endDate: "2022-11-15T08:40:00.000Z",
@@ -15098,7 +15098,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-453",
+            Reference: "Red Force-453",
             title: "Order item 453 Kinetic",
             startDate: "2022-11-15T05:40:00.000Z",
             endDate: "2022-11-15T06:40:00.000Z",
@@ -15136,7 +15136,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-456",
+            Reference: "Red Force-456",
             title: "Order item 456 Transit",
             startDate: "2022-11-15T05:40:00.000Z",
             endDate: "2022-11-15T10:20:00.000Z",
@@ -15247,7 +15247,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-459",
+            Reference: "Blue-459",
             title: "Order item 459 Transit",
             startDate: "2022-11-15T05:55:00.000Z",
             endDate: "2022-11-15T09:35:00.000Z",
@@ -15381,7 +15381,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-462",
+            Reference: "Red Force-462",
             title: "Order item 462 Asymmetric",
             startDate: "2022-11-15T05:55:00.000Z",
             endDate: "2022-11-15T10:35:00.000Z",
@@ -15524,7 +15524,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-465",
+            Reference: "Red Force-465",
             title: "Order item 465 Transit",
             startDate: "2022-11-15T05:55:00.000Z",
             endDate: "2022-11-15T10:25:00.000Z",
@@ -15631,7 +15631,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-468",
+            Reference: "Red Force-468",
             title: "Order item 468 Asymmetric",
             startDate: "2022-11-15T05:55:00.000Z",
             endDate: "2022-11-15T09:35:00.000Z",
@@ -15747,7 +15747,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-471",
+            Reference: "Blue-471",
             title: "Order item 471 Transit",
             startDate: "2022-11-15T06:05:00.000Z",
             endDate: "2022-11-15T06:55:00.000Z",
@@ -15813,7 +15813,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-474",
+            Reference: "Red Force-474",
             title: "Order item 474 Transit",
             startDate: "2022-11-15T06:05:00.000Z",
             endDate: "2022-11-15T07:45:00.000Z",
@@ -15847,7 +15847,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-477",
+            Reference: "Red Force-477",
             title: "Order item 477 Kinetic",
             startDate: "2022-11-15T06:05:00.000Z",
             endDate: "2022-11-15T11:55:00.000Z",
@@ -15985,7 +15985,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-480",
+            Reference: "Blue-480",
             title: "Order item 480 Kinetic",
             startDate: "2022-11-15T06:20:00.000Z",
             endDate: "2022-11-15T07:10:00.000Z",
@@ -16059,7 +16059,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-483",
+            Reference: "Red Force-483",
             title: "Order item 483 Asymmetric",
             startDate: "2022-11-15T06:20:00.000Z",
             endDate: "2022-11-15T09:30:00.000Z",
@@ -16193,7 +16193,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-486",
+            Reference: "Red Force-486",
             title: "Order item 486 Transit",
             startDate: "2022-11-15T06:25:00.000Z",
             endDate: "2022-11-15T08:05:00.000Z",
@@ -16310,7 +16310,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-489",
+            Reference: "Red Force-489",
             title: "Order item 489 Kinetic",
             startDate: "2022-11-15T06:40:00.000Z",
             endDate: "2022-11-15T09:20:00.000Z",
@@ -16439,7 +16439,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-492",
+            Reference: "Blue-492",
             title: "Order item 492 Asymmetric",
             startDate: "2022-11-15T06:50:00.000Z",
             endDate: "2022-11-15T12:00:00.000Z",
@@ -16559,7 +16559,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-495",
+            Reference: "Blue-495",
             title: "Order item 495 Kinetic",
             startDate: "2022-11-15T06:50:00.000Z",
             endDate: "2022-11-15T09:20:00.000Z",
@@ -16696,7 +16696,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-498",
+            Reference: "Blue-498",
             title: "Order item 498 Asymmetric",
             startDate: "2022-11-15T06:50:00.000Z",
             endDate: "2022-11-15T13:40:00.000Z",
@@ -16830,7 +16830,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-501",
+            Reference: "Blue-501",
             title: "Order item 501 Kinetic",
             startDate: "2022-11-15T06:50:00.000Z",
             endDate: "2022-11-15T10:50:00.000Z",
@@ -16957,7 +16957,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-504",
+            Reference: "Red Force-504",
             title: "Order item 504 Asymmetric",
             startDate: "2022-11-15T06:50:00.000Z",
             endDate: "2022-11-15T09:00:00.000Z",
@@ -17071,7 +17071,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-507",
+            Reference: "Red Force-507",
             title: "Order item 507 Asymmetric",
             startDate: "2022-11-15T06:55:00.000Z",
             endDate: "2022-11-15T09:15:00.000Z",
@@ -17109,7 +17109,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-510",
+            Reference: "Red Force-510",
             title: "Order item 510 Transit",
             startDate: "2022-11-15T07:10:00.000Z",
             endDate: "2022-11-15T09:50:00.000Z",
@@ -17259,7 +17259,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-513",
+            Reference: "Blue-513",
             title: "Order item 513 Transit",
             startDate: "2022-11-15T07:20:00.000Z",
             endDate: "2022-11-15T10:20:00.000Z",
@@ -17385,7 +17385,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-516",
+            Reference: "Red Force-516",
             title: "Order item 516 Asymmetric",
             startDate: "2022-11-15T07:20:00.000Z",
             endDate: "2022-11-15T12:20:00.000Z",
@@ -17495,7 +17495,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-519",
+            Reference: "Red Force-519",
             title: "Order item 519 Asymmetric",
             startDate: "2022-11-15T07:25:00.000Z",
             endDate: "2022-11-15T13:45:00.000Z",
@@ -17638,7 +17638,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-522",
+            Reference: "Blue-522",
             title: "Order item 522 Kinetic",
             startDate: "2022-11-15T07:40:00.000Z",
             endDate: "2022-11-15T09:30:00.000Z",
@@ -17750,7 +17750,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-525",
+            Reference: "Red Force-525",
             title: "Order item 525 Asymmetric",
             startDate: "2022-11-15T07:40:00.000Z",
             endDate: "2022-11-15T08:30:00.000Z",
@@ -17813,7 +17813,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-528",
+            Reference: "Red Force-528",
             title: "Order item 528 Kinetic",
             startDate: "2022-11-15T07:40:00.000Z",
             endDate: "2022-11-15T08:30:00.000Z",
@@ -17884,7 +17884,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-531",
+            Reference: "Red Force-531",
             title: "Order item 531 Asymmetric",
             startDate: "2022-11-15T07:40:00.000Z",
             endDate: "2022-11-15T12:30:00.000Z",
@@ -18001,7 +18001,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-534",
+            Reference: "Blue-534",
             title: "Order item 534 Kinetic",
             startDate: "2022-11-15T07:50:00.000Z",
             endDate: "2022-11-15T11:00:00.000Z",
@@ -18128,7 +18128,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-537",
+            Reference: "Red Force-537",
             title: "Order item 537 Asymmetric",
             startDate: "2022-11-15T07:50:00.000Z",
             endDate: "2022-11-15T08:40:00.000Z",
@@ -18190,7 +18190,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-540",
+            Reference: "Red Force-540",
             title: "Order item 540 Asymmetric",
             startDate: "2022-11-15T07:50:00.000Z",
             endDate: "2022-11-15T10:30:00.000Z",
@@ -18304,7 +18304,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-543",
+            Reference: "Blue-543",
             title: "Order item 543 Kinetic",
             startDate: "2022-11-15T08:05:00.000Z",
             endDate: "2022-11-15T13:25:00.000Z",
@@ -18418,7 +18418,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-546",
+            Reference: "Red Force-546",
             title: "Order item 546 Kinetic",
             startDate: "2022-11-15T08:05:00.000Z",
             endDate: "2022-11-15T11:45:00.000Z",
@@ -18568,7 +18568,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-549",
+            Reference: "Blue-549",
             title: "Order item 549 Transit",
             startDate: "2022-11-15T08:05:00.000Z",
             endDate: "2022-11-15T12:05:00.000Z",
@@ -18709,7 +18709,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-552",
+            Reference: "Blue-552",
             title: "Order item 552 Transit",
             startDate: "2022-11-15T08:05:00.000Z",
             endDate: "2022-11-15T12:05:00.000Z",
@@ -18847,7 +18847,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-555",
+            Reference: "Red Force-555",
             title: "Order item 555 Asymmetric",
             startDate: "2022-11-15T08:05:00.000Z",
             endDate: "2022-11-15T09:55:00.000Z",
@@ -18882,7 +18882,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-558",
+            Reference: "Blue-558",
             title: "Order item 558 Transit",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T13:10:00.000Z",
@@ -19011,7 +19011,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-561",
+            Reference: "Blue-561",
             title: "Order item 561 Asymmetric",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T08:50:00.000Z",
@@ -19045,7 +19045,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-564",
+            Reference: "Red Force-564",
             title: "Order item 564 Transit",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T13:50:00.000Z",
@@ -19182,7 +19182,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-567",
+            Reference: "Blue-567",
             title: "Order item 567 Transit",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T13:10:00.000Z",
@@ -19289,7 +19289,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-570",
+            Reference: "Red Force-570",
             title: "Order item 570 Kinetic",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T13:00:00.000Z",
@@ -19426,7 +19426,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-573",
+            Reference: "Blue-573",
             title: "Order item 573 Kinetic",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T15:20:00.000Z",
@@ -19555,7 +19555,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-576",
+            Reference: "Blue-576",
             title: "Order item 576 Asymmetric",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T15:00:00.000Z",
@@ -19685,7 +19685,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-579",
+            Reference: "Blue-579",
             title: "Order item 579 Transit",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T12:30:00.000Z",
@@ -19824,7 +19824,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-582",
+            Reference: "Red Force-582",
             title: "Order item 582 Kinetic",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T12:00:00.000Z",
@@ -19938,7 +19938,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-585",
+            Reference: "Blue-585",
             title: "Order item 585 Asymmetric",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T11:50:00.000Z",
@@ -20059,7 +20059,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-588",
+            Reference: "Red Force-588",
             title: "Order item 588 Kinetic",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T12:20:00.000Z",
@@ -20202,7 +20202,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-591",
+            Reference: "Blue-591",
             title: "Order item 591 Asymmetric",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T10:10:00.000Z",
@@ -20326,7 +20326,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-594",
+            Reference: "Red Force-594",
             title: "Order item 594 Kinetic",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T09:40:00.000Z",
@@ -20363,7 +20363,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-597",
+            Reference: "Red Force-597",
             title: "Order item 597 Asymmetric",
             startDate: "2022-11-15T08:10:00.000Z",
             endDate: "2022-11-15T12:40:00.000Z",
@@ -20499,7 +20499,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Red Force-600",
+            Reference: "Red Force-600",
             title: "Order item 600 Asymmetric",
             startDate: "2022-11-15T08:20:00.000Z",
             endDate: "2022-11-15T08:50:00.000Z",
@@ -20537,7 +20537,7 @@ export const planningMessagesBulk: MessagePlanning[] = [
             turnNumber: 3
         },
         message: {
-            reference: "Blue-603",
+            Reference: "Blue-603",
             title: "Order item 603 Kinetic",
             startDate: "2022-11-15T08:20:00.000Z",
             endDate: "2022-11-15T09:30:00.000Z",

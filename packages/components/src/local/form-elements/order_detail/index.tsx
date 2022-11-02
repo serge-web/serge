@@ -14,7 +14,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // sort out the properties that aren't formal ("special") elements of planning-message
-    const ignore = ['ownAssets', 'otherAssets', 'activity', 'location', 'reference', 'title']
+    const ignore = ['ownAssets', 'otherAssets', 'activity', 'location', 'Reference', 'title']
     const res: string[] = []
     for (const property in plan.message) {
       if (!ignore.includes(property)) {

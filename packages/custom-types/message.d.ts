@@ -82,8 +82,11 @@ export interface MessageStructure {
  * through TypeScript checking.
  */
 export interface PlanningMessageStructureCore {
-  /** unique id for this message thread */
-  reference: string
+  /** unique id for this message thread 
+   * Note: we use upper case Reference since the send-message logic expects that 
+   * Note: in order to auto gen instances
+  */
+  Reference: string
   /** title for this plan */
   title: string
   /** start-time of this plan */
@@ -115,7 +118,7 @@ export interface PlanningMessageStructureCore {
  */
  export interface InteractionMessageStructure {
   /** unique id for this message thread */
-  reference: string
+  Reference: string
   /** textual description of interaction */
   narrative?: string
   /** perception outcomes */

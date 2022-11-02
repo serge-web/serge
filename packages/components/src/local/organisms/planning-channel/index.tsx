@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
 import cx from 'classnames'
@@ -8,7 +8,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructure } from '@serge/custom-types/message'
+import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -106,7 +106,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (forcePlanningActivities) {
-      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === selectedForce.uniqid)
+      // we don't have planning activities for umpire force, but we may want
+      // a fake one if we're generating data
+      const validForceId = selectedForce.umpire ? allForces[1].uniqid : selectedForce.uniqid
+      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === validForceId)
+
       setThisForcePlanningActivities(force)
 
       // produce flattened set of activities, for convenience
@@ -116,7 +120,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
     }
   }, [selectedForce, forcePlanningActivities])
-
 
   useEffect(() => {
     const isUmpire = !!selectedForce.umpire
@@ -198,10 +201,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 
-    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
-    const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType === INTERACTION_MESSAGE) as MessageInteraction[]
-      
-    console.log('new messages', messages.length, myInteractionMessages.length)
+    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+    const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
+
+    console.log('new messages', messages.length, myInteractionMessages.length, nonTurnMessages)
     if (!myInteractionMessages.length) {
       console.log(messages)
     }
@@ -238,15 +241,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   const genData = (): void => {
-    const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-    setActivityBeingPlanned(newPlan)
+    // const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+    // setActivityBeingPlanned(newPlan)
 
     const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
-    !7 && console.log(newOrders)
+    console.log(newOrders)
   }
 
   const incrementDebugStep = (): void => {
-  
     // do something
     // const msgs = dummyMessages.map((plan: MessagePlanning) => {
     //   const force = plan.details.from.forceId
@@ -296,7 +298,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       turnNumber: turnNumber
     }
     const message: InteractionMessageStructure = {
-      reference: 'unset',
+      Reference: '',
       narrative: '',
       perceptionOutcomes: [],
       locationOutcomes: [],
@@ -326,8 +328,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         timestamp: moment().toISOString(),
         turnNumber: turnNumber
       }
-      const plans: PlanningMessageStructure = {
-        reference: 'unset',
+      const plans: PlanningMessageStructureCore = {
+        Reference: '',
         title: 'Pending',
         activity: activityBeingPlanned.uniqid
       }
@@ -390,7 +392,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const mapChildren = useMemo(() => {
     return (
-      <>{ playerInPlanning &&  <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
+      <>{ playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
@@ -463,24 +465,24 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               mapWidth={mapWidth}
               toolbarChildren={
                 <>
-                  {!activityBeingPlanned && 
+                  {!activityBeingPlanned &&
                     <>
-                    {
-                      umpireInAdjudication &&
+                      {
+                        umpireInAdjudication &&
                       <div className={cx('leaflet-control')}>
                         <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
                           onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
                       </div>
-                    }
+                      }
                       {showInteractionGenerator ? <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
                       </div>
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {phase === Phase.Planning && !selectedForce.umpire && !7 && // don't bother with this, but keep it in case we want to gen more data
+                          {selectedForce.umpire && 7 && // don't bother with this, but keep it in case we want to gen more data
                             <div className={cx('leaflet-control')}>
-                              <Item onClick={genData}>Plan</Item>
+                              <Item onClick={genData}>gen data</Item>
                             </div>
                           }
                         </>

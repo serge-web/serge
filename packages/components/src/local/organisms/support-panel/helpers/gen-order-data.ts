@@ -3,13 +3,22 @@ import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
-import { PlanningMessageStructure } from '@serge/custom-types/message'
+import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry } from 'geojson'
 import L from 'leaflet'
 import moment from 'moment-timezone'
 import { linePolyContact, ShapeInteraction, TimePeriod } from './shape-intersects'
+
+const msgContents: PlanningMessageStructureCore = {
+  Reference: 'Blue-12',
+  activity: 'point-recce',
+  title: 'Operation Bravo-12',
+  ownAssets: [ ],
+  otherAssets: []
+}
+
 
 const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,
@@ -27,35 +36,7 @@ const sample: MessagePlanning = {
     timestamp: '2022-09-21T13:15:09.106Z',
     turnNumber: 6
   },
-  message: {
-    reference: 'Blue-12',
-    Date: '13/05/2021 16:12',
-    Description: 'More land operations',
-    Location: 'Region-A',
-    Status: 'Minor',
-    activity: "point-recce",
-    title: 'Operation Bravo-12',
-    Assets: [
-      {
-        FEName: 'Blue:4',
-        Number: 1,
-        StartDate: '13/05/2021',
-        EndDate: '14/05/2021'
-      },
-      {
-        FEName: 'Blue:13',
-        Number: 4,
-        StartDate: '13/05/2021',
-        EndDate: '14/05/2021'
-      }
-    ],
-    Targets: [
-      {
-        FEName: 'Red Force:3',
-        Number: 4
-      }
-    ]
-  },
+  message: msgContents,
   hasBeenRead: false,
   _id: 'idp_3a',
   _rev: '2'
@@ -158,8 +139,6 @@ const randomRole = (roles: Role[], ctr: number): Role => {
 
 const activityTypes = ['Transit', 'Kinetic', 'Asymmetric']
 
-const locations = ['Point-A', 'Point-B', 'Region-A', 'Region-B', 'Polyline-A', 'Polyline-B']
-
 const flipMe = (point: number[]): number[] => {
   return [point[1], point[0]]
 }
@@ -261,6 +240,7 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
 export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
   const own = randomArrayItem(ownAssets, ctr++)
   const other = randomArrayItem(targets, ctr++)
+  console.log('activity', activity)
   const geoms = activity.geometries
   if (geoms) {
     const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry, index: number): PlannedActivityGeometry => {
@@ -308,32 +288,18 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     }
     assets.push(possAsset)
   }
-  const assetObj = assets.map((asset: Asset, index: number) => {
-    const startDate = moment('2022-09-21T00:00:00.000Z').add(psora(index + 2) * 5, 'h').startOf('hour').toISOString()
-    return {
-      FEName: asset.name,
-      Number: Math.floor(psora(index + 2) * 5),
-      StartDate: startDate,
-      EndDate: moment(startDate).add(Math.floor(psora(ctr + index + 2) * 19), 'h').toISOString()
-    }
-  })
+  const assetObj = assets.map((asset: Asset) => asset.uniqid)
 
   const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
-  const targets: PerceivedTypes[] = []
+  const targets: Asset['uniqid'][] = []
   for (let m = 0; m < numTargets; m++) {
-    let possTarget = randomArrayItem(force.opAsset, m + 3)
+    let possTarget = randomArrayItem(force.otherAssets, m + 3)
     let ctr2 = ctr
-    while (targets.includes(possTarget)) {
-      possTarget = randomArrayItem(force.opAsset, ++ctr2)
+    while (targets.includes(possTarget.uniqid)) {
+      possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
-    targets.push(possTarget)
+    targets.push(possTarget.uniqid)
   }
-  const targetObj = targets.map((per: PerceivedTypes, index: number) => {
-    return {
-      FEName: per.name,
-      Number: 1 + Math.floor(psora(ctr + index))
-    }
-  })
 
   const activity = randomArrayItem(activityTypes, ctr - 3)
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
@@ -365,17 +331,15 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   }
 
   // create the message
-  const message: PlanningMessageStructure = {
-    reference: force.forceName + '-' + ctr,
+  const message: PlanningMessageStructureCore = {
+    Reference: force.forceName + '-' + ctr,
     title: 'Order item ' + ctr + ' ' + activity,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
-    Description: 'Order description ' + ctr,
-    Location: randomArrayItem(locations, ctr + 8),
     location: geometries,
     activity: activity,
-    Assets: assetObj,
-    Targets: targetObj
+    ownAssets: assetObj,
+    otherAssets: targets
   }
 
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
@@ -462,7 +426,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
-        newItem.geometry.properties.name = message.details.from.force + '//' +  message.message.title + '//' + activity
+        newItem.geometry.properties.name = message.details.from.force + '//' + message.message.title + '//' + activity
         newItem.geometry.properties.geomId = plan.uniqid
         newItem.geometry.properties.force = forceId
         res.push(newItem)

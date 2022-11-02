@@ -34,7 +34,7 @@ describe('ChannelMessagesList component: ', () => {
         turnNumber: 1
       },
       message: {
-        reference: 'Message-1',
+        Reference: 'Message-1',
         activity: 'pres-strike',
         title: 'Message Title',
         startDate: '2020-10-13T08:52:04.394Z',
