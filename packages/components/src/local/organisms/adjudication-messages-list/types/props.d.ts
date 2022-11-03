@@ -4,6 +4,7 @@ import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
+import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
 export type AdjudicationRow = {
   id: string
@@ -81,4 +82,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
   /** the range of planning activities for each force */
   forcePlanningActivities?: PerForcePlanningActivitySet[]
+
+  /** 
+   * there is a new interaction to adjudicate 
+   */
+  handleAdjudication?: {(contact: PlanningContact): void}
 }

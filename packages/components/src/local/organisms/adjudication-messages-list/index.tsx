@@ -9,12 +9,13 @@ import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { collateInteraction, InteractionData, updateAssets, updateForces } from './helpers/collate-interaction'
+import { getNextInteraction } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities
+  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -140,6 +141,14 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.log('store new value', value)
   }
 
+  const getInteraction = (): void => {
+    const interaction = getNextInteraction(222, planningMessages, forcePlanningActivities || [], interactionMessages)
+    if (interaction) {
+      // send up to parent
+      handleAdjudication && handleAdjudication(interaction)
+    }
+  }
+
   const detailPanel = (rowData: AdjudicationRow): any => {
     // retrieve the message & template
     const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
@@ -188,7 +197,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   return (
     <div className={styles['messages-list']}>
       <div className='button-wrap' >
-        <Button color='secondary' onClick={noop} icon='save'>Get next interaction</Button>
+        <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
       </div>
 
       <MaterialTable
