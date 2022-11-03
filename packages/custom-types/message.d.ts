@@ -105,7 +105,7 @@ export interface PlanningMessageStructureCore {
 
 /** extend planning message to allow template entries
  */
- export interface PlanningMessageStructure extends PlanningMessageStructureCore {
+export interface PlanningMessageStructure extends PlanningMessageStructureCore {
   /** allow template properties */
   [property: string]: any
 }
@@ -116,7 +116,7 @@ export interface PlanningMessageStructureCore {
  * metadata is in the details.  It's the new (Editable)
  * content that is in here
  */
- export interface InteractionMessageStructure {
+export interface InteractionMessageStructure {
   /** unique id for this message thread */
   Reference: string
   /** textual description of interaction */
@@ -163,9 +163,9 @@ export interface CollaborationDetails {
    * Message status
    */
   status: CollaborativeMessageStates
-   /** date-time when the last change 
-   * was made to this message
-   */
+  /** date-time when the last change 
+  * was made to this message
+  */
   lastUpdated: string
   /**
    * Current message owner
@@ -175,9 +175,9 @@ export interface CollaborationDetails {
    * structured response to message
    */
   response?: MessageStructure
-   /** 
-   * feedback on last version
-   */
+  /** 
+  * feedback on last version
+  */
   feedback?: Array<FeedbackItem>
 }
 
@@ -187,17 +187,17 @@ export interface CollaborationDetails {
 export interface InteractionDetails {
   /** whether adjudication of this interaction is complete */
   complete?: boolean
-    /** first set of orders this relates to */
-    orders1: string
-    /** second (optional) set of orders this relates to */
-    orders2?: string
-    /** interaction start time */
-    startTime: string
-    /** interaction end time */
-    endTime: string
-    /** geometry describing area of interaction */
-    geometry?: Geometry
-  
+  /** first set of orders this relates to */
+  orders1: string
+  /** second (optional) set of orders this relates to */
+  orders2?: string
+  /** interaction start time */
+  startTime: string
+  /** interaction end time */
+  endTime: string
+  /** geometry describing area of interaction */
+  geometry?: Geometry
+
 }
 
 export interface MessageCustom extends CoreMessage {
