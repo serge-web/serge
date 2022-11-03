@@ -37,7 +37,6 @@ const storeNewValue = (value: { [property: string]: any }): void => {
   console.log('store data', value)
 }
 
-
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
 const channel = P9Mock.data.channels.channels[0]
 const templateMessageCreator = {
@@ -55,7 +54,7 @@ const Template: Story<Props> = ({ messageId, disabled, template, messageContent,
       gameDate={WargameMock.data.overview.gameDate}
       messageContent={messageContent}
       modifyForEdit = {modifyForEdit}
-      customiseTemplate =  {customiseTemplate}
+      customiseTemplate = {customiseTemplate}
     />
   )
 }
@@ -113,7 +112,6 @@ const customiseTemplate = (schema: Record<string, any>): Record<string, any> => 
   }
   return schema
 }
-
 
 export const PlanningMessage = Template.bind({})
 PlanningMessage.args = {
