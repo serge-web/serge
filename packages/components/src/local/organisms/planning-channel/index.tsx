@@ -58,7 +58,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>(12)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
-  const selectedForceId = selectedForce ? selectedForce.uniqid : ''
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
@@ -314,16 +313,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const cacheMessage = (value: string | any, messageType: string): void | string => {
-    return value && saveUnsentMessage(value, currentWargame, selectedForceId, selectedRoleId, channelId, messageType)
+    return value && saveUnsentMessage(value, currentWargame, selectedForce.uniqid, selectedRoleId, channelId, messageType)
   }
 
   const getCachedMessage = (chatType: string): string => {
-    return chatType && getUnsentMessage(currentWargame, selectedForceId, selectedRoleId, channelId, chatType)
+    return chatType && getUnsentMessage(currentWargame, selectedForce.uniqid, selectedRoleId, channelId, chatType)
   }
 
   const clearCachedMessage = (data: string[]): void => {
     data && data.forEach((removeType) => {
-      return clearUnsentMessage(currentWargame, selectedForceId, selectedRoleId, channelId, removeType)
+      return clearUnsentMessage(currentWargame, selectedForce.uniqid, selectedRoleId, channelId, removeType)
     })
   }
 
