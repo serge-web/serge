@@ -1,14 +1,14 @@
-import { MessagePlanning, TemplateBody, MessageDetails } from '@serge/custom-types'
+import { expiredStorage } from '@serge/config'
+import { MessageDetails, MessagePlanning, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
+import { Confirm } from '../../atoms/confirm'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
-import { expiredStorage } from '@serge/config'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
-import { Confirm } from '../../atoms/confirm'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, templates, isUmpire, gameDate, customiseTemplate,
@@ -172,7 +172,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <Confirm
         isOpen={!!clearName}
-        message="Are you sure you wish to cancel this message?"
+        message="Are you sure you wish to cancel editing this message?"
         onCancel={onPopupCancel}
         onConfirm={onPopupConfirm}
       />
