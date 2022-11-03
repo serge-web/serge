@@ -120,7 +120,8 @@ export const trimLineToPeriod = (line: LineString, lineTime: TimePeriod, otherTi
       const proportion = diff / elapsed(lineTime)
       const newLength = turf.length(tLine, { units: 'kilometers' })
       const lengthToCut = newLength - (proportion * totalLength)
-      const splitPoint = turf.along(tLine, lengthToCut, { units: 'kilometers' })
+      const fixedLength = lengthToCut > 0 ? lengthToCut : 0
+      const splitPoint = turf.along(tLine, fixedLength, { units: 'kilometers' })
       const splitLine = turf.lineSplit(tLine, splitPoint)
       tLine = splitLine.features[0]
     }
