@@ -10,7 +10,6 @@ import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, Me
 import { Story } from '@storybook/react/types-6-0'
 
 import { Asset } from '@serge/custom-types'
-import { deepCopy } from '@serge/helpers'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -88,14 +87,6 @@ MessageCreator.args = {
 const landActivityTemplate = planningMessageTemplatesMock.find((template) => template.title === planningMessages[0].details.messageType)
 const landMessage = planningMessages[0]
 
-const modifyForEdit = (document: Record<string, any>): Record<string, any> => {
-  const res = deepCopy(document)
-  if (res.message && res.message.location) {
-    res.message.location = JSON.stringify(res.message.location)
-  }
-  return res
-}
-
 const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
   const forces = P9Mock.data.forces.forces
   const blueAssets = forces[1].assets ? forces[1].assets : []
@@ -117,9 +108,8 @@ export const PlanningMessage = Template.bind({})
 PlanningMessage.args = {
   template: landActivityTemplate,
   messageContent: landMessage.message,
-  messageId: 'id_2c',
+  messageId: 'id_2b',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate,
-  modifyForEdit: modifyForEdit,
   customiseTemplate: customiseTemplate
 }
