@@ -1,7 +1,7 @@
 
-import { MessagePlanning } from '@serge/custom-types'
+import { MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 
-export const planningMessagesBulk: MessagePlanning[] = [
+export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = [
     {
         messageType: "PlanningMessage",
         details: {
@@ -20641,5 +20641,69 @@ export const planningMessagesBulk: MessagePlanning[] = [
         hasBeenRead: false,
         _id: "m_F-Blue_603",
         _rev: "2"
+    },
+     {
+        messageType: "InteractionMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Logs",
+                roleId: "rk116f5e",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
+            },
+            messageType: "Land Activity",
+            interaction: {
+                startTime: "2022-11-15T00:00:00.000Z",
+                endTime: "2022-11-15T05:30:00.000Z",
+                orders1: "m_F-Blue_12",
+                orders2: "m_F-Red_27"    
+            },
+            timestamp: "2022-09-23T14:47:47.015Z",
+            turnNumber: 3
+        },
+        message: {
+            Reference: "Blue-21",
+            locationOutcomes: [],
+            perceptionOutcomes: [],
+            healthOutcomes: []
+        },
+        hasBeenRead: false,
+        _id: "adjud_23423",
+        _rev: "m_F-Red_27"
+    }, {
+        messageType: "InteractionMessage",
+        details: {
+            channel: "channel-blue-planning",
+            from: {
+                force: "Blue",
+                forceColor: "#00F",
+                roleName: "Logs",
+                roleId: "rk116f5e",
+                iconURL: "default_img/umpireDefault.png",
+                forceId: "F-Blue"
+            },
+            messageType: "Land Activity",
+            interaction: {
+                complete: true,
+                startTime: "2022-11-15T04:00:00.000Z",
+                endTime: "2022-11-15T06:30:00.000Z",
+                orders1: "m_F-Blue_24",
+                orders2: "m_F-Red_30"
+                },
+            timestamp: "2022-09-23T14:41:47.015Z",
+            turnNumber: 3
+        },
+        message: {
+            Reference: "Blue-15",
+            locationOutcomes: [],
+            perceptionOutcomes: [],
+            healthOutcomes: []
+        },
+        hasBeenRead: false,
+        _id: "adjud_23111",
+        _rev: "m_F-Red_34"
     }
 ]
