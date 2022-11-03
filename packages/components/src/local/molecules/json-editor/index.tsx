@@ -5,8 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
 import { Editor, TemplateBody } from '@serge/custom-types'
+import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import Props from './types/props'
-import { usePrevious, configDateTimeLocal } from '@serge/helpers'
 
 import { expiredStorage } from '@serge/config'
 import { Button } from '../../atoms/button'
@@ -231,9 +231,9 @@ export const JsonEditor: React.FC<Props> = ({
                 : null
             }
           </>
-          : !disabled ? <Button color='secondary' onClick={() => { setEditButton(true) }} icon='edit'>Edit</Button> 
-            : null 
-            }
+          : !disabled ? <Button color='secondary' onClick={() => { setEditButton(true) }} icon='edit'>Edit</Button>
+            : null
+        }
       </div>
     ) : null
   )
