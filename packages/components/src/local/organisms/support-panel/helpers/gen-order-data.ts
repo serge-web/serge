@@ -15,10 +15,9 @@ const msgContents: PlanningMessageStructureCore = {
   Reference: 'Blue-12',
   activity: 'point-recce',
   title: 'Operation Bravo-12',
-  ownAssets: [ ],
+  ownAssets: [],
   otherAssets: []
 }
-
 
 const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,
