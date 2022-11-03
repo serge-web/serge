@@ -1,6 +1,6 @@
 import { INTERACTION_MESSAGE, PLANNING_MESSAGE } from "@serge/config"
 import { ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role } from "@serge/custom-types"
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from "@serge/mocks"
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessagesBulk } from "@serge/mocks"
 import { getNextInteraction } from "./getNextInteraction"
 
 
@@ -18,7 +18,7 @@ forces.forEach((force: ForceData) => {
   })
 })
 
-const messages = planningMessages
+const messages = planningMessagesBulk
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
