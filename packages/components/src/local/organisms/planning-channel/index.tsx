@@ -314,7 +314,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const mapChildren = useMemo(() => {
     return (
       <>
-        <PlanningActitivityMenu showControl={!showInteractionGenerator} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+        <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
@@ -405,10 +405,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       }
                     </>
                   }
-                  <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 </>
               }>
               <>
+                <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 {mapChildren}
               </>
             </SupportMapping>
