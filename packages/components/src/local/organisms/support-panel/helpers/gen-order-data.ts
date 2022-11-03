@@ -624,7 +624,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
               if (differentForces(me, other) && overlapsInTime(me, other)) {
-                // see if we have a cached ocntact
+                // see if we have a cached contact
                 const cachedResult = interactionsTested[id]
                 if (cachedResult !== undefined) {
                   if (cachedResult !== null) {

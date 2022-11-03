@@ -6,7 +6,10 @@ import _ from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
-import { findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, PlanningContact, putInBin, SpatialBin, spatialBinning, touches } from '../../support-panel/helpers/gen-order-data'
+import {
+  findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime,
+  PlanningContact, putInBin, SpatialBin, spatialBinning, touches
+} from '../../support-panel/helpers/gen-order-data'
 import { shapeFor, shapeForGeomWithOrders } from './SharedOrderRenderer'
 
 export interface OrderPlotterProps {
