@@ -267,8 +267,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // })
     // console.log(msgs)
 
-    // console.log('debug step', debugStep)
-    // setDebugStep(1 + debugStep)
+    console.log('debug step', debugStep)
+    setDebugStep(1 + debugStep)
   }
 
   const handleAdjudication = (contact: PlanningContact): void => {
