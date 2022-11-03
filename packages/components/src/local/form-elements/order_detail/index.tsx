@@ -1,7 +1,8 @@
 import { faEdit } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Card, CardContent, Grid, Link } from '@material-ui/core'
-import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
+import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry, PlatformTypeData } from '@serge/custom-types'
+import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { findAsset } from '@serge/helpers'
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
@@ -44,26 +45,26 @@ export const OrderDetail: React.FC<PropTypes> = ({
       </CardContent>
     </Card>
   }
-  const details: PlanningMessageStructure = plan.message
-  const theActivity = activities.find((planning: PlanningActivity) => planning.uniqid === details.activity)
+  const message: PlanningMessageStructureCore = plan.message
+  const theActivity = activities.find((planning: PlanningActivity) => planning.uniqid === message.activity)
   return (
     <div>
-      <div><b>{details.reference} - </b>{details.title} - <b>{theActivity && theActivity.name}</b></div>
+      <div><b>{message.Reference} - </b>{message.title} - <b>{theActivity && theActivity.name}</b></div>
       <Grid container spacing={3}>
         <Grid item>
-          {tidyAssList('Own', details.ownAssets, details.reference, onEditOwnAssets)}
+          {tidyAssList('Own', message.ownAssets, message.Reference, onEditOwnAssets)}
         </Grid>
         <Grid item>
-          {tidyAssList('Other', details.otherAssets, details.reference, onEditOppAssets)}
+          {tidyAssList('Other', message.otherAssets, message.Reference, onEditOppAssets)}
         </Grid>
         <Grid item>
           <Card key='activity'>
-            <CardContent>Location<Link className={styles.link} onClick={() => onEditGeometry(details.reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
+            <CardContent>Location<Link className={styles.link} onClick={() => onEditGeometry(message.Reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
             <CardContent>
-              {details.location && details.location.length > 0
+              {message.location && message.location.length > 0
                 ? <ul> {
-                  details.location.map((geom: PlannedActivityGeometry, index: number) => {
-                    const activity = details.activity
+                  message.location.map((geom: PlannedActivityGeometry, index: number) => {
+                    const activity = message.activity
                     if (activity) {
                       const theAct: PlanningActivity | undefined = activities.find((act: PlanningActivity) => {
                         return act.geometries && act.geometries.find((plan: PlanningActivityGeometry) => plan.uniqid === geom.uniqid)
@@ -84,7 +85,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
         </Grid>
         <Grid>
           <Card key='props'>
-            <CardContent>Template Props<Link className={styles.link} onClick={() => onEditMessage(details.reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
+            <CardContent>Template Props<Link className={styles.link} onClick={() => onEditMessage(message.Reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
             <CardContent>
               {props.map((val: string, index: number) => {
                 return <li key={index}>{val}</li>

@@ -86,7 +86,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         order1: interaction.orders1,
         order2: interaction.orders2 || 'n/a',
         complete: complete,
-        activity: message.message.reference,
+        activity: message.message.Reference,
         period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
         // if the item is incomplete
         tableData: { showDetailPanel: complete ? undefined : detailPanel }
