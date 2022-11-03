@@ -119,7 +119,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                 roleId: playerRoleId,
                 iconURL: selectedForce.iconURL || selectedForce.icon || ''
               },
-              messageType: template.title,
+              messageType: template._id,
               timestamp: new Date().toISOString(),
               turnNumber: currentTurn
             }
