@@ -35,8 +35,7 @@ export const JsonEditor: React.FC<Props> = ({
   saveMessage,
   modifyForEdit,
   modifyForSave,
-  confirmCancel = false,
-  onCancel
+  confirmCancel = false
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -83,18 +82,15 @@ export const JsonEditor: React.FC<Props> = ({
     setConfirmIsOpen(false)
   }
 
-  const onPopupConfirm = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const onPopupConfirm = (): void => {
     expiredStorage.removeItem(genLocalStorageId())
     initEditor()
     setConfirmIsOpen(false)
-    onCancel && onCancel(event)
   }
 
-  const openConfirmPopup = (event: React.MouseEvent<HTMLButtonElement>): void => {
+  const openConfirmPopup = (): void => {
     if (confirmCancel) {
       setConfirmIsOpen(true)
-    } else {
-      onCancel && onCancel(event)
     }
   }
 

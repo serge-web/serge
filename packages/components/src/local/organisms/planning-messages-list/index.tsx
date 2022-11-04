@@ -10,7 +10,7 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, templates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, onCancel, channel, selectedForce, selectedRoleName, currentTurn
+  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, channel, selectedForce, selectedRoleName, currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -117,7 +117,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           saveMessage={saveMessage}
           customiseTemplate={customiseTemplate}
           storeNewValue={editorValue}
-          onCancel={onCancel}
           messageId={rowData.id}
           confirmCancel={confirmCancel}
           template={template}

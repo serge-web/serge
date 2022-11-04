@@ -194,7 +194,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     templates={templates}
                     confirmCancel={true}
-                    onCancel={cancelNewOrders}
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
