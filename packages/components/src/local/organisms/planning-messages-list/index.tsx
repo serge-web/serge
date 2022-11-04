@@ -113,7 +113,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const canEdit = message.details.from.roleId === playerRoleId
         return <JsonEditor
           messageContent={message.message}
-          formId={'formTemplate'}
+          viewSaveButton={true}
           saveMessage={saveMessage}
           customiseTemplate={customiseTemplate}
           storeNewValue={editorValue}

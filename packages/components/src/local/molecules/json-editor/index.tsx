@@ -35,7 +35,8 @@ export const JsonEditor: React.FC<Props> = ({
   saveMessage,
   modifyForEdit,
   modifyForSave,
-  confirmCancel = false
+  confirmCancel = false,
+  viewSaveButton = false
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -86,6 +87,7 @@ export const JsonEditor: React.FC<Props> = ({
     expiredStorage.removeItem(genLocalStorageId())
     initEditor()
     setConfirmIsOpen(false)
+    setEditButton(false)
   }
 
   const openConfirmPopup = (): void => {
@@ -219,9 +221,9 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) {
-      if (formId && !editButton) {
+      if (viewSaveButton && !editButton) {
         editor.disable()
-      } else if (disabled && !formId) {
+      } else if (disabled && !viewSaveButton) {
         editor.disable()
       } else {
         editor.enable()
@@ -230,7 +232,7 @@ export const JsonEditor: React.FC<Props> = ({
   }, [editor, editButton])
 
   const SaveMessageButton = () => (
-    editor && formId ? (
+    editor && viewSaveButton ? (
       <div className='button-wrap' >
         {!disabled && editButton
           ? <>
@@ -251,7 +253,7 @@ export const JsonEditor: React.FC<Props> = ({
   return (
     <>
       {
-        formId
+        viewSaveButton
           ? <>
             <Confirm
               isOpen={confirmIsOpen}

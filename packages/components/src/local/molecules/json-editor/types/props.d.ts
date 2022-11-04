@@ -47,6 +47,7 @@ export default interface Props {
   disableArrayToolsWithEditor?: boolean
   formClassName?: string
   formId?: string
+  viewSaveButton?: boolean
   /**
    *  method to customize template, potentially filling any drop-downs
    */
