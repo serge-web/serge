@@ -204,7 +204,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
-    console.log('new messages', messages.length, myInteractionMessages.length, nonTurnMessages)
+    console.log('new messages', messages.length, myInteractionMessages.length)
     if (!myInteractionMessages.length) {
       console.log(messages)
     }

@@ -1,9 +1,10 @@
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { PLANNING_MESSAGE } from '@serge/config'
+import { GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import * as turf from '@turf/turf'
 import moment from 'moment'
-import { findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes, invertMessages, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
+import { findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes, invertMessages, ordersEndingAfterTime, ordersStartingBeforeTime, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -34,6 +35,8 @@ const activities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map
     })
   }
 })
+
+const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
 it('produces order data', () => {
   const numOrders = 20
@@ -208,7 +211,7 @@ it('finds activities', () => {
 })
 
 it('bins overlaps for time', () => {
-  const time = '2022-11-15T00:00:00.000Z'
+  const time =  moment('2022-11-15T00:00:00.000Z').valueOf()
   const orders = invertMessages(deepCopy(planningMessages), activities)
   const binsInTimeWindow = findPlannedGeometries(orders, time, 30)
   // now do spatial binning
@@ -217,6 +220,29 @@ it('bins overlaps for time', () => {
   const binnedOrders = putInBin(orders, bins)
   expect(binnedOrders).toBeTruthy()
   expect(binnedOrders.length).toEqual(36)
+})
+
+
+it('check filtering before time', () => {
+  const res = ordersStartingBeforeTime(planningMessages, 10000)
+  expect(res).toBeTruthy()
+  expect(res.length).toEqual(0)
+
+  const midWay = planningMessages[Math.floor(planningMessages.length / 2)]
+  const midStart = ordersStartingBeforeTime(planningMessages, moment(midWay.message.startDate).valueOf())
+  expect(midStart.length).toBeLessThan(planningMessages.length)
+  expect(midStart.length).toBeGreaterThan(0)
+})
+
+it('check filtering after time', () => {
+  const res = ordersEndingAfterTime(planningMessages, 10000)
+  expect(res).toBeTruthy()
+  expect(res.length).toEqual(planningMessages.length)
+
+  const midWay = planningMessages[Math.floor(planningMessages.length / 2)]
+  const midStart = ordersEndingAfterTime(planningMessages, moment(midWay.message.endDate).valueOf())
+  expect(midStart.length).toBeLessThan(planningMessages.length)
+  expect(midStart.length).toBeGreaterThan(0)
 })
 
 it('fills in time values', () => {

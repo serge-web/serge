@@ -1,6 +1,7 @@
-import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet } from '@serge/custom-types'
+import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import _ from 'lodash'
-import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import moment from 'moment'
+import { findPlannedGeometries, findTouching, injectTimes, invertMessages, ordersEndingAfterTime, ordersStartingBeforeTime, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -10,25 +11,40 @@ const useDate = (msg: MessageInteraction): string => {
   return inter.startTime
 }
 
-const timeOfLatestInteraction = (interactions: MessageInteraction[]): string => {
+const timeOfLatestInteraction = (interactions: MessageInteraction[]): number => {
   const sorted = _.sortBy(interactions, useDate) as MessageInteraction[]
   console.table(interactions.map((val) => { return { ref: val.message.Reference, date: useDate(val) } }))
-  return useDate(sorted[sorted.length - 1])
+  const date = useDate(sorted[sorted.length - 1])
+  return moment(date).valueOf()
 }
 
 export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[]): PlanningContact | undefined => {
   console.log('getting next interaction after', datetime, orders.length, activities.length, interactions.length)
 
-  const newGeometries = invertMessages(orders, activities)
-  const withTimes = injectTimes(newGeometries)
-
   const latestInteraction = timeOfLatestInteraction(interactions)
   console.log('latest', latestInteraction)
+  
+  const ordersStartingOk = ordersStartingBeforeTime(orders, latestInteraction)
+  const ordersEndingOk = ordersEndingAfterTime(ordersStartingOk, latestInteraction)
 
-  const geometriesInTimeWindow = findPlannedGeometries(withTimes, latestInteraction, 160)
+  const newGeometries = invertMessages(ordersEndingOk, activities)
+  const withTimes = injectTimes(newGeometries)
+    
+  const geomsStartingBeforeTime = withTimes.filter((val) => {
+    const props = val.geometry.properties as PlannedProps
+    return props.startTime <= latestInteraction
+  })
 
-  console.log('geoms in window', geometriesInTimeWindow.length)
+  const gemosFinishingAfterTime = geomsStartingBeforeTime.filter((val) => {
+    const props = val.geometry.properties as PlannedProps
+    return props.endTime >= latestInteraction
+  })
+
+  const geometriesInTimeWindow = findPlannedGeometries(gemosFinishingAfterTime, latestInteraction, 160)
+
+  console.log('geoms in window.', moment(latestInteraction).toISOString(), withTimes.length, geomsStartingBeforeTime.length, gemosFinishingAfterTime.length, geometriesInTimeWindow.length)
+  console.table(withTimes.map((value) => {return {id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString()}}))
 
   // now do spatial binning
   const bins = spatialBinning(geometriesInTimeWindow, 2)
@@ -46,10 +62,10 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   const interactionsConsidered: string[] = []
   const interactionsTested: Record<string, PlanningContact | null> = {}
 
-  binnedOrders.forEach((bin: SpatialBin, index: number) => {
+  binnedOrders.forEach((bin: SpatialBin, _index: number) => {
     const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
       interactionsTested)
-    console.log('bin', index, bin.orders.length, newContacts.length, Object.keys(interactionsTested).length)
+//    console.log('bin', index, bin.orders.length, newContacts.length, Object.keys(interactionsTested).length)
     contacts.push(...newContacts)
   })
 

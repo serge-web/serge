@@ -103,11 +103,11 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
 
       const newGeometries = invertMessages(orders, activities)
       const withTimes = injectTimes(newGeometries)
-      let time = '2022-11-15T00:00:00.000Z'
+      let time = moment('2022-11-15T00:00:00.000Z').valueOf()
       if (sentForAdjudication.length) {
         const lastId = sentForAdjudication[sentForAdjudication.length - 1]
         console.log('last one', lastId)
-        time = moment(lastId.timeStart).toISOString()
+        time = lastId.timeStart
       }
       setMessage2('Considering activities from ' + time + ' onwards')
 

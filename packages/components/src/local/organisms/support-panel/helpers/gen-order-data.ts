@@ -239,7 +239,6 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
 export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
   const own = randomArrayItem(ownAssets, ctr++)
   const other = randomArrayItem(targets, ctr++)
-  console.log('activity', activity)
   const geoms = activity.geometries
   if (geoms) {
     const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry, index: number): PlannedActivityGeometry => {
@@ -412,6 +411,20 @@ export const findActivity = (id: string, category: GroupedActivitySet['category'
   }
 }
 
+export const ordersStartingBeforeTime = (messages: MessagePlanning[], time: number) => {
+  return messages.filter((msg) => {
+    const tStart = moment(msg.message.startDate).valueOf()
+    return tStart <= time
+  })
+} 
+
+export const ordersEndingAfterTime = (messages: MessagePlanning[], time: number) => {
+  return messages.filter((msg) => {
+    const tEnd = moment(msg.message.endDate).valueOf()
+    return tEnd >= time
+  })
+} 
+
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
   messages.forEach((message: MessagePlanning) => {
@@ -471,7 +484,7 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
   })
 }
 
-export const findPlannedGeometries = (orders: GeomWithOrders[], time: string, windowMins: number): GeomWithOrders[] => {
+export const findPlannedGeometries = (orders: GeomWithOrders[], time: number, windowMins: number): GeomWithOrders[] => {
   const timeStart = moment(time)
   const timeEnd = moment(time).add(windowMins, 'm')
   const inWindow = orders.filter((value: GeomWithOrders) => {
