@@ -2,7 +2,8 @@ import { MenuItem, Select } from '@material-ui/core'
 import React, { ChangeEvent, useEffect, useState } from 'react'
 import styles from '../styles.module.scss'
 
-type TurnOrderProps = {
+type TurnFilterProps = {
+  /** control label */
   label: string
   /** the current turn number and (and the max value shown) */
   currentTurn: number
@@ -14,9 +15,8 @@ type TurnOrderProps = {
 
 export const SHOW_ALL_TURNS = -1
 
-const TurnFilter: React.FC<TurnOrderProps> = ({ label, value, currentTurn, onChange }) => {
-
-  const [options, setOptions] =  useState<string[]>([])
+const TurnFilter: React.FC<TurnFilterProps> = ({ label, value, currentTurn, onChange }) => {
+  const [options, setOptions] = useState<string[]>([])
   const [localValue, setLocalValue] = useState<string>('')
 
   const ALL_TURNS = 'All turns'
@@ -27,7 +27,7 @@ const TurnFilter: React.FC<TurnOrderProps> = ({ label, value, currentTurn, onCha
 
   useEffect(() => {
     const optionsArr = [ALL_TURNS]
-    for (let i=0;i<=currentTurn; i++) {
+    for (let i = 0; i <= currentTurn; i++) {
       optionsArr.push('Turn ' + i)
     }
     setOptions(optionsArr)
