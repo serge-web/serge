@@ -37,6 +37,7 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
 
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
+    // NOTE:: this shouldn't be necessary if we're already doing a _.uniqBy(Reference) on the data
     if (message.message.Reference) {
       // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would

@@ -46,6 +46,7 @@ export default interface PropTypes {
   onPanelWidthChange?: (width: number) => void
   /** a draft copy of an new orders */
   draftMessage?: MessagePlanning
+  /** player cancels creating a new set of orders */
   onCancelDraftMessage?: {(): void}
   forcePlanningActivities?: PerForcePlanningActivitySet[]
 }

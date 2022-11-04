@@ -4,11 +4,12 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 /* Import Types */
-import { Editor } from '@serge/custom-types'
+import { Editor, TemplateBody } from '@serge/custom-types'
+import { configDateTimeLocal, usePrevious } from '@serge/helpers'
+import { Confirm } from '../../atoms/confirm'
 import Props from './types/props'
 
 import { expiredStorage } from '@serge/config'
-import { configDateTimeLocal } from '@serge/helpers'
 import { Button } from '../../atoms/button'
 import setupEditor from './helpers/setupEditor'
 
@@ -33,11 +34,16 @@ export const JsonEditor: React.FC<Props> = ({
   clearCachedName,
   saveMessage,
   modifyForEdit,
-  modifyForSave
+  modifyForSave,
+  confirmCancel = false,
+  viewSaveButton = false
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
+  const [editButton, setEditButton] = useState<boolean>(false)
+  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
 
+  const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
       color: '#f00',
@@ -65,6 +71,29 @@ export const JsonEditor: React.FC<Props> = ({
     }
 
     return memoryName
+  }
+
+  const OnSave = () => {
+    saveMessage && saveMessage()
+    expiredStorage.removeItem(genLocalStorageId())
+  }
+
+  const onPopupCancel = (): void => {
+    expiredStorage.removeItem(genLocalStorageId())
+    setConfirmIsOpen(false)
+  }
+
+  const onPopupConfirm = (): void => {
+    expiredStorage.removeItem(genLocalStorageId())
+    initEditor()
+    setConfirmIsOpen(false)
+    setEditButton(false)
+  }
+
+  const openConfirmPopup = (): void => {
+    if (confirmCancel) {
+      setConfirmIsOpen(true)
+    }
   }
 
   const initEditor = (): () => void => {
@@ -175,13 +204,15 @@ export const JsonEditor: React.FC<Props> = ({
         expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
+        setEditButton(false)
       } else {
+        setEditButton(false)
         initEditor()
       }
     }
 
     return (): void => destroyEditor(editor)
-  }, [template.details, messageId, cachedName, messageContent])
+  }, [template.details, messageId, cachedName, messageContent, prevTemplates])
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
@@ -191,18 +222,31 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) {
-      if (disabled) {
+      if (viewSaveButton && !editButton) {
+        editor.disable()
+      } else if (disabled && !viewSaveButton) {
         editor.disable()
       } else {
         editor.enable()
       }
     }
-  }, [editor])
+  }, [editor, editButton])
 
   const SaveMessageButton = () => (
-    editor && formId ? (
+    editor && viewSaveButton ? (
       <div className='button-wrap' >
-        {!disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null}
+        {!disabled && editButton
+          ? <>
+            <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
+            {
+              confirmCancel
+                ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
+                : null
+            }
+          </>
+          : !disabled ? <Button color='secondary' onClick={() => { setEditButton(true) }} icon='edit'>Edit</Button>
+            : null
+        }
       </div>
     ) : null
   )
@@ -210,13 +254,19 @@ export const JsonEditor: React.FC<Props> = ({
   return (
     <>
       {
-        formId
+        viewSaveButton
           ? <>
+            <Confirm
+              isOpen={confirmIsOpen}
+              message="Are you sure you wish to cancel editing this message?"
+              onCancel={onPopupCancel}
+              onConfirm={onPopupConfirm}
+            />
             <SaveMessageButton />
             <div id={formId} ref={jsonEditorRef} />
             <SaveMessageButton />
           </>
-          : <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+          : <div className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
       }
     </>
   )

@@ -1,8 +1,7 @@
-import { MessagePlanning, TemplateBody } from '@serge/custom-types'
-import { PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { MessageDetails, MessagePlanning, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
@@ -11,11 +10,14 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, setSelectedOrders
+  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, channel, selectedForce, selectedRoleName, currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+  const messageValue = useRef<any>(null)
+
+  if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
@@ -70,6 +72,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setColumns(columnData)
   }, [myMessages])
 
+  const editorValue = (val: { [property: string]: any }): void => {
+    messageValue.current = val
+  }
+
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
@@ -83,11 +89,38 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
+        const saveMessage = () => {
+          if (messageValue.current) {
+            const details: MessageDetails = {
+              channel: channel.uniqid,
+              from: {
+                force: selectedForce.name,
+                forceColor: selectedForce.color,
+                roleName: selectedRoleName,
+                roleId: playerRoleId,
+                iconURL: selectedForce.iconURL || selectedForce.icon || ''
+              },
+              messageType: template._id,
+              timestamp: new Date().toISOString(),
+              turnNumber: currentTurn
+            }
+
+            if (messageValue.current.content === '') return
+
+            postBack && postBack(details, messageValue.current)
+            messageValue.current = ''
+          }
+        }
+
         const canEdit = message.details.from.roleId === playerRoleId
         return <JsonEditor
           messageContent={message.message}
+          viewSaveButton={true}
+          saveMessage={saveMessage}
           customiseTemplate={customiseTemplate}
+          storeNewValue={editorValue}
           messageId={rowData.id}
+          confirmCancel={confirmCancel}
           template={template}
           disabled={!canEdit}
           gameDate={gameDate}

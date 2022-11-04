@@ -24,7 +24,6 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             startDate: "2022-11-15T00:00:00.000Z",
             endDate: "2022-11-15T04:30:00.000Z",
             Description: "Order description 6",
-            Location: "Polyline-B",
             location: [
                 {
                     uniqid: "aa4",
@@ -138,11 +137,12 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             ],
             activity: "area-strike",
             ownAssets: [
-                "a187"
+                "Blue:4",
+                "Blue:7"
             ],
             otherAssets: [
-                "a156",
-                "a150"
+                "Red Force:14",
+                "Red Force:19"
             ]
         },
         hasBeenRead: false,

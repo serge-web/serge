@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { mostRecentPlanningOnly } from '@serge/helpers'
 import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import PlanningMessagesList from './index'
@@ -41,7 +42,7 @@ export default {
 }
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, playerRoleId, hideForcesInChannel } = args
+  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -60,9 +61,12 @@ const Template: Story<MessageListPropTypes> = (args) => {
   // remove later versions
   const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
   const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
-
+  const newestMessages = mostRecentPlanningOnly(planningMessages)
   return <PlanningMessagesList
-    messages={planningMessages}
+    selectedRoleName={blueRole.name}
+    selectedForce={selectedForce}
+    currentTurn={currentTurn}
+    messages={newestMessages}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}
     allTemplates={planningMessageTemplatesMock}
@@ -84,6 +88,8 @@ export const Default = Template.bind({})
 Default.args = {
   messages: [],
   playerForceId: blueForce.uniqid,
+  selectedForce: blueForce,
   playerRoleId: blueRole.roleId,
-  hideForcesInChannel: true
+  hideForcesInChannel: true,
+  currentTurn: P9Mock.gameTurn
 }
