@@ -603,7 +603,6 @@ const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
-
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
   interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>): PlanningContact[] => {
   const res: PlanningContact[] = []

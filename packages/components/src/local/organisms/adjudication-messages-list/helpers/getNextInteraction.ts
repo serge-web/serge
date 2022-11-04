@@ -1,6 +1,6 @@
-import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet } from "@serge/custom-types"
-import _ from "lodash"
-import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from "../../support-panel/helpers/gen-order-data"
+import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet } from '@serge/custom-types'
+import _ from 'lodash'
+import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -35,8 +35,8 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   const binnedOrders = putInBin(geometriesInTimeWindow, bins)
 
   const contacts: PlanningContact[] = []
-    
-  const interactionsProcessed  = interactions.map((val) => {
+
+  const interactionsProcessed = interactions.map((val) => {
     const inter = val.details.interaction
     if (!inter) {
       throw Error('Interaction missing')
@@ -48,7 +48,7 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
 
   binnedOrders.forEach((bin: SpatialBin, index: number) => {
     const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
-      interactionsTested )
+      interactionsTested)
     console.log('bin', index, bin.orders.length, newContacts.length, Object.keys(interactionsTested).length)
     contacts.push(...newContacts)
   })

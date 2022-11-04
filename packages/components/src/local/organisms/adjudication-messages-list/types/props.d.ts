@@ -83,8 +83,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /** the range of planning activities for each force */
   forcePlanningActivities?: PerForcePlanningActivitySet[]
 
-  /** 
-   * there is a new interaction to adjudicate 
+  /**
+   * there is a new interaction to adjudicate
    */
   handleAdjudication?: {(contact: PlanningContact): void}
 }

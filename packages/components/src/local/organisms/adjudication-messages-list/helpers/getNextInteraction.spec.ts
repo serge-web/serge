@@ -1,8 +1,7 @@
-import { INTERACTION_MESSAGE, PLANNING_MESSAGE } from "@serge/config"
-import { ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role } from "@serge/custom-types"
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessagesBulk } from "@serge/mocks"
-import { getNextInteraction } from "./getNextInteraction"
-
+import { INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role } from '@serge/custom-types'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessagesBulk } from '@serge/mocks'
+import { getNextInteraction } from './getNextInteraction'
 
 const wargame = P9Mock.data
 const channels = wargame.channels.channels
