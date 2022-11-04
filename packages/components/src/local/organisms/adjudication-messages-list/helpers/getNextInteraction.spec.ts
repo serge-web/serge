@@ -4,10 +4,7 @@ import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessage
 import { getNextInteraction } from './getNextInteraction'
 
 const wargame = P9Mock.data
-const channels = wargame.channels.channels
-const planningChannel = channels[0]
 const forces = wargame.forces.forces
-const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
 // generate list of roles, for dropdown control
 const allRoles: string[] = []
