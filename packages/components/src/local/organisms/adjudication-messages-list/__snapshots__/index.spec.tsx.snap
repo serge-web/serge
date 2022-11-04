@@ -8,7 +8,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
     className="button-wrap"
   >
     <button
-      className="MuiButtonBase-root MuiButton-root makeStyles-root-1 makeStyles-root-3 MuiButton-contained makeStyles-contained-2 makeStyles-contained-4 MuiButton-containedSecondary"
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
