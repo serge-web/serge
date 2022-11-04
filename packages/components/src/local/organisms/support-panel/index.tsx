@@ -12,7 +12,7 @@ import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
-import TurnOrder, { SHOW_ALL_TURNS } from './helpers/TurnOrder'
+import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
@@ -190,7 +190,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
-                  <TurnOrder label='Show orders for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
+                  <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
                     messages={filteredMessages}
                     gameDate={gameDate}
@@ -246,7 +246,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
-                  <TurnOrder label='Show interactions for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
+                  <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
                   <AdjudicationMessagesList
                     messages={filteredMessages}
                     forces={allForces}

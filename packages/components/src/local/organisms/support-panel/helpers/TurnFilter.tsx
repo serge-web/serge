@@ -14,7 +14,7 @@ type TurnOrderProps = {
 
 export const SHOW_ALL_TURNS = -1
 
-const TurnOrder: React.FC<TurnOrderProps> = ({ label, value, currentTurn, onChange }) => {
+const TurnFilter: React.FC<TurnOrderProps> = ({ label, value, currentTurn, onChange }) => {
 
   const [options, setOptions] =  useState<string[]>([])
   const [localValue, setLocalValue] = useState<string>('')
@@ -58,4 +58,4 @@ const TurnOrder: React.FC<TurnOrderProps> = ({ label, value, currentTurn, onChan
   </div>
 }
 
-export default TurnOrder
+export default TurnFilter
