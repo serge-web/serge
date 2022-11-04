@@ -4,25 +4,49 @@ import styles from '../styles.module.scss'
 
 type TurnOrderProps = {
   label: string
-  options: string[]
+  /** the current turn number and (and the max value shown) */
+  currentTurn: number
+  /** value currently selected */
   value?: string
-  onChange: (item: string) => void
+  /** handler - with the turn to display (or -1 for all) */
+  onChange: (turn: number) => void
 }
 
-const TurnOrder: React.FC<TurnOrderProps> = ({ label, options, value, onChange }) => {
-  if (!options.length) {
-    return <></>
-  }
+export const SHOW_ALL_TURNS = -1
 
+const TurnOrder: React.FC<TurnOrderProps> = ({ label, value, currentTurn, onChange }) => {
+
+  const [options, setOptions] =  useState<string[]>([])
   const [localValue, setLocalValue] = useState<string>('')
+
+  const ALL_TURNS = 'All turns'
 
   useEffect(() => {
     setLocalValue(value || options[0])
   }, [value])
 
+  useEffect(() => {
+    const optionsArr = [ALL_TURNS]
+    for (let i=0;i<=currentTurn; i++) {
+      optionsArr.push('Turn ' + i)
+    }
+    setOptions(optionsArr)
+    setLocalValue(optionsArr[0])
+  }, [currentTurn])
+
+  if (!options.length) {
+    return <></>
+  }
+
   const onLocalChange = (event: ChangeEvent<{ value: unknown }>) => {
     const selectedValue = event.target.value as string
-    onChange(selectedValue)
+    if (selectedValue === ALL_TURNS) {
+      onChange(SHOW_ALL_TURNS)
+    } else {
+      const parts = selectedValue.split(' ')
+      const turnVal = parseInt(parts[1])
+      onChange(turnVal)
+    }
     setLocalValue(selectedValue)
   }
 

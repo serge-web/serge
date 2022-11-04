@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
@@ -12,7 +12,7 @@ import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
-import TurnOrder from './helpers/TurnOrder'
+import TurnOrder, { SHOW_ALL_TURNS } from './helpers/TurnOrder'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
@@ -56,13 +56,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
 
+  const [filteredMessages, setFilteredMessages] = useState<MessagePlanning[]>([])
+  const [turnFilter, setTurnFilter] = useState<number>(-1)
+
   const ORDERS_TAB = 1
-  const turnOptions = ['Turn 1', 'Turn 2', 'Turn 3', 'Turn 4', 'Turn 5']
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
   }
+
+  useEffect(() => {
+    const filtered = turnFilter === SHOW_ALL_TURNS ? messages : messages.filter((msg) => msg.details.turnNumber === turnFilter)
+    setFilteredMessages(filtered)
+  }, [messages, turnFilter])
 
   const TabPanel = (props: TabPanelProps): React.ReactElement => {
     const { children, active, ...other } = props
@@ -146,8 +153,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
   }
 
-  const onTurnOrderChange = (item: string) => {
-    console.log('xx> item: ', item)
+  const onTurnFilterChange = (turn: number) => {
+    setTurnFilter(turn)
   }
 
   const SlideComponent = useMemo(() => (
@@ -183,9 +190,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
-                  <TurnOrder label='Show orders for turn:' options={turnOptions} onChange={onTurnOrderChange} />
+                  <TurnOrder label='Show orders for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
-                    messages={messages}
+                    messages={filteredMessages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
@@ -239,9 +246,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
-                  <TurnOrder label='Show interactions for turn:' options={turnOptions} onChange={onTurnOrderChange} />
+                  <TurnOrder label='Show interactions for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
                   <AdjudicationMessagesList
-                    messages={messages}
+                    messages={filteredMessages}
                     forces={allForces}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
@@ -276,7 +283,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    messages,
+    filteredMessages,
     selectedRoleId
   ]
   )
