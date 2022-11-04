@@ -95,7 +95,7 @@
 
 .order-group {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-direction: column;
   height: calc(100% - 20px);
 }
@@ -108,4 +108,16 @@
 
 .select-template-title {
   margin: 0 !important;
+}
+
+.turn-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    font-size: 14px;
+    margin-bottom: 0 !important;
+    margin-right: 10px;
+  }
 }
