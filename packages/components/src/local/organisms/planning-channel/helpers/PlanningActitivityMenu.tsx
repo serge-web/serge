@@ -57,27 +57,24 @@ const PlanningActitivityMenu: React.FC<PlanningActitivityMenuProps> = ({ plannin
 
   useEffect(() => {
     if (planningActivities) {
-      if (showControl) {
-        if (!controlButton) {
-          const items = getItems(planningActivities)
-          const selectControl = L.control.select({
-            position: 'topleft',
-            iconMain: '📝',
-            iconGroupChecked: '⊳',
-            iconGroupUnchecked: '⊳',
-            items: items,
-            onSelect: (item: any) => {
-              handleClick(item)
-            }
-          })
-          setControlButton(selectControl)
-        }
-        if (controlButton) {
+      if (!controlButton) {
+        const items = getItems(planningActivities)
+        const selectControl = L.control.select({
+          position: 'topleft',
+          iconMain: '📝',
+          iconGroupChecked: '⊳',
+          iconGroupUnchecked: '⊳',
+          items: items,
+          onSelect: (item: any) => {
+            handleClick(item)
+          }
+        })
+        setControlButton(selectControl)
+      }
+      if (controlButton) {
+        if (showControl) {
           controlButton.addTo(map)
-        }
-      } else {
-        // control not visible. Remove it, if we have to
-        if (controlButton) {
+        } else {
           controlButton.remove()
         }
       }
