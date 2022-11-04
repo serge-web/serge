@@ -45,7 +45,6 @@ const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perFor
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 const interactions = messages.filter(msg => msg.messageType === INTERACTION_MESSAGE) as MessageInteraction[]
 
-
 it('find asset at top level', () => {
   const inter = getNextInteraction(0, planningMessages2, filledInPerForcePlanningActivities, interactions)
   // try the host platform in the task group

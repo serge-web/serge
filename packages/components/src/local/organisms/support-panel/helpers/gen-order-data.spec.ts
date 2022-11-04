@@ -211,7 +211,7 @@ it('finds activities', () => {
 })
 
 it('bins overlaps for time', () => {
-  const time =  moment('2022-11-15T00:00:00.000Z').valueOf()
+  const time = moment('2022-11-15T00:00:00.000Z').valueOf()
   const orders = invertMessages(deepCopy(planningMessages), activities)
   const binsInTimeWindow = findPlannedGeometries(orders, time, 30)
   // now do spatial binning
@@ -221,7 +221,6 @@ it('bins overlaps for time', () => {
   expect(binnedOrders).toBeTruthy()
   expect(binnedOrders.length).toEqual(36)
 })
-
 
 it('check filtering before time', () => {
   const res = ordersStartingBeforeTime(planningMessages, 10000)

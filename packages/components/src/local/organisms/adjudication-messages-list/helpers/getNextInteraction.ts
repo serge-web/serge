@@ -24,13 +24,13 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
 
   const latestInteraction = timeOfLatestInteraction(interactions)
   console.log('latest', latestInteraction)
-  
+
   const ordersStartingOk = ordersStartingBeforeTime(orders, latestInteraction)
   const ordersEndingOk = ordersEndingAfterTime(ordersStartingOk, latestInteraction)
 
   const newGeometries = invertMessages(ordersEndingOk, activities)
   const withTimes = injectTimes(newGeometries)
-    
+
   const geomsStartingBeforeTime = withTimes.filter((val) => {
     const props = val.geometry.properties as PlannedProps
     return props.startTime <= latestInteraction
@@ -44,7 +44,7 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   const geometriesInTimeWindow = findPlannedGeometries(gemosFinishingAfterTime, latestInteraction, 160)
 
   console.log('geoms in window.', moment(latestInteraction).toISOString(), withTimes.length, geomsStartingBeforeTime.length, gemosFinishingAfterTime.length, geometriesInTimeWindow.length)
-  console.table(withTimes.map((value) => {return {id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString()}}))
+  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
   // now do spatial binning
   const bins = spatialBinning(geometriesInTimeWindow, 2)
@@ -65,7 +65,7 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   binnedOrders.forEach((bin: SpatialBin, _index: number) => {
     const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
       interactionsTested)
-//    console.log('bin', index, bin.orders.length, newContacts.length, Object.keys(interactionsTested).length)
+    //    console.log('bin', index, bin.orders.length, newContacts.length, Object.keys(interactionsTested).length)
     contacts.push(...newContacts)
   })
 

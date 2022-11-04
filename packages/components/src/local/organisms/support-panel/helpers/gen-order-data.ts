@@ -416,14 +416,14 @@ export const ordersStartingBeforeTime = (messages: MessagePlanning[], time: numb
     const tStart = moment(msg.message.startDate).valueOf()
     return tStart <= time
   })
-} 
+}
 
 export const ordersEndingAfterTime = (messages: MessagePlanning[], time: number) => {
   return messages.filter((msg) => {
     const tEnd = moment(msg.message.endDate).valueOf()
     return tEnd >= time
   })
-} 
+}
 
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
