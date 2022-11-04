@@ -1,9 +1,7 @@
-import { expiredStorage } from '@serge/config'
 import { MessageDetails, MessagePlanning, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
-import { Confirm } from '../../atoms/confirm'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
@@ -16,9 +14,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
-  const [updateColume, setUpdateColumn] = useState(false)
   const [filter, setFilter] = useState<boolean>(false)
-  const [clearName, setClearName] = useState<string>('')
   const messageValue = useRef<any>(null)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -28,8 +24,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
     setMyMessages(messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId))
-    setUpdateColumn(false)
-  }, [messages, playerForceId, updateColume])
+  }, [messages, playerForceId])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -72,27 +67,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // drop the force column, since player only sees their force
       columns.splice(2, 1)
     }
-    setUpdateColumn(false)
     setColumns(columnData)
-  }, [myMessages, updateColume])
-
-  const onPopupCancel = (): void => {
-    setClearName('')
-  }
-
-  const openConfirmPopup = (removName: string): void => {
-    setClearName(removName)
-  }
+  }, [myMessages])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
-  }
-
-  const onPopupConfirm = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    expiredStorage.removeItem(clearName)
-    setUpdateColumn(true)
-    setClearName('')
-    onCancel && onCancel(event)
   }
 
   const detailPanel = (rowData: OrderRow): any => {
@@ -127,7 +106,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             if (messageValue.current.content === '') return
 
             postBack && postBack(details, messageValue.current)
-            setClearName('')
             messageValue.current = ''
           }
         }
@@ -137,7 +115,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           messageContent={message.message}
           formId={'formTemplate'}
           saveMessage={saveMessage}
-          openConfirmPopup={openConfirmPopup}
           customiseTemplate={customiseTemplate}
           storeNewValue={editorValue}
           onCancel={onCancel}
@@ -170,12 +147,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
-      <Confirm
-        isOpen={!!clearName}
-        message="Are you sure you wish to cancel editing this message?"
-        onCancel={onPopupCancel}
-        onConfirm={onPopupConfirm}
-      />
       <MaterialTable
         title={'Orders'}
         columns={columns}

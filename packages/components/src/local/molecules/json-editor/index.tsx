@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 /* Import Types */
 import { Editor, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, usePrevious } from '@serge/helpers'
+import { Confirm } from '../../atoms/confirm'
 import Props from './types/props'
 
 import { expiredStorage } from '@serge/config'
@@ -35,12 +36,13 @@ export const JsonEditor: React.FC<Props> = ({
   modifyForEdit,
   modifyForSave,
   confirmCancel = false,
-  onCancel,
-  openConfirmPopup
+  onCancel
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
   const [editButton, setEditButton] = useState<boolean>(false)
+  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
+
   const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
@@ -76,9 +78,21 @@ export const JsonEditor: React.FC<Props> = ({
     expiredStorage.removeItem(genLocalStorageId())
   }
 
-  const cancelMessage = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onPopupCancel = (): void => {
+    expiredStorage.removeItem(genLocalStorageId())
+    setConfirmIsOpen(false)
+  }
+
+  const onPopupConfirm = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    expiredStorage.removeItem(genLocalStorageId())
+    initEditor()
+    setConfirmIsOpen(false)
+    onCancel && onCancel(event)
+  }
+
+  const openConfirmPopup = (event: React.MouseEvent<HTMLButtonElement>): void => {
     if (confirmCancel) {
-      openConfirmPopup && openConfirmPopup(genLocalStorageId())
+      setConfirmIsOpen(true)
     } else {
       onCancel && onCancel(event)
     }
@@ -227,7 +241,7 @@ export const JsonEditor: React.FC<Props> = ({
             <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
             {
               confirmCancel
-                ? <Button color='secondary' onClick={cancelMessage} icon='delete'>Cancel</Button>
+                ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
                 : null
             }
           </>
@@ -243,6 +257,12 @@ export const JsonEditor: React.FC<Props> = ({
       {
         formId
           ? <>
+            <Confirm
+              isOpen={confirmIsOpen}
+              message="Are you sure you wish to cancel editing this message?"
+              onCancel={onPopupCancel}
+              onConfirm={onPopupConfirm}
+            />
             <SaveMessageButton />
             <div id={formId} ref={jsonEditorRef} />
             <SaveMessageButton />

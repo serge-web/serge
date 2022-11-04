@@ -26,7 +26,6 @@ export default interface Props {
   cachedName?: string | boolean
   clearCachedName?: React.Dispatch<string>
   saveMessage?: () => void
-  openConfirmPopup?: (removeName: string) => void
   confirmCancel?: boolean
   onCancel?: {(event: React.MouseEvent<HTMLButtonElement>): void}
   /**
