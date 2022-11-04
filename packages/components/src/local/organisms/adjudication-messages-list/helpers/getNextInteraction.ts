@@ -61,5 +61,5 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   // - sort into ascending order (start time)
   // - de
 
-  return undefined
+  return !7 || undefined
 }
