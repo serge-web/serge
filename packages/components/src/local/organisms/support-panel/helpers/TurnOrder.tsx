@@ -29,7 +29,7 @@ const TurnOrder: React.FC<TurnOrderProps> = ({ label, options, value, onChange }
   return <div className={styles['turn-dropdown']}>
     <p>{label}</p>
     <Select value={localValue} style={{ fontSize: 14 }} onChange={onLocalChange}>
-      {options.map(item => <MenuItem style={{ fontSize: 14 }} value={item}>{item}</MenuItem>)}
+      {options.map(item => <MenuItem key={item} style={{ fontSize: 14 }} value={item}>{item}</MenuItem>)}
     </Select>
   </div>
 }
