@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import cx from 'classnames'
 import { Geometry } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
@@ -16,8 +15,6 @@ import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
 import styles from '../styles.module.scss'
 import { CustomTranslation } from './CustomTranslation'
-
-// declare const L: any // needed because control.notifications is not in TS type defs
 
 interface OrderDrawingProps {
   activity: PlanningActivity | undefined
@@ -236,8 +233,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   return (
     <> {activity &&
       <>
-        <div className={cx('leaflet-control')}>
-          <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
+        <div className='leaflet-top leaflet-left'>
+          <div className='leaflet-control'>
+            <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
+          </div>
         </div>
         <GeomanControls
           options={drawOptions}
