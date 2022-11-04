@@ -7,23 +7,17 @@ type TurnFilterProps = {
   label: string
   /** the current turn number and (and the max value shown) */
   currentTurn: number
-  /** value currently selected */
-  value?: string
   /** handler - with the turn to display (or -1 for all) */
   onChange: (turn: number) => void
 }
 
 export const SHOW_ALL_TURNS = -1
 
-const TurnFilter: React.FC<TurnFilterProps> = ({ label, value, currentTurn, onChange }) => {
+const TurnFilter: React.FC<TurnFilterProps> = ({ label, currentTurn, onChange }) => {
   const [options, setOptions] = useState<string[]>([])
   const [localValue, setLocalValue] = useState<string>('')
 
   const ALL_TURNS = 'All turns'
-
-  useEffect(() => {
-    setLocalValue(value || options[0])
-  }, [value])
 
   useEffect(() => {
     const optionsArr = [ALL_TURNS]

@@ -284,7 +284,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     activeTab,
     allForces,
     filteredMessages,
-    selectedRoleId
+    selectedRoleId,
+    turnFilter
   ]
   )
 
