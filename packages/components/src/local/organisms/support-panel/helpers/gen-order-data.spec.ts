@@ -4,7 +4,7 @@ import { deepCopy } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import * as turf from '@turf/turf'
 import moment from 'moment'
-import { findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes, invertMessages, ordersEndingAfterTime, ordersStartingBeforeTime, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
+import { findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes, invertMessages, ordersEndingAfterTime, ordersOverlappingTime, ordersStartingBeforeTime, overlapsInTime, putInBin, randomOrdersDocs, spatialBinning, timeIntersect, touches } from './gen-order-data'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -240,6 +240,13 @@ it('check filtering after time', () => {
 
   const midWay = planningMessages[Math.floor(planningMessages.length / 2)]
   const midStart = ordersEndingAfterTime(planningMessages, moment(midWay.message.endDate).valueOf())
+  expect(midStart.length).toBeLessThan(planningMessages.length)
+  expect(midStart.length).toBeGreaterThan(0)
+})
+
+it('check overlapping time', () => {
+  const midWay = planningMessages[Math.floor(planningMessages.length / 2)]
+  const midStart = ordersOverlappingTime(planningMessages, moment(midWay.message.endDate).valueOf())
   expect(midStart.length).toBeLessThan(planningMessages.length)
   expect(midStart.length).toBeGreaterThan(0)
 })

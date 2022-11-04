@@ -411,18 +411,24 @@ export const findActivity = (id: string, category: GroupedActivitySet['category'
   }
 }
 
-export const ordersStartingBeforeTime = (messages: MessagePlanning[], time: number) => {
+export const ordersStartingBeforeTime = (messages: MessagePlanning[], time: number): MessagePlanning[] => {
   return messages.filter((msg) => {
     const tStart = moment(msg.message.startDate).valueOf()
     return tStart <= time
   })
 }
 
-export const ordersEndingAfterTime = (messages: MessagePlanning[], time: number) => {
+export const ordersEndingAfterTime = (messages: MessagePlanning[], time: number): MessagePlanning[] => {
   return messages.filter((msg) => {
     const tEnd = moment(msg.message.endDate).valueOf()
     return tEnd >= time
   })
+}
+
+export const ordersOverlappingTime = (messages: MessagePlanning[], time: number): MessagePlanning[] => {
+  const beforeTime = ordersStartingBeforeTime(messages, time)
+  const afterTime = ordersEndingAfterTime(beforeTime, time)
+  return afterTime
 }
 
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {

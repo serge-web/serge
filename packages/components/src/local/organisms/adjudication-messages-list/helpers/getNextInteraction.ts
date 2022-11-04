@@ -1,7 +1,7 @@
 import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import _ from 'lodash'
 import moment from 'moment'
-import { findPlannedGeometries, findTouching, injectTimes, invertMessages, ordersEndingAfterTime, ordersStartingBeforeTime, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, findTouching, GeomWithOrders, injectTimes, invertMessages, ordersOverlappingTime, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -11,40 +11,52 @@ const useDate = (msg: MessageInteraction): string => {
   return inter.startTime
 }
 
-const timeOfLatestInteraction = (interactions: MessageInteraction[]): number => {
+export const timeOfLatestInteraction = (interactions: MessageInteraction[]): number => {
+  if (!interactions.length) {
+    throw Error('should not be called with zero length interactions')
+  }
   const sorted = _.sortBy(interactions, useDate) as MessageInteraction[]
-  console.table(interactions.map((val) => { return { ref: val.message.Reference, date: useDate(val) } }))
   const date = useDate(sorted[sorted.length - 1])
   return moment(date).valueOf()
 }
 
-export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
+const timeOfFirstPlan = (orders: MessagePlanning[]): number => {
+  if (!orders.length) {
+    throw Error('should not be called with zero length orders')
+  }
+  const sortFunc = (order: MessagePlanning) => {
+    return moment(order.message.startDate).valueOf()
+  }
+  const sorted = _.sortBy(orders, sortFunc)
+  return sortFunc(sorted[0])
+}
+
+export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[]): PlanningContact | undefined => {
-  console.log('getting next interaction after', datetime, orders.length, activities.length, interactions.length)
+  // console.log('getting next interaction after', datetime, orders.length, activities.length, interactions.length)
 
-  const latestInteraction = timeOfLatestInteraction(interactions)
-  console.log('latest', latestInteraction)
+  const latestInteraction = interactions.length ? timeOfLatestInteraction(interactions) : timeOfFirstPlan(orders)
 
-  const ordersStartingOk = ordersStartingBeforeTime(orders, latestInteraction)
-  const ordersEndingOk = ordersEndingAfterTime(ordersStartingOk, latestInteraction)
+  const trimmedOrders = ordersOverlappingTime(orders, latestInteraction)
 
-  const newGeometries = invertMessages(ordersEndingOk, activities)
+  const newGeometries = invertMessages(trimmedOrders, activities)
   const withTimes = injectTimes(newGeometries)
 
-  const geomsStartingBeforeTime = withTimes.filter((val) => {
+  const startBeforeTime = (val: GeomWithOrders) => {
     const props = val.geometry.properties as PlannedProps
-    return props.startTime <= latestInteraction
-  })
-
-  const gemosFinishingAfterTime = geomsStartingBeforeTime.filter((val) => {
+    return latestInteraction && props.startTime <= latestInteraction
+  }
+  const endAfterTime = (val: GeomWithOrders) => {
     const props = val.geometry.properties as PlannedProps
-    return props.endTime >= latestInteraction
-  })
+    return latestInteraction && props.endTime >= latestInteraction
+  }
 
-  const geometriesInTimeWindow = findPlannedGeometries(gemosFinishingAfterTime, latestInteraction, 160)
+  const trimmedGeoms = latestInteraction ? withTimes.filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val)) : withTimes
 
-  console.log('geoms in window.', moment(latestInteraction).toISOString(), withTimes.length, geomsStartingBeforeTime.length, gemosFinishingAfterTime.length, geometriesInTimeWindow.length)
-  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
+  const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, latestInteraction, 160)
+
+  //  console.log('geoms in window.', moment(latestInteraction).toISOString(), withTimes.length, geomsStartingBeforeTime.length, gemosFinishingAfterTime.length, geometriesInTimeWindow.length)
+  //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
   // now do spatial binning
   const bins = spatialBinning(geometriesInTimeWindow, 2)
@@ -65,17 +77,28 @@ export const getNextInteraction = (datetime: number, orders: MessagePlanning[],
   binnedOrders.forEach((bin: SpatialBin, _index: number) => {
     const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
       interactionsTested)
-    //    console.log('bin', index, bin.orders.length, newContacts.length, Object.keys(interactionsTested).length)
+    //    console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length, interactionsProcessed.length, Object.keys(interactionsTested).length)
     contacts.push(...newContacts)
   })
 
-  console.log('contacts', contacts.length)
+  if (contacts.length) {
+    // sort then
+    const sortFunc = (order: PlanningContact): number => {
+      return order.timeStart
+    }
+    const sortedContacts: PlanningContact[] = _.sortBy(contacts, sortFunc)
+    // console.table(sortedContacts.map((value) => { return { id: value.id, time: moment(value.timeStart).toISOString() } }))
 
-  // CHANGE LOGIC:
-  // - drop irrelevant orders: one which start after current time or end before current time
-  // - get permutations
-  // - sort into ascending order (start time)
-  // - de
+    const first = sortedContacts[0]
 
-  return !7 || undefined
+    // CHANGE LOGIC:
+    // - drop irrelevant orders: one which start after current time or end before current time
+    // - get permutations
+    // - sort into ascending order (start time)
+    // - de
+
+    return first
+  } else {
+    return undefined
+  }
 }
