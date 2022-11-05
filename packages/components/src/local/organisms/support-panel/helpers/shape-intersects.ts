@@ -49,11 +49,25 @@ export const lineLineContact = (lineOne: LineString, lineOneTime: TimePeriod, li
       const timeOfCrossing = (line: LineString, point: Point, period: TimePeriod): number => {
         const splitPoint = turf.point(point.coordinates)
         const fLine = turf.lineString(line.coordinates)
-        const beforeSection = turf.lineSplit(fLine, splitPoint).features[0]
-        const fullLen = turf.length(fLine, { units: 'kilometers' })
-        const len = turf.length(beforeSection, { units: 'kilometers' })
-        const proportion = len / fullLen
-        const time = period[0] + (period[1] - period[0]) * proportion
+        const splitLine = turf.lineSplit(fLine, splitPoint)
+        let time
+        if (splitLine.features.length > 1) {
+          const beforeSection = splitLine.features[0]
+          const fullLen = turf.length(fLine, { units: 'kilometers' })
+          const len = turf.length(beforeSection, { units: 'kilometers' })
+          const proportion = len / fullLen
+          time = period[0] + (period[1] - period[0]) * proportion
+        } else {
+          // only one leg. So, point was at start or end of data
+          if (turf.booleanEqual(turf.point(point.coordinates), turf.point(line.coordinates[0]))) {
+            time = period[0]
+          } else if (turf.booleanEqual(turf.point(point.coordinates), turf.point(line.coordinates[line.coordinates.length - 1]))) {
+            time = period[1]
+          } else {
+            console.warn('Wrong presumption about splitting line by point', point.coordinates, line.coordinates[0], line.coordinates[line.coordinates.length - 1])
+            time = period[0]
+          }
+        }
         return time
       }
 

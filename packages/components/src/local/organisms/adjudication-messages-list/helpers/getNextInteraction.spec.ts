@@ -48,7 +48,7 @@ const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_ME
 it('process successive interactions', () => {
   const interactions: MessageInteraction[] = []
   const results: Record<string, any> = []
-  for (let ctr = 0; ctr < 2; ctr++) {
+  for (let ctr = 0; ctr < 1; ctr++) {
     const contact = getNextInteraction(planningMessages2, filledInPerForcePlanningActivities, interactions, ctr, 30)
     const lastInter = interactions.length && moment(timeOfLatestInteraction(interactions)).toISOString()
     expect(contact).toBeTruthy()

@@ -679,7 +679,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
   const myTime = timePeriodForGeom(me)
   const otherTime = timePeriodForGeom(other)
   let res: PlanningContact | boolean | undefined
-  let period: number[] | undefined
   let intersection: ShapeInteraction | undefined
   const titles: string[] = []
   const monitor = (titles.includes(me.activity.message.title) ||
@@ -713,7 +712,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
               res = undefined
             }
           }
-          period = [-1, -1]
           break
         }
         case 'Polygon': {
@@ -743,7 +741,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
               res = undefined
             }
           }
-          period = [-1, -1]
           break
         }
         case 'LineString': {
@@ -756,15 +753,16 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
               res = undefined
             }
           }
-          period = [-1, -1]
           break
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanCrosses(meLine, turfPoly))
-          period = [-1, -1]
           if (res) {
             intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
+            if (intersection) {
+              console.log('inter', me.id, other.id)
+            }
             // if the line doesn't actually enter poly when it's running, cancel contact
             if (!intersection) {
               res = undefined
@@ -793,7 +791,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'LineString': {
           const otherLine = turf.lineString(otherCoords)
           res = turf.booleanCrosses(mePoly, otherLine)
-          period = [-1, -1]
           if (res) {
             intersection = linePolyContact(otherLine.geometry, otherTime, mePoly.geometry, myTime)
             // if the line doesn't actually enter poly when it's running, cancel contact
@@ -829,42 +826,16 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
     return null
   } else {
     if (res) {
-      let makeItMiss = false
-      if (period === undefined) {
-        period = timeIntersect(me, other)
-      } else {
-        // line funcs not calculating actual time. create some random data
-        const intersect = timeIntersect(me, other)
-        const start = intersect[0]
-        const end = intersect[1]
-        const interval = end - start
-        period = [start + 0.3 * randomizer() * interval, start + 0.8 * randomizer() * interval]
-        // this is a line. Make it likely to miss
-        makeItMiss = randomizer() > 0.2
-      }
-      if (makeItMiss) {
-        return null
-      } else {
-        if (intersection) {
-          const contact: PlanningContact = {
-            first: me,
-            second: other,
-            id: id,
-            intersection: intersection.intersection.geometry,
-            timeStart: intersection.startTime,
-            timeEnd: intersection.endTime
-          }
-          return contact
-        } else {
-          const contact: PlanningContact = {
-            first: me,
-            second: other,
-            id: id,
-            timeStart: period[0],
-            timeEnd: period[1]
-          }
-          return contact
+      if (intersection) {
+        const contact: PlanningContact = {
+          first: me,
+          second: other,
+          id: id,
+          intersection: intersection.intersection.geometry,
+          timeStart: intersection.startTime,
+          timeEnd: intersection.endTime
         }
+        return contact
       }
     }
     return null

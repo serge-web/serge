@@ -98,11 +98,6 @@ const tEnd = (geom: Feature<Geometry>): string => {
   return 'End:' + props.endDate
 }
 
-const showGeom = (geom: Feature<Geometry>): string => {
-  const geoAny = geom.geometry as any
-  return 'Geom:' + geom.geometry.type + '-' + geoAny.coordinates
-}
-
 export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number): PlanningContact | undefined => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
@@ -156,6 +151,11 @@ export const getNextInteraction = (orders: MessagePlanning[],
     binnedOrders.forEach((bin: SpatialBin, _index: number) => {
       const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
         interactionsTested, sensorRangeKm)
+      // if (newContacts.length) {
+      //   const cont = newContacts[0]
+      //   console.log(cont.first.geometry.geometry)
+      //   console.log(cont.second.geometry.geometry)
+      // }
       //    console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length, interactionsProcessed.length, Object.keys(interactionsTested).length)
       contacts.push(...newContacts)
     })
@@ -163,20 +163,20 @@ export const getNextInteraction = (orders: MessagePlanning[],
     interactionWindow *= 2
   }
 
-  const showInteraction = (contacts: PlanningContact[]): string => {
-    const contact = contacts[0]
-    let res = contact.id
-    res += tStart(contact.first.geometry) + ' ' + tEnd(contact.first.geometry)
-    res += ' '
-    res += tStart(contact.second.geometry) + ' ' + tEnd(contact.second.geometry)
-    res += ' '
-    res += showGeom(contact.first.geometry)
-    res += ' '
-    res += showGeom(contact.second.geometry)
-    return res
-  }
+  // const showInteraction = (contacts: PlanningContact[]): string => {
+  //   const contact = contacts[0]
+  //   let res = contact.id
+  //   res += tStart(contact.first.geometry) + ' ' + tEnd(contact.first.geometry)
+  //   res += ' '
+  //   res += tStart(contact.second.geometry) + ' ' + tEnd(contact.second.geometry)
+  //   res += ' '
+  //   res += showGeom(contact.first.geometry)
+  //   res += ' '
+  //   res += showGeom(contact.second.geometry)
+  //   return res
+  // }
 
-  console.log('contacts found', showInteraction(contacts))
+  //  console.log('contacts found', contacts)
 
   if (contacts.length) {
     // sort then
