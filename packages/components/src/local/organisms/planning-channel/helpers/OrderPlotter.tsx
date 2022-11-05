@@ -70,7 +70,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
                       res.push(cachedResult)
                     }
                   } else {
-                    const contact = touches(me, other, id, Math.random)
+                    const contact = touches(me, other, id, Math.random, 30)
                     if (contact) {
                       res.push(contact)
                     }

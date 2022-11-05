@@ -16,6 +16,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             },
             messageType: "Land Activity",
             interaction: {
+                id: "some long string",
                 startTime: "2022-11-15T00:00:00.000Z",
                 endTime: "2022-11-15T05:30:00.000Z",
                 orders1: "m_F-Blue_12",
@@ -48,6 +49,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             },
             messageType: "Land Activity",
             interaction: {
+                id: "some other long string",
                 complete: true,
                 startTime: "2022-11-15T04:00:00.000Z",
                 endTime: "2022-11-15T06:30:00.000Z",

@@ -142,7 +142,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const getInteraction = (): void => {
-    const interaction = getNextInteraction(222, planningMessages, forcePlanningActivities || [], interactionMessages)
+    const interaction = getNextInteraction(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30)
     if (interaction) {
       // send up to parent
       handleAdjudication && handleAdjudication(interaction)

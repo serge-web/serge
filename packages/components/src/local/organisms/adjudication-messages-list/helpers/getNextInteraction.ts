@@ -15,6 +15,7 @@ const useDate = (msg: MessageInteraction): string => {
 
 export const interactionFor = (contact: PlanningContact, selectedForce: ForceData, selectedRoleId: string, selectedRoleName: string, turnNumber: number, channelId: string, adjudicateTemplateId: string): MessageInteraction => {
   const interDetails: InteractionDetails = {
+    id: contact.id,
     orders1: contact.first.activity._id,
     orders2: contact.second.activity._id,
     startTime: moment(contact.timeStart).toISOString(),
@@ -109,28 +110,19 @@ export const getNextInteraction = (orders: MessagePlanning[],
 
   const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
 
-  console.log('start get next. Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString())
-  console.table(trimmedGeoms.map((val) => {
-    // return { id: val._id, start: val.message.startDate, end: val.message.endDate }
-    return { geometry: val.id, start: val.activity.message.startDate, end: val.activity.message.endDate }
-  }))
+  console.log('Get Next. Ctr:' + _ctr + ' Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString(), !7 && !!tStart && !!tEnd)
+  // console.table(trimmedGeoms.map((val) => {
+  //   // return { id: val._id, start: val.message.startDate, end: val.message.endDate }
+  //   return { geometry: val.id, start: val.activity.message.startDate, end: val.activity.message.endDate }
+  // }))
 
   // calculate suitable window. First 10%?
   const latestTime = timeOfEndOfLastPlan(orders)
   const diffMins = moment.duration(moment(latestTime).diff(moment(earliestTime))).asMinutes()
-  let interactionWindow = Math.max(diffMins / 1000, 1)
-  console.log('window', moment(earliestTime).toString(), moment(latestTime).toString(), diffMins, interactionWindow)
+  let interactionWindow = Math.max(diffMins / 10, 60)
   const contacts: PlanningContact[] = []
-  while (contacts.length === 0) {
+  while (contacts.length === 0 && interactionWindow < diffMins) {
     const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, interactionWindow)
-
-    console.table(geometriesInTimeWindow.map((val) => {
-      // return { id: val._id, start: val.message.startDate, end: val.message.endDate }
-      return { geomInWindow: val.id, start: tStart(val.geometry), end: tEnd(val.geometry) }
-    }))
-
-    console.log('trying window: ', interactionWindow, moment(earliestTime).toString(), trimmedOrders.length, geometriesInTimeWindow.length)
-
     //  console.log('geoms in window.', moment(latestInteraction).toISOString(), withTimes.length, geomsStartingBeforeTime.length, gemosFinishingAfterTime.length, geometriesInTimeWindow.length)
     //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
@@ -143,7 +135,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
       if (!inter) {
         throw Error('Interaction missing')
       }
-      return inter.orders1 + ' ' + inter.orders2
+      return inter.id
     })
     const interactionsConsidered: string[] = []
     const interactionsTested: Record<string, PlanningContact | null> = {}
@@ -151,34 +143,14 @@ export const getNextInteraction = (orders: MessagePlanning[],
     binnedOrders.forEach((bin: SpatialBin, _index: number) => {
       const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
         interactionsTested, sensorRangeKm)
-      // if (newContacts.length) {
-      //   const cont = newContacts[0]
-      //   console.log(cont.first.geometry.geometry)
-      //   console.log(cont.second.geometry.geometry)
-      // }
-      //    console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length, interactionsProcessed.length, Object.keys(interactionsTested).length)
       contacts.push(...newContacts)
     })
 
     interactionWindow *= 2
   }
 
-  // const showInteraction = (contacts: PlanningContact[]): string => {
-  //   const contact = contacts[0]
-  //   let res = contact.id
-  //   res += tStart(contact.first.geometry) + ' ' + tEnd(contact.first.geometry)
-  //   res += ' '
-  //   res += tStart(contact.second.geometry) + ' ' + tEnd(contact.second.geometry)
-  //   res += ' '
-  //   res += showGeom(contact.first.geometry)
-  //   res += ' '
-  //   res += showGeom(contact.second.geometry)
-  //   return res
-  // }
-
-  //  console.log('contacts found', contacts)
-
   if (contacts.length) {
+    console.log('got contacts', Math.floor(interactionWindow), contacts.length, contacts[0].id)
     // sort then
     const sortFunc = (order: PlanningContact): number => {
       return order.timeStart

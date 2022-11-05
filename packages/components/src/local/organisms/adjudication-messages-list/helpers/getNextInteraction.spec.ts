@@ -1,8 +1,7 @@
 import { PLANNING_MESSAGE } from '@serge/config'
 import { ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessagesBulk } from '@serge/mocks'
-import moment from 'moment'
-import { getNextInteraction, interactionFor, timeOfLatestInteraction } from './getNextInteraction'
+import { getNextInteraction, interactionFor } from './getNextInteraction'
 
 const wargame = P9Mock.data
 const forces = wargame.forces.forces
@@ -47,16 +46,20 @@ const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_ME
 
 it('process successive interactions', () => {
   const interactions: MessageInteraction[] = []
-  const results: Record<string, any> = []
-  for (let ctr = 0; ctr < 1; ctr++) {
-    const contact = getNextInteraction(planningMessages2, filledInPerForcePlanningActivities, interactions, ctr, 30)
-    const lastInter = interactions.length && moment(timeOfLatestInteraction(interactions)).toISOString()
-    expect(contact).toBeTruthy()
+  let contact: any = 5
+  for (let ctr = 0; ctr < 20 && contact; ctr++) {
+    contact = getNextInteraction(planningMessages2, filledInPerForcePlanningActivities, interactions, ctr, 30)
     if (contact) {
       const msgInter2: MessageInteraction = interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
       interactions.push(msgInter2)
-      results.push({ contactStart: moment(contact.timeStart).toISOString(), id: contact.id, latestInter: lastInter, count: interactions.length })
     }
   }
-  console.table(results)
+  console.table(interactions.map((inter) => {
+    const interact = inter.details.interaction
+    if (interact) {
+      return { id: interact.id, start: interact.startTime, end: interact.endTime }
+    } else {
+      return { id: 'n/a' }
+    }
+  }))
 })

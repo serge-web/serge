@@ -185,19 +185,20 @@ export interface CollaborationDetails {
  * NOTE: we use `From` details to denote who is adjudicating the interactions
 */
 export interface InteractionDetails {
+  /** unique id for this interaction (includes orders and geometries) */
+  readonly id: string
   /** whether adjudication of this interaction is complete */
   complete?: boolean
   /** first set of orders this relates to */
-  orders1: string
+  readonly orders1: string
   /** second (optional) set of orders this relates to */
-  orders2?: string
+  readonly orders2?: string
   /** interaction start time */
-  startTime: string
+  readonly startTime: string
   /** interaction end time */
-  endTime: string
+  readonly endTime: string
   /** geometry describing area of interaction */
-  geometry?: Geometry
-
+  readonly geometry?: Geometry
 }
 
 export interface MessageCustom extends CoreMessage {

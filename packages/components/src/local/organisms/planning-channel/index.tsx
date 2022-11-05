@@ -274,6 +274,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const handleAdjudication = (contact: PlanningContact): void => {
     console.log('Apply some adjudication for', contact.id, contact)
     const interDetails: InteractionDetails = {
+      id: contact.id,
       orders1: contact.first.activity._id,
       orders2: contact.second.activity._id,
       startTime: moment(contact.timeStart).toISOString(),

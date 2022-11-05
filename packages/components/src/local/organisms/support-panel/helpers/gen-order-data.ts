@@ -759,9 +759,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
           res = (turf.booleanCrosses(meLine, turfPoly))
           if (res) {
             intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
-            if (intersection) {
-              console.log('inter', me.id, other.id)
-            }
             // if the line doesn't actually enter poly when it's running, cancel contact
             if (!intersection) {
               res = undefined
