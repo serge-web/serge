@@ -6,7 +6,7 @@ import {
 import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { Feature, Geometry } from 'geojson'
+import { Feature, Geometry, Polygon } from 'geojson'
 import L from 'leaflet'
 import moment from 'moment-timezone'
 import { lineLineContact, linePointContact, linePolyContact, ShapeInteraction, timeIntersect2, TimePeriod } from './shape-intersects'
@@ -158,7 +158,7 @@ export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number
   return [start, end]
 }
 
-const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
+export const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
   const props = geom.geometry.properties as PlannedProps
   return [props.startTime || -1, props.endTime || -1]
 }
@@ -384,6 +384,10 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
     return !!findGeometryInGroup(id, val)
   })
   if (!group) {
+    console.log('Failed to find group in force', forceId, 'id:', id)
+    force.groupedActivities.forEach((group) => {
+      console.table(group.activities)
+    })
     throw Error('Failed to find group activities for this activity:' + id)
   }
   const activity = findGeometryInGroup(id, group)
@@ -803,14 +807,15 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanOverlap(mePoly, turfPoly))
           if (res) {
-            const intersects = turf.intersect(mePoly, turfPoly)
+            const intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
             if (!intersects) {
               throw Error('One method reported overlap, the other didn\'t')
             }
+            const fPoly = turf.polygon(intersects.geometry.coordinates)
             intersection = {
               startTime: intersectionTime[0],
               endTime: intersectionTime[1],
-              intersection: intersects.geometry[0]
+              intersection: fPoly
             }
           }
           break
