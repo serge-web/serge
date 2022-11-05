@@ -5,10 +5,10 @@ exports[`CheckboxType renders correctly 1`] = `
   <div>
     <div>
       <b>
-        Blue-12
+        Blue-6
          - 
       </b>
-      Order item 12 Kinetic
+      Order item 6 Transit
        - 
       <b />
     </div>
@@ -42,14 +42,9 @@ exports[`CheckboxType renders correctly 1`] = `
           >
             <ul>
               <li>
-                Blue:25
+                Blue:18
                  - 
-                Missile
-              </li>
-              <li>
-                Blue:11
-                 - 
-                Carrier
+                mpa
               </li>
             </ul>
           </div>
@@ -82,14 +77,19 @@ exports[`CheckboxType renders correctly 1`] = `
           >
             <ul>
               <li>
-                Red Force:31
+                Red Force:10
                  - 
-                Auxiliary
+                frigate-ta
               </li>
               <li>
-                Red Force:45
+                Red Force:56
                  - 
-                MCMV
+                frigate-ta
+              </li>
+              <li>
+                Red Force:8
+                 - 
+                SSN
               </li>
             </ul>
           </div>
@@ -119,9 +119,12 @@ exports[`CheckboxType renders correctly 1`] = `
           <div
             className="MuiCardContent-root"
           >
-            <span>
-              N/A
-            </span>
+            <ul>
+               
+              <span />
+              <span />
+              <span />
+            </ul>
           </div>
         </div>
       </div>
