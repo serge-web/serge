@@ -5,10 +5,10 @@ exports[`CheckboxType renders correctly 1`] = `
   <div>
     <div>
       <b>
-        Blue-6
+        Blue-18
          - 
       </b>
-      Order item 6 Transit
+      Order item 18 Asymmetric
        - 
       <b />
     </div>
@@ -45,6 +45,16 @@ exports[`CheckboxType renders correctly 1`] = `
                 Blue:18
                  - 
                 mpa
+              </li>
+              <li>
+                Blue:24
+                 - 
+                frigate-ta
+              </li>
+              <li>
+                Blue:36
+                 - 
+                Missile
               </li>
             </ul>
           </div>
@@ -86,11 +96,6 @@ exports[`CheckboxType renders correctly 1`] = `
                  - 
                 frigate-ta
               </li>
-              <li>
-                Red Force:8
-                 - 
-                SSN
-              </li>
             </ul>
           </div>
         </div>
@@ -121,8 +126,6 @@ exports[`CheckboxType renders correctly 1`] = `
           >
             <ul>
                
-              <span />
-              <span />
               <span />
             </ul>
           </div>
