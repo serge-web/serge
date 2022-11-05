@@ -9,7 +9,7 @@ import * as turf from '@turf/turf'
 import { Feature, Geometry } from 'geojson'
 import L from 'leaflet'
 import moment from 'moment-timezone'
-import { linePolyContact, ShapeInteraction, TimePeriod } from './shape-intersects'
+import { lineLineContact, linePointContact, linePolyContact, ShapeInteraction, timeIntersect2, TimePeriod } from './shape-intersects'
 
 const msgContents: PlanningMessageStructureCore = {
   Reference: 'Blue-12',
@@ -624,7 +624,8 @@ const createContactReference = (me: string, other: string): string => {
 }
 
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
-  interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>): PlanningContact[] => {
+  interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
+  sensorRangeKm: number): PlanningContact[] => {
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
@@ -650,7 +651,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                     res.push(cachedResult)
                   }
                 } else {
-                  const contact = touches(me, other, id, Math.random)
+                  const contact = touches(me, other, id, Math.random, sensorRangeKm)
                   if (contact) {
                     res.push(contact)
                   }
@@ -666,7 +667,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
   return res
 }
 
-export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: { (): number }): PlanningContact | null => {
+export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
   const geom = me.geometry.geometry as any
   const myCoords = geom.coordinates
   const geom2 = other.geometry.geometry as any
@@ -679,6 +680,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
   const titles: string[] = []
   const monitor = (titles.includes(me.activity.message.title) ||
     titles.includes(other.activity.message.title))
+  const intersectionTime = timeIntersect2(myTime, otherTime)
   if (monitor) {
     console.log('check', me, other)
   }
@@ -689,17 +691,37 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Point': {
           const otherPt = turf.point(otherCoords)
           res = turf.booleanEqual(mePt, otherPt)
+          if (res) {
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: mePt
+            }
+          }
           break
         }
         case 'LineString': {
           const otherLine = turf.lineString(otherCoords)
           res = turf.booleanPointOnLine(mePt, otherLine)
+          if (res) {
+            intersection = linePointContact(otherLine.geometry, otherTime, mePt.geometry, myTime)
+            if (!intersection) {
+              res = undefined
+            }
+          }
           period = [-1, -1]
           break
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanPointInPolygon(mePt, turfPoly))
+          if (res) {
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: mePt
+            }
+          }
           break
         }
       }
@@ -711,6 +733,12 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Point': {
           const otherPt = turf.point(otherCoords)
           res = turf.booleanPointOnLine(otherPt, meLine)
+          if (res) {
+            intersection = linePointContact(meLine.geometry, myTime, otherPt.geometry, otherTime)
+            if (!intersection) {
+              res = undefined
+            }
+          }
           period = [-1, -1]
           break
         }
@@ -718,6 +746,12 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
           const otherLine = turf.lineString(otherCoords)
           const inter = turf.lineIntersect(meLine, otherLine)
           res = inter.features.length > 0
+          if (res) {
+            intersection = lineLineContact(meLine.geometry, myTime, otherLine.geometry, otherTime, lineSensorRangeKm)
+            if (!intersection) {
+              res = undefined
+            }
+          }
           period = [-1, -1]
           break
         }
@@ -743,6 +777,13 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Point': {
           const otherPt = turf.point(otherCoords)
           res = turf.booleanPointInPolygon(otherPt, mePoly)
+          if (res) {
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: otherPt
+            }
+          }
           break
         }
         case 'LineString': {
@@ -761,13 +802,17 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanOverlap(mePoly, turfPoly))
-          // TODO: fill in the other bits of the `intersects
-          //          if (res) {
-          //            const intersects =  turf.intersect(mePoly, turfPoly)
-          // if (intersects) {
-          //   intersection = intersects.geometry
-          // }
-          //        }
+          if (res) {
+            const intersects = turf.intersect(mePoly, turfPoly)
+            if (!intersects) {
+              throw Error('One method reported overlap, the other didn\'t')
+            }
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: intersects.geometry[0]
+            }
+          }
           break
         }
       }

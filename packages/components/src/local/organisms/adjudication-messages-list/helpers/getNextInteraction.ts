@@ -104,7 +104,7 @@ const showGeom = (geom: Feature<Geometry>): string => {
 }
 
 export const getNextInteraction = (orders: MessagePlanning[],
-  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number): PlanningContact | undefined => {
+  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number): PlanningContact | undefined => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
 
   const trimmedOrders = ordersOverlappingTime(orders, earliestTime)
@@ -155,7 +155,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
 
     binnedOrders.forEach((bin: SpatialBin, _index: number) => {
       const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
-        interactionsTested)
+        interactionsTested, sensorRangeKm)
       //    console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length, interactionsProcessed.length, Object.keys(interactionsTested).length)
       contacts.push(...newContacts)
     })
