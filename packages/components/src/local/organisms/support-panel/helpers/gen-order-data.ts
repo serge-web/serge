@@ -147,7 +147,6 @@ export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number
   const meProps = me.geometry.properties as PlannedProps
   const otherProps = other.geometry.properties as PlannedProps
 
-  // TODO: this next check can be deleted once the implementation is stable
   if (meProps.startTime > otherProps.endTime || meProps.endTime < otherProps.startTime) {
     typeof jest === 'undefined' && console.warn('Geometries do not overlap in time')
     return []
@@ -671,7 +670,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
   return res
 }
 
-export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
+export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
   const geom = me.geometry.geometry as any
   const myCoords = geom.coordinates
   const geom2 = other.geometry.geometry as any
