@@ -79,13 +79,13 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   if (!order1) {
     throw Error('Failed to find interaction message:' + interaction.orders1)
   }
-  order1.message.ownAssets && order1AssetsIds.push(...order1.message.ownAssets)
+  order1.message.ownAssets && order1AssetsIds.push(...order1.message.ownAssets.map((asset) => asset.asset))
   order1.message.otherAssets && order1AssetsIds.push(...order1.message.otherAssets)
 
   const order2AssetsIds: string[] = []
   const order2: MessagePlanning | undefined = interaction.orders2 ? planningMessages.find((plan): boolean => plan._id === interaction.orders2) : undefined
   if (order2) {
-    order2.message.ownAssets && order2AssetsIds.push(...order2.message.ownAssets)
+    order2.message.ownAssets && order2AssetsIds.push(...order2.message.ownAssets.map((asset) => asset.asset))
     order2.message.otherAssets && order2AssetsIds.push(...order2.message.otherAssets)
   }
 

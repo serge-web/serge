@@ -25,19 +25,34 @@ export const OrderDetail: React.FC<PropTypes> = ({
     setProps(res)
   }, [plan])
 
-  const tidyAssList = (title: string, assIds: string[] | undefined, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
+  const tidyAssList = (title: string, assIds: string[] | undefined | Array<{asset: string, number: number}>, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
+    let assetStrings: string[] = []
+    if (assIds && assIds.length) {
+      assetStrings = assIds.map((id: string | {asset: string, number: number}): string => {
+        let assetId
+        let res = ''
+        if (typeof(id) === 'string') {
+          assetId = id
+        } else {
+          assetId = id.asset
+          res = ' (' + id.number + ')'
+        }
+        const asset = findAsset(forces, assetId)
+        if (asset) {
+          const pType = platformTypes.find((plat: PlatformTypeData) => plat.uniqid === asset.platformTypeId)
+          res = asset.name + ' - ' + (pType && pType.name) + res
+        } else {
+          res = 'Not found'
+        }
+        return res
+      })
+    }
     return <Card key={title}>
       <CardContent>{title} <Link className={styles.link} onClick={() => onEdit(reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
       <CardContent>
-        {assIds && assIds.length > 0 && <ul>
-          {assIds.map((id: string, index: number) => {
-            const asset = findAsset(forces, id)
-            if (asset) {
-              const pType = platformTypes.find((plat: PlatformTypeData) => plat.uniqid === asset.platformTypeId)
-              return <li key={index}>{asset.name} - {pType && pType.name}</li>
-            } else {
-              return <div key={index}>Not Found</div>
-            }
+        {assetStrings && assetStrings.length > 0 && <ul>
+          {assetStrings.map((str: string, index: number) => {
+              return <li key={index}>{str}</li>
           })
           }
         </ul>

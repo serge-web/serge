@@ -20,7 +20,7 @@ import PlanningForces from '../planning-force'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact } from '../support-panel/helpers/gen-order-data'
+import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
@@ -241,11 +241,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   const genData = (): void => {
-    const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-    setActivityBeingPlanned(newPlan)
+    // const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+    // setActivityBeingPlanned(newPlan)
 
-    // const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
-    // console.log(newOrders)
+    const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
+    console.log(newOrders)
   }
 
   const incrementDebugStep = (): void => {
@@ -338,7 +338,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         plans.location = activityPlanned
       }
       if (ownAssets.length) {
-        plans.ownAssets = ownAssets
+        plans.ownAssets = ownAssets.map((asset: string) => { return {asset: asset, number: 0} })
       }
       if (otherAssets.length) {
         plans.otherAssets = otherAssets
@@ -397,7 +397,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
-            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
@@ -481,7 +481,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {selectedForce.umpire && !7 && // don't bother with this, but keep it in case we want to gen more data
+                          {7 && // don't bother with this, but keep it in case we want to gen more data
                             <div className={cx('leaflet-control')}>
                               <Item onClick={genData}>gen data</Item>
                             </div>

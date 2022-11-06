@@ -904,7 +904,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "type": "string",
           "propertyOrder": 70
         },
-
         ownAssets: {
           type: "array",
           format: "table",
@@ -912,16 +911,37 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           propertyOrder: 80,
           title: "Own Assets",
           items: {
-            type: "string",
-            title: "Name",
-            enum: [
-              "Tank-A",
-              "Tank-B",
-              "Infantry-A",
-              "Plane-A",
-              "Submarine-A",
-              "other"
-            ]
+            "type": "object",
+            "required": [
+              "asset",
+              "number"
+            ],
+            "properties": {
+              "asset": {
+                "title": "Asset",
+                "type": "string",
+                "enum": [
+                  "ta",
+                  "tb",
+                  "tc",
+                  "pa"
+                ],
+                "options": {
+                  "enum_titles": [
+                    "Tank A",
+                    "Tank B",
+                    "Tank C",
+                    "Plane A"  
+                  ],
+                  "grid_columns": 3
+                }
+              },
+              "number": {
+                "title": "Quantity",
+                "type": "string",
+                "format": "number"
+              }
+            }
           }
         },
         otherAssets: {

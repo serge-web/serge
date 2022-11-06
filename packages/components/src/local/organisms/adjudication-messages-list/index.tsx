@@ -37,12 +37,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (uniqid: Asset['uniqid'], assets: Asset[], index: number): React.ReactElement => {
-    const asset = assets.find((asset) => asset.uniqid === uniqid)
-    if (!asset) {
-      throw Error('Failed to find asset:' + uniqid)
+  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number}, assets: Asset[], index: number): React.ReactElement => {
+    let asset: Asset | undefined
+    const isString = typeof(assetId) === 'string'
+    let numStr = ''
+    if (isString) {
+       asset = assets.find((asset) => asset.uniqid === assetId)
+    } else {
+       asset = assets.find((asset) => asset.uniqid === assetId.asset)
+       numStr = ' (' + assetId.number + ')'
     }
-    return <li key={index}>{asset.name}</li>
+    if (!asset) {
+      throw Error('Failed to find asset:' + assetId)
+    }
+    return <li key={index}>{asset.name}{numStr}</li>
   }
 
   const renderOrderDetail = (order1: boolean, row: AdjudicationRow, assets: Asset[], activity?: PlanningActivity): React.ReactElement => {
