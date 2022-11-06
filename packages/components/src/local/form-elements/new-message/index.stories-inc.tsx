@@ -87,5 +87,5 @@ export const JustLandActivity = Template.bind({})
 const landActivityTemplate = planningMessageTemplatesMock.find((template) => template._id === 'k16e-land')
 console.log('tempalte', landActivityTemplate)
 JustLandActivity.args = {
-  templates: landActivityTemplate ? [landActivityTemplate]: planningMessageTemplatesMock
+  templates: landActivityTemplate ? [landActivityTemplate] : planningMessageTemplatesMock
 }

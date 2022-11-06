@@ -338,7 +338,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         plans.location = activityPlanned
       }
       if (ownAssets.length) {
-        plans.ownAssets = ownAssets.map((asset: string) => { return {asset: asset, number: 0} })
+        plans.ownAssets = ownAssets.map((asset: string) => { return { asset: asset, number: 0 } })
       }
       if (otherAssets.length) {
         plans.otherAssets = otherAssets

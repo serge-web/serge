@@ -222,7 +222,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   const otherForces = forces.filter((force: ForceData) => force.uniqid !== thisForce)
   if (myForce) {
     const myAssetIds = randomAssets(myForce)
-    newMsg.message.ownAssets = myAssetIds.map((asset: string) => {return{asset: asset, number: 0}})
+    newMsg.message.ownAssets = myAssetIds.map((asset: string) => { return { asset: asset, number: 0 } })
   }
   if (otherForces) {
     const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])

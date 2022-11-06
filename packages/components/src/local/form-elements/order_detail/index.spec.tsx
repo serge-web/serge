@@ -70,9 +70,9 @@ const planningMessage: MessagePlanning =
       ],
       activity: 'Asymmetric',
       ownAssets: [
-        {asset:'a179', number: 4},
-        {asset:'a185', number: 12},
-        {asset:'a197', number: 2}
+        { asset: 'a179', number: 4 },
+        { asset: 'a185', number: 12 },
+        { asset: 'a197', number: 2 }
       ],
       otherAssets: [
         'a111',

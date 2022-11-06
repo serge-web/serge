@@ -39,13 +39,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number}, assets: Asset[], index: number): React.ReactElement => {
     let asset: Asset | undefined
-    const isString = typeof(assetId) === 'string'
+    const isString = typeof (assetId) === 'string'
     let numStr = ''
     if (isString) {
-       asset = assets.find((asset) => asset.uniqid === assetId)
+      asset = assets.find((asset) => asset.uniqid === assetId)
     } else {
-       asset = assets.find((asset) => asset.uniqid === assetId.asset)
-       numStr = ' (' + assetId.number + ')'
+      asset = assets.find((asset) => asset.uniqid === assetId.asset)
+      numStr = ' (' + assetId.number + ')'
     }
     if (!asset) {
       throw Error('Failed to find asset:' + assetId)

@@ -1,5 +1,5 @@
-import { MessageStructure } from "@serge/custom-types"
-import { AssetRow } from "../../planning-assets/types/props"
+import { MessageStructure } from '@serge/custom-types'
+import { AssetRow } from '../../planning-assets/types/props'
 
 export const customiseTemplate = (_document: MessageStructure | undefined, schema: Record<string, any>, ownAssets: AssetRow[], otherAssets: AssetRow[]): Record<string, any> => {
   if (schema) {

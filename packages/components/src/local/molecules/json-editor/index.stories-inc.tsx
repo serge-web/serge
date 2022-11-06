@@ -108,7 +108,6 @@ const customiseTemplate = (_document: MessageStructure | undefined, schema: Reco
   const blueRows = blueAssets.map((asset) => toRow(asset))
   const redRows = redAssets.map((asset) => toRow(asset))
   if (schema) {
-
     const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.asset?.enum
     if (oldOwnAssets) {
       schema.properties.ownAssets.items.properties.asset.enum = blueRows.map((asset: AssetRow) => asset.id)

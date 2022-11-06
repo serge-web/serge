@@ -31,7 +31,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
       assetStrings = assIds.map((id: string | {asset: string, number: number}): string => {
         let assetId
         let res = ''
-        if (typeof(id) === 'string') {
+        if (typeof (id) === 'string') {
           assetId = id
         } else {
           assetId = id.asset
@@ -52,7 +52,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
       <CardContent>
         {assetStrings && assetStrings.length > 0 && <ul>
           {assetStrings.map((str: string, index: number) => {
-              return <li key={index}>{str}</li>
+            return <li key={index}>{str}</li>
           })
           }
         </ul>

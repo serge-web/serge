@@ -286,7 +286,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     }
     assets.push(possAsset)
   }
-  const assetObj = assets.map((asset: Asset) => { return {asset: asset.uniqid, number: Math.floor(Math.random()* 6)}})
+  const assetObj = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
 
   const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
   const targets: Asset['uniqid'][] = []

@@ -78,7 +78,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
           platformType: asset.platformTypeId
         }
         return row
-      }) 
+      })
     }
     if (!(document && document.Reference)) {
       console.error('We were relying on there being a document Reference')
