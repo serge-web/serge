@@ -50,7 +50,7 @@ export const OrderDetail: React.FC<PropTypes> = ({
     return <Card key={title}>
       <CardContent>{title} <Link className={styles.link} onClick={() => onEdit(reference)}><FontAwesomeIcon size={'lg'} icon={faEdit} /></Link></CardContent>
       <CardContent>
-        {assetStrings && assetStrings.length > 0 && <ul>
+        {assetStrings.length > 0 && <ul>
           {assetStrings.map((str: string, index: number) => {
             return <li key={index}>{str}</li>
           })
