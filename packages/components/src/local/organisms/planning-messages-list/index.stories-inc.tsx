@@ -60,7 +60,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   // remove later versions
   const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
-  const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
+  const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
   const newestMessages = mostRecentPlanningOnly(planningMessages)
   return <PlanningMessagesList
     selectedRoleName={blueRole.name}
