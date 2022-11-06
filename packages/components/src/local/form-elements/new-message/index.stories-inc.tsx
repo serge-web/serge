@@ -82,3 +82,10 @@ export const JustAdjuducation = Template.bind({})
 JustAdjuducation.args = {
   templates: [planningMessageTemplatesMock[0]]
 }
+
+export const JustLandActivity = Template.bind({})
+const landActivityTemplate = planningMessageTemplatesMock.find((template) => template._id === 'k16e-land')
+console.log('tempalte', landActivityTemplate)
+JustLandActivity.args = {
+  templates: landActivityTemplate ? [landActivityTemplate]: planningMessageTemplatesMock
+}

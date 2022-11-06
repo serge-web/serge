@@ -12,6 +12,7 @@ import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
+import { customiseTemplate } from './helpers/customise-template'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
@@ -75,20 +76,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
         {children}
       </div>
     )
-  }
-
-  const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
-    if (schema) {
-      const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.FEName?.enum
-      if (oldOwnAssets) {
-        schema.properties.ownAssets.items.properties.FEName.enum = allOwnAssets.map((asset: AssetRow) => asset.name)
-      }
-      const oldOwnTargets = schema.properties?.otherAssets?.items?.properties?.FEName?.enum
-      if (oldOwnTargets) {
-        schema.properties.otherAssets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
-      }
-    }
-    return schema
   }
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
@@ -197,7 +184,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     allTemplates={allTemplates}
                     confirmCancel={true}
-                    customiseTemplate={customiseTemplate}
+                    customiseTemplate={(template) => customiseTemplate(template, allOwnAssets, allOppAssets)}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     postBack={postBack}
@@ -215,7 +202,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     currentTurn={currentTurn}
                     gameDate={gameDate}
                     postBack={postBack}
-                    customiseTemplate={customiseTemplate}
+                    customiseTemplate={(template) => customiseTemplate(template, allOwnAssets, allOppAssets)}
                     draftMessage={draftMessage}
                   />
                 </div>
@@ -256,7 +243,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     template={adjudicationTemplate}
-                    customiseTemplate={customiseTemplate}
+                    customiseTemplate={(template) => customiseTemplate(template, allOwnAssets, allOppAssets)}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     forcePlanningActivities={forcePlanningActivities}
