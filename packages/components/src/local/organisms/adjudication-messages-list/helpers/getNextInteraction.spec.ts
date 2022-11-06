@@ -1,6 +1,7 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, Role } from '@serge/custom-types'
+import { ForceData, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessagesBulk } from '@serge/mocks'
+import { fixPerForcePlanningActivities } from '../../planning-channel/helpers/collate-plans-helper'
 import { getNextInteraction, interactionFor } from './getNextInteraction'
 
 const wargame = P9Mock.data
@@ -18,29 +19,7 @@ const messages = planningMessagesBulk
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-  return {
-    force: force.force,
-    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-      const res: GroupedActivitySet = {
-        category: group.category,
-        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-          if (typeof act === 'string') {
-            const actId = act as string
-            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-            if (!activity) {
-              throw Error('Planning activity not found:' + actId)
-            }
-            return activity
-          } else {
-            return act
-          }
-        })
-      }
-      return res
-    })
-  }
-})
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 

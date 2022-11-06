@@ -28,7 +28,7 @@ const getActivity = (activities:PerForcePlanningActivitySet[], forceId?: ForceDa
     })
   )
   if (!groupAct) {
-    throw Error('failed to find group activity')
+    throw Error('failed to find group activity' + activityId)
   }
 
   const activity = groupAct.activities.find((act: string | PlanningActivity) => {
@@ -39,7 +39,7 @@ const getActivity = (activities:PerForcePlanningActivitySet[], forceId?: ForceDa
     return actObj.uniqid === activityId
   }) as PlanningActivity
   if (!activity) {
-    throw Error('failed to find activity')
+    throw Error('failed to find activity' + activityId)
   }
   return activity
 }

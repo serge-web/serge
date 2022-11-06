@@ -167,6 +167,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.log('template not found for', message.details.messageType, 'template:', template)
       }
       if (message && template) {
+        console.log('adj', forcePlanningActivities, message.details.interaction && message.details.interaction.orders1)
         const msg = message.message
         const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
         return <>

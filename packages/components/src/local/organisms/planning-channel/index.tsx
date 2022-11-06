@@ -104,6 +104,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const adjudicationTemplateId = 'k16-adjud'
 
+  console.log(forcePlanningActivities)
+
   useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want

@@ -1,11 +1,12 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { Phase, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React, { useEffect, useState } from 'react'
+import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -52,29 +53,7 @@ forces.forEach((force: ForceData) => {
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-  return {
-    force: force.force,
-    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-      const res: GroupedActivitySet = {
-        category: group.category,
-        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-          if (typeof act === 'string') {
-            const actId = act as string
-            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-            if (!activity) {
-              throw Error('Planning activity not found:' + actId)
-            }
-            return activity
-          } else {
-            return act
-          }
-        })
-      }
-      return res
-    })
-  }
-})
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 export default {
   title: 'local/organisms/PlanningChannel',

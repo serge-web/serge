@@ -2,6 +2,7 @@ import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } fro
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
 import _ from 'lodash'
 import React from 'react'
+import { fixPerForcePlanningActivities } from 'src/local/organisms/planning-channel/helpers/collate-plans-helper'
 
 // Import component files
 import OrderDetail from './index'
@@ -26,29 +27,7 @@ const forceId = allForces[1].uniqid
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-  return {
-    force: force.force,
-    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-      const res: GroupedActivitySet = {
-        category: group.category,
-        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-          if (typeof act === 'string') {
-            const actId = act as string
-            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-            if (!activity) {
-              throw Error('Planning activity not found:' + actId)
-            }
-            return activity
-          } else {
-            return act
-          }
-        })
-      }
-      return res
-    })
-  }
-})
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 const force = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])

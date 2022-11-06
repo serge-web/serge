@@ -1,10 +1,11 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { GroupedActivitySet, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { MessagePlanning, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import * as turf from '@turf/turf'
 import { Feature, LineString, Polygon } from 'geojson'
 import moment from 'moment'
+import { fixPerForcePlanningActivities } from '../../planning-channel/helpers/collate-plans-helper'
 import {
   findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes,
   invertMessages, ordersEndingAfterTime, ordersOverlappingTime, ordersStartingBeforeTime,
@@ -18,29 +19,8 @@ const redForce = forces[2]
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
-const activities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-  return {
-    force: force.force,
-    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-      const res: GroupedActivitySet = {
-        category: group.category,
-        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-          if (typeof act === 'string') {
-            const actId = act as string
-            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-            if (!activity) {
-              throw Error('Planning activity not found:' + actId)
-            }
-            return activity
-          } else {
-            return act
-          }
-        })
-      }
-      return res
-    })
-  }
-})
+
+const activities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
