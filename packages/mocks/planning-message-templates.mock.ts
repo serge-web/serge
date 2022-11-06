@@ -907,7 +907,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         ownAssets: {
           type: "array",
           format: "table",
-          minItems: 1,
+          minItems: 0,
           propertyOrder: 80,
           title: "Own Assets",
           items: {
@@ -951,16 +951,23 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           minItems: 0,
           title: "Subject(s) of orders",
           items: {
-            type: "string",
-            title: "FE Name",
-            enum: [
-              "Structure-A",
-              "Structure-B",
-              "Asset-A",
-              "Asset-B",
-              "Organisation-A",
-              "Organisation-B"
-            ]
+            "title": "Asset",
+            "type": "string",
+            "enum": [
+              "ra",
+              "rb",
+              "rc",
+              "da"
+            ],
+            "options": {
+              "enum_titles": [
+                "Boat A",
+                "Bike B",
+                "Band C",
+                "Plane A"  
+              ],
+              "grid_columns": 3
+            }
           }
         }
       },
