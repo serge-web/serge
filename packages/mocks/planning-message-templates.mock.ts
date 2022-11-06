@@ -855,7 +855,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "type": "string",
           "propertyOrder": 20
         },
-
         startDate: {
           format: "datetime-local",
           type: "string",
@@ -896,10 +895,28 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           }
         },
         activity: {
+          "title": "Activity",
+          "propertyOrder": 65,
+          "type": "string",
+          "enum": [
+            "transit",
+            "kinetic",
+            "asymmetric"
+          ],
+          "options": {
+            "enum_titles": [
+              "Transit1",
+              "Kinetic1",
+              "Asymmetric1"
+              ]
+          }
+        },
+        activity2: {
+          title:"Activity2",
           enum: [
-            "Transit",
-            "Kinetic",
-            "Asymmetric"
+            "Transit2",
+            "Kinetic2",
+            "Asymmetric2"
           ],
           "type": "string",
           "propertyOrder": 70
