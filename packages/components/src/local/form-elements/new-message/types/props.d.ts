@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
