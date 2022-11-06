@@ -136,8 +136,6 @@ const randomRole = (roles: Role[], ctr: number): Role => {
   return randomArrayItem(roles, ctr) as Role
 }
 
-const activityTypes = ['Transit', 'Kinetic', 'Asymmetric']
-
 const flipMe = (point: number[]): number[] => {
   return [point[1], point[0]]
 }
@@ -301,9 +299,9 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     targets.push(possTarget.uniqid)
   }
 
-  const activity = randomArrayItem(activityTypes, ctr - 3)
+  const activity = randomArrayItem(orderTypes, ctr++)
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
-    randomArrayItem(orderTypes, ctr++), 5 * psora(4 * ctr), timeNow)
+    activity, 5 * psora(4 * ctr), timeNow)
 
   // sort out the overall time period
   let startDate: moment.Moment | undefined
@@ -333,11 +331,11 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   // create the message
   const message: PlanningMessageStructureCore = {
     Reference: force.forceName + '-' + ctr,
-    title: 'Order item ' + ctr + ' ' + activity,
+    title: 'Order item ' + ctr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
     location: geometries,
-    activity: activity,
+    activity: activity.name,
     ownAssets: assetObj,
     otherAssets: targets
   }
