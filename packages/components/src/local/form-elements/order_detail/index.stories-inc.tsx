@@ -2,7 +2,7 @@ import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } fro
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
 import _ from 'lodash'
 import React from 'react'
-import { fixPerForcePlanningActivities } from 'src/local/organisms/planning-channel/helpers/collate-plans-helper'
+import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
 
 // Import component files
 import OrderDetail from './index'

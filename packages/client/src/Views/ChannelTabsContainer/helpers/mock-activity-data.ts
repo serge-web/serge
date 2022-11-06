@@ -8,7 +8,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Maritime',
         activities: [
           {
-            uniqid: 'Maritime-precis-strike',
+            uniqid: 'maritime-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -31,7 +31,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-area-strike',
+            uniqid: 'maritime-area-strike',
             name: 'Area Strike',
             template: 'k16e-land',
             color: '#b0f',
@@ -54,7 +54,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-transit',
+            uniqid: 'maritime-transit',
             name: 'Transit',
             template: 'k16e-maritime',
             color: '#f33',
@@ -67,7 +67,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-area-recce',
+            uniqid: 'maritime-area-recce',
             name: 'Area Reconnaisance',
             template: 'k16e-air',
             color: '#5b0',
@@ -95,7 +95,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-point-recce',
+            uniqid: 'maritime-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -117,7 +117,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-cyber',
+            uniqid: 'maritime-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }
@@ -127,7 +127,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Land',
         activities: [
           {
-            uniqid: 'Land-precis-strike',
+            uniqid: 'land-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -150,7 +150,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-area-strike',
+            uniqid: 'land-area-strike',
             name: 'Area Strike',
             template: 'k16e-land',
             color: '#b0f',
@@ -173,7 +173,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-transit',
+            uniqid: 'land-transit',
             name: 'Transit',
             template: 'k16e-maritime',
             color: '#f33',
@@ -186,7 +186,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-area-recce',
+            uniqid: 'land-area-recce',
             name: 'Area Reconnaisance',
             template: 'k16e-air',
             color: '#5b0',
@@ -214,7 +214,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-point-recce',
+            uniqid: 'land-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -236,7 +236,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-cyber',
+            uniqid: 'land-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }
@@ -246,7 +246,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Air',
         activities: [
           {
-            uniqid: 'Air-precis-strike',
+            uniqid: 'air-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -269,7 +269,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-area-strike',
+            uniqid: 'air-area-strike',
             name: 'Area Strike',
             template: 'k16e-land',
             color: '#b0f',
@@ -292,7 +292,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-transit',
+            uniqid: 'air-transit',
             name: 'Transit',
             template: 'k16e-maritime',
             color: '#f33',
@@ -305,7 +305,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-air-recce',
+            uniqid: 'air-air-recce',
             name: 'Air Reconnaisance',
             template: 'Air Activity',
             color: '#5b0',
@@ -333,7 +333,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-point-recce',
+            uniqid: 'air-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -355,7 +355,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-cyber',
+            uniqid: 'air-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }
@@ -365,7 +365,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Other',
         activities: [
           {
-            uniqid: 'Other-precis-strike',
+            uniqid: 'other-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -388,7 +388,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Other-area-strike',
+            uniqid: 'other-area-strike',
             name: 'Area Strike',
             template: 'k16e-land',
             color: '#b0f',
@@ -411,7 +411,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Other-area-recce',
+            uniqid: 'other-area-recce',
             name: 'Area Reconnaisance',
             template: 'k16e-air',
             color: '#5b0',
@@ -439,7 +439,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Other-point-recce',
+            uniqid: 'other-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -461,7 +461,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Other-cyber',
+            uniqid: 'other-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }
@@ -476,7 +476,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Maritime',
         activities: [
           {
-            uniqid: 'Maritime-precis-strike',
+            uniqid: 'maritime-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -499,7 +499,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-area-strike',
+            uniqid: 'maritime-area-strike',
             name: 'Area Strike',
             template: 'k16e-land',
             color: '#b0f',
@@ -522,7 +522,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Maritime-transit',
+            uniqid: 'maritime-transit',
             name: 'Transit',
             template: 'k16e-maritime',
             color: '#f33',
@@ -540,7 +540,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Land',
         activities: [
           {
-            uniqid: 'Land-precis-strike',
+            uniqid: 'land-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -563,7 +563,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-point-recce',
+            uniqid: 'land-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -585,7 +585,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Land-cyber',
+            uniqid: 'land-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }
@@ -595,7 +595,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Air',
         activities: [
           {
-            uniqid: 'Air-transit',
+            uniqid: 'air-transit',
             name: 'Transit',
             template: 'k16e-maritime',
             color: '#f33',
@@ -608,7 +608,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-area-recce',
+            uniqid: 'air-area-recce',
             name: 'Area Reconnaisance',
             template: 'k16e-air',
             color: '#5b0',
@@ -636,7 +636,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-point-recce',
+            uniqid: 'air-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -658,7 +658,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Air-cyber',
+            uniqid: 'air-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }
@@ -668,7 +668,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Other',
         activities: [
           {
-            uniqid: 'Other-precis-strike',
+            uniqid: 'other-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -691,7 +691,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Other-point-recce',
+            uniqid: 'other-point-recce',
             name: 'Point Reconnaisance',
             template: 'k16e-air',
             geometries: [
@@ -713,7 +713,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
             ]
           },
           {
-            uniqid: 'Other-cyber',
+            uniqid: 'other-cyber',
             name: 'Non spatial cyber',
             template: 'k16e-other'
           }

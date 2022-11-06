@@ -335,7 +335,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
     location: geometries,
-    activity: activity.name,
+    activity: activity.uniqid,
     ownAssets: assetObj,
     otherAssets: targets
   }

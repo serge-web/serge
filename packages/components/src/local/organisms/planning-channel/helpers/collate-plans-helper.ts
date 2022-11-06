@@ -15,7 +15,7 @@ export const fixPerForcePlanningActivities = (perForcePlanningActivities: PerFor
                 const actId = act as string
                 const activity = deepCopy(planningActivities.find((act: PlanningActivity) => act.uniqid === actId)) as PlanningActivity
                 // inject the category
-                activity.uniqid = group.category + '-' + activity.uniqid
+                activity.uniqid = group.category.toLowerCase() + '-' + activity.uniqid
                 if (!activity) {
                   throw Error('Planning activity not found:' + actId)
                 }

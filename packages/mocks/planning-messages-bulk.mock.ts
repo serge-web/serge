@@ -59,11 +59,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a179",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -202,19 +202,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a128",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a157",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a147",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a153",
@@ -291,11 +291,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "land-transit",
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -445,11 +445,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -636,19 +636,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a179",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a185",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a197",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -774,15 +774,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a185",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a180",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -907,11 +907,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a171",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -946,11 +946,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T00:05:00.000Z",
             "endDate": "2022-11-15T00:05:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a130",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -1141,19 +1141,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a114",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a143",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a131",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -1291,19 +1291,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a134",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a152",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a131",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a126",
@@ -1342,19 +1342,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T00:45:00.000Z",
             "endDate": "2022-11-15T02:15:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a176",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a185",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a161",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1428,19 +1428,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "land-transit",
             "ownAssets": [
                 {
                     "asset": "a148",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a150",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a110",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a146",
@@ -1478,19 +1478,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T00:50:00.000Z",
             "endDate": "2022-11-15T03:10:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a139",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a149",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -1611,19 +1611,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a171",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a199",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a200",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a173",
@@ -1661,23 +1661,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T01:10:00.000Z",
             "endDate": "2022-11-15T03:30:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a119",
-                    "number": 2
-                },
-                {
-                    "asset": "a153",
-                    "number": 5
-                },
-                {
-                    "asset": "a146",
                     "number": 0
                 },
                 {
-                    "asset": "a154",
+                    "asset": "a153",
                     "number": 4
+                },
+                {
+                    "asset": "a146",
+                    "number": 1
+                },
+                {
+                    "asset": "a154",
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -1812,15 +1812,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "land-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a197",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a174",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2008,11 +2008,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a105",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a121",
@@ -2147,23 +2147,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 0
-                },
-                {
-                    "asset": "a153",
-                    "number": 2
-                },
-                {
-                    "asset": "a119",
                     "number": 5
                 },
                 {
-                    "asset": "a159",
+                    "asset": "a153",
+                    "number": 3
+                },
+                {
+                    "asset": "a119",
                     "number": 1
+                },
+                {
+                    "asset": "a159",
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -2297,11 +2297,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a159",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a146",
@@ -2309,11 +2309,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a116",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a148",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2346,19 +2346,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T01:50:00.000Z",
             "endDate": "2022-11-15T02:30:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a193",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a187",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a191",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2393,7 +2393,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T01:50:00.000Z",
             "endDate": "2022-11-15T03:30:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a110",
@@ -2401,15 +2401,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a150",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a148",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a101",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2478,19 +2478,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a161",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a185",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a176",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2623,23 +2623,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a179",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a195",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a181",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a161",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2768,19 +2768,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a179",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a190",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a170",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -2907,11 +2907,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -2945,11 +2945,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T02:00:00.000Z",
             "endDate": "2022-11-15T04:50:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3094,15 +3094,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a145",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a133",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -3231,11 +3231,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a197",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a181",
@@ -3243,7 +3243,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a178",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -3434,11 +3434,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a141",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3516,11 +3516,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "air-transit",
             "ownAssets": [
                 {
                     "asset": "a198",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3649,23 +3649,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a147",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a157",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a127",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a111",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3700,11 +3700,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T02:10:00.000Z",
             "endDate": "2022-11-15T03:40:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a111",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -3778,23 +3778,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a198",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a167",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a185",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -3945,15 +3945,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a185",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a172",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -4080,11 +4080,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a137",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4219,7 +4219,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a168",
@@ -4227,7 +4227,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a186",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a173",
@@ -4410,11 +4410,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "maritime-area-recce",
             "ownAssets": [
                 {
                     "asset": "a118",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a135",
@@ -4422,7 +4422,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a109",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -4547,11 +4547,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "land-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a157",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -4678,11 +4678,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a169",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -4872,19 +4872,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "maritime-area-recce",
             "ownAssets": [
                 {
                     "asset": "a156",
-                    "number": 0
-                },
-                {
-                    "asset": "a147",
                     "number": 5
                 },
                 {
+                    "asset": "a147",
+                    "number": 4
+                },
+                {
                     "asset": "a153",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -5001,23 +5001,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a117",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a156",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a154",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a109",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5050,19 +5050,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T02:55:00.000Z",
             "endDate": "2022-11-15T04:15:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a109",
-                    "number": 3
-                },
-                {
-                    "asset": "a141",
                     "number": 0
                 },
                 {
+                    "asset": "a141",
+                    "number": 3
+                },
+                {
                     "asset": "a130",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -5127,11 +5127,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a197",
@@ -5139,11 +5139,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a185",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a180",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5274,19 +5274,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a133",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a145",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a115",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -5319,11 +5319,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T03:15:00.000Z",
             "endDate": "2022-11-15T05:35:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a101",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -5446,15 +5446,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a170",
@@ -5462,7 +5462,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a189",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -5609,15 +5609,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a143",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a131",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -5801,15 +5801,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Air Reconnaisance",
+            "activity": "air-air-recce",
             "ownAssets": [
                 {
                     "asset": "a152",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a131",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -5948,11 +5948,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a136",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6086,7 +6086,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a194",
@@ -6217,23 +6217,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "other-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a187",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a193",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a171",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a199",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -6394,23 +6394,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "air-area-strike",
             "ownAssets": [
                 {
                     "asset": "a199",
-                    "number": 0
-                },
-                {
-                    "asset": "a200",
-                    "number": 2
-                },
-                {
-                    "asset": "a173",
                     "number": 5
                 },
                 {
-                    "asset": "a196",
+                    "asset": "a200",
                     "number": 0
+                },
+                {
+                    "asset": "a173",
+                    "number": 1
+                },
+                {
+                    "asset": "a196",
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6444,19 +6444,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T04:15:00.000Z",
             "endDate": "2022-11-15T05:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a191",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a199",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -6606,11 +6606,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a120",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -6764,19 +6764,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "land-area-strike",
             "ownAssets": [
                 {
                     "asset": "a120",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a154",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a146",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a153",
@@ -6921,7 +6921,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "land-area-strike",
             "ownAssets": [
                 {
                     "asset": "a153",
@@ -6929,7 +6929,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a118",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -7083,11 +7083,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a199",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7214,19 +7214,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a139",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a145",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a110",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7375,11 +7375,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "air-area-strike",
             "ownAssets": [
                 {
                     "asset": "a150",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a148",
@@ -7387,11 +7387,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a101",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a136",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7512,15 +7512,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "other-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a185",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a176",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7637,7 +7637,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a151",
@@ -7788,11 +7788,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a143",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -7982,15 +7982,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Air Reconnaisance",
+            "activity": "air-air-recce",
             "ownAssets": [
                 {
                     "asset": "a107",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a129",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -8145,11 +8145,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a200",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8184,19 +8184,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T05:55:00.000Z",
             "endDate": "2022-11-15T08:05:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a133",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a136",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a155",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -8231,15 +8231,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T05:55:00.000Z",
             "endDate": "2022-11-15T08:15:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a135",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a130",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -8274,15 +8274,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T06:15:00.000Z",
             "endDate": "2022-11-15T09:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a167",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a196",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a197",
@@ -8290,7 +8290,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a172",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -8364,23 +8364,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a116",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a152",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a146",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a156",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -8413,15 +8413,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T06:15:00.000Z",
             "endDate": "2022-11-15T06:15:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a198",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a176",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8551,11 +8551,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a168",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a179",
@@ -8755,7 +8755,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "maritime-area-recce",
             "ownAssets": [
                 {
                     "asset": "a156",
@@ -8882,7 +8882,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a117",
@@ -8925,7 +8925,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T06:45:00.000Z",
             "endDate": "2022-11-15T08:15:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a168",
@@ -8933,7 +8933,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a200",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a172",
@@ -8941,7 +8941,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a185",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -9007,15 +9007,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a136",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a118",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -9144,11 +9144,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -9274,11 +9274,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a106",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a131",
@@ -9424,15 +9424,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a168",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a176",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -9499,11 +9499,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a192",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a195",
@@ -9511,11 +9511,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a171",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a197",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -9633,7 +9633,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a197",
@@ -9641,15 +9641,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a196",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a167",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a188",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -9836,15 +9836,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a188",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a178",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -9919,19 +9919,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "air-transit",
             "ownAssets": [
                 {
                     "asset": "a197",
-                    "number": 0
-                },
-                {
-                    "asset": "a185",
                     "number": 5
                 },
                 {
+                    "asset": "a185",
+                    "number": 0
+                },
+                {
                     "asset": "a180",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10126,11 +10126,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a144",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -10256,15 +10256,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a178",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10415,11 +10415,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a159",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10453,7 +10453,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T07:10:00.000Z",
             "endDate": "2022-11-15T08:50:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a130",
@@ -10461,7 +10461,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a133",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10644,7 +10644,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a130",
@@ -10652,7 +10652,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a125",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10773,23 +10773,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a200",
-                    "number": 3
-                },
-                {
-                    "asset": "a192",
-                    "number": 2
-                },
-                {
-                    "asset": "a193",
                     "number": 1
                 },
                 {
-                    "asset": "a167",
+                    "asset": "a192",
+                    "number": 0
+                },
+                {
+                    "asset": "a193",
                     "number": 5
+                },
+                {
+                    "asset": "a167",
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -10823,19 +10823,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T07:40:00.000Z",
             "endDate": "2022-11-15T10:40:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a109",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a145",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a138",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -10910,11 +10910,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a192",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10949,15 +10949,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T07:50:00.000Z",
             "endDate": "2022-11-15T08:20:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a158",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a118",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10992,23 +10992,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T07:50:00.000Z",
             "endDate": "2022-11-15T08:00:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a145",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a153",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a120",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a101",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -11138,11 +11138,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a161",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11283,15 +11283,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a153",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a145",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a152",
@@ -11445,23 +11445,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a118",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a158",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a157",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a115",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -11596,7 +11596,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "land-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a115",
@@ -11604,15 +11604,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a147",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a138",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a144",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11739,11 +11739,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a190",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -11874,23 +11874,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a192",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a200",
-                    "number": 3
-                },
-                {
-                    "asset": "a181",
                     "number": 4
                 },
                 {
+                    "asset": "a181",
+                    "number": 5
+                },
+                {
                     "asset": "a175",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11925,15 +11925,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T08:50:00.000Z",
             "endDate": "2022-11-15T11:40:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a175",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a178",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12074,15 +12074,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "land-area-strike",
             "ownAssets": [
                 {
                     "asset": "a180",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a178",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12117,23 +12117,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T08:50:00.000Z",
             "endDate": "2022-11-15T08:50:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a169",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a199",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a165",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a177",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12331,11 +12331,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "maritime-area-recce",
             "ownAssets": [
                 {
                     "asset": "a129",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12525,11 +12525,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a170",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a190",
@@ -12537,7 +12537,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a179",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12674,23 +12674,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a135",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a154",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a134",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a129",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12809,19 +12809,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a178",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a187",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a166",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -13000,23 +13000,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a195",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a197",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a171",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a178",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13157,15 +13157,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a151",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a146",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a155",
@@ -13326,11 +13326,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a176",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -13404,11 +13404,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "land-transit",
             "ownAssets": [
                 {
                     "asset": "a130",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13534,19 +13534,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a181",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a172",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -13699,19 +13699,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a117",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a135",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a110",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13746,7 +13746,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T08:55:00.000Z",
             "endDate": "2022-11-15T09:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a199",
@@ -13784,11 +13784,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T08:55:00.000Z",
             "endDate": "2022-11-15T09:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a172",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13822,23 +13822,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T08:55:00.000Z",
             "endDate": "2022-11-15T09:55:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a107",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a155",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a105",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a130",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13981,11 +13981,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a178",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -14128,15 +14128,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a126",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a155",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a145",
@@ -14218,11 +14218,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "land-transit",
             "ownAssets": [
                 {
                     "asset": "a195",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -14343,11 +14343,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "other-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a195",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -14494,15 +14494,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a177",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a180",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -14692,15 +14692,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a179",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -14829,7 +14829,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a170",
@@ -14837,7 +14837,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a200",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a165",
@@ -14845,7 +14845,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a177",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -14970,11 +14970,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a128",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -15164,19 +15164,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a112",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a141",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a129",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -15364,23 +15364,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "maritime-area-recce",
             "ownAssets": [
                 {
                     "asset": "a132",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a150",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a129",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a121",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -15513,19 +15513,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a175",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a181",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -15679,15 +15679,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "land-area-strike",
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a148",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a108",
@@ -15695,7 +15695,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a144",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -15826,19 +15826,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a144",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a137",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a146",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -16030,23 +16030,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Air Reconnaisance",
+            "activity": "air-air-recce",
             "ownAssets": [
                 {
                     "asset": "a170",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a198",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a199",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a172",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -16176,23 +16176,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a117",
-                    "number": 2
-                },
-                {
-                    "asset": "a151",
-                    "number": 0
-                },
-                {
-                    "asset": "a144",
                     "number": 5
                 },
                 {
-                    "asset": "a152",
+                    "asset": "a151",
+                    "number": 5
+                },
+                {
+                    "asset": "a144",
                     "number": 3
+                },
+                {
+                    "asset": "a152",
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -16225,15 +16225,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T10:05:00.000Z",
             "endDate": "2022-11-15T12:55:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a195",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a173",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16376,7 +16376,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a160",
@@ -16384,7 +16384,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a118",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -16417,23 +16417,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T10:15:00.000Z",
             "endDate": "2022-11-15T10:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a144",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a151",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a116",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a157",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16636,23 +16636,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Air Reconnaisance",
+            "activity": "air-air-recce",
             "ownAssets": [
                 {
                     "asset": "a157",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a156",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a114",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a146",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16774,7 +16774,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a191",
@@ -16782,11 +16782,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a186",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a190",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -16915,15 +16915,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a108",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a148",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a146",
@@ -17094,7 +17094,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a200",
@@ -17102,11 +17102,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a181",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a174",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -17140,7 +17140,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T10:55:00.000Z",
             "endDate": "2022-11-15T12:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a178",
@@ -17148,11 +17148,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a194",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a179",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a177",
@@ -17344,7 +17344,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a177",
@@ -17352,11 +17352,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a188",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a169",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -17546,7 +17546,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a199",
@@ -17683,15 +17683,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a165",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a199",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a169",
@@ -17699,7 +17699,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a189",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -17838,15 +17838,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a143",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a131",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -18033,15 +18033,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Air Reconnaisance",
+            "activity": "air-air-recce",
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a180",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -18182,11 +18182,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a138",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -18332,11 +18332,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "air-area-strike",
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -18540,11 +18540,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a190",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a196",
@@ -18556,7 +18556,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a166",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -18679,11 +18679,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a108",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -18834,23 +18834,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a161",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a197",
-                    "number": 3
-                },
-                {
-                    "asset": "a165",
                     "number": 0
                 },
                 {
-                    "asset": "a180",
+                    "asset": "a165",
                     "number": 4
+                },
+                {
+                    "asset": "a180",
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -18992,11 +18992,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a180",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -19031,11 +19031,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T11:05:00.000Z",
             "endDate": "2022-11-15T13:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a134",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -19069,7 +19069,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T11:10:00.000Z",
             "endDate": "2022-11-15T14:10:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a166",
@@ -19077,11 +19077,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a181",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a171",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19239,15 +19239,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a115",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a133",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -19369,11 +19369,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a154",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19560,7 +19560,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a167",
@@ -19637,7 +19637,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "maritime-transit",
             "ownAssets": [
                 {
                     "asset": "a154",
@@ -19645,11 +19645,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a144",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a150",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -19841,23 +19841,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a114",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a153",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a151",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a107",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -19982,19 +19982,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a107",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a138",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a127",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -20136,15 +20136,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a180",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a195",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a165",
@@ -20152,7 +20152,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a178",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -20282,19 +20282,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a130",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a142",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a112",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -20424,11 +20424,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a158",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -20565,7 +20565,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a161",
@@ -20573,15 +20573,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a198",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a168",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a188",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -20704,7 +20704,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a140",
@@ -20712,7 +20712,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a127",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -20781,15 +20781,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "air-transit",
             "ownAssets": [
                 {
                     "asset": "a148",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a128",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -20823,23 +20823,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T12:45:00.000Z",
             "endDate": "2022-11-15T13:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a133",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a158",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a145",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a146",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -20873,11 +20873,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T13:00:00.000Z",
             "endDate": "2022-11-15T13:30:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a192",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -20911,19 +20911,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T13:00:00.000Z",
             "endDate": "2022-11-15T13:50:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a185",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a191",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a169",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21044,15 +21044,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a197",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a198",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a171",
@@ -21256,7 +21256,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a194",
@@ -21264,7 +21264,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a189",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a197",
@@ -21389,23 +21389,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "other-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a117",
-                    "number": 4
-                },
-                {
-                    "asset": "a159",
                     "number": 2
                 },
                 {
+                    "asset": "a159",
+                    "number": 1
+                },
+                {
                     "asset": "a150",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a142",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21439,11 +21439,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T13:05:00.000Z",
             "endDate": "2022-11-15T15:25:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a117",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a151",
@@ -21451,11 +21451,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a142",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a150",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -21489,11 +21489,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T13:25:00.000Z",
             "endDate": "2022-11-15T16:05:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "maritime-cyber",
             "ownAssets": [
                 {
                     "asset": "a150",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -21611,11 +21611,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "other-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a197",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21809,11 +21809,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a136",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a142",
@@ -21821,7 +21821,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a106",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21956,19 +21956,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a144",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a158",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -22089,15 +22089,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "air-point-recce",
             "ownAssets": [
                 {
                     "asset": "a180",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a173",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -22219,11 +22219,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a148",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a130",
@@ -22261,7 +22261,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T14:10:00.000Z",
             "endDate": "2022-11-15T15:40:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "air-cyber",
             "ownAssets": [
                 {
                     "asset": "a139",
@@ -22411,7 +22411,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "air-area-strike",
             "ownAssets": [
                 {
                     "asset": "a160",
@@ -22419,7 +22419,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a126",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -22453,11 +22453,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T14:40:00.000Z",
             "endDate": "2022-11-15T16:30:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a198",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -22584,15 +22584,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "other-point-recce",
             "ownAssets": [
                 {
                     "asset": "a129",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a132",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -22783,15 +22783,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "land-area-recce",
             "ownAssets": [
                 {
                     "asset": "a131",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a126",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -22918,23 +22918,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a165",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
                     "number": 5
                 },
                 {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
                     "asset": "a195",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a169",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -23077,23 +23077,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "maritime-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a148",
-                    "number": 0
-                },
-                {
-                    "asset": "a143",
                     "number": 2
                 },
                 {
+                    "asset": "a148",
+                    "number": 1
+                },
+                {
+                    "asset": "a143",
+                    "number": 1
+                },
+                {
                     "asset": "a152",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -23285,7 +23285,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "maritime-area-recce",
             "ownAssets": [
                 {
                     "asset": "a195",
@@ -23293,7 +23293,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a174",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -23443,15 +23443,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a177",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -23596,11 +23596,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a153",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -23759,11 +23759,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a170",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -23886,11 +23886,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "maritime-point-recce",
             "ownAssets": [
                 {
                     "asset": "a165",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a198",
@@ -23898,7 +23898,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a170",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a180",
@@ -24047,11 +24047,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a132",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24084,11 +24084,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T15:15:00.000Z",
             "endDate": "2022-11-15T17:05:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "land-cyber",
             "ownAssets": [
                 {
                     "asset": "a179",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -24215,11 +24215,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Point Reconnaisance",
+            "activity": "land-point-recce",
             "ownAssets": [
                 {
                     "asset": "a159",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a127",
@@ -24257,15 +24257,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T15:15:00.000Z",
             "endDate": "2022-11-15T17:45:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a165",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a174",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -24408,15 +24408,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "maritime-area-strike",
             "ownAssets": [
                 {
                     "asset": "a189",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a193",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a169",
@@ -24424,7 +24424,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a195",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -24622,23 +24622,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Air Reconnaisance",
+            "activity": "air-air-recce",
             "ownAssets": [
                 {
                     "asset": "a195",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a193",
-                    "number": 2
-                },
-                {
-                    "asset": "a161",
                     "number": 1
                 },
                 {
+                    "asset": "a161",
+                    "number": 5
+                },
+                {
                     "asset": "a185",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24784,15 +24784,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Strike",
+            "activity": "other-area-strike",
             "ownAssets": [
                 {
                     "asset": "a136",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a125",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24922,15 +24922,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "air-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a194",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a179",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25063,7 +25063,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Precision Strike",
+            "activity": "other-precis-strike",
             "ownAssets": [
                 {
                     "asset": "a140",
@@ -25138,11 +25138,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "air-transit",
             "ownAssets": [
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a175",
@@ -25180,7 +25180,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "startDate": "2022-11-15T15:20:00.000Z",
             "endDate": "2022-11-15T16:50:00.000Z",
             "location": [],
-            "activity": "Non spatial cyber",
+            "activity": "other-cyber",
             "ownAssets": [
                 {
                     "asset": "a155",
@@ -25376,15 +25376,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Area Reconnaisance",
+            "activity": "other-area-recce",
             "ownAssets": [
                 {
                     "asset": "a126",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a129",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25463,11 +25463,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "land-transit",
             "ownAssets": [
                 {
                     "asset": "a126",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a118",
@@ -25542,7 +25542,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                     }
                 }
             ],
-            "activity": "Transit",
+            "activity": "land-transit",
             "ownAssets": [
                 {
                     "asset": "a198",
@@ -25550,11 +25550,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a189",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a191",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
