@@ -1,5 +1,6 @@
 
 import { MessagePlanning, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { ForceStyle } from '@serge/helpers'
 import { Feature } from 'geojson'
 import { Layer } from 'leaflet'
 import _ from 'lodash'
@@ -19,10 +20,9 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
   return activity
 }
 
-export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, forceColor, selectedOrders }) => {
+export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, selectedOrders, forceColors }) => {
   const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
   const [layersToDelete] = useState<Layer[]>([])
-
   useEffect(() => {
     if (orders) {
       // clear existing data
@@ -36,6 +36,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
       const isSelected = withLocation.filter((msg: MessagePlanning) => selectedOrders && selectedOrders.includes(msg._id))
       const geometries = isSelected.map((msg: MessagePlanning): Feature[] => {
         if (msg.message.location) {
+          const fromForce = msg.details.from.forceId
+          const color: ForceStyle = forceColors.find((force: ForceStyle) => force.forceId === fromForce)
           const geoms = msg.message.location.map((act: PlannedActivityGeometry) => {
             const res = { ...act.geometry }
             if (res.properties) {
@@ -43,11 +45,12 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
             } else {
               res.properties = { uniqid: act.uniqid }
             }
+            res.properties.forceColor = color.color
             const activity = localFindActivity(activities, act.uniqid)
             if (activity && activity.geometries) {
               const geometry = activity.geometries.find((geom: PlanningActivityGeometry) => geom.uniqid === act.uniqid)
               if (geometry) {
-                res.properties.name = geometry.name
+                res.properties.name = activity.name + ' - ' + geometry.name
               }
             } else {
               console.warn('failed to find activity for', act.uniqid)
@@ -68,11 +71,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, for
 
       const elements = flatGeom.map((feature: Feature, index: number) => {
         if (feature.properties) {
-          const activity = localFindActivity(activities, feature.properties.uniqid)
-          let color = forceColor || '#0f0'
-          if (activity && activity.color) {
-            color = activity.color
-          }
+          const color = feature.properties.forceColor
           return shapeFor(feature, color, feature.properties.name || 'unknown', storeRef, index)
         } else {
           return <></>

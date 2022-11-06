@@ -244,9 +244,12 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
       const timeStart = timeNow
       const minsOffset = Math.floor(psora(1 + index * ctr) * 20) * 10
       const timeEnd = timeStart.clone().add(minsOffset, 'm')
+      const lastItemIsLeg = geoms.length > 1 && index === geoms.length - 1 && GeometryType.polyline
+      const assetToUseAsOwn = lastItemIsLeg ? other : own
+      const assetToUseAsOther = lastItemIsLeg ? own : other
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(own, ownForce, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
+        geometry: geometryFor(assetToUseAsOwn, ownForce, assetToUseAsOther, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
       }
       timeNow = timeEnd
       return planned

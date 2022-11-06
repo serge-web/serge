@@ -248,5 +248,6 @@ BulkData.args = {
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
   messages: planningMessagesBulk,
+  selectedRoleId: allRoles[0],
   phase: Phase.Adjudication
 }
