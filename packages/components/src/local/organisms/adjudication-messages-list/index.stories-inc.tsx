@@ -47,7 +47,6 @@ const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
 const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
-
 const Template: Story<MessageListPropTypes> = (args) => {
   const { interactionMessages: messages, playerForceId, playerRoleId, hideForcesInChannel } = args
   const [isRead, setIsRead] = useState([true, false])
