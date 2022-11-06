@@ -38,6 +38,7 @@ export default {
   }
 }
 const storeNewValue = (_value: { [property: string]: any }): void => {
+  console.log('store test', _value)
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
@@ -115,10 +116,10 @@ const customiseLandTemplate = (_document: MessageStructure | undefined, schema: 
     }
     const blueRows = blueAssets.map((asset) => toRow(asset))
     const redRows = redAssets.map((asset) => toRow(asset))
-  
+
     // and the activities
     const isBlue = _document && _document.Reference.includes('Blue')
-  
+
     const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.asset?.enum
     if (oldOwnAssets) {
       schema.properties.ownAssets.items.properties.asset.enum = blueRows.map((asset: AssetRow) => asset.id)
@@ -136,18 +137,17 @@ const customiseLandTemplate = (_document: MessageStructure | undefined, schema: 
       const acts: Array<{id: string, name: string}> = []
       forceActivities.groupedActivities.map((val: GroupedActivitySet) => {
         val.activities.forEach((val2: string | PlanningActivity) => {
-          if (typeof(val) === 'string') {
+          if (typeof (val) === 'string') {
             throw Error('Should not have string in planning activities')
           }
           const plan = val2 as PlanningActivity
-          acts.push({id: plan.uniqid, name: val.category + '-' + plan.name})
+          acts.push({ id: plan.uniqid, name: val.category + '-' + plan.name })
         })
       })
       activities.enum = acts.map((val) => val.id)
       activities.options.enum_titles = acts.map((val) => val.name)
     }
   }
-
 
   return schema
 }
