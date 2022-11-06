@@ -184,7 +184,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     allTemplates={allTemplates}
                     confirmCancel={true}
-                    customiseTemplate={(template) => customiseTemplate(template, allOwnAssets, allOppAssets)}
+                    customiseTemplate={(document, template) => customiseTemplate(document, template, allOwnAssets, allOppAssets)}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     postBack={postBack}
@@ -202,7 +202,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     currentTurn={currentTurn}
                     gameDate={gameDate}
                     postBack={postBack}
-                    customiseTemplate={(template) => customiseTemplate(template, allOwnAssets, allOppAssets)}
+                    customiseTemplate={(document, template) => customiseTemplate(document, template, allOwnAssets, allOppAssets)}
                     draftMessage={draftMessage}
                   />
                 </div>
@@ -243,7 +243,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     template={adjudicationTemplate}
-                    customiseTemplate={(template) => customiseTemplate(template, allOwnAssets, allOppAssets)}
+                    customiseTemplate={(document, template) => customiseTemplate(document, template, allOwnAssets, allOppAssets)}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     forcePlanningActivities={forcePlanningActivities}

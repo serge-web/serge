@@ -105,7 +105,7 @@ export const JsonEditor: React.FC<Props> = ({
     const modSchema = configDateTimeLocal(template.details, gameDate)
 
     // apply any other template modifications
-    const customizedSchema = customiseTemplate ? customiseTemplate(modSchema) : modSchema
+    const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema

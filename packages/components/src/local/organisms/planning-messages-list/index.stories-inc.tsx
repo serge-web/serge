@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
 import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
@@ -66,7 +66,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     setIsRead(newState)
   }
 
-  const localCustomiseTemplate = (schema: Record<string, any>): Record<string, any> => {
+  const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
     const makeList = (assets: Asset[]): AssetRow[] => {
       return assets.map((asset: Asset): AssetRow => {
         const row: AssetRow = {
@@ -80,17 +80,22 @@ const Template: Story<MessageListPropTypes> = (args) => {
         return row
       }) 
     }
-    return customiseTemplate(schema, makeList(forces[1].assets || []), makeList(forces[2].assets || []))
+    if (!(document && document.Reference)) {
+      console.error('We were relying on there being a document Reference')
+    }
+    const blueForce = document && document.Reference.includes('Blue')
+    const ownForce = blueForce ? forces[1] : forces[2]
+    const oppForce = blueForce ? forces[2] : forces[1]
+    return customiseTemplate(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
   }
 
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(planningMessages)
-  const blueMessages = newestMessages.filter((msg: MessagePlanning) => msg.details.from.forceId === forces[1].uniqid)
   return <PlanningMessagesList
     selectedRoleName={blueRole.name}
     selectedForce={selectedForce}
     currentTurn={currentTurn}
-    messages={blueMessages}
+    messages={newestMessages}
     channel={planningChannel}
     customiseTemplate={localCustomiseTemplate}
     gameDate={P9Mock.data.overview.gameDate}

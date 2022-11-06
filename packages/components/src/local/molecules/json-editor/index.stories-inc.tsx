@@ -10,7 +10,8 @@ import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, Me
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
-import { Asset, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { Asset, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { AssetRow } from 'src/local/organisms/planning-assets/types/props'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -89,18 +90,34 @@ const planningMessages = planningChannelMessages.filter((msg: MessageInteraction
 const landActivityTemplate = planningMessageTemplatesMock.find((template) => template.title === planningMessages[0].details.messageType)
 const landMessage = planningMessages[0]
 
-const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
+const customiseTemplate = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
   const forces = P9Mock.data.forces.forces
   const blueAssets = forces[1].assets ? forces[1].assets : []
   const redAssets = forces[2].assets ? forces[2].assets : []
+  const toRow = (asset: Asset): AssetRow => {
+    const row: AssetRow = {
+      id: asset.uniqid,
+      icon: 'icon',
+      name: asset.name,
+      condition: asset.condition,
+      status: asset.status ? asset.status.state : 'unknown',
+      platformType: asset.platformTypeId
+    }
+    return row
+  }
+  const blueRows = blueAssets.map((asset) => toRow(asset))
+  const redRows = redAssets.map((asset) => toRow(asset))
   if (schema) {
-    const oldOwnAssets = schema.properties?.ownAssets?.items?.enum
+
+    const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.asset?.enum
     if (oldOwnAssets) {
-      schema.properties.ownAssets.items.enum = blueAssets.map((asset: Asset) => asset.name)
+      schema.properties.ownAssets.items.properties.asset.enum = blueRows.map((asset: AssetRow) => asset.id)
+      schema.properties.ownAssets.items.properties.asset.options.enum_titles = blueRows.map((asset: AssetRow) => asset.name)
     }
     const oldOwnTargets = schema.properties?.otherAssets?.items?.enum
     if (oldOwnTargets) {
-      schema.properties.otherAssets.items.enum = redAssets.map((asset: Asset) => asset.name)
+      schema.properties.otherAssets.items.enum = redRows.map((asset: AssetRow) => asset.id)
+      schema.properties.otherAssets.items.options.enum_titles = redRows.map((asset: AssetRow) => asset.name)
     }
   }
   return schema

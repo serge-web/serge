@@ -910,6 +910,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           minItems: 0,
           propertyOrder: 80,
           title: "Own Assets",
+          "grid_columns": 3,
           items: {
             "type": "object",
             "required": [
@@ -932,8 +933,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                     "Tank B",
                     "Tank C",
                     "Plane A"  
-                  ],
-                  "grid_columns": 3
+                  ]
                 }
               },
               "number": {
@@ -950,6 +950,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           format: "table",
           minItems: 0,
           title: "Subject(s) of orders",
+          "grid_columns": 3,
           items: {
             "title": "Asset",
             "type": "string",
@@ -965,8 +966,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                 "Bike B",
                 "Band C",
                 "Plane A"  
-              ],
-              "grid_columns": 3
+              ]
             }
           }
         }

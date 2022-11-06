@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody, MessageDetails } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
@@ -67,7 +67,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * method to customise the new (or existing) message template
    */
-  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
 
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>

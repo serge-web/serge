@@ -31,7 +31,8 @@ export default interface PropTypes {
   channel: ChannelTypes
   gameDate: string
   /** method to customise the new (or existing) message template */
-  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
+
   /** draft message to show in editor */
   draftMessage?: CoreMessage
 }

@@ -1,7 +1,7 @@
+import { MessageStructure } from "@serge/custom-types"
 import { AssetRow } from "../../planning-assets/types/props"
 
-export const customiseTemplate = (schema: Record<string, any>, ownAssets: AssetRow[], otherAssets: AssetRow[]): Record<string, any> => {
-  console.log('schema', schema)
+export const customiseTemplate = (_document: MessageStructure | undefined, schema: Record<string, any>, ownAssets: AssetRow[], otherAssets: AssetRow[]): Record<string, any> => {
   if (schema) {
     const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.asset?.enum
     if (oldOwnAssets) {
@@ -14,5 +14,6 @@ export const customiseTemplate = (schema: Record<string, any>, ownAssets: AssetR
       schema.properties.otherAssets.items.options.enum_titles = otherAssets.map((asset: AssetRow) => asset.name)
     }
   }
+  console.log('returning', schema)
   return schema
 }

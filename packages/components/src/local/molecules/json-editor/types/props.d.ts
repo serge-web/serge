@@ -51,7 +51,7 @@ export default interface Props {
   /**
    *  method to customize template, potentially filling any drop-downs
    */
-  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
 
   /**
    *  modify document prior to rendering in JSON editor

@@ -1,5 +1,5 @@
 import { Table } from '@material-ui/core'
-import { Asset, ForceData, MessageInteraction, MessagePlanning, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlanningActivity } from '@serge/custom-types'
 import { forceColors, ForceStyle } from '@serge/helpers'
 import { noop } from 'lodash'
 import MaterialTable, { Column } from 'material-table'
@@ -120,9 +120,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
-  const localCustomiseTemplate = (schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
+  const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
-    const firstUpdate = customiseTemplate ? customiseTemplate(schema) : schema
+    const firstUpdate = customiseTemplate ? customiseTemplate(document, schema) : schema
 
     // wrap manipulation code in `try` in case the template structure doesn't match
     try {
@@ -180,7 +180,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           </Table>
           <JsonEditor
             messageContent={msg}
-            customiseTemplate={(schema) => localCustomiseTemplate(schema, data)}
+            customiseTemplate={(document, schema) => localCustomiseTemplate(document, schema, data)}
             messageId={rowData.id}
             template={template}
             disabled={false}
