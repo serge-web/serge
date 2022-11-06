@@ -150,7 +150,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
   }
 
   if (contacts.length) {
-    console.log('got contacts', Math.floor(interactionWindow), contacts.length, contacts[0].id)
+    //    console.log('got contacts', Math.floor(interactionWindow), contacts.length, contacts[0].id)
     // sort then
     const sortFunc = (order: PlanningContact): number => {
       return order.timeStart
