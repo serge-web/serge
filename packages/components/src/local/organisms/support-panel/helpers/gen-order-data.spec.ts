@@ -358,7 +358,6 @@ it('generates full contact for two polygons', () => {
   const messages = deepCopy(planningMessages)
   const orders = invertMessages(messages, activities)
   const withTimes = injectTimes(orders)
-  expect(withTimes.length).toEqual(23)
 
   const me = withTimes[4]
   const other = withTimes[17]
@@ -378,8 +377,8 @@ it('generates full contact for two polygons', () => {
   if (con1) {
     const myProps = me.geometry.properties as PlannedProps
     const otherProps = other.geometry.properties as PlannedProps
-    expect(con1.timeStart).toEqual(myProps.startTime)
-    expect(con1.timeEnd).toEqual(otherProps.endTime)
+    expect([myProps.startTime, otherProps.startTime]).toContain(con1.timeStart)
+    expect([myProps.endTime, otherProps.endTime]).toContain(con1.timeEnd)
     expect(con1.id).toEqual(id)
     const inter = con1.intersection as any
     expect(inter).toBeTruthy()
@@ -437,6 +436,17 @@ it('generates full contact for polygon & line', () => {
   const other = withTimes[18]
   me.geometry.geometry = simplePoly.geometry
   other.geometry.geometry = simpleLine.geometry
+
+  // override the times
+  const myProps = me.geometry.properties as PlannedProps
+  const otherProps = other.geometry.properties as PlannedProps
+
+  // give them the same time, we don't want it to fail because
+  // they don't overlap in time
+  myProps.startDate = otherProps.startDate
+  myProps.endDate = otherProps.endDate
+  myProps.startTime = otherProps.startTime
+  myProps.endTime = otherProps.endTime
 
   // note: don't use the randomiser. We want to force the line to be generated
   const con1 = touches(me, other, 'aa', (): number => { return 0.1 }, sensorRange)
