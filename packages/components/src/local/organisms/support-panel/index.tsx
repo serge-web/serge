@@ -190,7 +190,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
-                  <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
+                  <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
                     messages={filteredMessages}
                     gameDate={gameDate}
@@ -246,7 +246,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
-                  <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} onChange={onTurnFilterChange} />
+                  <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <AdjudicationMessagesList
                     messages={filteredMessages}
                     forces={allForces}
