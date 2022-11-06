@@ -9,11 +9,11 @@ export type InteractionData = {
   order2: MessagePlanning | undefined
   allAssets: Asset[]
   allAssetNames: string[]
-  order1Activity: PlanningActivity | undefined
-  order2Activity: PlanningActivity | undefined
+  order1Activity: string | undefined
+  order2Activity: string | undefined
 }
 
-const getActivity = (activities:PerForcePlanningActivitySet[], forceId?: ForceData['uniqid'], activityId?: PlanningMessageStructure['activity']): PlanningActivity | undefined => {
+const getActivity = (activities:PerForcePlanningActivitySet[], forceId?: ForceData['uniqid'], activityId?: PlanningMessageStructure['activity']): string | undefined => {
   const force = activities.find((act) => act.force === forceId)
   if (!force) {
     throw Error('Failed to find group for:' + force)
@@ -41,7 +41,7 @@ const getActivity = (activities:PerForcePlanningActivitySet[], forceId?: ForceDa
   if (!activity) {
     throw Error('failed to find activity' + activityId)
   }
-  return activity
+  return groupAct.category + ' - ' + activity.name
 }
 
 export const updateAssets = (asset: Record<string, any>, interaction: InteractionData): Record<string, any> => {
@@ -104,7 +104,7 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   })
 
   const act1 = forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order1.message.activity)
-  const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order1.message.activity)
+  const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order2.message.activity)
 
   return {
     interaction: intMsg,

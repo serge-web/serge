@@ -1,5 +1,5 @@
 import { Table } from '@material-ui/core'
-import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle } from '@serge/helpers'
 import { noop } from 'lodash'
 import MaterialTable, { Column } from 'material-table'
@@ -53,16 +53,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <li key={index}>{asset.name}{numStr}</li>
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, assets: Asset[], activity?: PlanningActivity): React.ReactElement => {
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, assets: Asset[], activity?: string): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       throw Error('Failed to find message:' + id)
     }
-
     return <div>
       <span><b>Title: </b> {plan.message.title} </span>
-      <span><b>Activity: </b> {activity && activity.name} </span><br />
+      <span><b>Activity: </b> {activity || 'n/a'} </span><br />
       <span><b>Own: </b> {plan.message.ownAssets &&
         <ul> {
           plan.message.ownAssets.map((str, index) => renderAsset(str, assets, index))}
@@ -167,7 +166,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.log('template not found for', message.details.messageType, 'template:', template)
       }
       if (message && template) {
-        console.log('adj', forcePlanningActivities, message.details.interaction && message.details.interaction.orders1)
         const msg = message.message
         const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
         return <>
