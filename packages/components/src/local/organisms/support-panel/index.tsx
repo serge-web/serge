@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction } from '@serge/custom-types'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
@@ -12,7 +12,8 @@ import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
-import { customiseTemplate } from './helpers/customise-template'
+import { customiseActivities } from './helpers/customise-activities'
+import { customiseAssets } from './helpers/customise-assets'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
@@ -156,6 +157,19 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setTurnFilter(turn)
   }
 
+  const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+    const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
+      (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
+      (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce)
+    ]
+
+    let current: Record<string, any> = schema
+    customisers.forEach((fn) => {
+      current = fn(document, current)
+    })
+    return current
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -207,7 +221,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     channel={channel}
                     allTemplates={allTemplates}
                     confirmCancel={true}
-                    customiseTemplate={(document, template) => customiseTemplate(document, template, allOwnAssets, allOppAssets, forcePlanningActivities)}
+                    customiseTemplate={localCustomiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     postBack={postBack}
@@ -229,7 +243,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     currentTurn={currentTurn}
                     gameDate={gameDate}
                     postBack={postBack}
-                    customiseTemplate={(document, template) => customiseTemplate(document, template, allOwnAssets, allOppAssets, forcePlanningActivities)}
+                    customiseTemplate={localCustomiseTemplate}
                     draftMessage={draftMessage}
                   />
                 </div>
@@ -271,7 +285,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     template={adjudicationTemplate}
-                    customiseTemplate={(document, template) => customiseTemplate(document, template, allOwnAssets, allOppAssets)}
+                    customiseTemplate={localCustomiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     forcePlanningActivities={forcePlanningActivities}
