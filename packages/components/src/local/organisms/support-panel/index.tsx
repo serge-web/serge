@@ -201,15 +201,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     playerRoleId={selectedRoleId}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
+                    selectedForce={selectedForce}
+                    selectedRoleName={selectedRoleName}
+                    currentTurn={currentTurn}
                     hideForcesInChannel={false}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     templates={templates}
+                    confirmCancel={true}
                     customiseTemplate={customiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
+                    postBack={postBack}
                   />
                   <NewMessage
                     orderableChannel={true}

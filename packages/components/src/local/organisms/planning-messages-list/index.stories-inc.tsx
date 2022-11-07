@@ -41,7 +41,7 @@ export default {
 }
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, playerRoleId, hideForcesInChannel } = args
+  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -61,6 +61,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const newestMessages = mostRecentPlanningOnly(planningMessages)
 
   return <PlanningMessagesList
+    selectedRoleName={blueRole.name}
+    selectedForce={selectedForce}
+    currentTurn={currentTurn}
     messages={newestMessages}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}
@@ -83,6 +86,8 @@ export const Default = Template.bind({})
 Default.args = {
   messages: [],
   playerForceId: blueForce.uniqid,
+  selectedForce: blueForce,
   playerRoleId: blueRole.roleId,
-  hideForcesInChannel: true
+  hideForcesInChannel: true,
+  currentTurn: P9Mock.gameTurn
 }

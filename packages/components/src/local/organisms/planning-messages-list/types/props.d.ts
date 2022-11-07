@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody, MessageDetails } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
@@ -51,6 +51,14 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   /** how to render the game turn  */
   turnPresentation?: TurnFormats
+
+  //* save the message
+  postBack?: { (details: MessageDetails, message: any): void }
+  confirmCancel?: boolean
+  onCancel?: {(event: React.MouseEvent<HTMLButtonElement>): void}
+  selectedForce?: ForceData
+  selectedRoleName: string
+  currentTurn: number
 
   isUmpire: boolean
   /** whether to hide the forces in the channel

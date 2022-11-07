@@ -163,7 +163,7 @@ exports[`SettingChannels component: renders correctly 1`] = `
         className="actions"
       >
         <button
-          className="MuiButtonBase-root MuiButton-root makeStyles-root-8 makeStyles-root-10 MuiButton-contained makeStyles-contained-9 makeStyles-contained-11 MuiButton-containedSecondary Mui-disabled Mui-disabled"
+          className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary Mui-disabled Mui-disabled"
           data-qa-type="save"
           disabled={true}
           onBlur={[Function]}

@@ -142,6 +142,7 @@ const MessageTemplates = () => {
               id='preview'
               formId='preview-editor'
               cachedName={clearCached}
+              viewSaveButton={true}
               clearCachedName={setClearCached}
               saveMessage={saveMessage}
               messageId={schema._id}
