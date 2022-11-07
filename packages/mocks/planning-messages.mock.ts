@@ -82,7 +82,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 "messageType": "Land Activity",
                 "timestamp": "2022-09-29T08:51:37.924Z",
-                "turnNumber": 3
+                "turnNumber": 2
             },
             "message": {
                 "Reference": "Blue-6",
