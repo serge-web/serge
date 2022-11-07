@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageSentInteraction } from '@serge/custom-types'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
@@ -13,6 +13,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import { customiseTemplate } from './helpers/customise-template'
+import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
@@ -59,12 +60,26 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
 
+  const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
+  const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
+  const [turnFilter, setTurnFilter] = useState<number>(-1)
+
   const ORDERS_TAB = 1
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
   }
+
+  useEffect(() => {
+    const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
+    setFilteredPlanningMessages(filtered)
+  }, [planningMessages, turnFilter])
+
+  useEffect(() => {
+    const filtered = turnFilter === SHOW_ALL_TURNS ? interactionMessages : interactionMessages.filter((msg) => msg.details.turnNumber === turnFilter)
+    setFilteredInteractionMessages(filtered)
+  }, [interactionMessages, turnFilter])
 
   const TabPanel = (props: TabPanelProps): React.ReactElement => {
     const { children, active, ...other } = props
@@ -134,6 +149,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
   }
 
+  const onTurnFilterChange = (turn: number) => {
+    setTurnFilter(turn)
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -167,8 +186,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
               {activeTab === TABS[ORDERS_TAB] &&
                 <div className={styles['order-group']}>
+                  <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
-                    messages={planningMessages}
+                    messages={filteredPlanningMessages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
@@ -227,9 +247,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
             <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
+                  <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <AdjudicationMessagesList
-                    interactionMessages={interactionMessages}
-                    planningMessages={planningMessages}
+                    interactionMessages={filteredInteractionMessages}
+                    planningMessages={filteredPlanningMessages}
                     forces={allForces}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
@@ -265,9 +286,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    planningMessages,
-    interactionMessages,
-    selectedRoleId
+    filteredPlanningMessages,
+    filteredInteractionMessages,
+    selectedRoleId,
+    turnFilter
   ]
   )
 
