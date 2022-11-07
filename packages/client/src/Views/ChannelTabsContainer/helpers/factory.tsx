@@ -161,7 +161,7 @@ const factory = (state: PlayerUi): Factory => {
           const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForceMockActivityData
           // TODO: take this template id from the channel definition
           const adjudicationTemplateId = 'k16-adjud'
-          // // NOTE: block of code to force mock messages into database
+          // NOTE: block of code to force mock messages into database
           // const mockPlanningMessages2 = mockPlanningMessages
           // console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
           // if (channel.messages === undefined || channel.messages.length <= 5) {
