@@ -201,7 +201,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 
-    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+    // TODO: these filters should just use `messageType` to get the correct data, but currently
+    // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
+    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction && msg.details.messageType === 'Land Activity')) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
     console.log('new messages', messages.length, myInteractionMessages.length)
@@ -393,7 +395,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const mapChildren = useMemo(() => {
     return (
-      <>{ playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} /> }
+      <>{playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
@@ -470,10 +472,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                     <>
                       {
                         umpireInAdjudication &&
-                      <div className={cx('leaflet-control')}>
-                        <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                          onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
-                      </div>
+                        <div className={cx('leaflet-control')}>
+                          <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                            onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                        </div>
                       }
                       {showInteractionGenerator ? <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
