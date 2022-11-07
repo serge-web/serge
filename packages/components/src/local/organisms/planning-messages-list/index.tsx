@@ -82,7 +82,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     } else {
       // check if message is being edited
       const localTemplates = templates || []
-      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType || value._id === message.details.messageType)
       if (!template) {
         console.log('template not found for', message.details.messageType, 'templates:', templates)
       }
@@ -95,6 +95,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                 force: selectedForce.name,
                 forceColor: selectedForce.color,
                 roleName: selectedRoleName,
+                forceId: playerForceId,
                 roleId: playerRoleId,
                 iconURL: selectedForce.iconURL || selectedForce.icon || ''
               },
