@@ -23,7 +23,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
-    setMyMessages(messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId))
+    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
+    setMyMessages(myForceMessages)
   }, [messages, playerForceId])
 
   /** custom date formatter, for compact date/time display */
