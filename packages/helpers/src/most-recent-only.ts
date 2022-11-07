@@ -20,10 +20,18 @@ const getIDs = (message: MessageChannel): string => {
   return res
 }
 
+const uniqByKeepLast = (data: MessageChannel[], key: (message: MessageChannel) => string) => {
+  return [
+    ...new Map(
+      data.map(x => [key(x), x])
+    ).values()
+  ]
+}
+
 /** helper function to reduce the list of messages by removing duplicate
  * turn markers & older versions of messages with reference numbers
  */
 const mostRecentOnly = (messages: MessageChannel[]): MessageChannel[] => {
-  return _.uniqBy(messages, getIDs)
+  return uniqByKeepLast(messages, getIDs)
 }
 export default mostRecentOnly
