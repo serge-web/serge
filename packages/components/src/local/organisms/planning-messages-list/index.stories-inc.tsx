@@ -50,7 +50,7 @@ const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType 
 const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce } = args
+  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -108,6 +108,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     hideForcesInChannel={hideForcesInChannel}
     selectedOrders={[]}
     setSelectedOrders={(): any => noop}
+    turnFilter={turnFilter}
   />
 }
 
@@ -121,5 +122,6 @@ Default.args = {
   selectedForce: blueForce,
   playerRoleId: blueRole.roleId,
   hideForcesInChannel: true,
-  currentTurn: P9Mock.gameTurn
+  currentTurn: P9Mock.gameTurn,
+  turnFilter: -1
 }

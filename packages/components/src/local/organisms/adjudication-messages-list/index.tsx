@@ -115,7 +115,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       { title: 'Duration', field: 'period' }
     ]
     if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
-      columnsData.splice(1, 0, { title: 'Turn', field: 'turn' })
+      const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
+      columnsData.splice(1, 0, turnColumn)
     }
     setColumns(columnsData)
   }, [myMessages])

@@ -74,7 +74,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
     // if we're showing all turns, we need to show the turn number for the message
     if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
-      columnData.splice(1, 0, { title: 'Turn', field: 'turn' })
+      const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
+      columnData.splice(1, 0, turnColumn)
     }
 
     if (!isUmpire) {
