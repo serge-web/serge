@@ -813,19 +813,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           type: "string",
           propertyOrder: 20
         },
-        StartDate2: {
-          type: "string",
-          title: "Start date2",
-          propertyOrder: 28,
-          format: "date",
-          options: {
-            flatpickr: {
-              wrap: false,
-              time_24hr: true,
-              dateFormat: "d/m/Y"
-            }
-          }
-        },
         startDate: {
           format: "datetime-local",
           type: "string",
@@ -857,20 +844,15 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           propertyOrder: 50,
           type: "string"
         },
-        Location: {
-          format: "textarea",
+        location: {
+          format: "location",
           type: "string",
           propertyOrder: 60,
-          enum: [
-            "Point-A",
-            "Point-B",
-            "Region-A",
-            "Region-B",
-            "Polyline-A",
-            "Polyline-B"
-          ]
+          "options": {
+            "grid_columns": 5
+          }
         },
-        ActivityType: {
+        activity: {
           enum: [
             "Transit",
             "Kinetic",
@@ -886,77 +868,35 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           propertyOrder: 80,
           title: "Own Assets",
           items: {
-            type: "object",
-            title: "Asset",
-            properties: {
-              FEName: {
-                type: "string",
-                title: "FE Name",
-                enum: [
-                  "Tank-A",
-                  "Tank-B",
-                  "Infantry-A",
-                  "Plane-A",
-                  "Submarine-A",
-                  "other"
-                ]
-              },
-              Number: {
-                type: "number"
-              },
-              StartDate: {
-                type: "string",
-                title: "Start date",
-                format: "date",
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: "d/m/Y"
-                  }
-                }
-              },
-              EndDate: {
-                type: "string",
-                title: "End date",
-                format: "date",
-                options: {
-                  flatpickr: {
-                    wrap: false,
-                    time_24hr: true,
-                    dateFormat: "d/m/Y"
-                  }
-                }
-              }
-            }
+            type: "string",
+            title: "Name",
+            enum: [
+              "Tank-A",
+              "Tank-B",
+              "Infantry-A",
+              "Plane-A",
+              "Submarine-A",
+              "other"
+            ]
           }
         },
-        oppAssets: {
+        otherAssets: {
           type: "array",
           propertyOrder: 90,
           format: "table",
           minItems: 0,
           title: "Subject(s) of orders",
           items: {
-            type: "object",
-            title: "Target",
-            properties: {
-              FEName: {
-                type: "string",
-                title: "FE Name",
-                enum: [
-                  "Structure-A",
-                  "Structure-B",
-                  "Asset-A",
-                  "Asset-B",
-                  "Organisation-A",
-                  "Organisation-B"
-                ]
-              },
-              Number: {
-                type: "number"
-              }
-            }
+            type: "string",
+            title: "FE Name",
+            enum: [
+              "Structure-A",
+              "Structure-B",
+              "Asset-A",
+              "Asset-B",
+              "Organisation-A",
+              "Organisation-B"
+            ]
           }
         },
       },
