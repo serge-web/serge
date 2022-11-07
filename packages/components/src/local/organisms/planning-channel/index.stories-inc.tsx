@@ -144,6 +144,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     messages={messages}
     allTemplates={templateBodies}
     channelTemplates={templateBodies}
+    channelId={channels[0].uniqid}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
     getAllWargameMessages={(): any => noop}

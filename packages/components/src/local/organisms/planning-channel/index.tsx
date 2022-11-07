@@ -1,6 +1,6 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
-import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
+import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons, getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
@@ -41,6 +41,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   allTemplates,
   messages,
   channel,
+  channelId,
   adjudicationTemplate,
   selectedRoleId,
   selectedRoleName,
@@ -393,6 +394,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
+  const cacheMessage = (value: string | any, messageType: string): void | string => {
+    return value && saveUnsentMessage(value, currentWargame, selectedForce.uniqid, selectedRoleId, channelId, messageType)
+  }
+
+  const getCachedMessage = (chatType: string): string => {
+    return chatType && getUnsentMessage(currentWargame, selectedForce.uniqid, selectedRoleId, channelId, chatType)
+  }
+
+  const clearCachedMessage = (data: string[]): void => {
+    data && data.forEach((removeType) => {
+      return clearUnsentMessage(currentWargame, selectedForce.uniqid, selectedRoleId, channelId, removeType)
+    })
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>{playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
@@ -442,6 +457,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           selectedAssets={selectedAssets}
           setSelectedAssets={setLocalSelectedAssets}
           selectedOrders={selectedOrders}
+          saveCachedNewMessageValue={cacheMessage}
+          getCachedNewMessagevalue={getCachedMessage}
+          clearCachedNewMessage={clearCachedMessage}
           setSelectedOrders={setSelectedOrders}
           setOpForcesForParent={setOpAssetsFiltered}
           setOwnForcesForParent={setOwnAssetsFiltered}

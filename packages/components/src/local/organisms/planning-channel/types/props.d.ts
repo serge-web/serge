@@ -15,6 +15,7 @@ export default interface PropTypes {
   currentWargame: string
   selectedForce: ForceData
   platformTypes: PlatformTypeData[]
+  channelId: string
   /** which phase game is currently in */
   phase: Phase
   turnNumber: number

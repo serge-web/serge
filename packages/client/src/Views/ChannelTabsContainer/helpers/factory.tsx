@@ -81,7 +81,7 @@ const factory = (state: PlayerUi): Factory => {
         console.log('Handler not created for', form)
     }
   }
-
+  
   return (node: TabNode): React.ReactNode => {
     /** helper to determine if the specified channel should be rendered */
     const renderThisChannel = (channelData?: ChannelUI): boolean => {
@@ -177,6 +177,7 @@ const factory = (state: PlayerUi): Factory => {
             channelTemplates={channel.templates}
             allTemplates={allTemplates}
             adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
+            channelId={channel.uniqid}
             messages={channel.messages}
             channel={channel.cData as ChannelPlanning}
             selectedRoleId={state.selectedRole}
