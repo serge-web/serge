@@ -10,7 +10,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
   }
 >
   <div
-    className="MuiPaper-root-164 MuiPaper-elevation2-168 MuiPaper-rounded-165"
+    className="MuiPaper-root-99 MuiPaper-elevation2-103 MuiPaper-rounded-100"
     style={
       Object {
         "position": "relative",
@@ -18,95 +18,22 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
     }
   >
     <div
-      className="MuiToolbar-root-197 MuiToolbar-regular-199 MuiToolbar-gutters-198 MTableToolbar-root-191"
+      className="MuiToolbar-root-132 MuiToolbar-regular-134 MuiToolbar-gutters-133 MTableToolbar-root-126"
     >
       <div
-        className="MTableToolbar-title-195"
+        className="MTableToolbar-title-130"
       >
         <h6
-          className="MuiTypography-root-201 MuiTypography-h6-218"
+          className="MuiTypography-root-136 MuiTypography-h6-153"
         >
           Orders
         </h6>
       </div>
       <div
-        className="MTableToolbar-spacer-193"
+        className="MTableToolbar-spacer-128"
       />
       <div
-        className="MuiFormControl-root-237 MTableToolbar-searchField-196"
-        color="inherit"
-      >
-        <div
-          className="MuiInputBase-root-254 MuiInput-root-241 MuiInput-underline-245 MuiInputBase-formControl-255 MuiInput-formControl-242 MuiInputBase-adornedStart-258 MuiInputBase-adornedEnd-259"
-          onClick={[Function]}
-          style={Object {}}
-        >
-          <div
-            className="MuiInputAdornment-root-271 MuiInputAdornment-positionStart-273"
-          >
-            <span
-              aria-describedby={null}
-              aria-hidden="true"
-              className="material-icons MuiIcon-root-284 MuiIcon-fontSizeSmall-291"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              title="Search"
-            >
-              search
-            </span>
-          </div>
-          <input
-            aria-invalid={false}
-            className="MuiInputBase-input-264 MuiInput-input-249 MuiInputBase-inputAdornedStart-269 MuiInputBase-inputAdornedEnd-270"
-            disabled={false}
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            required={false}
-            type="text"
-            value=""
-          />
-          <div
-            className="MuiInputAdornment-root-271 MuiInputAdornment-positionEnd-274"
-          >
-            <button
-              className="MuiButtonBase-root-299 MuiButtonBase-disabled-300 MuiIconButton-root-293 MuiIconButton-disabled-297"
-              disabled={true}
-              onBlur={[Function]}
-              onClick={[Function]}
-              onContextMenu={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex="-1"
-              type="button"
-            >
-              <span
-                className="MuiIconButton-label-298"
-              >
-                <span
-                  aria-hidden="true"
-                  className="material-icons MuiIcon-root-284 MuiIcon-fontSizeSmall-291"
-                >
-                  clear
-                </span>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div
-        className="MTableToolbar-actions-194"
+        className="MTableToolbar-actions-129"
       >
         <div>
           <div />
@@ -130,21 +57,21 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
           }
         >
           <table
-            className="MuiTable-root-302"
+            className="MuiTable-root-172"
           >
             <thead
-              className="MuiTableHead-root-304"
+              className="MuiTableHead-root-174"
             >
               <tr
-                className="MuiTableRow-root-305 MuiTableRow-head-308"
+                className="MuiTableRow-root-175 MuiTableRow-head-178"
               />
             </thead>
             <tbody
-              className="MuiTableBody-root-310"
+              className="MuiTableBody-root-180"
             >
               <tr
                 actions={Array []}
-                className="MuiTableRow-root-305"
+                className="MuiTableRow-root-175"
                 index={0}
                 level={0}
                 localization={

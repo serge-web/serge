@@ -1,12 +1,15 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
-  templates: TemplateBody[]
+  /** the set of templates for this user, in this channel */
+  channelTemplates: TemplateBody[]
+  /** the full set of templates (used for rendering third party messages) */
+  allTemplates: TemplateBody[]
   adjudicationTemplate: TemplateBody
   channel: ChannelPlanning
-  messages: Array<MessagePlanning | MessageInfoTypeClipped>
+  messages: Array<MessagePlanning | MessageInteraction | MessageInfoTypeClipped>
   selectedRoleId: Role['roleId']
   selectedRoleName: string
   currentWargame: string

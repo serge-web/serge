@@ -1,4 +1,4 @@
-import { ForceData, MessagePlanning, PlanningActivity } from '@serge/custom-types'
+import { ForceData, ForceStyle, MessagePlanning, PlanningActivity } from '@serge/custom-types'
 import React from 'react'
 
 export default interface PropTypes {
@@ -12,4 +12,6 @@ export default interface PropTypes {
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
   /** default color to use for this force */
   forceColor?: ForceData['color']
+  /** set of force colors */
+  forceColors: ForceStyle[]
 }

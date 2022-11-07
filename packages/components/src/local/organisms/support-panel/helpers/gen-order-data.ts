@@ -3,13 +3,21 @@ import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
-import { PlanningMessageStructure } from '@serge/custom-types/message'
+import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { Feature, Geometry } from 'geojson'
+import { Feature, Geometry, Polygon } from 'geojson'
 import L from 'leaflet'
 import moment from 'moment-timezone'
-import { linePolyContact, ShapeInteraction, TimePeriod } from './shape-intersects'
+import { lineLineContact, linePointContact, linePolyContact, ShapeInteraction, timeIntersect2, TimePeriod } from './shape-intersects'
+
+const msgContents: PlanningMessageStructureCore = {
+  Reference: 'Blue-12',
+  activity: 'point-recce',
+  title: 'Operation Bravo-12',
+  ownAssets: [],
+  otherAssets: []
+}
 
 const sample: MessagePlanning = {
   messageType: PLANNING_MESSAGE,
@@ -17,6 +25,7 @@ const sample: MessagePlanning = {
     channel: 'channel-blue-planning',
     from: {
       force: 'Blue',
+      forceId: 'F-Blue',
       forceColor: '#00F',
       roleName: 'Mar-1',
       roleId: 'rk116f5e',
@@ -26,34 +35,7 @@ const sample: MessagePlanning = {
     timestamp: '2022-09-21T13:15:09.106Z',
     turnNumber: 6
   },
-  message: {
-    reference: 'Blue-12',
-    Date: '13/05/2021 16:12',
-    Description: 'More land operations',
-    Location: 'Region-A',
-    Status: 'Minor',
-    title: 'Operation Bravo-12',
-    Assets: [
-      {
-        FEName: 'Blue:4',
-        Number: 1,
-        StartDate: '13/05/2021',
-        EndDate: '14/05/2021'
-      },
-      {
-        FEName: 'Blue:13',
-        Number: 4,
-        StartDate: '13/05/2021',
-        EndDate: '14/05/2021'
-      }
-    ],
-    Targets: [
-      {
-        FEName: 'Red Force:3',
-        Number: 4
-      }
-    ]
-  },
+  message: msgContents,
   hasBeenRead: false,
   _id: 'idp_3a',
   _rev: '2'
@@ -154,10 +136,6 @@ const randomRole = (roles: Role[], ctr: number): Role => {
   return randomArrayItem(roles, ctr) as Role
 }
 
-const activityTypes = ['Transit', 'Kinetic', 'Asymmetric']
-
-const locations = ['Point-A', 'Point-B', 'Region-A', 'Region-B', 'Polyline-A', 'Polyline-B']
-
 const flipMe = (point: number[]): number[] => {
   return [point[1], point[0]]
 }
@@ -167,7 +145,6 @@ export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number
   const meProps = me.geometry.properties as PlannedProps
   const otherProps = other.geometry.properties as PlannedProps
 
-  // TODO: this next check can be deleted once the implementation is stable
   if (meProps.startTime > otherProps.endTime || meProps.endTime < otherProps.startTime) {
     typeof jest === 'undefined' && console.warn('Geometries do not overlap in time')
     return []
@@ -178,12 +155,12 @@ export const timeIntersect = (me: GeomWithOrders, other: GeomWithOrders): number
   return [start, end]
 }
 
-const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
+export const timePeriodForGeom = (geom: GeomWithOrders): TimePeriod => {
   const props = geom.geometry.properties as PlannedProps
   return [props.startTime || -1, props.endTime || -1]
 }
 
-const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
+const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, geometry: PlanningActivityGeometry, seedIn: number, timeStart: string, timeFinish: string,
   activity: PlanningActivity): Feature => {
   const seed = psora(seedIn + 6)
   const dummyLocation = [39.75, -104.994]
@@ -191,6 +168,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
     id: activity.name + '//' + geometry.name,
     startDate: timeStart,
     endDate: timeFinish,
+    force: ownForce,
     startTime: moment(timeStart).valueOf(),
     endTime: moment(timeFinish).valueOf()
   }
@@ -255,7 +233,7 @@ const geometryFor = (own: Asset, target: Asset, geometry: PlanningActivityGeomet
 }
 
 /** produce some planned geometries */
-export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
+export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'], targets: Asset[], activity: PlanningActivity, ctr: number, timeNow: moment.Moment): PlannedActivityGeometry[] => {
   const own = randomArrayItem(ownAssets, ctr++)
   const other = randomArrayItem(targets, ctr++)
   const geoms = activity.geometries
@@ -264,9 +242,12 @@ export const geometriesFor = (ownAssets: Asset[], targets: Asset[], activity: Pl
       const timeStart = timeNow
       const minsOffset = Math.floor(psora(1 + index * ctr) * 20) * 10
       const timeEnd = timeStart.clone().add(minsOffset, 'm')
+      const lastItemIsLeg = geoms.length > 1 && index === geoms.length - 1 && GeometryType.polyline
+      const assetToUseAsOwn = lastItemIsLeg ? other : own
+      const assetToUseAsOther = lastItemIsLeg ? own : other
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(own, other, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
+        geometry: geometryFor(assetToUseAsOwn, ownForce, assetToUseAsOther, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
       }
       timeNow = timeEnd
       return planned
@@ -305,36 +286,22 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     }
     assets.push(possAsset)
   }
-  const assetObj = assets.map((asset: Asset, index: number) => {
-    const startDate = moment('2022-09-21T00:00:00.000Z').add(psora(index + 2) * 5, 'h').startOf('hour').toISOString()
-    return {
-      FEName: asset.name,
-      Number: Math.floor(psora(index + 2) * 5),
-      StartDate: startDate,
-      EndDate: moment(startDate).add(Math.floor(psora(ctr + index + 2) * 19), 'h').toISOString()
-    }
-  })
+  const assetObj = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
 
   const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
-  const targets: PerceivedTypes[] = []
+  const targets: Asset['uniqid'][] = []
   for (let m = 0; m < numTargets; m++) {
-    let possTarget = randomArrayItem(force.opAsset, m + 3)
+    let possTarget = randomArrayItem(force.otherAssets, m + 3)
     let ctr2 = ctr
-    while (targets.includes(possTarget)) {
-      possTarget = randomArrayItem(force.opAsset, ++ctr2)
+    while (targets.includes(possTarget.uniqid)) {
+      possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
-    targets.push(possTarget)
+    targets.push(possTarget.uniqid)
   }
-  const targetObj = targets.map((per: PerceivedTypes, index: number) => {
-    return {
-      FEName: per.name,
-      Number: 1 + Math.floor(psora(ctr + index))
-    }
-  })
 
-  const activity = randomArrayItem(activityTypes, ctr - 3)
-  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], [randomArrayItem(force.otherAssets, ctr++)],
-    randomArrayItem(orderTypes, ctr++), 5 * psora(4 * ctr), timeNow)
+  const activity = randomArrayItem(orderTypes, ctr++)
+  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
+    activity, 5 * psora(4 * ctr), timeNow)
 
   // sort out the overall time period
   let startDate: moment.Moment | undefined
@@ -362,17 +329,15 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
   }
 
   // create the message
-  const message: PlanningMessageStructure = {
-    reference: force.forceName + '-' + ctr,
-    title: 'Order item ' + ctr + ' ' + activity,
+  const message: PlanningMessageStructureCore = {
+    Reference: force.forceName + '-' + ctr,
+    title: 'Order item ' + ctr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
-    Description: 'Order description ' + ctr,
-    Location: randomArrayItem(locations, ctr + 8),
     location: geometries,
-    ActivityType: activity,
-    Assets: assetObj,
-    Targets: targetObj
+    activity: activity.uniqid,
+    ownAssets: assetObj,
+    otherAssets: targets
   }
 
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
@@ -393,7 +358,8 @@ const findGeometryInGroup = (geomId: string, group: GroupedActivitySet): Plannin
   return activity
 }
 
-const findActivityInGroup = (activityId: string, group: GroupedActivitySet): PlanningActivity => {
+/** find an activity if we don't know what group it's in */
+export const findActivityInGroup = (activityId: string, group: GroupedActivitySet): PlanningActivity => {
   const activity = group.activities.find((act: string | PlanningActivity) => {
     if (typeof act === 'string') {
       throw new Error('Found string definition for activity. Should be real activity')
@@ -418,6 +384,10 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
     return !!findGeometryInGroup(id, val)
   })
   if (!group) {
+    console.log('Failed to find group in force', forceId, 'id:', id)
+    force.groupedActivities.forEach((group) => {
+      console.table(group.activities)
+    })
     throw Error('Failed to find group activities for this activity:' + id)
   }
   const activity = findGeometryInGroup(id, group)
@@ -445,6 +415,26 @@ export const findActivity = (id: string, category: GroupedActivitySet['category'
   }
 }
 
+export const ordersStartingBeforeTime = (messages: MessagePlanning[], time: number): MessagePlanning[] => {
+  return messages.filter((msg) => {
+    const tStart = moment(msg.message.startDate).valueOf()
+    return tStart <= time
+  })
+}
+
+export const ordersEndingAfterTime = (messages: MessagePlanning[], time: number): MessagePlanning[] => {
+  return messages.filter((msg) => {
+    const tEnd = moment(msg.message.endDate).valueOf()
+    return tEnd >= time
+  })
+}
+
+export const ordersOverlappingTime = (messages: MessagePlanning[], time: number): MessagePlanning[] => {
+  const beforeTime = ordersStartingBeforeTime(messages, time)
+  const afterTime = ordersEndingAfterTime(beforeTime, time)
+  return afterTime
+}
+
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
   messages.forEach((message: MessagePlanning) => {
@@ -458,7 +448,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
-        newItem.geometry.properties.name = message.message.title + '//' + activity
+        newItem.geometry.properties.name = message.details.from.force + '//' + message.message.title + '//' + activity
         newItem.geometry.properties.geomId = plan.uniqid
         newItem.geometry.properties.force = forceId
         res.push(newItem)
@@ -473,11 +463,12 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
   for (let i = 0; i < count; i++) {
-    const willIncrement = psora(2 + i) > 0.7
-    const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 4) * 5 : 0
+    const willIncrement = psora(2 + i) > 0.5
+    const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
     startTime = startTime.add(minsOffset, 'm')
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
-    res.push(createMessage(authorForce, 2 + i * 3, orderTypes, startTime))
+    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime)
+    res.push(newMessage)
   }
   return res
 }
@@ -504,7 +495,7 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
   })
 }
 
-export const findPlannedGeometries = (orders: GeomWithOrders[], time: string, windowMins: number): GeomWithOrders[] => {
+export const findPlannedGeometries = (orders: GeomWithOrders[], time: number, windowMins: number): GeomWithOrders[] => {
   const timeStart = moment(time)
   const timeEnd = moment(time).add(windowMins, 'm')
   const inWindow = orders.filter((value: GeomWithOrders) => {
@@ -628,7 +619,59 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
   return res
 }
 
-export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, randomizer: { (): number }): PlanningContact | null => {
+const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => {
+  return me.force !== other.force
+}
+
+const createContactReference = (me: string, other: string): string => {
+  return me + ' ' + other
+}
+
+export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
+  interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
+  sensorRangeKm: number): PlanningContact[] => {
+  const res: PlanningContact[] = []
+  geometries.forEach((me: GeomWithOrders, myIndex: number) => {
+    geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
+      // check it's not me
+      if (myIndex !== otherIndex) {
+        // don't compare geometries that are part of the same activity
+        if (me.activity._id !== other.activity._id) {
+          // generate IDs, to ensure we don't compare shapes twice
+          const meFirst = (me.id < other.id)
+          const first = meFirst ? me : other
+          const second = meFirst ? other : me
+          const id = createContactReference(first.id, second.id)
+          // have we already checked this permutation (maybe in another bin)?
+          if (!interactionsConsidered.includes(id)) {
+            // has it already been adjudicated
+            if (!interactionsProcessed.includes(id)) {
+              interactionsConsidered.push(id)
+              if (differentForces(me, other) && overlapsInTime(me, other)) {
+                // see if we have a cached contact
+                const cachedResult = interactionsTested[id]
+                if (cachedResult !== undefined) {
+                  if (cachedResult !== null) {
+                    res.push(cachedResult)
+                  }
+                } else {
+                  const contact = touches(me, other, id, Math.random, sensorRangeKm)
+                  if (contact) {
+                    res.push(contact)
+                  }
+                  interactionsTested[id] = contact || null
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  })
+  return res
+}
+
+export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
   const geom = me.geometry.geometry as any
   const myCoords = geom.coordinates
   const geom2 = other.geometry.geometry as any
@@ -636,11 +679,11 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
   const myTime = timePeriodForGeom(me)
   const otherTime = timePeriodForGeom(other)
   let res: PlanningContact | boolean | undefined
-  let period: number[] | undefined
   let intersection: ShapeInteraction | undefined
   const titles: string[] = []
   const monitor = (titles.includes(me.activity.message.title) ||
     titles.includes(other.activity.message.title))
+  const intersectionTime = timeIntersect2(myTime, otherTime)
   if (monitor) {
     console.log('check', me, other)
   }
@@ -651,17 +694,36 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Point': {
           const otherPt = turf.point(otherCoords)
           res = turf.booleanEqual(mePt, otherPt)
+          if (res) {
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: mePt
+            }
+          }
           break
         }
         case 'LineString': {
           const otherLine = turf.lineString(otherCoords)
           res = turf.booleanPointOnLine(mePt, otherLine)
-          period = [-1, -1]
+          if (res) {
+            intersection = linePointContact(otherLine.geometry, otherTime, mePt.geometry, myTime)
+            if (!intersection) {
+              res = undefined
+            }
+          }
           break
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanPointInPolygon(mePt, turfPoly))
+          if (res) {
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: mePt
+            }
+          }
           break
         }
       }
@@ -673,20 +735,29 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Point': {
           const otherPt = turf.point(otherCoords)
           res = turf.booleanPointOnLine(otherPt, meLine)
-          period = [-1, -1]
+          if (res) {
+            intersection = linePointContact(meLine.geometry, myTime, otherPt.geometry, otherTime)
+            if (!intersection) {
+              res = undefined
+            }
+          }
           break
         }
         case 'LineString': {
           const otherLine = turf.lineString(otherCoords)
           const inter = turf.lineIntersect(meLine, otherLine)
           res = inter.features.length > 0
-          period = [-1, -1]
+          if (res) {
+            intersection = lineLineContact(meLine.geometry, myTime, otherLine.geometry, otherTime, lineSensorRangeKm)
+            if (!intersection) {
+              res = undefined
+            }
+          }
           break
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanCrosses(meLine, turfPoly))
-          period = [-1, -1]
           if (res) {
             intersection = linePolyContact(meLine.geometry, myTime, turfPoly.geometry, otherTime)
             // if the line doesn't actually enter poly when it's running, cancel contact
@@ -705,12 +776,18 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Point': {
           const otherPt = turf.point(otherCoords)
           res = turf.booleanPointInPolygon(otherPt, mePoly)
+          if (res) {
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: otherPt
+            }
+          }
           break
         }
         case 'LineString': {
           const otherLine = turf.lineString(otherCoords)
           res = turf.booleanCrosses(mePoly, otherLine)
-          period = [-1, -1]
           if (res) {
             intersection = linePolyContact(otherLine.geometry, otherTime, mePoly.geometry, myTime)
             // if the line doesn't actually enter poly when it's running, cancel contact
@@ -723,13 +800,18 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
           res = (turf.booleanOverlap(mePoly, turfPoly))
-          // TODO: fill in the other bits of the `intersects
-          //          if (res) {
-          //            const intersects =  turf.intersect(mePoly, turfPoly)
-          // if (intersects) {
-          //   intersection = intersects.geometry
-          // }
-          //        }
+          if (res) {
+            const intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+            if (!intersects) {
+              throw Error('One method reported overlap, the other didn\'t')
+            }
+            const fPoly = turf.polygon(intersects.geometry.coordinates)
+            intersection = {
+              startTime: intersectionTime[0],
+              endTime: intersectionTime[1],
+              intersection: fPoly
+            }
+          }
           break
         }
       }
@@ -741,42 +823,16 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, r
     return null
   } else {
     if (res) {
-      let makeItMiss = false
-      if (period === undefined) {
-        period = timeIntersect(me, other)
-      } else {
-        // line funcs not calculating actual time. create some random data
-        const intersect = timeIntersect(me, other)
-        const start = intersect[0]
-        const end = intersect[1]
-        const interval = end - start
-        period = [start + 0.3 * randomizer() * interval, start + 0.8 * randomizer() * interval]
-        // this is a line. Make it likely to miss
-        makeItMiss = randomizer() > 0.2
-      }
-      if (makeItMiss) {
-        return null
-      } else {
-        if (intersection) {
-          const contact: PlanningContact = {
-            first: me,
-            second: other,
-            id: id,
-            intersection: intersection.intersection.geometry,
-            timeStart: intersection.startTime,
-            timeEnd: intersection.endTime
-          }
-          return contact
-        } else {
-          const contact: PlanningContact = {
-            first: me,
-            second: other,
-            id: id,
-            timeStart: period[0],
-            timeEnd: period[1]
-          }
-          return contact
+      if (intersection) {
+        const contact: PlanningContact = {
+          first: me,
+          second: other,
+          id: id,
+          intersection: intersection.intersection.geometry,
+          timeStart: intersection.startTime,
+          timeEnd: intersection.endTime
         }
+        return contact
       }
     }
     return null

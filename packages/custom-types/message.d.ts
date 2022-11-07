@@ -1,9 +1,10 @@
 import {
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
+  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
-import { Asset, ChannelCore, ForceData, ForceRole, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Geometry } from 'geojson'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, LocationOutcome, PerceptionOutcome, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -46,6 +47,10 @@ export interface MessageDetails {
    * extra data for when message being edited collaboratively
    */
   collaboration?: CollaborationDetails
+  /** 
+   * extra detail for managing an interaction
+   */
+  interaction?: InteractionDetails
   /** ID of template for this message */
   messageType: TemplateBody['_id'],
   /** time message sent */
@@ -70,12 +75,18 @@ export interface MessageStructure {
   content?: string
 }
 
-/** templates contents for planning messages, provides extra
- * detail as required for PlanningChannel
+/** Core elements of planning messages. These are the fields
+ * we directly manipulate, or expect to be present. It is
+ * defined as a `core` type to avoid the [property: string]
+ * undefined elements that allow mis-named objects to fall
+ * through TypeScript checking.
  */
-export interface PlanningMessageStructure {
-  /** unique id for this message thread */
-  reference: string
+export interface PlanningMessageStructureCore {
+  /** unique id for this message thread 
+   * Note: we use upper case Reference since the send-message logic expects that 
+   * Note: in order to auto gen instances
+  */
+  Reference: string
   /** title for this plan */
   title: string
   /** start-time of this plan */
@@ -85,13 +96,37 @@ export interface PlanningMessageStructure {
   /** any location-related data */
   location?: PlannedActivityGeometry[]
   /** own assets involved in plan */
-  ownAssets?: Array<Asset['uniqid']>
+  ownAssets?: Array<{ asset: Asset['uniqid'], number: number}>
   /** other assets involved in plan */
   otherAssets?: Array<Asset['uniqid']>
   /** id of the activity being conducted */
-  activity?: PlanningActivity['uniqid']
-  /** remainder of fields generated from message template */
+  activity: PlanningActivity['uniqid']
+}
+
+/** extend planning message to allow template entries
+ */
+export interface PlanningMessageStructure extends PlanningMessageStructureCore {
+  /** allow template properties */
   [property: string]: any
+}
+
+
+
+/** Content of an interaction. Note: the fixed 
+ * metadata is in the details.  It's the new (Editable)
+ * content that is in here
+ */
+export interface InteractionMessageStructure {
+  /** unique id for this message thread */
+  Reference: string
+  /** textual description of interaction */
+  narrative?: string
+  /** perception outcomes */
+  perceptionOutcomes: PerceptionOutcome[]
+  /** location outcomes */
+  locationOutcomes: LocationOutcome[]
+  /** condition outcomes */
+  healthOutcomes: HealthOutcome[]
 }
 
 export interface CoreMessage {
@@ -128,9 +163,9 @@ export interface CollaborationDetails {
    * Message status
    */
   status: CollaborativeMessageStates
-   /** date-time when the last change 
-   * was made to this message
-   */
+  /** date-time when the last change 
+  * was made to this message
+  */
   lastUpdated: string
   /**
    * Current message owner
@@ -140,10 +175,30 @@ export interface CollaborationDetails {
    * structured response to message
    */
   response?: MessageStructure
-   /** 
-   * feedback on last version
-   */
+  /** 
+  * feedback on last version
+  */
   feedback?: Array<FeedbackItem>
+}
+
+/** extra details regarding details of interactions 
+ * NOTE: we use `From` details to denote who is adjudicating the interactions
+*/
+export interface InteractionDetails {
+  /** unique id for this interaction (includes orders and geometries) */
+  readonly id: string
+  /** whether adjudication of this interaction is complete */
+  complete?: boolean
+  /** first set of orders this relates to */
+  readonly orders1: string
+  /** second (optional) set of orders this relates to */
+  readonly orders2?: string
+  /** interaction start time */
+  readonly startTime: string
+  /** interaction end time */
+  readonly endTime: string
+  /** geometry describing area of interaction */
+  readonly geometry?: Geometry
 }
 
 export interface MessageCustom extends CoreMessage {
@@ -188,8 +243,11 @@ export interface MessagePlanning extends CoreMessage {
   message: PlanningMessageStructure
 }
 
-
-
+/** messages being used in support of adjudicating an interaction */
+export interface MessageInteraction extends CoreMessage {
+  readonly messageType: typeof INTERACTION_MESSAGE,
+  message: InteractionMessageStructure
+}
 
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,
@@ -263,7 +321,6 @@ export interface MessageVisibilityChanges {
   readonly assetId: string,
   condition?: string
 }
-
 
 export interface MessageDeletePlatform {
   readonly messageType: typeof DELETE_PLATFORM,

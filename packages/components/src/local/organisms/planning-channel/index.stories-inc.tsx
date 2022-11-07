@@ -1,11 +1,12 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
-import { Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, GroupedActivitySet, MessageDetails, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
+import { Phase, PLANNING_MESSAGE } from '@serge/config'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React, { useEffect, useState } from 'react'
+import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -52,29 +53,7 @@ forces.forEach((force: ForceData) => {
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-  return {
-    force: force.force,
-    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-      const res: GroupedActivitySet = {
-        category: group.category,
-        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-          if (typeof act === 'string') {
-            const actId = act as string
-            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-            if (!activity) {
-              throw Error('Planning activity not found:' + actId)
-            }
-            return activity
-          } else {
-            return act
-          }
-        })
-      }
-      return res
-    })
-  }
-})
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 export default {
   title: 'local/organisms/PlanningChannel',
@@ -163,8 +142,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
     messages={messages}
+    allTemplates={templateBodies}
+    channelTemplates={templateBodies}
     channelId={channels[0].uniqid}
-    templates={templateBodies}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
     getAllWargameMessages={(): any => noop}
@@ -188,6 +168,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   />
 }
 const doNotDoIt = 7 // don't transform the messages
+const planningMessages = PlanningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
   // drop the legacy entries
@@ -221,7 +202,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   const otherForces = forces.filter((force: ForceData) => force.uniqid !== thisForce)
   if (myForce) {
     const myAssetIds = randomAssets(myForce)
-    newMsg.message.ownAssets = myAssetIds
+    newMsg.message.ownAssets = myAssetIds.map((asset: string) => { return { asset: asset, number: 0 } })
   }
   if (otherForces) {
     const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])
@@ -247,5 +228,6 @@ BulkData.args = {
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
   messages: planningMessagesBulk,
+  selectedRoleId: allRoles[0],
   phase: Phase.Adjudication
 }

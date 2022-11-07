@@ -1,6 +1,6 @@
 import * as turf from '@turf/turf'
 import GeoJSON, { Feature, LineString, Point, Polygon } from 'geojson'
-import { containedIn, linePointContact, linePolyContact, trimLineToPeriod } from './shape-intersects'
+import { containedIn, lineLineContact, linePointContact, linePolyContact, trimLineToPeriod } from './shape-intersects'
 
 const data: GeoJSON.FeatureCollection = {
   type: 'FeatureCollection',
@@ -178,30 +178,81 @@ it('trim line to a period', () => {
 })
 
 it('intersection of line & poly', () => {
+  const resTooEarly = linePolyContact(simpleLine.geometry, [0, 10], simplePoly.geometry, [5, 10])
+  expect(resTooEarly).toBeUndefined()
+  //  console.log('aa', resTooEarly?.intersection.geometry)
+
   const res = linePolyContact(simpleLine.geometry, [0, 10], simplePoly.geometry, [0, 10])
-  console.log(res?.intersection.geometry)
+  expect(res).toBeTruthy()
+  expect(res?.startTime).toEqual(0)
+  expect(res?.endTime).toEqual(10)
+  const twoCross = res?.intersection.geometry as any
+  expect(twoCross.coordinates.length).toEqual(2)
+  expect(twoCross.coordinates[0]).toEqual([0, 2])
+  expect(twoCross.coordinates[1]).toEqual([0, 4])
+  //  console.log('a', res?.intersection.geometry)
   // start in poly
   const startInPoly = turf.lineString([[0, 3], [0, 10]])
   const res2 = linePolyContact(startInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
-  console.log(res2?.intersection.geometry)
+  const crossOut = res2?.intersection.geometry as any
+  expect(crossOut.coordinates[0].length).toEqual(2)
+  expect(crossOut.coordinates[0]).toEqual([0, 3])
+  expect(crossOut.coordinates[1]).toEqual([0, 4])
+  expect(res2).toBeTruthy()
+  // console.log('b', res2?.intersection.geometry)
   const endInPoly = turf.lineString([[0, 0], [0, 3]])
   const res3 = linePolyContact(endInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
-  console.log(res3?.intersection.geometry)
+  expect(res3).toBeTruthy()
+  // console.log('b', res3?.intersection.geometry)
+  const crossIn = res3?.intersection.geometry as any
+  expect(crossIn.coordinates.length).toEqual(2)
+  expect(crossIn.coordinates[0]).toEqual([0, 2])
+  expect(crossIn.coordinates[1]).toEqual([0, 3])
+  // console.log('c', res3)
+  const resTooLate = linePolyContact(endInPoly.geometry, [0, 10], simplePoly.geometry, [0, 4])
+  expect(resTooLate).toBeUndefined()
+  //  console.log('d', resTooLate?.intersection.geometry)
 })
 
 it('intersection of line & point', () => {
-  const res = linePointContact(simpleLine.geometry, [0, 10], simplePoint.geometry, [0, 10])
-  console.log(res?.intersection.geometry)
-  // // start in poly
-  // const startInPoly = turf.lineString([[0, 3], [0, 10]])
-  // const res2 = linePolyContact(startInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
-  // console.log(res2?.intersection.geometry)
-  // const endInPoly = turf.lineString([[0, 0], [0, 3]])
-  // const res3 = linePolyContact(endInPoly.geometry, [0, 10], simplePoly.geometry, [0, 10])
-  // console.log(res3?.intersection.geometry)
+  const res = linePointContact(simpleLine.geometry, [0, 10], simplePoint.geometry, [2, 10])
+  expect(res).toBeTruthy()
+  expect(res?.startTime).toEqual(2)
+  expect(res?.endTime).toEqual(8)
+
+  const outsidePoly = turf.point([1, 1])
+  const res2 = linePointContact(simpleLine.geometry, [0, 10], outsidePoly.geometry, [0, 10])
+  expect(res2).toBeUndefined()
+
+  const tooEarly = linePointContact(simpleLine.geometry, [0, 10], simplePoint.geometry, [0, 6])
+  expect(tooEarly).toBeUndefined()
+
+  const tooLate = linePointContact(simpleLine.geometry, [0, 10], simplePoint.geometry, [9, 10])
+  expect(tooLate).toBeUndefined()
 })
 
-it('find how far along hte line to get the polygon overlap', () => {
+it('intersection of line & line - invalid', () => {
+  const horiLine = turf.lineString([[5, 5], [-5, 5]])
+  const generousRange = lineLineContact(simpleLine.geometry, [0, 10], horiLine.geometry, [4, 10], 1000)
+  expect(generousRange).toBeTruthy()
+
+  const resSmallerRange = lineLineContact(simpleLine.geometry, [0, 10], horiLine.geometry, [4, 10], 100)
+  expect(resSmallerRange).toBeFalsy()
+})
+
+it('intersection of line & line - valid', () => {
+  const horiLine = turf.lineString([[5, 5], [-5, 5]])
+  const res = lineLineContact(simpleLine.geometry, [0, 10], horiLine.geometry, [0, 10], 10)
+  expect(res).toBeTruthy()
+  const geom = res?.intersection.geometry as any
+  expect(geom.coordinates.length).toEqual(2)
+  expect(geom.coordinates[0]).toEqual(0)
+  expect(geom.coordinates[1]).toEqual(5)
+  expect(res?.startTime).toBeCloseTo(5, 2)
+  expect(res?.endTime).toBeCloseTo(5, 2)
+})
+
+it('find how far along tje line to get the polygon overlap', () => {
   const tLine = turf.lineString(line.coordinates)
   const tPoly = turf.polygon(poly.coordinates)
   const overlap = turf.lineIntersect(tLine, tPoly)

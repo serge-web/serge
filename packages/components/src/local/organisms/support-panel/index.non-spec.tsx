@@ -1,7 +1,8 @@
 /* global it expect */
-import { ChannelPlanning, ParticipantTemplate, TemplateBody } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { ChannelPlanning, MessageInteraction, MessagePlanning, ParticipantTemplate, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -19,6 +20,9 @@ const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody): a
 )
 const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.platformTypes) || []
 
+const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
+
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
@@ -32,12 +36,14 @@ describe('Support Panel component: ', () => {
         selectedOrders={[]}
         setSelectedOrders={noop}
         currentTurn={P9Mock.gameTurn}
-        messages={planningMessages}
+        planningMessages={planningMessages}
+        interactionMessages={[]}
         channel={planningChannel}
         onUnread={noop}
         onReadAll={noop}
         onRead={noop}
-        templates={myTemplates}
+        channelTemplates={myTemplates}
+        allTemplates={myTemplates}
         adjudicationTemplate={planningMessageTemplatesMock[0]}
         activityTimeChanel={noop}
         dispatch={noop}

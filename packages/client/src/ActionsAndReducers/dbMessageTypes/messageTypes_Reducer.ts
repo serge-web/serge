@@ -1,6 +1,6 @@
 import * as ActionConstant from '@serge/config'
-import copyState from '../../Helpers/copyStateHelper'
 import { MessageTypes, MessageTypesActionTypes } from '@serge/custom-types'
+import copyState from '../../Helpers/copyStateHelper'
 
 const initialState: MessageTypes = {
   isLoading: false,
@@ -10,7 +10,7 @@ const initialState: MessageTypes = {
 
 export const messageTypesReducer = (state: MessageTypes = initialState, action: MessageTypesActionTypes): MessageTypes => {
   var newState = copyState(state)
-
+  console.log('new state', action.type, action.payload)
   switch (action.type) {
     case ActionConstant.DB_MESSAGE_TYPES_GET:
       newState.isLoading = action.payload

@@ -159,10 +159,24 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_PLANNING:
           // TODO: get activity data from the database
           const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForceMockActivityData
+          // TODO: take this template id from the channel definition
+          const adjudicationTemplateId = 'k16-adjud'
+          // NOTE: block of code to force mock messages into database
+          // const mockPlanningMessages2 = mockPlanningMessages
+          // console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
+          // if (channel.messages === undefined || channel.messages.length <= 5) {
+          //   // push them
+          //   console.log('about to store', mockPlanningMessages2.length, ' to ', state.currentWargame)
+          //   mockPlanningMessages2.forEach((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+          //     const asAny = msg as any
+          //     saveMessage(state.currentWargame, asAny.details, asAny.message)()
+          //     console.log('stored', asAny.details)
+          //   })
+          // }
           return <PlanningChannel
-            templates={channel.templates}
+            channelTemplates={channel.templates}
             allTemplates={allTemplates}
-            adjudicationTemplate={state.allTemplatesByKey['k16e-land']}
+            adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
             channelId={channel.uniqid}
             messages={channel.messages}
             channel={channel.cData as ChannelPlanning}

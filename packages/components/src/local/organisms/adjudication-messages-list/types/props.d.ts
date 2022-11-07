@@ -1,15 +1,21 @@
+import { TurnFormats } from '@serge/config'
+import { ChannelPlanning, ForceData, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, Role, TemplateBody } from '@serge/custom-types'
+import { MessageInteraction } from '@serge/custom-types/message'
+import { ForceStyle } from '@serge/helpers'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
-import { TurnFormats } from '@serge/config'
-import { ForceStyle } from '@serge/helpers'
+import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
 export type AdjudicationRow = {
   id: string
-  title: string
-  role: string
+  complete: boolean
+  /** turn when adjudication generated */
+  turn: number
+  order1: string
+  order2: string
   activity: string
   period: string
+  tableData?: { showDetailPanel: any }
 }
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
@@ -17,8 +23,13 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * The list of channel messages properties required
    * for ChannelMessage components
    */
-  messages: Array<MessagePlanning>
-  /** forces in this game
+  interactionMessages: Array<MessageInteraction>
+  /**
+   * The list of channel messages properties required
+   * for ChannelMessage components
+   */
+  planningMessages: Array<MessagePlanning>
+   /** forces in this game
    *
    */
   forces: ForceData[]
@@ -63,7 +74,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * method to customise the new (or existing) message template
    */
-  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
   /** forces and colors
    *
    */
@@ -71,4 +82,16 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
+  /** the range of planning activities for each force */
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
+
+  /**
+   * there is a new interaction to adjudicate
+   */
+  handleAdjudication?: {(contact: PlanningContact): void}
+
+  /**
+   * current turn filter (or -1 to show all turns)
+   */
+  turnFilter?: number
 }
