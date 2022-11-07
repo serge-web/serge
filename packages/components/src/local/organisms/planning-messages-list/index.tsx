@@ -4,18 +4,21 @@ import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
+import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, channel, selectedForce, selectedRoleName, currentTurn
+  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const messageValue = useRef<any>(null)
+
+  const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
@@ -23,9 +26,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
+    const showOrdersForAllRoles = !onlyShowMyOrders
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
-    setMyMessages(myForceMessages)
-  }, [messages, playerForceId])
+    const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
+    setMyMessages(myRoleMessages)
+  }, [messages, playerForceId, onlyShowMyOrders, playerRoleId])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -43,6 +48,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const row: OrderRow = {
         id: message._id,
         title: plan.title,
+        turn: message.details.turnNumber,
         role: author,
         activity: plan.activity || 'n/a',
         startDate: shortDate(plan.startDate),
@@ -59,19 +65,24 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const activities = collateActivities(myMessages)
 
     const columnData: Column[] = jestWorkerId ? [] : [
-      { title: 'ID', field: 'id' },
       { title: 'Title', field: 'title' },
       { title: 'Author', field: 'role', lookup: arrToDict(roles) },
       { title: 'Activity', field: 'activity', lookup: arrToDict(activities) },
       { title: 'Start Date', field: 'startDate' },
       { title: 'Finish Date', field: 'endDate' }
     ]
+
+    // if we're showing all turns, we need to show the turn number for the message
+    if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
+      columnData.splice(1, 0, { title: 'Turn', field: 'turn' })
+    }
+
     if (!isUmpire) {
       // drop the force column, since player only sees their force
       columns.splice(2, 1)
     }
     setColumns(columnData)
-  }, [myMessages])
+  }, [myMessages, turnFilter])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
@@ -156,15 +167,23 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         actions={jestWorkerId ? [] : [
           {
             icon: 'filter',
-            iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+            iconProps: filter ? { color: 'error' } : { color: 'action' },
             tooltip: 'Show filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
+          },
+          {
+            icon: 'person',
+            iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+            tooltip: 'Only show orders created by me',
+            isFreeAction: true,
+            onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
           }
         ]}
         options={{
+          search: false,
           paging: false,
-          sorting: false,
+          sorting: true,
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
         }}

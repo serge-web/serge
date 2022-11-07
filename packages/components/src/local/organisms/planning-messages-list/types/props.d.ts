@@ -6,6 +6,8 @@ import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/pro
 export type OrderRow = {
   id: string
   title: string
+  // turn when this order created
+  turn: number
   role: string
   activity: string
   startDate: string
@@ -71,4 +73,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
+  /**
+    * the current turn filter or (-1) to show all
+    */
+  turnFilter?: number
 }

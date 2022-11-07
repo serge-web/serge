@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react'
 import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateAssets, updateForces } from './helpers/collate-interaction'
 import { getNextInteraction } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
@@ -15,7 +16,7 @@ import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication
+  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication, turnFilter
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -93,6 +94,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         id: message._id,
         order1: interaction.orders1,
         order2: interaction.orders2 || 'n/a',
+        turn: message.details.turnNumber,
         complete: complete,
         activity: message.message.Reference,
         period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
@@ -112,6 +114,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       { title: 'Activity', field: 'Reference' },
       { title: 'Duration', field: 'period' }
     ]
+    if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
+      columnsData.splice(1, 0, { title: 'Turn', field: 'turn' })
+    }
     setColumns(columnsData)
   }, [myMessages])
 

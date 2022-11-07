@@ -211,6 +211,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     postBack={postBack}
+                    turnFilter={turnFilter}
                   />
                   <NewMessage
                     orderableChannel={true}
@@ -274,6 +275,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
                     forcePlanningActivities={forcePlanningActivities}
+                    turnFilter={turnFilter}
                   />
                 </div>
               }

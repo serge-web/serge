@@ -9,6 +9,8 @@ import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 export type AdjudicationRow = {
   id: string
   complete: boolean
+  /** turn when adjudication generated */
+  turn: number
   order1: string
   order2: string
   activity: string
@@ -87,4 +89,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * there is a new interaction to adjudicate
    */
   handleAdjudication?: {(contact: PlanningContact): void}
+
+  /**
+   * current turn filter (or -1 to show all turns)
+   */
+  turnFilter?: number
 }
