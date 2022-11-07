@@ -1,18 +1,14 @@
+import { CHANNEL_CHAT, CHANNEL_COLLAB, CHAT_CHANNEL_ID, CUSTOM_MESSAGE, expiredStorage, INFO_MESSAGE, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import {
-  expiredStorage, CHAT_CHANNEL_ID, CUSTOM_MESSAGE,
-  INFO_MESSAGE, INFO_MESSAGE_CLIPPED, CHANNEL_COLLAB, CHANNEL_CHAT
-} from '@serge/config'
-import {
-  ForceData, PlayerUiChannels, PlayerUiChatChannel, SetWargameMessage, MessageChannel,
-  MessageCustom, ChannelUI, MessageInfoType, MessageInfoTypeClipped, TemplateBodysByKey,
-  Role, ChannelTypes, PlayerMessage, PlayerMessageLog
+  ChannelTypes, ChannelUI, ForceData, MessageChannel,
+  MessageCustom, MessageInfoType, MessageInfoTypeClipped, PlayerMessage, PlayerMessageLog, PlayerUiChannels, PlayerUiChatChannel, Role, SetWargameMessage, TemplateBodysByKey
 } from '@serge/custom-types'
-import { getParticipantStates } from './participant-states'
-import deepCopy from './deep-copy'
+import { CoreParticipant } from '@serge/custom-types/participant'
 import uniqId from 'uniqid'
+import deepCopy from './deep-copy'
 import mostRecentOnly from './most-recent-only'
 import newestPerRole from './newest-per-role'
-import { CoreParticipant } from '@serge/custom-types/participant'
+import { getParticipantStates } from './participant-states'
 
 /** a message has been received. Put it into the correct channel
  * @param { SetWargameMessage } data
@@ -41,7 +37,19 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
 
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
-    if (message.message.Reference) {
+    //
+    // start off with lower-case reference, as used in PFT
+    if (message.message.reference) {
+      // remove any existing RFI with this reference number. Note: we can't use
+      // filter() array function since it produces a new array, which would
+      // have a new reference, and wouldn't get returned as a parameter
+      theChannel.messages.forEach((msg, idx) => {
+        if (msg.messageType === CUSTOM_MESSAGE &&
+          msg.message.reference === message.message.reference) {
+          theChannel.messages?.splice(idx, 1)
+        }
+      })
+    } else if (message.message.Reference) {
       // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
