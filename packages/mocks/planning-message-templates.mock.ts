@@ -847,25 +847,27 @@ const planningMessageTemplatesMock: TemplateBody[] = [
       "properties": {
         "Reference": {
           "type": "string",
-          "title": "Reference (sys generated)",
+          "title": "Reference (locked)",
           "readonly": "readonly",
-          "propertyOrder": 25
+          "propertyOrder": 15,
+          "options": {
+            "grid_columns": 2
+          }
         },
         "title": {
           "type": "string",
-          "propertyOrder": 20
+          "propertyOrder": 20,
+          "options": {
+            "grid_columns": 5
+          }
         },
         startDate: {
           format: "datetime-local",
           type: "string",
           title: "Start date",
           propertyOrder: 30,
-          options: {
-            flatpickr: {
-              wrap: false,
-              time_24hr: true,
-              dateFormat: "d/m/Y"
-            }
+          "options": {
+            "grid_columns": 2
           }
         },
         "endDate": {
@@ -878,7 +880,8 @@ const planningMessageTemplatesMock: TemplateBody[] = [
               "wrap": false,
               "time_24hr": true,
               "dateFormat": "d/m/Y"
-            }
+            },
+            "grid_columns": 2
           }
         },
         "Description": {
