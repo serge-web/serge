@@ -22,6 +22,9 @@ export default interface PropTypes {
   activityTimeChanel: (role: string, message: string) => void
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => {(): void}
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
+  saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
+  getCachedNewMessagevalue?: (value: string) => string
+  clearCachedNewMessage?: (data: string[]) => void
   dispatch: Dispatch<any>
   isUmpire: boolean
   selectedRoleName: Role['name']
