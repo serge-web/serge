@@ -30,6 +30,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   adjudicationTemplate,
   saveMessage,
   saveNewActivityTimeMessage,
+  saveCachedNewMessageValue,
+  getCachedNewMessagevalue,
+  clearCachedNewMessage,
   selectedForce,
   selectedRoleId,
   selectedRoleName,
@@ -216,11 +219,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
+                    saveCachedNewMessageValue={saveCachedNewMessageValue}
+                    getCachedNewMessagevalue={getCachedNewMessagevalue}
+                    clearCachedNewMessage={clearCachedNewMessage}
                     templates={templates}
                     selectedRole={selectedRoleId}
                     selectedForce={selectedForce}
                     selectedRoleName={selectedRoleName}
-                    confirmCancel={false}
+                    confirmCancel={true}
                     onCancel={cancelNewOrders}
                     channel={channel}
                     currentTurn={currentTurn}
