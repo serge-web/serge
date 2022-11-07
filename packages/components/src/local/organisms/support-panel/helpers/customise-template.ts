@@ -33,6 +33,5 @@ export const customiseTemplate = (_document: MessageStructure | undefined, schem
       oldActivity.options.enum_titles = acts.map((val) => val.name)
     }
   }
-  console.log('returning', schema)
   return schema
 }
