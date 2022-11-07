@@ -20,6 +20,7 @@ const rfiData = newest.map((message: any) => {
     messageItem.details.channel,
     messageItem.details.from.roleName,
     messageItem.details.from.forceColor,
+    messageItem.details.from.forceId,
     messageItem.message.Title,
     messageItem.details.collaboration?.status,
     messageItem.details.collaboration?.owner

@@ -37,8 +37,19 @@ const handleNonInfoMessage = (data: SetWargameMessage, channel: string, message:
 
     // if this message has a reference number, we should delete any previous message
     // with that reference number before we insert the message
-    // NOTE:: this shouldn't be necessary if we're already doing a _.uniqBy(Reference) on the data
-    if (message.message.Reference) {
+    //
+    // start off with lower-case reference, as used in PFT
+    if (message.message.reference) {
+      // remove any existing RFI with this reference number. Note: we can't use
+      // filter() array function since it produces a new array, which would
+      // have a new reference, and wouldn't get returned as a parameter
+      theChannel.messages.forEach((msg, idx) => {
+        if (msg.messageType === CUSTOM_MESSAGE &&
+          msg.message.reference === message.message.reference) {
+          theChannel.messages?.splice(idx, 1)
+        }
+      })
+    } else if (message.message.Reference) {
       // remove any existing RFI with this reference number. Note: we can't use
       // filter() array function since it produces a new array, which would
       // have a new reference, and wouldn't get returned as a parameter
