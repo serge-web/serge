@@ -13,6 +13,7 @@ interface CssExports {
   'secondary-action-tab': string;
   'select-template-title': string;
   'tab-panel': string;
+  'turn-dropdown': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
