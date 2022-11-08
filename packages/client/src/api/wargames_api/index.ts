@@ -757,9 +757,11 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
 
       // @ts-ignore
       const counterExist = existId ? existId.message.counter : message.message.counter
-
+  
       counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
-      message.message.Reference = [message.details.from.force, message.message.counter].join('-')
+      if (typeof message.message.Reference === 'string' && message.message.Reference.length === 0) {
+        message.message.Reference = [message.details.from.force, message.message.counter].join('-')
+      } 
 
       resolve(message)
     } else {
