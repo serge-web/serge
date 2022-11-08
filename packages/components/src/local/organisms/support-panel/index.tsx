@@ -102,7 +102,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
-        <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
+        { selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
+        }
       </div>
     )
   }
@@ -251,7 +252,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
+            {
+              selectedForce.umpire && <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
               {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
@@ -280,6 +282,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 </div>
               }
             </TabPanel>
+            }            
             <div className={styles['resize-indicator-container']} >
               <div className={styles['resize-indicator-icon']} >
                 <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
