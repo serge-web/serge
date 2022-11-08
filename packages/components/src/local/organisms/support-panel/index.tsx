@@ -14,6 +14,7 @@ import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
+import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
@@ -161,7 +162,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
-      (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce)
+      (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
+      (document, template) => customiseLocation(document, template)
     ]
 
     let current: Record<string, any> = schema
