@@ -20,7 +20,7 @@ import PlanningForces from '../planning-force'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact } from '../support-panel/helpers/gen-order-data'
+import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
@@ -207,10 +207,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction && msg.details.messageType === 'Land Activity')) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
-    console.log('new messages', messages.length, myInteractionMessages.length)
-    if (!myInteractionMessages.length) {
-      console.log(messages)
-    }
+    // log of number of message ids and forces, used to config interactions
+    !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId}}))
+
+    // count of new messages
+    !7 && console.log('Page loaded', messages.length, myInteractionMessages.length)
 
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)
@@ -244,11 +245,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   const genData = (): void => {
-    const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-    setActivityBeingPlanned(newPlan)
-
-    // const newOrders = randomOrdersDocs(200, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
-    // console.log(newOrders)
+    if (!7) {
+      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+      setActivityBeingPlanned(newPlan)
+    } else {
+      const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
+      console.log(newOrders)
+    }
   }
 
   const incrementDebugStep = (): void => {
@@ -501,7 +504,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {!7 && // don't bother with this, but keep it in case we want to gen more data
+                          {7 && // don't bother with this, but keep it in case we want to gen more data
                             <div className={cx('leaflet-control')}>
                               <Item onClick={genData}>gen data</Item>
                             </div>
