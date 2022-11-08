@@ -1,9 +1,10 @@
 import { expiredStorage } from '@serge/config'
-import { Editor } from '@serge/custom-types'
-import { configDateTimeLocal } from '@serge/helpers'
+import { Editor, TemplateBody } from '@serge/custom-types'
+import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
+import Confirm from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
 // keydown listener should works only for defined tags
