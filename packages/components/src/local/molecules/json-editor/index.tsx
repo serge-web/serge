@@ -1,17 +1,11 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-
-/* Import Stylesheet */
-import 'bootstrap/dist/css/bootstrap.min.css'
-
-/* Import Types */
-import { Editor } from '@serge/custom-types'
-import Props from './types/props'
-
 import { expiredStorage } from '@serge/config'
+import { Editor } from '@serge/custom-types'
 import { configDateTimeLocal } from '@serge/helpers'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
 import setupEditor from './helpers/setupEditor'
-
+import Props from './types/props'
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 
@@ -138,6 +132,8 @@ export const JsonEditor: React.FC<Props> = ({
         nextEditor.on('change', changeListenter)
       } else if (messageContent) {
         const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
+        // fake data for location, we can process location string and split it to multiple lines here
+        contentAsJSON.location = '• Route In\n• Target Area\n• Route Back'
         const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
         nextEditor.setValue(modified)
         nextEditor.on('change', changeListenter)
