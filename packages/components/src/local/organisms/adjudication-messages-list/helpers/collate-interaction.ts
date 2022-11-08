@@ -68,11 +68,13 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined=> {
   const intMsg = interactionMessages.find((value) => value._id === intId)
   if (!intMsg) {
-    throw Error('Failed to find interaction message:' + intId)
+    console.warn('Failed to find interaction message:', intId)
+    return undefined
   }
   const interaction = intMsg.details.interaction
   if (!interaction) {
-    throw Error('Failed to find interaction message:' + intId)
+    console.warn('Failed to find interaction details:', intId)
+    return undefined
   }
   const order1AssetsIds: string[] = []
   const order1 = planningMessages.find((plan) => plan._id === interaction.orders1)
@@ -105,7 +107,7 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   })
 
   const act1 = forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order1.message.activity)
-  const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order2.message.activity)
+  const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order2.details.from.forceId, order2.message.activity)
 
   return {
     interaction: intMsg,
