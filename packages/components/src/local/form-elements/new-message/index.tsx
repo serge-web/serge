@@ -42,7 +42,7 @@ const NewMessage: React.FC<PropTypes> = ({
     setSelectedSchema(templateData.details)
   }
 
-  const allTemplates: TemplateBody[] = (templates.length && templates[0] && templates) || []
+  const allTemplates: TemplateBody[] = (templates.length > 0 && templates[0] && templates) || []
 
   const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 

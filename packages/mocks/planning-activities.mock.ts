@@ -111,12 +111,12 @@ export const MockPlanningActivities: PlanningActivity[] = [
       {
         aType: GeometryType.polygon,
         name: 'Flight Box',
-        uniqid: 'aa9'
+        uniqid: 'aa9a'
       },
       {
         aType: GeometryType.polygon,
         name: 'Target Area',
-        uniqid: 'aa9'
+        uniqid: 'aa9b'
       },
       {
         aType: GeometryType.polyline,

@@ -1,11 +1,13 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, Role, TemplateBody } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
 export type OrderRow = {
   id: string
   title: string
+  // turn when this order created
+  turn: number
   role: string
   activity: string
   startDate: string
@@ -27,9 +29,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   channel: ChannelPlanning
   /**
-   * templates for new types of orders created by this role
+   * full set of templates, used for rendering messagse
    */
-  templates?: TemplateBody[]
+  allTemplates?: TemplateBody[]
   /**
    * Callback on expanding message item
    */
@@ -52,6 +54,14 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /** how to render the game turn  */
   turnPresentation?: TurnFormats
 
+  //* save the message
+  postBack?: { (details: MessageDetails, message: any): void }
+  confirmCancel?: boolean
+  onCancel?: {(event: React.MouseEvent<HTMLButtonElement>): void}
+  selectedForce?: ForceData
+  selectedRoleName: string
+  currentTurn: number
+
   isUmpire: boolean
   /** whether to hide the forces in the channel
    */
@@ -59,8 +69,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * method to customise the new (or existing) message template
    */
-  customiseTemplate?: { (schema: Record<string, any>): Record<string, any> }
+  customiseTemplate?: { (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }
 
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
+  /**
+    * the current turn filter or (-1) to show all
+    */
+  turnFilter?: number
 }

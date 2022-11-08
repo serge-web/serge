@@ -21,8 +21,8 @@ export const linePointContact = (line: LineString, lineTime: TimePeriod, point: 
       const fLine: Feature<LineString> = turf.lineString(tLine.coordinates)
       const fPoint: Feature<Point> = turf.point(point.coordinates)
       const beforeSection = turf.lineSplit(fLine, fPoint).features[0]
-      const pointLength = turf.length(beforeSection)
-      const totalLength = turf.length(fLine)
+      const pointLength = turf.length(beforeSection, { units: 'kilometers' })
+      const totalLength = turf.length(fLine, { units: 'kilometers' })
       const period = timeIntersect2(lineTime, polyTime)
       const proportion = pointLength / totalLength
       const time = tStart(period) + (tEnd(period) - tStart(period)) * proportion
@@ -32,6 +32,77 @@ export const linePointContact = (line: LineString, lineTime: TimePeriod, point: 
         endTime: time
       }
       return res
+    }
+  }
+  return undefined
+}
+
+export const lineLineContact = (lineOne: LineString, lineOneTime: TimePeriod, lineTwo: LineString, lineTwoTime: TimePeriod,
+  sensorRangeKm: number): ShapeInteraction | undefined => {
+  // trim the line to the valid period of the point
+  const tLineOne: LineString | undefined = trimLineToPeriod(lineOne, lineOneTime, lineTwoTime)
+  const tLineTwo: LineString | undefined = trimLineToPeriod(lineTwo, lineTwoTime, lineOneTime)
+  if (tLineOne && tLineTwo) {
+    // now re-check if the line and point interact
+    const crosses = turf.lineIntersect(tLineOne, tLineTwo)
+    if (crosses.features.length > 0) {
+      const timeOfCrossing = (line: LineString, point: Point, period: TimePeriod): number => {
+        const splitPoint = turf.point(point.coordinates)
+        const fLine = turf.lineString(line.coordinates)
+        const splitLine = turf.lineSplit(fLine, splitPoint)
+        let time
+        if (splitLine.features.length > 1) {
+          const beforeSection = splitLine.features[0]
+          const fullLen = turf.length(fLine, { units: 'kilometers' })
+          const len = turf.length(beforeSection, { units: 'kilometers' })
+          const proportion = len / fullLen
+          time = period[0] + (period[1] - period[0]) * proportion
+        } else {
+          // only one leg. So, point was at start or end of data
+          if (turf.booleanEqual(turf.point(point.coordinates), turf.point(line.coordinates[0]))) {
+            time = period[0]
+          } else if (turf.booleanEqual(turf.point(point.coordinates), turf.point(line.coordinates[line.coordinates.length - 1]))) {
+            time = period[1]
+          } else {
+            console.warn('Wrong presumption about splitting line by point', point.coordinates, line.coordinates[0], line.coordinates[line.coordinates.length - 1])
+            time = period[0]
+          }
+        }
+        return time
+      }
+
+      // find the time of the crossing on line one
+      const fullLineOne = turf.lineString(lineOne.coordinates)
+      const crossPoint = turf.point(crosses.features[0].geometry.coordinates)
+      const timeOne = timeOfCrossing(fullLineOne.geometry, crossPoint.geometry, lineOneTime)
+
+      /** check if the first period is wholly contained within the second period */
+      const containsTime2 = (period: TimePeriod, time: number): boolean => {
+        return time >= tStart(period) && time <= tEnd(period)
+      }
+
+      // check if line two is alive at time one
+      if (containsTime2(lineTwoTime, timeOne)) {
+        // find where the second line would be at this time
+        const fLineTwo = turf.lineString(lineTwo.coordinates)
+        const proportion = (timeOne - lineTwoTime[0]) / (lineTwoTime[1] - lineTwoTime[0])
+        const fullLength = turf.length(fLineTwo, { units: 'kilometers' })
+        const length = proportion * fullLength
+        const lineTwoAtTimeOne = turf.along(fLineTwo, length, { units: 'kilometers' })
+        const distanceApart = turf.distance(crossPoint, lineTwoAtTimeOne, { units: 'kilometers' })
+
+        if (distanceApart <= sensorRangeKm) {
+          // find the time of the crossing on line two
+          const timeTwo = timeOfCrossing(lineTwo, crossPoint.geometry, lineTwoTime)
+          const meanTime = (timeOne + timeTwo) / 2
+          const res: ShapeInteraction = {
+            intersection: crossPoint,
+            startTime: meanTime,
+            endTime: meanTime
+          }
+          return res
+        }
+      }
     }
   }
   return undefined
@@ -95,6 +166,11 @@ export const containedIn = (periodOne: TimePeriod, periodTwo: TimePeriod): boole
   return tStart(periodOne) >= tStart(periodTwo) && tEnd(periodOne) <= tEnd(periodTwo)
 }
 
+/** check if the first period is wholly contained within the second period */
+export const containsTime = (period: TimePeriod, time: number): boolean => {
+  return time >= tStart(period) && time <= tEnd(period)
+}
+
 export const trimLineToPeriod = (line: LineString, lineTime: TimePeriod, otherTime: TimePeriod): LineString | undefined => {
   if (containedIn(lineTime, otherTime)) {
     return line
@@ -120,7 +196,8 @@ export const trimLineToPeriod = (line: LineString, lineTime: TimePeriod, otherTi
       const proportion = diff / elapsed(lineTime)
       const newLength = turf.length(tLine, { units: 'kilometers' })
       const lengthToCut = newLength - (proportion * totalLength)
-      const splitPoint = turf.along(tLine, lengthToCut, { units: 'kilometers' })
+      const fixedLength = lengthToCut > 0 ? lengthToCut : 0
+      const splitPoint = turf.along(tLine, fixedLength, { units: 'kilometers' })
       const splitLine = turf.lineSplit(tLine, splitPoint)
       tLine = splitLine.features[0]
     }

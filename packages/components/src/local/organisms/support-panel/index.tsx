@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessagePlanning, MessageSentInteraction } from '@serge/custom-types'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
@@ -12,6 +12,8 @@ import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
+import { customiseActivities } from './helpers/customise-activities'
+import { customiseAssets } from './helpers/customise-assets'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
@@ -20,16 +22,21 @@ export const SupportPanelContext = createContext<SupportPanelContextInterface>({
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
-  messages,
+  planningMessages,
+  interactionMessages,
   turnPresentation,
   onRead,
   onUnread,
   onReadAll,
   channel,
-  templates,
+  channelTemplates,
+  allTemplates,
   adjudicationTemplate,
   saveMessage,
   saveNewActivityTimeMessage,
+  saveCachedNewMessageValue,
+  getCachedNewMessagevalue,
+  clearCachedNewMessage,
   selectedForce,
   selectedRoleId,
   selectedRoleName,
@@ -46,7 +53,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   allOwnAssets,
   onPanelWidthChange,
   draftMessage,
-  onCancelDraftMessage
+  onCancelDraftMessage,
+  forcePlanningActivities
 }) => {
   const [activeTab, setActiveTab] = useState<string>(TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -56,7 +64,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
 
-  const [filteredMessages, setFilteredMessages] = useState<MessagePlanning[]>([])
+  const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
+  const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
 
   const ORDERS_TAB = 1
@@ -67,9 +76,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const filtered = turnFilter === SHOW_ALL_TURNS ? messages : messages.filter((msg) => msg.details.turnNumber === turnFilter)
-    setFilteredMessages(filtered)
-  }, [messages, turnFilter])
+    const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
+    setFilteredPlanningMessages(filtered)
+  }, [planningMessages, turnFilter])
+
+  useEffect(() => {
+    const filtered = turnFilter === SHOW_ALL_TURNS ? interactionMessages : interactionMessages.filter((msg) => msg.details.turnNumber === turnFilter)
+    setFilteredInteractionMessages(filtered)
+  }, [interactionMessages, turnFilter])
 
   const TabPanel = (props: TabPanelProps): React.ReactElement => {
     const { children, active, ...other } = props
@@ -81,20 +95,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
         {children}
       </div>
     )
-  }
-
-  const customiseTemplate = (schema: Record<string, any>): Record<string, any> => {
-    if (schema) {
-      const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.FEName?.enum
-      if (oldOwnAssets) {
-        schema.properties.ownAssets.items.properties.FEName.enum = allOwnAssets.map((asset: AssetRow) => asset.name)
-      }
-      const oldOwnTargets = schema.properties?.otherAssets?.items?.properties?.FEName?.enum
-      if (oldOwnTargets) {
-        schema.properties.otherAssets.items.properties.FEName.enum = allOppAssets.map((asset: AssetRow) => asset.name)
-      }
-    }
-    return schema
   }
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
@@ -157,6 +157,19 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setTurnFilter(turn)
   }
 
+  const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+    const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
+      (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
+      (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce)
+    ]
+
+    let current: Record<string, any> = schema
+    customisers.forEach((fn) => {
+      current = fn(document, current)
+    })
+    return current
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -192,36 +205,45 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
-                    messages={filteredMessages}
+                    messages={filteredPlanningMessages}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
+                    selectedForce={selectedForce}
+                    selectedRoleName={selectedRoleName}
+                    currentTurn={currentTurn}
                     hideForcesInChannel={false}
                     onRead={onRead}
                     onUnread={onUnread}
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
-                    templates={templates}
-                    customiseTemplate={customiseTemplate}
+                    allTemplates={allTemplates}
+                    confirmCancel={true}
+                    customiseTemplate={localCustomiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
+                    postBack={postBack}
+                    turnFilter={turnFilter}
                   />
                   <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
-                    templates={templates}
+                    templates={channelTemplates}
+                    saveCachedNewMessageValue={saveCachedNewMessageValue}
+                    getCachedNewMessagevalue={getCachedNewMessagevalue}
+                    clearCachedNewMessage={clearCachedNewMessage}
                     selectedRole={selectedRoleId}
                     selectedForce={selectedForce}
                     selectedRoleName={selectedRoleName}
-                    confirmCancel={false}
+                    confirmCancel={true}
                     onCancel={cancelNewOrders}
                     channel={channel}
                     currentTurn={currentTurn}
                     gameDate={gameDate}
                     postBack={postBack}
-                    customiseTemplate={customiseTemplate}
+                    customiseTemplate={localCustomiseTemplate}
                     draftMessage={draftMessage}
                   />
                 </div>
@@ -248,7 +270,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <AdjudicationMessagesList
-                    messages={filteredMessages}
+                    interactionMessages={filteredInteractionMessages}
+                    planningMessages={filteredPlanningMessages}
                     forces={allForces}
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
@@ -262,9 +285,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onMarkAllAsRead={onReadAll}
                     channel={channel}
                     template={adjudicationTemplate}
-                    customiseTemplate={customiseTemplate}
+                    customiseTemplate={localCustomiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
+                    forcePlanningActivities={forcePlanningActivities}
+                    turnFilter={turnFilter}
                   />
                 </div>
               }
@@ -283,9 +308,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
     isShowPanel,
     activeTab,
     allForces,
-    filteredMessages,
+    filteredPlanningMessages,
+    filteredInteractionMessages,
     selectedRoleId,
-    turnFilter
+    turnFilter,
+    draftMessage
   ]
   )
 

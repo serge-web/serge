@@ -1,10 +1,12 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {
-  messages: MessagePlanning[]
+  planningMessages: MessagePlanning[]
+  interactionMessages: MessageInteraction[]
   turnPresentation?: TurnFormats
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessagePlanning) => void
@@ -14,7 +16,9 @@ export default interface PropTypes {
    */
   channel: ChannelPlanning
   /** new orders templates for this player */
-  templates: TemplateBody[]
+  channelTemplates: TemplateBody[]
+  /** full set of templates, used for rendering third-party messages */
+  allTemplates: TemplateBody[]
   /** adjudication template */
   adjudicationTemplate: TemplateBody
   /** descriptions of platform types (used to generate icons) */
@@ -22,6 +26,9 @@ export default interface PropTypes {
   activityTimeChanel: (role: string, message: string) => void
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => {(): void}
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
+  saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
+  getCachedNewMessagevalue?: (value: string) => string
+  clearCachedNewMessage?: (data: string[]) => void
   dispatch: Dispatch<any>
   isUmpire: boolean
   selectedRoleName: Role['name']
@@ -42,7 +49,9 @@ export default interface PropTypes {
   onPanelWidthChange?: (width: number) => void
   /** a draft copy of an new orders */
   draftMessage?: MessagePlanning
+  /** player cancels creating a new set of orders */
   onCancelDraftMessage?: {(): void}
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
 }
 
 export type TabPanelProps = {

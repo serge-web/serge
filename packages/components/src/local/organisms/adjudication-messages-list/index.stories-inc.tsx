@@ -3,13 +3,15 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState } from 'react'
 
 // Import component files
-import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
-import { forceColors, mostRecentPlanningOnly } from '@serge/helpers'
-import { P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { ChannelPlanning, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { forceColors } from '@serge/helpers'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { noop } from 'lodash'
+import { fixPerForcePlanningActivities } from '../planning-channel/helpers/collate-plans-helper'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
-import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -41,8 +43,12 @@ export default {
   }
 }
 
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, playerRoleId, hideForcesInChannel } = args
+  const { interactionMessages: messages, playerForceId, playerRoleId, hideForcesInChannel } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -59,13 +65,16 @@ const Template: Story<MessageListPropTypes> = (args) => {
   }
 
   // remove later versions
-  const newestMessages = mostRecentPlanningOnly(planningMessages)
+  const nonInfoMessages = planningChannelMessages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+  const interactionMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
+  const planningMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
   return <AdjudicationMessagesList
     forces={forces}
     setSelectedOrders={noop}
     selectedOrders={[]}
-    messages={newestMessages}
+    interactionMessages={interactionMessages}
+    planningMessages={planningMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
     gameDate={P9Mock.data.overview.gameDate}
@@ -76,6 +85,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     onRead={onRead}
     isUmpire={true}
     hideForcesInChannel={hideForcesInChannel}
+    forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
 
@@ -84,7 +94,7 @@ const blueRole = blueForce.roles[0]
 
 export const Default = Template.bind({})
 Default.args = {
-  messages: [],
+  interactionMessages: [],
   playerForceId: blueForce.uniqid,
   playerRoleId: blueRole.roleId,
   hideForcesInChannel: true

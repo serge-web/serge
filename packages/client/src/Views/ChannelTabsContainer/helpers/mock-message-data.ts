@@ -1,7 +1,7 @@
 
 import { MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 
-export const dummyMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = [
+export const mockPlanningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = [
   {
     messageType: 'InteractionMessage',
     details: {
@@ -131,7 +131,7 @@ export const dummyMessages: Array<MessageInteraction | MessagePlanning | Message
       ownAssets: [
         {
           asset: 'a179',
-          number: 0
+          number: 5
         }
       ],
       otherAssets: [

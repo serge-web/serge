@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core'
-import { UNSENT_CHAT_MESSAGE_TYPE, UNSENT_PRIVATE_MESSAGE_TYPE } from '@serge/config'
+import { PLANNING_MESSAGE, UNSENT_CHAT_MESSAGE_TYPE, UNSENT_PRIVATE_MESSAGE_TYPE } from '@serge/config'
 import { MessageDetails, MessagePlanning } from '@serge/custom-types'
 import React, { useRef, useState } from 'react'
 import { dummyMessages } from '../../organisms/support-panel/helpers/dummy_messages'
@@ -52,7 +52,7 @@ export const ChatEntryForm: React.FC<Props> = ({
     // NOTE: utility to send bulk messages into backend
     const sendBulk = false
     if (sendBulk) {
-      const messages: MessagePlanning[] = dummyMessages
+      const messages: MessagePlanning[] = dummyMessages.filter((message) => message.messageType === PLANNING_MESSAGE) as MessagePlanning[]
       messages.forEach((msg: MessagePlanning) => {
         console.log('sending', msg._id)
         postBack && postBack(msg.details, msg.message)

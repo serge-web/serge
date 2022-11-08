@@ -1,27 +1,36 @@
-import { MessagePlanning, TemplateBody } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
+import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
-  messages, templates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, setSelectedOrders
+  messages, allTemplates, isUmpire, gameDate, customiseTemplate,
+  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+  const messageValue = useRef<any>(null)
+
+  const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
+
+  if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
-    setMyMessages(messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId))
-  }, [messages, playerForceId])
+    const showOrdersForAllRoles = !onlyShowMyOrders
+    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
+    const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
+    setMyMessages(myRoleMessages)
+  }, [messages, playerForceId, onlyShowMyOrders, playerRoleId])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -30,19 +39,22 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const roles: string[] = []
-    const dataTable = myMessages.map(message => {
+    const dataTable: OrderRow[] = myMessages.map(message => {
       const author = message.details.from.roleName
       if (!roles.includes(author)) {
         roles.push(author)
       }
-      return {
+      const plan = message.message as PlanningMessageStructureCore
+      const row: OrderRow = {
         id: message._id,
-        title: message.message.title,
+        title: plan.title,
+        turn: message.details.turnNumber,
         role: author,
-        activity: message.message.ActivityType,
-        startDate: shortDate(message.message.startDate),
-        endDate: shortDate(message.message.endDate)
+        activity: plan.activity || 'n/a',
+        startDate: shortDate(plan.startDate),
+        endDate: shortDate(plan.endDate)
       }
+      return row
     })
     setRows(dataTable)
 
@@ -53,19 +65,29 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const activities = collateActivities(myMessages)
 
     const columnData: Column[] = jestWorkerId ? [] : [
-      { title: 'ID', field: 'id' },
       { title: 'Title', field: 'title' },
       { title: 'Author', field: 'role', lookup: arrToDict(roles) },
       { title: 'Activity', field: 'activity', lookup: arrToDict(activities) },
       { title: 'Start Date', field: 'startDate' },
       { title: 'Finish Date', field: 'endDate' }
     ]
+
+    // if we're showing all turns, we need to show the turn number for the message
+    if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
+      const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
+      columnData.splice(1, 0, turnColumn)
+    }
+
     if (!isUmpire) {
       // drop the force column, since player only sees their force
       columns.splice(2, 1)
     }
     setColumns(columnData)
-  }, [myMessages])
+  }, [myMessages, turnFilter])
+
+  const editorValue = (val: { [property: string]: any }): void => {
+    messageValue.current = val
+  }
 
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
@@ -74,17 +96,45 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       console.error('message not found, id:', rowData.id, 'messages:', messages)
     } else {
       // check if message is being edited
-      const localTemplates = templates || []
-      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
+      const localTemplates = allTemplates || []
+      const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType || value._id === message.details.messageType)
       if (!template) {
-        console.log('template not found for', message.details.messageType, 'templates:', templates)
+        console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
+        const saveMessage = () => {
+          if (messageValue.current) {
+            const details: MessageDetails = {
+              channel: channel.uniqid,
+              from: {
+                force: selectedForce.name,
+                forceColor: selectedForce.color,
+                roleName: selectedRoleName,
+                forceId: playerForceId,
+                roleId: playerRoleId,
+                iconURL: selectedForce.iconURL || selectedForce.icon || ''
+              },
+              messageType: template._id,
+              timestamp: new Date().toISOString(),
+              turnNumber: currentTurn
+            }
+
+            if (messageValue.current.content === '') return
+
+            postBack && postBack(details, messageValue.current)
+            messageValue.current = ''
+          }
+        }
+
         const canEdit = message.details.from.roleId === playerRoleId
         return <JsonEditor
           messageContent={message.message}
+          viewSaveButton={true}
+          saveMessage={saveMessage}
           customiseTemplate={customiseTemplate}
+          storeNewValue={editorValue}
           messageId={rowData.id}
+          confirmCancel={confirmCancel}
           template={template}
           disabled={!canEdit}
           gameDate={gameDate}
@@ -119,15 +169,23 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         actions={jestWorkerId ? [] : [
           {
             icon: 'filter',
-            iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+            iconProps: filter ? { color: 'error' } : { color: 'action' },
             tooltip: 'Show filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
+          },
+          {
+            icon: 'person',
+            iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+            tooltip: 'Only show orders created by me',
+            isFreeAction: true,
+            onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
           }
         ]}
         options={{
+          search: false,
           paging: false,
-          sorting: false,
+          sorting: true,
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
         }}

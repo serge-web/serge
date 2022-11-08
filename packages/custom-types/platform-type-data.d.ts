@@ -1,5 +1,5 @@
 import { AttributeTypes } from '.';
-import State from './state'
+import State from './state';
 
 /** description of if/how to display 
  * the orientation of instances of this platform type

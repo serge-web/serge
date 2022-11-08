@@ -63,7 +63,7 @@ const iconsMap = {
 }
 
 export const Button: React.FC<Props> = ({ customColor, icon, children, customVariant, ...props }: Props) => {
-  const buttonStyles = useButtonStyle({ customColor, customVariant })
+  const buttonStyles = customColor && customVariant ? useButtonStyle({ customColor, customVariant }) : {}
   return (
     <MaterialButton
       classes={buttonStyles}

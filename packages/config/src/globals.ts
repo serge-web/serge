@@ -54,8 +54,11 @@ export const CUSTOM_MESSAGE = 'CustomMessage'
 // series of constants used for `messageType` when sending chat messages
 export const CHAT_MESSAGE = 'ChatMessage'
 
-// series of constants used for `messageType` when sending feedback
+// capture a set of plans / orders / COA
 export const PLANNING_MESSAGE = 'PlanningMessage'
+
+// capture the results of an interaction
+export const INTERACTION_MESSAGE = 'InteractionMessage'
 
 // series of constants used for `messageType` when sending feedback
 export const FEEDBACK_MESSAGE = 'FeedbackMessage'

@@ -53,5 +53,6 @@ export const shapeForGeomWithOrders = (geom: GeomWithOrders, forceCols: ForceSty
   const force = geom.activity.details.from.forceId
   const activity = findPlanningGeometry(geom.uniqid, force || '', activities)
   const color = forceCols.find((value: ForceStyle) => value.forceId === force)
+  console.log('force', force, color)
   return shapeFor(geometry, (color && color.color) || '', activity, storeRef, index)
 }

@@ -1,3 +1,5 @@
+import { forceColors } from '@serge/helpers'
+import { P9Mock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -8,6 +10,9 @@ import docs from './README.md'
 import PlanningOrdersProps from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+
+const forces = P9Mock.data.forces.forces
+const forceCols = forceColors(forces, true)
 
 export default {
   title: 'local/organisms/PlanningOrders',
@@ -31,7 +36,7 @@ export default {
 }
 
 const Template: Story<PlanningOrdersProps> = () => {
-  return <MapPlanningOrders activities={[]} setSelectedOrders={noop} orders={[]}/>
+  return <MapPlanningOrders forceColors={forceCols} activities={[]} setSelectedOrders={noop} orders={[]}/>
 }
 
 export const Default = Template.bind({})

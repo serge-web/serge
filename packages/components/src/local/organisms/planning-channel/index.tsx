@@ -1,6 +1,6 @@
-import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
-import { findAsset, forceColors as getForceColors, ForceStyle, platformIcons } from '@serge/helpers'
+import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
@@ -8,7 +8,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MessageDetails, MessageDetailsFrom, PlanningMessageStructure } from '@serge/custom-types/message'
+import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -20,7 +20,7 @@ import PlanningForces from '../planning-force'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity, PlanningContact } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderPlotter from './helpers/OrderPlotter'
@@ -37,9 +37,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveNewActivityTimeMessage,
   openMessage,
   saveMessage,
-  templates,
+  channelTemplates,
+  allTemplates,
   messages,
   channel,
+  channelId,
   adjudicationTemplate,
   selectedRoleId,
   selectedRoleName,
@@ -85,6 +87,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [thisForcePlanningActivities, setThisForcePlanningActivities] = useState<PerForcePlanningActivitySet | undefined>(undefined)
 
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
+  const [interactionMessages, setInteractionMessages] = useState<MessageInteraction[]>([])
 
   const [debugStep, setDebugStep] = useState<number>(0)
 
@@ -97,9 +100,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
 
+  const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
+  const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
+
+  const adjudicationTemplateId = 'k16-adjud'
+
   useEffect(() => {
     if (forcePlanningActivities) {
-      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === selectedForce.uniqid)
+      // we don't have planning activities for umpire force, but we may want
+      // a fake one if we're generating data
+      const validForceId = selectedForce.umpire ? allForces[1].uniqid : selectedForce.uniqid
+      const force = forcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === validForceId)
+
       setThisForcePlanningActivities(force)
 
       // produce flattened set of activities, for convenience
@@ -109,6 +121,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
     }
   }, [selectedForce, forcePlanningActivities])
+
+  useEffect(() => {
+    const isUmpire = !!selectedForce.umpire
+    const planningPhase = phase === PLANNING_PHASE
+    setPlayerInPlanning(!isUmpire && planningPhase)
+    setUmpireInAdjudication(isUmpire && !planningPhase)
+  }, [selectedForce, phase])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -181,8 +200,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // drop the turn markers
-    const myMessages: MessagePlanning[] = messages.filter((msg: MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as MessagePlanning[]
-    setPlanningMessages(myMessages)
+    const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+
+    // TODO: these filters should just use `messageType` to get the correct data, but currently
+    // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
+    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction && msg.details.messageType === 'Land Activity')) as MessagePlanning[]
+    const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
+
+    console.log('new messages', messages.length, myInteractionMessages.length)
+    if (!myInteractionMessages.length) {
+      console.log(messages)
+    }
+
+    setPlanningMessages(myPlanningMessages)
+    setInteractionMessages(myInteractionMessages)
   }, [messages])
 
   const onRead = (detail: MessagePlanning): void => {
@@ -216,17 +247,69 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
     setActivityBeingPlanned(newPlan)
 
-    const newOrders = randomOrdersDocs(10, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
-    !7 && console.log(newOrders)
+    // const newOrders = randomOrdersDocs(200, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
+    // console.log(newOrders)
   }
 
   const incrementDebugStep = (): void => {
+    // do something
+    // const msgs = dummyMessages.map((plan: MessagePlanning) => {
+    //   const force = plan.details.from.forceId
+    //   if (!force) {
+    //     console.log('force', plan._id)
+    //     throw Error('force missing for:' + plan._id)
+    //   }
+    //   const forceActs = forcePlanningActivities && forcePlanningActivities.find((value) => value.force === force)
+    //   if (forceActs) {
+    //     const cats = forceActs.groupedActivities
+    //     const randType = cats[Math.floor(Math.random() * cats.length)]
+    //     const acts = randType.activities[Math.floor(randType.activities.length * Math.random())] as PlanningActivity
+    //     plan.message.activity = acts.uniqid
+    //   }
+    //   return plan
+    // })
+    // console.log(msgs)
+
     console.log('debug step', debugStep)
     setDebugStep(1 + debugStep)
   }
 
   const handleAdjudication = (contact: PlanningContact): void => {
-    console.log('Apply some adjudication for', contact.id)
+    console.log('Apply some adjudication for', contact.id, contact)
+    const interDetails: InteractionDetails = {
+      id: contact.id,
+      orders1: contact.first.activity._id,
+      orders2: contact.second.activity._id,
+      startTime: moment(contact.timeStart).toISOString(),
+      endTime: moment(contact.timeEnd).toISOString(),
+      geometry: contact.intersection,
+      complete: false
+    }
+    const from: MessageDetailsFrom = {
+      force: selectedForce.uniqid,
+      forceId: selectedForce.uniqid,
+      forceColor: selectedForce.color,
+      iconURL: selectedForce.iconURL,
+      roleId: selectedRoleId,
+      roleName: selectedRoleName
+    }
+    const details: MessageDetails = {
+      channel: channel.uniqid,
+      from: from,
+      interaction: interDetails,
+      messageType: adjudicationTemplateId,
+      timestamp: moment().toISOString(),
+      turnNumber: turnNumber
+    }
+    const message: InteractionMessageStructure = {
+      Reference: '',
+      narrative: '',
+      perceptionOutcomes: [],
+      locationOutcomes: [],
+      healthOutcomes: []
+    }
+    // store the new adjudication
+    saveMessage(currentWargame, details, message)()
   }
 
   useEffect(() => {
@@ -249,8 +332,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         timestamp: moment().toISOString(),
         turnNumber: turnNumber
       }
-      const plans: PlanningMessageStructure = {
-        reference: 'unset',
+      const plans: PlanningMessageStructureCore = {
+        Reference: '',
         title: 'Pending',
         activity: activityBeingPlanned.uniqid
       }
@@ -258,7 +341,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         plans.location = activityPlanned
       }
       if (ownAssets.length) {
-        plans.ownAssets = ownAssets
+        plans.ownAssets = ownAssets.map((asset: string) => { return { asset: asset, number: 0 } })
       }
       if (otherAssets.length) {
         plans.otherAssets = otherAssets
@@ -289,6 +372,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
     const unmangledMessage = expandLocation(message)
+    setDraftMessage(undefined)
     return saveMessage(dbName, details, unmangledMessage)
   }
 
@@ -311,14 +395,27 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
+  const cacheMessage = (value: string | any, messageType: string): void | string => {
+    return value && saveUnsentMessage(value, currentWargame, selectedForce.uniqid, selectedRoleId, channelId, messageType)
+  }
+
+  const getCachedMessage = (chatType: string): string => {
+    return chatType && getUnsentMessage(currentWargame, selectedForce.uniqid, selectedRoleId, channelId, chatType)
+  }
+
+  const clearCachedMessage = (data: string[]): void => {
+    data && data.forEach((removeType) => {
+      return clearUnsentMessage(currentWargame, selectedForce.uniqid, selectedRoleId, channelId, removeType)
+    })
+  }
+
   const mapChildren = useMemo(() => {
     return (
-      <>
-        <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+      <>{playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
-            <MapPlanningOrders forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup key={'own-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
@@ -338,11 +435,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <SupportPanel
           channel={channel}
           platformTypes={platformTypes}
-          messages={planningMessages as MessagePlanning[]}
+          planningMessages={planningMessages}
+          interactionMessages={interactionMessages}
           onReadAll={onReadAll}
           onUnread={onUnread}
           onRead={onRead}
-          templates={templates}
+          channelTemplates={channelTemplates}
+          allTemplates={allTemplates}
           adjudicationTemplate={adjudicationTemplate}
           activityTimeChanel={newActiveMessage}
           saveMessage={saveMessageLocal}
@@ -359,6 +458,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           selectedAssets={selectedAssets}
           setSelectedAssets={setLocalSelectedAssets}
           selectedOrders={selectedOrders}
+          saveCachedNewMessageValue={cacheMessage}
+          getCachedNewMessagevalue={getCachedMessage}
+          clearCachedNewMessage={clearCachedMessage}
           setSelectedOrders={setSelectedOrders}
           setOpForcesForParent={setOpAssetsFiltered}
           setOwnForcesForParent={setOwnAssetsFiltered}
@@ -367,6 +469,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           onPanelWidthChange={onPanelWidthChange}
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
+          forcePlanningActivities={forcePlanningActivities}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>
@@ -386,19 +489,22 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <>
                   {!activityBeingPlanned &&
                     <>
-                      <div className={cx('leaflet-control')}>
-                        <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                          onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
-                      </div>
+                      {
+                        umpireInAdjudication &&
+                        <div className={cx('leaflet-control')}>
+                          <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                            onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                        </div>
+                      }
                       {showInteractionGenerator ? <div className={cx('leaflet-control')}>
                         <Item onClick={incrementDebugStep}>Step</Item>
                       </div>
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {phase === Phase.Planning && !selectedForce.umpire && !7 && // don't bother with this, but keep it in case we want to gen more data
+                          {!7 && // don't bother with this, but keep it in case we want to gen more data
                             <div className={cx('leaflet-control')}>
-                              <Item onClick={genData}>Plan</Item>
+                              <Item onClick={genData}>gen data</Item>
                             </div>
                           }
                         </>

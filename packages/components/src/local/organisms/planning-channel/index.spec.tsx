@@ -1,9 +1,10 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, CoreMessage, GroupedActivitySet, MessageDetails, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
+import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
 
 export const mockFn = (): PlayerUiActionTypes => ({
@@ -38,29 +39,7 @@ const role = force && force.roles[0]
 
 const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForcePlanningActivities.map((force: PerForcePlanningActivitySet): PerForcePlanningActivitySet => {
-  return {
-    force: force.force,
-    groupedActivities: force.groupedActivities.map((group: GroupedActivitySet): GroupedActivitySet => {
-      const res: GroupedActivitySet = {
-        category: group.category,
-        activities: group.activities.map((act: PlanningActivity | string): PlanningActivity => {
-          if (typeof act === 'string') {
-            const actId = act as string
-            const activity = planningActivities.find((act: PlanningActivity) => act.uniqid === actId)
-            if (!activity) {
-              throw Error('Planning activity not found:' + actId)
-            }
-            return activity
-          } else {
-            return act
-          }
-        })
-      }
-      return res
-    })
-  }
-})
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 const saveMessage = (dbName: string, details: MessageDetails, message: CoreMessage) => {
   return async (): Promise<void> => {
@@ -80,7 +59,9 @@ describe('Planning Channel component: ', () => {
     const tree = mount(<PlanningChannel
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
-      templates={templateBodies}
+      allTemplates={templateBodies}
+      channelTemplates={templateBodies}
+      channelId={channels[0].uniqid}
       adjudicationTemplate={planningMessageTemplatesMock[0]}
       dispatch={noop}
       getAllWargameMessages={(): any => noop}

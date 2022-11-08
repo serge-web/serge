@@ -27,11 +27,16 @@ export const JsonEditor: React.FC<Props> = ({
   clearCachedName,
   saveMessage,
   modifyForEdit,
-  modifyForSave
+  modifyForSave,
+  confirmCancel = false,
+  viewSaveButton = false
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
+  const [editButton, setEditButton] = useState<boolean>(false)
+  const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
 
+  const prevTemplates: TemplateBody = usePrevious(messageId)
   if (!template) {
     const styles = {
       color: '#f00',
@@ -61,6 +66,29 @@ export const JsonEditor: React.FC<Props> = ({
     return memoryName
   }
 
+  const OnSave = () => {
+    saveMessage && saveMessage()
+    expiredStorage.removeItem(genLocalStorageId())
+  }
+
+  const onPopupCancel = (): void => {
+    expiredStorage.removeItem(genLocalStorageId())
+    setConfirmIsOpen(false)
+  }
+
+  const onPopupConfirm = (): void => {
+    expiredStorage.removeItem(genLocalStorageId())
+    initEditor()
+    setConfirmIsOpen(false)
+    setEditButton(false)
+  }
+
+  const openConfirmPopup = (): void => {
+    if (confirmCancel) {
+      setConfirmIsOpen(true)
+    }
+  }
+
   const initEditor = (): () => void => {
     const jsonEditorConfig = disabled
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
@@ -70,7 +98,7 @@ export const JsonEditor: React.FC<Props> = ({
     const modSchema = configDateTimeLocal(template.details, gameDate)
 
     // apply any other template modifications
-    const customizedSchema = customiseTemplate ? customiseTemplate(modSchema) : modSchema
+    const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
@@ -171,33 +199,49 @@ export const JsonEditor: React.FC<Props> = ({
         expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
+        setEditButton(false)
       } else {
+        setEditButton(false)
         initEditor()
       }
     }
 
     return (): void => destroyEditor(editor)
-  }, [template.details, messageId, cachedName, messageContent])
+  }, [template.details, messageId, cachedName, messageContent, prevTemplates])
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
-    return initEditor()
+    // NOTE: commented out next line, since we were getting two editor instances
+    //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
     if (editor) {
-      if (disabled) {
+      if (viewSaveButton && !editButton) {
+        editor.disable()
+      } else if (disabled && !viewSaveButton) {
         editor.disable()
       } else {
         editor.enable()
       }
     }
-  }, [editor])
+  }, [editor, editButton])
 
   const SaveMessageButton = () => (
-    editor && formId ? (
+    editor && viewSaveButton ? (
       <div className='button-wrap' >
-        {!disabled ? <Button color='secondary' onClick={saveMessage} icon='save'>Save Message</Button> : null}
+        {!disabled && editButton
+          ? <>
+            <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
+            {
+              confirmCancel
+                ? <Button color='secondary' onClick={openConfirmPopup} icon='delete'>Cancel</Button>
+                : null
+            }
+          </>
+          : !disabled ? <Button color='secondary' onClick={() => { setEditButton(true) }} icon='edit'>Edit</Button>
+            : null
+        }
       </div>
     ) : null
   )
@@ -205,13 +249,19 @@ export const JsonEditor: React.FC<Props> = ({
   return (
     <>
       {
-        formId
+        viewSaveButton
           ? <>
+            <Confirm
+              isOpen={confirmIsOpen}
+              message="Are you sure you wish to cancel editing this message?"
+              onCancel={onPopupCancel}
+              onConfirm={onPopupConfirm}
+            />
             <SaveMessageButton />
             <div id={formId} ref={jsonEditorRef} />
             <SaveMessageButton />
           </>
-          : <div className={formClassName || (disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
+          : <div className={formClassName || (!disabled ? 'edt-disable' : 'edt-enable')} ref={jsonEditorRef} />
       }
     </>
   )
