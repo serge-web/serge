@@ -2,6 +2,7 @@ import { TurnFormats } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, Role, TemplateBody } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
+import { EditCallbackHandler } from '../../../molecules/json-editor/types/props'
 
 export type OrderRow = {
   id: string
@@ -77,4 +78,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
     * the current turn filter or (-1) to show all
     */
   turnFilter?: number
+  /** callback for the location of a document being edited */
+  editLocation: EditCallbackHandler
 }

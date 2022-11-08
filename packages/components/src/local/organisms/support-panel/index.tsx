@@ -55,7 +55,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onPanelWidthChange,
   draftMessage,
   onCancelDraftMessage,
-  forcePlanningActivities
+  forcePlanningActivities,
+  editLocation
 }) => {
   const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -229,6 +230,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     setSelectedOrders={setSelectedOrders}
                     postBack={postBack}
                     turnFilter={turnFilter}
+                    editLocation={editLocation}
                   />
                   <NewMessage
                     orderableChannel={true}

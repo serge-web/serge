@@ -11,7 +11,9 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders, confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter
+  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
+  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
+  editLocation
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -140,6 +142,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           gameDate={gameDate}
           modifyForEdit={collapseLocation}
           modifyForSave={expandLocation}
+          editCallback={editLocation}
         />
       } else {
         return <div>Template not found for {message.details.messageType}</div>

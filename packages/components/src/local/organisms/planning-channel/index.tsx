@@ -28,6 +28,8 @@ import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
+import { EditCallbackHandler } from '../../molecules/json-editor/types/props'
+
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
   reduxDispatch,
@@ -413,6 +415,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
+  const editLocation: EditCallbackHandler = (document: any, callback: {(newValue: unknown): void}): void => {
+    console.log('edit document', document, !!callback)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>{playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
@@ -474,6 +480,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
           forcePlanningActivities={forcePlanningActivities}
+          editLocation={editLocation}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>
