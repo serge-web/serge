@@ -297,7 +297,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     filteredPlanningMessages,
     filteredInteractionMessages,
     selectedRoleId,
-    turnFilter
+    turnFilter,
+    draftMessage
   ]
   )
 
