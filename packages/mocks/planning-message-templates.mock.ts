@@ -890,12 +890,21 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "type": "string"
         },
         location: {
-          format: "location",
+          format: "textarea",
+          title: "Location",
+          id: "locationArea",
           type: "string",
+          "readonly": "readonly",
           propertyOrder: 60,
           "options": {
             "grid_columns": 5
           }
+        },
+        hiddenStore: {
+          type: "string",
+          propertyOrder: 62,
+          readonly: "readonly",
+          id: "hiddenStore"
         },
         activity: {
           "title": "Activity",
