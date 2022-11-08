@@ -900,12 +900,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "grid_columns": 5
           }
         },
-        hiddenStore: {
-          type: "string",
-          propertyOrder: 62,
-          readonly: "readonly",
-          id: "hiddenStore"
-        },
         activity: {
           "title": "Activity",
           "propertyOrder": 65,
@@ -923,16 +917,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
               ]
           }
         },
-        activity2: {
-          title:"Activity2",
-          enum: [
-            "Transit2",
-            "Kinetic2",
-            "Asymmetric2"
-          ],
-          "type": "string",
-          "propertyOrder": 70
-        },
         ownAssets: {
           type: "array",
           format: "table",
@@ -942,6 +926,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "grid_columns": 3,
           items: {
             "type": "object",
+            "title": "Asset",
             "required": [
               "asset",
               "number"
