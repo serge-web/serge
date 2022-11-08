@@ -9,7 +9,7 @@ import { mostRecentPlanningOnly } from '@serge/helpers'
 import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
-import { customiseTemplate } from '../support-panel/helpers/customise-template'
+import { customiseAssets } from '../support-panel/helpers/customise-assets'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -86,7 +86,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     const blueForce = document && document.Reference.includes('Blue')
     const ownForce = blueForce ? forces[1] : forces[2]
     const oppForce = blueForce ? forces[2] : forces[1]
-    return customiseTemplate(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
+    return customiseAssets(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
   }
 
   // remove later versions

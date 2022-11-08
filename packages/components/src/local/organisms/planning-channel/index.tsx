@@ -375,6 +375,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
     const unmangledMessage = expandLocation(message)
+    setDraftMessage(undefined)
     return saveMessage(dbName, details, unmangledMessage)
   }
 

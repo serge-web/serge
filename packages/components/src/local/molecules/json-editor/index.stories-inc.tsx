@@ -11,8 +11,10 @@ import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
 import { Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, MessageStructure, PlanningActivity } from '@serge/custom-types'
-import { AssetRow } from 'src/local/organisms/planning-assets/types/props'
+import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
+import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
+import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -98,65 +100,56 @@ const planningActivities = MockPlanningActivities
 const perForcePlanningActivities = MockPerForceActivities
 const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
-const customiseLandTemplate = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
-  if (schema) {
-    const forces = P9Mock.data.forces.forces
-    const blueAssets = forces[1].assets ? forces[1].assets : []
-    const redAssets = forces[2].assets ? forces[2].assets : []
-    const toRow = (asset: Asset): AssetRow => {
-      const row: AssetRow = {
-        id: asset.uniqid,
-        icon: 'icon',
-        name: asset.name,
-        condition: asset.condition,
-        status: asset.status ? asset.status.state : 'unknown',
-        platformType: asset.platformTypeId
-      }
-      return row
+const localCustomise = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+  const forces = P9Mock.data.forces.forces
+  const blueAssets = forces[1].assets ? forces[1].assets : []
+  const redAssets = forces[2].assets ? forces[2].assets : []
+  const toRow = (asset: Asset): AssetRow => {
+    const row: AssetRow = {
+      id: asset.uniqid,
+      icon: 'icon',
+      name: asset.name,
+      condition: asset.condition,
+      status: asset.status ? asset.status.state : 'unknown',
+      platformType: asset.platformTypeId
     }
-    const blueRows = blueAssets.map((asset) => toRow(asset))
-    const redRows = redAssets.map((asset) => toRow(asset))
-
-    // and the activities
-    const isBlue = _document && _document.Reference.includes('Blue')
-
-    const oldOwnAssets = schema.properties?.ownAssets?.items?.properties?.asset?.enum
-    if (oldOwnAssets) {
-      schema.properties.ownAssets.items.properties.asset.enum = blueRows.map((asset: AssetRow) => asset.id)
-      schema.properties.ownAssets.items.properties.asset.options.enum_titles = blueRows.map((asset: AssetRow) => asset.name)
-    }
-    const oldOwnTargets = schema.properties?.otherAssets?.items?.enum
-    if (oldOwnTargets) {
-      schema.properties.otherAssets.items.enum = redRows.map((asset: AssetRow) => asset.id)
-      schema.properties.otherAssets.items.options.enum_titles = redRows.map((asset: AssetRow) => asset.name)
-    }
-    const activities = schema.properties?.activity
-    console.log('activities', activities)
-    if (activities) {
-      const forceActivities = isBlue ? filledInPerForcePlanningActivities[0] : filledInPerForcePlanningActivities[1]
-      const acts: Array<{id: string, name: string}> = []
-      forceActivities.groupedActivities.map((val: GroupedActivitySet) => {
-        val.activities.forEach((val2: string | PlanningActivity) => {
-          if (typeof (val) === 'string') {
-            throw Error('Should not have string in planning activities')
-          }
-          const plan = val2 as PlanningActivity
-          acts.push({ id: plan.uniqid, name: val.category + '-' + plan.name })
-        })
-      })
-      activities.enum = acts.map((val) => val.id)
-      activities.options.enum_titles = acts.map((val) => val.name)
-    }
+    return row
   }
+  const blueRows = blueAssets.map((asset) => toRow(asset))
+  const redRows = redAssets.map((asset) => toRow(asset))
 
-  return schema
+  // and the activities
+  const isBlue = _document && _document.Reference.includes('Blue')
+
+  const forceActivities = isBlue ? filledInPerForcePlanningActivities[0] : filledInPerForcePlanningActivities[1]
+  const acts: Array<{id: string, name: string}> = []
+  forceActivities.groupedActivities.forEach((val: GroupedActivitySet) => {
+    val.activities.forEach((val2: string | PlanningActivity) => {
+      if (typeof (val) === 'string') {
+        throw Error('Should not have string in planning activities')
+      }
+      const plan = val2 as PlanningActivity
+      acts.push({ id: plan.uniqid, name: val.category + '-' + plan.name })
+    })
+  })
+
+  const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
+    (document, template) => customiseAssets(document, template, blueRows, redRows),
+    (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities)
+  ]
+
+  let res: Record<string, any> = schema
+  customisers.forEach((fn) => {
+    res = fn(document, res)
+  })
+  return res
 }
 
 console.log('land message', landMessage.message)
 
 export const PlanningMessage = Template.bind({})
 PlanningMessage.args = {
-  customiseTemplate: customiseLandTemplate,
+  customiseTemplate: localCustomise,
   template: landActivityTemplate,
   messageContent: landMessage.message,
   messageId: 'id_2b',
