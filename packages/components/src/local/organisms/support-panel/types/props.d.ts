@@ -2,8 +2,8 @@ import { TurnFormats } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
-import { EditCallbackHandler } from '../../../molecules/json-editor/types/props'
 import { AssetRow } from '../../planning-assets/types/props'
+import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
 
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
@@ -54,7 +54,7 @@ export default interface PropTypes {
   onCancelDraftMessage?: {(): void}
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   /** user wishes to edit location data */
-  editLocation: EditCallbackHandler
+  editLocation: LocationEditCallbackHandler
 }
 
 export type TabPanelProps = {

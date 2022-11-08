@@ -1,8 +1,10 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, Role, TemplateBody } from '@serge/custom-types'
+import {
+  ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
+  MessageStructure, PlannedActivityGeometry, PlanningActivity, Role, TemplateBody
+} from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
-import { EditCallbackHandler } from '../../../molecules/json-editor/types/props'
 
 export type OrderRow = {
   id: string
@@ -14,6 +16,8 @@ export type OrderRow = {
   startDate: string
   endDate: string
 }
+
+export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], activity: PlanningActivity['uniqid'], callback: {(newValue: unknown): void}): void}
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
   /**
@@ -79,5 +83,5 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
     */
   turnFilter?: number
   /** callback for the location of a document being edited */
-  editLocation: EditCallbackHandler
+  editLocation: LocationEditCallbackHandler
 }

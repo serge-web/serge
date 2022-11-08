@@ -903,6 +903,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         activity: {
           "title": "Activity",
           "propertyOrder": 65,
+          "readonly": "readonly",
           "type": "string",
           "enum": [
             "transit",

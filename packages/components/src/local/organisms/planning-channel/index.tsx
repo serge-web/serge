@@ -18,6 +18,7 @@ import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-a
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
+import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
@@ -27,8 +28,6 @@ import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-
-import { EditCallbackHandler } from '../../molecules/json-editor/types/props'
 
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
@@ -95,6 +94,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
+  const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -415,8 +415,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: EditCallbackHandler = (document: any, callback: {(newValue: unknown): void}): void => {
-    console.log('edit document', document, !!callback)
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], activity: PlanningActivity['uniqid'], callback: {(newValue: unknown): void}): void => {
+    console.log('edit document', plans, activity, !!callback)
+    setActivityBeingEdited(plans)
   }
 
   const mapChildren = useMemo(() => {
@@ -426,7 +427,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
             <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-            <LayerGroup key={'own-forces'}>
+            <LayerGroup pmIgnore={true} key={'own-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             <LayerGroup key={'opp-forces'}>
@@ -525,7 +526,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 </>
               }>
               <>
-                <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
+                <OrderDrawing activity={activityBeingPlanned} activityBeingEdited={activityBeingEdited} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 {mapChildren}
               </>
             </SupportMapping>

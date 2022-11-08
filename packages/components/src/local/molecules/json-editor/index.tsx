@@ -55,8 +55,6 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
-  console.log('json editor', editCallback)
-
   const memoryName = `${messageId}-${template._id}`
 
   const destroyEditor = (editorObject: Editor | null): void => {
@@ -100,6 +98,7 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const localEditCallback: EditCallbackHandler = (document: any, callback: {(newValue: unknown): void}): void => {
+    // get the location object
     editCallback && editCallback(document, callback)
   }
 

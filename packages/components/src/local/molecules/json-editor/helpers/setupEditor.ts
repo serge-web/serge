@@ -52,7 +52,6 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
             console.log('store this in json editor', newValue)
           }
           editButton.addEventListener('click', () => {
-            console.log('On Edit button clicked', !!editCallback)
             editCallback({}, storeVal)
           })
           locationSection.appendChild(editButton)

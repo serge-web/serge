@@ -2,6 +2,7 @@ import { MessageDetails, MessagePlanning, PlanningMessageStructureCore, Template
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
+import { EditCallbackHandler } from 'src/local/molecules/json-editor/types/props'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
@@ -129,6 +130,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         }
 
         const canEdit = message.details.from.roleId === playerRoleId
+
+        const localEditLocation: EditCallbackHandler = (_document: any, callback: {(newValue: unknown): void}): void => {
+          // pass the location data object
+          message.message.location && editLocation(message.message.location, message.message.activity, callback)
+        }
+
         return <JsonEditor
           messageContent={message.message}
           viewSaveButton={true}
@@ -142,7 +149,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           gameDate={gameDate}
           modifyForEdit={collapseLocation}
           modifyForSave={expandLocation}
-          editCallback={editLocation}
+          editCallback={localEditLocation}
         />
       } else {
         return <div>Template not found for {message.details.messageType}</div>
