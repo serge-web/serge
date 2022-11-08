@@ -55,7 +55,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onCancelDraftMessage,
   forcePlanningActivities
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
