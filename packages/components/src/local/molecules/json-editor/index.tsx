@@ -97,9 +97,10 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const initEditor = (): () => void => {
-    const jsonEditorConfig = disabled
+    const hideArrayButtons = disabled
+    const jsonEditorConfig = hideArrayButtons
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
-      : { disableArrayReOrder: true, disableArrayAdd: false, disableArrayDelete: false }
+      : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
     // initialise date editors
     const modSchema = configDateTimeLocal(template.details, gameDate)
