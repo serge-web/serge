@@ -208,7 +208,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
     // log of number of message ids and forces, used to config interactions
-    !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId}}))
+    !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId } }))
 
     // count of new messages
     !7 && console.log('Page loaded', messages.length, myInteractionMessages.length)
@@ -245,7 +245,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   const genData = (): void => {
-    if (!7) {
+    const doGenny = 7
+    if (!doGenny) {
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {

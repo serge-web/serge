@@ -65,7 +65,7 @@ export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): 
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
-  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined=> {
+  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined => {
   const intMsg = interactionMessages.find((value) => value._id === intId)
   if (!intMsg) {
     console.warn('Failed to find interaction message:', intId)

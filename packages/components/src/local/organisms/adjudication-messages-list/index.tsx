@@ -178,30 +178,31 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
-        } else
-        return <>
-          <Table>
-            <tbody>
-              <tr>
-                <td>{renderOrderDetail(true, rowData, data.allAssets, data.order1Activity)}</td>
-                <td>{renderOrderDetail(false, rowData, data.allAssets, data.order2Activity)}</td>
-              </tr>
-            </tbody>
-          </Table>
-          <JsonEditor
-            messageContent={msg}
-            customiseTemplate={(document, schema) => localCustomiseTemplate(document, schema, data)}
-            messageId={rowData.id}
-            template={template}
-            disabled={false}
-            gameDate={gameDate}
-            saveMessage={localSubmitAdjudication}
-            storeNewValue={localStoreNewValue}
-          />
-          <div className='button-wrap' >
-            <Button color='secondary' onClick={noop} icon='save'>Submit Adjudication</Button>
-          </div>
-        </>
+        } else {
+          return <>
+            <Table>
+              <tbody>
+                <tr>
+                  <td>{renderOrderDetail(true, rowData, data.allAssets, data.order1Activity)}</td>
+                  <td>{renderOrderDetail(false, rowData, data.allAssets, data.order2Activity)}</td>
+                </tr>
+              </tbody>
+            </Table>
+            <JsonEditor
+              messageContent={msg}
+              customiseTemplate={(document, schema) => localCustomiseTemplate(document, schema, data)}
+              messageId={rowData.id}
+              template={template}
+              disabled={false}
+              gameDate={gameDate}
+              saveMessage={localSubmitAdjudication}
+              storeNewValue={localStoreNewValue}
+            />
+            <div className='button-wrap' >
+              <Button color='secondary' onClick={noop} icon='save'>Submit Adjudication</Button>
+            </div>
+          </>
+        }
       } else {
         return <div>Template not found for {message.details.messageType}</div>
       }

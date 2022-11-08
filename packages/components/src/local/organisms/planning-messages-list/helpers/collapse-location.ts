@@ -8,7 +8,7 @@ export const collapseLocation = (document: Record<string, any>): Record<string, 
     const loc = parent.location as PlannedActivityGeometry[]
     let str = ''
     loc.forEach((geom) => {
-      str = str + "* " + geom.uniqid + '\n'
+      str = str + '* ' + geom.uniqid + '\n'
     })
     parent.location = str
     parent.hiddenStore = JSON.stringify(loc)
