@@ -22,6 +22,8 @@ export const expandLocation = (document: Record<string, any>): Record<string, an
   if (parent && parent.hiddenStore && typeof parent.location === 'string') {
     // re-inject the location data
     parent.location = JSON.parse(parent.hiddenStore)
+    // and delete temporary object
+    delete parent.hiddenStore
   }
   return res
 }
