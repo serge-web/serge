@@ -8,6 +8,19 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Maritime',
         activities: [
           {
+            uniqid: 'maritime-ballisatic-strike',
+            name: 'Ballistic Strike',
+            template: 'k16e-land',
+            color: '#f0f',
+            geometries: [
+              {
+                aType: 1,
+                name: 'Route to target',
+                uniqid: 'ab1'
+              }
+            ]
+          },
+          {
             uniqid: 'maritime-precis-strike',
             name: 'Precision Strike',
             template: 'k16e-land',
@@ -126,6 +139,19 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
       {
         category: 'Land',
         activities: [
+          {
+            uniqid: 'land-ballisatic-strike',
+            name: 'Ballistic Strike',
+            template: 'k16e-land',
+            color: '#f0f',
+            geometries: [
+              {
+                aType: 1,
+                name: 'Route to target',
+                uniqid: 'ab1'
+              }
+            ]
+          },
           {
             uniqid: 'land-precis-strike',
             name: 'Precision Strike',
