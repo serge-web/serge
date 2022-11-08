@@ -65,7 +65,7 @@ export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): 
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
-  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData => {
+  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined=> {
   const intMsg = interactionMessages.find((value) => value._id === intId)
   if (!intMsg) {
     throw Error('Failed to find interaction message:' + intId)
@@ -77,7 +77,8 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   const order1AssetsIds: string[] = []
   const order1 = planningMessages.find((plan) => plan._id === interaction.orders1)
   if (!order1) {
-    throw Error('Failed to find interaction message:' + interaction.orders1)
+    console.warn('Failed to find interaction message:' + interaction.orders1)
+    return undefined
   }
   order1.message.ownAssets && order1AssetsIds.push(...order1.message.ownAssets.map((asset) => asset.asset))
   order1.message.otherAssets && order1AssetsIds.push(...order1.message.otherAssets)

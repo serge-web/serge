@@ -58,7 +58,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
-      throw Error('Failed to find message:' + id)
+      console.warn('Failed to find message:', id)
+      return <span>Order not found</span>
     }
     return <div>
       <span><b>Title: </b> {plan.message.title} </span>
@@ -78,7 +79,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
-      throw Error('Failed to find message:' + id)
+      console.warn('Failed to find message:', id)
+      return <span>Order not found</span>
     }
     return <span>Title: {plan.message.title}</span>
   }
@@ -174,6 +176,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const msg = message.message
         const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
+        if (!data) {
+          return <span>Orders not found for interaction with id: {message._id}</span>
+        } else
         return <>
           <Table>
             <tbody>
