@@ -165,6 +165,7 @@ const factory = (state: PlayerUi): Factory => {
           // NOTE: block of code to force mock messages into database
           const writeData = false
           if (writeData) {
+            console.clear()
             const mockPlanningMessages2 = mockPlanningMessages
             console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
             if (channel.messages === undefined || channel.messages.length <= 5) {
@@ -172,7 +173,8 @@ const factory = (state: PlayerUi): Factory => {
               console.log('about to store', mockPlanningMessages2.length, ' to ', state.currentWargame)
               mockPlanningMessages2.forEach((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
                 const asAny = msg as any
-                saveMessage(state.currentWargame, asAny.details, asAny.message)()
+                const savePromise = saveMessage(state.currentWargame, asAny.details, asAny.message)
+                savePromise()
                 console.log('stored', asAny.details)
               })
             }
