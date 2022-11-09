@@ -97,7 +97,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
-  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<{ (newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
+  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<{(newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 

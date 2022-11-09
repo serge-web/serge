@@ -105,9 +105,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
-
         const pendingLocationData: Array<PlannedActivityGeometry[]> = []
-                
+
         const saveMessage = () => {
           if (messageValue.current) {
             const details: MessageDetails = {
@@ -152,7 +151,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               pendingLocationData.push(newValue as PlannedActivityGeometry[])
             }
             // pass the location data object
-            editLocation && editLocation(message.message.location, localCallback)  
+            editLocation && editLocation(message.message.location, localCallback)
           }
         }
 
