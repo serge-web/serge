@@ -52,7 +52,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       setCurrentGeometry(0)
     }
   }, [activity])
-  
 
   useEffect(() => {
     if (pendingGeometry) {
