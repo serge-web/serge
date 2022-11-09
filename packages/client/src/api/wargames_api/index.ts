@@ -693,7 +693,7 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
         message.message.counter = counter
       }).catch(err => err)
 
-      // message.message.Reference = [message.details.from.force, message.message.counter].join('-')
+      message.message.Reference = [message.details.from.force, message.message.counter].join('-')
      
       resolve(message)
     } else {
