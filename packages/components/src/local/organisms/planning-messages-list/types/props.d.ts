@@ -1,7 +1,6 @@
 import { TurnFormats } from '@serge/config'
 import {
-  ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
-  MessageStructure, PlannedActivityGeometry, PlanningActivity, Role, TemplateBody
+  ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningActivity, Role, TemplateBody
 } from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'

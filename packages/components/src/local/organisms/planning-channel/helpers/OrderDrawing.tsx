@@ -60,7 +60,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // map.pm.disableDraw()
     // create a layer for the activites
     if (activityBeingEdited && activityBeingEdited.length) {
-      console.log(activityBeingEdited)
       const items = activityBeingEdited.map((plan) => plan.geometry)
       if (map) {
         const layerToEdit = L.geoJSON(items)
