@@ -3,6 +3,7 @@ import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PerForcePl
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
+import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
 
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
@@ -52,6 +53,8 @@ export default interface PropTypes {
   /** player cancels creating a new set of orders */
   onCancelDraftMessage?: {(): void}
   forcePlanningActivities?: PerForcePlanningActivitySet[]
+  /** user wishes to edit location data */
+  editLocation: LocationEditCallbackHandler
 }
 
 export type TabPanelProps = {

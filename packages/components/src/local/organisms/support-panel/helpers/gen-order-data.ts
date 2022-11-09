@@ -8,6 +8,7 @@ import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import L from 'leaflet'
+import _ from 'lodash'
 import moment from 'moment-timezone'
 import { lineLineContact, linePointContact, linePolyContact, ShapeInteraction, timeIntersect2, TimePeriod } from './shape-intersects'
 
@@ -257,7 +258,7 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
   return []
 }
 
-const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningActivity[], timeNow: moment.Moment): MessagePlanning => {
+const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
   // details first
   const from = randomRole(force.roles, 4 + ctr)
   const fromD: MessageDetailsFrom = {
@@ -299,7 +300,11 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PlanningAct
     targets.push(possTarget.uniqid)
   }
 
-  const activity = randomArrayItem(orderTypes, ctr++)
+  // get activities for this force
+  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
+  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
+  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
+  const activity = randomArrayItem(flatActivities, ctr++)
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
     activity, 5 * psora(4 * ctr), timeNow)
 
@@ -458,7 +463,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
   return res
 }
 
-export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PlanningActivity[]): MessagePlanning[] => {
+export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
