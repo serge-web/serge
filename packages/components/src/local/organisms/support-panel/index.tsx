@@ -231,6 +231,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     postBack={postBack}
                     turnFilter={turnFilter}
                     editLocation={editLocation}
+                    forcePlanningActivities={forcePlanningActivities}
                   />
                   <NewMessage
                     orderableChannel={true}
