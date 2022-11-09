@@ -1,13 +1,6 @@
 import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from '@serge/custom-types'
 import { React } from 'react'
 
-/**
- *  user has clicked on custom edit button
- * @param {any} document the object to be edited
- * @param {function} callback callback with a new data value (or undefined to cancel)
- */
-export type EditCallbackHandler = { (document: any, callback: {(newValue: unknown): void}): void}
-
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
   /**
@@ -72,8 +65,6 @@ export default interface Props {
 
   /**
    *  user has clicked on custom edit button
-   * @document the object to be edited
-   * @callback the callback with a new data value (or undefined to cancel)
    */
-  editCallback?: EditCallbackHandler
+  editCallback?: {(): void}
 }
