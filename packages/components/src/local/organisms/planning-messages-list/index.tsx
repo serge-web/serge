@@ -132,8 +132,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const canEdit = message.details.from.roleId === playerRoleId
 
         const localEditLocation: EditCallbackHandler = (_document: any, callback: {(newValue: unknown): void}): void => {
+          console.log('Plan Messages List - edit', _document, !!callback)
+          const testCallback = (newVal: unknown): void => {
+            console.log('Plan Messages List - save', newVal)
+            callback(newVal)
+          }
           // pass the location data object
-          message.message.location && editLocation(message.message.location, message.message.activity, callback)
+          message.message.location && editLocation(message.message.location, message.message.activity, testCallback)
         }
 
         const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === message.details.from.forceId)

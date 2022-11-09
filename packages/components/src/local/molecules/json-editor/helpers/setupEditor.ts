@@ -49,10 +49,10 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
           editButton.style.height = '40px'
           editButton.style.transform = 'translateX(-60px)'
           const storeVal = (newValue: unknown): void => {
-            console.log('store this in json editor', newValue)
+            console.log('JsonEditor - save callback', newValue)
           }
           editButton.addEventListener('click', () => {
-            editCallback({}, storeVal)
+            editCallback({}, (val) => storeVal(val))
           })
           locationSection.appendChild(editButton)
         })

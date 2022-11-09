@@ -95,7 +95,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
+
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
+  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState< {(newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -416,11 +418,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], _callback: { (newValue: unknown): void }): void => {
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], callback: { (newValue: unknown): void }): void => {
+    console.log('PlanningChannel - editing', !!callback)
+    setActivityBeingEditedCallback(callback)
     setActivityBeingEdited(plans)
   }
 
-  const cancelOrderEditing = (): void => {
+  const orderEditingSaved = (activity: PlannedActivityGeometry[] | undefined): void => {
+    if (activity) {
+      console.log('PlanningChannel - saving', activityBeingEditedCallback)
+      activityBeingEditedCallback && activityBeingEditedCallback(activity)
+    }
+    // finally, close
     setActivityBeingEdited(undefined)
   }
 
@@ -437,7 +446,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <LayerGroup key={'opp-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
-            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} cancelled={cancelOrderEditing} />}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => orderEditingSaved(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </>
         }
