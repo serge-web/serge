@@ -94,4 +94,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * current turn filter (or -1 to show all turns)
    */
   turnFilter?: number
+  /** descriptions of platform types (used for perception drop-down) */
+  platformTypes: PlatformTypeData[]
 }

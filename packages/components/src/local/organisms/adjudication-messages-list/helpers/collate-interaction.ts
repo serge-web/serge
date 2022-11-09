@@ -1,5 +1,5 @@
 
-import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningMessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 
@@ -60,6 +60,16 @@ export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): 
     const allForceNames = forces.map((force) => force.force)
     force.enum = allForceIds
     force.options.enum_titles = allForceNames
+  }
+  return force
+}
+
+export const updatePlatformTypes = (force: Record<string, any>, pTypes: PlatformTypeData[]): Record<string, any> => {
+  if (force !== undefined) {
+    const allTypeIds = pTypes.map((pType) => pType.uniqid)
+    const allTypeNames = pTypes.map((pType) => pType.name)
+    force.enum = allTypeIds
+    force.options.enum_titles = allTypeNames
   }
   return force
 }

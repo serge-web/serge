@@ -297,6 +297,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     setSelectedOrders={setSelectedOrders}
                     forcePlanningActivities={forcePlanningActivities}
                     turnFilter={turnFilter}
+                    platformTypes={platformTypes}
                   />
                 </div>
                 }

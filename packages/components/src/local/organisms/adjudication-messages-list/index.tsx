@@ -9,14 +9,15 @@ import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
-import { collateInteraction, InteractionData, updateAssets, updateForces } from './helpers/collate-interaction'
+import { collateInteraction, InteractionData, updateAssets, updateForces, updatePlatformTypes } from './helpers/collate-interaction'
 import { getNextInteraction } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication, turnFilter
+  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication,
+  turnFilter, platformTypes
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -38,7 +39,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number}, assets: Asset[], index: number): React.ReactElement => {
+  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number }, assets: Asset[], index: number): React.ReactElement => {
     let asset: Asset | undefined
     const isString = typeof (assetId) === 'string'
     let numStr = ''
@@ -141,6 +142,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // now the perceived forces
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
+
+      console.log('template', firstUpdate, platformTypes)
+
+      // now the platform types
+      updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes)
+
     } catch (e) {
       console.warn('Failed to customise template. Does it not match expected adjudication template?', e)
     }
