@@ -60,8 +60,8 @@ const Template: Story<Props> = ({ messageId, disabled, template, messageContent,
       disabled={disabled}
       gameDate={WargameMock.data.overview.gameDate}
       messageContent={messageContent}
-      modifyForEdit = {modifyForEdit}
-      customiseTemplate = {customiseTemplate}
+      modifyForEdit={modifyForEdit}
+      customiseTemplate={customiseTemplate}
     />
   )
 }
@@ -122,7 +122,7 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   const isBlue = _document && _document.Reference.includes('Blue')
 
   const forceActivities = isBlue ? filledInPerForcePlanningActivities[0] : filledInPerForcePlanningActivities[1]
-  const acts: Array<{id: string, name: string}> = []
+  const acts: Array<{ id: string, name: string }> = []
   forceActivities.groupedActivities.forEach((val: GroupedActivitySet) => {
     val.activities.forEach((val2: string | PlanningActivity) => {
       if (typeof (val) === 'string') {
@@ -133,7 +133,7 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
     })
   })
 
-  const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
+  const customisers: Array<{ (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
     (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities)
   ]
