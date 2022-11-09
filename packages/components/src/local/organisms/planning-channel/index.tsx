@@ -418,13 +418,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void => {
+  const editOrderGeometries: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void => {
     // if we just store `callback` then it will get called.  So we need to indirectly store it
     setActivityBeingEditedCallback(() => callback)
     setActivityBeingEdited(plans)
   }
 
-  const orderEditingSaved = (activity: PlannedActivityGeometry[] | undefined): void => {
+  const saveEditedOrderGeometries = (activity: PlannedActivityGeometry[] | undefined): void => {
     if (activity) {
       activityBeingEditedCallback && activityBeingEditedCallback(activity)
       setActivityBeingEditedCallback(undefined)
@@ -446,7 +446,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <LayerGroup key={'opp-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
-            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => orderEditingSaved(activity)} />}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </>
         }
@@ -496,7 +496,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
           forcePlanningActivities={forcePlanningActivities}
-          editLocation={editLocation}
+          editLocation={editOrderGeometries}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

@@ -2,7 +2,6 @@ import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedAc
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
-import { EditCallbackHandler } from 'src/local/molecules/json-editor/types/props'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
@@ -145,7 +144,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const canEdit = message.details.from.roleId === playerRoleId
 
-        const localEditLocation: EditCallbackHandler = (_document: any, _callback: {(newValue: unknown): void}): void => {
+        const localEditLocation = (): void => {
           if (message.message.location) {
             const localCallback = (newValue: unknown): void => {
               pendingLocationData.push(newValue as PlannedActivityGeometry[])

@@ -101,11 +101,7 @@ export const JsonEditor: React.FC<Props> = ({
     // TODO: we should only call the `editCallback` if this document
     // is being edited.  The `beingEdited` flag should specify this,
     // but it is always false
-    const myCallback = (newValue: any) => {
-      console.log('json editor storing data', newValue)
-    }
-    // get the location object
-    editCallback && editCallback(document, myCallback)
+    editCallback && editCallback()
   }
 
   const initEditor = (): () => void => {
