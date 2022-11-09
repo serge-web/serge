@@ -97,7 +97,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
-  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState< {(newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
+  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<{ (newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -418,20 +418,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], 
-      _activity: PlanningActivity['uniqid'], 
-      callback: { (newValue: unknown): void }): void => {
-    console.log('PlanningChannel - editing')
-    setActivityBeingEditedCallback(callback)
-    setActivityBeingEdited(plans)  
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void => {
+    // if we just store `callback` then it will get called.  So we need to indirectly store it
+    setActivityBeingEditedCallback(() => callback)
+    setActivityBeingEdited(plans)
   }
 
   const orderEditingSaved = (activity: PlannedActivityGeometry[] | undefined): void => {
-    console.log('PlanningChannel = callback from OrderEditing', !!activity)
     if (activity) {
-      
-      console.log('PlanningChannel - saving', activityBeingEditedCallback)
       activityBeingEditedCallback && activityBeingEditedCallback(activity)
+      setActivityBeingEditedCallback(undefined)
     }
     // finally, close
     setActivityBeingEdited(undefined)

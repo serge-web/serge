@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Editor, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import { Confirm } from '../../atoms/confirm'
-import Props, { EditCallbackHandler } from './types/props'
+import Props from './types/props'
 
 import { expiredStorage } from '@serge/config'
 import { Button } from '../../atoms/button'
@@ -97,13 +97,15 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
-  const localEditCallback: EditCallbackHandler = (document: any, callback: {(newValue: unknown): void}): void => {
+  const localEditCallback = (): void => {
     // TODO: we should only call the `editCallback` if this document
     // is being edited.  The `beingEdited` flag should specify this,
     // but it is always false
-    console.log('local edit', beingEdited)
+    const myCallback = (newValue: any) => {
+      console.log('json editor storing data', newValue)
+    }
     // get the location object
-    editCallback && editCallback(document, callback)
+    editCallback && editCallback(document, myCallback)
   }
 
   const initEditor = (): () => void => {

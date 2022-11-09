@@ -1,4 +1,4 @@
-import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
@@ -105,6 +105,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
+
+        const pendingLocationData: Array<PlannedActivityGeometry[]> = []
+                
         const saveMessage = () => {
           if (messageValue.current) {
             const details: MessageDetails = {
@@ -124,6 +127,18 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
             if (messageValue.current.content === '') return
 
+            // inject location data, if present
+            if (pendingLocationData.length > 0) {
+              const msg = messageValue.current as PlanningMessageStructure
+              if (msg.location) {
+                msg.location = pendingLocationData[0]
+              } else {
+                console.warn('Expected this message to have location data')
+              }
+              // clear the array
+              while (pendingLocationData.length) { pendingLocationData.pop() }
+            }
+
             postBack && postBack(details, messageValue.current)
             messageValue.current = ''
           }
@@ -131,18 +146,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const canEdit = message.details.from.roleId === playerRoleId
 
-        const localEditLocation: EditCallbackHandler = (_document: any, callback: {(newValue: unknown): void}): void => {
-          
+        const localEditLocation: EditCallbackHandler = (_document: any, _callback: {(newValue: unknown): void}): void => {
           if (message.message.location) {
-
-            console.log('Plan Messages List - edit', _document, !!callback)
-            const testCallback = (newVal: unknown): void => {
-              console.log('Plan Messages List - save', newVal)
-              callback(newVal)
+            const localCallback = (newValue: unknown): void => {
+              pendingLocationData.push(newValue as PlannedActivityGeometry[])
             }
             // pass the location data object
-            editLocation(message.message.location, message.message.activity, testCallback)  
-
+            editLocation && editLocation(message.message.location, localCallback)  
           }
         }
 

@@ -71,32 +71,28 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
 
   const saveDrawing = (): void => {
     // push the data item
-
     const asAny = editLayer as any
-
     // layers is a dictionary
     const layers = asAny._layers as Record<string, unknown>
     if (!layers) {
       console.warn('layers object not constructed as expected')
       return
+    } else {
+      // convert data
+      const newData = Object.values(layers).map((layer: any) => layerToGeoJSON(layer)) as Feature[]
+      // put the updated data back into the activities
+      const res = activityBeingEdited && activityBeingEdited.map((val) => {
+        const newGeom = newData.find((feat) => feat.id === val.uniqid)
+        if (newGeom) {
+          val.geometry = newGeom
+        }
+        return val
+      })
+      // save data
+      saved(res)
     }
-
-    // loop through children
-    const newData = Object.values(layers).map((layer: any) => layerToGeoJSON(layer)) as Feature[]
-
-    // put the updated data back into the activities
-    const res = activityBeingEdited && activityBeingEdited.map((val) => {
-      const newGeom = newData.find((feat) => feat.id === val.uniqid)
-      if (newGeom) {
-        val.geometry = newGeom
-      }
-      return val
-    })
-
-    console.log('about to call save')
-
-    // now clean up
-    saved(res)
+    // clean up
+    cancelDrawing()
   }
 
   useEffect(() => {
