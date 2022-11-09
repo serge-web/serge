@@ -361,7 +361,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
 
       // mangle the location, to render it
-      const newDoc = collapseLocation(newPlan) as MessagePlanning
+      const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === selectedForce.uniqid)
+      const newDoc = collapseLocation(newPlan, activitiesForThisForce) as MessagePlanning
 
       // now open this in the editor
       setDraftMessage(newDoc)

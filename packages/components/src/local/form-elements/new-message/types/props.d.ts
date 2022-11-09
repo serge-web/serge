@@ -6,6 +6,10 @@ export default interface PropTypes {
   confirmCancel: boolean
   /** player has cancelled creating new message */
   onCancel?: { (): void }
+  /** title text (or leave empty for `New Message) */
+  title?: string
+  /** whether to hide template selector, because it has already been set */
+  hideTemplateSelector?: boolean
   templates: TemplateBody[]
   privateMessage: boolean
   selectedForce?: ForceData
