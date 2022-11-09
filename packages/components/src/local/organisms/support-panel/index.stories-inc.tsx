@@ -95,10 +95,9 @@ const Template: Story<SupportPanelProps> = (args) => {
     throw Error('can\'t find role')
   }
 
-  const editLocation: LocationEditCallbackHandler =  (plans: PlannedActivityGeometry[], activity: PlanningActivity['uniqid'], callback: {(newValue: unknown): void}): void => {
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], activity: PlanningActivity['uniqid'], callback: {(newValue: unknown): void}): void => {
     console.log('edit location', plans, activity, !!callback)
   }
-
 
   return <SupportPanel
     platformTypes={platformTypes}

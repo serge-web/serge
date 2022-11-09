@@ -1,4 +1,4 @@
-import { MessageDetails, MessagePlanning, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
@@ -14,7 +14,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation
+  editLocation, forcePlanningActivities
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -136,6 +136,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           message.message.location && editLocation(message.message.location, message.message.activity, callback)
         }
 
+        const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === message.details.from.forceId)
+
         return <JsonEditor
           messageContent={message.message}
           viewSaveButton={true}
@@ -147,7 +149,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           template={template}
           disabled={!canEdit}
           gameDate={gameDate}
-          modifyForEdit={collapseLocation}
+          modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
           modifyForSave={expandLocation}
           editCallback={localEditLocation}
         />
