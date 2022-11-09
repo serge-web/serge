@@ -262,8 +262,14 @@ const couchDb = (app, io, pouchOptions) => {
           limit: 1
         }).then((result) => {
           const { message } = result.docs[0]
-          const messageCorrectNumber = message.counter >= 1 ? ++message.counter : messageDefaultCount
-          res.send({ msg: 'ok', data: messageCorrectNumber })
+
+          if (message.counter) {
+            message.counter += messageDefaultCount
+          } else {
+           message.counter = messageDefaultCount
+          }
+
+          res.send({ msg: 'ok', data: message.counter })
         })
           .catch(() => res.send([]))
       })

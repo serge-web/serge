@@ -183,7 +183,7 @@ const pouchDb = (app, io, pouchOptions) => {
 
   app.get('/:wargame/:dbname/logs', (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
-  
+
     if (!databaseName) {
       res.status(404).send({ msg: 'Wrong Player Name', data: null })
     }
@@ -225,8 +225,14 @@ const pouchDb = (app, io, pouchOptions) => {
           limit: 1
         }).then((result) => {
           const { message } = result.docs[0]
-          const messageCorrectNumber = message.counter >= 1 ? ++message.counter : messageDefaultCount
-          res.send({ msg: 'ok', data: messageCorrectNumber })
+          
+          if (message.counter) {
+             message.counter += messageDefaultCount
+          } else {
+            message.counter = messageDefaultCount
+          }
+          
+          res.send({ msg: 'ok', data: message.counter })
         })
           .catch(() => res.send([]))
       })
