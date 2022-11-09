@@ -84,4 +84,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** callback for the location of a document being edited */
   editLocation: LocationEditCallbackHandler
+
+  /**
+   *  the range of planning activities for each force
+   */
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
 }

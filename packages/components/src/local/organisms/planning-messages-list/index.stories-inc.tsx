@@ -6,9 +6,10 @@ import React, { useState } from 'react'
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
-import { P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
+import { fixPerForcePlanningActivities } from '../planning-channel/helpers/collate-plans-helper'
 import { customiseAssets } from '../support-panel/helpers/customise-assets'
 import PlanningMessagesList from './index'
 import docs from './README.md'
@@ -45,6 +46,10 @@ export default {
     }
   }
 }
+
+const planningActivities = MockPlanningActivities
+const perForcePlanningActivities = MockPerForceActivities
+const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
@@ -114,6 +119,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     setSelectedOrders={(): any => noop}
     turnFilter={turnFilter}
     editLocation={editLocation}
+    forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
 
