@@ -54,7 +54,7 @@ export default interface PropTypes {
   onCancelDraftMessage?: {(): void}
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   /** user wishes to edit location data */
-  editLocation: LocationEditCallbackHandler
+  editLocation?: LocationEditCallbackHandler
 }
 
 export type TabPanelProps = {
