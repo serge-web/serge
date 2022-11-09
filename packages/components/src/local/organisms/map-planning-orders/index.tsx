@@ -11,8 +11,7 @@ import PropTypes from './types/props'
 
 const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActivityGeometry['uniqid']): PlanningActivity | undefined => {
   const activity = activities.find((value: PlanningActivity) => {
-    // it's only worth processing if it has a color
-    if (value.color && value.geometries) {
+    if (value.geometries) {
       return value.geometries.find((geom: PlanningActivityGeometry) => geom.uniqid === uniqid)
     }
     return false
@@ -53,7 +52,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
                 res.properties.name = activity.name + ' - ' + geometry.name
               }
             } else {
-              console.warn('failed to find activity for', act.uniqid)
+              console.warn('failed to find activity for', act.uniqid, activities)
             }
             return res
           })

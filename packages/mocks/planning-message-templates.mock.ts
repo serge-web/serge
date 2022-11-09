@@ -890,8 +890,11 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "type": "string"
         },
         location: {
-          format: "location",
+          format: "textarea",
+          title: "Location",
+          id: "locationArea",
           type: "string",
+          "readonly": "readonly",
           propertyOrder: 60,
           "options": {
             "grid_columns": 5
@@ -900,6 +903,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         activity: {
           "title": "Activity",
           "propertyOrder": 65,
+          "readonly": "readonly",
           "type": "string",
           "enum": [
             "transit",
@@ -914,16 +918,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
               ]
           }
         },
-        activity2: {
-          title:"Activity2",
-          enum: [
-            "Transit2",
-            "Kinetic2",
-            "Asymmetric2"
-          ],
-          "type": "string",
-          "propertyOrder": 70
-        },
         ownAssets: {
           type: "array",
           format: "table",
@@ -933,6 +927,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "grid_columns": 3,
           items: {
             "type": "object",
+            "title": "Asset",
             "required": [
               "asset",
               "number"

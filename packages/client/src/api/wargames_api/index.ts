@@ -1,81 +1,32 @@
-import uniqid from 'uniqid'
+import {
+  ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
+  MSG_TYPE_STORE,
+  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings
+} from '@serge/config'
+import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import _ from 'lodash'
 import moment from 'moment'
 import fetch from 'node-fetch'
-import deepCopy from '../../Helpers/copyStateHelper'
+import uniqid from 'uniqid'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { deleteRoleAndParts, duplicateThisForce, handleDeleteMarker, handleUpdateMarker, handleCloneMarker } from '@serge/helpers'
-import {
-  databasePath,
-  serverPath,
-  MSG_STORE,
-  MSG_TYPE_STORE,
-  PLANNING_PHASE,
-  ADJUDICATION_PHASE,
-  clearAll,
-  allDbs,
-  COUNTER_MESSAGE,
-  SERGE_INFO,
-  INFO_MESSAGE,
-  FEEDBACK_MESSAGE,
-  CUSTOM_MESSAGE,
-  UPDATE_MARKER,
-  CLONE_MARKER,
-  STATE_OF_WORLD,
-  hiddenPrefix,
-  DELETE_MARKER,
-  wargameSettings
-} from '@serge/config'
 import { dbDefaultSettings } from '../../consts'
+import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
-  setLatestFeedbackMessage,
-  setCurrentWargame,
-  setLatestWargameMessage
+  setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  PlayerUiDispatch,
-  Wargame,
-  Message,
-  MessageInfoType,
-  WargameOverview,
-  PlatformType,
-  ForceData,
-  MessageDetailsFrom,
-  MessageDetails,
-  MessageFeedback,
-  MessageStructure,
-  MessageCustom,
-  MessageChannel,
-  MessageMap,
-  GameTurnLength,
-  ChannelTypes,
-  PlatformTypeData,
-  Role,
-  ParticipantTypes,
-  ParticipantChat,
-  MessageUpdateMarker,
-  MessageDeleteMarker,
-  MessageCloneMarker,
-  MapAnnotationData,
-  MessageStateOfWorld,
-  WargameRevision,
-  IconOption,
-  AnnotationMarkerData,
-  ActivityLogsInterface,
-  PlayerLogEntries
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
-  ApiWargameDbObject,
-  ApiWargameDb,
-  ListenNewMessageType
+  ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
 
+import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
-import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 
 const wargameDbStore: ApiWargameDbObject[] = []
 

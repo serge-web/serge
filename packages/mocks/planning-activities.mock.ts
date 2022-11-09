@@ -29,6 +29,19 @@ export const MockPlanningActivities: PlanningActivity[] = [
     ]
   },
   {
+    uniqid: 'ballistic-strike',
+    name: 'Ballistic Strike',
+    template: 'k16e-land',
+    color: '#f0f',
+    geometries: [
+      {
+        aType: GeometryType.polyline,
+        name: 'Route to target',
+        uniqid: 'ab1'
+      }
+    ]
+  },
+  {
     uniqid: 'area-strike',
     name: 'Area Strike',
     template: 'k16e-land',
@@ -156,13 +169,13 @@ export const MockPerForceActivities: PerForcePlanningActivitySet[] = [
       category: 'Maritime',
       activities:
         [
-          'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+          'ballistic-strike', 'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
         ]
     }, {
       category: 'Land',
       activities:
         [
-          'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+          'ballistic-strike', 'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
         ]
     }, {
       category: 'Air',

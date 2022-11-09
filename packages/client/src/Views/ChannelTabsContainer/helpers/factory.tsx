@@ -3,7 +3,7 @@ import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageMap, PerForcePlanningActivitySet, PlayerUi } from '@serge/custom-types'
+import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PerForcePlanningActivitySet, PlayerUi } from '@serge/custom-types'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
@@ -16,6 +16,7 @@ import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLo
 import CollabChannel from '../../../Components/CollabChannel'
 import { usePlayerUiDispatch } from '../../../Store/PlayerUi'
 import { perForceMockActivityData } from './mock-activity-data'
+import { mockPlanningMessages } from './mock-message-data'
 
 type Factory = (node: TabNode) => React.ReactNode
 
@@ -81,7 +82,7 @@ const factory = (state: PlayerUi): Factory => {
         console.log('Handler not created for', form)
     }
   }
-  
+
   return (node: TabNode): React.ReactNode => {
     /** helper to determine if the specified channel should be rendered */
     const renderThisChannel = (channelData?: ChannelUI): boolean => {
@@ -162,17 +163,22 @@ const factory = (state: PlayerUi): Factory => {
           // TODO: take this template id from the channel definition
           const adjudicationTemplateId = 'k16-adjud'
           // NOTE: block of code to force mock messages into database
-          // const mockPlanningMessages2 = mockPlanningMessages
-          // console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
-          // if (channel.messages === undefined || channel.messages.length <= 5) {
-          //   // push them
-          //   console.log('about to store', mockPlanningMessages2.length, ' to ', state.currentWargame)
-          //   mockPlanningMessages2.forEach((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
-          //     const asAny = msg as any
-          //     saveMessage(state.currentWargame, asAny.details, asAny.message)()
-          //     console.log('stored', asAny.details)
-          //   })
-          // }
+          const writeData = false
+          if (writeData) {
+            console.clear()
+            const mockPlanningMessages2 = mockPlanningMessages
+            console.log('channel', channel.messages, channel.messages === undefined, channel.messages?.length)
+            if (channel.messages === undefined || channel.messages.length <= 5) {
+              // push them
+              console.log('about to store', mockPlanningMessages2.length, ' to ', state.currentWargame)
+              mockPlanningMessages2.forEach((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+                const asAny = msg as any
+                const savePromise = saveMessage(state.currentWargame, asAny.details, asAny.message)
+                savePromise()
+                console.log('stored', asAny.details)
+              })
+            }
+          }
           return <PlanningChannel
             channelTemplates={channel.templates}
             allTemplates={allTemplates}

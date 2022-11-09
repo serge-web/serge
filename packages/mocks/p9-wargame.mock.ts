@@ -2934,13 +2934,13 @@ const game: Wargame = {
             "gameDescription": "",
             "gameTurnTime": {
                 "unit": "millis",
-                "millis": 43200000
+                "millis": 259200000
             },
             "name": "Overview - settings",
             "realtimeTurnTime": 300000,
             "showAccessCodes": true,
             "timeWarning": 60000,
-            "turnPresentation": "Turn-Pair-Letters",
+            "turnPresentation": "Natural",
             "logPlayerActivity": true
         },
         "platformTypes": {

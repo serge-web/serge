@@ -1,4 +1,4 @@
-import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
+import { faPlaneSlash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
@@ -20,6 +20,7 @@ interface OrderDrawingProps {
   activity: PlanningActivity | undefined
   cancelled: { (): void }
   planned: { (geometries: PlannedActivityGeometry[]): void }
+  activityBeingEdited: PlannedActivityGeometry[] | undefined
 }
 
 interface PendingItem {
@@ -28,7 +29,7 @@ interface PendingItem {
 }
 
 /* Render component */
-export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, cancelled }) => {
+export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, cancelled, activityBeingEdited }) => {
   const [plannedGeometries, setPlannedGeometries] = useState<Geometry[]>([])
   const [geoLayers, setGeoLayers] = useState<Layer[]>([])
   const [currentGeometry, setCurrentGeometry] = useState<number>(-1)
@@ -36,6 +37,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+
+  const [editLayer, setEditLayer] = useState<Layer | undefined>(undefined)
 
   // this next state is a workaround, to prevent GeoMan calling
   // onCreate multiple times
@@ -52,6 +55,58 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       setCurrentGeometry(0)
     }
   }, [activity])
+
+  useEffect(() => {
+    // map.pm.disableDraw()
+    // create a layer for the activites
+    if (activityBeingEdited && activityBeingEdited.length) {
+      console.log(activityBeingEdited)
+      const items = activityBeingEdited.map((plan) => plan.geometry)
+      if (map) {
+        const layerToEdit = L.geoJSON(items)
+        layerToEdit.addTo(map)
+        // // cancel drawing
+        // map.pm.disableDraw()
+
+        // // note: we may have empty planning geometries for non-spatial
+        // if (activity && currentGeometry >= 0 && planningGeometries.length > 0) {
+        //   // configure the drawing tool
+        //   const current = planningGeometries[currentGeometry]
+        const globalOpts: PM.GlobalOptions = {
+          layerGroup: layerToEdit,
+          continueDrawing: false,
+          editable: true,
+          allowCutting: false,
+          allowRemoval: false,
+          allowRotation: false
+        }
+        setGlobalOptions(globalOpts)
+
+        // switch off all controls
+        const toolbarOpts: PM.ToolbarOptions = {
+          position: 'bottomright',
+          drawControls: false,
+          editControls: false
+        }
+
+        setDrawOptions(toolbarOpts)
+
+        layerToEdit.options.pmIgnore = false // Specialy needed for LayerGroups
+        L.PM.reInitLayer(layerToEdit) // Make the LayerGroup accessable for Geoman
+        const editOptions: PM.EditModeOptions = {
+          allowRemoval: false,
+          allowCutting: false,
+          draggable: true
+        }
+        layerToEdit.pm.enable(editOptions)
+
+        setEditLayer(layerToEdit)
+
+      //   const gLayers = map.pm.getGeomanLayers()
+      //   console.log('glayesr', gLayers, items.length)
+      }
+    }
+  }, [activityBeingEdited])
 
   useEffect(() => {
     if (pendingGeometry) {
@@ -200,6 +255,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
 
   const cancelDrawing = (): void => {
     if (map) {
+      if (editLayer) {
+        editLayer.remove()
+        setEditLayer(undefined)
+      }
       map.pm.disableDraw()
       // also ditch the lines
       const layers = map.pm.getGeomanDrawLayers()
@@ -210,11 +269,22 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     cancelled()
   }
 
+  const saveDrawing = (): void => {
+    // push the data item
+    console.log('store', editLayer)
+
+    // TODO: put the geometries back into the relevant parents
+    console.log(' save', typeof editLayer, (editLayer as any).getLayers())
+
+    // now clean up
+    cancelDrawing()
+  }
+
   const onCreate = (e: { shape: string, layer: Layer }): void => {
     // note: this is a workaround.  Each time we start to plot a new activity,
-    // it appears that another `onCreate` handler gets declared
-    // this workaround prevents successive create events
-    // propagating
+    // note: it appears that another `onCreate` handler gets declared
+    // note: this workaround prevents successive create events
+    // note: propagating
     if (lastPendingGeometry) {
       const layer = lastPendingGeometry.layer as any
       const oldLatLngs = layer._latlngs
@@ -231,11 +301,15 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }
 
   return (
-    <> {activity &&
+    <> {(activity || editLayer) &&
       <>
         <div className='leaflet-top leaflet-left'>
           <div className='leaflet-control'>
-            <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
+            <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
+            {
+              editLayer &&
+              <Item onClick={saveDrawing}><FontAwesomeIcon title='Save' size={'lg'} icon={faSave} /></Item>
+            }
           </div>
         </div>
         <GeomanControls
