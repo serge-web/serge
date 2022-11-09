@@ -1,11 +1,10 @@
-import { RefObject } from 'react'
 import { JSONEditor } from '@json-editor/json-editor';
-import { Editor } from '@serge/custom-types'
-import { RefObject } from 'react'
-import { EditCallbackHandler } from '../types/props'
-import { configDateTimeCustomValidation } from './jsonValidation'
+import { Editor } from '@serge/custom-types';
+import { RefObject } from 'react';
+import { EditCallbackHandler } from '../types/props';
+import { configDateTimeCustomValidation } from './jsonValidation';
 
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig?: any): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, editCallback: EditCallbackHandler, jsonEditorConfig?: any): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
