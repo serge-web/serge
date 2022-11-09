@@ -8,7 +8,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Maritime',
         activities: [
           {
-            uniqid: 'maritime-ballisatic-strike',
+            uniqid: 'maritime-ballistic-strike',
             name: 'Ballistic Strike',
             template: 'k16e-land',
             color: '#f0f',
@@ -140,7 +140,7 @@ export const perForceMockActivityData: PerForcePlanningActivitySet[] = [
         category: 'Land',
         activities: [
           {
-            uniqid: 'land-ballisatic-strike',
+            uniqid: 'land-ballistic-strike',
             name: 'Ballistic Strike',
             template: 'k16e-land',
             color: '#f0f',

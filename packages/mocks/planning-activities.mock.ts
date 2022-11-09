@@ -29,7 +29,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
     ]
   },
   {
-    uniqid: 'ballisatic-strike',
+    uniqid: 'ballistic-strike',
     name: 'Ballistic Strike',
     template: 'k16e-land',
     color: '#f0f',
@@ -169,13 +169,13 @@ export const MockPerForceActivities: PerForcePlanningActivitySet[] = [
       category: 'Maritime',
       activities:
         [
-          'ballisatic-strike', 'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+          'ballistic-strike', 'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
         ]
     }, {
       category: 'Land',
       activities:
         [
-          'ballisatic-strike', 'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
+          'ballistic-strike', 'precis-strike', 'area-strike', 'transit', 'area-recce', 'point-recce', 'cyber'
         ]
     }, {
       category: 'Air',
