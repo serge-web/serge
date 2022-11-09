@@ -143,11 +143,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
 
-      console.log('template', firstUpdate, platformTypes)
-
       // now the platform types
       updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes)
-
     } catch (e) {
       console.warn('Failed to customise template. Does it not match expected adjudication template?', e)
     }

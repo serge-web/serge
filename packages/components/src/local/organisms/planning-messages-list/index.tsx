@@ -101,7 +101,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const localTemplates = allTemplates || []
       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType || value._id === message.details.messageType)
       if (!template) {
-        console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
+        console.warn('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
         const pendingLocationData: Array<PlannedActivityGeometry[]> = []
