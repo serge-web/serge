@@ -418,14 +418,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], callback: { (newValue: unknown): void }): void => {
-    console.log('PlanningChannel - editing', !!callback)
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], 
+      _activity: PlanningActivity['uniqid'], 
+      callback: { (newValue: unknown): void }): void => {
+    console.log('PlanningChannel - editing')
     setActivityBeingEditedCallback(callback)
-    setActivityBeingEdited(plans)
+    setActivityBeingEdited(plans)  
   }
 
   const orderEditingSaved = (activity: PlannedActivityGeometry[] | undefined): void => {
+    console.log('PlanningChannel = callback from OrderEditing', !!activity)
     if (activity) {
+      
       console.log('PlanningChannel - saving', activityBeingEditedCallback)
       activityBeingEditedCallback && activityBeingEditedCallback(activity)
     }

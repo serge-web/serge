@@ -93,6 +93,8 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
       return val
     })
 
+    console.log('about to call save')
+
     // now clean up
     saved(res)
   }
