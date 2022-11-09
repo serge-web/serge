@@ -14,7 +14,8 @@ import {
   DbProviderInterface,
   FetchData,
   FetchDataArray,
-  FetchDataLogs
+  FetchDataLogs,
+  FetchReferenc
 } from './types'
 
 export class DbProvider implements DbProviderInterface {
@@ -60,6 +61,7 @@ export class DbProvider implements DbProviderInterface {
 
   get (query: string): Promise<Wargame | Message | { status: number }> {
     return new Promise((resolve, reject) => {
+      console.log(this.getDbName())
       fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
         .then(({ msg, data }) => {
@@ -137,6 +139,18 @@ export class DbProvider implements DbProviderInterface {
         .then((res) => {
           const { msg, data } = res
           if (msg === 'ok') resolve(data[0])
+          else reject(msg)
+        })
+    })
+  }
+
+  lastCounter (roleId: string, id: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + roleId + '/' + id + '/' + 'counter')
+        .then(res => res.json() as Promise<FetchReferenc>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
           else reject(msg)
         })
     })

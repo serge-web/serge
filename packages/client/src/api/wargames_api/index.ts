@@ -682,36 +682,19 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
   return db.put(feedback).catch(rejectDefault)
 }
 
-const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails) => {
+const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails): Promise<MessageCustom> => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve): Promise<void> => {
     if (message.details.messageType !== 'Chat') {
       // default value for message counter
+      
       message.message.counter = 1
+      await db.lastCounter(details.from.force, details.timestamp).then((counter) => {
+        message.message.counter = counter
+      }).catch(err => err)
 
-      const forceMessagesWithCounter = await db.allDocs().then(res => {
-        const validMessage = (message: Message): boolean => {
-          if (message.messageType === CUSTOM_MESSAGE) {
-            const custom = message as MessageCustom
-            return custom.details && custom.details.from.force === details.from.force && custom.message.counter
-          } else {
-            return false
-          }
-        }
-        const thisForceMessagesWithCounter = res.filter((message) => validMessage(message)) as MessageCustom[]
-        const counters = thisForceMessagesWithCounter.map((message: MessageCustom) => message.message.counter)
-        const existId = res.find((message:any) => message._id === details.timestamp)
-        return [Math.max(...counters), existId]
-      })
-
-      const [counter, existId] = forceMessagesWithCounter
-
-      // @ts-ignore
-      const counterExist = existId ? existId.message.counter : message.message.counter
-
-      counter as number >= message.message.counter && !existId ? message.message.counter += counter : message.message.counter = counterExist
-      message.message.Reference = [message.details.from.force, message.message.counter].join('-')
-
+      // message.message.Reference = [message.details.from.force, message.message.counter].join('-')
+     
       resolve(message)
     } else {
       resolve(message)
@@ -734,7 +717,6 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
   }
 
   return checkReference(customMessage, db, details).then(messageUpdated => {
-    // @ts-ignore
     return db.put(messageUpdated).catch(rejectDefault)
   })
 }
