@@ -415,7 +415,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], activity: PlanningActivity['uniqid'], callback: {(newValue: unknown): void}): void => {
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], _callback: {(newValue: unknown): void}): void => {
     setActivityBeingEdited(plans)
   }
 
