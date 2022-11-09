@@ -63,7 +63,7 @@ const simplePoly: Feature<Polygon> = {
   }
 }
 
-const testActivity: PlanningActivity =   {
+const testActivity: PlanningActivity = {
   uniqid: 'area-strike',
   name: 'Area Strike',
   template: 'k16e-land',
@@ -83,7 +83,7 @@ const testActivity: PlanningActivity =   {
       aType: GeometryType.polyline,
       name: 'Route out',
       uniqid: 'aa6'
-    },
+    }
   ]
 }
 
