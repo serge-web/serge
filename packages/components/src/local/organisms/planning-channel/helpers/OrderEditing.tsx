@@ -78,6 +78,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
     const layers = asAny._layers as Record<string, unknown>
     if (!layers) {
       console.warn('layers object not constructed as expected')
+      return
     }
 
     // loop through children
@@ -164,10 +165,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
         <div className='leaflet-top leaflet-left'>
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
-            {
-              editLayer &&
-              <Item onClick={saveDrawing}><FontAwesomeIcon title='Save' size={'lg'} icon={faSave} /></Item>
-            }
+            <Item onClick={saveDrawing}><FontAwesomeIcon title='Save locations' size={'lg'} icon={faSave} /></Item>
           </div>
         </div>
         <GeomanControls
