@@ -24,7 +24,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       setTimeout(() => {
-        const hiddenStores = document.querySelectorAll('div[data-schemaid="hiddenStore"]') as NodeListOf<HTMLDivElement>
+        const hiddenStores = document.querySelectorAll('div[data-schemapath$="hiddenStore"]') as NodeListOf<HTMLDivElement>
         Array.from(hiddenStores).forEach(hiddenStores => {
           hiddenStores.style.display = 'none'
         })
