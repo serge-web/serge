@@ -1,4 +1,4 @@
-import { PLANNING_MESSAGE } from '@serge/config'
+import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
@@ -63,9 +63,33 @@ const simplePoly: Feature<Polygon> = {
   }
 }
 
+const testActivity: PlanningActivity = {
+  uniqid: 'area-strike',
+  name: 'Area Strike',
+  template: 'k16e-land',
+  color: '#b0f',
+  geometries: [
+    {
+      aType: GeometryType.polyline,
+      name: 'Route in',
+      uniqid: 'aa4'
+    },
+    {
+      aType: GeometryType.polygon,
+      name: 'Target Area',
+      uniqid: 'aa5'
+    },
+    {
+      aType: GeometryType.polyline,
+      name: 'Route out',
+      uniqid: 'aa6'
+    }
+  ]
+}
+
 it('produces order data', () => {
   const numOrders = 20
-  const orders = randomOrdersDocs(numOrders, forces, [blueForce.uniqid, redForce.uniqid], MockPlanningActivities)
+  const orders = randomOrdersDocs(numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities)
   expect(orders).toBeTruthy()
   expect(orders.length).toEqual(numOrders)
 })
@@ -74,7 +98,7 @@ it('produces planned goemetries', () => {
   if (blueForce.assets && redForce.assets) {
     const ownAssets = [blueForce.assets[0], blueForce.assets[1]]
     const targets = [redForce.assets[0], redForce.assets[1]]
-    const activity = MockPlanningActivities[1]
+    const activity = testActivity
     const startTime = moment('2022-11-15T00:00:00.000Z')
     const orders = geometriesFor(ownAssets, blueForce.uniqid, targets, activity, 22, startTime)
     expect(orders).toBeTruthy()
@@ -388,6 +412,11 @@ it('generates full contact for polygon & point', () => {
   ]]
   other.geometry.geometry.type = 'Point'
   otherGeom.coordinates = [0, 3]
+
+  // force a time overlap
+  const myProps = me.geometry.properties as PlannedProps
+  const hisProps = other.geometry.properties as PlannedProps
+  hisProps.startTime = myProps.startTime
 
   const con1 = touches(me, other, 'aa', randomizer, sensorRange)
   expect(timeIntersect(me, other)).toBeTruthy()

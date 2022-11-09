@@ -18,11 +18,13 @@ import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-a
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
+import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact } from '../support-panel/helpers/gen-order-data'
+import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
+import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
@@ -93,6 +95,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
+  const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -207,10 +210,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction && msg.details.messageType === 'Land Activity')) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
-    console.log('new messages', messages.length, myInteractionMessages.length)
-    if (!myInteractionMessages.length) {
-      console.log(messages)
-    }
+    // log of number of message ids and forces, used to config interactions
+    !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId } }))
+
+    // count of new messages
+    !7 && console.log('Page loaded', messages.length, myInteractionMessages.length)
 
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)
@@ -244,11 +248,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
   const genData = (): void => {
-    const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-    setActivityBeingPlanned(newPlan)
-
-    // const newOrders = randomOrdersDocs(200, allForces, [allForces[1].uniqid, allForces[2].uniqid], flattenedPlanningActivities)
-    // console.log(newOrders)
+    const doGenny = 7
+    if (!doGenny) {
+      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+      setActivityBeingPlanned(newPlan)
+    } else {
+      const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+      console.log(newOrders)
+    }
   }
 
   const incrementDebugStep = (): void => {
@@ -409,6 +416,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], _callback: { (newValue: unknown): void }): void => {
+    setActivityBeingEdited(plans)
+  }
+
+  const cancelOrderEditing = (): void => {
+    setActivityBeingEdited(undefined)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>{playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
@@ -416,18 +431,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
             <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-            <LayerGroup key={'own-forces'}>
+            <LayerGroup pmIgnore={true} key={'own-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
             <LayerGroup key={'opp-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
-            {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} cancelled={cancelOrderEditing} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </>
         }
       </>
     )
-  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep, showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned])
+  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -470,6 +487,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
           forcePlanningActivities={forcePlanningActivities}
+          editLocation={editLocation}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>
@@ -502,7 +520,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         : <>
                           <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                           <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {!7 && // don't bother with this, but keep it in case we want to gen more data
+                          {7 && // don't bother with this, but keep it in case we want to gen more data
                             <div className={cx('leaflet-control')}>
                               <Item onClick={genData}>gen data</Item>
                             </div>
@@ -514,7 +532,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 </>
               }>
               <>
-                <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 {mapChildren}
               </>
             </SupportMapping>

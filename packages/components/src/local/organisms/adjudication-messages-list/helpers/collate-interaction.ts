@@ -13,7 +13,7 @@ export type InteractionData = {
   order2Activity: string | undefined
 }
 
-const getActivity = (activities:PerForcePlanningActivitySet[], forceId?: ForceData['uniqid'], activityId?: PlanningMessageStructure['activity']): string | undefined => {
+const getActivity = (activities:PerForcePlanningActivitySet[], activityId: PlanningMessageStructure['activity'], forceId?: ForceData['uniqid']): string | undefined => {
   const force = activities.find((act) => act.force === forceId)
   if (!force) {
     throw Error('Failed to find group for:' + force)
@@ -65,19 +65,22 @@ export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): 
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
-  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData => {
+  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined => {
   const intMsg = interactionMessages.find((value) => value._id === intId)
   if (!intMsg) {
-    throw Error('Failed to find interaction message:' + intId)
+    console.warn('Failed to find interaction message:', intId)
+    return undefined
   }
   const interaction = intMsg.details.interaction
   if (!interaction) {
-    throw Error('Failed to find interaction message:' + intId)
+    console.warn('Failed to find interaction details:', intId)
+    return undefined
   }
   const order1AssetsIds: string[] = []
   const order1 = planningMessages.find((plan) => plan._id === interaction.orders1)
   if (!order1) {
-    throw Error('Failed to find interaction message:' + interaction.orders1)
+    console.warn('Failed to find interaction message:' + interaction.orders1)
+    return undefined
   }
   order1.message.ownAssets && order1AssetsIds.push(...order1.message.ownAssets.map((asset) => asset.asset))
   order1.message.otherAssets && order1AssetsIds.push(...order1.message.otherAssets)
@@ -103,8 +106,8 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
     return force.force + '-' + asset.name
   })
 
-  const act1 = forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order1.message.activity)
-  const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order1.details.from.forceId, order2.message.activity)
+  const act1 = forcePlanningActivities && getActivity(forcePlanningActivities, order1.message.activity, order1.details.from.forceId)
+  const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order2.message.activity, order2.details.from.forceId)
 
   return {
     interaction: intMsg,

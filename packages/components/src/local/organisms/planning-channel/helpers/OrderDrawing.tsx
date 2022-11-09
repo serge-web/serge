@@ -212,9 +212,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
 
   const onCreate = (e: { shape: string, layer: Layer }): void => {
     // note: this is a workaround.  Each time we start to plot a new activity,
-    // it appears that another `onCreate` handler gets declared
-    // this workaround prevents successive create events
-    // propagating
+    // note: it appears that another `onCreate` handler gets declared
+    // note: this workaround prevents successive create events
+    // note: propagating
     if (lastPendingGeometry) {
       const layer = lastPendingGeometry.layer as any
       const oldLatLngs = layer._latlngs
@@ -231,11 +231,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   }
 
   return (
-    <> {activity &&
+    <> {(activity) &&
       <>
         <div className='leaflet-top leaflet-left'>
           <div className='leaflet-control'>
-            <Item onClick={cancelDrawing}><FontAwesomeIcon size={'lg'} icon={faPlaneSlash} /></Item>
+            <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
           </div>
         </div>
         <GeomanControls

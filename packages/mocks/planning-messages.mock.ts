@@ -3,72 +3,73 @@ import { MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@se
 
 export const planningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = [
     {
-        messageType: "InteractionMessage",
-        details: {
-            channel: "channel-blue-planning",
-            from: {
-                force: "Blue",
-                forceColor: "#00F",
-                roleName: "Logs",
-                roleId: "rk116f5e",
-                iconURL: "default_img/umpireDefault.png",
-                forceId: "F-Blue"
-            },
-            messageType: "Land Activity",
-            interaction: {
-                id: "some long string",
-                startTime: "2022-11-15T00:00:00.000Z",
-                endTime: "2022-11-15T05:30:00.000Z",
-                orders1: "m_F-Blue_12",
-                orders2: "m_F-Red_27"
-            },
-            timestamp: "2022-09-23T14:47:47.015Z",
-            turnNumber: 3
+      "messageType": "InteractionMessage",
+      "details": {
+        "channel": "channel-blue-planning",
+        "from": {
+          "force": "Blue",
+          "forceColor": "#00F",
+          "roleName": "Logs",
+          "roleId": "rk116f5e",
+          "iconURL": "default_img/umpireDefault.png",
+          "forceId": "F-Blue"
         },
-        message: {
-            Reference: "Blue-21",
-            locationOutcomes: [],
-            perceptionOutcomes: [],
-            healthOutcomes: []
+        "messageType": "Land Activity",
+        "interaction": {
+          "id": "some long string",
+          "startTime": "2022-11-15T00:00:00.000Z",
+          "endTime": "2022-11-15T05:30:00.000Z",
+          "orders1": "m_F-Blue_15",
+          "orders2": "m_F-Red_27"
         },
-        hasBeenRead: false,
-        _id: "adjud_23423",
-        _rev: "m_F-Red_27"
+        "timestamp": "2022-09-23T14:47:47.015Z",
+        "turnNumber": 3
+      },
+      "message": {
+        "Reference": "Blue-a21",
+        "locationOutcomes": [],
+        "perceptionOutcomes": [],
+        "healthOutcomes": []
+      },
+      "hasBeenRead": false,
+      "_id": "adjud_23423",
+      "_rev": "m_F-Red_27"
     },
     {
-        messageType: "InteractionMessage",
-        details: {
-            channel: "channel-blue-planning",
-            from: {
-                force: "Blue",
-                forceColor: "#00F",
-                roleName: "Logs",
-                roleId: "rk116f5e",
-                iconURL: "default_img/umpireDefault.png",
-                forceId: "F-Blue"
-            },
-            messageType: "Land Activity",
-            interaction: {
-                id: "some other long string",
-                complete: true,
-                startTime: "2022-11-15T04:00:00.000Z",
-                endTime: "2022-11-15T06:30:00.000Z",
-                orders1: "m_F-Blue_24",
-                orders2: "m_F-Red_30"
-            },
-            timestamp: "2022-09-23T14:41:47.015Z",
-            turnNumber: 3
+      "messageType": "InteractionMessage",
+      "details": {
+        "channel": "channel-blue-planning",
+        "from": {
+          "force": "Blue",
+          "forceColor": "#00F",
+          "roleName": "Logs",
+          "roleId": "rk116f5e",
+          "iconURL": "default_img/umpireDefault.png",
+          "forceId": "F-Blue"
         },
-        message: {
-            Reference: "Blue-15",
-            locationOutcomes: [],
-            perceptionOutcomes: [],
-            healthOutcomes: []
+        "messageType": "Land Activity",
+        "interaction": {
+          "id": "some other long string",
+          "complete": true,
+          "startTime": "2022-11-15T04:00:00.000Z",
+          "endTime": "2022-11-15T06:30:00.000Z",
+          "orders1": "m_F-Blue_24",
+          "orders2": "m_F-Red_30"
         },
-        hasBeenRead: false,
-        _id: "adjud_23111",
-        _rev: "m_F-Red_34"
-    },        {
+        "timestamp": "2022-09-23T14:41:47.015Z",
+        "turnNumber": 3
+      },
+      "message": {
+        "Reference": "Blue-a15",
+        "locationOutcomes": [],
+        "perceptionOutcomes": [],
+        "healthOutcomes": []
+      },
+      "hasBeenRead": false,
+      "_id": "adjud_23111",
+      "_rev": "m_F-Red_34"
+    },
+    {
             "messageType": "PlanningMessage",
             "details": {
                 "channel": "channel-blue-planning",
@@ -82,7 +83,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 "messageType": "Land Activity",
                 "timestamp": "2022-09-29T08:51:37.924Z",
-                "turnNumber": 2
+                "turnNumber": 3
             },
             "message": {
                 "Reference": "Blue-6",
@@ -130,7 +131,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a179",
-                        "number": 4
+                        "number": 1
                     }
                 ],
                 "otherAssets": [
@@ -163,14 +164,14 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-9",
                 "title": "Order item 9",
                 "startDate": "2022-11-15T00:05:00.000Z",
-                "endDate": "2022-11-15T04:55:00.000Z",
+                "endDate": "2022-11-15T00:55:00.000Z",
                 "location": [
                     {
-                        "uniqid": "a11",
+                        "uniqid": "aa7",
                         "geometry": {
                             "type": "Feature",
                             "properties": {
-                                "id": "Point Reconnaisance//Route in",
+                                "id": "Transit//Route",
                                 "startDate": "2022-11-15T00:05:00.000Z",
                                 "endDate": "2022-11-15T00:55:00.000Z",
                                 "force": "F-Red",
@@ -207,85 +208,25 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                                 ]
                             }
                         }
-                    },
-                    {
-                        "uniqid": "a12",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Target Area",
-                                "startDate": "2022-11-15T00:55:00.000Z",
-                                "endDate": "2022-11-15T03:15:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668473700000,
-                                "endTime": 1668482100000
-                            },
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                    145.878,
-                                    -8.4283
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "a13",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Route out",
-                                "startDate": "2022-11-15T03:15:00.000Z",
-                                "endDate": "2022-11-15T04:55:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668482100000,
-                                "endTime": 1668488100000
-                            },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": [
-                                    [
-                                        145.878,
-                                        -8.4283
-                                    ],
-                                    [
-                                        144.92,
-                                        -12.86
-                                    ],
-                                    [
-                                        144.06,
-                                        -16.21
-                                    ],
-                                    [
-                                        142.49,
-                                        -20.26
-                                    ],
-                                    [
-                                        142.9809,
-                                        -20.6715
-                                    ]
-                                ]
-                            }
-                        }
                     }
                 ],
-                "activity": "land-point-recce",
+                "activity": "air-transit",
                 "ownAssets": [
                     {
                         "asset": "a128",
-                        "number": 2
+                        "number": 3
                     },
                     {
                         "asset": "a157",
-                        "number": 5
+                        "number": 2
                     },
                     {
                         "asset": "a147",
-                        "number": 3
+                        "number": 0
                     },
                     {
                         "asset": "a153",
-                        "number": 3
+                        "number": 2
                     }
                 ],
                 "otherAssets": [
@@ -362,7 +303,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a196",
-                        "number": 4
+                        "number": 2
                     }
                 ],
                 "otherAssets": [
@@ -516,7 +457,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a196",
-                        "number": 0
+                        "number": 5
                     }
                 ],
                 "otherAssets": [
@@ -707,11 +648,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a179",
-                        "number": 2
+                        "number": 3
                     },
                     {
                         "asset": "a185",
-                        "number": 3
+                        "number": 5
                     },
                     {
                         "asset": "a197",
@@ -845,11 +786,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a185",
-                        "number": 0
+                        "number": 4
                     },
                     {
                         "asset": "a180",
-                        "number": 2
+                        "number": 4
                     }
                 ],
                 "otherAssets": [
@@ -978,7 +919,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a171",
-                        "number": 1
+                        "number": 2
                     }
                 ],
                 "otherAssets": [
@@ -1011,13 +952,45 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-27",
                 "title": "Order item 27",
                 "startDate": "2022-11-15T00:05:00.000Z",
-                "endDate": "2022-11-15T00:05:00.000Z",
-                "location": [],
-                "activity": "maritime-cyber",
+                "endDate": "2022-11-15T00:55:00.000Z",
+                "location": [
+                    {
+                        "uniqid": "aa7",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Transit//Route",
+                                "startDate": "2022-11-15T00:05:00.000Z",
+                                "endDate": "2022-11-15T00:55:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668470700000,
+                                "endTime": 1668473700000
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [
+                                    [
+                                        126.839,
+                                        -14.6533
+                                    ],
+                                    [
+                                        137.4,
+                                        -3.14
+                                    ],
+                                    [
+                                        137.2844,
+                                        -2.7856
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "activity": "maritime-transit",
                 "ownAssets": [
                     {
                         "asset": "a130",
-                        "number": 2
+                        "number": 0
                     }
                 ],
                 "otherAssets": [
@@ -1049,166 +1022,9 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-30",
                 "title": "Order item 30",
                 "startDate": "2022-11-15T00:10:00.000Z",
-                "endDate": "2022-11-15T05:40:00.000Z",
-                "location": [
-                    {
-                        "uniqid": "aa8",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Area Reconnaisance//Route in",
-                                "startDate": "2022-11-15T00:10:00.000Z",
-                                "endDate": "2022-11-15T01:00:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668471000000,
-                                "endTime": 1668474000000
-                            },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": [
-                                    [
-                                        125.2749,
-                                        -17.6467
-                                    ],
-                                    [
-                                        132.72,
-                                        -14.79
-                                    ],
-                                    [
-                                        140.44,
-                                        -12.66
-                                    ],
-                                    [
-                                        147.45,
-                                        -10.25
-                                    ],
-                                    [
-                                        147.5097,
-                                        -9.88
-                                    ]
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "aa9a",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Area Reconnaisance//Flight Box",
-                                "startDate": "2022-11-15T01:00:00.000Z",
-                                "endDate": "2022-11-15T01:50:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668474000000,
-                                "endTime": 1668477000000
-                            },
-                            "geometry": {
-                                "type": "Polygon",
-                                "coordinates": [
-                                    [
-                                        [
-                                            145.1244671906956,
-                                            -7.506769661073324
-                                        ],
-                                        [
-                                            145.1244671906956,
-                                            -12.23620394136901
-                                        ],
-                                        [
-                                            149.92948214888057,
-                                            -12.23620394136901
-                                        ],
-                                        [
-                                            149.92948214888057,
-                                            -7.506769661073324
-                                        ],
-                                        [
-                                            145.1244671906956,
-                                            -7.506769661073324
-                                        ]
-                                    ]
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "aa9b",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Area Reconnaisance//Target Area",
-                                "startDate": "2022-11-15T01:50:00.000Z",
-                                "endDate": "2022-11-15T04:00:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668477000000,
-                                "endTime": 1668484800000
-                            },
-                            "geometry": {
-                                "type": "Polygon",
-                                "coordinates": [
-                                    [
-                                        [
-                                            143.49503928774186,
-                                            -5.86231276762047
-                                        ],
-                                        [
-                                            143.49503928774186,
-                                            -13.84898279563646
-                                        ],
-                                        [
-                                            151.62310435478463,
-                                            -13.84898279563646
-                                        ],
-                                        [
-                                            151.62310435478463,
-                                            -5.86231276762047
-                                        ],
-                                        [
-                                            143.49503928774186,
-                                            -5.86231276762047
-                                        ]
-                                    ]
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "a10",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Area Reconnaisance//Route out",
-                                "startDate": "2022-11-15T04:00:00.000Z",
-                                "endDate": "2022-11-15T05:40:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668484800000,
-                                "endTime": 1668490800000
-                            },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": [
-                                    [
-                                        147.5097,
-                                        -9.88
-                                    ],
-                                    [
-                                        135.98,
-                                        -13.38
-                                    ],
-                                    [
-                                        124.9,
-                                        -17.45
-                                    ],
-                                    [
-                                        125.2749,
-                                        -17.6467
-                                    ]
-                                ]
-                            }
-                        }
-                    }
-                ],
-                "activity": "land-area-recce",
+                "endDate": "2022-11-15T03:20:00.000Z",
+                "location": [],
+                "activity": "land-cyber",
                 "ownAssets": [
                     {
                         "asset": "a114",
@@ -1216,11 +1032,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     },
                     {
                         "asset": "a143",
-                        "number": 0
+                        "number": 2
                     },
                     {
                         "asset": "a131",
-                        "number": 3
+                        "number": 4
                     }
                 ],
                 "otherAssets": [
@@ -1252,14 +1068,14 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-33",
                 "title": "Order item 33",
                 "startDate": "2022-11-15T00:30:00.000Z",
-                "endDate": "2022-11-15T02:50:00.000Z",
+                "endDate": "2022-11-15T01:20:00.000Z",
                 "location": [
                     {
-                        "uniqid": "a11",
+                        "uniqid": "aa7",
                         "geometry": {
                             "type": "Feature",
                             "properties": {
-                                "id": "Point Reconnaisance//Route in",
+                                "id": "Transit//Route",
                                 "startDate": "2022-11-15T00:30:00.000Z",
                                 "endDate": "2022-11-15T01:20:00.000Z",
                                 "force": "F-Red",
@@ -1292,89 +1108,25 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                                 ]
                             }
                         }
-                    },
-                    {
-                        "uniqid": "a12",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Target Area",
-                                "startDate": "2022-11-15T01:20:00.000Z",
-                                "endDate": "2022-11-15T01:20:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668475200000,
-                                "endTime": 1668475200000
-                            },
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                    149.3719,
-                                    -10.3237
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "a13",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Route out",
-                                "startDate": "2022-11-15T01:20:00.000Z",
-                                "endDate": "2022-11-15T02:50:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668475200000,
-                                "endTime": 1668480600000
-                            },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": [
-                                    [
-                                        149.3719,
-                                        -10.3237
-                                    ],
-                                    [
-                                        144.82,
-                                        -10.66
-                                    ],
-                                    [
-                                        140.14,
-                                        -11.13
-                                    ],
-                                    [
-                                        135.76,
-                                        -12.3
-                                    ],
-                                    [
-                                        131.65,
-                                        -12.2
-                                    ],
-                                    [
-                                        131.5532,
-                                        -12.4334
-                                    ]
-                                ]
-                            }
-                        }
                     }
                 ],
-                "activity": "maritime-point-recce",
+                "activity": "maritime-transit",
                 "ownAssets": [
                     {
                         "asset": "a134",
-                        "number": 0
-                    },
-                    {
-                        "asset": "a152",
-                        "number": 3
-                    },
-                    {
-                        "asset": "a131",
                         "number": 5
                     },
                     {
+                        "asset": "a152",
+                        "number": 2
+                    },
+                    {
+                        "asset": "a131",
+                        "number": 1
+                    },
+                    {
                         "asset": "a126",
-                        "number": 0
+                        "number": 5
                     }
                 ],
                 "otherAssets": [
@@ -1413,15 +1165,15 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a176",
-                        "number": 3
+                        "number": 0
                     },
                     {
                         "asset": "a185",
-                        "number": 2
+                        "number": 0
                     },
                     {
                         "asset": "a161",
-                        "number": 5
+                        "number": 1
                     }
                 ],
                 "otherAssets": [
@@ -1453,14 +1205,14 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-39",
                 "title": "Order item 39",
                 "startDate": "2022-11-15T00:45:00.000Z",
-                "endDate": "2022-11-15T01:35:00.000Z",
+                "endDate": "2022-11-15T03:55:00.000Z",
                 "location": [
                     {
-                        "uniqid": "aa7",
+                        "uniqid": "a11",
                         "geometry": {
                             "type": "Feature",
                             "properties": {
-                                "id": "Transit//Route",
+                                "id": "Point Reconnaisance//Route in",
                                 "startDate": "2022-11-15T00:45:00.000Z",
                                 "endDate": "2022-11-15T01:35:00.000Z",
                                 "force": "F-Red",
@@ -1493,9 +1245,73 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                                 ]
                             }
                         }
+                    },
+                    {
+                        "uniqid": "a12",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Point Reconnaisance//Target Area",
+                                "startDate": "2022-11-15T01:35:00.000Z",
+                                "endDate": "2022-11-15T03:25:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668476100000,
+                                "endTime": 1668482700000
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    139.3171,
+                                    -8.0633
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uniqid": "a13",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Point Reconnaisance//Route out",
+                                "startDate": "2022-11-15T03:25:00.000Z",
+                                "endDate": "2022-11-15T03:55:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668482700000,
+                                "endTime": 1668484500000
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [
+                                    [
+                                        139.3171,
+                                        -8.0633
+                                    ],
+                                    [
+                                        135.74,
+                                        -10.18
+                                    ],
+                                    [
+                                        133.03,
+                                        -11.43
+                                    ],
+                                    [
+                                        129.61,
+                                        -13.4
+                                    ],
+                                    [
+                                        126.47,
+                                        -14.09
+                                    ],
+                                    [
+                                        126.579,
+                                        -14.574
+                                    ]
+                                ]
+                            }
+                        }
                     }
                 ],
-                "activity": "land-transit",
+                "activity": "land-point-recce",
                 "ownAssets": [
                     {
                         "asset": "a148",
@@ -1503,7 +1319,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     },
                     {
                         "asset": "a150",
-                        "number": 5
+                        "number": 3
                     },
                     {
                         "asset": "a110",
@@ -1511,7 +1327,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     },
                     {
                         "asset": "a146",
-                        "number": 2
+                        "number": 0
                     }
                 ],
                 "otherAssets": [
@@ -1543,21 +1359,117 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-42",
                 "title": "Order item 42",
                 "startDate": "2022-11-15T00:50:00.000Z",
-                "endDate": "2022-11-15T03:10:00.000Z",
-                "location": [],
-                "activity": "air-cyber",
+                "endDate": "2022-11-15T04:30:00.000Z",
+                "location": [
+                    {
+                        "uniqid": "aa1",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Precision Strike//Route in",
+                                "startDate": "2022-11-15T00:50:00.000Z",
+                                "endDate": "2022-11-15T01:40:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668473400000,
+                                "endTime": 1668476400000
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [
+                                    [
+                                        133.185,
+                                        -13.1681
+                                    ],
+                                    [
+                                        137,
+                                        -11.82
+                                    ],
+                                    [
+                                        142.07,
+                                        -10.22
+                                    ],
+                                    [
+                                        145.42,
+                                        -8.35
+                                    ],
+                                    [
+                                        145.878,
+                                        -8.4283
+                                    ]
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uniqid": "aa2",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Precision Strike//Target Location",
+                                "startDate": "2022-11-15T01:40:00.000Z",
+                                "endDate": "2022-11-15T02:30:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668476400000,
+                                "endTime": 1668479400000
+                            },
+                            "geometry": {
+                                "type": "Point",
+                                "coordinates": [
+                                    145.878,
+                                    -8.4283
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "uniqid": "aa3",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Precision Strike//Route out",
+                                "startDate": "2022-11-15T02:30:00.000Z",
+                                "endDate": "2022-11-15T04:30:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668479400000,
+                                "endTime": 1668486600000
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [
+                                    [
+                                        145.878,
+                                        -8.4283
+                                    ],
+                                    [
+                                        139.52,
+                                        -10.92
+                                    ],
+                                    [
+                                        133.67,
+                                        -12.93
+                                    ],
+                                    [
+                                        133.185,
+                                        -13.1681
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "activity": "other-precis-strike",
                 "ownAssets": [
                     {
                         "asset": "a146",
-                        "number": 4
+                        "number": 3
                     },
                     {
                         "asset": "a139",
-                        "number": 5
+                        "number": 2
                     },
                     {
                         "asset": "a149",
-                        "number": 3
+                        "number": 0
                     }
                 ],
                 "otherAssets": [
@@ -1682,19 +1594,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a171",
-                        "number": 0
+                        "number": 2
                     },
                     {
                         "asset": "a199",
-                        "number": 1
+                        "number": 3
                     },
                     {
                         "asset": "a200",
-                        "number": 1
+                        "number": 5
                     },
                     {
                         "asset": "a173",
-                        "number": 4
+                        "number": 2
                     }
                 ],
                 "otherAssets": [
@@ -1726,25 +1638,69 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-48",
                 "title": "Order item 48",
                 "startDate": "2022-11-15T01:10:00.000Z",
-                "endDate": "2022-11-15T03:30:00.000Z",
-                "location": [],
-                "activity": "maritime-cyber",
+                "endDate": "2022-11-15T02:00:00.000Z",
+                "location": [
+                    {
+                        "uniqid": "aa7",
+                        "geometry": {
+                            "type": "Feature",
+                            "properties": {
+                                "id": "Transit//Route",
+                                "startDate": "2022-11-15T01:10:00.000Z",
+                                "endDate": "2022-11-15T02:00:00.000Z",
+                                "force": "F-Red",
+                                "startTime": 1668474600000,
+                                "endTime": 1668477600000
+                            },
+                            "geometry": {
+                                "type": "LineString",
+                                "coordinates": [
+                                    [
+                                        146.4245,
+                                        -19.9708
+                                    ],
+                                    [
+                                        147.01,
+                                        -17.63
+                                    ],
+                                    [
+                                        147.46,
+                                        -14.43
+                                    ],
+                                    [
+                                        147.19,
+                                        -11.95
+                                    ],
+                                    [
+                                        147.21,
+                                        -10.19
+                                    ],
+                                    [
+                                        147.5097,
+                                        -9.88
+                                    ]
+                                ]
+                            }
+                        }
+                    }
+                ],
+                "activity": "maritime-transit",
                 "ownAssets": [
                     {
                         "asset": "a119",
-                        "number": 4
+                        "number": 5
                     },
                     {
                         "asset": "a153",
-                        "number": 0
+                        "number": 5
                     },
                     {
                         "asset": "a146",
-                        "number": 3
+                        "number": 0
                     },
                     {
                         "asset": "a154",
-                        "number": 0
+                        "number": 3
                     }
                 ],
                 "otherAssets": [
@@ -1883,11 +1839,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a197",
-                        "number": 3
+                        "number": 4
                     },
                     {
                         "asset": "a174",
-                        "number": 4
+                        "number": 2
                     }
                 ],
                 "otherAssets": [
@@ -1920,14 +1876,14 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-54",
                 "title": "Order item 54",
                 "startDate": "2022-11-15T01:10:00.000Z",
-                "endDate": "2022-11-15T05:40:00.000Z",
+                "endDate": "2022-11-15T04:40:00.000Z",
                 "location": [
                     {
-                        "uniqid": "aa8",
+                        "uniqid": "a11",
                         "geometry": {
                             "type": "Feature",
                             "properties": {
-                                "id": "Area Reconnaisance//Route in",
+                                "id": "Point Reconnaisance//Route in",
                                 "startDate": "2022-11-15T01:10:00.000Z",
                                 "endDate": "2022-11-15T02:00:00.000Z",
                                 "force": "F-Red",
@@ -1962,11 +1918,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         }
                     },
                     {
-                        "uniqid": "aa9a",
+                        "uniqid": "a12",
                         "geometry": {
                             "type": "Feature",
                             "properties": {
-                                "id": "Area Reconnaisance//Flight Box",
+                                "id": "Point Reconnaisance//Target Area",
                                 "startDate": "2022-11-15T02:00:00.000Z",
                                 "endDate": "2022-11-15T04:20:00.000Z",
                                 "force": "F-Red",
@@ -1974,86 +1930,25 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                                 "endTime": 1668486000000
                             },
                             "geometry": {
-                                "type": "Polygon",
+                                "type": "Point",
                                 "coordinates": [
-                                    [
-                                        [
-                                            136.15868133061835,
-                                            -4.904274807362774
-                                        ],
-                                        [
-                                            136.15868133061835,
-                                            -11.19777128728832
-                                        ],
-                                        [
-                                            142.5250770548468,
-                                            -11.19777128728832
-                                        ],
-                                        [
-                                            142.5250770548468,
-                                            -4.904274807362774
-                                        ],
-                                        [
-                                            136.15868133061835,
-                                            -4.904274807362774
-                                        ]
-                                    ]
+                                    139.3171,
+                                    -8.0633
                                 ]
                             }
                         }
                     },
                     {
-                        "uniqid": "aa9b",
+                        "uniqid": "a13",
                         "geometry": {
                             "type": "Feature",
                             "properties": {
-                                "id": "Area Reconnaisance//Target Area",
+                                "id": "Point Reconnaisance//Route out",
                                 "startDate": "2022-11-15T04:20:00.000Z",
                                 "endDate": "2022-11-15T04:40:00.000Z",
                                 "force": "F-Red",
                                 "startTime": 1668486000000,
                                 "endTime": 1668487200000
-                            },
-                            "geometry": {
-                                "type": "Polygon",
-                                "coordinates": [
-                                    [
-                                        [
-                                            137.79355475813242,
-                                            -6.5468686647126155
-                                        ],
-                                        [
-                                            137.79355475813242,
-                                            -9.574062978838011
-                                        ],
-                                        [
-                                            140.85209303260868,
-                                            -9.574062978838011
-                                        ],
-                                        [
-                                            140.85209303260868,
-                                            -6.5468686647126155
-                                        ],
-                                        [
-                                            137.79355475813242,
-                                            -6.5468686647126155
-                                        ]
-                                    ]
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "a10",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Area Reconnaisance//Route out",
-                                "startDate": "2022-11-15T04:40:00.000Z",
-                                "endDate": "2022-11-15T05:40:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668487200000,
-                                "endTime": 1668490800000
                             },
                             "geometry": {
                                 "type": "LineString",
@@ -2063,8 +1958,12 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                                         -8.0633
                                     ],
                                     [
-                                        116.82,
-                                        -20.92
+                                        127.95,
+                                        -14.23
+                                    ],
+                                    [
+                                        117.02,
+                                        -20.96
                                     ],
                                     [
                                         117.0214,
@@ -2075,15 +1974,15 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         }
                     }
                 ],
-                "activity": "other-area-recce",
+                "activity": "other-point-recce",
                 "ownAssets": [
                     {
                         "asset": "a105",
-                        "number": 4
+                        "number": 5
                     },
                     {
                         "asset": "a121",
-                        "number": 1
+                        "number": 2
                     }
                 ],
                 "otherAssets": [
@@ -2222,15 +2121,15 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     },
                     {
                         "asset": "a153",
-                        "number": 4
+                        "number": 0
                     },
                     {
                         "asset": "a119",
-                        "number": 5
+                        "number": 1
                     },
                     {
                         "asset": "a159",
-                        "number": 1
+                        "number": 3
                     }
                 ],
                 "otherAssets": [
@@ -2262,109 +2161,9 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "Reference": "Red Force-60",
                 "title": "Order item 60",
                 "startDate": "2022-11-15T01:30:00.000Z",
-                "endDate": "2022-11-15T07:50:00.000Z",
-                "location": [
-                    {
-                        "uniqid": "a11",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Route in",
-                                "startDate": "2022-11-15T01:30:00.000Z",
-                                "endDate": "2022-11-15T02:20:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668475800000,
-                                "endTime": 1668478800000
-                            },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": [
-                                    [
-                                        146.1087,
-                                        -20.2046
-                                    ],
-                                    [
-                                        145.45,
-                                        -13.52
-                                    ],
-                                    [
-                                        144.11,
-                                        -6.52
-                                    ],
-                                    [
-                                        144.4062,
-                                        -6.8859
-                                    ]
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "a12",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Target Area",
-                                "startDate": "2022-11-15T02:20:00.000Z",
-                                "endDate": "2022-11-15T05:10:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668478800000,
-                                "endTime": 1668489000000
-                            },
-                            "geometry": {
-                                "type": "Point",
-                                "coordinates": [
-                                    144.4062,
-                                    -6.8859
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "uniqid": "a13",
-                        "geometry": {
-                            "type": "Feature",
-                            "properties": {
-                                "id": "Point Reconnaisance//Route out",
-                                "startDate": "2022-11-15T05:10:00.000Z",
-                                "endDate": "2022-11-15T07:50:00.000Z",
-                                "force": "F-Red",
-                                "startTime": 1668489000000,
-                                "endTime": 1668498600000
-                            },
-                            "geometry": {
-                                "type": "LineString",
-                                "coordinates": [
-                                    [
-                                        144.4062,
-                                        -6.8859
-                                    ],
-                                    [
-                                        144.64,
-                                        -10.01
-                                    ],
-                                    [
-                                        144.8,
-                                        -13.22
-                                    ],
-                                    [
-                                        145.23,
-                                        -17.15
-                                    ],
-                                    [
-                                        145.96,
-                                        -19.79
-                                    ],
-                                    [
-                                        146.1087,
-                                        -20.2046
-                                    ]
-                                ]
-                            }
-                        }
-                    }
-                ],
-                "activity": "air-point-recce",
+                "endDate": "2022-11-15T02:00:00.000Z",
+                "location": [],
+                "activity": "air-cyber",
                 "ownAssets": [
                     {
                         "asset": "a159",
@@ -2372,7 +2171,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     },
                     {
                         "asset": "a146",
-                        "number": 4
+                        "number": 3
                     },
                     {
                         "asset": "a116",
@@ -2380,7 +2179,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     },
                     {
                         "asset": "a148",
-                        "number": 0
+                        "number": 3
                     }
                 ],
                 "otherAssets": [
@@ -2417,11 +2216,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "ownAssets": [
                     {
                         "asset": "a193",
-                        "number": 0
+                        "number": 1
                     },
                     {
                         "asset": "a187",
-                        "number": 2
+                        "number": 4
                     },
                     {
                         "asset": "a191",

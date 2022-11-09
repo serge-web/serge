@@ -51,7 +51,7 @@ describe('ChannelMessagesList component: ', () => {
       .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name} currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
+        playerForceId={blueForce.uniqid} editLocation={noop} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

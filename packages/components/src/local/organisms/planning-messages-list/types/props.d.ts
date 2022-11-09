@@ -1,5 +1,7 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, Role, TemplateBody } from '@serge/custom-types'
+import {
+  ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningActivity, Role, TemplateBody
+} from '@serge/custom-types'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 
@@ -13,6 +15,8 @@ export type OrderRow = {
   startDate: string
   endDate: string
 }
+
+export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], activity: PlanningActivity['uniqid'], callback: {(newValue: unknown): void}): void}
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
   /**
@@ -77,4 +81,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
     * the current turn filter or (-1) to show all
     */
   turnFilter?: number
+  /** callback for the location of a document being edited */
+  editLocation: LocationEditCallbackHandler
+
+  /**
+   *  the range of planning activities for each force
+   */
+  forcePlanningActivities?: PerForcePlanningActivitySet[]
 }

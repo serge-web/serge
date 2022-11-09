@@ -14,6 +14,7 @@ import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
+import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
@@ -54,9 +55,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onPanelWidthChange,
   draftMessage,
   onCancelDraftMessage,
-  forcePlanningActivities
+  forcePlanningActivities,
+  editLocation
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
@@ -103,7 +105,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
-        <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
+        { selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
+        }
       </div>
     )
   }
@@ -160,7 +163,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
-      (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce)
+      (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
+      (document, template) => customiseLocation(document, template)
     ]
 
     let current: Record<string, any> = schema
@@ -226,6 +230,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     setSelectedOrders={setSelectedOrders}
                     postBack={postBack}
                     turnFilter={turnFilter}
+                    editLocation={editLocation}
+                    forcePlanningActivities={forcePlanningActivities}
                   />
                   <NewMessage
                     orderableChannel={true}
@@ -265,8 +271,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
-              {activeTab === TABS[3] &&
+            {
+              selectedForce.umpire && <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
+                {activeTab === TABS[3] &&
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <AdjudicationMessagesList
@@ -292,8 +299,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     turnFilter={turnFilter}
                   />
                 </div>
-              }
-            </TabPanel>
+                }
+              </TabPanel>
+            }
             <div className={styles['resize-indicator-container']} >
               <div className={styles['resize-indicator-icon']} >
                 <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />

@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Editor, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import { Confirm } from '../../atoms/confirm'
-import Props from './types/props'
+import Props, { EditCallbackHandler } from './types/props'
 
 import { expiredStorage } from '@serge/config'
 import { Button } from '../../atoms/button'
@@ -36,11 +36,12 @@ export const JsonEditor: React.FC<Props> = ({
   modifyForEdit,
   modifyForSave,
   confirmCancel = false,
-  viewSaveButton = false
+  viewSaveButton = false,
+  editCallback
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
-  const [editButton, setEditButton] = useState<boolean>(false)
+  const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
 
   const prevTemplates: TemplateBody = usePrevious(messageId)
@@ -87,7 +88,7 @@ export const JsonEditor: React.FC<Props> = ({
     expiredStorage.removeItem(genLocalStorageId())
     initEditor()
     setConfirmIsOpen(false)
-    setEditButton(false)
+    setBeingEdited(false)
   }
 
   const openConfirmPopup = (): void => {
@@ -96,8 +97,18 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
+  const localEditCallback: EditCallbackHandler = (document: any, callback: {(newValue: unknown): void}): void => {
+    // TODO: we should only call the `editCallback` if this document
+    // is being edited.  The `beingEdited` flag should specify this,
+    // but it is always false
+    console.log('local edit', beingEdited)
+    // get the location object
+    editCallback && editCallback(document, callback)
+  }
+
   const initEditor = (): () => void => {
-    const jsonEditorConfig = disabled
+    const hideArrayButtons = disabled
+    const jsonEditorConfig = hideArrayButtons
       ? { disableArrayReOrder: true, disableArrayAdd: true, disableArrayDelete: true }
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
@@ -109,7 +120,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -205,9 +216,9 @@ export const JsonEditor: React.FC<Props> = ({
         expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
-        setEditButton(false)
+        setBeingEdited(false)
       } else {
-        setEditButton(false)
+        setBeingEdited(false)
         initEditor()
       }
     }
@@ -223,7 +234,7 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) {
-      if (viewSaveButton && !editButton) {
+      if (viewSaveButton && !beingEdited) {
         editor.disable()
       } else if (disabled && !viewSaveButton) {
         editor.disable()
@@ -231,12 +242,12 @@ export const JsonEditor: React.FC<Props> = ({
         // editor.enable()
       }
     }
-  }, [editor, editButton])
+  }, [editor, beingEdited])
 
   const SaveMessageButton = () => (
     editor && viewSaveButton ? (
       <div className='button-wrap' >
-        {!disabled && editButton
+        {!disabled && beingEdited
           ? <>
             <Button color='secondary' onClick={OnSave} icon='save'>Save</Button>
             {
@@ -245,7 +256,7 @@ export const JsonEditor: React.FC<Props> = ({
                 : null
             }
           </>
-          : !disabled ? <Button color='secondary' onClick={() => { setEditButton(true) }} icon='edit'>Edit</Button>
+          : !disabled ? <Button color='secondary' onClick={() => { setBeingEdited(true) }} icon='edit'>Edit</Button>
             : null
         }
       </div>
