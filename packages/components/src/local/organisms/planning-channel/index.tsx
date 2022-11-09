@@ -24,6 +24,7 @@ import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
+import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
@@ -415,8 +416,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], _callback: {(newValue: unknown): void}): void => {
+  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], _callback: { (newValue: unknown): void }): void => {
     setActivityBeingEdited(plans)
+  }
+
+  const cancelOrderEditing = (): void => {
+    setActivityBeingEdited(undefined)
   }
 
   const mapChildren = useMemo(() => {
@@ -432,12 +437,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <LayerGroup key={'opp-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
-            {/* <PolylineDecorator latlngs={polylineLatlgn} layer={geomanLayer} /> */}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} cancelled={cancelOrderEditing} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </>
         }
       </>
     )
-  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep, showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned])
+  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
 
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -525,7 +532,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 </>
               }>
               <>
-                <OrderDrawing activity={activityBeingPlanned} activityBeingEdited={activityBeingEdited} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />
                 {mapChildren}
               </>
             </SupportMapping>
