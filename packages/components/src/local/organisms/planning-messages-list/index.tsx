@@ -209,7 +209,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             onClick: (): void => setFilter(!filter)
           },
           {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faUser} />,
+            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} />,
             iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
             tooltip: 'Only show orders created by me',
             isFreeAction: true,
