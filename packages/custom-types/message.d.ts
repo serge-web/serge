@@ -61,6 +61,12 @@ export interface MessageDetails {
    * explain source for answer, or assumptions made
    */
   privateMessage?: string,
+  /** 
+   * Incremental counter for messages from this force, in this game.
+   * Used server-side to generate `message.message.Reference`.
+   * Only present for messages with `message.message.Reference`
+   */
+  counter?: number
   /** if this message has been archived */
   archived?: boolean
 }
@@ -72,7 +78,8 @@ export interface MessageStructure {
    */
   [property: string]: any
   title?: string
-  content?: string
+  /** the reference number for this force in this game */
+  Reference?: string
 }
 
 /** Core elements of planning messages. These are the fields
