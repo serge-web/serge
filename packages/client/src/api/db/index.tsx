@@ -1,21 +1,15 @@
-import { 
-  serverPath,
-  databasePath,
-  socketPath,
-  replicate,
-  deletePath,
-  wargameSettings
+import {
+  databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, Wargame, PlayerLogEntries } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame } from '@serge/custom-types'
 
 import { io } from 'socket.io-client'
 import {
-  ProviderDbInterface,
   DbProviderInterface,
   FetchData,
   FetchDataArray,
   FetchDataLogs,
-  FetchReferenc
+  FetchReferenc, ProviderDbInterface
 } from './types'
 
 export class DbProvider implements DbProviderInterface {
@@ -61,7 +55,6 @@ export class DbProvider implements DbProviderInterface {
 
   get (query: string): Promise<Wargame | Message | { status: number }> {
     return new Promise((resolve, reject) => {
-      console.log(this.getDbName())
       fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
         .then(({ msg, data }) => {
