@@ -13,6 +13,7 @@ const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
 const blueRole = blueForce.roles[0]
+const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 
 describe('AdjudicationMessagesList component: ', () => {
   it('renders component correctly', () => {
@@ -24,7 +25,7 @@ describe('AdjudicationMessagesList component: ', () => {
     const tree = renderer
       .create(<AdjudicationMessagesList planningMessages={planningMessages} selectedOrders={[]} setSelectedOrders={noop} forces={forces} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
         interactionMessages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} onMarkAllAsRead={markAllAsRead} />)
+        playerForceId={blueForce.uniqid} platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

@@ -1,5 +1,5 @@
 
-import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningMessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 
@@ -46,20 +46,24 @@ const getActivity = (activities:PerForcePlanningActivitySet[], activityId: Plann
 
 export const updateAssets = (asset: Record<string, any>, interaction: InteractionData): Record<string, any> => {
   if (asset !== undefined) {
-    const allAssIds = interaction.allAssets.map((asset) => asset.uniqid)
-    const allAssNames = interaction.allAssets.map((asset) => asset.name)
-    asset.enum = allAssIds
-    asset.options.enum_titles = allAssNames
+    asset.enum = interaction.allAssets.map((asset) => asset.uniqid)
+    asset.options.enum_titles = interaction.allAssets.map((asset) => asset.name)
   }
   return asset
 }
 
 export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): Record<string, any> => {
   if (force !== undefined) {
-    const allForceIds = forces.map((force) => force.forceId)
-    const allForceNames = forces.map((force) => force.force)
-    force.enum = allForceIds
-    force.options.enum_titles = allForceNames
+    force.enum = forces.map((force) => force.forceId)
+    force.options.enum_titles = forces.map((force) => force.force)
+  }
+  return force
+}
+
+export const updatePlatformTypes = (force: Record<string, any>, pTypes: PlatformTypeData[]): Record<string, any> => {
+  if (force !== undefined) {
+    force.enum = pTypes.map((pType) => pType.uniqid)
+    force.options.enum_titles = pTypes.map((pType) => pType.name)
   }
   return force
 }
