@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 
 // Import component files
+import { ChannelPlanning } from '@serge/custom-types'
 import { MessageTemplatesMock, watuWargame } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
+import { Story } from '@storybook/react/types-6-0'
+import { MapConstants } from '../support-mapping/helper/MapConstants'
 import SettingChannels from './index'
 import docs from './README.md'
 import { ChannelTypes } from './types/props'
-import { Story } from '@storybook/react/types-6-0'
-import { ChannelPlanning } from '@serge/custom-types'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -18,6 +19,7 @@ const planningChannel: ChannelPlanning = {
   name: 'Blue Planning',
   channelType: 'ChannelPlanning',
   uniqid: 'dummy-planning',
+  tiles: MapConstants.TileLayer,
   participants: [
     {
       forceUniqid: 'F-Blue',
