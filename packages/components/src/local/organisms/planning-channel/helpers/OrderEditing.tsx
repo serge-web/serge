@@ -1,7 +1,8 @@
 import { faPlaneSlash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlannedActivityGeometry } from '@serge/custom-types'
-import L, { Layer, PM } from 'leaflet'
+import { Feature } from 'geojson'
+import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
@@ -9,18 +10,90 @@ import { useMap } from 'react-leaflet-v4'
 import Item from '../../../map-control/helpers/item'
 
 interface OrderEditingProps {
-  cancelled: { (): void }
+  /** user has finished. Undefined value
+   * means user has cancelled
+   */
+  saved: { (activity: PlannedActivityGeometry[] | undefined): void}
+  /** the activity to edit */
   activityBeingEdited: PlannedActivityGeometry[] | undefined
 }
 
+interface GLayerObject {
+  feature: Feature
+  _latlngs: LatLng[] | Array<LatLng[]>
+  _latlng: LatLng
+
+}
+
+const switchLayer = (val: LatLng): [number, number] => {
+  return [val.lng, val.lat]
+}
+
+const layerToGeoJSON = (layer: GLayerObject): Feature | undefined => {
+  const feature: Feature = layer.feature
+  const res = feature // deep copy?
+  let coords
+  switch (layer.feature.geometry.type) {
+    case 'LineString': {
+      const data = layer._latlngs as LatLng[]
+      coords = data.map((val: LatLng) => switchLayer(val))
+      break
+    }
+    case 'Point': {
+      coords = switchLayer(layer._latlng)
+      break
+    }
+    case 'Polygon': {
+      const data = layer._latlngs as Array<LatLng[]>
+      coords = data.map((pt: LatLng[]): number[][] => {
+        return pt.map((pt2: LatLng): number[] => switchLayer(pt2))
+      })
+      break
+    }
+    default:
+      console.warn('OrderEditing - feature type not handled:', layer.feature.geometry.type)
+  }
+  const geomAny = feature.geometry as any
+  if (coords) {
+    geomAny.coordinates = coords
+  }
+  return res
+}
+
 /* Render component */
-export const OrderEditing: React.FC<OrderEditingProps> = ({ cancelled, activityBeingEdited }) => {
+export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeingEdited }) => {
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
 
   const [editLayer, setEditLayer] = useState<Layer | undefined>(undefined)
 
   const map = useMap()
+
+  const saveDrawing = (): void => {
+    // push the data item
+    const asAny = editLayer as any
+    // layers is a dictionary
+    const layers = asAny._layers as Record<string, unknown>
+    if (!layers) {
+      console.warn('layers object not constructed as expected')
+      return
+    } else {
+      // convert data
+      const newData = Object.values(layers).map((layer: any) => layerToGeoJSON(layer)) as Feature[]
+      // put the updated data back into the activities
+      const res = activityBeingEdited && activityBeingEdited.map((val) => {
+        const newGeom = newData.find((feat) => feat.id === val.uniqid)
+        if (newGeom) {
+          val.geometry = newGeom
+        }
+        return val
+      })
+      // save data
+      saved(res)
+    }
+    // clean up
+    cancelDrawing()
+  }
 
   useEffect(() => {
     // map.pm.disableDraw()
@@ -81,18 +154,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ cancelled, activityB
         layers.forEach((layer: Layer) => layer.remove())
       }
     }
-    cancelled()
-  }
-
-  const saveDrawing = (): void => {
-    // push the data item
-    console.log('store', editLayer)
-
-    // TODO: put the geometries back into the relevant parents
-    console.log(' save', typeof editLayer, (editLayer as any).getLayers())
-
-    // now clean up
-    cancelDrawing()
+    saved(undefined)
   }
 
   return (
@@ -101,10 +163,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ cancelled, activityB
         <div className='leaflet-top leaflet-left'>
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
-            {
-              editLayer &&
-              <Item onClick={saveDrawing}><FontAwesomeIcon title='Save' size={'lg'} icon={faSave} /></Item>
-            }
+            <Item onClick={saveDrawing}><FontAwesomeIcon title='Save locations' size={'lg'} icon={faSave} /></Item>
           </div>
         </div>
         <GeomanControls

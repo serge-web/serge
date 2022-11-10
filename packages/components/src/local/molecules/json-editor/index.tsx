@@ -6,7 +6,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
-import Props, { EditCallbackHandler } from './types/props'
+import Props from './types/props'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
@@ -92,13 +92,11 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
-  const localEditCallback: EditCallbackHandler = (document: any, callback: { (newValue: unknown): void }): void => {
+  const localEditCallback = (): void => {
     // TODO: we should only call the `editCallback` if this document
     // is being edited.  The `beingEdited` flag should specify this,
     // but it is always false
-    console.log('local edit', beingEdited)
-    // get the location object
-    editCallback && editCallback(document, callback)
+    editCallback && editCallback()
   }
 
   const initEditor = (): () => void => {
@@ -115,7 +113,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, localEditCallback, jsonEditorConfig)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback)
 
     const changeListenter = (): void => {
       if (nextEditor) {

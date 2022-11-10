@@ -1,8 +1,7 @@
-import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
-import { EditCallbackHandler } from 'src/local/molecules/json-editor/types/props'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
@@ -105,6 +104,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.log('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
+        const pendingLocationData: Array<PlannedActivityGeometry[]> = []
+
         const saveMessage = () => {
           if (messageValue.current) {
             const details: MessageDetails = {
@@ -124,6 +125,18 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
             if (messageValue.current.content === '') return
 
+            // inject location data, if present
+            if (pendingLocationData.length > 0) {
+              const msg = messageValue.current as PlanningMessageStructure
+              if (msg.location) {
+                msg.location = pendingLocationData[0]
+              } else {
+                console.warn('Expected this message to have location data')
+              }
+              // clear the array
+              while (pendingLocationData.length) { pendingLocationData.pop() }
+            }
+
             postBack && postBack(details, messageValue.current)
             messageValue.current = ''
           }
@@ -131,9 +144,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const canEdit = message.details.from.roleId === playerRoleId
 
-        const localEditLocation: EditCallbackHandler = (_document: any, callback: {(newValue: unknown): void}): void => {
-          // pass the location data object
-          message.message.location && editLocation(message.message.location, message.message.activity, callback)
+        const localEditLocation = (): void => {
+          if (message.message.location) {
+            const localCallback = (newValue: unknown): void => {
+              pendingLocationData.push(newValue as PlannedActivityGeometry[])
+            }
+            // pass the location data object
+            editLocation && editLocation(message.message.location, localCallback)
+          }
         }
 
         const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === message.details.from.forceId)
