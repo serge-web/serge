@@ -68,10 +68,12 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const nonInfoMessages = planningChannelMessages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
   const interactionMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
   const planningMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
+  const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 
   return <AdjudicationMessagesList
     forces={forces}
     setSelectedOrders={noop}
+    platformTypes={platformTypes}
     selectedOrders={[]}
     interactionMessages={interactionMessages}
     planningMessages={planningMessages}
