@@ -57,7 +57,6 @@ describe('Support Panel component: ', () => {
         setOwnForcesForParent={noop}
         allOppAssets={[]}
         allOwnAssets={[]}
-        editLocation={noop}
       />)
       .toJSON()
     expect(tree).toMatchSnapshot()

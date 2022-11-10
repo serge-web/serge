@@ -233,10 +233,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     editLocation={editLocation}
                     forcePlanningActivities={forcePlanningActivities}
                   />
-                  <NewMessage
+                  { draftMessage && <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
                     templates={channelTemplates}
+                    title={'New Orders'}
+                    hideTemplateSelector={true}
                     saveCachedNewMessageValue={saveCachedNewMessageValue}
                     getCachedNewMessagevalue={getCachedNewMessagevalue}
                     clearCachedNewMessage={clearCachedNewMessage}
@@ -251,7 +253,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     postBack={postBack}
                     customiseTemplate={localCustomiseTemplate}
                     draftMessage={draftMessage}
-                  />
+                  /> }
                 </div>
               }
             </TabPanel>

@@ -1,11 +1,10 @@
 import JSONEditor from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 import { RefObject } from 'react'
-import { EditCallbackHandler } from '../types/props'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: EditCallbackHandler): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: {(): void}): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
@@ -25,7 +24,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       setTimeout(() => {
-        const hiddenStores = document.querySelectorAll('div[data-schemaid="hiddenStore"]') as NodeListOf<HTMLDivElement>
+        const hiddenStores = document.querySelectorAll('div[data-schemapath$="hiddenStore"]') as NodeListOf<HTMLDivElement>
         Array.from(hiddenStores).forEach(hiddenStores => {
           hiddenStores.style.display = 'none'
         })
@@ -48,12 +47,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
           editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')
           editButton.style.height = '40px'
           editButton.style.transform = 'translateX(-60px)'
-          const storeVal = (newValue: unknown): void => {
-            console.log('store this in json editor', newValue)
-          }
-          editButton.addEventListener('click', () => {
-            editCallback({}, storeVal)
-          })
+          editButton.addEventListener('click', () => editCallback())
           locationSection.appendChild(editButton)
         })
       })

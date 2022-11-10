@@ -67,7 +67,7 @@ export const MockPlanningActivities: PlanningActivity[] = [
   {
     uniqid: 'transit',
     name: 'Transit',
-    template: 'k16e-maritime',
+    template: 'k16e-land',
     color: '#f33',
     geometries: [
       {
