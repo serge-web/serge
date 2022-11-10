@@ -265,7 +265,6 @@ const couchDb = (app, io, pouchOptions) => {
               messageDefaultCount += Biggestcount
             }
           }
-          
           res.send({ msg: 'ok', data: messageDefaultCount })
         })
           .catch(() => res.send([]))
