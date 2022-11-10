@@ -139,13 +139,13 @@ const lowerResolution = false
 lowerResolution && forces.forEach((force: ForceData) => {
   force.assets && force.assets.forEach((asset: Asset) => {
     if (asset.position) {
-      asset.position = fixIndex(asset.position, localConstraints.h3res)
+      asset.position = fixIndex(asset.position, localConstraints.h3res || 5)
     }
     if (asset.plannedTurns) {
-      asset.plannedTurns = cleanRoute(asset.plannedTurns, localConstraints.h3res)
+      asset.plannedTurns = cleanRoute(asset.plannedTurns, localConstraints.h3res || 5)
     }
     if (asset.history) {
-      asset.history = cleanRoute(asset.history, localConstraints.h3res)
+      asset.history = cleanRoute(asset.history, localConstraints.h3res || 5)
     }
   })
 })
