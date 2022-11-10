@@ -11,7 +11,7 @@ import PropTypes from './types/props'
 export const SupportMapping: React.FC<PropTypes> = ({
   position, bounds, toolbarChildren, mapWidth, children, tileLayer
 }) => {
-  if(!tileLayer) {
+  if (!tileLayer) {
     console.warn('warning, using fallback tile layer')
   }
   const TileLayerProps = tileLayer || MapConstants.TileLayer
