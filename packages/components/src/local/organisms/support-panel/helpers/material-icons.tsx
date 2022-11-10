@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Icons } from 'material-table'
 import React from 'react'
 
-/** centrally provide a set of local icon overrides for the 
+/** centrally provide a set of local icon overrides for the
  * standard icons used in `material-table`
  *
  */
