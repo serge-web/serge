@@ -8,7 +8,9 @@ import React, { useEffect, useMemo, useState } from 'react'
 
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import L from 'leaflet'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -455,7 +457,21 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
+    
+  const duffDefinition: TileLayerDefinition = {
+    attribution: 'missing',
+    url: '//'
+  }
 
+  const isAus = channel.constraints && channel.constraints.tileLayer?.url.includes('open')
+  const boundsToUse = isAus ? bounds : channel.constraints.bounds
+  const centerToUse = isAus ? bounds?.getCenter() : L.latLngBounds(channel.constraints.bounds).getCenter()
+
+  if (!channel.constraints) {
+    return (
+      <div>Warning - PlanningChannel must now include mapping constraints</div>
+    )
+  } else
   return (
     <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
       <SupportPanelContext.Provider value={supportPanelContext}>
@@ -505,15 +521,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           <MapContainer
             className={styles.map}
             zoomControl={false}
-            center={bounds?.getCenter()}
+            center={centerToUse}
+            bounds={boundsToUse}
+            maxBounds={boundsToUse}
             zoom={zoom}
+            minZoom={channel.constraints.minZoom}
+            maxZoom={channel.constraints.maxZoom}
+            zoomSnap={0.5}
           >
             <SupportMapping
               bounds={bounds}
               position={position}
               actionCallback={mapActionCallback}
               mapWidth={mapWidth}
-              tileLayer={channel.tiles}
+              tileLayer={channel.constraints.tileLayer || duffDefinition}
               toolbarChildren={
                 <>
                   {!activityBeingPlanned &&
