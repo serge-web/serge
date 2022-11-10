@@ -8,6 +8,7 @@ export interface DbProviderInterface {
   put: (doc: Wargame | Message) => Promise<Wargame | Message >
   allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
+  lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>
   putPlayerLogs: (docs: PlayerLogEntries) => Promise<{msg: string}> 
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
@@ -24,6 +25,11 @@ export interface ChangesResponseChange {
   changes: Array<{ rev: string }>;
   deleted?: boolean;
   wargame?: Wargame | Message;
+}
+
+export interface FetchReferenc {
+  msg: string,
+  data: number
 }
 
 export interface FetchData {

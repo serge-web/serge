@@ -3,5 +3,6 @@ module.exports = {
   settings: 'settings',
   COUNTER_MESSAGE: 'CounterMessage',
   INFO_MESSAGE: 'InfoMessage',
+  CUSTOM_MESSAGE: 'CustomMessage',
   dbSuffix: '.sqlite'
 }

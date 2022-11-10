@@ -92,7 +92,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     if (!(document && document.Reference)) {
       console.error('We were relying on there being a document Reference')
     }
-    const blueForce = document && document.Reference.includes('Blue')
+    const blueForce = document && document.Reference && document.Reference.includes('Blue')
     const ownForce = blueForce ? forces[1] : forces[2]
     const oppForce = blueForce ? forces[2] : forces[1]
     return customiseAssets(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
