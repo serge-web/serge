@@ -36,7 +36,7 @@ export interface ChannelPlanning extends ChannelCore {
   /** list of participants for this channel */
   participants: Array<ParticipantPlanning>
   /** source of tile data */
-  tiles?: TileLayerDefinition
+  tiles: TileLayerDefinition
 }
 
 /** description of standard channel, sending custom messages */

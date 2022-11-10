@@ -22,5 +22,5 @@ export default interface PropTypes {
   /** toolbar buttons */
   toolbarChildren?: React.ReactElement
   /** where to get the tile data from */
-  tileLayer?: TileLayerDefinition
+  tileLayer: TileLayerDefinition
 }
