@@ -844,6 +844,14 @@ const planningMessageTemplatesMock: TemplateBody[] = [
     "completed": false,
     "details": {
       "format": "grid",
+      "required": [
+        "title",
+        "description",
+        "startDate",
+        "endDate",
+        "ownAssets",
+        "otherAssets"
+      ],
       "properties": {
         "Reference": {
           "type": "string",
@@ -851,23 +859,23 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "readonly": "readonly",
           "propertyOrder": 15,
           "options": {
-            "grid_columns": 2
+            "grid_columns": 4
           }
         },
         "title": {
           "type": "string",
           "propertyOrder": 20,
           "options": {
-            "grid_columns": 5
+            "grid_columns": 8
           }
         },
-        startDate: {
-          format: "datetime-local",
-          type: "string",
-          title: "Start date",
-          propertyOrder: 30,
+        "startDate": {
+          "format": "datetime-local",
+          "type": "string",
+          "title": "Start date",
+          "propertyOrder": 30,
           "options": {
-            "grid_columns": 2
+            "grid_columns": 4
           }
         },
         "endDate": {
@@ -876,33 +884,12 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "propertyOrder": 40,
           "title": "End date",
           "options": {
-            "flatpickr": {
-              "wrap": false,
-              "time_24hr": true,
-              "dateFormat": "d/m/Y"
-            },
-            "grid_columns": 2
+            "grid_columns": 4
           }
         },
-        "Description": {
-          "format": "textarea",
-          "propertyOrder": 50,
-          "type": "string"
-        },
-        location: {
-          format: "textarea",
-          title: "Location",
-          id: "locationArea",
-          type: "string",
-          "readonly": "readonly",
-          propertyOrder: 60,
-          "options": {
-            "grid_columns": 5
-          }
-        },
-        activity: {
+        "activity": {
           "title": "Activity",
-          "propertyOrder": 65,
+          "propertyOrder": 45,
           "readonly": "readonly",
           "type": "string",
           "enum": [
@@ -911,21 +898,42 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "asymmetric"
           ],
           "options": {
+            "grid_columns": 4,
             "enum_titles": [
               "Transit1",
               "Kinetic1",
               "Asymmetric1"
-              ]
+            ]
           }
         },
-        ownAssets: {
-          type: "array",
-          format: "table",
-          minItems: 0,
-          propertyOrder: 80,
-          title: "Own Assets",
+
+        "description": {
+          "format": "textarea",
+          "propertyOrder": 50,
+          "options": {
+            "grid_columns": 12
+          },
+          "type": "string"
+        },
+        "location": {
+          "format": "textarea",
+          "title": "Location",
+          "id": "locationArea",
+          "type": "string",
+          "readonly": "readonly",
+          "propertyOrder": 60,
+          "options": {
+            "grid_columns": 6
+          }
+        },
+        "ownAssets": {
+          "type": "array",
+          "format": "table",
+          "minItems": 0,
+          "propertyOrder": 80,
+          "title": "Own Assets",
           "grid_columns": 3,
-          items: {
+          "items": {
             "type": "object",
             "title": "Asset",
             "required": [
@@ -947,7 +955,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                     "Tank A",
                     "Tank B",
                     "Tank C",
-                    "Plane A"  
+                    "Plane A"
                   ]
                 }
               },
@@ -959,14 +967,14 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             }
           }
         },
-        otherAssets: {
-          type: "array",
-          propertyOrder: 90,
-          format: "table",
-          minItems: 0,
-          title: "Subject(s) of orders",
+        "otherAssets": {
+          "type": "array",
+          "propertyOrder": 90,
+          "format": "table",
+          "minItems": 0,
+          "title": "Subject(s) of orders",
           "grid_columns": 3,
-          items: {
+          "items": {
             "title": "Asset",
             "type": "string",
             "enum": [
@@ -980,7 +988,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                 "Boat A",
                 "Bike B",
                 "Band C",
-                "Plane A"  
+                "Plane A"
               ]
             }
           }

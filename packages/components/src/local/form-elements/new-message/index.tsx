@@ -25,7 +25,9 @@ const NewMessage: React.FC<PropTypes> = ({
   getCachedNewMessagevalue,
   clearCachedNewMessage,
   customiseTemplate,
-  draftMessage
+  draftMessage,
+  title,
+  hideTemplateSelector
 }) => {
   const prevTemplates: TemplateBody = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
@@ -110,13 +112,13 @@ const NewMessage: React.FC<PropTypes> = ({
         open={!!schemaTitle || !!draftMessage}
         onOpening={onOpencollapsible}
         onClose={onClossCollapsible}
-        trigger={'New Message'}
+        trigger={title || 'New Message'}
         transitionTime={200}
         easing={'ease-in-out'}
         ref={tab}
       >
         {
-          allTemplates.length > 1 && (
+          !hideTemplateSelector && allTemplates.length > 1 && (
             <DropdownInput
               updateStore={setTemplate}
               selectOptions={allTemplates}

@@ -95,7 +95,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
+
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
+  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<{(newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -361,7 +363,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
 
       // mangle the location, to render it
-      const newDoc = collapseLocation(newPlan) as MessagePlanning
+      const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === selectedForce.uniqid)
+      const newDoc = collapseLocation(newPlan, activitiesForThisForce) as MessagePlanning
 
       // now open this in the editor
       setDraftMessage(newDoc)
@@ -416,11 +419,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], _activity: PlanningActivity['uniqid'], _callback: { (newValue: unknown): void }): void => {
+  const editOrderGeometries: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void => {
+    // if we just store `callback` then it will get called.  So we need to indirectly store it
+    setActivityBeingEditedCallback(() => callback)
     setActivityBeingEdited(plans)
   }
 
-  const cancelOrderEditing = (): void => {
+  const saveEditedOrderGeometries = (activity: PlannedActivityGeometry[] | undefined): void => {
+    if (activity) {
+      activityBeingEditedCallback && activityBeingEditedCallback(activity)
+      setActivityBeingEditedCallback(undefined)
+    }
+    // finally, close
     setActivityBeingEdited(undefined)
   }
 
@@ -437,7 +447,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <LayerGroup key={'opp-forces'}>
               <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
             </LayerGroup>
-            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} cancelled={cancelOrderEditing} />}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </>
         }
@@ -487,7 +497,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           draftMessage={draftMessage}
           onCancelDraftMessage={cancelDraftMessage}
           forcePlanningActivities={forcePlanningActivities}
-          editLocation={editLocation}
+          editLocation={editOrderGeometries}
         />
       </SupportPanelContext.Provider>
       <div className={styles['map-container']}>

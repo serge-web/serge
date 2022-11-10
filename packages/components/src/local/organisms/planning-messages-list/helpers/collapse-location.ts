@@ -9,7 +9,9 @@ export const collapseLocation = (document: Record<string, any>, activities?: Per
     const loc = parent.location as PlannedActivityGeometry[]
     let str = ''
     let flatGeoms: PlanningActivityGeometry[] = []
-    if (activities) {
+    if (!activities) {
+      console.warn('collapseLocation called without force activites')
+    } else {
       // get the lists of activities
       const justActs = activities.groupedActivities.map((group) => group.activities)
       const flatActs = _.flatten(justActs) as PlanningActivity[]
