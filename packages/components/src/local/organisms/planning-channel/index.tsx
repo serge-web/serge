@@ -2,7 +2,7 @@ import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_P
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import L, { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 
@@ -10,7 +10,6 @@ import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
-import L from 'leaflet'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -457,7 +456,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
-    
+
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
     url: '//'
@@ -471,73 +470,73 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return (
       <div>Warning - PlanningChannel must now include mapping constraints</div>
     )
-  } else
-  return (
-    <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
-      <SupportPanelContext.Provider value={supportPanelContext}>
-        <SupportPanel
-          channel={channel}
-          platformTypes={platformTypes}
-          planningMessages={planningMessages}
-          interactionMessages={interactionMessages}
-          onReadAll={onReadAll}
-          onUnread={onUnread}
-          onRead={onRead}
-          channelTemplates={channelTemplates}
-          allTemplates={allTemplates}
-          adjudicationTemplate={adjudicationTemplate}
-          activityTimeChanel={newActiveMessage}
-          saveMessage={saveMessageLocal}
-          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-          dispatch={reduxDispatch}
-          currentWargame={currentWargame}
-          isUmpire={!!selectedForce.umpire}
-          selectedRoleName={selectedRoleName}
-          selectedRoleId={selectedRoleId}
-          selectedForce={currentForce}
-          allForces={allForces}
-          gameDate={gameDate}
-          currentTurn={currentTurn}
-          selectedAssets={selectedAssets}
-          setSelectedAssets={setLocalSelectedAssets}
-          selectedOrders={selectedOrders}
-          saveCachedNewMessageValue={cacheMessage}
-          getCachedNewMessagevalue={getCachedMessage}
-          clearCachedNewMessage={clearCachedMessage}
-          setSelectedOrders={setSelectedOrders}
-          setOpForcesForParent={setOpAssetsFiltered}
-          setOwnForcesForParent={setOwnAssetsFiltered}
-          allOwnAssets={allOwnAssets}
-          allOppAssets={allOppAssets}
-          onPanelWidthChange={onPanelWidthChange}
-          draftMessage={draftMessage}
-          onCancelDraftMessage={cancelDraftMessage}
-          forcePlanningActivities={forcePlanningActivities}
-          editLocation={editOrderGeometries}
-        />
-      </SupportPanelContext.Provider>
-      <div className={styles['map-container']}>
-        <div style={{ width: mapWidth }}>
-          <MapContainer
-            className={styles.map}
-            zoomControl={false}
-            center={centerToUse}
-            bounds={boundsToUse}
-            maxBounds={boundsToUse}
-            zoom={zoom}
-            minZoom={channel.constraints.minZoom}
-            maxZoom={channel.constraints.maxZoom}
-            zoomSnap={0.5}
-          >
-            <SupportMapping
-              bounds={bounds}
-              position={position}
-              actionCallback={mapActionCallback}
-              mapWidth={mapWidth}
-              tileLayer={channel.constraints.tileLayer || duffDefinition}
-              toolbarChildren={
-                <>
-                  {!activityBeingPlanned &&
+  } else {
+    return (
+      <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
+        <SupportPanelContext.Provider value={supportPanelContext}>
+          <SupportPanel
+            channel={channel}
+            platformTypes={platformTypes}
+            planningMessages={planningMessages}
+            interactionMessages={interactionMessages}
+            onReadAll={onReadAll}
+            onUnread={onUnread}
+            onRead={onRead}
+            channelTemplates={channelTemplates}
+            allTemplates={allTemplates}
+            adjudicationTemplate={adjudicationTemplate}
+            activityTimeChanel={newActiveMessage}
+            saveMessage={saveMessageLocal}
+            saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+            dispatch={reduxDispatch}
+            currentWargame={currentWargame}
+            isUmpire={!!selectedForce.umpire}
+            selectedRoleName={selectedRoleName}
+            selectedRoleId={selectedRoleId}
+            selectedForce={currentForce}
+            allForces={allForces}
+            gameDate={gameDate}
+            currentTurn={currentTurn}
+            selectedAssets={selectedAssets}
+            setSelectedAssets={setLocalSelectedAssets}
+            selectedOrders={selectedOrders}
+            saveCachedNewMessageValue={cacheMessage}
+            getCachedNewMessagevalue={getCachedMessage}
+            clearCachedNewMessage={clearCachedMessage}
+            setSelectedOrders={setSelectedOrders}
+            setOpForcesForParent={setOpAssetsFiltered}
+            setOwnForcesForParent={setOwnAssetsFiltered}
+            allOwnAssets={allOwnAssets}
+            allOppAssets={allOppAssets}
+            onPanelWidthChange={onPanelWidthChange}
+            draftMessage={draftMessage}
+            onCancelDraftMessage={cancelDraftMessage}
+            forcePlanningActivities={forcePlanningActivities}
+            editLocation={editOrderGeometries}
+          />
+        </SupportPanelContext.Provider>
+        <div className={styles['map-container']}>
+          <div style={{ width: mapWidth }}>
+            <MapContainer
+              className={styles.map}
+              zoomControl={false}
+              center={centerToUse}
+              bounds={boundsToUse}
+              maxBounds={boundsToUse}
+              zoom={zoom}
+              minZoom={channel.constraints.minZoom}
+              maxZoom={channel.constraints.maxZoom}
+              zoomSnap={0.5}
+            >
+              <SupportMapping
+                bounds={bounds}
+                position={position}
+                actionCallback={mapActionCallback}
+                mapWidth={mapWidth}
+                tileLayer={channel.constraints.tileLayer || duffDefinition}
+                toolbarChildren={
+                  <>
+                    {!activityBeingPlanned &&
                     <>
                       {
                         umpireInAdjudication &&
@@ -560,18 +559,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         </>
                       }
                     </>
-                  }
+                    }
+                  </>
+                }>
+                <>
+                  {mapChildren}
                 </>
-              }>
-              <>
-                {mapChildren}
-              </>
-            </SupportMapping>
-          </MapContainer>
+              </SupportMapping>
+            </MapContainer>
+          </div>
         </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default PlanningChannel
