@@ -1,16 +1,26 @@
-import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight, faFilter, faSearch, faSortUp, faSquare, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
-import MaterialTable, { Column } from 'material-table'
+import MaterialTable, { Column, Icons } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
-import { materialIcons } from '../support-panel'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
+
+/** we need to manually provide the icons for material-table to run offline
+ *
+ */
+ export const materialIcons: Icons = {
+  Search: () => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
+  ResetSearch: () => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
+  Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
+  DetailPanel: () => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
+  SortArrow: () => <FontAwesomeIcon title='Sort' icon={faSortUp} />
+}
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,

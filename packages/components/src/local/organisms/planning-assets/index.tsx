@@ -1,10 +1,21 @@
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faChevronRight, faFilter, faSearch, faSortUp, faSquare, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column, MTableBody, MTableBodyRow } from 'material-table'
+import MaterialTable, { Column, Icons, MTableBody, MTableBodyRow } from 'material-table'
 import React, { useContext, useEffect, useRef, useState } from 'react'
-import { materialIcons, SupportPanelContext } from '../support-panel'
+import { SupportPanelContext } from '../support-panel'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
+
+/** we need to manually provide the icons for material-table to run offline
+ *
+ */
+ export const materialIcons: Icons = {
+  Search: () => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
+  ResetSearch: () => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
+  Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
+  DetailPanel: () => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
+  SortArrow: () => <FontAwesomeIcon title='Sort' icon={faSortUp} />
+}
 
 export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])

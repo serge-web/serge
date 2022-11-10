@@ -1,12 +1,9 @@
-import { faChevronRight, faSearch, faSortUp, faSquare, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
-import { Icons } from 'material-table'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
@@ -23,17 +20,6 @@ import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [] })
-
-/** we need to manually provide the icons for material-table to run offline
- *
- */
-export const materialIcons: Icons = {
-  Search: () => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
-  ResetSearch: () => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
-  Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
-  DetailPanel: () => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
-  SortArrow: () => <FontAwesomeIcon title='Sort' icon={faSortUp} />
-}
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
