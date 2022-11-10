@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import React from 'react'
@@ -94,4 +94,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * current turn filter (or -1 to show all turns)
    */
   turnFilter?: number
+  /** descriptions of platform types (used for perception drop-down) */
+  platformTypes: PlatformTypeData[]
 }
