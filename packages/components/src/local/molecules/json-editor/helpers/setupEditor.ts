@@ -1,4 +1,4 @@
-import * as JSONEditor from '@json-editor/json-editor'
+import JSONEditor from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 import { RefObject } from 'react'
 import { configDateTimeCustomValidation } from './jsonValidation'
@@ -53,7 +53,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
       })
     }
 
-    const newEditor = new JSONEditor.JSONEditor(ref.current, {
+    const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',
       [disableCollapse]: true,
