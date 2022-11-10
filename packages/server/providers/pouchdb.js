@@ -222,11 +222,13 @@ const pouchDb = (app, io, pouchOptions) => {
           },
           fields: ['message.counter']
         }).then((result) => {
-          const Biggestcount = Math.max(...result.docs.map(data => data.message.counter))
-          if (Biggestcount) {
-            messageDefaultCount += Biggestcount
+          if (result.docs.length) {
+            const Biggestcount = Math.max(...result.docs.map(data => data.message.counter))
+            if (Biggestcount) {
+              messageDefaultCount += Biggestcount
+            }
           }
-
+          
           res.send({ msg: 'ok', data: messageDefaultCount })
         })
           .catch(() => res.send([]))
