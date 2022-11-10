@@ -1,3 +1,5 @@
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle } from '@serge/helpers'
@@ -8,6 +10,7 @@ import React, { useEffect, useState } from 'react'
 import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { materialIcons } from '../support-panel'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateAssets, updateForces, updatePlatformTypes } from './helpers/collate-interaction'
 import { getNextInteraction } from './helpers/getNextInteraction'
@@ -227,9 +230,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         title={'Adjudication'}
         columns={columns}
         data={rows}
+        icons={materialIcons}
         actions={jestWorkerId ? [] : [
           {
-            icon: 'filter',
+            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
             iconProps: filter ? { color: 'action' } : { color: 'disabled' },
             tooltip: 'Show filter controls',
             isFreeAction: true,
