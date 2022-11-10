@@ -119,7 +119,7 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   const redRows = redAssets.map((asset) => toRow(asset))
 
   // and the activities
-  const isBlue = _document && _document.Reference.includes('Blue')
+  const isBlue = _document && _document.Reference && _document.Reference.includes('Blue')
 
   const forceActivities = isBlue ? filledInPerForcePlanningActivities[0] : filledInPerForcePlanningActivities[1]
   const acts: Array<{id: string, name: string}> = []
