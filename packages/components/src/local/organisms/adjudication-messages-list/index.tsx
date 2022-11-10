@@ -1,31 +1,21 @@
-import { faChevronRight, faFilter, faSearch, faSortUp, faSquare, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle } from '@serge/helpers'
 import { noop } from 'lodash'
-import MaterialTable, { Column, Icons } from 'material-table'
+import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateAssets, updateForces, updatePlatformTypes } from './helpers/collate-interaction'
 import { getNextInteraction } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
-
-/** we need to manually provide the icons for material-table to run offline
- *
- */
-const materialIcons: Icons = {
-  Search: () => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
-  ResetSearch: () => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
-  Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
-  DetailPanel: () => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
-  SortArrow: () => <FontAwesomeIcon title='Sort' icon={faSortUp} />
-}
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
