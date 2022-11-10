@@ -19,7 +19,7 @@ import PropTypes, { AdjudicationRow } from './types/props'
 /** we need to manually provide the icons for material-table to run offline
  *
  */
- export const materialIcons: Icons = {
+const materialIcons: Icons = {
   Search: () => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
   ResetSearch: () => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
   Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
