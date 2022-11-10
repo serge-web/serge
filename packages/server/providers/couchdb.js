@@ -245,7 +245,7 @@ const couchDb = (app, io, pouchOptions) => {
 
     const db = new CouchDB(couchDbURL(databaseName))
 
-    const messageDefaultCount = 1
+    let messageDefaultCount = 1
 
     db.get(req.params.id)
       .then(data => res.send({ msg: 'ok', data: data.message.counter }))
@@ -257,19 +257,14 @@ const couchDb = (app, io, pouchOptions) => {
             message: { counter: { $exists: true } },
             _id: { $ne: settings, $gte: null }
           },
-          fields: ['message'],
-          sort: [{ _id: 'desc' }],
-          limit: 1
+          fields: ['message.counter']
         }).then((result) => {
-          const { message } = result.docs[0]
-
-          if (message.counter) {
-            message.counter += messageDefaultCount
-          } else {
-           message.counter = messageDefaultCount
+          const Biggestcount = Math.max(...result.docs.map(data => data.message.counter))
+          if (Biggestcount) {
+            messageDefaultCount += Biggestcount
           }
 
-          res.send({ msg: 'ok', data: message.counter })
+          res.send({ msg: 'ok', data: messageDefaultCount })
         })
           .catch(() => res.send([]))
       })

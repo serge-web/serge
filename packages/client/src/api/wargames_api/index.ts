@@ -685,16 +685,12 @@ export const postFeedback = (dbName: string, fromDetails: MessageDetailsFrom, tu
 const checkReference = (message: MessageCustom, db: ApiWargameDb, details: MessageDetails): Promise<MessageCustom> => {
   // eslint-disable-next-line no-async-promise-executor
   return new Promise(async (resolve): Promise<void> => {
-    if (message.details.messageType !== 'Chat') {
-      // default value for message counter
-      
-      message.message.counter = 1
+    if (message.details.messageType !== 'Chat' && typeof message.message.Reference === 'string' && message.message.Reference.length === 0) {
       await db.lastCounter(details.from.force, details.timestamp).then((counter) => {
         message.message.counter = counter
+        message.message.Reference = [message.details.from.force, counter].join('-')
       }).catch(err => err)
-
-      message.message.Reference = [message.details.from.force, message.message.counter].join('-')
-     
+      
       resolve(message)
     } else {
       resolve(message)
