@@ -1,9 +1,12 @@
+import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
+import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
@@ -196,16 +199,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         title={'Orders'}
         columns={columns}
         data={rows}
+        icons={materialIcons}
         actions={jestWorkerId ? [] : [
           {
-            icon: 'filter',
+            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
             tooltip: 'Show filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
           },
           {
-            icon: 'person',
+            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} />,
             iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
             tooltip: 'Only show orders created by me',
             isFreeAction: true,

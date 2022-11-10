@@ -1,7 +1,9 @@
-import { Asset } from '@serge/custom-types'
+import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column, MTableBody, MTableBodyRow } from 'material-table'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
+import { materialIcons } from '../support-panel/helpers/material-icons'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
 
@@ -37,23 +39,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
 
-  /** testing method, just to check how table handles updates */
-  const addItem = (): void => {
-    const blueForce = forces[1]
-    const blueAssets = blueForce.assets || []
-    if (blueAssets.length > 0) {
-      const firstA = blueAssets[0]
-      const newAsset: Asset = { ...firstA, uniqid: 'asf', contactId: 'C234' }
-      blueAssets.push(newAsset)
-      // drop an asset
-      blueAssets.splice(3, 1)
-      // change an asset
-      blueAssets[2].name = blueAssets[2].name + '?'
-      // update the data
-      setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, []))
-    }
-  }
-
   return <MaterialTable
     title={opFor ? 'Other force assets' : 'Own force Assets'}
     columns={jestWorkerId ? [] : columns}
@@ -61,20 +46,14 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
     parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
     actions={jestWorkerId ? [] : [
       {
-        icon: 'filter',
+        icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
         iconProps: filter ? { color: 'action' } : { color: 'disabled' },
         tooltip: 'Show filter controls',
         isFreeAction: true,
         onClick: (): void => setFilter(!filter)
-      },
-      {
-        icon: 'add',
-        tooltip: 'Add new asset (for testing)',
-        isFreeAction: true,
-        onClick: (): void => addItem()
       }
-
     ]}
+    icons={materialIcons}
     options={{
       paging: false,
       sorting: false,
