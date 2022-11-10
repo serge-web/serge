@@ -248,19 +248,21 @@ const couchDb = (app, io, pouchOptions) => {
     let messageDefaultCount = 1
 
     db.get(req.params.id)
-      .then(data => res.send({ msg: 'ok', data: data.message.counter }))
+      .then(data => res.send({ msg: 'ok', data: data.details.counter }))
       .catch(() => {
         db.find({
           selector: {
             messageType: CUSTOM_MESSAGE,
-            details: { from: { force: req.params.force } },
-            message: { counter: { $exists: true } },
+            details: {
+              from: { force: req.params.force },
+              counter: { $exists: true }
+            },
             _id: { $ne: settings, $gte: null }
           },
-          fields: ['message.counter']
+          fields: ['details.counter']
         }).then((result) => {
           if (result.docs.length) {
-            const Biggestcount = Math.max(...result.docs.map(data => data.message.counter))
+            const Biggestcount = Math.max(...result.docs.map(data => data.details.counter))
             if (Biggestcount) {
               messageDefaultCount += Biggestcount
             }

@@ -687,10 +687,10 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
   return new Promise(async (resolve): Promise<void> => {
     if (message.details.messageType !== 'Chat' && typeof message.message.Reference === 'string' && message.message.Reference.length === 0) {
       await db.lastCounter(details.from.force, details.timestamp).then((counter) => {
-        message.message.counter = counter
+        message.details.counter = counter
         message.message.Reference = [message.details.from.force, counter].join('-')
       }).catch(err => err)
-      
+
       resolve(message)
     } else {
       resolve(message)
