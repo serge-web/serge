@@ -513,6 +513,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               position={position}
               actionCallback={mapActionCallback}
               mapWidth={mapWidth}
+              tileLayer={channel.tiles}
               toolbarChildren={
                 <>
                   {!activityBeingPlanned &&

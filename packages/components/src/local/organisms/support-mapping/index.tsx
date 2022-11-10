@@ -9,9 +9,12 @@ import { MapConstants } from './helper/MapConstants'
 import PropTypes from './types/props'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, toolbarChildren, mapWidth, children
+  position, bounds, toolbarChildren, mapWidth, children, tileLayer
 }) => {
-  const TileLayerProps = MapConstants.TileLayer
+  if(!tileLayer) {
+    console.warn('warning, using fallback tile layer')
+  }
+  const TileLayerProps = tileLayer || MapConstants.TileLayer
   const map = useMap()
 
   useEffect(() => {
