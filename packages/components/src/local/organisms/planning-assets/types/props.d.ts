@@ -13,7 +13,7 @@ export type AssetRow = {
   position?: LatLng
   tableData?: { checked: boolean }
   health?: number
-  attributes: string
+  attributes: Record<string, any>
 }
 
 export default interface PropTypes {

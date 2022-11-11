@@ -175,6 +175,19 @@ export const collateActivities = (rows: MessagePlanning[]): string[] => {
   return activities
 }
 
+export const renderAttributes = (row: AssetRow): React.ReactElement => {
+  const keys = Object.keys(row.attributes)
+  if (keys.length) {
+    return <ul>
+      { keys.map((key: string, index: number) => {
+        return <li key={index}>{key}: {row.attributes[key]}</li>
+      })}
+    </ul>
+  } else {
+    return <></>
+  }
+}
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
@@ -188,8 +201,8 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'Health', field: 'health' },
-    { title: 'Attributes', field: 'attributes' }
+    { title: 'Health', type: 'numeric', field: 'health' },
+    { title: 'Attributes', field: 'attributes', render: renderAttributes }
   ]
 
   // don't need to show Force if we're just showing
@@ -247,7 +260,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: asset.health || 99,
-          attributes: 'n/a'
+          attributes: {}
         }
         itemRows.push(res)
       }
@@ -267,7 +280,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
         health: asset.health || 95,
-        attributes: 'pending'
+        attributes: { type: 'left', num: asset.contactId }
       }
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
