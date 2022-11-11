@@ -2996,7 +2996,7 @@ const game: Wargame = {
                         "Sinking",
                         "Destroyed"
                     ],
-                    "icon": "fishing-vessel.svg",
+                    "icon": "n_blue_hq.svg",
                     "name": "Fishing vessel",
                     "uniqid": "id-fisher",
                     "speedKts": [
