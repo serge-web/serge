@@ -7,8 +7,10 @@ import { materialIcons } from '../support-panel/helpers/material-icons'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForce, opFor, forceColors, platformStyles, 
-  onSelectionChange, onVisibleRowsChange, platformTypes }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({
+  assets, forces, playerForce, opFor, forceColors, platformStyles,
+  onSelectionChange, onVisibleRowsChange, platformTypes
+}: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)

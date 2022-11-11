@@ -69,8 +69,7 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   return perceptions
 }
 
-const createAttributesFor = (platformType: PlatformTypeData): AttributeValues =>
-{
+const createAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
   const attrTypes = platformType.attributeTypes || []
   const attrVals: AttributeValues = attrTypes.map((attr: AttributeType): AttributeValue => {
     //  NumberAttributeType | EnumAttributeType | StringAttributeType
@@ -113,7 +112,7 @@ const createAttributesFor = (platformType: PlatformTypeData): AttributeValues =>
   return attrVals
 }
 
-const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, platformTypes: PlatformTypeData[], forces: ForceData[], withComprising?:boolean ): Asset[] => {
+const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, platformTypes: PlatformTypeData[], forces: ForceData[], withComprising?:boolean): Asset[] => {
   const assets = []
   const roles = force.roles
   for (let i = 0; i < ctr; i++) {
@@ -157,28 +156,26 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   return assets
 }
 
-
 export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
   platformTypes: PlatformTypeData[]): ForceData[] => {
-
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
 
   // regions
-    const bounds = L.latLngBounds(constraints.bounds)
-    const centre = bounds.getCenter()
-    const east = bounds.getEast()
-    const br = L.latLngBounds(bounds.getNorthWest(), L.latLng(centre.lat, east))
-    const rr = L.latLngBounds(bounds.getSouthWest(), L.latLng(centre.lat, east))
+  const bounds = L.latLngBounds(constraints.bounds)
+  const centre = bounds.getCenter()
+  const east = bounds.getEast()
+  const br = L.latLngBounds(bounds.getNorthWest(), L.latLng(centre.lat, east))
+  const rr = L.latLngBounds(bounds.getSouthWest(), L.latLng(centre.lat, east))
 
-    const bluePoly = L.polygon([br.getNorthWest(), br.getNorthEast(), br.getSouthEast(), br.getSouthWest(), br.getNorthWest()])
-    const redPoly =  L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
+  const bluePoly = L.polygon([br.getNorthWest(), br.getNorthEast(), br.getSouthEast(), br.getSouthWest(), br.getNorthWest()])
+  const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
 
-    console.log('blue', bluePoly, redPoly)
+  console.log('blue', bluePoly, redPoly)
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 20,  undefined, redPlatforms, forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 20,  undefined, bluePlatforms, forces)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 20, undefined, redPlatforms, forces)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 20, undefined, bluePlatforms, forces)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces

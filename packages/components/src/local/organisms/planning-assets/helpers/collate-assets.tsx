@@ -278,12 +278,12 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         if (aType) {
           attrDict[aType.name] = attr.value
         } else {
-          attrDict[index] = attr.value  
+          attrDict[index] = attr.value
         }
       } else {
-        attrDict[index] = attr.value  
+        attrDict[index] = attr.value
       }
-    } )
+    })
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
