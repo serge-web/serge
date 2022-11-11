@@ -8,6 +8,7 @@ const state: PlayerUi = {
   selectedRoleName: 'CO', 
   isUmpire: true,
   playerMessageLog: {},
+  attributeTypes: [],
   updateMessageState: false,
   isRFIManager: false,
   markerIcons: [],

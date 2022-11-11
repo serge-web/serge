@@ -150,6 +150,8 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
   const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
 
+  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
     messages={messages}
@@ -158,6 +160,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     channelId={channels[0].uniqid}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
+    attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
     markAllAsRead={mockFn}
     markUnread={mockFn}

@@ -252,6 +252,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
 
+  console.log('planning channel', attributeTypes)
+
   const genData = (): void => {
     const doGenny = 7
     if (!doGenny) {

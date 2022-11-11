@@ -70,6 +70,9 @@ export interface NumberAttributeValue2 extends BaseAttributeValue2 {
   value: number
 }
 
+export type AttributeValue2 = StringAttributeValue2 | NumberAttributeValue2
+export type AttributeValues2 = Array<AttributeValue2>
+
 /** the list of attribute types for a platform-type */
 export type GenericAttributes = Array<BaseAttributeType['attrId']>
 
