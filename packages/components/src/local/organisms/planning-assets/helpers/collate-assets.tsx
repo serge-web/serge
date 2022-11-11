@@ -221,7 +221,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   return columns
 }
 
-const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, any> => {
+const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, unknown> => {
   const attrDict = {}
   const ids = asset.attributeValues2 || []
   ids.forEach((attr: AttributeValue2) => {
