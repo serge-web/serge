@@ -114,7 +114,6 @@ const createAttributesFor = (platformType: PlatformTypeData): AttributeValues =>
 
 const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, platformTypes: PlatformTypeData[], forces: ForceData[], withComprising?:boolean): Asset[] => {
   const assets = []
-  const roles = force.roles
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
     const h3Pos = h3Res ? h3.geoToH3(posit[1], posit[0], h3Res) : undefined
@@ -136,8 +135,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       condition: 'working',
       status: statuses.length ? { state: statuses[Math.floor(Math.random() * statuses.length)].name } : undefined,
       position: h3Pos,
-      location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])],
-      owner: roles[Math.floor(roles.length * Math.random())].roleId
+      location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
     // generate some perceptions:
     asset.perceptions = createPerceptions(asset, force.uniqid, forces)
@@ -174,8 +172,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   console.log('blue', bluePoly, redPoly)
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 20, undefined, redPlatforms, forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 20, undefined, bluePlatforms, forces)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces
