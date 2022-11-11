@@ -6439,31 +6439,13 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_fighter",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_fighter_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number", "a_Equipment"],
                     "travelMode": "air"
                 },
                 {
                     "name": "Bomber",
                     "icon": "n_blue_air_bomber.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_bomber_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number", "a_Equipment"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_bomber",
@@ -6472,24 +6454,7 @@ const game: Wargame = {
                 {
                     "name": "SAM",
                     "icon": "n_blue_land_sam.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_sam_mez",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "MEZ Range",
-                            "editableByPlayer": false,
-                            "name": "MEZ"
-                        },
-                        {
-                            "attrId": "b_sam_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number", "a_Equipment", "a_Mez Range"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_sam",
@@ -6498,16 +6463,7 @@ const game: Wargame = {
                 {
                     "name": "MTG",
                     "icon": "n_blue_maritime_task_force.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_mtg_units",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Members of Task Group",
-                            "editableByPlayer": false,
-                            "name": "Units"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Equipment"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_mtg",
@@ -6516,16 +6472,7 @@ const game: Wargame = {
                 {
                     "name": "Ship",
                     "icon": "n_blue_maritime_destroyer.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_ship_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Equipment"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_ship",
@@ -6534,16 +6481,7 @@ const game: Wargame = {
                 {
                     "name": "Submarine",
                     "icon": "n_blue_maritime_submarine.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_sub_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Equipment"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_submarine",
@@ -6552,16 +6490,7 @@ const game: Wargame = {
                 {
                     "name": "Land Unit",
                     "icon": "n_blue_land_armed_inf.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_land_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Size", "a_Equipment"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_unit",
@@ -6570,16 +6499,7 @@ const game: Wargame = {
                 {
                     "name": "Fixed Asset",
                     "icon": "blue_land_asset.png",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_land_asset_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Assets held by group",
-                            "editableByPlayer": false,
-                            "name": "Assets"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Members"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_asset",
@@ -6588,33 +6508,7 @@ const game: Wargame = {
                 {
                     "name": "SSM",
                     "icon": "n_blue_land_ssm.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_ssm_range",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Range of asset",
-                            "editableByPlayer": false,
-                            "name": "range",
-                            "units": "km"
-                        },
-                        {
-                            "attrId": "b_ssm_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        },
-                        {
-                            "attrId": "b_ssm_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number", "a_Equipment", "a_Range"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_ssm",
@@ -6623,33 +6517,7 @@ const game: Wargame = {
                 {
                     "name": "ISTAR",
                     "icon": "n_blue_air_recce.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_istar_range",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 50,
-                            "description": "Detection Range of asset",
-                            "editableByPlayer": false,
-                            "name": "Detection Range",
-                            "units": "km"
-                        },
-                        {
-                            "attrId": "b_istar_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        },
-                        {
-                            "attrId": "b_istar_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number", "a_Equipment", "a_Detection Range"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_istar",
@@ -6658,24 +6526,7 @@ const game: Wargame = {
                 {
                     "name": "Air LOGS",
                     "icon": "n_blue_air_utility.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_air_logs_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        },
-                        {
-                            "attrId": "b_air_logs_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number", "a_Equipment"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_logs",
@@ -6684,16 +6535,7 @@ const game: Wargame = {
                 {
                     "name": "C2 Node",
                     "icon": "n_blue_hq.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_c2_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "C2 Connections for asset",
-                            "editableByPlayer": false,
-                            "name": "Connections"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Connections"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_c2",
@@ -6702,16 +6544,7 @@ const game: Wargame = {
                 {
                     "name": "FIAC",
                     "icon": "n_blue_maritime_destroyer.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_fiac_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Number"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_fiac",
@@ -6720,17 +6553,7 @@ const game: Wargame = {
                 {
                     "name": "Minefield",
                     "icon": "n_blue_maritime_minefield.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "b_mine_density",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Density of minefield",
-                            "editableByPlayer": false,
-                            "name": "density",
-                            "units": "per km2"
-                        }
-                    ],
+                    "attributeTypeIds": ["a_Density"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_mine",
@@ -7091,6 +6914,14 @@ const game: Wargame = {
                     "description": "Equipment carried on asset",
                     "editableByPlayer": false,
                     "name": "Equipment"
+                },
+                {
+                    "attrId": "a_Units",
+                    "attrType": "AttributeTypeString",
+                    "defaultValue": "",
+                    "description": "Child units",
+                    "editableByPlayer": false,
+                    "name": "Units"
                 }
             ]
         }
