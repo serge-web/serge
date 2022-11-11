@@ -108,6 +108,8 @@ export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
 // types of attribute
 export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
 export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
+export const ATTRIBUTE_TYPE_STRING = 'AttributeTypeString'
+export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
 export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
 export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 
