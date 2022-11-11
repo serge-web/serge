@@ -531,7 +531,7 @@ const game: Wargame = {
                             "contactId": "CA2767",
                             "name": "Blue:8",
                             "perceptions": [],
-                            "platformTypeId": "id-boghammer",
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "status": {
                                 "state": "Transiting"
@@ -572,7 +572,7 @@ const game: Wargame = {
                             "contactId": "CA24",
                             "name": "Blue:10",
                             "perceptions": [],
-                            "platformTypeId": "id-destroyer",
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "status": {
                                 "state": "Loitering"
@@ -618,7 +618,7 @@ const game: Wargame = {
                                     "typeId": "id-frigate"
                                 }
                             ],
-                            "platformTypeId": "id-frigate",
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "status": {
                                 "state": "Transiting"
@@ -2504,8 +2504,6 @@ const game: Wargame = {
 
             
 
-                // LEGACY PLATFORM TYPES
-
                 {
                     "name": "Fighter",
                     "icon": "n_blue_air_fighter.svg",
@@ -2642,7 +2640,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "n_blue_land_sam.svg",
+                    "icon": "blue_land_asset.png",
                     attributeTypes: [
                         {
                             "attrId": "b_land_asset_equipment",
@@ -2812,521 +2810,290 @@ const game: Wargame = {
 
 
                 {
-                    "attributeTypes": [
+                    "name": "Fighter",
+                    "icon": "n_red_air_fighter.svg",
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_air_fighter",
+                    attributeTypes: [
                         {
-                            "attrId": "comm-fish",
+                            "attrId": "r_fighter_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    travelMode: 'air'
+                },
+                {
+                    "name": "SAM",
+                    "icon": "n_red_land_sam.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_sam_mez",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
-                            "description": "fishing allowance",
+                            "description": "MEZ Range",
                             "editableByPlayer": false,
-                            "name": "quota",
-                            "units": "tonnes"
+                            "name": "MEZ"
                         },
                         {
-                            "attrId": "comm-fuel",
+                            "attrId": "r_sam_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_land_sam",
+                    travelMode: 'land'
+                },
+                {
+                    "name": "MTG",
+                    "icon": "n_red_maritime_task_force.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_mtg_units",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Members of Task Group",
+                            "editableByPlayer": false,
+                            "name": "Units"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_maritime_mtg",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Submarine",
+                    "icon": "n_red_maritime_submarine.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_sub_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_maritime_submarine",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Land Unit",
+                    "icon": "n_red_land_armed_inf.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_land_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_land_unit",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Fixed Asset",
+                    "icon": "n_red_land_sam.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_land_asset_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Assets held by group",
+                            "editableByPlayer": false,
+                            "name": "Assets"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_land_asset",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "SSM",
+                    "icon": "n_red_land_ssm.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_ssm_range",
                             "attrType": "AttributeTypeNumber",
-                            "defaultValue": 5,
-                            "description": "fuel remaining",
+                            "defaultValue": 100,
+                            "description": "Range of asset",
                             "editableByPlayer": false,
-                            "format": "0.00",
-                            "name": "fuel",
-                            "units": "tonnes"
+                            "name": "range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "r_ssm_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "r_ssm_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
                         }
                     ],
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Illegally boarded",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_land_ssm",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "ISTAR",
+                    "icon": "n_red_air_recce.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_istar_range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 50,
+                            "description": "Detection Range of asset",
+                            "editableByPlayer": false,
+                            "name": "Detection Range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "r_istar_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "r_istar_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
                     ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_air_istar",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Air LOGS",
+                    "icon": "n_red_air_utility.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "r_air_logs_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "r_air_logs_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_air_logs",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "C2 Node",
                     "icon": "n_red_hq.svg",
-                    "name": "Fishing vessel",
-                    "uniqid": "id-fisher",
-                    "speedKts": [
-                        10,
-                        20
-                    ],
-                    "states": [
+                    attributeTypes: [
                         {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Fishing"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
+                            "attrId": "r_c2_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "C2 Connections for asset",
+                            "editableByPlayer": false,
+                            "name": "Connections"
                         }
                     ],
-                    "travelMode": "sea"
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_land_c2",
+                    travelMode: 'land'
                 },
                 {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Sinking",
-                        "Destroyed"
-                    ],
-                    "icon": "mcmv.svg",
-                    "name": "MCMV",
-                    "uniqid": "id-mcm",
-                    "speedKts": [
-                        10
-                    ],
-                    "states": [
+                    "name": "FIAC",
+                    "icon": "n_red_maritime_missile_boat.svg",
+                    attributeTypes: [
                         {
-                            "mobile": true,
-                            "name": "Transiting"
+                            "attrId": "r_fiac_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
                         },
-                        {
-                            "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
                     ],
-                    "travelMode": "sea"
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_maritime_fiac",
+                    travelMode: 'sea'
                 },
                 {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "frigate.svg",
-                    "name": "frigate",
-                    "uniqid": "id-frigate",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24
-                    ],
-                    "states": [
+                    "name": "Minefield",
+                    "icon": "n_red_maritime_minefield.svg",
+                    attributeTypes: [
                         {
-                            "mobile": true,
-                            "name": "Transiting"
+                            "attrId": "r_mine_density",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Density of minefield",
+                            "editableByPlayer": false,
+                            "name": "density",
+                            "units": "per km2"
                         },
-                        {
-                            "mobile": true,
-                            "name": "Mixed"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Active"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Passive"
-                        }
                     ],
-                    "travelMode": "sea"
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_maritime_mine",
+                    travelMode: 'sea'
                 },
+
                 {
-                    "conditions": [
-                        "Full capability",
-                        "Limited capability",
-                        "Immobile",
-                        "Destroyed"
-                    ],
-                    "icon": "uas.svg",
-                    "name": "Unmanned Airborne Vehicle",
-                    "uniqid": "id-uav",
-                    "speedKts": [],
-                    "states": [
+                    "name": "Fixed Asset",
+                    "icon": "re_land_asset.png",
+                    attributeTypes: [
                         {
-                            "mobile": true,
-                            "name": "Airborne"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Preparing for launch"
+                            "attrId": "r_land_asset_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Assets held by group",
+                            "editableByPlayer": false,
+                            "name": "Assets"
                         }
                     ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "frigate-ta.svg",
-                    "name": "frigate-ta",
-                    "uniqid": "id-frigate-ta",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Mixed"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Active"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Passive"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "missile.svg",
-                    "name": "Missile",
-                    "uniqid": "id-missile",
-                    "states": [
-                        {
-                            "mobile": false,
-                            "name": "Inactive"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Deployed"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "carrier.svg",
-                    "name": "Carrier",
-                    "uniqid": "id-carrier",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24,
-                        30
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Air Ops"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "auxiliary.svg",
-                    "name": "Auxiliary",
-                    "uniqid": "id-auxiliary",
-                    "speedKts": [
-                        6,
-                        12
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Supporting"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "destroyer.svg",
-                    "name": "Destroyer",
-                    "uniqid": "id-destroyer",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24,
-                        30
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Loitering"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "ssk.svg",
-                    "name": "SSK",
-                    "uniqid": "id-ssk",
-                    "speedKts": [
-                        6,
-                        12,
-                        18
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Aggressove"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Evasive"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "ssn.svg",
-                    "name": "SSN",
-                    "uniqid": "id-ssn",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Aggressove"
-                        },
-                        {
-                            "mobile": true,
-                            "name": "Evasive"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "helicopter.svg",
-                    "name": "Helicopter",
-                    "uniqid": "id-helo",
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Active"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "mpa.svg",
-                    "name": "mpa",
-                    "uniqid": "id-mpa",
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Active"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "fixed-wing-aircraft.svg",
-                    "name": "Fixed Wing Aircraft",
-                    "uniqid": "id-fixed-wing",
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Active"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Landed"
-                        }
-                    ],
-                    "travelMode": "air"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "merchant-vessel.svg",
-                    "name": "Merchant vessel",
-                    "uniqid": "id-merchant",
-                    "speedKts": [
-                        6,
-                        12
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "boghammer.svg",
-                    "name": "Boghammer",
-                    "uniqid": "id-boghammer",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24,
-                        30
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "agi.svg",
-                    "name": "AGI",
-                    "uniqid": "id-agi",
-                    "speedKts": [
-                        6,
-                        12,
-                        18
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
-                },
-                {
-                    "conditions": [
-                        "Working",
-                        "Disabled",
-                        "Mission Kill"
-                    ],
-                    "icon": "task-group.svg",
-                    "name": "Task Group",
-                    "uniqid": "id-task-group",
-                    "speedKts": [
-                        6,
-                        12,
-                        18,
-                        24,
-                        30
-                    ],
-                    "states": [
-                        {
-                            "mobile": true,
-                            "name": "Transiting"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Stopped"
-                        },
-                        {
-                            "mobile": false,
-                            "name": "Moored"
-                        }
-                    ],
-                    "travelMode": "sea"
+                    conditions: [],
+                    states: [],
+                    uniqid: "red_land_asset",
+                    travelMode: 'sea'
                 }
             ],
             "selectedType": ""
