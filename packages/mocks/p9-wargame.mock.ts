@@ -2501,6 +2501,11 @@ const game: Wargame = {
             "dirty": false,
             "name": "Platform Types",
             "platformTypes": [
+
+            
+
+                // LEGACY PLATFORM TYPES
+
                 {
                     "name": "Fighter",
                     "icon": "n_blue_air_fighter.svg",
@@ -2509,7 +2514,7 @@ const game: Wargame = {
                     uniqid: "blue_air_fighter",
                     attributeTypes: [
                         {
-                            "attrId": "b_f_equipment",
+                            "attrId": "b_fighter_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2524,7 +2529,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_bomber.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_b_equipment",
+                            "attrId": "b_bomber_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2550,7 +2555,7 @@ const game: Wargame = {
                             "name": "MEZ"
                         },
                         {
-                            "attrId": "bsam-equipment",
+                            "attrId": "b_sam_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2586,7 +2591,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_destroyer.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_ms_equipment",
+                            "attrId": "b_ship_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2604,7 +2609,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_submarine.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_msub_equipment",
+                            "attrId": "b_sub_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2640,7 +2645,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_sam.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_lasset_equipment",
+                            "attrId": "b_land_asset_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Assets held by group",
@@ -2728,7 +2733,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_utility.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_alogs_number",
+                            "attrId": "b_air_logs_number",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "Number of units",
@@ -2736,7 +2741,7 @@ const game: Wargame = {
                             "name": "number"
                         },
                         {
-                            "attrId": "b_alogs_equipment",
+                            "attrId": "b_air_logs_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2746,7 +2751,7 @@ const game: Wargame = {
                     ],
                     conditions: [],
                     states: [],
-                    uniqid: "blue_air_istar",
+                    uniqid: "blue_air_logs",
                     travelMode: 'sea'
                 },
                 {
@@ -2754,7 +2759,7 @@ const game: Wargame = {
                     "icon": "n_blue_hq.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_alogs_equipment",
+                            "attrId": "b_c2_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "C2 Connections for asset",
@@ -2764,7 +2769,7 @@ const game: Wargame = {
                     ],
                     conditions: [],
                     states: [],
-                    uniqid: "blue_air_istar",
+                    uniqid: "blue_land_c2",
                     travelMode: 'land'
                 },
                 {
@@ -2782,7 +2787,7 @@ const game: Wargame = {
                     ],
                     conditions: [],
                     states: [],
-                    uniqid: "blue_mar_fiac",
+                    uniqid: "blue_maritime_fiac",
                     travelMode: 'sea'
                 },
                 {
@@ -2790,7 +2795,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_minefield.svg",
                     attributeTypes: [
                         {
-                            "attrId": "b_density",
+                            "attrId": "b_mine_density",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "Density of minefield",
@@ -2801,11 +2806,9 @@ const game: Wargame = {
                     ],
                     conditions: [],
                     states: [],
-                    uniqid: "blue_mar_fiac",
+                    uniqid: "blue_maritime_mine",
                     travelMode: 'sea'
                 },
-
-                // LEGACY PLATFORM TYPES
 
 
                 {
@@ -2838,7 +2841,7 @@ const game: Wargame = {
                         "Sinking",
                         "Destroyed"
                     ],
-                    "icon": "n_blue_hq.svg",
+                    "icon": "n_red_hq.svg",
                     "name": "Fishing vessel",
                     "uniqid": "id-fisher",
                     "speedKts": [
