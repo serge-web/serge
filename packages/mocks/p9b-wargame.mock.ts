@@ -384,6 +384,601 @@ const game: Wargame = {
             ],
             "selectedChannel": "",
             "dirty": false
+        },
+        "platformTypes": {
+            "dirty": false,
+            "name": "Platform Types",
+            "platformTypes": [
+                {
+                    "name": "Fighter",
+                    "icon": "n_blue_air_fighter.svg",
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_fighter",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_fighter_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "name": "Bomber",
+                    "icon": "n_blue_air_bomber.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_bomber_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_bomber",
+                    "travelMode": "air"
+                },
+                {
+                    "name": "SAM",
+                    "icon": "n_blue_land_sam.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_sam_mez",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "MEZ Range",
+                            "editableByPlayer": false,
+                            "name": "MEZ"
+                        },
+                        {
+                            "attrId": "b_sam_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_sam",
+                    "travelMode": "land"
+                },
+                {
+                    "name": "MTG",
+                    "icon": "n_blue_maritime_task_force.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_mtg_units",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Members of Task Group",
+                            "editableByPlayer": false,
+                            "name": "Units"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_mtg",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Ship",
+                    "icon": "n_blue_maritime_destroyer.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_ship_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_ship",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Submarine",
+                    "icon": "n_blue_maritime_submarine.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_sub_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_submarine",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Land Unit",
+                    "icon": "n_blue_land_armed_inf.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_land_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_unit",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Fixed Asset",
+                    "icon": "blue_land_asset.png",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_land_asset_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Assets held by group",
+                            "editableByPlayer": false,
+                            "name": "Assets"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_asset",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "SSM",
+                    "icon": "n_blue_land_ssm.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_ssm_range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Range of asset",
+                            "editableByPlayer": false,
+                            "name": "range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "b_ssm_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "b_ssm_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_ssm",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "ISTAR",
+                    "icon": "n_blue_air_recce.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_istar_range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 50,
+                            "description": "Detection Range of asset",
+                            "editableByPlayer": false,
+                            "name": "Detection Range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "b_istar_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "b_istar_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_istar",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Air LOGS",
+                    "icon": "n_blue_air_utility.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_air_logs_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "b_air_logs_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_logs",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "C2 Node",
+                    "icon": "n_blue_hq.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_c2_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "C2 Connections for asset",
+                            "editableByPlayer": false,
+                            "name": "Connections"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_c2",
+                    "travelMode": "land"
+                },
+                {
+                    "name": "FIAC",
+                    "icon": "n_blue_maritime_destroyer.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_fiac_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_fiac",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Minefield",
+                    "icon": "n_blue_maritime_minefield.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "b_mine_density",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Density of minefield",
+                            "editableByPlayer": false,
+                            "name": "density",
+                            "units": "per km2"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_mine",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Fighter",
+                    "icon": "n_red_air_fighter.svg",
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_air_fighter",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_fighter_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "travelMode": "air"
+                },
+                {
+                    "name": "SAM",
+                    "icon": "n_red_land_sam.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_sam_mez",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "MEZ Range",
+                            "editableByPlayer": false,
+                            "name": "MEZ"
+                        },
+                        {
+                            "attrId": "r_sam_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_sam",
+                    "travelMode": "land"
+                },
+                {
+                    "name": "MTG",
+                    "icon": "n_red_maritime_task_force.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_mtg_units",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Members of Task Group",
+                            "editableByPlayer": false,
+                            "name": "Units"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_mtg",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Submarine",
+                    "icon": "n_red_maritime_submarine.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_sub_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_submarine",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Land Unit",
+                    "icon": "n_red_land_armed_inf.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_land_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_unit",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Fixed Asset",
+                    "icon": "n_red_land_sam.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_land_asset_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Assets held by group",
+                            "editableByPlayer": false,
+                            "name": "Assets"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_asset",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "SSM",
+                    "icon": "n_red_land_ssm.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_ssm_range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Range of asset",
+                            "editableByPlayer": false,
+                            "name": "range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "r_ssm_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "r_ssm_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_ssm",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "ISTAR",
+                    "icon": "n_red_air_recce.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_istar_range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 50,
+                            "description": "Detection Range of asset",
+                            "editableByPlayer": false,
+                            "name": "Detection Range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "r_istar_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "r_istar_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_air_istar",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Air LOGS",
+                    "icon": "n_red_air_utility.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_air_logs_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "r_air_logs_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_air_logs",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "C2 Node",
+                    "icon": "n_red_hq.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_c2_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "C2 Connections for asset",
+                            "editableByPlayer": false,
+                            "name": "Connections"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_c2",
+                    "travelMode": "land"
+                },
+                {
+                    "name": "FIAC",
+                    "icon": "n_red_maritime_missile_boat.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_fiac_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_fiac",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Minefield",
+                    "icon": "n_red_maritime_minefield.svg",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_mine_density",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Density of minefield",
+                            "editableByPlayer": false,
+                            "name": "density",
+                            "units": "per km2"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_mine",
+                    "travelMode": "sea"
+                },
+                {
+                    "name": "Fixed Asset",
+                    "icon": "re_land_asset.png",
+                    "attributeTypes": [
+                        {
+                            "attrId": "r_land_asset_equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": "",
+                            "description": "Assets held by group",
+                            "editableByPlayer": false,
+                            "name": "Assets"
+                        }
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_asset",
+                    "travelMode": "sea"
+                }
+            ],
+            "selectedType": ""
         }
     },
     "gameTurn": 6,
