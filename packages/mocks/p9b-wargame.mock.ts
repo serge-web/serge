@@ -7023,6 +7023,76 @@ const game: Wargame = {
                 }
             ],
             "selectedType": ""
+        },
+        "attributeTypes": {
+            "attributes": [
+                {
+                    "attrId": "a_Number",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 100,
+                    "description": "Number of units",
+                    "editableByPlayer": false,
+                    "name": "Number"
+                }, {
+                    "attrId": "a_Mez Range",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 100,
+                    "description": "MEZ Range",
+                    "editableByPlayer": false,
+                    "name": "MEZ Range"
+                },
+                {
+                    "attrId": "a_Size",
+                    "attrType": "AttributeTypeString",
+                    "defaultValue": "Size of military unit",
+                    "description": "Equipment carried on asset",
+                    "editableByPlayer": false,
+                    "name": "Size"
+                },
+                {
+                    "attrId": "a_Range",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 100,
+                    "description": "Range of weapon",
+                    "editableByPlayer": false,
+                    "name": "Range",
+                    "units": "km"
+                },
+                {
+                    "attrId": "a_DetectionRange",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 50,
+                    "description": "Detection Range of asset",
+                    "editableByPlayer": false,
+                    "name": "Detection Range",
+                    "units": "km"
+                },
+                {
+                    "attrId": "a_Connections",
+                    "attrType": "AttributeTypeString",
+                    "defaultValue": "",
+                    "description": "C2 Connections for asset",
+                    "editableByPlayer": false,
+                    "name": "Connections"
+                },
+                {
+                    "attrId": "a_Density",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 100,
+                    "description": "Density of minefield",
+                    "editableByPlayer": false,
+                    "name": "Density",
+                    "units": "per km2"
+                },
+                {
+                    "attrId": "a_Equipment",
+                    "attrType": "AttributeTypeString",
+                    "defaultValue": "",
+                    "description": "Equipment carried on asset",
+                    "editableByPlayer": false,
+                    "name": "Equipment"
+                }
+            ]
         }
     },
     "gameTurn": 6,
