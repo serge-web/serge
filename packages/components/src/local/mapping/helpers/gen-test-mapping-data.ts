@@ -73,14 +73,14 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   return perceptions
 }
 
-const legacyAttributeTypesFor  = (platformType: PlatformTypeData): AttributeTypes => {
+const legacyAttributeTypesFor = (platformType: PlatformTypeData): AttributeTypes => {
   if (platformType.attributeTypes) {
     return platformType.attributeTypes
   }
   return []
 }
 
-const modernAttributeTypesFor  = (platformType: PlatformTypeData, attributes: AttributeTypes): AttributeTypes => {
+const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: AttributeTypes): AttributeTypes => {
   if (platformType.attributeTypeIds) {
     const res = platformType.attributeTypeIds.map((id): AttributeType => {
       const aType = attributes.find((attr) => attr.attrId === id)
@@ -91,7 +91,6 @@ const modernAttributeTypesFor  = (platformType: PlatformTypeData, attributes: At
       }
     })
     return res
-    
   }
   return []
 }
@@ -179,7 +178,7 @@ const createLegacyAttributesFor = (platformType: PlatformTypeData): AttributeVal
   return attrVals
 }
 
-const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, 
+const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined,
   platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising?:boolean): Asset[] => {
   const assets = []
   for (let i = 0; i < ctr; i++) {
@@ -204,7 +203,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       position: h3Pos,
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
-    
+
     const legacyAttrs = createLegacyAttributesFor(platformType)
     const modernAttrs = createModernAttributesFor(platformType, attributeTypes)
 

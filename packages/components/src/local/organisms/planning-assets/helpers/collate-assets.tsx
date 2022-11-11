@@ -222,33 +222,33 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 }
 
 const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): {} => {
-    const attrDict = {}
-    const ids = asset.attributeValues2 || []
-    ids.forEach((attr: AttributeValue2) => {
-      const aType = attributeTypes.find((aType) => aType.attrId === attr.attrId)
-      if (aType) {
-        switch (aType.attrType) {
-          case ATTRIBUTE_TYPE_NUMBER: {
-            const nType = aType as NumberAttributeType
-            const units = nType.units ? ' ' + nType.units : ''
-            attrDict[nType.name] = attr.value + units
-            break
-          }
-          case ATTRIBUTE_TYPE_STRING: {
-            attrDict[aType.name] = attr.value
-            break
-          }
-          case ATTRIBUTE_TYPE_ENUM: {
-            attrDict[aType.name] = attr.value
-            break
-          }
-          default: {
-            console.warn('Haven\'t handled attribute', attr)
-          }
-        }  
+  const attrDict = {}
+  const ids = asset.attributeValues2 || []
+  ids.forEach((attr: AttributeValue2) => {
+    const aType = attributeTypes.find((aType) => aType.attrId === attr.attrId)
+    if (aType) {
+      switch (aType.attrType) {
+        case ATTRIBUTE_TYPE_NUMBER: {
+          const nType = aType as NumberAttributeType
+          const units = nType.units ? ' ' + nType.units : ''
+          attrDict[nType.name] = attr.value + units
+          break
+        }
+        case ATTRIBUTE_TYPE_STRING: {
+          attrDict[aType.name] = attr.value
+          break
+        }
+        case ATTRIBUTE_TYPE_ENUM: {
+          attrDict[aType.name] = attr.value
+          break
+        }
+        default: {
+          console.warn('Haven\'t handled attribute', attr)
+        }
       }
-    })
-    return attrDict
+    }
+  })
+  return attrDict
 }
 
 /** helper function, so we can apply to assets and child assets
@@ -314,7 +314,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
         health: asset.health || 95,
-        attributes: modernAttrDict 
+        attributes: modernAttrDict
       }
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
@@ -333,7 +333,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   return itemRows
 }
 
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], 
+export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[],
   playerForce: ForceData, selectedAssets: string[], platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): AssetRow[] => {
   const rows: AssetRow[] = []
 
