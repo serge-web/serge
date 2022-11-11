@@ -13,5 +13,5 @@ export const materialIcons: Icons = {
   Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
   DetailPanel: () => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
   SortArrow: () => <FontAwesomeIcon title='Sort' icon={faSortUp} />,
-  Filter: () =><FontAwesomeIcon title='Sort' icon={faSearch} />
+  Filter: () => <FontAwesomeIcon title='Sort' icon={faSearch} />
 }
