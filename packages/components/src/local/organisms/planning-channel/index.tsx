@@ -155,8 +155,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes)
-    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes)
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     setAllOwnAssets(own)
     setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
@@ -251,8 +251,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
-
-  console.log('planning channel', attributeTypes)
 
   const genData = (): void => {
     const doGenny = 7
@@ -487,6 +485,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             platformTypes={platformTypes}
             planningMessages={planningMessages}
             interactionMessages={interactionMessages}
+            attributeTypes={attributeTypes || []}
             onReadAll={onReadAll}
             onUnread={onUnread}
             onRead={onRead}
