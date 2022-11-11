@@ -16,6 +16,7 @@ const p9bgame: Wargame = {
             "dirty": false
         },
         "forces": {
+            "selectedForce": undefined,
             "name": "Forces",
             "forces": [
                 {
@@ -31,7 +32,7 @@ const p9bgame: Wargame = {
                             "isInsightViewer": true
                         },
                         {
-                            "roleId": "rlac77df6",
+                            "roleId": "adjud-1",
                             "name": "Adjudicator 1",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -39,7 +40,7 @@ const p9bgame: Wargame = {
                             "isObserver": true
                         },
                         {
-                            "roleId": "rlac77hxo",
+                            "roleId": "adjud-2",
                             "name": "Adjudicator 2",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -59,7 +60,7 @@ const p9bgame: Wargame = {
                     "roles": [
                         {
                             "name": "CO",
-                            "roleId": "plac73xp6",
+                            "roleId": "green-co",
                             "isGameControl": false,
                             "isObserver": false,
                             "isInsightViewer": false
@@ -77,13 +78,13 @@ const p9bgame: Wargame = {
                     "roles": [
                         {
                             "name": "CO",
-                            "roleId": "plac71rgs",
+                            "roleId": "red-CO",
                             "isGameControl": false,
                             "isObserver": false,
                             "isInsightViewer": false
                         },
                         {
-                            "roleId": "rlac797ro",
+                            "roleId": "red-mar",
                             "name": "MAR",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -91,7 +92,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac7995q",
+                            "roleId": "red-land",
                             "name": "Land & Fires",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -99,7 +100,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac799tz",
+                            "roleId": "red-air",
                             "name": "Air & AD",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -107,7 +108,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac79ai6",
+                            "roleId": "red-direct",
                             "name": "Direct Action",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -115,7 +116,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac79d92",
+                            "roleId": "red-threat",
                             "name": "Threat Network",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -135,13 +136,13 @@ const p9bgame: Wargame = {
                     "roles": [
                         {
                             "name": "MTG 1",
-                            "roleId": "plac71bqb",
+                            "roleId": "blue-mtg-1",
                             "isGameControl": false,
                             "isObserver": false,
                             "isInsightViewer": false
                         },
                         {
-                            "roleId": "rlac7boeq",
+                            "roleId": "blue-mtg-2",
                             "name": "MTG 2",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -149,7 +150,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac7brkp",
+                            "roleId": "blue-mtg-3",
                             "name": "MTG 3",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -157,7 +158,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac7c1vg",
+                            "roleId": "blue-sub",
                             "name": "Sub-Surface",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -165,7 +166,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac7c6m6",
+                            "roleId": "blue-aew-1",
                             "name": "AEW 1",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -173,7 +174,7 @@ const p9bgame: Wargame = {
                             "isObserver": false
                         },
                         {
-                            "roleId": "rlac7c9m2",
+                            "roleId": "blue-aew-2",
                             "name": "AEW 2",
                             "isGameControl": false,
                             "isInsightViewer": false,
@@ -193,7 +194,7 @@ const p9bgame: Wargame = {
                     "roles": [
                         {
                             "name": "CO",
-                            "roleId": "plac6z5tn",
+                            "roleId": "white-co",
                             "isGameControl": true,
                             "isObserver": true,
                             "isInsightViewer": true
@@ -211,7 +212,7 @@ const p9bgame: Wargame = {
             "name": "Channels",
             "channels": [
                 {
-                    "uniqid": "lac7m99q",
+                    "uniqid": "red-sme",
                     "name": "Red & SME",
                     "channelType": "ChannelChat",
                     "participants": [
@@ -231,7 +232,7 @@ const p9bgame: Wargame = {
                     ]
                 },
                 {
-                    "uniqid": "lac7kiiv",
+                    "uniqid": "blue-sme",
                     "name": "Blue & SME",
                     "channelType": "ChannelChat",
                     "participants": [
@@ -245,30 +246,30 @@ const p9bgame: Wargame = {
 
                             "forceUniqid": "umpire",
                             "roles": [],
-                            "subscriptionId": "",
+                            "subscriptionId": "asdf",
                             "pType": "ParticipantChat"
                         },
                         {
 
                             "forceUniqid": "umpire",
                             "roles": [
-                                "rlac77df6",
-                                "rlac77hxo"
+                                "adjud-1",
+                                "adjud-2"
                             ],
-                            "subscriptionId": "",
+                            "subscriptionId": "gfda",
                             "pType": "ParticipantChat"
                         },
                         {
 
                             "forceUniqid": "f-blue",
                             "roles": [],
-                            "subscriptionId": "",
+                            "subscriptionId": "dsfg",
                             "pType": "ParticipantChat"
                         }
                     ]
                 },
                 {
-                    "uniqid": "lac7h3vh",
+                    "uniqid": "red-chat",
                     "name": "Red Chat",
                     "channelType": "ChannelChat",
                     "participants": [
@@ -276,13 +277,13 @@ const p9bgame: Wargame = {
 
                             "forceUniqid": "f-red",
                             "roles": [],
-                            "subscriptionId": "",
+                            "subscriptionId": "asfes",
                             "pType": "ParticipantChat"
                         }
                     ]
                 },
                 {
-                    "uniqid": "lac7csbe",
+                    "uniqid": "blue-chat",
                     "name": "Blue Chat",
                     "channelType": "ChannelChat",
                     "participants": [
@@ -290,7 +291,7 @@ const p9bgame: Wargame = {
 
                             "forceUniqid": "f-blue",
                             "roles": [],
-                            "subscriptionId": "",
+                            "subscriptionId": "adst",
                             "pType": "ParticipantChat"
                         }
                     ]
