@@ -90,7 +90,7 @@ const forceId = allForces[1].uniqid
 const plan = planningMessage
 const force = MockPerForceActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
 
-planningMessage.message.ownAssets = allForces[1].assets ? [{asset: allForces[1].assets[0].uniqid, number:1}] : []
+planningMessage.message.ownAssets = allForces[1].assets ? [{ asset: allForces[1].assets[0].uniqid, number: 1 }] : []
 planningMessage.message.otherAssets = allForces[2].assets ? [allForces[2].assets[0].uniqid] : []
 
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
