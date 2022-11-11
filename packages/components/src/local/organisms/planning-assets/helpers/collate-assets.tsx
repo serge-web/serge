@@ -175,6 +175,19 @@ export const collateActivities = (rows: MessagePlanning[]): string[] => {
   return activities
 }
 
+export const renderAttributes = (row: AssetRow): React.ReactElement => {
+  const keys = Object.keys(row.attributes)
+  if (keys.length) {
+    return <ul>
+      { keys.map((key: string, index: number) => {
+        return <li key={index}>{key}: {row.attributes[key]}</li>
+      })}
+    </ul>
+  } else {
+    return <></>
+  }
+}
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
@@ -188,9 +201,8 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'Condition', field: 'condition', lookup: arrToDict(summaryData.conditions) },
-    { title: 'Status', field: 'status', lookup: arrToDict(summaryData.statuses) },
-    { title: 'Owner', field: 'owner', render: (row): React.ReactElement => renderOwner(row, summaryData.roles), lookup: summaryData.roles }
+    { title: 'Health', type: 'numeric', field: 'health' },
+    { title: 'Attributes', field: 'attributes', render: renderAttributes }
   ]
 
   // don't need to show Force if we're just showing
@@ -199,9 +211,9 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     columns.splice(1, 1)
   }
 
-  // don't show owner or state for OpFor assets
+  // don't show health or attributes for OpFor assets
   if (opFor) {
-    columns.splice(4, 2)
+    columns.splice(3, 2)
   }
 
   return columns
@@ -243,12 +255,12 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           id: asset.uniqid,
           icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-          condition: UNKNOWN_TYPE,
           name: perception.name,
           platformType: perception.typeId,
-          status: asset.status?.state || '',
           position: asset.location && latLng(asset.location[0], asset.location[1]),
-          tableData: { checked: selectedAssets.includes(asset.uniqid) }
+          tableData: { checked: selectedAssets.includes(asset.uniqid) },
+          health: asset.health || 99,
+          attributes: {}
         }
         itemRows.push(res)
       }
@@ -262,13 +274,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         id: asset.uniqid,
         icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,
         force: assetForce.name,
-        condition: asset.condition,
         name: asset.name,
         platformType: asset.platformTypeId || '',
-        status: asset.status?.state || '',
         owner: asset.owner ? asset.owner : '',
         position: asset.location && latLng(asset.location[0], asset.location[1]),
-        tableData: { checked: selectedAssets.includes(asset.uniqid) }
+        tableData: { checked: selectedAssets.includes(asset.uniqid) },
+        health: asset.health || 95,
+        attributes: { type: 'left', num: asset.contactId }
       }
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {

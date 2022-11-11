@@ -82,9 +82,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
           id: asset.uniqid,
           icon: 'aaa',
           name: asset.name,
-          condition: asset.condition,
-          status: asset.status ? asset.status.state : 'unknown',
-          platformType: asset.platformTypeId
+          platformType: asset.platformTypeId,
+          health: 100,
+          attributes: { word: 'text', number: 123 }
         }
         return row
       })

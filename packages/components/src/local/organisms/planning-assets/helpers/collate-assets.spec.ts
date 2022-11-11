@@ -2,7 +2,7 @@ import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset } from '@serge/custom-types'
 import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
-import { getRows, getColumns, collateItem, getOwnAssets, getOppAssets } from './collate-assets'
+import { collateItem, getColumns, getOppAssets, getOwnAssets, getRows } from './collate-assets'
 
 const forces = P9Mock.data.forces.forces
 const umpireForce = forces[0]
@@ -62,24 +62,11 @@ describe('check collating assets', () => {
   it('handles own-forces tab', () => {
     const umpireColumns = getColumns(false, forces, blueForce.uniqid, platformStyles)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(5)
+    expect(umpireColumns.length).toEqual(4)
 
-    const conditionCol = umpireColumns[1]
-    expect(conditionCol.lookup).toBeTruthy()
-    expect(conditionCol.lookup && Object.keys(conditionCol.lookup).length).toEqual(14)
-    expect(conditionCol.render).toBeTruthy()
-
-    const pTypeCol = umpireColumns[2]
+    const pTypeCol = umpireColumns[1]
     expect(pTypeCol.lookup).toBeTruthy()
-    expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(1)
-
-    const statusCol = umpireColumns[3]
-    expect(statusCol.lookup).toBeTruthy()
-    expect(statusCol.lookup && Object.keys(statusCol.lookup).length).toEqual(14)
-
-    const ownerCol = umpireColumns[4]
-    expect(ownerCol.lookup).toBeTruthy()
-    expect(ownerCol.lookup && Object.keys(ownerCol.lookup).length).toEqual(8)
+    expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(14)
 
     const umpireRows = getRows(false, forces, forceCols, platformStyles, umpireForce, [])
     expect(umpireRows).toBeTruthy()
@@ -118,11 +105,11 @@ describe('check collating assets', () => {
   it('handles opFor tab', () => {
     const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(4)
+    expect(umpireColumns.length).toEqual(3)
 
     const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(4)
+    expect(blueColumns.length).toEqual(3)
 
     const umpireRows = getRows(true, forces, forceCols, platformStyles, umpireForce, [])
     expect(umpireRows).toBeTruthy()
