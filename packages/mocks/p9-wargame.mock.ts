@@ -2509,7 +2509,7 @@ const game: Wargame = {
                     uniqid: "blue_air_fighter",
                     attributeTypes: [
                         {
-                            "attrId": "bf-equipment",
+                            "attrId": "b_f_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2524,7 +2524,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_bomber.svg",
                     attributeTypes: [
                         {
-                            "attrId": "bb-equipment",
+                            "attrId": "b_b_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2542,7 +2542,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_sam.svg",
                     attributeTypes: [
                         {
-                            "attrId": "bsam-mez",
+                            "attrId": "b_sam_mez",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "MEZ Range",
@@ -2585,8 +2585,8 @@ const game: Wargame = {
                     "name": "Ship",
                     "icon": "n_blue_maritime_destroyer.svg",
                     attributeTypes: [
-                         {
-                            "attrId": "bms-equipment",
+                        {
+                            "attrId": "b_ms_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2603,8 +2603,8 @@ const game: Wargame = {
                     "name": "Submarine",
                     "icon": "n_blue_maritime_submarine.svg",
                     attributeTypes: [
-                         {
-                            "attrId": "bmsub-equipment",
+                        {
+                            "attrId": "b_msub_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2621,8 +2621,8 @@ const game: Wargame = {
                     "name": "Land Unit",
                     "icon": "n_blue_land_armed_inf.svg",
                     attributeTypes: [
-                         {
-                            "attrId": "bland-equipment",
+                        {
+                            "attrId": "b_land_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2639,8 +2639,8 @@ const game: Wargame = {
                     "name": "Fixed Asset",
                     "icon": "n_blue_land_sam.svg",
                     attributeTypes: [
-                         {
-                            "attrId": "blasset-equipment",
+                        {
+                            "attrId": "b_lasset_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Assets held by group",
@@ -2658,7 +2658,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_ssm.svg",
                     attributeTypes: [
                         {
-                            "attrId": "ssm-range",
+                            "attrId": "b_ssm_range",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "Range of asset",
@@ -2667,7 +2667,7 @@ const game: Wargame = {
                             "units": "km"
                         },
                         {
-                            "attrId": "ssm-number",
+                            "attrId": "b_ssm_number",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "Number of units",
@@ -2675,7 +2675,7 @@ const game: Wargame = {
                             "name": "number"
                         },
                         {
-                            "attrId": "blssm-equipment",
+                            "attrId": "b_ssm_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2693,7 +2693,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_recce.svg",
                     attributeTypes: [
                         {
-                            "attrId": "bistar-range",
+                            "attrId": "b_istar_range",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 50,
                             "description": "Detection Range of asset",
@@ -2702,7 +2702,7 @@ const game: Wargame = {
                             "units": "km"
                         },
                         {
-                            "attrId": "bistar-number",
+                            "attrId": "b_istar_number",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "Number of units",
@@ -2710,7 +2710,7 @@ const game: Wargame = {
                             "name": "number"
                         },
                         {
-                            "attrId": "bistar-equipment",
+                            "attrId": "b_istar_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2728,7 +2728,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_utility.svg",
                     attributeTypes: [
                         {
-                            "attrId": "balogs-number",
+                            "attrId": "b_alogs_number",
                             "attrType": "AttributeTypeNumber",
                             "defaultValue": 100,
                             "description": "Number of units",
@@ -2736,7 +2736,7 @@ const game: Wargame = {
                             "name": "number"
                         },
                         {
-                            "attrId": "balogs-equipment",
+                            "attrId": "b_alogs_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "Equipment carried on asset",
@@ -2754,7 +2754,7 @@ const game: Wargame = {
                     "icon": "n_blue_hq.svg",
                     attributeTypes: [
                         {
-                            "attrId": "balogs-equipment",
+                            "attrId": "b_alogs_equipment",
                             "attrType": "AttributeTypeString",
                             "defaultValue": '',
                             "description": "C2 Connections for asset",
@@ -2765,13 +2765,49 @@ const game: Wargame = {
                     conditions: [],
                     states: [],
                     uniqid: "blue_air_istar",
+                    travelMode: 'land'
+                },
+                {
+                    "name": "FIAC",
+                    "icon": "n_blue_maritime_destroyer.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "b_fiac_number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_mar_fiac",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Minefield",
+                    "icon": "n_blue_maritime_minefield.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "b_density",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Density of minefield",
+                            "editableByPlayer": false,
+                            "name": "density",
+                            "units": "per km2"
+                        },
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_mar_fiac",
                     travelMode: 'sea'
                 },
 
+                // LEGACY PLATFORM TYPES
 
-// LEGACY PLATFORM TYPES
 
-                
                 {
                     "attributeTypes": [
                         {
