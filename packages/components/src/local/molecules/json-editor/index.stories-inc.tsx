@@ -109,9 +109,9 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       id: asset.uniqid,
       icon: 'icon',
       name: asset.name,
-      condition: asset.condition,
-      status: asset.status ? asset.status.state : 'unknown',
-      platformType: asset.platformTypeId
+      platformType: asset.platformTypeId,
+      health: 100,
+      attributes: { word: 'text', number: 123 }
     }
     return row
   }
