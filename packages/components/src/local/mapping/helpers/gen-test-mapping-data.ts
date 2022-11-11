@@ -6,6 +6,27 @@ import L from 'leaflet'
 import { uniqueId } from 'lodash'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
+const randomPointInPoly2 = (polygon: L.Polygon): any => {
+  const bounds = polygon.getBounds()
+  const xMin = bounds.getEast()
+  const xMax = bounds.getWest()
+  const yMin = bounds.getSouth()
+  const yMax = bounds.getNorth()
+
+  const lat = yMin + (Math.random() * (yMax - yMin))
+  const lng = xMin + (Math.random() * (xMax - xMin))
+
+  const point = turf.point([lng, lat])
+  const poly = polygon.toGeoJSON()
+  const inside = turf.inside(point, poly)
+
+  if (inside) {
+    return point
+  } else {
+    return randomPointInPoly(polygon)
+  }
+}
+
 const randomPointInPoly = (polygon: L.Polygon): any => {
   const bounds = polygon.getBounds()
   const xMin = bounds.getEast()
@@ -68,12 +89,12 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   return perceptions
 }
 
-const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number, platformTypes: PlatformTypeData[], forces: ForceData[]): Asset[] => {
+const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, platformTypes: PlatformTypeData[], forces: ForceData[], withComprising?:boolean ): Asset[] => {
   const assets = []
   const roles = force.roles
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
-    const h3Pos = h3.geoToH3(posit[1], posit[0], h3Res)
+    const h3Pos = h3Res ? h3.geoToH3(posit[1], posit[0], h3Res) : undefined
     const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
     const platformType = platformTypes[platformTypeCtr]
     if (!platformType) {
@@ -87,7 +108,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + i,
       perceptions: [],
-      platformTypeId: i === 0 ? 'id-task-group' : platformType.uniqid,
+      platformTypeId: platformType.uniqid,
       condition: 'working',
       status: statuses.length ? { state: statuses[Math.floor(Math.random() * statuses.length)].name } : undefined,
       position: h3Pos,
@@ -101,12 +122,41 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       if (!assets[0].comprising) {
         assets[0].comprising = []
       }
-      assets[0].comprising.push(asset)
+      if (withComprising) {
+        assets[0].comprising.push(asset)
+      }
     } else {
       assets.push(asset)
     }
   }
   return assets
+}
+
+
+export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
+  platformTypes: PlatformTypeData[]): ForceData[] => {
+
+  const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
+  const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
+
+  // regions
+    const bounds = L.latLngBounds(constraints.bounds)
+    const centre = bounds.getCenter()
+    const east = bounds.getEast()
+    const br = L.latLngBounds(bounds.getNorthWest(), L.latLng(centre.lat, east))
+    const rr = L.latLngBounds(bounds.getSouthWest(), L.latLng(centre.lat, east))
+
+    const bluePoly = L.polygon([br.getNorthWest(), br.getNorthEast(), br.getSouthEast(), br.getSouthWest(), br.getNorthWest()])
+    const redPoly =  L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
+
+    console.log('blue', bluePoly, redPoly)
+
+  const newForces: ForceData[] = deepCopy(forces)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 20,  undefined, redPlatforms, forces)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 20,  undefined, bluePlatforms, forces)
+  console.log('blue', newForces[1].assets)
+  console.log('res', newForces[2].assets)
+  return newForces
 }
 
 const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
