@@ -333,349 +333,501 @@ const game: Wargame = {
                 {
                     "assets": [
                         {
-                            "uniqid": "a301",
-                            "contactId": "CA2962",
+                            "uniqid": "a421",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_ship_equipment",
+                                    "value": "_36"
+                                }
+                            ],
+                            "contactId": "CA1800",
                             "name": "Blue:0",
                             "perceptions": [
                                 {
                                     "by": "F-Red",
-                                    "name": "CA2962",
-                                    "typeId": "blue_land_c2"
+                                    "name": "Blue:0",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "F-Blue"
                                 },
                                 {
                                     "by": "F-Green",
-                                    "name": "Blue:0",
+                                    "name": "CA1800",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "F-Blue"
                                 }
                             ],
-                            "platformTypeId": "blue_land_c2",
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                33.9623,
-                                63.9778
+                                44.8998,
+                                63.0884
                             ],
-                            "owner": "1rk116f53",
+                            "owner": "rk116f52",
                             "comprising": []
                         },
                         {
-                            "uniqid": "a305",
-                            "contactId": "CA2604",
-                            "name": "Blue:4",
-                            "perceptions": [],
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                50.6407,
-                                80.5012
-                            ],
-                            "owner": "rk116f5e"
-                        },
-                        {
-                            "uniqid": "a306",
-                            "contactId": "CA450",
-                            "name": "Blue:5",
-                            "perceptions": [
+                            "uniqid": "a425",
+                            "attributeValues": [
                                 {
-                                    "by": "F-Red",
-                                    "name": "CA450",
-                                    "typeId": "blue_air_istar"
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_fiac_number",
+                                    "value": 100
                                 }
                             ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                35.9375,
-                                84.3081
-                            ],
-                            "owner": "blue-logs"
-                        },
-                        {
-                            "uniqid": "a307",
-                            "contactId": "CA484",
-                            "name": "Blue:6",
+                            "contactId": "CA2656",
+                            "name": "Blue:4",
                             "perceptions": [
                                 {
                                     "by": "F-Red",
-                                    "name": "CA484",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "F-Blue"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA484",
+                                    "name": "Blue:4",
                                     "force": "F-Blue"
                                 }
                             ],
                             "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                54.7478,
-                                49.6774
+                                53.8705,
+                                82.9657
                             ],
-                            "owner": "rk116f51"
+                            "owner": "2rk116f53"
                         },
                         {
-                            "uniqid": "a308",
-                            "contactId": "CA647",
-                            "name": "Blue:7",
-                            "perceptions": [
+                            "uniqid": "a426",
+                            "attributeValues": [
                                 {
-                                    "by": "F-Red",
-                                    "name": "CA647",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "F-Blue"
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_fiac_number",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA3053",
+                            "name": "Blue:5",
+                            "perceptions": [],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                45.8304,
+                                32.106
+                            ],
+                            "owner": "1rk116f53"
+                        },
+                        {
+                            "uniqid": "a427",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_sam_mez",
+                                    "value": 100
                                 },
                                 {
-                                    "by": "F-Green",
-                                    "name": "CA647",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "F-Red"
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_sam_equipment",
+                                    "value": "_35"
                                 }
                             ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                45.1944,
-                                47.6515
-                            ],
-                            "owner": "3rk116f53"
-                        },
-                        {
-                            "uniqid": "a309",
-                            "contactId": "CA2264",
-                            "name": "Blue:8",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA2264",
-                                    "typeId": "blue_land_unit"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
-                            "condition": "working",
-                            "location": [
-                                30.0691,
-                                23.0908
-                            ],
-                            "owner": "3rk116f53"
-                        },
-                        {
-                            "uniqid": "a310",
-                            "contactId": "CA1856",
-                            "name": "Blue:9",
+                            "contactId": "CA1282",
+                            "name": "Blue:6",
                             "perceptions": [
                                 {
                                     "by": "F-Red",
-                                    "name": "CA1856"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                40.3416,
-                                39.8594
-                            ],
-                            "owner": "blue-logs"
-                        },
-                        {
-                            "uniqid": "a311",
-                            "contactId": "CA375",
-                            "name": "Blue:10",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:10",
-                                    "typeId": "blue_land_sam",
-                                    "force": "F-Green"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA375",
-                                    "force": "F-Red"
+                                    "name": "CA1282",
+                                    "typeId": "blue_land_sam"
                                 }
                             ],
                             "platformTypeId": "blue_land_sam",
                             "condition": "working",
                             "location": [
-                                50.6284,
-                                46.4497
+                                53.4044,
+                                35.9549
                             ],
-                            "owner": "3rk116f53"
+                            "owner": "rk116f51"
                         },
                         {
-                            "uniqid": "a312",
-                            "contactId": "CA2068",
-                            "name": "Blue:11",
-                            "perceptions": [],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                54.7843,
-                                74.8112
-                            ],
-                            "owner": "3rk116f53"
-                        },
-                        {
-                            "uniqid": "a313",
-                            "contactId": "CA2170",
-                            "name": "Blue:12",
-                            "perceptions": [
+                            "uniqid": "a428",
+                            "attributeValues": [
                                 {
-                                    "by": "F-Red",
-                                    "name": "Blue:12",
-                                    "typeId": "blue_air_fighter"
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_ssm_range",
+                                    "value": 100
                                 },
                                 {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_ssm_number",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_ssm_equipment",
+                                    "value": "_6"
+                                }
+                            ],
+                            "contactId": "CA518",
+                            "name": "Blue:7",
+                            "perceptions": [
+                                {
                                     "by": "F-Green",
-                                    "name": "CA2170",
+                                    "name": "CA518"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                32.8544,
+                                77.0366
+                            ],
+                            "owner": "rk116f5e"
+                        },
+                        {
+                            "uniqid": "a429",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_fighter_equipment",
+                                    "value": "_45"
+                                }
+                            ],
+                            "contactId": "CA3247",
+                            "name": "Blue:8",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "Blue:8",
                                     "force": "F-Blue"
                                 }
                             ],
                             "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                44.2747,
-                                54.8852
+                                38.5321,
+                                49.4029
                             ],
-                            "owner": "rk116f5e"
+                            "owner": "blue-logs"
                         },
                         {
-                            "uniqid": "a314",
-                            "contactId": "CA1280",
-                            "name": "Blue:13",
+                            "uniqid": "a430",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_fiac_number",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA1835",
+                            "name": "Blue:9",
+                            "perceptions": [],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                41.7685,
+                                60.4694
+                            ],
+                            "owner": "3rk116f53"
+                        },
+                        {
+                            "uniqid": "a431",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_istar_range",
+                                    "value": 50
+                                },
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_istar_number",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_istar_equipment",
+                                    "value": "_9"
+                                }
+                            ],
+                            "contactId": "CA1315",
+                            "name": "Blue:10",
                             "perceptions": [
                                 {
                                     "by": "F-Red",
-                                    "name": "CA1280",
-                                    "typeId": "blue_air_istar",
+                                    "name": "Blue:10",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_istar",
+                            "condition": "working",
+                            "location": [
+                                32.5963,
+                                22.0544
+                            ],
+                            "owner": "rk116f52"
+                        },
+                        {
+                            "uniqid": "a432",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_land_asset_equipment",
+                                    "value": "_13"
+                                }
+                            ],
+                            "contactId": "CA1143",
+                            "name": "Blue:11",
+                            "perceptions": [],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                45.7995,
+                                63.9669
+                            ],
+                            "owner": "3rk116f53"
+                        },
+                        {
+                            "uniqid": "a433",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_mtg_units",
+                                    "value": "_21"
+                                }
+                            ],
+                            "contactId": "CA1474",
+                            "name": "Blue:12",
+                            "perceptions": [
+                                {
+                                    "by": "F-Red",
+                                    "name": "Blue:12",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "F-Blue"
                                 },
                                 {
                                     "by": "F-Green",
-                                    "name": "CA1280",
+                                    "name": "CA1474",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                36.495,
+                                38.4879
+                            ],
+                            "owner": "2rk116f53"
+                        },
+                        {
+                            "uniqid": "a434",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_bomber_equipment",
+                                    "value": "_31"
+                                }
+                            ],
+                            "contactId": "CA617",
+                            "name": "Blue:13",
+                            "perceptions": [
+                                {
+                                    "by": "F-Red",
+                                    "name": "CA617",
+                                    "typeId": "blue_air_bomber",
+                                    "force": "F-Blue"
+                                },
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA617",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_bomber",
+                            "condition": "working",
+                            "location": [
+                                40.7126,
+                                28.7497
+                            ],
+                            "owner": "blue-logs"
+                        },
+                        {
+                            "uniqid": "a435",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_istar_range",
+                                    "value": 50
+                                },
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_istar_number",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_istar_equipment",
+                                    "value": "_42"
+                                }
+                            ],
+                            "contactId": "CA78",
+                            "name": "Blue:14",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA78",
+                                    "typeId": "blue_air_istar",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_istar",
+                            "condition": "working",
+                            "location": [
+                                54.6854,
+                                76.7978
+                            ],
+                            "owner": "3rk116f53"
+                        },
+                        {
+                            "uniqid": "a436",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_fighter_equipment",
+                                    "value": "_17"
+                                }
+                            ],
+                            "contactId": "CA2985",
+                            "name": "Blue:15",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA2985",
+                                    "typeId": "blue_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                46.8817,
+                                37.442
+                            ],
+                            "owner": "blue-logs"
+                        },
+                        {
+                            "uniqid": "a437",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_istar_range",
+                                    "value": 50
+                                },
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_istar_number",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_istar_equipment",
+                                    "value": "_41"
+                                }
+                            ],
+                            "contactId": "CA674",
+                            "name": "Blue:16",
+                            "perceptions": [
+                                {
+                                    "by": "F-Red",
+                                    "name": "CA674",
                                     "typeId": "blue_air_istar"
                                 }
                             ],
                             "platformTypeId": "blue_air_istar",
                             "condition": "working",
                             "location": [
-                                54.8443,
-                                84.3235
-                            ],
-                            "owner": "rk116f52"
-                        },
-                        {
-                            "uniqid": "a315",
-                            "contactId": "CA3137",
-                            "name": "Blue:14",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:14",
-                                    "force": "F-Blue"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:14",
-                                    "typeId": "blue_maritime_mine"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                49.5213,
-                                41.3225
-                            ],
-                            "owner": "2rk116f53"
-                        },
-                        {
-                            "uniqid": "a316",
-                            "contactId": "CA961",
-                            "name": "Blue:15",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "CA961",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_submarine",
-                            "condition": "working",
-                            "location": [
-                                36.6528,
-                                47.935
-                            ],
-                            "owner": "blue-logs"
-                        },
-                        {
-                            "uniqid": "a317",
-                            "contactId": "CA1834",
-                            "name": "Blue:16",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:16",
-                                    "typeId": "blue_maritime_mine"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                33.9778,
-                                34.4319
-                            ],
-                            "owner": "2rk116f53"
-                        },
-                        {
-                            "uniqid": "a318",
-                            "contactId": "CA2996",
-                            "name": "Blue:17",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:17",
-                                    "typeId": "blue_air_logs"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_logs",
-                            "condition": "working",
-                            "location": [
-                                50.9292,
-                                83.7298
+                                47.4702,
+                                57.6849
                             ],
                             "owner": "rk116f5e"
                         },
                         {
-                            "uniqid": "a319",
-                            "contactId": "CA3108",
-                            "name": "Blue:18",
+                            "uniqid": "a438",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_fighter_equipment",
+                                    "value": "_39"
+                                }
+                            ],
+                            "contactId": "CA2757",
+                            "name": "Blue:17",
                             "perceptions": [
                                 {
+                                    "by": "F-Red",
+                                    "name": "CA2757",
+                                    "typeId": "blue_air_fighter"
+                                },
+                                {
                                     "by": "F-Green",
-                                    "name": "CA3108",
+                                    "name": "CA2757",
+                                    "typeId": "blue_air_fighter",
                                     "force": "F-Blue"
                                 }
                             ],
-                            "platformTypeId": "blue_maritime_mtg",
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                31.6138,
-                                36.1539
+                                43.2109,
+                                45.5986
                             ],
                             "owner": "rk116f52"
                         },
                         {
-                            "uniqid": "a320",
-                            "contactId": "CA203",
-                            "name": "Blue:19",
-                            "perceptions": [],
-                            "platformTypeId": "blue_air_istar",
+                            "uniqid": "a439",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "b_c2_equipment",
+                                    "value": "_38"
+                                }
+                            ],
+                            "contactId": "CA2809",
+                            "name": "Blue:18",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA2809",
+                                    "typeId": "blue_land_c2",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                37.4608,
-                                30.5169
+                                48.0445,
+                                31.8489
                             ],
-                            "owner": "1rk116f53"
+                            "owner": "rk116f53"
+                        },
+                        {
+                            "uniqid": "a440",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "b_fiac_number",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA2478",
+                            "name": "Blue:19",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA2478",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "F-Red"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                29.86,
+                                84.3474
+                            ],
+                            "owner": "3rk116f53"
                         }
                     ],
                     "color": "#00F",
@@ -747,333 +899,137 @@ const game: Wargame = {
                 {
                     "assets": [
                         {
-                            "uniqid": "a281",
-                            "contactId": "CA2016",
+                            "uniqid": "a401",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_land_asset_equipment",
+                                    "value": "_7"
+                                }
+                            ],
+                            "contactId": "CA1885",
                             "name": "Red Force:0",
                             "perceptions": [
                                 {
-                                    "by": "F-Blue",
-                                    "name": "CA2016",
-                                    "typeId": "red_air_logs",
-                                    "force": "F-Green"
-                                },
-                                {
                                     "by": "F-Green",
-                                    "name": "Red Force:0"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                21.6411,
-                                50.8972
-                            ],
-                            "owner": "rkr226f5e",
-                            "comprising": []
-                        },
-                        {
-                            "uniqid": "a285",
-                            "contactId": "CA141",
-                            "name": "Red Force:4",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "Red Force:4",
-                                    "typeId": "red_land_asset",
+                                    "name": "CA1885",
                                     "force": "F-Red"
                                 }
                             ],
                             "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                22.4978,
-                                51.4828
+                                14.5274,
+                                53.1911
                             ],
-                            "owner": "rkr226f5d"
+                            "owner": "rkr226f5a",
+                            "comprising": []
                         },
                         {
-                            "uniqid": "a286",
-                            "contactId": "CA1942",
+                            "uniqid": "a405",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_sam_mez",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_sam_equipment",
+                                    "value": "_47"
+                                }
+                            ],
+                            "contactId": "CA493",
+                            "name": "Red Force:4",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA493",
+                                    "typeId": "red_land_sam",
+                                    "force": "F-Red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                6.4055,
+                                28.6323
+                            ],
+                            "owner": "rkr226f5b"
+                        },
+                        {
+                            "uniqid": "a406",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_fiac_number",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA2821",
                             "name": "Red Force:5",
                             "perceptions": [
                                 {
                                     "by": "F-Green",
-                                    "name": "CA1942",
-                                    "typeId": "red_air_fighter"
+                                    "name": "Red Force:5",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "F-Red"
                                 }
                             ],
-                            "platformTypeId": "red_air_fighter",
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                26.3325,
-                                69.7253
+                                24.2457,
+                                62.5837
                             ],
-                            "owner": "rkr226f5e"
+                            "owner": "rkr226f5d"
                         },
                         {
-                            "uniqid": "a287",
-                            "contactId": "CA1738",
+                            "uniqid": "a407",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_fiac_number",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA722",
                             "name": "Red Force:6",
                             "perceptions": [
                                 {
                                     "by": "F-Green",
-                                    "name": "CA1738"
+                                    "name": "CA722",
+                                    "typeId": "red_maritime_fiac"
                                 }
                             ],
-                            "platformTypeId": "red_maritime_mine",
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                11.529,
-                                67.348
+                                17.3908,
+                                85.4489
                             ],
                             "owner": "rkr226f5d"
                         },
                         {
-                            "uniqid": "a288",
-                            "contactId": "CA3000",
+                            "uniqid": "a408",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_mtg_units",
+                                    "value": "_48"
+                                }
+                            ],
+                            "contactId": "CA3209",
                             "name": "Red Force:7",
                             "perceptions": [
                                 {
                                     "by": "F-Blue",
-                                    "name": "CA3000",
-                                    "typeId": "red_land_ssm"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Red Force:7"
-                                }
-                            ],
-                            "platformTypeId": "red_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                4.2134,
-                                70.1314
-                            ],
-                            "owner": "rkr226f5b"
-                        },
-                        {
-                            "uniqid": "a289",
-                            "contactId": "CA41",
-                            "name": "Red Force:8",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "Red Force:8",
-                                    "typeId": "red_land_sam",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_sam",
-                            "condition": "working",
-                            "location": [
-                                28.1396,
-                                74.4283
-                            ],
-                            "owner": "rkr226f5a"
-                        },
-                        {
-                            "uniqid": "a290",
-                            "contactId": "CA185",
-                            "name": "Red Force:9",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "CA185",
-                                    "typeId": "red_maritime_submarine",
+                                    "name": "CA3209",
                                     "force": "F-Red"
                                 },
                                 {
                                     "by": "F-Green",
-                                    "name": "CA185",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_submarine",
-                            "condition": "working",
-                            "location": [
-                                13.5391,
-                                68.3281
-                            ],
-                            "owner": "rkr226f5d"
-                        },
-                        {
-                            "uniqid": "a291",
-                            "contactId": "CA555",
-                            "name": "Red Force:10",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "CA555",
-                                    "typeId": "red_air_fighter",
-                                    "force": "F-Red"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA555",
-                                    "typeId": "red_air_fighter",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                13.669,
-                                26.5484
-                            ],
-                            "owner": "rkr226f5d"
-                        },
-                        {
-                            "uniqid": "a292",
-                            "contactId": "CA3068",
-                            "name": "Red Force:11",
-                            "perceptions": [],
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                20.5105,
-                                59.8524
-                            ],
-                            "owner": "rkr226f5c"
-                        },
-                        {
-                            "uniqid": "a293",
-                            "contactId": "CA1965",
-                            "name": "Red Force:12",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA1965",
-                                    "typeId": "red_maritime_mine"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                23.455,
-                                33.2841
-                            ],
-                            "owner": "rkr226f5b"
-                        },
-                        {
-                            "uniqid": "a294",
-                            "contactId": "CA1463",
-                            "name": "Red Force:13",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "Red Force:13"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Red Force:13",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                19.6701,
-                                22.6265
-                            ],
-                            "owner": "rkr226f5b"
-                        },
-                        {
-                            "uniqid": "a295",
-                            "contactId": "CA1168",
-                            "name": "Red Force:14",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "CA1168",
-                                    "typeId": "red_land_sam",
-                                    "force": "F-Red"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Red Force:14",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "red_land_sam",
-                            "condition": "working",
-                            "location": [
-                                22.5155,
-                                79.9429
-                            ],
-                            "owner": "rkr226f5e"
-                        },
-                        {
-                            "uniqid": "a296",
-                            "contactId": "CA2320",
-                            "name": "Red Force:15",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "CA2320",
-                                    "typeId": "red_land_asset",
-                                    "force": "F-Red"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Red Force:15",
-                                    "typeId": "red_land_asset",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                25.1452,
-                                37.6425
-                            ],
-                            "owner": "rkr226f5a"
-                        },
-                        {
-                            "uniqid": "a297",
-                            "contactId": "CA2029",
-                            "name": "Red Force:16",
-                            "perceptions": [],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                18.1354,
-                                50.5137
-                            ],
-                            "owner": "rkr226f5b"
-                        },
-                        {
-                            "uniqid": "a298",
-                            "contactId": "CA1869",
-                            "name": "Red Force:17",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "Red Force:17",
-                                    "typeId": "red_land_ssm"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Red Force:17",
-                                    "typeId": "red_land_ssm",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                26.3932,
-                                54.1303
-                            ],
-                            "owner": "rkr226f5e"
-                        },
-                        {
-                            "uniqid": "a299",
-                            "contactId": "CA383",
-                            "name": "Red Force:18",
-                            "perceptions": [
-                                {
-                                    "by": "F-Blue",
-                                    "name": "CA383",
+                                    "name": "CA3209",
                                     "typeId": "red_maritime_mtg",
                                     "force": "F-Red"
                                 }
@@ -1081,23 +1037,355 @@ const game: Wargame = {
                             "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                28.1459,
-                                60.8643
+                                19.1569,
+                                41.3792
+                            ],
+                            "owner": "rkr226f5d"
+                        },
+                        {
+                            "uniqid": "a409",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_istar_range",
+                                    "value": 50
+                                },
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_istar_number",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_istar_equipment",
+                                    "value": "_0"
+                                }
+                            ],
+                            "contactId": "CA1173",
+                            "name": "Red Force:8",
+                            "perceptions": [
+                                {
+                                    "by": "F-Blue",
+                                    "name": "CA1173",
+                                    "typeId": "red_air_istar"
+                                },
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA1173"
+                                }
+                            ],
+                            "platformTypeId": "red_air_istar",
+                            "condition": "working",
+                            "location": [
+                                13.0939,
+                                56.9826
                             ],
                             "owner": "rkr226f5c"
                         },
                         {
-                            "uniqid": "a300",
-                            "contactId": "CA1562",
-                            "name": "Red Force:19",
-                            "perceptions": [],
-                            "platformTypeId": "red_land_c2",
+                            "uniqid": "a410",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_sam_mez",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_sam_equipment",
+                                    "value": "_41"
+                                }
+                            ],
+                            "contactId": "CA2378",
+                            "name": "Red Force:9",
+                            "perceptions": [
+                                {
+                                    "by": "F-Blue",
+                                    "name": "Red Force:9",
+                                    "typeId": "red_land_sam",
+                                    "force": "F-Red"
+                                },
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA2378",
+                                    "typeId": "red_land_sam"
+                                }
+                            ],
+                            "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                12.744,
-                                65.6439
+                                18.9666,
+                                22.3757
                             ],
-                            "owner": "rkr226f5a"
+                            "owner": "rkr226f5c"
+                        },
+                        {
+                            "uniqid": "a411",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_sub_equipment",
+                                    "value": "_47"
+                                }
+                            ],
+                            "contactId": "CA83",
+                            "name": "Red Force:10",
+                            "perceptions": [
+                                {
+                                    "by": "F-Blue",
+                                    "name": "CA83",
+                                    "typeId": "red_maritime_submarine",
+                                    "force": "F-Green"
+                                },
+                                {
+                                    "by": "F-Green",
+                                    "name": "Red Force:10",
+                                    "typeId": "red_maritime_submarine",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_submarine",
+                            "condition": "working",
+                            "location": [
+                                8.7822,
+                                33.3618
+                            ],
+                            "owner": "rkr226f5b"
+                        },
+                        {
+                            "uniqid": "a412",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_land_equipment",
+                                    "value": "_48"
+                                }
+                            ],
+                            "contactId": "CA89",
+                            "name": "Red Force:11",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "Red Force:11",
+                                    "typeId": "red_land_unit"
+                                }
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                25.8074,
+                                26.25
+                            ],
+                            "owner": "rkr226f5e"
+                        },
+                        {
+                            "uniqid": "a413",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_mine_density",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA399",
+                            "name": "Red Force:12",
+                            "perceptions": [],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                9.2578,
+                                62.6617
+                            ],
+                            "owner": "rkr226f5d"
+                        },
+                        {
+                            "uniqid": "a414",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_land_equipment",
+                                    "value": "_45"
+                                }
+                            ],
+                            "contactId": "CA121",
+                            "name": "Red Force:13",
+                            "perceptions": [],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                20.5444,
+                                62.7285
+                            ],
+                            "owner": "rkr226f5d"
+                        },
+                        {
+                            "uniqid": "a415",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_land_asset_equipment",
+                                    "value": "_16"
+                                }
+                            ],
+                            "contactId": "CA1400",
+                            "name": "Red Force:14",
+                            "perceptions": [],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                4.3081,
+                                80.1819
+                            ],
+                            "owner": "rkr226f5b"
+                        },
+                        {
+                            "uniqid": "a416",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_land_asset_equipment",
+                                    "value": "_42"
+                                }
+                            ],
+                            "contactId": "CA1440",
+                            "name": "Red Force:15",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA1440",
+                                    "force": "F-Red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                28.374,
+                                75.7906
+                            ],
+                            "owner": "rkr226f5d"
+                        },
+                        {
+                            "uniqid": "a417",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_land_asset_equipment",
+                                    "value": "_6"
+                                }
+                            ],
+                            "contactId": "CA547",
+                            "name": "Red Force:16",
+                            "perceptions": [
+                                {
+                                    "by": "F-Blue",
+                                    "name": "Red Force:16",
+                                    "typeId": "red_land_asset"
+                                },
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA547",
+                                    "typeId": "red_land_asset",
+                                    "force": "F-Blue"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                2.315,
+                                85.4999
+                            ],
+                            "owner": "rkr226f5d"
+                        },
+                        {
+                            "uniqid": "a418",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_sub_equipment",
+                                    "value": "_42"
+                                }
+                            ],
+                            "contactId": "CA2009",
+                            "name": "Red Force:17",
+                            "perceptions": [
+                                {
+                                    "by": "F-Blue",
+                                    "name": "CA2009"
+                                },
+                                {
+                                    "by": "F-Green",
+                                    "name": "CA2009"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_submarine",
+                            "condition": "working",
+                            "location": [
+                                22.4181,
+                                35.4304
+                            ],
+                            "owner": "rkr226f5b"
+                        },
+                        {
+                            "uniqid": "a419",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_fiac_number",
+                                    "value": 100
+                                }
+                            ],
+                            "contactId": "CA1273",
+                            "name": "Red Force:18",
+                            "perceptions": [
+                                {
+                                    "by": "F-Blue",
+                                    "name": "Red Force:18",
+                                    "force": "F-Green"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                15.1664,
+                                76.9269
+                            ],
+                            "owner": "rkr226f5c"
+                        },
+                        {
+                            "uniqid": "a420",
+                            "attributeValues": [
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_istar_range",
+                                    "value": 50
+                                },
+                                {
+                                    "attrType": "AttributeValueNumber",
+                                    "attrId": "r_istar_number",
+                                    "value": 100
+                                },
+                                {
+                                    "attrType": "AttributeValueString",
+                                    "attrId": "r_istar_equipment",
+                                    "value": "_3"
+                                }
+                            ],
+                            "contactId": "CA202",
+                            "name": "Red Force:19",
+                            "perceptions": [
+                                {
+                                    "by": "F-Green",
+                                    "name": "Red Force:19",
+                                    "force": "F-Red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_istar",
+                            "condition": "working",
+                            "location": [
+                                4.4695,
+                                61.8368
+                            ],
+                            "owner": "rkr226f5c"
                         }
                     ],
                     "color": "#F00",
