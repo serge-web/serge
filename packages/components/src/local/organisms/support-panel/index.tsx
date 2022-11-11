@@ -197,6 +197,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   platformStyles={platIcons}
                   forces={allForces}
                   playerForce={selectedForce}
+                  platformTypes={platformTypes}
                   render={onRender}
                   opFor={false}
                   onSelectionChange={setSelectedOwnAssets}
@@ -264,6 +265,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   forceColors={forceCols}
                   platformStyles={platIcons}
                   assets={allOppAssets}
+                  platformTypes={platformTypes}
                   forces={allForces}
                   playerForce={selectedForce}
                   render={onRender}
@@ -323,7 +325,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     filteredInteractionMessages,
     selectedRoleId,
     turnFilter,
-    draftMessage
+    draftMessage,
+    platformTypes
   ]
   )
 

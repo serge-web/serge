@@ -2,20 +2,24 @@ import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 
+import { ForceData } from '@serge/custom-types'
+import { forceColors, platformIcons } from '@serge/helpers'
+import { P9Mock } from '@serge/mocks'
 import { noop } from 'lodash'
 import PlanningAssets from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
-import { P9Mock } from '@serge/mocks'
-import { ForceData } from '@serge/custom-types'
-import { forceColors, platformIcons } from '@serge/helpers'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+
+const game = P9Mock.data
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
 
 const forceIds = forces.map((force: ForceData): string => force.uniqid)
+
+const platformTypes = game.platformTypes ? game.platformTypes.platformTypes : []
 
 export default {
   title: 'local/organisms/PlanningAssets',
@@ -57,6 +61,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     forceColors={forceCols}
     platformStyles={platformStyles}
     playerForce={playerForce}
+    platformTypes={platformTypes}
     render={render}
     opFor={opFor}
   />

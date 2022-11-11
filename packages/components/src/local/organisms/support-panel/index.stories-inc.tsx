@@ -63,8 +63,8 @@ const platformTypes = (P9Mock.data.platformTypes && P9Mock.data.platformTypes.pl
 // produce the own and opp assets for this player force
 const forceCols = forceColors(forces)
 const platIcons = platformIcons(platformTypes)
-const own = getOwnAssets(forces, forceCols, platIcons, forces[1])
-const opp = getOppAssets(forces, forceCols, platIcons, forces[1])
+const own = getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes)
+const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes)
 
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName

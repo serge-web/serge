@@ -11,6 +11,7 @@ const blueForce = forces[1]
 
 const forceCols = forceColors(forces)
 const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
+const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 
 jest.mock('leaflet', () => ({
   ...jest.requireActual('leaflet'),
@@ -31,7 +32,7 @@ describe('Planning Assets component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<PlanningAssets assets={[]} forceColors={forceCols} platformStyles={platformStyles} forces={forces} opFor={false}
-        playerForce={blueForce} render={noop} />)
+        playerForce={blueForce} platformTypes={platformTypes} render={noop} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
