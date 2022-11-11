@@ -44,15 +44,14 @@ const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
-
 // fix the URL for the openstreetmap mapping
 console.log('channels', channels)
-const planningChannel = channels.find((channel) => channel.channelType === 'ChannelPlanning') 
+const planningChannel = channels.find((channel) => channel.channelType === 'ChannelPlanning')
 if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
-    const pChan = planningChannel as ChannelPlanning
-    if (pChan.constraints.tileLayer) {
-      pChan.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-    }
+  const pChan = planningChannel as ChannelPlanning
+  if (pChan.constraints.tileLayer) {
+    pChan.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  }
 }
 
 // generate list of roles, for dropdown control

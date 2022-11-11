@@ -42,7 +42,6 @@ const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
-
 // fix the URL for the openstreetmap mapping
 const planningChannel = channels[0] as ChannelPlanning
 if (planningChannel.constraints.tileLayer) {

@@ -474,8 +474,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       <div>Warning - PlanningChannel must now include mapping constraints</div>
     )
   } else {
-    const boundsToUse =  channel.constraints.bounds
-    const centerToUse =  L.latLngBounds(channel.constraints.bounds).getCenter()
+    const boundsToUse = channel.constraints.bounds
+    const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
         <SupportPanelContext.Provider value={supportPanelContext}>

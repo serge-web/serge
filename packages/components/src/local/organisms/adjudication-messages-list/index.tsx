@@ -55,9 +55,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       try {
         asset = assets.find((asset) => asset.uniqid === assetId.asset)
         numStr = ' (' + assetId.number + ')'
-    } catch (e) {
+      } catch (e) {
+      }
     }
-  }
     if (!asset) {
       console.warn('Failed to find asset:' + assetId)
       return <li key={index}>Asset not found</li>
