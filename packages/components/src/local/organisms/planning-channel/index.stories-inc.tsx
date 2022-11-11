@@ -39,9 +39,15 @@ const wrapper: React.FC = (storyFn: any) => <ScriptDecorator src='/leaflet.selec
 
 const wargame = P9Mock.data
 const channels = wargame.channels.channels
-const planningChannel = channels[0]
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
+
+
+// fix the URL for the openstreetmap mapping
+const planningChannel = channels[0] as ChannelPlanning
+if (planningChannel.constraints.tileLayer) {
+  planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+}
 
 // generate list of roles, for dropdown control
 const allRoles: string[] = []
