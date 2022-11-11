@@ -38,7 +38,7 @@ export interface Asset {
   plannedTurns?: Array<RouteTurn>,
   /** the current condition of this asset
    */
-  condition: string,
+  condition?: string,
   /** 
    * the type-id of this platform 
    */
