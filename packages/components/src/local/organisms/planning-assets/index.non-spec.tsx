@@ -1,17 +1,19 @@
 /* global it expect */
 import { forceColors, platformIcons } from '@serge/helpers'
-import { P9Mock } from '@serge/mocks'
+import { P9BMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
 import { PlanningAssets } from './index'
 
-const forces = P9Mock.data.forces.forces
+const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 
 const forceCols = forceColors(forces)
-const platformStyles = (P9Mock.data.platformTypes && platformIcons(P9Mock.data.platformTypes.platformTypes)) || []
-const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
+const platformStyles = (P9BMock.data.platformTypes && platformIcons(P9BMock.data.platformTypes.platformTypes)) || []
+const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
+const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes :  []
+
 
 jest.mock('leaflet', () => ({
   ...jest.requireActual('leaflet'),
@@ -32,7 +34,7 @@ describe('Planning Assets component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<PlanningAssets assets={[]} forceColors={forceCols} platformStyles={platformStyles} forces={forces} opFor={false}
-        playerForce={blueForce} platformTypes={platformTypes} render={noop} />)
+        playerForce={blueForce} platformTypes={platformTypes} attributeTypes={attributeTypes} render={noop} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
