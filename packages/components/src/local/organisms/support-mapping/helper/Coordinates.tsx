@@ -31,7 +31,10 @@ const MapCoordinates: React.FC = () => {
       map.on('zoom', () => {
         setZoom(map.getZoom())
       })
-      setZoom(map.getZoom())
+      if (map.getZoom) {
+        // special case. we may not have a real map in tests
+        setZoom(map.getZoom())
+      }
     }
   }, [map])
 
