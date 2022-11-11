@@ -265,6 +265,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   forceColors={forceCols}
                   platformStyles={platIcons}
                   assets={allOppAssets}
+                  platformTypes={platformTypes}
                   forces={allForces}
                   playerForce={selectedForce}
                   render={onRender}
