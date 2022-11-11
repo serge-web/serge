@@ -6499,7 +6499,7 @@ const game: Wargame = {
                 {
                     "name": "Fixed Asset",
                     "icon": "blue_land_asset.png",
-                    "attributeTypeIds": ["a_Members"],
+                    "attributeTypeIds": ["a_Units"],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_asset",
@@ -6882,7 +6882,7 @@ const game: Wargame = {
                     "units": "km"
                 },
                 {
-                    "attrId": "a_DetectionRange",
+                    "attrId": "a_Detection Range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 50,
                     "description": "Detection Range of asset",
