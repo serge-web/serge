@@ -5,7 +5,6 @@ import { ChannelPlanning } from '@serge/custom-types'
 import { MessageTemplatesMock, watuWargame } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { MapConstants } from '../support-mapping/helper/MapConstants'
 import SettingChannels from './index'
 import docs from './README.md'
 import { ChannelTypes } from './types/props'
@@ -19,7 +18,25 @@ const planningChannel: ChannelPlanning = {
   name: 'Blue Planning',
   channelType: 'ChannelPlanning',
   uniqid: 'dummy-planning',
-  tiles: MapConstants.TileLayer,
+  constraints: {
+    bounds: [
+      [
+        55,
+        22
+      ],
+      [
+        2,
+        86
+      ]
+    ],
+    maxNativeZoom: 7,
+    maxZoom: 7,
+    minZoom: 3,
+    tileLayer: {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    }
+  },
   participants: [
     {
       forceUniqid: 'F-Blue',

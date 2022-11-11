@@ -58,9 +58,24 @@ const game: Wargame = {
                 {
                     "channelType": "ChannelPlanning",
                     "name": "Planning",
-                    "tiles": {
-                        "attribution": '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                        "url": 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                    "constraints": {
+                        "bounds": [
+                            [
+                                55,
+                                22
+                            ],
+                            [
+                                2,
+                                86
+                            ]
+                        ],
+                        "maxNativeZoom": 7,
+                        "maxZoom": 7,
+                        "minZoom": 3,
+                        "tileLayer": {
+                            "attribution": '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                            "url": 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+                        }
                     },
                     "participants": [
                         {
