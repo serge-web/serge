@@ -1,5 +1,5 @@
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER, ATTRIBUTE_VALUE_STRING } from '@serge/config'
-import { Asset, AttributeType, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue } from '@serge/custom-types'
+import { Asset, AttributeType, AttributeTypes, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
@@ -69,8 +69,18 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   return perceptions
 }
 
-const createAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
-  const attrTypes = platformType.attributeTypes || []
+const attributeTypesFor  = (platformType: PlatformTypeData, attributes: AttributeTypes): AttributeTypes => {
+  if (platformType.attributeTypes) {
+    return platformType.attributeTypes
+  } else {
+    // we'll have to get our own
+    console.log('attributes', attributes)
+  }
+  return []
+}
+
+const createAttributesFor = (platformType: PlatformTypeData, attributeTypes: AttributeTypes): AttributeValues => {
+  const attrTypes = attributeTypesFor(platformType, attributeTypes)
   const attrVals: AttributeValues = attrTypes.map((attr: AttributeType): AttributeValue => {
     //  NumberAttributeType | EnumAttributeType | StringAttributeType
     let res
@@ -112,7 +122,8 @@ const createAttributesFor = (platformType: PlatformTypeData): AttributeValues =>
   return attrVals
 }
 
-const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, platformTypes: PlatformTypeData[], forces: ForceData[], withComprising?:boolean): Asset[] => {
+const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, 
+  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising?:boolean): Asset[] => {
   const assets = []
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
@@ -127,7 +138,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const statuses = platformType.states
     const asset: Asset = {
       uniqid: uniqueId('a'),
-      attributeValues: createAttributesFor(platformType),
+      attributeValues: createAttributesFor(platformType, attributeTypes),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + i,
       perceptions: [],
@@ -155,7 +166,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
 }
 
 export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
-  platformTypes: PlatformTypeData[]): ForceData[] => {
+  platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
 
@@ -172,8 +183,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   console.log('blue', bluePoly, redPoly)
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces
@@ -195,10 +206,10 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
   const h3Res = constraints.h3res
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces)
-  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces))
-  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces)
-  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces))
+  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [])
+  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, []))
+  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [])
+  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, []))
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   setForcesState(newForces)

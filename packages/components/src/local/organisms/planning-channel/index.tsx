@@ -57,7 +57,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   platformTypes,
   gameDate,
   currentTurn,
-  forcePlanningActivities
+  forcePlanningActivities,
+  attributeTypes
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
@@ -259,7 +260,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     } else {
       const createAssets = true
       if (createAssets) {
-        const forces = generateTestData2(channel.constraints, allForces, platformTypes)
+        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
         const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
