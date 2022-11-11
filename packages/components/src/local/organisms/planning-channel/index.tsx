@@ -462,15 +462,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     url: '//'
   }
 
-  const isAus = channel.constraints && channel.constraints.tileLayer?.url.includes('open')
-  const boundsToUse = isAus ? bounds : channel.constraints.bounds
-  const centerToUse = isAus ? bounds?.getCenter() : L.latLngBounds(channel.constraints.bounds).getCenter()
-
   if (!channel.constraints) {
     return (
       <div>Warning - PlanningChannel must now include mapping constraints</div>
     )
   } else {
+    const isAus = channel.constraints.tileLayer?.url.includes('open')
+    const boundsToUse = isAus ? bounds : channel.constraints.bounds
+    const centerToUse = isAus ? bounds?.getCenter() : L.latLngBounds(channel.constraints.bounds).getCenter()
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
         <SupportPanelContext.Provider value={supportPanelContext}>
