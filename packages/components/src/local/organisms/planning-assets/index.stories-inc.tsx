@@ -20,7 +20,7 @@ const blueForce = forces[1]
 const forceIds = forces.map((force: ForceData): string => force.uniqid)
 
 const platformTypes = game.platformTypes ? game.platformTypes.platformTypes : []
-const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes :  []
+const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
 
 export default {
   title: 'local/organisms/PlanningAssets',

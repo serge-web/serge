@@ -12,8 +12,7 @@ const blueForce = forces[1]
 const forceCols = forceColors(forces)
 const platformStyles = (P9BMock.data.platformTypes && platformIcons(P9BMock.data.platformTypes.platformTypes)) || []
 const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
-const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes :  []
-
+const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
 
 jest.mock('leaflet', () => ({
   ...jest.requireActual('leaflet'),

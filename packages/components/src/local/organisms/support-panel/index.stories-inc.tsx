@@ -28,7 +28,7 @@ forces.forEach((force: ForceData) => {
 const nonInfoMessage = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 const interactionMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
-const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes :  []
+const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
 
 export default {
   title: 'local/organisms/SupportPanel',
