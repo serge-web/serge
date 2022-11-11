@@ -31,7 +31,7 @@ describe('Planning Assets component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
       .create(<PlanningAssets assets={[]} forceColors={forceCols} platformStyles={platformStyles} forces={forces} opFor={false}
-        playerForce={blueForce} render={noop} />)
+        playerForce={blueForce} platformTypes={[]} render={noop} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

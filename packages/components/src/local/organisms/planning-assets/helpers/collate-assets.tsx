@@ -1,5 +1,5 @@
 import { UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, MessagePlanning, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
+import { Asset, AttributeValue, ForceData, MessagePlanning, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import { Column } from 'material-table'
@@ -32,11 +32,11 @@ const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: Pl
   }
 }
 
-export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData): AssetRow[] => {
+export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, platformTypes: PlatformTypeData[]): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, [], undefined)
+      const assets = collateItem(false, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, undefined)
       rows.push(...assets)
     }
     )
@@ -44,11 +44,11 @@ export const getOwnAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   return rows
 }
 
-export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData): AssetRow[] => {
+export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, platformTypes: PlatformTypeData[]): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
     force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], undefined)
+      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, undefined)
       rows.push(...assets)
     }
     )
@@ -229,7 +229,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
  * @returns a list of rows, representing the asset and it's children
  */
 export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData, assetForce: ForceData,
-  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[], parentId?: string): AssetRow[] => {
+  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[], platformTypes: PlatformTypeData[], parentId?: string): AssetRow[] => {
   const itemRows: AssetRow[] = []
 
   const iconFor = (platformType: string): string => {
@@ -269,6 +269,21 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
     const myForce = assetForce.uniqid === playerForce.uniqid
     const umpireInOwnFor = (isUmpire && !opFor)
+    const attributeValues = asset.attributeValues || []
+    const attrDict = {}
+    const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
+    attributeValues.forEach((attr: AttributeValue, index: number) => {
+      if (platformType) {
+        const aType = platformType.attributeTypes && platformType.attributeTypes.find((attrT) => attrT.attrId === attr.attrId)
+        if (aType) {
+          attrDict[aType.name] = attr.value
+        } else {
+          attrDict[index] = attr.value  
+        }
+      } else {
+        attrDict[index] = attr.value  
+      }
+    } )
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
@@ -280,7 +295,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
         health: asset.health || 95,
-        attributes: { type: 'left', num: asset.contactId }
+        attributes: attrDict
       }
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
@@ -293,13 +308,13 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   // also sort out the comprising entries
   if (asset.comprising) {
     asset.comprising.forEach((asset2: Asset) => {
-      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, selectedAssets, asset.uniqid))
+      itemRows.push(...collateItem(opFor, asset2, playerForce, assetForce, forceColors, platformIcons, selectedAssets, platformTypes, asset.uniqid))
     })
   }
   return itemRows
 }
 
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, selectedAssets: string[]): AssetRow[] => {
+export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[], playerForce: ForceData, selectedAssets: string[], platformTypes: PlatformTypeData[]): AssetRow[] => {
   const rows: AssetRow[] = []
 
   // ok, work through the assets
@@ -310,7 +325,7 @@ export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceS
       const handleAllForces = (!opFor && playerForce.umpire)
       if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
         force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, selectedAssets, undefined))
+          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, selectedAssets, platformTypes, undefined))
         })
       }
     }

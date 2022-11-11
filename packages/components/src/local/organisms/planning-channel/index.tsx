@@ -154,8 +154,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
-    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes)
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes)
     setAllOwnAssets(own)
     setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
