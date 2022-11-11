@@ -1,31 +1,11 @@
-import { Asset, ForceData, MappingConstraints, Perception, PlatformTypeData } from '@serge/custom-types'
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER, ATTRIBUTE_VALUE_STRING } from '@serge/config'
+import { Asset, AttributeType, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
 import L from 'leaflet'
 import { uniqueId } from 'lodash'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
-
-const randomPointInPoly2 = (polygon: L.Polygon): any => {
-  const bounds = polygon.getBounds()
-  const xMin = bounds.getEast()
-  const xMax = bounds.getWest()
-  const yMin = bounds.getSouth()
-  const yMax = bounds.getNorth()
-
-  const lat = yMin + (Math.random() * (yMax - yMin))
-  const lng = xMin + (Math.random() * (xMax - xMin))
-
-  const point = turf.point([lng, lat])
-  const poly = polygon.toGeoJSON()
-  const inside = turf.inside(point, poly)
-
-  if (inside) {
-    return point
-  } else {
-    return randomPointInPoly(polygon)
-  }
-}
 
 const randomPointInPoly = (polygon: L.Polygon): any => {
   const bounds = polygon.getBounds()
@@ -89,6 +69,50 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   return perceptions
 }
 
+const createAttributesFor = (platformType: PlatformTypeData): AttributeValues =>
+{
+  const attrTypes = platformType.attributeTypes || []
+  const attrVals: AttributeValues = attrTypes.map((attr: AttributeType): AttributeValue => {
+    //  NumberAttributeType | EnumAttributeType | StringAttributeType
+    let res
+    switch (attr.attrType) {
+      case ATTRIBUTE_TYPE_NUMBER: {
+        const nType = attr as NumberAttributeType
+        const num: NumberAttributeValue = {
+          attrType: ATTRIBUTE_VALUE_NUMBER,
+          attrId: attr.attrId,
+          value: nType.defaultValue || Math.floor(Math.random() * 50)
+        }
+        res = num
+        break
+      }
+      case ATTRIBUTE_TYPE_STRING: {
+        const nType = attr as StringAttributeType
+        const num: StringAttributeValue = {
+          attrType: ATTRIBUTE_VALUE_STRING,
+          attrId: attr.attrId,
+          value: nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
+        }
+        return num
+      }
+      case ATTRIBUTE_TYPE_ENUM: {
+        const nType = attr as EnumAttributeType
+        const num: EnumAttributeValue = {
+          attrType: ATTRIBUTE_VALUE_ENUM,
+          attrId: attr.attrId,
+          value: nType.values[Math.floor(Math.random() * nType.values.length)]
+        }
+        return num
+      }
+      default: {
+        console.warn('Haven\'t handled attribute', attr)
+      }
+    }
+    return res as AttributeValue
+  })
+  return attrVals
+}
+
 const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined, platformTypes: PlatformTypeData[], forces: ForceData[], withComprising?:boolean ): Asset[] => {
   const assets = []
   const roles = force.roles
@@ -105,6 +129,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const statuses = platformType.states
     const asset: Asset = {
       uniqid: uniqueId('a'),
+      attributeValues: createAttributesFor(platformType),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + i,
       perceptions: [],
