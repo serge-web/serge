@@ -438,7 +438,7 @@ const game: Wargame = {
                                     "typeId": "id-missile"
                                 }
                             ],
-                            "platformTypeId": "id-missile",
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "status": {
                                 "state": "Inactive"
@@ -462,7 +462,7 @@ const game: Wargame = {
                                     "force": "F-Blue"
                                 }
                             ],
-                            "platformTypeId": "id-mpa",
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "status": {
                                 "state": "Active"
@@ -491,7 +491,7 @@ const game: Wargame = {
                                     "force": "F-Blue"
                                 }
                             ],
-                            "platformTypeId": "id-merchant",
+                            "platformTypeId": "blue_land_sam",
                             "condition": "working",
                             "status": {
                                 "state": "Moored"
@@ -669,7 +669,7 @@ const game: Wargame = {
                                     "typeId": "id-mcm"
                                 }
                             ],
-                            "platformTypeId": "id-mcm",
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "status": {
                                 "state": "Moored"
@@ -691,7 +691,7 @@ const game: Wargame = {
                                     "name": "CA1941"
                                 }
                             ],
-                            "platformTypeId": "id-ssn",
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "status": {
                                 "state": "Aggressove"
@@ -731,7 +731,7 @@ const game: Wargame = {
                                     "force": "F-Blue"
                                 }
                             ],
-                            "platformTypeId": "id-mcm",
+                            "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "status": {
                                 "state": "Stopped"
@@ -754,7 +754,7 @@ const game: Wargame = {
                                     "typeId": "id-mpa"
                                 }
                             ],
-                            "platformTypeId": "id-mpa",
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "status": {
                                 "state": "Landed"
@@ -777,7 +777,7 @@ const game: Wargame = {
                                     "typeId": "id-missile"
                                 }
                             ],
-                            "platformTypeId": "id-missile",
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "status": {
                                 "state": "Deployed"
@@ -794,7 +794,7 @@ const game: Wargame = {
                             "contactId": "CA2869",
                             "name": "Blue:20",
                             "perceptions": [],
-                            "platformTypeId": "id-task-group",
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "status": {
                                 "state": "Inactive"
@@ -805,472 +805,7 @@ const game: Wargame = {
                                 136.4064
                             ],
                             "owner": "2rk116f53",
-                            "comprising": [
-                                {
-                                    "uniqid": "a182",
-                                    "contactId": "CA1162",
-                                    "name": "Blue:21",
-                                    "perceptions": [
-                                        {
-                                            "by": "F-Green",
-                                            "name": "CA1162",
-                                            "typeId": "id-auxiliary",
-                                            "force": "F-Blue"
-                                        }
-                                    ],
-                                    "platformTypeId": "id-auxiliary",
-                                    "condition": "working",
-                                    "status": {
-                                        "state": "Transiting"
-                                    },
-                                    "position": "85729b37fffffff",
-                                    "location": [
-                                        -6.7876,
-                                        137.3457
-                                    ],
-                                    "owner": "3rk116f53"
-                                },
-                                {
-                                    "uniqid": "a183",
-                                    "contactId": "CA1601",
-                                    "name": "Blue:22",
-                                    "perceptions": [
-                                        {
-                                            "by": "F-Red",
-                                            "name": "CA1601",
-                                            "typeId": "id-missile",
-                                            "force": "F-Blue"
-                                        }
-                                    ],
-                                    "platformTypeId": "id-missile",
-                                    "condition": "working",
-                                    "status": {
-                                        "state": "Deployed"
-                                    },
-                                    "position": "859ca0cbfffffff",
-                                    "location": [
-                                        -10.5659,
-                                        149.5936
-                                    ],
-                                    "owner": "1rk116f53"
-                                },
-                                {
-                                    "uniqid": "a184",
-                                    "contactId": "CA1167",
-                                    "name": "Blue:23",
-                                    "perceptions": [
-                                        {
-                                            "by": "F-Red",
-                                            "name": "Blue:3",
-                                            "typeId": "id-auxiliary"
-                                        },
-                                        {
-                                            "by": "F-Green",
-                                            "name": "CA1167",
-                                            "typeId": "id-auxiliary"
-                                        }
-                                    ],
-                                    "platformTypeId": "id-auxiliary",
-                                    "condition": "working",
-                                    "status": {
-                                        "state": "Transiting"
-                                    },
-                                    "position": "859cce43fffffff",
-                                    "location": [
-                                        -8.2837,
-                                        138.6957
-                                    ],
-                                    "owner": "rk116f52"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a185",
-                            "contactId": "CA2050",
-                            "name": "Blue:24",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "CA2050",
-                                    "force": "F-Blue"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:4",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-frigate-ta",
-                            "condition": "working",
-                            "status": {
-                                "state": "Transiting"
-                            },
-                            "position": "859cf6c7fffffff",
-                            "location": [
-                                -9.6247,
-                                144.648
-                            ],
-                            "owner": "1rk116f53"
-                        },
-                        {
-                            "uniqid": "a186",
-                            "contactId": "CA1397",
-                            "name": "Blue:25",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "CA1397",
-                                    "force": "F-Blue"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:5",
-                                    "typeId": "id-missile",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-missile",
-                            "condition": "working",
-                            "status": {
-                                "state": "Inactive"
-                            },
-                            "position": "8572ab53fffffff",
-                            "location": [
-                                -1.926,
-                                137.4298
-                            ],
-                            "owner": "rk116f52"
-                        },
-                        {
-                            "uniqid": "a187",
-                            "contactId": "CA1213",
-                            "name": "Blue:26",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:6",
-                                    "typeId": "id-frigate-ta",
-                                    "force": "F-Green"
-                                }
-                            ],
-                            "platformTypeId": "id-frigate-ta",
-                            "condition": "working",
-                            "status": {
-                                "state": "Mixed"
-                            },
-                            "position": "859cae87fffffff",
-                            "location": [
-                                -10.3741,
-                                147.4089
-                            ],
-                            "owner": "rk116f51"
-                        },
-                        {
-                            "uniqid": "a188",
-                            "contactId": "CA78",
-                            "name": "Blue:27",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:7",
-                                    "typeId": "id-carrier",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-carrier",
-                            "condition": "working",
-                            "status": {
-                                "state": "Transiting"
-                            },
-                            "position": "859ca3a3fffffff",
-                            "location": [
-                                -10.1388,
-                                148.2461
-                            ],
-                            "owner": "2rk116f53"
-                        },
-                        {
-                            "uniqid": "a189",
-                            "contactId": "CA2307",
-                            "name": "Blue:28",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA2307",
-                                    "typeId": "id-carrier",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-carrier",
-                            "condition": "working",
-                            "status": {
-                                "state": "Transiting"
-                            },
-                            "position": "859ccecbfffffff",
-                            "location": [
-                                -8.5974,
-                                138.9287
-                            ],
-                            "owner": "2rk116f53"
-                        },
-                        {
-                            "uniqid": "a190",
-                            "contactId": "CA3222",
-                            "name": "Blue:29",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:9",
-                                    "typeId": "id-destroyer"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:9",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-destroyer",
-                            "condition": "working",
-                            "status": {
-                                "state": "Loitering"
-                            },
-                            "position": "859ca04ffffffff",
-                            "location": [
-                                -10.1238,
-                                149.3998
-                            ],
-                            "owner": "3rk116f53"
-                        },
-                        {
-                            "uniqid": "a191",
-                            "contactId": "CA3036",
-                            "name": "Blue:30",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA3036",
-                                    "typeId": "id-frigate-ta"
-                                }
-                            ],
-                            "platformTypeId": "id-frigate-ta",
-                            "condition": "working",
-                            "status": {
-                                "state": "Active"
-                            },
-                            "position": "859ca15bfffffff",
-                            "location": [
-                                -10.4337,
-                                148.5732
-                            ],
-                            "owner": "rk116f53"
-                        },
-                        {
-                            "uniqid": "a192",
-                            "contactId": "CA2291",
-                            "name": "Blue:31",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:11",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-frigate-ta",
-                            "condition": "working",
-                            "status": {
-                                "state": "Passive"
-                            },
-                            "position": "859ca6bbfffffff",
-                            "location": [
-                                -10.7176,
-                                150.1536
-                            ],
-                            "owner": "2rk116f53"
-                        },
-                        {
-                            "uniqid": "a193",
-                            "contactId": "CA1832",
-                            "name": "Blue:32",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA1832",
-                                    "typeId": "id-auxiliary",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "id-auxiliary",
-                            "condition": "working",
-                            "status": {
-                                "state": "Supporting"
-                            },
-                            "position": "859cc32bfffffff",
-                            "location": [
-                                -8.1642,
-                                139.127
-                            ],
-                            "owner": "blue-logs"
-                        },
-                        {
-                            "uniqid": "a194",
-                            "contactId": "CA2037",
-                            "name": "Blue:33",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "CA2037"
-                                }
-                            ],
-                            "platformTypeId": "id-auxiliary",
-                            "condition": "working",
-                            "status": {
-                                "state": "Supporting"
-                            },
-                            "position": "859c9953fffffff",
-                            "location": [
-                                -5.1852,
-                                146.4221
-                            ],
-                            "owner": "blue-logs"
-                        },
-                        {
-                            "uniqid": "a195",
-                            "contactId": "CA2829",
-                            "name": "Blue:34",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "CA2829",
-                                    "typeId": "id-missile"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "Blue:14",
-                                    "typeId": "id-missile",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-missile",
-                            "condition": "working",
-                            "status": {
-                                "state": "Inactive"
-                            },
-                            "position": "859c9d03fffffff",
-                            "location": [
-                                -6.2246,
-                                146.7067
-                            ],
-                            "owner": "1rk116f53"
-                        },
-                        {
-                            "uniqid": "a196",
-                            "contactId": "CA2934",
-                            "name": "Blue:35",
-                            "perceptions": [],
-                            "platformTypeId": "id-frigate-ta",
-                            "condition": "working",
-                            "status": {
-                                "state": "Active"
-                            },
-                            "position": "859cc3c7fffffff",
-                            "location": [
-                                -8.5197,
-                                139.8303
-                            ],
-                            "owner": "1rk116f53"
-                        },
-                        {
-                            "uniqid": "a197",
-                            "contactId": "CA1099",
-                            "name": "Blue:36",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:16",
-                                    "typeId": "id-missile",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-missile",
-                            "condition": "working",
-                            "status": {
-                                "state": "Deployed"
-                            },
-                            "position": "8572ab8bfffffff",
-                            "location": [
-                                -1.484,
-                                137.6034
-                            ],
-                            "owner": "rk116f53"
-                        },
-                        {
-                            "uniqid": "a198",
-                            "contactId": "CA3380",
-                            "name": "Blue:37",
-                            "perceptions": [
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA3380",
-                                    "force": "F-Blue"
-                                }
-                            ],
-                            "platformTypeId": "id-auxiliary",
-                            "condition": "working",
-                            "status": {
-                                "state": "Supporting"
-                            },
-                            "position": "859ca003fffffff",
-                            "location": [
-                                -10.6215,
-                                149.1973
-                            ],
-                            "owner": "2rk116f53"
-                        },
-                        {
-                            "uniqid": "a199",
-                            "contactId": "CA3371",
-                            "name": "Blue:38",
-                            "perceptions": [
-                                {
-                                    "by": "F-Red",
-                                    "name": "Blue:18",
-                                    "typeId": "id-mcm",
-                                    "force": "F-Blue"
-                                },
-                                {
-                                    "by": "F-Green",
-                                    "name": "CA3371",
-                                    "force": "F-Red"
-                                }
-                            ],
-                            "platformTypeId": "id-mcm",
-                            "condition": "working",
-                            "status": {
-                                "state": "Stopped"
-                            },
-                            "position": "859cae0bfffffff",
-                            "location": [
-                                -9.88,
-                                147.5097
-                            ],
-                            "owner": "rk116f53"
-                        },
-                        {
-                            "uniqid": "a200",
-                            "contactId": "CA1900",
-                            "name": "Blue:39",
-                            "perceptions": [],
-                            "platformTypeId": "id-missile",
-                            "condition": "working",
-                            "status": {
-                                "state": "Inactive"
-                            },
-                            "position": "859cd937fffffff",
-                            "location": [
-                                -6.7608,
-                                137.5513
-                            ],
-                            "owner": "rk116f52"
+                            "comprising": []
                         }
                     ],
                     "color": "#00F",
@@ -2966,6 +2501,277 @@ const game: Wargame = {
             "dirty": false,
             "name": "Platform Types",
             "platformTypes": [
+                {
+                    "name": "Fighter",
+                    "icon": "n_blue_air_fighter.svg",
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_air_fighter",
+                    attributeTypes: [
+                        {
+                            "attrId": "bf-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    travelMode: 'air'
+                },
+                {
+                    "name": "Bomber",
+                    "icon": "n_blue_air_bomber.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "bb-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_air_bomber",
+                    travelMode: 'air'
+                },
+                {
+                    "name": "SAM",
+                    "icon": "n_blue_land_sam.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "bsam-mez",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "MEZ Range",
+                            "editableByPlayer": false,
+                            "name": "MEZ"
+                        },
+                        {
+                            "attrId": "bsam-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_land_sam",
+                    travelMode: 'land'
+                },
+                {
+                    "name": "MTG",
+                    "icon": "n_blue_maritime_task_force.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "b_mtg_units",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Members of Task Group",
+                            "editableByPlayer": false,
+                            "name": "Units"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_maritime_mtg",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Ship",
+                    "icon": "n_blue_maritime_destroyer.svg",
+                    attributeTypes: [
+                         {
+                            "attrId": "bms-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_maritime_ship",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Submarine",
+                    "icon": "n_blue_maritime_submarine.svg",
+                    attributeTypes: [
+                         {
+                            "attrId": "bmsub-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_maritime_submarine",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Land Unit",
+                    "icon": "n_blue_land_armed_inf.svg",
+                    attributeTypes: [
+                         {
+                            "attrId": "bland-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_land_unit",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Fixed Asset",
+                    "icon": "n_blue_land_sam.svg",
+                    attributeTypes: [
+                         {
+                            "attrId": "blasset-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Assets held by group",
+                            "editableByPlayer": false,
+                            "name": "Assets"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_land_asset",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "SSM",
+                    "icon": "n_blue_land_ssm.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "ssm-range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Range of asset",
+                            "editableByPlayer": false,
+                            "name": "range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "ssm-number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "blssm-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_land_ssm",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "ISTAR",
+                    "icon": "n_blue_air_recce.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "bistar-range",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 50,
+                            "description": "Detection Range of asset",
+                            "editableByPlayer": false,
+                            "name": "Detection Range",
+                            "units": "km"
+                        },
+                        {
+                            "attrId": "bistar-number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "bistar-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_air_istar",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "Air LOGS",
+                    "icon": "n_blue_air_utility.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "balogs-number",
+                            "attrType": "AttributeTypeNumber",
+                            "defaultValue": 100,
+                            "description": "Number of units",
+                            "editableByPlayer": false,
+                            "name": "number"
+                        },
+                        {
+                            "attrId": "balogs-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "Equipment carried on asset",
+                            "editableByPlayer": false,
+                            "name": "Equipment"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_air_istar",
+                    travelMode: 'sea'
+                },
+                {
+                    "name": "C2 Node",
+                    "icon": "n_blue_hq.svg",
+                    attributeTypes: [
+                        {
+                            "attrId": "balogs-equipment",
+                            "attrType": "AttributeTypeString",
+                            "defaultValue": '',
+                            "description": "C2 Connections for asset",
+                            "editableByPlayer": false,
+                            "name": "Connections"
+                        }
+                    ],
+                    conditions: [],
+                    states: [],
+                    uniqid: "blue_air_istar",
+                    travelMode: 'sea'
+                },
+
+
+// LEGACY PLATFORM TYPES
+
+                
                 {
                     "attributeTypes": [
                         {
