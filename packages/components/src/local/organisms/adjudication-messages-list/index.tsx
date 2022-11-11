@@ -132,7 +132,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
       columnsData.splice(1, 0, turnColumn)
     }
-    setColumns(columnsData)
+    if (columns.length === 0) {
+      setColumns(columnsData)
+    }
   }, [myMessages])
 
   // fix unit-test for MaterialTable
