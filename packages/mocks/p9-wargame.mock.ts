@@ -1591,49 +1591,46 @@ const game: Wargame = {
             "dirty": false,
             "name": "Platform Types",
             "platformTypes": [
-
-            
-
                 {
                     "name": "Fighter",
                     "icon": "n_blue_air_fighter.svg",
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_air_fighter",
-                    attributeTypes: [
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_fighter",
+                    "attributeTypes": [
                         {
                             "attrId": "b_fighter_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    travelMode: 'air'
+                    "travelMode": "air"
                 },
                 {
                     "name": "Bomber",
                     "icon": "n_blue_air_bomber.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_bomber_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_air_bomber",
-                    travelMode: 'air'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_bomber",
+                    "travelMode": "air"
                 },
                 {
                     "name": "SAM",
                     "icon": "n_blue_land_sam.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_sam_mez",
                             "attrType": "AttributeTypeNumber",
@@ -1645,111 +1642,111 @@ const game: Wargame = {
                         {
                             "attrId": "b_sam_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_land_sam",
-                    travelMode: 'land'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_sam",
+                    "travelMode": "land"
                 },
                 {
                     "name": "MTG",
                     "icon": "n_blue_maritime_task_force.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_mtg_units",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Members of Task Group",
                             "editableByPlayer": false,
                             "name": "Units"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_maritime_mtg",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_mtg",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Ship",
                     "icon": "n_blue_maritime_destroyer.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_ship_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_maritime_ship",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_ship",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Submarine",
                     "icon": "n_blue_maritime_submarine.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_sub_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_maritime_submarine",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_submarine",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Land Unit",
                     "icon": "n_blue_land_armed_inf.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_land_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_land_unit",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_unit",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Fixed Asset",
                     "icon": "blue_land_asset.png",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_land_asset_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Assets held by group",
                             "editableByPlayer": false,
                             "name": "Assets"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_land_asset",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_asset",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "SSM",
                     "icon": "n_blue_land_ssm.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_ssm_range",
                             "attrType": "AttributeTypeNumber",
@@ -1770,21 +1767,21 @@ const game: Wargame = {
                         {
                             "attrId": "b_ssm_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_land_ssm",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_ssm",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "ISTAR",
                     "icon": "n_blue_air_recce.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_istar_range",
                             "attrType": "AttributeTypeNumber",
@@ -1805,21 +1802,21 @@ const game: Wargame = {
                         {
                             "attrId": "b_istar_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_air_istar",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_istar",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Air LOGS",
                     "icon": "n_blue_air_utility.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_air_logs_number",
                             "attrType": "AttributeTypeNumber",
@@ -1831,39 +1828,39 @@ const game: Wargame = {
                         {
                             "attrId": "b_air_logs_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_air_logs",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_air_logs",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "C2 Node",
                     "icon": "n_blue_hq.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_c2_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "C2 Connections for asset",
                             "editableByPlayer": false,
                             "name": "Connections"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_land_c2",
-                    travelMode: 'land'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_c2",
+                    "travelMode": "land"
                 },
                 {
                     "name": "FIAC",
                     "icon": "n_blue_maritime_destroyer.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_fiac_number",
                             "attrType": "AttributeTypeNumber",
@@ -1871,17 +1868,17 @@ const game: Wargame = {
                             "description": "Number of units",
                             "editableByPlayer": false,
                             "name": "number"
-                        },
+                        }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_maritime_fiac",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_fiac",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Minefield",
                     "icon": "n_blue_maritime_minefield.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "b_mine_density",
                             "attrType": "AttributeTypeNumber",
@@ -1890,37 +1887,35 @@ const game: Wargame = {
                             "editableByPlayer": false,
                             "name": "density",
                             "units": "per km2"
-                        },
+                        }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "blue_maritime_mine",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_maritime_mine",
+                    "travelMode": "sea"
                 },
-
-
                 {
                     "name": "Fighter",
                     "icon": "n_red_air_fighter.svg",
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_air_fighter",
-                    attributeTypes: [
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_air_fighter",
+                    "attributeTypes": [
                         {
                             "attrId": "r_fighter_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    travelMode: 'air'
+                    "travelMode": "air"
                 },
                 {
                     "name": "SAM",
                     "icon": "n_red_land_sam.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_sam_mez",
                             "attrType": "AttributeTypeNumber",
@@ -1932,93 +1927,93 @@ const game: Wargame = {
                         {
                             "attrId": "r_sam_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_land_sam",
-                    travelMode: 'land'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_sam",
+                    "travelMode": "land"
                 },
                 {
                     "name": "MTG",
                     "icon": "n_red_maritime_task_force.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_mtg_units",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Members of Task Group",
                             "editableByPlayer": false,
                             "name": "Units"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_maritime_mtg",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_mtg",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Submarine",
                     "icon": "n_red_maritime_submarine.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_sub_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_maritime_submarine",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_submarine",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Land Unit",
                     "icon": "n_red_land_armed_inf.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_land_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_land_unit",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_unit",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Fixed Asset",
                     "icon": "n_red_land_sam.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_land_asset_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Assets held by group",
                             "editableByPlayer": false,
                             "name": "Assets"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_land_asset",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_asset",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "SSM",
                     "icon": "n_red_land_ssm.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_ssm_range",
                             "attrType": "AttributeTypeNumber",
@@ -2039,21 +2034,21 @@ const game: Wargame = {
                         {
                             "attrId": "r_ssm_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_land_ssm",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_ssm",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "ISTAR",
                     "icon": "n_red_air_recce.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_istar_range",
                             "attrType": "AttributeTypeNumber",
@@ -2074,21 +2069,21 @@ const game: Wargame = {
                         {
                             "attrId": "r_istar_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_air_istar",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_air_istar",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Air LOGS",
                     "icon": "n_red_air_utility.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_air_logs_number",
                             "attrType": "AttributeTypeNumber",
@@ -2100,39 +2095,39 @@ const game: Wargame = {
                         {
                             "attrId": "r_air_logs_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Equipment carried on asset",
                             "editableByPlayer": false,
                             "name": "Equipment"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_air_logs",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_air_logs",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "C2 Node",
                     "icon": "n_red_hq.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_c2_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "C2 Connections for asset",
                             "editableByPlayer": false,
                             "name": "Connections"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_land_c2",
-                    travelMode: 'land'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_c2",
+                    "travelMode": "land"
                 },
                 {
                     "name": "FIAC",
                     "icon": "n_red_maritime_missile_boat.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_fiac_number",
                             "attrType": "AttributeTypeNumber",
@@ -2140,17 +2135,17 @@ const game: Wargame = {
                             "description": "Number of units",
                             "editableByPlayer": false,
                             "name": "number"
-                        },
+                        }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_maritime_fiac",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_fiac",
+                    "travelMode": "sea"
                 },
                 {
                     "name": "Minefield",
                     "icon": "n_red_maritime_minefield.svg",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_mine_density",
                             "attrType": "AttributeTypeNumber",
@@ -2159,31 +2154,30 @@ const game: Wargame = {
                             "editableByPlayer": false,
                             "name": "density",
                             "units": "per km2"
-                        },
+                        }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_maritime_mine",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_maritime_mine",
+                    "travelMode": "sea"
                 },
-
                 {
                     "name": "Fixed Asset",
                     "icon": "re_land_asset.png",
-                    attributeTypes: [
+                    "attributeTypes": [
                         {
                             "attrId": "r_land_asset_equipment",
                             "attrType": "AttributeTypeString",
-                            "defaultValue": '',
+                            "defaultValue": "",
                             "description": "Assets held by group",
                             "editableByPlayer": false,
                             "name": "Assets"
                         }
                     ],
-                    conditions: [],
-                    states: [],
-                    uniqid: "red_land_asset",
-                    travelMode: 'sea'
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "red_land_asset",
+                    "travelMode": "sea"
                 }
             ],
             "selectedType": ""
@@ -2198,5 +2192,4 @@ const game: Wargame = {
     "wargameInitiated": true,
     "wargameTitle": "P9 Test"
 }
-
 export default game;
