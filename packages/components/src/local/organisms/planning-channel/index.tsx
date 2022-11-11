@@ -61,8 +61,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
-  const [zoom] = useState<number>(12)
-  const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
+  const [zoom] = useState<number>(7)
+  const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
@@ -474,9 +474,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       <div>Warning - PlanningChannel must now include mapping constraints</div>
     )
   } else {
-    const isAus = channel.constraints.tileLayer?.url.includes('open')
-    const boundsToUse = isAus ? bounds : channel.constraints.bounds
-    const centerToUse = isAus ? bounds?.getCenter() : L.latLngBounds(channel.constraints.bounds).getCenter()
+    const boundsToUse =  channel.constraints.bounds
+    const centerToUse =  L.latLngBounds(channel.constraints.bounds).getCenter()
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
         <SupportPanelContext.Provider value={supportPanelContext}>
