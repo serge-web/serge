@@ -1,8 +1,9 @@
+import { AttributeTypeData } from './attributes'
 import Channel from './channel'
 import Force from './force'
-import WargameOverview from './wargame-overview'
-import PlatformType from './platform-type'
 import { AnnotationMarkerData, MapAnnotationData } from './map-annotation'
+import PlatformType from './platform-type'
+import WargameOverview from './wargame-overview'
 
 export default interface WargameData {
   overview: WargameOverview,
@@ -11,4 +12,5 @@ export default interface WargameData {
   platformTypes?: PlatformType
   annotations?: MapAnnotationData
   annotationIcons?: AnnotationMarkerData
+  attributeTypes?: AttributeTypeData
 }

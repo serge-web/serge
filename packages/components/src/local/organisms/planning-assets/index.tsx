@@ -9,7 +9,7 @@ import PropTypes, { AssetRow } from './types/props'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, forceColors, platformStyles,
-  onSelectionChange, onVisibleRowsChange, platformTypes
+  onSelectionChange, onVisibleRowsChange, platformTypes, attributeTypes
 }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -21,7 +21,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
     // TODO - swap next line for
     // setRows(assets)
-    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes))
+    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes))
     if (selectedAssets.length) {
       const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
       const elmRow = document.getElementById(lastSelectedAssetId)

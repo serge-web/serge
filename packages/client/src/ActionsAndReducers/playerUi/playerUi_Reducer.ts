@@ -1,38 +1,15 @@
-import _ from 'lodash'
 import {
-  SET_CURRENT_WARGAME_PLAYER,
-  SET_FORCE,
-  SET_ROLE,
-  SET_ALL_TEMPLATES_PLAYERUI,
-  SHOW_HIDE_OBJECTIVES,
-  UPDATE_MESSAGE_STATE,
-  SET_FEEDBACK_MESSAGES,
-  SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE,
-  SET_ALL_MESSAGES,
-  OPEN_MESSAGE,
-  MARK_UNREAD,
-  CLOSE_MESSAGE,
-  MARK_ALL_AS_READ,
-  MARK_ALL_AS_UNREAD,
-  OPEN_TOUR,
-  OPEN_MODAL,
-  CLOSE_MODAL,
-  TurnFormats,
-  CHANNEL_MAPPING
+  CHANNEL_MAPPING, CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ,
+  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from '@serge/config'
-import chat from '../../Schemas/chat.json'
-import copyState from '../../Helpers/copyStateHelper'
 import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
+import _ from 'lodash'
+import copyState from '../../Helpers/copyStateHelper'
+import chat from '../../Schemas/chat.json'
 import {
-  handleSetAllMessages,
-  openMessage,
-  markUnread,
-  closeMessage,
-  markAllMessageState,
-  MarkAllPlayerMessageRead,
-  handleWargameUpdate,
-  handleNewMessage
+  closeMessage, handleNewMessage, handleSetAllMessages, handleWargameUpdate, markAllMessageState,
+  MarkAllPlayerMessageRead, markUnread, openMessage
 } from './helpers/handleWargameMessagesChange'
 
 import {
@@ -47,6 +24,7 @@ export const initialState: PlayerUi = {
   isObserver: false,
   isUmpire: false,
   isGameControl: false,
+  attributeTypes: [],
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
@@ -115,6 +93,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.turnEndTime = action.payload.turnEndTime || ''
       newState.gameDescription = action.payload.data.overview.gameDescription
       newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
+      const attributeTypes = action.payload.data.attributeTypes
+      newState.attributeTypes = attributeTypes ? attributeTypes.attributes : []
 
       // temporary workaround to remove duplicate channel definitions
       // TODO: delete workaround once fix in place

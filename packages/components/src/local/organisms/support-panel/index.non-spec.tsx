@@ -32,6 +32,7 @@ describe('Support Panel component: ', () => {
         gameDate={P9Mock.data.overview.gameDate}
         currentWargame={P9Mock.currentWargame || ''}
         selectedAssets={[]}
+        attributeTypes={[]}
         setSelectedAssets={noop}
         selectedOrders={[]}
         setSelectedOrders={noop}
