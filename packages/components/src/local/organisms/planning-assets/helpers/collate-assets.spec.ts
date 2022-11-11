@@ -23,12 +23,14 @@ false && console.log('get working:', greenForce, getRows, getColumns, collateIte
 const forceCols = forceColors(forces)
 const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.platformTypes.platformTypes) : []
 
+const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
+
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
     if (redZeroAsset) {
-      const item = collateItem(true, redZeroAsset, blueForce, redForce, forceCols, platformStyles, [], undefined)
+      const item = collateItem(true, redZeroAsset, blueForce, redForce, forceCols, platformStyles, [], platformTypes, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(4)
+      expect(item.length).toEqual(1)
       const first = item[0]
       expect(first.id).toEqual(redZeroAsset.uniqid)
       expect(first.platformType).toEqual(redZeroAsset.platformTypeId)
@@ -37,9 +39,9 @@ describe('check collating assets', () => {
 
   it('handles collate item for opfor with lots of unknowns', () => {
     if (redAssetWithUnknown) {
-      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, [], undefined)
+      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, [], platformTypes, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(4)
+      expect(item.length).toEqual(1)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
       expect(first.platformType).toEqual(UNKNOWN_TYPE)
@@ -50,9 +52,9 @@ describe('check collating assets', () => {
 
   it('handles collate item for opfor wwith unknown type', () => {
     if (redAssetWithUnknown) {
-      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, [], undefined)
+      const item = collateItem(true, redAssetWithUnknown, blueForce, redForce, forceCols, platformStyles, [], platformTypes, undefined)
       expect(item).toBeTruthy()
-      expect(item.length).toEqual(4)
+      expect(item.length).toEqual(1)
       const first = item[0]
       expect(first.id).toEqual(redAssetWithUnknown.uniqid)
       expect(first.platformType).toEqual(UNKNOWN_TYPE)
@@ -66,40 +68,41 @@ describe('check collating assets', () => {
 
     const pTypeCol = umpireColumns[1]
     expect(pTypeCol.lookup).toBeTruthy()
-    expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(14)
+    expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(10)
 
-    const umpireRows = getRows(false, forces, forceCols, platformStyles, umpireForce, [])
+    const umpireRows = getRows(false, forces, forceCols, platformStyles, umpireForce, [], platformTypes)
     expect(umpireRows).toBeTruthy()
-    expect(umpireRows.length).toEqual(105)
+    expect(umpireRows.length).toEqual(39)
 
-    const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce, [])
+    const blueRows = getRows(false, forces, forceCols, platformStyles, blueForce, [], platformTypes)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(40)
+    expect(blueRows.length).toEqual(17)
 
     // do some parent/child checking
-    const firstParent = blueRows[0]
-    const firstChild = blueRows[1]
-    expect(firstChild.parentId).toEqual(firstParent.id)
+    // TOOD: generate test data wuth child assets
+    // const firstParent = blueRows[0]
+    // const firstChild = blueRows[1]
+    // expect(firstChild.parentId).toEqual(firstParent.id)
   })
 
   it('handles NEW ownFor', () => {
-    const umpireOwnForces = getOwnAssets(forces, forceCols, platformStyles, umpireForce)
+    const umpireOwnForces = getOwnAssets(forces, forceCols, platformStyles, umpireForce, platformTypes)
     expect(umpireOwnForces).toBeTruthy()
-    expect(umpireOwnForces.length).toEqual(105)
+    expect(umpireOwnForces.length).toEqual(39)
 
-    const blueOwnForces = getOwnAssets(forces, forceCols, platformStyles, blueForce)
+    const blueOwnForces = getOwnAssets(forces, forceCols, platformStyles, blueForce, platformTypes)
     expect(blueOwnForces).toBeTruthy()
-    expect(blueOwnForces.length).toEqual(40)
+    expect(blueOwnForces.length).toEqual(17)
   })
 
   it('handles NEW oppFor', () => {
-    const umpireOppForces = getOppAssets(forces, forceCols, platformStyles, umpireForce)
+    const umpireOppForces = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes)
     expect(umpireOppForces).toBeTruthy()
     expect(umpireOppForces.length).toEqual(0)
 
-    const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce)
+    const blueOppForces = getOppAssets(forces, forceCols, platformStyles, blueForce, platformTypes)
     expect(blueOppForces).toBeTruthy()
-    expect(blueOppForces.length).toEqual(39)
+    expect(blueOppForces.length).toEqual(13)
   })
 
   it('handles opFor tab', () => {
@@ -111,12 +114,12 @@ describe('check collating assets', () => {
     expect(blueColumns).toBeTruthy()
     expect(blueColumns.length).toEqual(3)
 
-    const umpireRows = getRows(true, forces, forceCols, platformStyles, umpireForce, [])
+    const umpireRows = getRows(true, forces, forceCols, platformStyles, umpireForce, [], platformTypes)
     expect(umpireRows).toBeTruthy()
     expect(umpireRows.length).toEqual(0)
 
-    const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce, [])
+    const blueRows = getRows(true, forces, forceCols, platformStyles, blueForce, [], platformTypes)
     expect(blueRows).toBeTruthy()
-    expect(blueRows.length).toEqual(39)
+    expect(blueRows.length).toEqual(13)
   })
 })
