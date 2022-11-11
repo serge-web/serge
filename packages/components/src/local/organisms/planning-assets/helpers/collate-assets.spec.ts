@@ -1,10 +1,10 @@
 import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset } from '@serge/custom-types'
 import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
-import { P9BMock } from '@serge/mocks'
+import { P9Mock } from '@serge/mocks'
 import { collateItem, getColumns, getOppAssets, getOwnAssets, getRows } from './collate-assets'
 
-const forces = P9BMock.data.forces.forces
+const forces = P9Mock.data.forces.forces
 const umpireForce = forces[0]
 const blueForce = forces[1]
 const redForce = forces[2]
@@ -21,11 +21,11 @@ redAssetWithUnknown.perceptions[0] = { by: blueForce.uniqid, typeId: undefined }
 false && console.log('get working:', greenForce, getRows, getColumns, collateItem, UNKNOWN_TYPE, redZeroAsset)
 
 const forceCols = forceColors(forces)
-const platformStyles = P9BMock.data.platformTypes ? platformIcons(P9BMock.data.platformTypes.platformTypes) : []
+const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.platformTypes.platformTypes) : []
 
-const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
+const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 
-const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes :  []
+const attributeTypes = P9Mock.data.attributeTypes ? P9Mock.data.attributeTypes.attributes : []
 
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
