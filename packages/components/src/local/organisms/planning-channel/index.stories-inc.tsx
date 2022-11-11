@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
@@ -213,6 +213,19 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
 })
 
 !doNotDoIt && console.log('fixed', fixedMessages)
+
+const showSummary = true
+if (showSummary) {
+  console.log('platforms', platformTypes)
+  platformTypes.forEach((data: PlatformTypeData) => {
+    if (data.attributeTypes) {
+      console.log(data.name, data.uniqid)
+      data.attributeTypes.forEach((aType) => {
+        console.log('   ', aType.attrType, aType.attrId, aType.name)
+      })
+    }
+  })
+}
 
 export const Default = Template.bind({})
 Default.args = {
