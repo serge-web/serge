@@ -6,14 +6,14 @@ export type AssetRow = {
   id: string
   icon: string
   name: string
-  condition: string
-  status: string
   platformType: string
   parentId?: string
   force?: string
   owner?: string
   position?: LatLng
   tableData?: { checked: boolean }
+  health?: number
+  attributes: string
 }
 
 export default interface PropTypes {
