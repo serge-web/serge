@@ -128,7 +128,7 @@ const game: Wargame = {
                                 40.4652,
                                 48.3297
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -162,7 +162,7 @@ const game: Wargame = {
                                 53.6592,
                                 32.0337
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit33"
@@ -184,7 +184,7 @@ const game: Wargame = {
                                 43.4625,
                                 40.156
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_1"
@@ -213,7 +213,7 @@ const game: Wargame = {
                                 35.7984,
                                 37.266
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_49"
@@ -243,7 +243,7 @@ const game: Wargame = {
                                 52.778,
                                 61.0773
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_35"
@@ -273,7 +273,7 @@ const game: Wargame = {
                                 32.85,
                                 57.3068
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -298,7 +298,7 @@ const game: Wargame = {
                                 37.9075,
                                 44.0435
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit32"
@@ -325,7 +325,7 @@ const game: Wargame = {
                                 48.9989,
                                 74.0449
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -363,7 +363,7 @@ const game: Wargame = {
                                 45.2723,
                                 83.6848
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_35"
@@ -393,7 +393,7 @@ const game: Wargame = {
                                 33.7266,
                                 74.7957
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_40"
@@ -420,7 +420,7 @@ const game: Wargame = {
                                 50.9161,
                                 48.1087
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -442,7 +442,7 @@ const game: Wargame = {
                                 36.9091,
                                 61.4422
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_3"
@@ -470,7 +470,7 @@ const game: Wargame = {
                                 31.2635,
                                 73.2222
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_34"
@@ -501,7 +501,7 @@ const game: Wargame = {
                                 52.768,
                                 58.7429
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_2"
@@ -536,7 +536,7 @@ const game: Wargame = {
                                 45.8862,
                                 75.6862
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -565,7 +565,7 @@ const game: Wargame = {
                                 42.8519,
                                 78.6788
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_5"
@@ -593,7 +593,7 @@ const game: Wargame = {
                                 49.9355,
                                 34.3353
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_9"
@@ -622,7 +622,7 @@ const game: Wargame = {
                                 51.9565,
                                 49.4502
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -655,7 +655,7 @@ const game: Wargame = {
                                 47.734,
                                 30.3313
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -687,7 +687,7 @@ const game: Wargame = {
                                 54.3846,
                                 40.3006
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -729,7 +729,7 @@ const game: Wargame = {
                                 36.3453,
                                 78.2127
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_23"
@@ -763,7 +763,7 @@ const game: Wargame = {
                                 41.9775,
                                 70.047
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_3"
@@ -788,7 +788,7 @@ const game: Wargame = {
                                 36.9596,
                                 41.632
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_39"
@@ -822,7 +822,7 @@ const game: Wargame = {
                                 45.4119,
                                 56.7386
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -855,7 +855,7 @@ const game: Wargame = {
                                 32.8352,
                                 44.709
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -877,7 +877,7 @@ const game: Wargame = {
                                 53.2799,
                                 46.9059
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -912,7 +912,7 @@ const game: Wargame = {
                                 30.4214,
                                 27.874
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_32"
@@ -941,7 +941,7 @@ const game: Wargame = {
                                 45.5705,
                                 35.2513
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -978,7 +978,7 @@ const game: Wargame = {
                                 30.2727,
                                 62.0847
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_13"
@@ -1008,7 +1008,7 @@ const game: Wargame = {
                                 38.7791,
                                 72.01
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1049,7 +1049,7 @@ const game: Wargame = {
                                 41.5472,
                                 38.0374
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1088,7 +1088,7 @@ const game: Wargame = {
                                 45.2402,
                                 48.5077
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1115,7 +1115,7 @@ const game: Wargame = {
                                 32.6792,
                                 49.1807
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -1139,7 +1139,7 @@ const game: Wargame = {
                                 37.5598,
                                 40.0676
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1161,7 +1161,7 @@ const game: Wargame = {
                                 30.6146,
                                 78.8306
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1197,7 +1197,7 @@ const game: Wargame = {
                                 32.3436,
                                 71.4223
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -1231,7 +1231,7 @@ const game: Wargame = {
                                 31.5977,
                                 55.8094
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1249,7 +1249,7 @@ const game: Wargame = {
                                 51.6974,
                                 55.5048
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1287,7 +1287,7 @@ const game: Wargame = {
                                 41.4004,
                                 43.4885
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1324,7 +1324,7 @@ const game: Wargame = {
                                 35.7739,
                                 48.5676
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_29"
@@ -1354,7 +1354,7 @@ const game: Wargame = {
                                 47.2523,
                                 55.3328
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_10"
@@ -1388,7 +1388,7 @@ const game: Wargame = {
                                 43.0926,
                                 51.675
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_28"
@@ -1422,7 +1422,7 @@ const game: Wargame = {
                                 43.851,
                                 46.3078
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit32"
@@ -1455,7 +1455,7 @@ const game: Wargame = {
                                 29.1149,
                                 82.8963
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -1490,7 +1490,7 @@ const game: Wargame = {
                                 35.8427,
                                 47.9011
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -1523,7 +1523,7 @@ const game: Wargame = {
                                 49.776,
                                 35.7766
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_38"
@@ -1559,7 +1559,7 @@ const game: Wargame = {
                                 48.239,
                                 77.5085
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1591,7 +1591,7 @@ const game: Wargame = {
                                 47.6749,
                                 34.0563
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit24"
@@ -1625,7 +1625,7 @@ const game: Wargame = {
                                 52.1008,
                                 49.48
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_37"
@@ -1655,7 +1655,7 @@ const game: Wargame = {
                                 43.3292,
                                 45.505
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -1678,7 +1678,7 @@ const game: Wargame = {
                                 48.967,
                                 25.8956
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_20"
@@ -1696,7 +1696,7 @@ const game: Wargame = {
                                 33.5107,
                                 48.3127
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1720,7 +1720,7 @@ const game: Wargame = {
                                 51.0539,
                                 49.4624
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -1750,7 +1750,7 @@ const game: Wargame = {
                                 41.833,
                                 22.544
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1775,7 +1775,7 @@ const game: Wargame = {
                                 43.657,
                                 22.1245
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit48"
@@ -1804,7 +1804,7 @@ const game: Wargame = {
                                 44.1199,
                                 74.3552
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1841,7 +1841,7 @@ const game: Wargame = {
                                 45.3915,
                                 48.9796
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1878,7 +1878,7 @@ const game: Wargame = {
                                 41.8111,
                                 78.8981
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1907,7 +1907,7 @@ const game: Wargame = {
                                 41.996,
                                 29.9693
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_2"
@@ -1937,7 +1937,7 @@ const game: Wargame = {
                                 50.4091,
                                 85.5352
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -1976,7 +1976,7 @@ const game: Wargame = {
                                 51.0559,
                                 22.7937
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_32"
@@ -2004,7 +2004,7 @@ const game: Wargame = {
                                 40.5031,
                                 76.1078
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2041,7 +2041,7 @@ const game: Wargame = {
                                 53.4648,
                                 82.9922
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2074,7 +2074,7 @@ const game: Wargame = {
                                 42.2124,
                                 29.4624
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2103,7 +2103,7 @@ const game: Wargame = {
                                 45.6511,
                                 85.2424
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2121,7 +2121,7 @@ const game: Wargame = {
                                 42.8189,
                                 51.527
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -2150,7 +2150,7 @@ const game: Wargame = {
                                 44.6476,
                                 51.4425
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_14"
@@ -2180,7 +2180,7 @@ const game: Wargame = {
                                 36.6258,
                                 43.0279
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Density",
                                     "value": 100
@@ -2205,7 +2205,7 @@ const game: Wargame = {
                                 40.1729,
                                 22.482
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2238,7 +2238,7 @@ const game: Wargame = {
                                 44.1351,
                                 22.8965
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2275,7 +2275,7 @@ const game: Wargame = {
                                 52.5172,
                                 24.7799
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit14"
@@ -2309,7 +2309,7 @@ const game: Wargame = {
                                 37.2372,
                                 24.4823
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2347,7 +2347,7 @@ const game: Wargame = {
                                 39.9928,
                                 27.4354
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2377,7 +2377,7 @@ const game: Wargame = {
                                 52.8708,
                                 45.9499
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2411,7 +2411,7 @@ const game: Wargame = {
                                 42.6292,
                                 67.8042
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2444,7 +2444,7 @@ const game: Wargame = {
                                 36.1884,
                                 24.4091
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2468,7 +2468,7 @@ const game: Wargame = {
                                 48.6723,
                                 77.9399
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit49"
@@ -2500,7 +2500,7 @@ const game: Wargame = {
                                 48.605,
                                 59.7386
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2528,7 +2528,7 @@ const game: Wargame = {
                                 28.8114,
                                 43.934
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2561,7 +2561,7 @@ const game: Wargame = {
                                 28.7684,
                                 61.5673
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2598,7 +2598,7 @@ const game: Wargame = {
                                 49.0895,
                                 78.2142
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2630,7 +2630,7 @@ const game: Wargame = {
                                 50.3752,
                                 45.2069
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_23"
@@ -2664,7 +2664,7 @@ const game: Wargame = {
                                 44.2583,
                                 73.3476
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2702,7 +2702,7 @@ const game: Wargame = {
                                 52.9523,
                                 64.5561
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2739,7 +2739,7 @@ const game: Wargame = {
                                 28.8402,
                                 60.901
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2772,7 +2772,7 @@ const game: Wargame = {
                                 38.2463,
                                 42.5706
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_39"
@@ -2796,7 +2796,7 @@ const game: Wargame = {
                                 35.5135,
                                 36.3218
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Connections",
                                     "value": "_27"
@@ -2825,7 +2825,7 @@ const game: Wargame = {
                                 36.5243,
                                 33.7796
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_16"
@@ -2843,7 +2843,7 @@ const game: Wargame = {
                                 42.8877,
                                 40.6993
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2868,7 +2868,7 @@ const game: Wargame = {
                                 51.7468,
                                 51.6343
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2896,7 +2896,7 @@ const game: Wargame = {
                                 46.1877,
                                 64.28
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -2930,7 +2930,7 @@ const game: Wargame = {
                                 47.8761,
                                 42.0565
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_22"
@@ -2965,7 +2965,7 @@ const game: Wargame = {
                                 29.3382,
                                 82.3356
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Equipment",
                                     "value": "_19"
@@ -2990,7 +2990,7 @@ const game: Wargame = {
                                 29.6841,
                                 30.5025
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Units",
                                     "value": "_12"
@@ -3020,7 +3020,7 @@ const game: Wargame = {
                                 49.8195,
                                 83.1221
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
@@ -3053,7 +3053,7 @@ const game: Wargame = {
                                 51.6309,
                                 70.7031
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Size",
                                     "value": "Size of military unit24"
@@ -3088,7 +3088,7 @@ const game: Wargame = {
                                 30.2695,
                                 38.4138
                             ],
-                            "attributeValues2": [
+                            "attributes": [
                                 {
                                     "attrId": "a_Number",
                                     "value": 100
