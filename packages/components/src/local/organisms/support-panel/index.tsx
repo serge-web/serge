@@ -4,6 +4,7 @@ import { MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
+import moment from 'moment'
 import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
@@ -14,6 +15,7 @@ import PlanningMessagesList from '../planning-messages-list'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
+import { customiseDate } from './helpers/customise-date'
 import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
@@ -43,6 +45,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleName,
   allForces,
   gameDate,
+  gameTurnTime,
   currentTurn,
   currentWargame,
   setSelectedAssets,
@@ -165,7 +168,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
-      (document, template) => customiseLocation(document, template)
+      (document, template) => customiseLocation(document, template),
+      (document, template) => customiseDate(document, template, moment(gameDate).valueOf(), gameTurnTime)
     ]
 
     let current: Record<string, any> = schema
