@@ -97,9 +97,8 @@ const Template: Story<SupportPanelProps> = (args) => {
   }
 
   const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
-
+  const perForcePlanningActivities = MockPerForceActivities
+  const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
   return <SupportPanel
     platformTypes={platformTypes}

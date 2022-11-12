@@ -13,7 +13,7 @@ forces.forEach((force: ForceData) => {
   force.roles.forEach((role: Role) => {
     allRoles.push(force.uniqid + ' ~ ' + role.roleId)
   })
-}) 
+})
 
 const messages = planningMessagesBulk
 
