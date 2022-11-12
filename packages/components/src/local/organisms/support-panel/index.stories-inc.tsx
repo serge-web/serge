@@ -1,12 +1,13 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
-import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
+import { fixPerForcePlanningActivities } from '../planning-channel/helpers/collate-plans-helper'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -95,10 +96,15 @@ const Template: Story<SupportPanelProps> = (args) => {
     throw Error('can\'t find role')
   }
 
+  const planningActivities = MockPlanningActivities
+  const perForcePlanningActivities = MockPerForceActivities
+  const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+
   return <SupportPanel
     platformTypes={platformTypes}
     planningMessages={planningMessages}
     interactionMessages={interactionMessages}
+    forcePlanningActivities={filledInPerForcePlanningActivities}
     onReadAll={noop}
     selectedAssets={[]}
     setSelectedAssets={noop}

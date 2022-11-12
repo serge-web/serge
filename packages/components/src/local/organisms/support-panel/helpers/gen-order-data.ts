@@ -382,7 +382,7 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
 export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
-    console.log('activities', activities)
+    console.log('activities', activities, forceId)
     throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
   }
   const group = force.groupedActivities.find((val: GroupedActivitySet) => {
@@ -536,9 +536,6 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): t
     }
 
     coords && coords.forEach((point: number[]) => {
-      if (point[1] > 0) {
-        console.log('north', geom.activity)
-      }
       const pt = L.latLng(point[1], point[0])
       if (!bounds) {
         bounds = L.latLngBounds(pt, pt)
