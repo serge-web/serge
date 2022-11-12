@@ -68,7 +68,7 @@ export interface Asset {
   attributeValues?: AttributeValues
   /** attributes for this asset, using the streamlined notation
    */
-  attributeValues2?: AttributeValues2
+  attributes?: AttributeValues2
    /** health of this asset. 0-100, with 0 treated as destroyed */
   health?: number
 }
