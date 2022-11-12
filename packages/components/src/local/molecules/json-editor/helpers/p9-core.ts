@@ -66,7 +66,9 @@ export const coreTemplate = {
     minItems: 0,
     propertyOrder: 80,
     title: 'Own Assets',
-    grid_columns: 3,
+    options: {
+      grid_columns: 6,
+    },
     items: {
       type: 'object',
       title: 'Asset',
@@ -107,7 +109,9 @@ export const coreTemplate = {
     format: 'table',
     minItems: 0,
     title: 'Subject(s) of orders',
-    grid_columns: 3,
+    options: {
+      grid_columns: 6,
+    },
     items: {
       title: 'Asset',
       type: 'string',
