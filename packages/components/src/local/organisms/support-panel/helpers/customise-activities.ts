@@ -4,7 +4,7 @@ export const customiseActivities = (_document: MessageStructure | undefined, sch
   activities: PerForcePlanningActivitySet[], force?: ForceData): Record<string, any> => {
   if (schema) {
     const oldActivity = schema.properties?.activity
-    if (oldActivity && activities) {
+    if (oldActivity && activities.length) {
       let myActivities: PerForcePlanningActivitySet
       if (force && force.umpire) {
         // need full list

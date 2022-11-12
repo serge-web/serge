@@ -1,10 +1,10 @@
 import { PLANNING_MESSAGE } from '@serge/config'
 import { ForceData, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessagesBulk } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { fixPerForcePlanningActivities } from '../../planning-channel/helpers/collate-plans-helper'
 import { getNextInteraction, interactionFor } from './getNextInteraction'
 
-const wargame = P9Mock.data
+const wargame = P9BMock.data
 const forces = wargame.forces.forces
 
 // generate list of roles, for dropdown control
@@ -33,7 +33,7 @@ it('process successive interactions', () => {
       interactions.push(msgInter2)
     }
   }
-  console.table(interactions.map((inter) => {
+  !7 && console.table(interactions.map((inter) => {
     const interact = inter.details.interaction
     if (interact) {
       return { id: interact.id, start: interact.startTime, end: interact.endTime }

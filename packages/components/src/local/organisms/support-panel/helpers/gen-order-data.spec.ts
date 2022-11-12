@@ -1,7 +1,7 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import * as turf from '@turf/turf'
 import { Feature, LineString, Polygon } from 'geojson'
 import moment from 'moment'
@@ -13,7 +13,7 @@ import {
 } from './gen-order-data'
 import { timeIntersect2 } from './shape-intersects'
 
-const forces = P9Mock.data.forces.forces
+const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
 
