@@ -27,7 +27,7 @@ const game: Wargame = {
                     "roles": [
                         {
                             "name": "Game Designer",
-                            "roleId": "plac754x9",
+                            "roleId": "umpire",
                             "isGameControl": true,
                             "isObserver": true,
                             "isInsightViewer": true
