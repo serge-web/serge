@@ -10,6 +10,7 @@ export const coreTemplate = {
   },
   title: {
     type: 'string',
+    title: 'Title',
     propertyOrder: 20,
     options: {
       grid_columns: 10
@@ -151,7 +152,7 @@ export const coreTemplate = {
     title: 'Sync with',
     propertyOrder: 100,
     options: {
-      grid_columns: 4
+      grid_columns: 6
     },
     type: 'string'
   },
@@ -160,7 +161,7 @@ export const coreTemplate = {
     title: 'Supports High-Level',
     propertyOrder: 110,
     options: {
-      grid_columns: 4
+      grid_columns: 6
     },
     type: 'string'
   },
@@ -178,7 +179,7 @@ export const coreTemplate = {
     title: 'Activity Description',
     propertyOrder: 130,
     options: {
-      grid_columns: 12
+      grid_columns: 8
     },
     type: 'string'
   }

@@ -29,6 +29,8 @@ import { customiseDate } from '../../organisms/support-panel/helpers/customise-d
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import { generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
+import { maritimeTemplate } from './helpers/p9-maritime'
+import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -160,13 +162,16 @@ PlanningMessage.args = {
   gameDate: WargameMock.data.overview.gameDate
 }
 
-const res = generateTemplate('first', coreTemplate)
+// const land = generateTemplate('first', coreTemplate, landTemplate)
+const maritime = generateTemplate('first', coreTemplate, maritimeTemplate)
+// const air = generateTemplate('first', coreTemplate, airTemplate)
+const other = generateTemplate('first', coreTemplate, otherTemplate)
 
 export const P9Message = Template.bind({})
 P9Message.args = {
   customiseTemplate: localCustomise,
   modifyForEdit: (document) => collapseLocation(document),
-  template: res,
+  template: maritime,
   messageContent: landMessage.message,
   messageId: 'id_2b',
   disabled: false,
@@ -179,7 +184,7 @@ delete msg.location
 P9MessageWithoutLocation.args = {
   customiseTemplate: localCustomise,
   modifyForEdit: (document) => collapseLocation(document),
-  template: res,
+  template: other,
   messageContent: msg,
   messageId: 'id_2b',
   disabled: false,
