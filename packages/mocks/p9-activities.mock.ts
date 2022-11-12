@@ -1,6 +1,6 @@
 import { PerForcePlanningActivitySet } from "@serge/custom-types"
 
-const p9activitesMock: PerForcePlanningActivitySet[]=[
+const p9activitesMock: PerForcePlanningActivitySet[]= [
     {
         "force": "f-blue",
         "groupedActivities": [
@@ -39,7 +39,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -64,7 +64,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Cruise Missile Strike-2"
                             }
@@ -275,7 +275,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -300,7 +300,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Cruise Missile Strike-2"
                             }
@@ -548,7 +548,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -748,7 +748,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Stand Off Strike-2"
                             },
@@ -864,7 +864,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Activity Location",
+                                "name": "Efect Location",
                                 "optional": false,
                                 "uniqid": "SOF Activity-2"
                             },
@@ -918,7 +918,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -943,7 +943,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Cruise Missile Strike-2"
                             }
@@ -1154,7 +1154,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -1179,7 +1179,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Cruise Missile Strike-2"
                             }
@@ -1427,7 +1427,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -1627,7 +1627,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Stand Off Strike-2"
                             },
@@ -1743,7 +1743,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Activity Location",
+                                "name": "Efect Location",
                                 "optional": false,
                                 "uniqid": "SOF Activity-2"
                             },
@@ -1797,7 +1797,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -1822,7 +1822,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Cruise Missile Strike-2"
                             }
@@ -2033,7 +2033,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -2058,7 +2058,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Cruise Missile Strike-2"
                             }
@@ -2306,7 +2306,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Ballistic Missile Strike-2"
                             }
@@ -2506,7 +2506,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Asset Location",
+                                "name": "Strike Target",
                                 "optional": false,
                                 "uniqid": "Stand Off Strike-2"
                             },
@@ -2622,7 +2622,7 @@ const p9activitesMock: PerForcePlanningActivitySet[]=[
                             },
                             {
                                 "aType": "Polygon",
-                                "name": "Activity Location",
+                                "name": "Efect Location",
                                 "optional": false,
                                 "uniqid": "SOF Activity-2"
                             },
