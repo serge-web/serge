@@ -6,7 +6,7 @@ export type TimeSlot = {
   label: string
 }
 
-const twoHours=7200000
+const twoHours = 7200000
 const oneDay = 86400000
 const shortFormat = 'DDHHmm[Z]'
 const longFormat = 'MMM DD'
@@ -14,7 +14,7 @@ const longFormat = 'MMM DD'
 const getFinishTime = (gameTime: number, gameTurnTime: TurnLengthType): number => {
   const time = moment(gameTime)
   const isMillis = gameTurnTime.unit === 'millis'
-  if(isMillis) {
+  if (isMillis) {
     const millis = gameTurnTime as MilliTurns
     time.add(millis.millis, 'milliseconds')
     return time.valueOf()
@@ -40,9 +40,9 @@ export const getDateSlots = (gameTime: number, gameTurnTime: TurnLengthType): Ar
   const timeStep = smallSteps ? twoHours : oneDay
   const res: TimeSlot[] = []
   const formatStr = smallSteps ? shortFormat : longFormat
-  for(var time=gameTime; time<finishTime; time += timeStep  ) {
+  for (let time = gameTime; time < finishTime; time += timeStep) {
     const tNow = moment(time)
-    res.push({value: tNow.toISOString(), label: tNow.format(formatStr)})
+    res.push({ value: tNow.toISOString(), label: tNow.format(formatStr) })
   }
   return res
 }
@@ -58,7 +58,7 @@ export const customiseDate = (_document: MessageStructure | undefined, schema: R
         console.log('updating', key, slots.length)
         schema.properties[key].enum = slots.map((asset: TimeSlot) => asset.value)
         schema.properties[key].options.enum_titles = slots.map((asset: TimeSlot) => asset.label)
-        }
+      }
     })
   }
   return schema
