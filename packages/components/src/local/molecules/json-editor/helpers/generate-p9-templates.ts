@@ -72,6 +72,7 @@ interface Activity {
 }
 
 export const generateAllTemplates = (): TemplatesAndActivities => {
+  console.log('gen templates')
   const red = 'f-red'
   const blue = 'f-blue'
   const green = 'f-green'
@@ -107,9 +108,10 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
   acts.push({ title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Observation Area'], specific: 'ISTAR' })
-  acts.push({ title: 'Offensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['OCA Area'] })
-  acts.push({ title: 'Defensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['DCA Area'] })
+  acts.push({ title: 'Offensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['OCA Area'], specific: 'Duration' })
+  acts.push({ title: 'Defensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['DCA Area'], specific: 'Duration' })
   acts.push({ title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST' })
+  acts.push({ title: 'Suppression of Air Defences (SEAD)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'Duration' })
   acts.push({ title: 'Mine Laying', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'MineLaying' })
   acts.push({ title: 'Mine Clearance', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], specific: 'Duration' })
   acts.push({ title: 'ASW Barrier', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'ASWBarrier' })
@@ -147,8 +149,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           groupedActs.push(category)
         }
         // create template
-        const template = generateTemplate(act.title, !!act.acts, coreTemplate, domainTemplates[domain], act.specific)
-        const templateName = [domain, act.specific].join('-')
+        const specificMarker = act.specific || 'Standard'
+        const templateName = act.domains.length > 1 ? [domain, specificMarker].join('-') : specificMarker
+        const template = generateTemplate(templateName, !!act.acts, coreTemplate, domainTemplates[domain], act.specific)
         if (!templates[templateName]) {
           templates[templateName] = template
         }

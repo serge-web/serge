@@ -183,7 +183,7 @@ export const P9MessageWithoutLocation = Template.bind({})
 const msg = deepCopy(landMessage.message)
 delete msg.location
 P9MessageWithoutLocation.args = {
-  customiseTemplate: localCustomise,
+  // customiseTemplate: localCustomise,
   modifyForEdit: (document) => collapseLocation(document),
   template: maritime,
   messageContent: msg,
