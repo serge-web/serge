@@ -6,17 +6,26 @@ import JsonEditor from './index'
 import docs from './README.md'
 
 // Import mock
-import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock } from '@serge/mocks'
+import {
+  messageDataCollaborativeEditing, messageDataCollaborativeResponding,
+  MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
+  planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
+} from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
-import { Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, MessageStructure, PlanningActivity } from '@serge/custom-types'
+import {
+  Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction,
+  MessagePlanning, MessageStructure, PlanningActivity
+} from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
+import moment from 'moment'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
 import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
+import { customiseDate } from '../../organisms/support-panel/helpers/customise-date'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import { generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
@@ -138,9 +147,12 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
     })
   })
 
+  const overview = P9BMock.data.overview
+
   const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
     (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities),
+    (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
     (document, template) => customiseLocation(document, template)
   ]
 

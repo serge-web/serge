@@ -7,12 +7,13 @@ const game: Wargame = {
         "overview": {
             "name": "Overview - settings",
             "gameDescription": "",
-            "gameTurnTime": { "unit": "millis", "millis": 43200000 },
+            "gameTurnTime": { "unit": "millis", "millis": 259200000 },
             "realtimeTurnTime": 300000,
             "timeWarning": 60000,
-            "gameDate": "2022-11-11T08:43:01+01:00",
+            "turnPresentation": "Natural",
+            "gameDate": "2022-11-11T00:00:00+00:00",
             "showAccessCodes": true,
-            "logPlayerActivity": true,
+            "logPlayerActivity": false,
             "dirty": false
         },
         "forces": {

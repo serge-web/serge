@@ -72,6 +72,7 @@ export const coreTemplate = {
     },
     items: {
       type: 'object',
+      format: 'grid',
       title: 'Asset',
       required: [
         'asset',
@@ -88,6 +89,7 @@ export const coreTemplate = {
             'pa'
           ],
           options: {
+            grid_columns: 3,
             enum_titles: [
               'Tank A',
               'Tank B',
@@ -99,6 +101,9 @@ export const coreTemplate = {
         number: {
           title: 'Quantity',
           type: 'string',
+          options: {
+            grid_columns: 2,
+          },
           format: 'number'
         }
       }
