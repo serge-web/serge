@@ -59,7 +59,6 @@ describe('Planning Channel component: ', () => {
     const tree = mount(<PlanningChannel
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
-      gameTurnTime={wargame.overview.gameTurnTime}
       allTemplates={templateBodies}
       channelTemplates={templateBodies}
       channelId={channels[0].uniqid}
@@ -80,6 +79,7 @@ describe('Planning Channel component: ', () => {
       phase={Phase.Planning}
       allForces={forces}
       gameDate={P9Mock.data.overview.gameDate}
+      gameTurnTime={wargame.overview.gameTurnTime}
       currentTurn={P9Mock.gameTurn}
       forcePlanningActivities={filledInPerForcePlanningActivities}
     />)
