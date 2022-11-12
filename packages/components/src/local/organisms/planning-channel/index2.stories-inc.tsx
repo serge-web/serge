@@ -37,15 +37,12 @@ const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, sty
 
 const wrapper: React.FC = (storyFn: any) => <ScriptDecorator src='/leaflet.select/leaflet.control.select.js' style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
 
-console.log('p9', P9BMock)
-
 const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
 // fix the URL for the openstreetmap mapping
-console.log('channels', channels)
 const planningChannel = channels.find((channel) => channel.channelType === 'ChannelPlanning')
 if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
   const pChan = planningChannel as ChannelPlanning
