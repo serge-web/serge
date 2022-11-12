@@ -58,7 +58,7 @@ export const coreTemplate = {
     title: 'Intent',
     propertyOrder: 60,
     options: {
-      grid_columns: 12
+      grid_columns: 8
     },
     type: 'string'
   },
@@ -150,7 +150,7 @@ export const coreTemplate = {
   synchronisedWith: {
     format: 'text',
     title: 'Sync with',
-    propertyOrder: 100,
+    propertyOrder: 68,
     options: {
       grid_columns: 6
     },

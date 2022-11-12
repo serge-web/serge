@@ -1,13 +1,27 @@
 import moment from 'moment'
 
-export const generateTemplate = (title: string, core: Record<string, any>, domain: Record<string, any>): Record<string, any> => {
-  const combinedTemlates = { ...core, ...domain }
+const locationComponent = {
+  format: 'textarea',
+  title: 'Location',
+  id: 'locationArea',
+  type: 'string',
+  readonly: 'readonly',
+  propertyOrder: 55,
+  options: {
+    grid_columns: 6
+  }
+}
 
-  const fieldNames = Object.keys(combinedTemlates).map((name: string) => name)
+export const generateTemplate = (title: string, location: boolean, core: Record<string, any>, domain: Record<string, any>, specific: Record<string, any>): Record<string, any> => {
+  const combinedTemplates = { ...core, ...domain, ...specific }
+  if (location) {
+    combinedTemplates.location = locationComponent
+  }
+  const fieldNames = Object.keys(combinedTemplates).map((name: string) => name)
   const wrappedDetails = {
     format: 'grid',
     required: fieldNames,
-    properties: combinedTemlates,
+    properties: combinedTemplates,
     title: 'Land Activity',
     type: 'object'
   }

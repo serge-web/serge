@@ -30,7 +30,7 @@ import { customiseLocation } from '../../organisms/support-panel/helpers/customi
 import { generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
 import { maritimeTemplate } from './helpers/p9-maritime'
-import { otherTemplate } from './helpers/p9-other'
+import { transit } from './helpers/p9-specific'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -163,9 +163,9 @@ PlanningMessage.args = {
 }
 
 // const land = generateTemplate('first', coreTemplate, landTemplate)
-const maritime = generateTemplate('first', coreTemplate, maritimeTemplate)
+const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, transit)
 // const air = generateTemplate('first', coreTemplate, airTemplate)
-const other = generateTemplate('first', coreTemplate, otherTemplate)
+// const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
 
 export const P9Message = Template.bind({})
 P9Message.args = {
@@ -184,7 +184,7 @@ delete msg.location
 P9MessageWithoutLocation.args = {
   customiseTemplate: localCustomise,
   modifyForEdit: (document) => collapseLocation(document),
-  template: other,
+  template: maritime,
   messageContent: msg,
   messageId: 'id_2b',
   disabled: false,

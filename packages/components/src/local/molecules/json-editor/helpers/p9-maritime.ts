@@ -23,7 +23,8 @@ export const maritimeTemplate = {
     format: 'textarea',
     propertyOrder: 220,
     options: {
-      grid_columns: 4
+      grid_columns: 4,
+      grid_break: true
     }
   }
 }
