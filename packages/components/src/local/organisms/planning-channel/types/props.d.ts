@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { AttributeTypes, ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { AttributeTypes, ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnLengthType } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
@@ -22,6 +22,7 @@ export default interface PropTypes {
   allForces: ForceData[]
   gameDate: string
   currentTurn: number
+  gameTurnTime: TurnLengthType
   dispatch: React.Dispatch<PlayerUiActionTypes>
   reduxDispatch: Dispatch<any>
   getAllWargameMessages: (dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void

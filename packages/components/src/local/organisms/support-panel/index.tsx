@@ -43,6 +43,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleName,
   allForces,
   gameDate,
+  gameTurnTime,
   currentTurn,
   currentWargame,
   setSelectedAssets,

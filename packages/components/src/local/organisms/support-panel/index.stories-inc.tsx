@@ -113,6 +113,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     activityTimeChanel={noop}
     allForces={P9BMock.data.forces.forces}
     gameDate={P9BMock.data.overview.gameDate}
+    gameTurnTime={P9BMock.data.overview.gameTurnTime}
     currentWargame={P9BMock.currentWargame || ''}
     currentTurn={P9BMock.gameTurn}
     dispatch={noop}

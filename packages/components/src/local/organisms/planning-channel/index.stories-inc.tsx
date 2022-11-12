@@ -169,6 +169,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     allForces={forces}
     gameDate={P9Mock.data.overview.gameDate}
     currentTurn={P9Mock.gameTurn}
+    gameTurnTime={P9Mock.data.overview.gameTurnTime}
     forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }
