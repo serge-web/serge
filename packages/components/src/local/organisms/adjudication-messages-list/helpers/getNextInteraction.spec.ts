@@ -13,7 +13,7 @@ forces.forEach((force: ForceData) => {
   force.roles.forEach((role: Role) => {
     allRoles.push(force.uniqid + ' ~ ' + role.roleId)
   })
-})
+}) 
 
 const messages = planningMessagesBulk
 
@@ -33,7 +33,7 @@ it('process successive interactions', () => {
       interactions.push(msgInter2)
     }
   }
-  console.table(interactions.map((inter) => {
+  !7 && console.table(interactions.map((inter) => {
     const interact = inter.details.interaction
     if (interact) {
       return { id: interact.id, start: interact.startTime, end: interact.endTime }
