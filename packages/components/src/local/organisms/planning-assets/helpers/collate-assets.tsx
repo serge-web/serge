@@ -223,7 +223,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
 const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, unknown> => {
   const attrDict = {}
-  const ids = asset.attributeValues2 || []
+  const ids = asset.attributes || []
   ids.forEach((attr: AttributeValue2) => {
     const aType = attributeTypes.find((aType) => aType.attrId === attr.attrId)
     if (aType) {
