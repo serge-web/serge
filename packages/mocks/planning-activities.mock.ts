@@ -1,8 +1,8 @@
 import { GeometryType } from "@serge/config"
 import { PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
-import P9Mock from "./p9-wargame.mock"
+import P9BMock from "./p9b-wargame.mock"
 
-const forces = P9Mock.data.forces.forces
+const forces = P9BMock.data.forces.forces
 
 export const MockPlanningActivities: PlanningActivity[] = [
   {
