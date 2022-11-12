@@ -3,7 +3,7 @@ export const coreTemplate = {
     type: 'string',
     title: 'Reference (locked)',
     readonly: 'readonly',
-    propertyOrder: 15,
+    propertyOrder: 10,
     options: {
       grid_columns: 4
     }
@@ -35,7 +35,7 @@ export const coreTemplate = {
   },
   activity: {
     title: 'Activity',
-    propertyOrder: 45,
+    propertyOrder: 50,
     readonly: 'readonly',
     type: 'string',
     enum: [
@@ -54,7 +54,8 @@ export const coreTemplate = {
   },
   intent: {
     format: 'textarea',
-    propertyOrder: 50,
+    title: 'Intent',
+    propertyOrder: 60,
     options: {
       grid_columns: 12
     },
@@ -64,7 +65,7 @@ export const coreTemplate = {
     type: 'array',
     format: 'table',
     minItems: 0,
-    propertyOrder: 80,
+    propertyOrder: 70,
     title: 'Own Assets',
     options: {
       grid_columns: 6,
@@ -105,7 +106,7 @@ export const coreTemplate = {
   },
   otherAssets: {
     type: 'array',
-    propertyOrder: 90,
+    propertyOrder: 80,
     format: 'table',
     minItems: 0,
     title: 'Subject(s) of orders',
@@ -134,7 +135,7 @@ export const coreTemplate = {
   actionsOn: {
     format: 'textarea',
     title: 'Actions on',
-    propertyOrder: 100,
+    propertyOrder: 90,
     options: {
       grid_columns: 12
     },
@@ -143,7 +144,7 @@ export const coreTemplate = {
   synchronisedWith: {
     format: 'text',
     title: 'Sync with',
-    propertyOrder: 110,
+    propertyOrder: 100,
     options: {
       grid_columns: 4
     },
@@ -152,7 +153,7 @@ export const coreTemplate = {
   supports: {
     format: 'textarea',
     title: 'Supports High-Level',
-    propertyOrder: 100,
+    propertyOrder: 110,
     options: {
       grid_columns: 4
     },
@@ -161,7 +162,7 @@ export const coreTemplate = {
   activityCard: {
     format: 'text',
     title: 'Activity Card',
-    propertyOrder: 100,
+    propertyOrder: 120,
     options: {
       grid_columns: 4
     },
@@ -170,7 +171,7 @@ export const coreTemplate = {
   activityDescription: {
     format: 'textarea',
     title: 'Activity Description',
-    propertyOrder: 100,
+    propertyOrder: 130,
     options: {
       grid_columns: 12
     },
