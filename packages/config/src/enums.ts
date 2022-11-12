@@ -27,9 +27,9 @@ export enum CollaborativePermission {
  * the type of geometry that can represent planning activities
  */
  export enum GeometryType {
-  point,
-  polyline,
-  polygon
+  point = 'Point',
+  polyline = 'Polyline',
+  polygon = 'Polygon'
 }
 
 /** the initial state for new messages in a collab edit channel */
