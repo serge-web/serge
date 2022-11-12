@@ -56,6 +56,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   allForces,
   platformTypes,
   gameDate,
+  gameTurnTime,
   currentTurn,
   forcePlanningActivities,
   attributeTypes
@@ -503,6 +504,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             selectedForce={currentForce}
             allForces={allForces}
             gameDate={gameDate}
+            gameTurnTime={gameTurnTime}
             currentTurn={currentTurn}
             selectedAssets={selectedAssets}
             setSelectedAssets={setLocalSelectedAssets}
