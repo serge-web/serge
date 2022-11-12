@@ -1,11 +1,11 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import p9activitesMock from '@serge/mocks/p9-activities.mock'
 import * as turf from '@turf/turf'
 import { Feature, LineString, Polygon } from 'geojson'
 import moment from 'moment'
-import { fixPerForcePlanningActivities } from '../../planning-channel/helpers/collate-plans-helper'
 import {
   findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes,
   invertMessages, ordersEndingAfterTime, ordersOverlappingTime, ordersStartingBeforeTime,
@@ -17,10 +17,8 @@ const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
 
-const activities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+const activities = p9activitesMock
 
 const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
@@ -253,7 +251,10 @@ it('overlaps works as expected', () => {
 })
 
 it('finds activities', () => {
-  const activity = activities[0].groupedActivities[1].activities[1] as PlanningActivity
+  const activity = activities[0].groupedActivities[1].activities[2] as PlanningActivity
+  // check the data is suitable
+  expect(activity.geometries).toBeTruthy()
+  expect(activity.geometries?.length).toBeGreaterThan(0)
   const found = findPlanningGeometry((activity.geometries && activity.geometries[1].uniqid) || '', activities[0].force, activities)
   expect(found).toBeTruthy()
   expect(found).toEqual(activity.geometries && activity.geometries[1].name)
