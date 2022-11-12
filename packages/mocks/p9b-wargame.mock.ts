@@ -6502,7 +6502,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "blue_land_asset.png",
+                    "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": ["a_Units"],
                     "conditions": [],
                     "states": [],
@@ -6832,7 +6832,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "re_land_asset.png",
+                    "icon": "n_red_land_asset.svg",
                     "attributeTypes": [
                         {
                             "attrId": "r_land_asset_equipment",
