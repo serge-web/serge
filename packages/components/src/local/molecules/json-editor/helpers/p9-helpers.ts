@@ -12,7 +12,7 @@ export const booleanObject = (description: string, cols: number, order: number):
 
 export const numberObject = (description: string, cols: number, order: number): Record<string, any> => {
   return {
-    type: 'number',
+    type: 'integer',
     title: description,
     propertyOrder: order,
     options: {

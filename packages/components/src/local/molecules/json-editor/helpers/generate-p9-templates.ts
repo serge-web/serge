@@ -6,6 +6,7 @@ import { coreTemplate } from './p9-core'
 import { landTemplate } from './p9-land'
 import { maritimeTemplate } from './p9-maritime'
 import { otherTemplate } from './p9-other'
+import { tmplASWBarrier, tmplCyber, tmplDuration, tmplEWAttack, tmplISTAR, tmplMineLaying, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTransit, tmplTST } from './p9-specific'
 
 const locationComponent = {
   format: 'textarea',
@@ -20,7 +21,17 @@ const locationComponent = {
 }
 
 const templateDict = {
-
+  Transit: tmplTransit,
+  MissileStrike: tmplMissileStrike,
+  Patrol: tmplPatrol,
+  ISTAR: tmplISTAR,
+  Duration: tmplDuration,
+  TST: tmplTST,
+  MineLaying: tmplMineLaying,
+  ASWBarrier: tmplASWBarrier,
+  EWAttack: tmplEWAttack,
+  SOFAttack: tmplSOFAttack,
+  Cyber: tmplCyber
 }
 
 export const generateTemplate = (title: string, location: boolean, core: Record<string, any>, domain: Record<string, any>, specific?: string): Record<string, any> => {
@@ -28,6 +39,8 @@ export const generateTemplate = (title: string, location: boolean, core: Record<
   if (specific) {
     specTemplate = templateDict[specific]
   }
+
+  console.log('spec template', specific, specTemplate)
 
   const combinedTemplates = specTemplate ? { ...core, ...domain, ...specTemplate } : { ...core, ...domain }
   if (location) {
@@ -72,7 +85,7 @@ interface Activity {
 }
 
 export const generateAllTemplates = (): TemplatesAndActivities => {
-  console.log('gen templates')
+  console.log('gen all templates 2')
   const red = 'f-red'
   const blue = 'f-blue'
   const green = 'f-green'
@@ -121,6 +134,11 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'SOFAttack' })
   acts.push({ title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'Cyber' })
 
+  // const uniqList = _.uniqBy(acts, (item) => item.specific) as Activity[]
+  // console.log('unique', uniqList.map((item: Activity) => {
+  //   return '\'' + item.specific + '\'' + ': ' + 'tmpl' + item.specific + ','
+  // }))
+
   const perForceActs: PerForcePlanningActivitySet[] = []
 
   const domainTemplates = {
@@ -150,8 +168,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
         }
         // create template
         const specificMarker = act.specific || 'Standard'
-        const templateName = act.domains.length > 1 ? [domain, specificMarker].join('-') : specificMarker
+        const templateName = [domain, specificMarker].join('--')
         const template = generateTemplate(templateName, !!act.acts, coreTemplate, domainTemplates[domain], act.specific)
+        console.log('storing', templateName, domain, !!templates[templateName], act.title)
         if (!templates[templateName]) {
           templates[templateName] = template
         }
