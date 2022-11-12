@@ -38,7 +38,7 @@ export const generateTemplate = (title: string, location: boolean, core: Record<
     format: 'grid',
     required: fieldNames,
     properties: combinedTemplates,
-    title: 'Land Activity',
+    title: title,
     type: 'object'
   }
 
@@ -98,26 +98,26 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const strikeTarget = 'Strike Target'
 
   const acts: Activity[] = []
-  acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: thereBack, specific: 'tmplTransit' })
-  acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'tmplMissileStrike' })
-  acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'tmplTransit' })
-  acts.push({ title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'tmplPatrol' })
-  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'tmplTransit' })
+  acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: thereBack, specific: 'Transit' })
+  acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
+  acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
+  acts.push({ title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
+  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
   acts.push({ title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
   acts.push({ title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
-  acts.push({ title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Observation Area'], specific: 'tmplISTAR' })
+  acts.push({ title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Observation Area'], specific: 'ISTAR' })
   acts.push({ title: 'Offensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['OCA Area'] })
   acts.push({ title: 'Defensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['DCA Area'] })
-  acts.push({ title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'tmplTST' })
-  acts.push({ title: 'Mine Laying', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'tmplMineLaying' })
-  acts.push({ title: 'Mine Clearance', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], specific: 'tmplDuration' })
-  acts.push({ title: 'ASW Barrier', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'tmplASWBarrier' })
+  acts.push({ title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST' })
+  acts.push({ title: 'Mine Laying', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'MineLaying' })
+  acts.push({ title: 'Mine Clearance', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], specific: 'Duration' })
+  acts.push({ title: 'ASW Barrier', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'ASWBarrier' })
   acts.push({ title: 'Provide Logistics', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['LOGS Destination'] })
   acts.push({ title: 'Resupply', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply Destingation'] })
-  acts.push({ title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Target'], specific: 'tmplEWAttack' })
-  acts.push({ title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'tmplSOFAttack' })
-  acts.push({ title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'tmplCyber' })
+  acts.push({ title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Target'], specific: 'EWAttack' })
+  acts.push({ title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'SOFAttack' })
+  acts.push({ title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'Cyber' })
 
   const perForceActs: PerForcePlanningActivitySet[] = []
 
@@ -174,7 +174,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   })
 
   console.log('per force', res)
-  console.log(Object.keys(templates))
+  console.log(Object.values(templates))
 
   return { val: 12 }
 }
