@@ -67,11 +67,18 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
     return trimmed
   }
 
-  return <div className={cx(styles['asset-icon-background'], className)} style={{ backgroundColor: color }} onClick={onClick}>
+  /** note: we only fill in the background for icons that require shading.  The NATO assets,
+   * that begin with `n_` don't require background shading
+   */
+  const shadeBackground = !imageSrc?.startsWith('n_')
+  const combinedClassName = cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)
+  const backgroundColor = shadeBackground ? { backgroundColor: color } : {}
+
+  return <div className={cx(styles['asset-icon-background'], className)} style={backgroundColor} onClick={onClick}>
     {
       imageSrc &&
       <div className={styles['asset-icon-with-image']}>
-        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={cx(getReverce(color), styles.img, destroyed ? styles.destroyed : null, isSelected ? styles.selected : null)} />
+        <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={combinedClassName} />
       </div>
     }
   </div>

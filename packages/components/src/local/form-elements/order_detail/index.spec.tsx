@@ -70,13 +70,13 @@ const planningMessage: MessagePlanning =
       ],
       activity: 'Asymmetric',
       ownAssets: [
-        { asset: 'a179', number: 4 },
-        { asset: 'a185', number: 12 },
-        { asset: 'a197', number: 2 }
+        { asset: 'a427', number: 4 },
+        { asset: 'a428', number: 12 },
+        { asset: 'a429', number: 2 }
       ],
       otherAssets: [
-        'a111',
-        'a157'
+        'a410',
+        'a411'
       ]
     },
     hasBeenRead: false,
@@ -88,8 +88,11 @@ const allForces = P9Mock.data.forces.forces
 const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 const forceId = allForces[1].uniqid
 const plan = planningMessage
-
 const force = MockPerForceActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+
+planningMessage.message.ownAssets = allForces[1].assets ? [{ asset: allForces[1].assets[0].uniqid, number: 1 }] : []
+planningMessage.message.otherAssets = allForces[2].assets ? [allForces[2].assets[0].uniqid] : []
+
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
 const flatActivities = _.flatten(activities)
 

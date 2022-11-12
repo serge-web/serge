@@ -11,8 +11,13 @@ import PropTypes from './types/props'
 export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
+    /** note: we only fill in the background for icons that require shading.  The NATO assets,
+      * that begin with `n_` don't require background shading
+      */
+    const shadeBackground = !imageSrc.startsWith('n_')
+    const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
     return (
-      ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={{ backgroundColor: bgColor }}>
+      ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} />
       </div>)
     )

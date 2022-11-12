@@ -13,6 +13,7 @@ import { InteractionDetails, InteractionMessageStructure, MessageDetails, Messag
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
+import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import ApplyFilter from '../apply-filter'
 import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
@@ -56,12 +57,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   platformTypes,
   gameDate,
   currentTurn,
-  forcePlanningActivities
+  forcePlanningActivities,
+  attributeTypes
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
-  const [zoom] = useState<number>(12)
-  const [bounds, setBounds] = useState<LatLngBounds | undefined>(latLngBounds([[-1.484, 150.1536], [-21.941, 116.4863]]))
+  const [zoom] = useState<number>(7)
+  const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
@@ -153,8 +155,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce)
-    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce)
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     setAllOwnAssets(own)
     setOwnAssetsFiltered(own.slice())
     setAllOppAssets(opp)
@@ -256,8 +258,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
-      console.log(newOrders)
+      const createAssets = true
+      if (createAssets) {
+        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
+        console.log('forces', forces)
+      } else {
+        const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        console.log(newOrders)
+      }
     }
   }
 
@@ -467,9 +475,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       <div>Warning - PlanningChannel must now include mapping constraints</div>
     )
   } else {
-    const isAus = channel.constraints.tileLayer?.url.includes('open')
-    const boundsToUse = isAus ? bounds : channel.constraints.bounds
-    const centerToUse = isAus ? bounds?.getCenter() : L.latLngBounds(channel.constraints.bounds).getCenter()
+    const boundsToUse = channel.constraints.bounds
+    const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
         <SupportPanelContext.Provider value={supportPanelContext}>
@@ -478,6 +485,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             platformTypes={platformTypes}
             planningMessages={planningMessages}
             interactionMessages={interactionMessages}
+            attributeTypes={attributeTypes || []}
             onReadAll={onReadAll}
             onUnread={onUnread}
             onRead={onRead}
