@@ -1,4 +1,4 @@
-import { booleanObject, numberObject, textAreaObject, textObject } from './p9-helpers'
+import { booleanObject, dropDownObject, numberObject, textAreaObject, textObject } from './p9-helpers'
 
 let order = 300
 export const tmplTransit = {
@@ -45,4 +45,14 @@ export const tmplASWBarrier = {
 
 export const tmplEWAttack = {
   effect: textObject('Effect Type', 4, order++)
+}
+
+export const tmplSOFAttack = {
+  activityType: dropDownObject('Activity Type', ['Raid', 'Capture/Kill', 'Gather Int', 'Deliver Errect'], 4, order++),
+  intendedEffect: textAreaObject('Intended Effect', 4, order++)
+}
+
+export const tmplCyber = {
+  activityType: textObject('Activity Type', 4, order++),
+  intendedEffect: textAreaObject('Intended Effect', 4, order++)
 }

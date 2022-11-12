@@ -30,7 +30,7 @@ import { customiseLocation } from '../../organisms/support-panel/helpers/customi
 import { generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
 import { maritimeTemplate } from './helpers/p9-maritime'
-import { tmplMissileStrike } from './helpers/p9-specific'
+import { tmplCyber } from './helpers/p9-specific'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -163,7 +163,7 @@ PlanningMessage.args = {
 }
 
 // const land = generateTemplate('first', coreTemplate, landTemplate)
-const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, tmplMissileStrike)
+const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, tmplCyber)
 // const air = generateTemplate('first', coreTemplate, airTemplate)
 // const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
 
