@@ -18,7 +18,6 @@ export default interface PropTypes {
   channelId: string
   /** which phase game is currently in */
   phase: Phase
-  turnNumber: number
   allForces: ForceData[]
   gameDate: string
   currentTurn: number

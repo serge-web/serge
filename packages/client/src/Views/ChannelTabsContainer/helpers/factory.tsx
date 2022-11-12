@@ -193,7 +193,6 @@ const factory = (state: PlayerUi): Factory => {
             attributeTypes={state.attributeTypes}
             isUmpire={state.isUmpire}
             phase={state.phase}
-            turnNumber={state.currentTurn}
             allForces={state.allForces}
             platformTypes={state.allPlatformTypes}
             gameDate={state.gameDate}
