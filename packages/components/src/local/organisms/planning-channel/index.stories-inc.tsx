@@ -1,7 +1,7 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -37,15 +37,18 @@ const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, sty
 
 const wrapper: React.FC = (storyFn: any) => <ScriptDecorator src='/leaflet.select/leaflet.control.select.js' style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
 
-const wargame = P9Mock.data
+const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
 // fix the URL for the openstreetmap mapping
-const planningChannel = channels[0] as ChannelPlanning
-if (planningChannel.constraints.tileLayer) {
-  planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+const planningChannel = channels.find((channel) => channel.channelType === 'ChannelPlanning')
+if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
+  const pChan = planningChannel as ChannelPlanning
+  if (pChan.constraints.tileLayer) {
+    pChan.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  }
 }
 
 // generate list of roles, for dropdown control
@@ -61,7 +64,7 @@ const perForcePlanningActivities = MockPerForceActivities
 const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 export default {
-  title: 'local/organisms/PlanningChannel',
+  title: 'local/organisms/PlanningChannelBravo',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -138,11 +141,13 @@ const Template: Story<PlanningChannelProps> = (args) => {
   }
 
   // get the templates for this user
-  const participants = planningChannel.participants as ParticipantPlanning[]
+  const participants = planningChannel ? planningChannel.participants as ParticipantPlanning[] : []
   const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
   const templatesBlocks = participant ? participant.templates : []
   const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
   const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
+
+  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
@@ -152,6 +157,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     channelId={channels[0].uniqid}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     dispatch={noop}
+    attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
     markAllAsRead={mockFn}
     markUnread={mockFn}
@@ -162,13 +168,13 @@ const Template: Story<PlanningChannelProps> = (args) => {
     platformTypes={platformTypes}
     selectedRoleId={role?.roleId || ''}
     selectedRoleName={role?.name || ''}
-    currentWargame={P9Mock.wargameTitle}
+    currentWargame={P9BMock.wargameTitle}
     selectedForce={force || forces[1]}
     phase={phase}
-    turnNumber={4}
     allForces={forces}
-    gameDate={P9Mock.data.overview.gameDate}
-    currentTurn={P9Mock.gameTurn}
+    gameDate={P9BMock.data.overview.gameDate}
+    currentTurn={P9BMock.gameTurn}
+    gameTurnTime={P9BMock.data.overview.gameTurnTime}
     forcePlanningActivities={filledInPerForcePlanningActivities}
   />
 }

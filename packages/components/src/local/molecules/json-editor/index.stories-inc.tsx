@@ -6,15 +6,22 @@ import JsonEditor from './index'
 import docs from './README.md'
 
 // Import mock
-import { messageDataCollaborativeEditing, messageDataCollaborativeResponding, MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock } from '@serge/mocks'
+import {
+  messageDataCollaborativeEditing, messageDataCollaborativeResponding,
+  MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
+  planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
+} from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
 import { Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, MessageStructure, PlanningActivity } from '@serge/custom-types'
+import moment from 'moment'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
+import { customiseDate } from '../../organisms/support-panel/helpers/customise-date'
+import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -44,7 +51,7 @@ const storeNewValue = (_value: { [property: string]: any }): void => {
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
-const channel = P9Mock.data.channels.channels[0]
+const channel = P9BMock.data.channels.channels[0]
 const templateMessageCreator = {
   details: MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType].details,
   _id: channel.uniqid
@@ -101,7 +108,7 @@ const perForcePlanningActivities = MockPerForceActivities
 const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
 
 const localCustomise = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
-  const forces = P9Mock.data.forces.forces
+  const forces = P9BMock.data.forces.forces
   const blueAssets = forces[1].assets ? forces[1].assets : []
   const redAssets = forces[2].assets ? forces[2].assets : []
   const toRow = (asset: Asset): AssetRow => {
@@ -135,7 +142,10 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
 
   const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
-    (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities)
+    (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities),
+    (document, template) => customiseDate(document, template, moment('2022-11-12T00:00:00.000Z').valueOf(), P9BMock.data.overview.gameTurnTime),
+    (document, template) => customiseLocation(document, template)
+
   ]
 
   let res: Record<string, any> = schema
