@@ -18,7 +18,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const { selectedAssets } = useContext(SupportPanelContext)
 
   useEffect(() => {
-    setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
+    if (columns.length === 0) {
+      setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
+    }
     // TODO - swap next line for
     // setRows(assets)
     setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes))
