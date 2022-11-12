@@ -52,7 +52,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   currentWargame,
   selectedForce,
   phase,
-  turnNumber,
   allForces,
   platformTypes,
   gameDate,
@@ -318,7 +317,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       interaction: interDetails,
       messageType: adjudicationTemplateId,
       timestamp: moment().toISOString(),
-      turnNumber: turnNumber
+      turnNumber: currentTurn
     }
     const message: InteractionMessageStructure = {
       Reference: '',
@@ -349,7 +348,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         from: from,
         messageType: activityBeingPlanned.template,
         timestamp: moment().toISOString(),
-        turnNumber: turnNumber
+        turnNumber: currentTurn
       }
       const plans: PlanningMessageStructureCore = {
         Reference: '',
