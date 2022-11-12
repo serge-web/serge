@@ -211,7 +211,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       asset.attributeValues = legacyAttrs
     }
     if (modernAttrs && modernAttrs.length > 0) {
-      asset.attributeValues2 = modernAttrs
+      asset.attributes = modernAttrs
     }
 
     // generate some perceptions:
