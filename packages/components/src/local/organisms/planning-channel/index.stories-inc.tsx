@@ -1,12 +1,13 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
+import p9activitesMock from '@serge/mocks/p9-activities.mock'
+import p9MessageTemplatesMock from '@serge/mocks/p9-message-templates.mock'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -59,9 +60,7 @@ forces.forEach((force: ForceData) => {
   })
 })
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = p9activitesMock
 
 export default {
   title: 'local/organisms/PlanningChannelBravo',
@@ -145,7 +144,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
   const templatesBlocks = participant ? participant.templates : []
   const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
-  const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
+  const templateBodies = p9MessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
 
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 
@@ -155,7 +154,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     allTemplates={templateBodies}
     channelTemplates={templateBodies}
     channelId={channels[0].uniqid}
-    adjudicationTemplate={planningMessageTemplatesMock[0]}
+    adjudicationTemplate={p9MessageTemplatesMock[0]}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
