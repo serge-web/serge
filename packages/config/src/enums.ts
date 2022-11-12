@@ -22,7 +22,6 @@ export enum CollaborativePermission {
   CanUnClaim
 }
 
-
 /** 
  * the type of geometry that can represent planning activities
  */
