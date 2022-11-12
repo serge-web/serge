@@ -5,32 +5,32 @@ export const coreTemplate = {
     readonly: 'readonly',
     propertyOrder: 10,
     options: {
-      grid_columns: 4
+      grid_columns: 2
     }
   },
   title: {
     type: 'string',
     propertyOrder: 20,
     options: {
-      grid_columns: 8
+      grid_columns: 10
     }
   },
   startDate: {
-    format: 'datetime-local',
+    format: 'serge-date',
     type: 'string',
     title: 'Start date',
     propertyOrder: 30,
     options: {
-      grid_columns: 4
+      grid_columns: 3
     }
   },
   endDate: {
-    format: 'datetime-local',
+    format: 'serge-date',
     type: 'string',
     propertyOrder: 40,
     title: 'End date',
     options: {
-      grid_columns: 4
+      grid_columns: 3
     }
   },
   activity: {
@@ -44,7 +44,7 @@ export const coreTemplate = {
       'asymmetric'
     ],
     options: {
-      grid_columns: 4,
+      grid_columns: 6,
       enum_titles: [
         'Transit1',
         'Kinetic1',
@@ -68,7 +68,7 @@ export const coreTemplate = {
     propertyOrder: 70,
     title: 'Own Assets',
     options: {
-      grid_columns: 6,
+      grid_columns: 6
     },
     items: {
       type: 'object',
@@ -102,7 +102,7 @@ export const coreTemplate = {
           title: 'Quantity',
           type: 'string',
           options: {
-            grid_columns: 2,
+            grid_columns: 2
           },
           format: 'number'
         }
@@ -116,7 +116,7 @@ export const coreTemplate = {
     minItems: 0,
     title: 'Subject(s) of orders',
     options: {
-      grid_columns: 6,
+      grid_columns: 6
     },
     items: {
       title: 'Asset',

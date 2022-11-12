@@ -15,8 +15,8 @@ import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
 import {
-  Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction,
-  MessagePlanning, MessageStructure, PlanningActivity
+  Asset, MessageInfoTypeClipped, MessageInteraction,
+  MessagePlanning, MessageStructure
 } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import moment from 'moment'
@@ -131,21 +131,6 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   }
   const blueRows = blueAssets.map((asset) => toRow(asset))
   const redRows = redAssets.map((asset) => toRow(asset))
-
-  // and the activities
-  const isBlue = _document && _document.Reference && _document.Reference.includes('Blue')
-
-  const forceActivities = isBlue ? filledInPerForcePlanningActivities[0] : filledInPerForcePlanningActivities[1]
-  const acts: Array<{id: string, name: string}> = []
-  forceActivities.groupedActivities.forEach((val: GroupedActivitySet) => {
-    val.activities.forEach((val2: string | PlanningActivity) => {
-      if (typeof (val) === 'string') {
-        throw Error('Should not have string in planning activities')
-      }
-      const plan = val2 as PlanningActivity
-      acts.push({ id: plan.uniqid, name: val.category + '-' + plan.name })
-    })
-  })
 
   const overview = P9BMock.data.overview
 

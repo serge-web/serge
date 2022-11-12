@@ -60,6 +60,7 @@ export const customiseDate = (_document: MessageStructure | undefined, schema: R
         schema.properties[key].options.enum_titles = slots.map((asset: TimeSlot) => asset.label)
       }
     })
+    console.log('results', schema)
   }
   return schema
 }
