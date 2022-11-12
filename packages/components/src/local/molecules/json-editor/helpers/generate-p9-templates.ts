@@ -1,4 +1,5 @@
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
+import { GeometryType } from '@serge/config'
+import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import _ from 'lodash'
 import moment from 'moment'
 import { airTemplate } from './p9-air'
@@ -39,8 +40,6 @@ export const generateTemplate = (title: string, location: boolean, core: Record<
   if (specific) {
     specTemplate = templateDict[specific]
   }
-
-  console.log('spec template', specific, specTemplate)
 
   const combinedTemplates = specTemplate ? { ...core, ...domain, ...specTemplate } : { ...core, ...domain }
   if (location) {
@@ -84,8 +83,56 @@ interface Activity {
   specific?: string
 }
 
+const routeOut = 'route-out'
+const activity = 'activity'
+const routeBack = 'route-back'
+const point = 'point'
+const thereBack = [routeOut, activity, routeBack]
+const oneWayTwoActivities = [routeOut, activity, activity]
+const thereBackTwoActivities = [routeOut, activity, activity, routeBack]
+
+const activityGeometriesFor = (id: string, acts: string[], descs: string[]): PlanningActivityGeometry[] => {
+  let ctr = 0
+  const res: PlanningActivityGeometry[] = acts.map((name, index): PlanningActivityGeometry => {
+    switch (name) {
+      case routeOut:
+        return {
+          aType: GeometryType.polyline,
+          name: 'Route out',
+          optional: false,
+          uniqid: '' + id + '-' + index
+        }
+      case routeBack: {
+        return {
+          aType: GeometryType.polyline,
+          name: 'Route back',
+          optional: false,
+          uniqid: '' + id + '-' + index
+        }
+      }
+      case point: {
+        return {
+          aType: GeometryType.point,
+          name: descs[ctr++],
+          optional: false,
+          uniqid: '' + id + '-' + index
+        }
+      }
+      default: {
+        return {
+          aType: GeometryType.polygon,
+          name: descs[ctr++],
+          optional: false,
+          uniqid: '' + id + '-' + index
+        }
+      }
+    }
+  })
+  return res
+}
+
 export const generateAllTemplates = (): TemplatesAndActivities => {
-  console.log('gen all templates 2')
+  console.log('gen all templates 4')
   const red = 'f-red'
   const blue = 'f-blue'
   const green = 'f-green'
@@ -99,14 +146,6 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
 
   const landMar = [land, mar]
   const seaAirLand = [land, mar, air]
-
-  const routeOut = 'route-out'
-  const activity = 'activity'
-  const routeBack = 'route-back'
-  const point = 'point'
-  const thereBack = [routeOut, activity, routeBack]
-  const oneWayTwoActivities = [routeOut, activity, activity]
-  const thereBackTwoActivities = [routeOut, activity, activity, routeBack]
 
   const assetLocation = 'Asset Location'
   const strikeTarget = 'Strike Target'
@@ -170,7 +209,6 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
         const specificMarker = act.specific || 'Standard'
         const templateName = [domain, specificMarker].join('--')
         const template = generateTemplate(templateName, !!act.acts, coreTemplate, domainTemplates[domain], act.specific)
-        console.log('storing', templateName, domain, !!templates[templateName], act.title)
         if (!templates[templateName]) {
           templates[templateName] = template
         }
@@ -178,6 +216,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           name: act.title,
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
+        }
+        if (act.acts && act.actDesc) {
+          activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc)
         }
         category.activities.push(activity)
       })
