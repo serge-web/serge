@@ -66,7 +66,6 @@ const templateMessageCreator = {
 }
 
 const Template: Story<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
-  console.log('cust template', customiseTemplate)
   return (
     <JsonEditor
       storeNewValue={storeNewValue}
