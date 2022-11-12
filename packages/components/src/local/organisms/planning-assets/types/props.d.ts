@@ -1,4 +1,4 @@
-import { ForceData, PlatformTypeData } from '@serge/custom-types'
+import { AttributeTypes, ForceData, PlatformTypeData } from '@serge/custom-types'
 import { ForceStyle, PlatformStyle } from '@serge/helpers'
 import { LatLng } from 'leaflet'
 
@@ -39,4 +39,6 @@ export default interface PropTypes {
   assets: AssetRow[]
   /** platform type definitions */
   platformTypes: PlatformTypeData[]
+  /** generic attribute types */
+  attributeTypes: AttributeTypes
 }

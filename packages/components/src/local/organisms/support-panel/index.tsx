@@ -58,7 +58,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   draftMessage,
   onCancelDraftMessage,
   forcePlanningActivities,
-  editLocation
+  editLocation,
+  attributeTypes
 }) => {
   const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -204,6 +205,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningAssets
                   forceColors={forceCols}
                   assets={allOwnAssets}
+                  attributeTypes={attributeTypes}
                   platformStyles={platIcons}
                   forces={allForces}
                   playerForce={selectedForce}
@@ -276,6 +278,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningAssets
                   forceColors={forceCols}
                   platformStyles={platIcons}
+                  attributeTypes={attributeTypes}
                   assets={allOppAssets}
                   platformTypes={platformTypes}
                   forces={allForces}

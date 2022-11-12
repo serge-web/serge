@@ -98,7 +98,13 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
 
   const allIds = order1AssetsIds.concat(order2AssetsIds)
   const uniqIds = _.uniq(allIds)
-  const allAssets = uniqIds.map((id: string) => findAsset(forces, id))
+  let allAssets: Asset[] = []
+  try {
+    allAssets = uniqIds.map((id: string) => findAsset(forces, id))
+    console.warn('Failed to find asset with id')
+  } catch (e) {
+    allAssets = []
+  }
   const sortedAllAssets = _.sortBy(allAssets, (a: Asset) => a.name)
   const sortedAllAssetNames = sortedAllAssets.map((asset: Asset) => {
     const force = order1AssetsIds.includes(asset.uniqid)
