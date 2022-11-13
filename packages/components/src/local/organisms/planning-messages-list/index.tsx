@@ -7,7 +7,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
-import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
@@ -41,6 +40,15 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     return value ? moment(value).format('DDHHmm[Z]') : ''
   }
 
+  const trimActivity = (forceId: string, activity?: string): string => {
+    if (!activity) {
+      return 'N/A'
+    } else {
+      const len = forceId.length
+      return activity.slice(len + 1)
+    }
+  }
+
   useEffect(() => {
     const roles: string[] = []
     const dataTable: OrderRow[] = myMessages.map(message => {
@@ -49,12 +57,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         roles.push(author)
       }
       const plan = message.message as PlanningMessageStructureCore
+  
       const row: OrderRow = {
         id: message._id,
+        reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
         title: plan.title,
-        turn: message.details.turnNumber,
         role: author,
-        activity: plan.activity || 'n/a',
+        activity: trimActivity(playerForceId, plan.activity),
         startDate: shortDate(plan.startDate),
         endDate: shortDate(plan.endDate)
       }
@@ -67,25 +76,29 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     // end
 
     const activities = collateActivities(myMessages)
+    const trimmedActivities = activities.map((item) => trimActivity(playerForceId, item))
+
+    const smallPadding: React.CSSProperties = {
+      paddingLeft: "10px",
+      paddingRight: "10px"
+    }
+
+    const narrowCell: React.CSSProperties = {
+      ...smallPadding, width:"80px"
+    }
+    const mediumCell: React.CSSProperties = {
+      ...smallPadding, width:"120px"
+    }
 
     const columnData: Column[] = jestWorkerId ? [] : [
-      { title: 'Title', field: 'title' },
-      { title: 'Author', field: 'role', lookup: arrToDict(roles) },
-      { title: 'Activity', field: 'activity', lookup: arrToDict(activities) },
-      { title: 'Start Date', field: 'startDate' },
-      { title: 'Finish Date', field: 'endDate' }
+      { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell},
+      { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
+      { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
+      { title: 'Activity', field: 'activity', lookup: arrToDict(trimmedActivities) , cellStyle: smallPadding, headerStyle: smallPadding},
+      { title: 'Start Date', field: 'startDate', cellStyle: narrowCell , headerStyle: narrowCell},
+      { title: 'Finish Date', field: 'endDate', cellStyle: narrowCell, headerStyle: narrowCell }
     ]
 
-    // if we're showing all turns, we need to show the turn number for the message
-    if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
-      const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
-      columnData.splice(1, 0, turnColumn)
-    }
-
-    if (!isUmpire) {
-      // drop the force column, since player only sees their force
-      columns.splice(2, 1)
-    }
     if (columns.length === 0) {
       setColumns(columnData)
     }
