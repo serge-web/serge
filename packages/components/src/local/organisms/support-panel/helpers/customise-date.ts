@@ -55,7 +55,6 @@ export const customiseDate = (_document: MessageStructure | undefined, schema: R
     keys.forEach((key: string) => {
       if (key.endsWith('Date') && key !== 'Date') {
         // ok, update it
-        console.log('updating', key, slots.length)
         schema.properties[key].enum = slots.map((asset: TimeSlot) => asset.value)
         schema.properties[key].options.enum_titles = slots.map((asset: TimeSlot) => asset.label)
       }
