@@ -20,7 +20,7 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -182,6 +182,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const detailPanel = (rowData: AdjudicationRow): any => {
+    const DetailPanelStateListener = () => {
+      useEffect(() => {
+        onDetailPanelOpen && onDetailPanelOpen(rowData)
+        return () => {
+          onDetailPanelClose && onDetailPanelClose(rowData)
+        }
+      }, [])
+      return <></>
+    }
+
     // retrieve the message & template
     const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
@@ -197,6 +207,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
           return <>
+            <DetailPanelStateListener />
             <Table>
               <tbody>
                 <tr>
