@@ -5214,7 +5214,6 @@ const game: Wargame = {
                                 86
                             ]
                         ],
-                        "maxNativeZoom": 7,
                         "maxZoom": 7,
                         "minZoom": 3,
                         "tileLayer": {
