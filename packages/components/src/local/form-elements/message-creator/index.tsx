@@ -15,9 +15,7 @@ import {
 import React, { createRef, MouseEvent, useEffect, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 
-import flatpickr from 'flatpickr'
 import PropTypes from './types/props'
-flatpickr('.calendar')
 
 const MessageCreator: React.FC<PropTypes> = ({
   schema,

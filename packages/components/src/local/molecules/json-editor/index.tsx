@@ -178,6 +178,9 @@ export const JsonEditor: React.FC<Props> = ({
         } else {
           nextEditor.on('change', changeListenter)
         }
+        // update time input for flatpickr
+        const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
+        Array.from(flatPickrElm).forEach(elm => elm.classList.add('showTimeInput'))
       })
     }
 
