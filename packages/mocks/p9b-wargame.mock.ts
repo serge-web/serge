@@ -5764,7 +5764,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-blue-Land-Ballistic Missile Strike",
-                                    "template": "Land--Transit",
+                                    "template": "Land--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -5952,7 +5952,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-blue-Land-Transit",
-                                    "template": "Land--Transit"
+                                    "template": "Land--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -6000,7 +6008,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-blue-Maritime-Ballistic Missile Strike",
-                                    "template": "Maritime--Transit",
+                                    "template": "Maritime--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6263,7 +6271,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-blue-Maritime-Transit",
-                                    "template": "Maritime--Transit"
+                                    "template": "Maritime--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -6273,7 +6289,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-blue-Air-Ballistic Missile Strike",
-                                    "template": "Air--Transit",
+                                    "template": "Air--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6554,7 +6570,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-blue-Air-Transit",
-                                    "template": "Air--Transit"
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -6643,7 +6667,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-red-Land-Ballistic Missile Strike",
-                                    "template": "Land--Transit",
+                                    "template": "Land--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6831,7 +6855,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-red-Land-Transit",
-                                    "template": "Land--Transit"
+                                    "template": "Land--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -6879,7 +6911,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-red-Maritime-Ballistic Missile Strike",
-                                    "template": "Maritime--Transit",
+                                    "template": "Maritime--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7142,7 +7174,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-red-Maritime-Transit",
-                                    "template": "Maritime--Transit"
+                                    "template": "Maritime--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -7152,7 +7192,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-red-Air-Ballistic Missile Strike",
-                                    "template": "Air--Transit",
+                                    "template": "Air--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7433,7 +7473,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-red-Air-Transit",
-                                    "template": "Air--Transit"
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -7522,7 +7570,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-green-Land-Ballistic Missile Strike",
-                                    "template": "Land--Transit",
+                                    "template": "Land--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7710,7 +7758,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-green-Land-Transit",
-                                    "template": "Land--Transit"
+                                    "template": "Land--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -7758,7 +7814,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-green-Maritime-Ballistic Missile Strike",
-                                    "template": "Maritime--Transit",
+                                    "template": "Maritime--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8021,7 +8077,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-green-Maritime-Transit",
-                                    "template": "Maritime--Transit"
+                                    "template": "Maritime--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
@@ -8031,7 +8095,7 @@ const game: Wargame = {
                                 {
                                     "name": "Ballistic Missile Strike",
                                     "uniqid": "f-green-Air-Ballistic Missile Strike",
-                                    "template": "Air--Transit",
+                                    "template": "Air--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8312,7 +8376,15 @@ const game: Wargame = {
                                 {
                                     "name": "Transit",
                                     "uniqid": "f-green-Air-Transit",
-                                    "template": "Air--Transit"
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Transit-0"
+                                        }
+                                    ]
                                 }
                             ]
                         },
