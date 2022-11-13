@@ -148,8 +148,6 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   return res
 }
 
-console.log('land', landActivityTemplate)
-
 export const PlanningMessage = Template.bind({})
 PlanningMessage.args = {
   customiseTemplate: localCustomise,
