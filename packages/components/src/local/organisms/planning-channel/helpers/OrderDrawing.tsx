@@ -4,16 +4,16 @@ import { GeometryType } from '@serge/config'
 import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { Geometry } from 'geojson'
-import { LatLng, Layer, PM } from 'leaflet'
+import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-// import * as ReactDOMServer from 'react-dom/server'
+import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
-// import AssetIcon from '../../../asset-icon'
+import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
-// import styles from '../styles.module.scss'
+import styles from '../styles.module.scss'
 import { CustomTranslation } from './CustomTranslation'
 
 interface OrderDrawingProps {
@@ -129,24 +129,24 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // we enable the draw mode, for the new tooltip to be used for the new mode
       const newTranslations = deepCopy(CustomTranslation)
 
-      // const getAssetIcon = (imageSrc: string): string => {
-      //   return (
-      //     ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} />)
-      //   )
-      // }
+      const getAssetIcon = (imageSrc: string): string => {
+        return (
+          ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} />)
+        )
+      }
 
       const header = '<b>' + activity.name + '</b><br/>'
 
       // now just switch on the control we want
       switch (current.aType) {
         case GeometryType.point: {
-          // const icon = L.divIcon({
-          //   iconSize: [30, 30],
-          //   html: getAssetIcon('/images/marker-icon-2x.png'),
-          //   className: styles['marker-icon']
-          // })
+          const icon = L.divIcon({
+            iconSize: [30, 30],
+            html: getAssetIcon('/images/marker-icon-2x.png'),
+            className: styles['marker-icon']
+          })
           newTranslations.tooltips.placeMarker = header + 'Click map to specify point location for <b>[' + current.name + ']</b>'
-          // map.pm.setGlobalOptions({ markerStyle: { icon } })
+          map.pm.setGlobalOptions({ markerStyle: { icon } })
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Marker')
           break
