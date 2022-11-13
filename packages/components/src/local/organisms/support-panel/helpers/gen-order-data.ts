@@ -204,7 +204,7 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
         }
       }
     }
-    case GeometryType.polyline: 
+    case GeometryType.polyline:
     default: {
       const ownPt = own.location || dummyLocation
       const tgtPt = target.location || dummyLocation

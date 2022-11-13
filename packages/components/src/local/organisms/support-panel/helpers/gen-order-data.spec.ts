@@ -17,7 +17,6 @@ const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
 
-
 const activities = p9activitesMock
 
 const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
