@@ -89,7 +89,6 @@ const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: Att
         throw Error('Attribute type not found for:' + id)
       }
     })
-    console.log('returning', res)
     return res
   }
   return []
@@ -192,6 +191,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       position: h3Pos,
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
+
 
     asset.attributes = createModernAttributesFor(platformType, attributeTypes)
 

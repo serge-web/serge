@@ -266,7 +266,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     } else {
       const createAssets = true
       if (createAssets) {
-        console.log('p types', platformTypes, attributeTypes)
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
