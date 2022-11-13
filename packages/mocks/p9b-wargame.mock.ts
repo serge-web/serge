@@ -6260,7 +6260,6 @@ const game: Wargame = {
         "channels": {
             "name": "Channels",
             "channels": [
-
                 {
                     "channelType": "ChannelPlanning",
                     "name": "Planning",
