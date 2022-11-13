@@ -16,6 +16,8 @@ const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
 
+const planningChannelId = P9BMock.data.channels.channels[0].uniqid
+
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
@@ -85,7 +87,7 @@ const testActivity: PlanningActivity = {
 
 it('produces order data', () => {
   const numOrders = 20
-  const orders = randomOrdersDocs(numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities)
+  const orders = randomOrdersDocs(planningChannelId, numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities)
   expect(orders).toBeTruthy()
   expect(orders.length).toEqual(numOrders)
 })

@@ -259,7 +259,7 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
   return []
 }
 
-const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
+const createMessage = (channelId: string, force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
   // details first
   const from = randomRole(force.roles, 4 + ctr)
   const fromD: MessageDetailsFrom = {
@@ -330,7 +330,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
   }
 
   const details: MessageDetails = {
-    channel: sample.details.channel,
+    channel: channelId,
     from: fromD,
     messageType: activity.template,
     timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
@@ -467,7 +467,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
   return res
 }
 
-export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
+export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
@@ -476,7 +476,7 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
     startTime = startTime.add(minsOffset, 'm')
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
-    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime)
+    const newMessage = createMessage(channelId, authorForce, 2 + i * 3, orderTypes, startTime)
     res.push(newMessage)
   }
   return res
