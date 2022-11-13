@@ -8,6 +8,7 @@ import { landTemplate } from './p9-land'
 import { maritimeTemplate } from './p9-maritime'
 import { otherTemplate } from './p9-other'
 import { tmplASWBarrier, tmplCyber, tmplDuration, tmplEWAttack, tmplISTAR, tmplMineLaying, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTransit, tmplTST } from './p9-specific'
+import p9StockTemplates from './p9-stock-messages'
 
 const locationComponent = {
   format: 'textarea',
@@ -202,7 +203,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   }
 
   const templates = {
-
+    p9adjudicate: p9StockTemplates[0],
+    k16eedkl: p9StockTemplates[1]
   }
 
   acts.forEach((act: Activity) => {
