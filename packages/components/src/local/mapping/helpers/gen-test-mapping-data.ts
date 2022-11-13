@@ -80,7 +80,6 @@ const legacyAttributeTypesFor = (platformType: PlatformTypeData): AttributeTypes
 }
 
 const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: AttributeTypes): AttributeTypes => {
-  console.log('modern attributes', platformType, attributes)
   if (platformType.attributeTypeIds) {
     const res = platformType.attributeTypeIds.map((id): AttributeType => {
       const aType = attributes.find((attr) => attr.attrId === id)
@@ -125,7 +124,7 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
   return attributes
 }
 
-const createLegacyAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
+export const createLegacyAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
   const attrTypes = legacyAttributeTypesFor(platformType)
   const attrVals: AttributeValues = attrTypes.map((attr: AttributeType): AttributeValue => {
     //  NumberAttributeType | EnumAttributeType | StringAttributeType
@@ -194,16 +193,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
 
-    console.log('platform type 2', platformType)
-    const legacyAttrs = createLegacyAttributesFor(platformType)
-    const modernAttrs = createModernAttributesFor(platformType, attributeTypes)
-
-    if (legacyAttrs && legacyAttrs.length > 0) {
-      asset.attributeValues = legacyAttrs
-    }
-    if (modernAttrs) {
-      asset.attributes = modernAttrs
-    }
+    asset.attributes = createModernAttributesFor(platformType, attributeTypes)
 
     // generate some perceptions:
     asset.perceptions = createPerceptions(asset, force.uniqid, forces)
