@@ -16,7 +16,7 @@ export type OrderRow = {
   endDate: string
 }
 
-export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: {(newValue: unknown): void}): void}
+export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void }
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
   /**
@@ -61,7 +61,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
   confirmCancel?: boolean
-  onCancel?: {(event: React.MouseEvent<HTMLButtonElement>): void}
+  onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
   selectedForce?: ForceData
   selectedRoleName: string
   currentTurn: number
@@ -88,4 +88,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *  the range of planning activities for each force
    */
   forcePlanningActivities?: PerForcePlanningActivitySet[]
+
+  onDetailPanelOpen?: (rowData: OrderRow) => void
+
+  onDetailPanelClose?: (rowData: OrderRow) => void
 }
