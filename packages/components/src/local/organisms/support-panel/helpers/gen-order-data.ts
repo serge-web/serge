@@ -636,9 +636,11 @@ const createContactReference = (me: string, other: string): string => {
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
   interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
   sensorRangeKm: number): PlanningContact[] => {
+  let dummyContact: PlanningContact | undefined  
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
+      console.log('find touch', me.id, other.id)
       // check it's not me
       if (myIndex !== otherIndex) {
         // don't compare geometries that are part of the same activity
@@ -648,6 +650,23 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const first = meFirst ? me : other
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
+
+          const timeFor = (props: any): number => {
+            const planned = props as PlannedProps
+            return planned.startTime
+          }
+
+          // give us a dummy interaction
+          dummyContact = {
+            first: first,
+            second: second,
+            id: id,
+            intersection: undefined,
+            timeStart: timeFor(first.geometry.properties),
+            timeEnd: timeFor(first.geometry.properties)
+          }
+          console.log('dummy contact')
+
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {
             // has it already been adjudicated
@@ -674,7 +693,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
-  return res
+  return res.length ? res : [dummyContact as PlanningContact]
 }
 
 export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
