@@ -54,6 +54,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       channel: channel.uniqid,
       from: {
         force: selectedForce.name,
+        forceId: selectedForce.uniqid,
         forceColor: selectedForce.color,
         roleName: selectedRoleName,
         roleId: selectedRole,
