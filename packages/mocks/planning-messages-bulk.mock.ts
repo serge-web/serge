@@ -13,8 +13,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T08:51:37.924Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-22T15:47:41.086Z",
             "turnNumber": 3
         },
         "message": {
@@ -143,7 +143,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1051",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -168,8 +168,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T21:06:20.164Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-27T19:41:04.380Z",
             "turnNumber": 3
         },
         "message": {
@@ -306,19 +306,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1143",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1196",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1178",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1189",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -341,8 +341,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T07:05:03.194Z",
+            "messageType": "Maritime--EWAttack",
+            "timestamp": "2022-09-29T05:18:28.464Z",
             "turnNumber": 3
         },
         "message": {
@@ -471,7 +471,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1089",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -495,8 +495,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T14:47:47.015Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-26T20:39:53.339Z",
             "turnNumber": 3
         },
         "message": {
@@ -666,7 +666,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1090",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -690,8 +690,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T12:14:31.627Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-29T01:45:19.005Z",
             "turnNumber": 3
         },
         "message": {
@@ -816,15 +816,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1048",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1057",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1093",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -848,8 +848,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T23:25:17.028Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-27T12:34:45.461Z",
             "turnNumber": 3
         },
         "message": {
@@ -974,11 +974,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1060",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1054",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -1001,8 +1001,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T16:20:03.221Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-22T05:08:12.707Z",
             "turnNumber": 3
         },
         "message": {
@@ -1127,7 +1127,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1027",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -1152,8 +1152,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T14:58:50.204Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-29T19:25:40.744Z",
             "turnNumber": 3
         },
         "message": {
@@ -1188,7 +1188,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -1212,8 +1212,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T03:21:37.977Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-25T07:27:09.572Z",
             "turnNumber": 3
         },
         "message": {
@@ -1350,15 +1350,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1124",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1172",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1149",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -1382,8 +1382,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T05:28:26.541Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-25T09:12:39.190Z",
             "turnNumber": 3
         },
         "message": {
@@ -1520,19 +1520,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1154",
-                    "number": 4
-                },
-                {
-                    "asset": "a1187",
                     "number": 3
                 },
                 {
+                    "asset": "a1187",
+                    "number": 1
+                },
+                {
                     "asset": "a1150",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1141",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1557,8 +1557,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T13:19:15.896Z",
+            "messageType": "Maritime--Patrol",
+            "timestamp": "2022-09-21T16:42:09.598Z",
             "turnNumber": 3
         },
         "message": {
@@ -1699,11 +1699,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1059",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1007",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1727,8 +1727,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T02:54:06.041Z",
+            "messageType": "Maritime--MissileStrike",
+            "timestamp": "2022-09-22T13:55:40.797Z",
             "turnNumber": 3
         },
         "message": {
@@ -1863,19 +1863,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1180",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1184",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1117",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1176",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -1899,8 +1899,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T06:12:56.977Z",
+            "messageType": "Air--Patrol",
+            "timestamp": "2022-09-28T00:53:12.787Z",
             "turnNumber": 3
         },
         "message": {
@@ -2029,15 +2029,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1176",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1165",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1181",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2060,8 +2060,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T15:15:48.703Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-29T17:34:45.567Z",
             "turnNumber": 3
         },
         "message": {
@@ -2182,19 +2182,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1028",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1099",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1101",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1033",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2218,8 +2218,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T14:02:41.219Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-27T16:00:19.138Z",
             "turnNumber": 3
         },
         "message": {
@@ -2254,15 +2254,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1133",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1190",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1177",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1191",
@@ -2291,8 +2291,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T18:33:34.526Z",
+            "messageType": "Maritime--ASWBarrier",
+            "timestamp": "2022-09-21T20:09:53.499Z",
             "turnNumber": 3
         },
         "message": {
@@ -2429,7 +2429,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1036",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2454,8 +2454,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T04:48:28.624Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-28T22:03:28.651Z",
             "turnNumber": 3
         },
         "message": {
@@ -2584,11 +2584,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1109",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1136",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2613,8 +2613,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T04:47:23.512Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-23T21:41:04.593Z",
             "turnNumber": 3
         },
         "message": {
@@ -2749,19 +2749,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1177",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1190",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1133",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1201",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -2785,8 +2785,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T18:30:19.191Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-23T11:02:41.326Z",
             "turnNumber": 3
         },
         "message": {
@@ -2919,19 +2919,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1201",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1199",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1128",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1181",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2954,8 +2954,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T13:57:15.660Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-27T14:08:18.849Z",
             "turnNumber": 3
         },
         "message": {
@@ -3121,15 +3121,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1081",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1065",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1076",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -3154,8 +3154,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T15:08:12.920Z",
+            "messageType": "Air--Patrol",
+            "timestamp": "2022-09-27T22:57:57.163Z",
             "turnNumber": 3
         },
         "message": {
@@ -3276,11 +3276,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1117",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1183",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1180",
@@ -3288,7 +3288,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1107",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -3311,8 +3311,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T06:03:10.970Z",
+            "messageType": "Land--ISTAR",
+            "timestamp": "2022-09-24T13:31:36.267Z",
             "turnNumber": 3
         },
         "message": {
@@ -3433,15 +3433,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1007",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1059",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1041",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -3464,8 +3464,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T02:42:09.811Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-25T17:49:16.162Z",
             "turnNumber": 3
         },
         "message": {
@@ -3500,19 +3500,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1050",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1087",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1054",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1049",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -3535,8 +3535,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T13:05:09.442Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-23T03:50:56.847Z",
             "turnNumber": 3
         },
         "message": {
@@ -3665,11 +3665,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1049",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1071",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1024",
@@ -3698,8 +3698,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T05:12:09.864Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-25T03:36:38.323Z",
             "turnNumber": 3
         },
         "message": {
@@ -3848,8 +3848,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T03:03:11.077Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-23T09:06:20.590Z",
             "turnNumber": 3
         },
         "message": {
@@ -4015,7 +4015,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1013",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -4038,8 +4038,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T14:38:13.080Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-26T04:20:03.647Z",
             "turnNumber": 3
         },
         "message": {
@@ -4166,11 +4166,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1175",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1153",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4193,8 +4193,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T15:57:15.873Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-25T05:17:47.494Z",
             "turnNumber": 3
         },
         "message": {
@@ -4327,11 +4327,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1057",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1048",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -4355,8 +4355,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T23:00:19.457Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-28T19:59:32.132Z",
             "turnNumber": 3
         },
         "message": {
@@ -4493,7 +4493,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1167",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -4517,8 +4517,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T11:47:23.831Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-28T16:25:17.560Z",
             "turnNumber": 3
         },
         "message": {
@@ -4657,7 +4657,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1095",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -4680,8 +4680,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T14:18:28.996Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-24T18:35:03.780Z",
             "turnNumber": 3
         },
         "message": {
@@ -4810,19 +4810,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1178",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1195",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1143",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1118",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -4847,8 +4847,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T06:33:34.952Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-25T10:28:50.789Z",
             "turnNumber": 3
         },
         "message": {
@@ -5001,8 +5001,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T20:32:41.698Z",
+            "messageType": "Land--ISTAR",
+            "timestamp": "2022-09-22T08:06:38.589Z",
             "turnNumber": 3
         },
         "message": {
@@ -5135,19 +5135,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1011",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1096",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1015",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1058",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5172,8 +5172,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T08:15:49.235Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-23T19:28:27.180Z",
             "turnNumber": 3
         },
         "message": {
@@ -5304,7 +5304,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1031",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -5329,8 +5329,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T17:42:57.562Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-29T20:34:16.561Z",
             "turnNumber": 3
         },
         "message": {
@@ -5455,7 +5455,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1160",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -5480,8 +5480,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T16:54:06.679Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-23T19:24:06.733Z",
             "turnNumber": 3
         },
         "message": {
@@ -5614,7 +5614,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1019",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1060",
@@ -5622,7 +5622,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1032",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5646,8 +5646,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T05:49:16.588Z",
+            "messageType": "Land--Patrol",
+            "timestamp": "2022-09-22T07:57:57.695Z",
             "turnNumber": 3
         },
         "message": {
@@ -5768,11 +5768,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1158",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1115",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -5795,8 +5795,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T00:28:27.286Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-25T10:15:49.447Z",
             "turnNumber": 3
         },
         "message": {
@@ -5809,7 +5809,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1196",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -5834,8 +5834,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T00:51:38.775Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-24T18:17:41.991Z",
             "turnNumber": 3
         },
         "message": {
@@ -5848,7 +5848,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1021",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -5871,8 +5871,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T14:58:51.055Z",
+            "messageType": "Land--Patrol",
+            "timestamp": "2022-09-28T16:03:35.324Z",
             "turnNumber": 3
         },
         "message": {
@@ -5993,15 +5993,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1195",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1178",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1188",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -6024,8 +6024,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T18:50:04.125Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-28T19:33:29.449Z",
             "turnNumber": 3
         },
         "message": {
@@ -6038,19 +6038,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1129",
-                    "number": 1
-                },
-                {
-                    "asset": "a1194",
-                    "number": 3
-                },
-                {
-                    "asset": "a1190",
                     "number": 4
                 },
                 {
+                    "asset": "a1194",
+                    "number": 5
+                },
+                {
+                    "asset": "a1190",
+                    "number": 3
+                },
+                {
                     "asset": "a1116",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -6073,8 +6073,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T04:25:17.986Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-25T04:47:24.363Z",
             "turnNumber": 3
         },
         "message": {
@@ -6087,15 +6087,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1116",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1167",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1148",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -6118,8 +6118,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T19:44:32.637Z",
+            "messageType": "Land--ISTAR",
+            "timestamp": "2022-09-26T03:45:20.069Z",
             "turnNumber": 3
         },
         "message": {
@@ -6248,7 +6248,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1057",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1093",
@@ -6256,11 +6256,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1059",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1053",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -6285,8 +6285,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T00:47:48.079Z",
+            "messageType": "Maritime--Patrol",
+            "timestamp": "2022-09-23T08:27:16.565Z",
             "turnNumber": 3
         },
         "message": {
@@ -6415,15 +6415,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1153",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1175",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1126",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -6446,8 +6446,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T11:35:04.312Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-25T02:53:13.851Z",
             "turnNumber": 3
         },
         "message": {
@@ -6564,7 +6564,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1103",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6589,8 +6589,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T04:06:21.334Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-23T03:03:11.928Z",
             "turnNumber": 3
         },
         "message": {
@@ -6629,11 +6629,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1101",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1024",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1071",
@@ -6662,8 +6662,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T18:21:39.148Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-25T16:57:10.795Z",
             "turnNumber": 3
         },
         "message": {
@@ -6794,11 +6794,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1171",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1149",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -6823,8 +6823,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T06:20:57.752Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-24T12:35:10.453Z",
             "turnNumber": 3
         },
         "message": {
@@ -6953,11 +6953,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1150",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -6982,8 +6982,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T08:04:17.146Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-27T21:57:10.902Z",
             "turnNumber": 3
         },
         "message": {
@@ -7124,8 +7124,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T15:31:37.331Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-27T13:03:12.141Z",
             "turnNumber": 3
         },
         "message": {
@@ -7258,7 +7258,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1083",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7283,8 +7283,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T12:42:58.307Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-23T09:53:14.170Z",
             "turnNumber": 3
         },
         "message": {
@@ -7417,7 +7417,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1027",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1098",
@@ -7444,8 +7444,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T23:38:20.073Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-23T20:27:16.990Z",
             "turnNumber": 3
         },
         "message": {
@@ -7484,7 +7484,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1100",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1032",
@@ -7516,8 +7516,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T16:17:42.629Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-28T20:45:20.601Z",
             "turnNumber": 3
         },
         "message": {
@@ -7642,15 +7642,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1089",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1076",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1091",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -7674,8 +7674,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T14:41:05.976Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-21T18:47:25.002Z",
             "turnNumber": 3
         },
         "message": {
@@ -7833,7 +7833,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1136",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -7857,8 +7857,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T18:48:30.114Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-27T14:33:30.194Z",
             "turnNumber": 3
         },
         "message": {
@@ -7893,7 +7893,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1136",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1191",
@@ -7905,7 +7905,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1189",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7928,8 +7928,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T20:39:55.042Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-29T16:03:36.176Z",
             "turnNumber": 3
         },
         "message": {
@@ -7964,11 +7964,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1189",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1132",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -7992,8 +7992,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T20:15:20.760Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-27T23:17:42.948Z",
             "turnNumber": 3
         },
         "message": {
@@ -8167,7 +8167,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1098",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8192,8 +8192,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T09:34:47.270Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-22T12:15:50.511Z",
             "turnNumber": 3
         },
         "message": {
@@ -8318,15 +8318,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1164",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1175",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1117",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -8349,8 +8349,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T12:38:14.569Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-21T14:57:58.865Z",
             "turnNumber": 3
         },
         "message": {
@@ -8385,11 +8385,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1183",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1179",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1103",
@@ -8397,7 +8397,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1158",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -8420,8 +8420,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T21:25:42.659Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-25T07:24:08.009Z",
             "turnNumber": 3
         },
         "message": {
@@ -8546,7 +8546,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1040",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -8569,8 +8569,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T11:57:11.540Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-25T05:34:17.944Z",
             "turnNumber": 3
         },
         "message": {
@@ -8687,7 +8687,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1153",
@@ -8716,8 +8716,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T16:12:41.211Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-29T17:28:28.669Z",
             "turnNumber": 3
         },
         "message": {
@@ -8838,7 +8838,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1171",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -8861,8 +8861,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T02:12:11.673Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-22T03:06:40.185Z",
             "turnNumber": 3
         },
         "message": {
@@ -8991,11 +8991,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1111",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1147",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -9020,8 +9020,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T01:55:42.925Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-27T10:28:52.492Z",
             "turnNumber": 3
         },
         "message": {
@@ -9160,7 +9160,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1102",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -9185,8 +9185,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T07:23:14.968Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-28T23:35:05.588Z",
             "turnNumber": 3
         },
         "message": {
@@ -9364,7 +9364,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1159",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1192",
@@ -9393,8 +9393,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T02:34:47.802Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-26T18:25:19.476Z",
             "turnNumber": 3
         },
         "message": {
@@ -9527,11 +9527,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1156",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1147",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -9556,8 +9556,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T03:30:21.425Z",
+            "messageType": "Maritime--Patrol",
+            "timestamp": "2022-09-29T02:59:34.154Z",
             "turnNumber": 3
         },
         "message": {
@@ -9694,19 +9694,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1016",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1089",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1094",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1028",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -9730,8 +9730,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T18:09:55.840Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-27T17:17:49.622Z",
             "turnNumber": 3
         },
         "message": {
@@ -9868,19 +9868,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1128",
-                    "number": 0
-                },
-                {
-                    "asset": "a1188",
                     "number": 1
                 },
                 {
+                    "asset": "a1188",
+                    "number": 5
+                },
+                {
                     "asset": "a1177",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1194",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -9903,8 +9903,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T14:33:31.045Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-22T13:20:05.881Z",
             "turnNumber": 3
         },
         "message": {
@@ -9939,11 +9939,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1094",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1042",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -9967,8 +9967,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T16:41:07.040Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-21T23:06:22.930Z",
             "turnNumber": 3
         },
         "message": {
@@ -10097,11 +10097,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1020",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1050",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10126,8 +10126,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T08:32:43.826Z",
+            "messageType": "Land--Patrol",
+            "timestamp": "2022-09-25T22:36:40.770Z",
             "turnNumber": 3
         },
         "message": {
@@ -10260,7 +10260,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1195",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10285,8 +10285,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T06:08:21.403Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-26T03:50:59.401Z",
             "turnNumber": 3
         },
         "message": {
@@ -10299,7 +10299,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1131",
@@ -10328,8 +10328,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T17:27:59.770Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-22T14:49:18.822Z",
             "turnNumber": 3
         },
         "message": {
@@ -10342,19 +10342,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1018",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1101",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1030",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1059",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10378,8 +10378,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T18:31:38.927Z",
+            "messageType": "Land--ISTAR",
+            "timestamp": "2022-09-23T15:31:39.034Z",
             "turnNumber": 3
         },
         "message": {
@@ -10508,11 +10508,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1159",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1131",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10535,8 +10535,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T17:19:18.875Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-29T05:58:00.036Z",
             "turnNumber": 3
         },
         "message": {
@@ -10665,7 +10665,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1056",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -10689,8 +10689,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T05:50:59.614Z",
+            "messageType": "Maritime--Patrol",
+            "timestamp": "2022-09-22T18:08:21.828Z",
             "turnNumber": 3
         },
         "message": {
@@ -10815,11 +10815,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1110",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1150",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -10843,8 +10843,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T08:06:41.143Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-29T04:02:44.411Z",
             "turnNumber": 3
         },
         "message": {
@@ -10971,11 +10971,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1017",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1042",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -11000,8 +11000,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T16:06:23.462Z",
+            "messageType": "Land--ISTAR",
+            "timestamp": "2022-09-23T11:41:07.785Z",
             "turnNumber": 3
         },
         "message": {
@@ -11134,11 +11134,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1087",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1028",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1093",
@@ -11166,8 +11166,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T13:50:06.573Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-22T09:03:31.949Z",
             "turnNumber": 3
         },
         "message": {
@@ -11284,19 +11284,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1093",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1089",
-                    "number": 1
-                },
-                {
-                    "asset": "a1015",
                     "number": 0
                 },
                 {
+                    "asset": "a1015",
+                    "number": 4
+                },
+                {
                     "asset": "a1066",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -11320,8 +11320,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T17:17:50.473Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-25T20:09:56.904Z",
             "turnNumber": 3
         },
         "message": {
@@ -11450,11 +11450,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1066",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1047",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11479,8 +11479,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T02:29:35.164Z",
+            "messageType": "Maritime--Transit",
+            "timestamp": "2022-09-25T13:00:22.649Z",
             "turnNumber": 3
         },
         "message": {
@@ -11493,7 +11493,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1091",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1058",
@@ -11501,7 +11501,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1052",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11525,8 +11525,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T01:25:20.646Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-29T19:34:49.185Z",
             "turnNumber": 3
         },
         "message": {
@@ -11651,7 +11651,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1173",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -11675,8 +11675,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T06:05:06.918Z",
+            "messageType": "Air--EWAttack",
+            "timestamp": "2022-09-21T23:53:16.511Z",
             "turnNumber": 3
         },
         "message": {
@@ -11801,11 +11801,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1046",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -11830,8 +11830,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T00:28:53.981Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-27T01:55:44.628Z",
             "turnNumber": 3
         },
         "message": {
@@ -11986,8 +11986,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T00:36:41.834Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-28T09:42:13.535Z",
             "turnNumber": 3
         },
         "message": {
@@ -12124,11 +12124,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1153",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12152,8 +12152,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T14:28:30.478Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-25T23:12:43.233Z",
             "turnNumber": 3
         },
         "message": {
@@ -12286,11 +12286,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1139",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -12313,8 +12313,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T10:04:19.913Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-28T02:27:13.721Z",
             "turnNumber": 3
         },
         "message": {
@@ -12435,19 +12435,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1102",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1078",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1082",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1016",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -12471,8 +12471,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T19:24:10.137Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-26T11:25:45.000Z",
             "turnNumber": 3
         },
         "message": {
@@ -12646,15 +12646,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1116",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1174",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1163",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12679,8 +12679,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T10:28:01.153Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-29T10:08:17.070Z",
             "turnNumber": 3
         },
         "message": {
@@ -12813,7 +12813,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1079",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12838,8 +12838,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T07:15:52.959Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-28T14:34:49.930Z",
             "turnNumber": 3
         },
         "message": {
@@ -12968,11 +12968,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1199",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1131",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12997,8 +12997,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T17:47:45.555Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-24T00:45:23.580Z",
             "turnNumber": 3
         },
         "message": {
@@ -13139,15 +13139,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1189",
-                    "number": 1
-                },
-                {
-                    "asset": "a1134",
                     "number": 4
                 },
                 {
+                    "asset": "a1134",
+                    "number": 0
+                },
+                {
                     "asset": "a1107",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -13171,8 +13171,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T18:03:38.942Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-24T00:39:58.021Z",
             "turnNumber": 3
         },
         "message": {
@@ -13301,7 +13301,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1007",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -13324,8 +13324,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T16:03:33.120Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-28T14:18:33.253Z",
             "turnNumber": 3
         },
         "message": {
@@ -13360,15 +13360,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1189",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1175",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1187",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -13392,8 +13392,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T11:47:28.088Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-29T09:41:09.275Z",
             "turnNumber": 3
         },
         "message": {
@@ -13575,15 +13575,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1199",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1197",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1126",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -13608,8 +13608,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T13:15:23.846Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-26T10:47:46.087Z",
             "turnNumber": 3
         },
         "message": {
@@ -13622,19 +13622,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1126",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1179",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1163",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1174",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13659,8 +13659,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T20:27:20.395Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-28T01:38:23.690Z",
             "turnNumber": 3
         },
         "message": {
@@ -13785,7 +13785,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1074",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -13810,8 +13810,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T09:23:17.735Z",
+            "messageType": "Air--EWAttack",
+            "timestamp": "2022-09-25T22:13:02.084Z",
             "turnNumber": 3
         },
         "message": {
@@ -13940,19 +13940,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1078",
-                    "number": 1
-                },
-                {
-                    "asset": "a1102",
-                    "number": 2
-                },
-                {
-                    "asset": "a1056",
                     "number": 0
                 },
                 {
-                    "asset": "a1038",
+                    "asset": "a1102",
+                    "number": 3
+                },
+                {
+                    "asset": "a1056",
                     "number": 4
+                },
+                {
+                    "asset": "a1038",
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -13977,8 +13977,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T20:03:15.865Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-28T08:31:41.268Z",
             "turnNumber": 3
         },
         "message": {
@@ -14107,11 +14107,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1038",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1048",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -14134,8 +14134,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T04:27:14.785Z",
+            "messageType": "Maritime--Transit",
+            "timestamp": "2022-09-27T00:34:21.243Z",
             "turnNumber": 3
         },
         "message": {
@@ -14270,7 +14270,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1047",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -14295,8 +14295,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T02:35:14.497Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-21T22:21:02.008Z",
             "turnNumber": 3
         },
         "message": {
@@ -14413,19 +14413,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1022",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1099",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1010",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1045",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -14448,8 +14448,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T14:27:14.998Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-29T17:51:43.564Z",
             "turnNumber": 3
         },
         "message": {
@@ -14582,7 +14582,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1145",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -14605,8 +14605,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T00:03:16.290Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-25T11:06:25.910Z",
             "turnNumber": 3
         },
         "message": {
@@ -14739,11 +14739,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1072",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1051",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -14766,8 +14766,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T07:23:18.373Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-25T18:05:09.046Z",
             "turnNumber": 3
         },
         "message": {
@@ -14904,19 +14904,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1157",
-                    "number": 0
-                },
-                {
-                    "asset": "a1190",
-                    "number": 1
-                },
-                {
-                    "asset": "a1154",
                     "number": 5
                 },
                 {
+                    "asset": "a1190",
+                    "number": 5
+                },
+                {
+                    "asset": "a1154",
+                    "number": 1
+                },
+                {
                     "asset": "a1146",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -14941,8 +14941,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T20:27:21.246Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-22T06:47:52.974Z",
             "turnNumber": 3
         },
         "message": {
@@ -15063,7 +15063,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1065",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1014",
@@ -15091,8 +15091,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T15:15:24.910Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-23T09:14:37.692Z",
             "turnNumber": 3
         },
         "message": {
@@ -15221,15 +15221,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1092",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1027",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1086",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -15252,8 +15252,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T23:47:29.364Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-29T01:25:23.200Z",
             "turnNumber": 3
         },
         "message": {
@@ -15415,15 +15415,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 5
-                },
-                {
-                    "asset": "a1176",
                     "number": 3
                 },
                 {
+                    "asset": "a1176",
+                    "number": 2
+                },
+                {
                     "asset": "a1193",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -15446,8 +15446,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T14:03:34.609Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-22T15:20:09.499Z",
             "turnNumber": 3
         },
         "message": {
@@ -15584,7 +15584,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1041",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -15608,8 +15608,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T10:03:40.645Z",
+            "messageType": "Maritime--MissileStrike",
+            "timestamp": "2022-09-29T02:58:56.588Z",
             "turnNumber": 3
         },
         "message": {
@@ -15768,8 +15768,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T19:47:47.470Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-23T12:21:44.468Z",
             "turnNumber": 3
         },
         "message": {
@@ -15894,15 +15894,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1055",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1028",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -15925,8 +15925,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T19:15:55.087Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-22T11:28:33.138Z",
             "turnNumber": 3
         },
         "message": {
@@ -16061,15 +16061,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1129",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1157",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1116",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16094,8 +16094,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T00:28:03.494Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-26T00:19:22.599Z",
             "turnNumber": 3
         },
         "message": {
@@ -16108,7 +16108,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1100",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16132,8 +16132,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T11:24:12.691Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-25T18:54:12.851Z",
             "turnNumber": 3
         },
         "message": {
@@ -16274,7 +16274,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1029",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16298,8 +16298,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T12:04:22.679Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-21T19:13:03.893Z",
             "turnNumber": 3
         },
         "message": {
@@ -16312,19 +16312,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1112",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1193",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1108",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1148",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16349,8 +16349,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T02:28:33.458Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-22T09:15:55.725Z",
             "turnNumber": 3
         },
         "message": {
@@ -16506,8 +16506,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T14:36:45.027Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-27T13:02:48.348Z",
             "turnNumber": 3
         },
         "message": {
@@ -16648,7 +16648,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1140",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1192",
@@ -16656,11 +16656,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1175",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1186",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -16684,8 +16684,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T00:28:57.386Z",
+            "messageType": "Maritime--MissileStrike",
+            "timestamp": "2022-09-28T22:33:41.762Z",
             "turnNumber": 3
         },
         "message": {
@@ -16820,7 +16820,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1086",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -16843,8 +16843,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T08:05:10.536Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-26T13:48:35.966Z",
             "turnNumber": 3
         },
         "message": {
@@ -16965,7 +16965,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1087",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -16990,8 +16990,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T05:25:24.477Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-28T18:47:30.961Z",
             "turnNumber": 3
         },
         "message": {
@@ -17169,11 +17169,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1045",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1054",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -17196,8 +17196,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T16:29:39.208Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-27T05:30:26.746Z",
             "turnNumber": 3
         },
         "message": {
@@ -17326,11 +17326,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1056",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1050",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -17353,8 +17353,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T09:17:54.729Z",
+            "messageType": "Maritime--Patrol",
+            "timestamp": "2022-09-21T21:57:23.321Z",
             "turnNumber": 3
         },
         "message": {
@@ -17483,19 +17483,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1023",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1100",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1010",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1044",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -17518,8 +17518,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T15:50:11.042Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-29T12:08:20.687Z",
             "turnNumber": 3
         },
         "message": {
@@ -17644,7 +17644,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1144",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -17667,8 +17667,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T20:06:28.144Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-25T00:03:18.844Z",
             "turnNumber": 3
         },
         "message": {
@@ -17797,15 +17797,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1121",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1168",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1146",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -17830,8 +17830,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T22:06:46.037Z",
+            "messageType": "Land--Patrol",
+            "timestamp": "2022-09-25T01:42:17.791Z",
             "turnNumber": 3
         },
         "message": {
@@ -17960,15 +17960,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1183",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1146",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1137",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -17991,8 +17991,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T05:51:04.721Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-29T17:05:17.529Z",
             "turnNumber": 3
         },
         "message": {
@@ -18125,15 +18125,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1037",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1055",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1100",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -18157,8 +18157,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T19:19:24.195Z",
+            "messageType": "Maritime--Transit",
+            "timestamp": "2022-09-22T06:12:18.057Z",
             "turnNumber": 3
         },
         "message": {
@@ -18293,15 +18293,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1176",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1180",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1114",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1172",
@@ -18330,8 +18330,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T22:31:44.460Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-27T17:03:19.376Z",
             "turnNumber": 3
         },
         "message": {
@@ -18460,15 +18460,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1172",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1161",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1177",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -18493,8 +18493,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T07:28:05.515Z",
+            "messageType": "Air--EWAttack",
+            "timestamp": "2022-09-29T09:38:21.485Z",
             "turnNumber": 3
         },
         "message": {
@@ -18623,19 +18623,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1024",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1095",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1097",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1029",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -18659,8 +18659,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T06:08:27.361Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-27T07:57:24.385Z",
             "turnNumber": 3
         },
         "message": {
@@ -18793,11 +18793,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1186",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1173",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1187",
@@ -18824,8 +18824,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T10:32:49.998Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-29T20:00:28.076Z",
             "turnNumber": 3
         },
         "message": {
@@ -18838,11 +18838,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1087",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1032",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -18867,8 +18867,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T20:41:13.424Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-28T13:47:32.557Z",
             "turnNumber": 3
         },
         "message": {
@@ -19038,11 +19038,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1202",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1132",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -19065,8 +19065,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T20:33:37.642Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-23T13:18:37.828Z",
             "turnNumber": 3
         },
         "message": {
@@ -19236,19 +19236,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1173",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1185",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1129",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1197",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -19272,8 +19272,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T10:10:02.650Z",
+            "messageType": "Air--EWAttack",
+            "timestamp": "2022-09-23T02:33:43.890Z",
             "turnNumber": 3
         },
         "message": {
@@ -19402,19 +19402,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1197",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1195",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1124",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1177",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -19438,8 +19438,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T05:30:28.448Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-27T05:32:50.742Z",
             "turnNumber": 3
         },
         "message": {
@@ -19460,7 +19460,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1072",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -19483,8 +19483,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T06:34:55.037Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-27T14:15:58.385Z",
             "turnNumber": 3
         },
         "message": {
@@ -19613,19 +19613,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1113",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1179",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1176",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1200",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19650,8 +19650,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T21:23:22.417Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-24T04:43:06.819Z",
             "turnNumber": 3
         },
         "message": {
@@ -19792,11 +19792,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1100",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1054",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1036",
@@ -19824,8 +19824,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T17:55:50.587Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-25T08:54:16.043Z",
             "turnNumber": 3
         },
         "message": {
@@ -19946,15 +19946,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1046",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1083",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1050",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1045",
@@ -19983,8 +19983,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T04:12:19.547Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-22T18:49:26.057Z",
             "turnNumber": 3
         },
         "message": {
@@ -20113,15 +20113,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1045",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1067",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1020",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -20144,8 +20144,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T20:12:49.298Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-24T18:28:36.862Z",
             "turnNumber": 3
         },
         "message": {
@@ -20262,7 +20262,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1097",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -20285,8 +20285,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T17:57:19.840Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-22T23:51:48.458Z",
             "turnNumber": 3
         },
         "message": {
@@ -20299,15 +20299,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1009",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1099",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1022",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1070",
@@ -20336,8 +20336,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T13:25:51.172Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-25T18:59:00.844Z",
             "turnNumber": 3
         },
         "message": {
@@ -20480,7 +20480,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1149",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -20504,8 +20504,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T06:38:23.294Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-24T19:50:14.021Z",
             "turnNumber": 3
         },
         "message": {
@@ -20634,11 +20634,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1088",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1052",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -20661,8 +20661,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T13:34:56.207Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-28T10:25:27.988Z",
             "turnNumber": 3
         },
         "message": {
@@ -20824,7 +20824,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1162",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -20848,8 +20848,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T02:15:29.911Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-28T06:44:42.746Z",
             "turnNumber": 3
         },
         "message": {
@@ -20884,7 +20884,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1090",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -20909,8 +20909,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T04:40:04.405Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-24T08:47:58.294Z",
             "turnNumber": 3
         },
         "message": {
@@ -21047,15 +21047,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1074",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1091",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1038",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1013",
@@ -21084,8 +21084,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T20:48:39.690Z",
+            "messageType": "Air--EWAttack",
+            "timestamp": "2022-09-25T00:35:14.633Z",
             "turnNumber": 3
         },
         "message": {
@@ -21206,7 +21206,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1113",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21231,8 +21231,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T10:41:15.765Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-21T22:06:31.762Z",
             "turnNumber": 3
         },
         "message": {
@@ -21361,11 +21361,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1003",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1091",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1010",
@@ -21373,7 +21373,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1053",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21397,8 +21397,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T22:17:52.631Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-23T09:21:49.682Z",
             "turnNumber": 3
         },
         "message": {
@@ -21458,8 +21458,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T07:38:30.287Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-29T10:21:08.392Z",
             "turnNumber": 3
         },
         "message": {
@@ -21592,7 +21592,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1155",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -21616,8 +21616,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T06:43:08.734Z",
+            "messageType": "Maritime--Patrol",
+            "timestamp": "2022-09-23T09:04:27.893Z",
             "turnNumber": 3
         },
         "message": {
@@ -21746,15 +21746,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1014",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1055",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1027",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -21778,8 +21778,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T19:31:47.971Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-21T21:31:48.184Z",
             "turnNumber": 3
         },
         "message": {
@@ -21916,11 +21916,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1126",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1152",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -21944,8 +21944,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T14:04:27.999Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-24T23:43:09.266Z",
             "turnNumber": 3
         },
         "message": {
@@ -22066,7 +22066,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1191",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -22090,8 +22090,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T14:21:08.818Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-24T07:38:31.139Z",
             "turnNumber": 3
         },
         "message": {
@@ -22216,7 +22216,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1015",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -22239,8 +22239,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T04:21:50.427Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-28T05:17:53.801Z",
             "turnNumber": 3
         },
         "message": {
@@ -22381,7 +22381,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1183",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -22406,8 +22406,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T08:06:32.826Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-28T08:41:17.255Z",
             "turnNumber": 3
         },
         "message": {
@@ -22528,15 +22528,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1189",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1185",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1111",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -22559,8 +22559,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T17:35:16.016Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-24T17:48:41.499Z",
             "turnNumber": 3
         },
         "message": {
@@ -22685,11 +22685,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1111",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1162",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1143",
@@ -22717,8 +22717,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T08:47:59.996Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-25T16:40:06.533Z",
             "turnNumber": 3
         },
         "message": {
@@ -22849,15 +22849,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1051",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1087",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1054",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1048",
@@ -22885,8 +22885,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T13:44:44.767Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-22T21:15:32.358Z",
             "turnNumber": 3
         },
         "message": {
@@ -23015,15 +23015,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1169",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1121",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -23047,8 +23047,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T00:25:30.329Z",
+            "messageType": "Maritime--ISTAR",
+            "timestamp": "2022-09-24T15:34:58.974Z",
             "turnNumber": 3
         },
         "message": {
@@ -23177,7 +23177,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1197",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -23200,8 +23200,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T16:50:16.681Z",
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-22T15:38:26.380Z",
             "turnNumber": 3
         },
         "message": {
@@ -23338,11 +23338,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1003",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1096",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1018",
@@ -23350,7 +23350,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1065",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -23375,8 +23375,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T06:59:03.824Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-25T05:25:54.577Z",
             "turnNumber": 3
         },
         "message": {
@@ -23411,11 +23411,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1165",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1143",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -23438,8 +23438,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T18:51:51.757Z",
+            "messageType": "Maritime--Transit",
+            "timestamp": "2022-09-24T00:57:23.564Z",
             "turnNumber": 3
         },
         "message": {
@@ -23452,7 +23452,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1181",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1144",
@@ -23480,8 +23480,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T20:28:40.480Z",
+            "messageType": "Air--Patrol",
+            "timestamp": "2022-09-27T10:12:53.341Z",
             "turnNumber": 3
         },
         "message": {
@@ -23618,19 +23618,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1152",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1198",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1174",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1177",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -23654,8 +23654,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T11:49:29.994Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-27T01:12:23.910Z",
             "turnNumber": 3
         },
         "message": {
@@ -23784,7 +23784,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -23808,8 +23808,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T00:54:20.299Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-22T21:55:55.268Z",
             "turnNumber": 3
         },
         "message": {
@@ -23938,11 +23938,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1075",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1021",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -23965,8 +23965,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T11:43:11.394Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-23T08:23:27.417Z",
             "turnNumber": 3
         },
         "message": {
@@ -24087,19 +24087,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1093",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1094",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1026",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1083",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24124,8 +24124,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T04:16:03.280Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-28T08:35:00.357Z",
             "turnNumber": 3
         },
         "message": {
@@ -24262,15 +24262,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1083",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1070",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1085",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24293,8 +24293,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T02:32:55.956Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-29T14:30:34.087Z",
             "turnNumber": 3
         },
         "message": {
@@ -24419,15 +24419,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1199",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1183",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1170",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24451,8 +24451,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T14:33:49.423Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-27T02:10:08.608Z",
             "turnNumber": 3
         },
         "message": {
@@ -24469,11 +24469,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1185",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1170",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1183",
@@ -24501,8 +24501,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T08:18:43.680Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-29T03:33:43.920Z",
             "turnNumber": 3
         },
         "message": {
@@ -24515,7 +24515,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1183",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24539,8 +24539,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T07:47:38.728Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-27T10:41:20.021Z",
             "turnNumber": 3
         },
         "message": {
@@ -24657,7 +24657,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1092",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24680,8 +24680,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T21:00:34.566Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-21T23:32:56.914Z",
             "turnNumber": 3
         },
         "message": {
@@ -24802,11 +24802,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1169",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1110",
@@ -24835,8 +24835,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-26T23:57:31.195Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-29T10:08:34.597Z",
             "turnNumber": 3
         },
         "message": {
@@ -24969,7 +24969,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1177",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1173",
@@ -25000,8 +25000,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T08:38:28.614Z",
+            "messageType": "Air--ISTAR",
+            "timestamp": "2022-09-24T18:28:13.070Z",
             "turnNumber": 3
         },
         "message": {
@@ -25122,11 +25122,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1052",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1034",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -25150,8 +25150,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T23:03:26.824Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-24T16:31:52.334Z",
             "turnNumber": 3
         },
         "message": {
@@ -25272,11 +25272,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1180",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1147",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -25300,8 +25300,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T03:12:25.825Z",
+            "messageType": "Air--Patrol",
+            "timestamp": "2022-09-29T04:19:32.388Z",
             "turnNumber": 3
         },
         "message": {
@@ -25434,7 +25434,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1164",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -25458,8 +25458,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T13:05:25.616Z",
+            "messageType": "Maritime--Transit",
+            "timestamp": "2022-09-21T13:51:13.233Z",
             "turnNumber": 3
         },
         "message": {
@@ -25472,11 +25472,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1202",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1140",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -25500,8 +25500,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T12:42:26.197Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-26T21:06:54.869Z",
             "turnNumber": 3
         },
         "message": {
@@ -25667,7 +25667,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1096",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -25692,8 +25692,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T18:03:27.569Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-28T10:06:37.295Z",
             "turnNumber": 3
         },
         "message": {
@@ -25706,11 +25706,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1146",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1152",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -25734,8 +25734,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T13:08:29.732Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-26T04:50:20.511Z",
             "turnNumber": 3
         },
         "message": {
@@ -25856,11 +25856,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1149",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1141",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -25885,8 +25885,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T13:57:32.685Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-28T13:18:04.519Z",
             "turnNumber": 3
         },
         "message": {
@@ -26011,11 +26011,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1009",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1083",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1087",
@@ -26023,7 +26023,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1022",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -26048,8 +26048,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T04:30:36.428Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-27T03:29:49.316Z",
             "turnNumber": 3
         },
         "message": {
@@ -26192,11 +26192,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1181",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1171",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1188",
@@ -26225,8 +26225,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T00:47:40.962Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-21T23:25:34.904Z",
             "turnNumber": 3
         },
         "message": {
@@ -26359,7 +26359,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1035",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -26383,8 +26383,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T02:48:46.287Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-29T17:05:21.283Z",
             "turnNumber": 3
         },
         "message": {
@@ -26581,8 +26581,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T18:33:52.402Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-25T08:29:08.452Z",
             "turnNumber": 3
         },
         "message": {
@@ -26713,7 +26713,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1188",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -26738,8 +26738,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T16:02:59.308Z",
+            "messageType": "Air--Transit",
+            "timestamp": "2022-09-25T13:36:56.412Z",
             "turnNumber": 3
         },
         "message": {
@@ -26942,8 +26942,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T03:16:07.004Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-22T00:28:45.162Z",
             "turnNumber": 3
         },
         "message": {
@@ -27064,11 +27064,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1011",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1094",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1023",
@@ -27099,8 +27099,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-29T04:13:15.491Z",
+            "messageType": "Land--MissileStrike",
+            "timestamp": "2022-09-23T01:04:34.703Z",
             "turnNumber": 3
         },
         "message": {
@@ -27235,7 +27235,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1152",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -27258,8 +27258,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T02:54:24.768Z",
+            "messageType": "Maritime--MineLaying",
+            "timestamp": "2022-09-28T15:24:25.034Z",
             "turnNumber": 3
         },
         "message": {
@@ -27376,7 +27376,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1049",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27401,8 +27401,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-21T15:19:34.836Z",
+            "messageType": "Maritime--Duration",
+            "timestamp": "2022-09-22T03:28:16.156Z",
             "turnNumber": 3
         },
         "message": {
@@ -27555,8 +27555,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T17:28:45.694Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-28T13:16:08.068Z",
             "turnNumber": 3
         },
         "message": {
@@ -27726,7 +27726,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1035",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27751,8 +27751,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T01:21:57.343Z",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-09-22T20:48:00.771Z",
             "turnNumber": 3
         },
         "message": {
@@ -27883,15 +27883,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1070",
-                    "number": 2
-                },
-                {
-                    "asset": "a1080",
                     "number": 1
                 },
                 {
+                    "asset": "a1080",
+                    "number": 3
+                },
+                {
                     "asset": "a1021",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1086",
@@ -27918,8 +27918,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-27T22:59:09.782Z",
+            "messageType": "Air--Duration",
+            "timestamp": "2022-09-21T18:03:54.264Z",
             "turnNumber": 3
         },
         "message": {
@@ -28048,15 +28048,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1086",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1082",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1008",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1058",
@@ -28084,8 +28084,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-28T02:20:23.012Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-25T05:03:48.548Z",
             "turnNumber": 3
         },
         "message": {
@@ -28210,11 +28210,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1140",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -28238,8 +28238,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T11:25:37.032Z",
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-24T21:47:43.623Z",
             "turnNumber": 3
         },
         "message": {
@@ -28368,7 +28368,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1084",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1051",
@@ -28395,8 +28395,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-25T10:14:51.843Z",
+            "messageType": "Air--Standard",
+            "timestamp": "2022-09-29T04:15:39.487Z",
             "turnNumber": 3
         },
         "message": {
@@ -28529,7 +28529,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1166",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -28554,8 +28554,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T14:48:07.445Z",
+            "messageType": "Maritime--Transit",
+            "timestamp": "2022-09-29T16:27:36.143Z",
             "turnNumber": 3
         },
         "message": {
@@ -28568,7 +28568,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1101",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1038",
@@ -28596,8 +28596,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T09:05:23.837Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-26T10:23:33.589Z",
             "turnNumber": 3
         },
         "message": {
@@ -28759,7 +28759,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1192",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -28784,8 +28784,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-22T09:06:41.019Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-27T18:03:31.825Z",
             "turnNumber": 3
         },
         "message": {
@@ -28910,11 +28910,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1140",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1145",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -28939,8 +28939,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-24T22:51:58.992Z",
+            "messageType": "Maritime--MissileStrike",
+            "timestamp": "2022-09-25T07:27:30.852Z",
             "turnNumber": 3
         },
         "message": {
@@ -29079,11 +29079,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1141",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1131",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -29108,8 +29108,8 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Land Activity",
-            "timestamp": "2022-09-23T18:21:17.756Z",
+            "messageType": "Maritime--MissileStrike",
+            "timestamp": "2022-09-27T10:35:30.670Z",
             "turnNumber": 3
         },
         "message": {
@@ -29240,15 +29240,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1095",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1071",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1074",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
