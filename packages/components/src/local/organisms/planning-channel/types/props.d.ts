@@ -3,8 +3,6 @@ import { AttributeTypes, ChannelPlanning, ChatMessage, ForceData, MessageDetails
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
-  /** the set of templates for this user, in this channel */
-  channelTemplates: TemplateBody[]
   /** the full set of templates (used for rendering third party messages) */
   allTemplates: TemplateBody[]
   adjudicationTemplate: TemplateBody

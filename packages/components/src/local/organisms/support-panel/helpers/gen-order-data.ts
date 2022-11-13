@@ -1,7 +1,7 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
-  PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
+  PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role, TemplateBody
 } from '@serge/custom-types'
 import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
@@ -259,7 +259,7 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
   return []
 }
 
-const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
+const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment, allTemplates: TemplateBody[]): MessagePlanning => {
   // details first
   const from = randomRole(force.roles, 4 + ctr)
   const fromD: MessageDetailsFrom = {
@@ -270,13 +270,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
     iconURL: sample.details.from.iconURL,
     forceId: force.forceId
   }
-  const details: MessageDetails = {
-    channel: sample.details.channel,
-    from: fromD,
-    messageType: 'Land Activity',
-    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
-    turnNumber: 3
-  }
+
   // assets
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
@@ -306,6 +300,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
   const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
   const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
   const activity = randomArrayItem(flatActivities, ctr++)
+
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
     activity, 5 * psora(4 * ctr), timeNow)
 
@@ -332,6 +327,14 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
     const timeEnd = timeStart.clone().add(minsOffset, 'm')
     startDate = timeStart
     endDate = timeEnd
+  }
+
+  const details: MessageDetails = {
+    channel: sample.details.channel,
+    from: fromD,
+    messageType: activity.template,
+    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
+    turnNumber: 3
   }
 
   // create the message
@@ -464,7 +467,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
   return res
 }
 
-export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
+export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[], allTemplates: TemplateBody[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
@@ -473,7 +476,7 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
     startTime = startTime.add(minsOffset, 'm')
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
-    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime)
+    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime, allTemplates)
     res.push(newMessage)
   }
   return res

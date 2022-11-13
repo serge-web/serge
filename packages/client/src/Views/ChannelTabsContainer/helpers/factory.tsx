@@ -177,7 +177,6 @@ const factory = (state: PlayerUi): Factory => {
             }
           }
           return <PlanningChannel
-            channelTemplates={channel.templates}
             allTemplates={allTemplates}
             adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
             channelId={channel.uniqid}

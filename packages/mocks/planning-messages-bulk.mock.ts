@@ -143,7 +143,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1051",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -306,19 +306,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1143",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1196",
-                    "number": 0
-                },
-                {
-                    "asset": "a1178",
                     "number": 5
                 },
                 {
-                    "asset": "a1189",
+                    "asset": "a1178",
                     "number": 2
+                },
+                {
+                    "asset": "a1189",
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -471,7 +471,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1089",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -816,11 +816,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1048",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1057",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1093",
@@ -974,11 +974,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1060",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1054",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -1127,7 +1127,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1027",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1188,7 +1188,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -1358,7 +1358,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1149",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -1524,15 +1524,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1187",
-                    "number": 1
-                },
-                {
-                    "asset": "a1150",
                     "number": 3
                 },
                 {
+                    "asset": "a1150",
+                    "number": 5
+                },
+                {
                     "asset": "a1141",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -1695,15 +1695,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1041",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1059",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1007",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -1867,15 +1867,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1184",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1117",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1176",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -2029,7 +2029,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1176",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1165",
@@ -2037,7 +2037,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1181",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2186,15 +2186,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1099",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1101",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1033",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -2254,19 +2254,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1133",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1190",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1177",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1191",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -2425,11 +2425,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1091",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1036",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -2584,11 +2584,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1109",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1136",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -2749,19 +2749,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1177",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1190",
-                    "number": 2
-                },
-                {
-                    "asset": "a1133",
                     "number": 0
                 },
                 {
+                    "asset": "a1133",
+                    "number": 1
+                },
+                {
                     "asset": "a1201",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -2919,11 +2919,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1201",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1199",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1128",
@@ -2931,7 +2931,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1181",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -3121,15 +3121,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1081",
-                    "number": 0
-                },
-                {
-                    "asset": "a1065",
                     "number": 4
                 },
                 {
+                    "asset": "a1065",
+                    "number": 3
+                },
+                {
                     "asset": "a1076",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -3276,19 +3276,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1117",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1183",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1180",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1107",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -3433,7 +3433,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1007",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1059",
@@ -3441,7 +3441,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1041",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3500,7 +3500,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1050",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1087",
@@ -3512,7 +3512,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1049",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -3665,15 +3665,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1049",
-                    "number": 4
-                },
-                {
-                    "asset": "a1071",
                     "number": 5
                 },
                 {
-                    "asset": "a1024",
+                    "asset": "a1071",
                     "number": 3
+                },
+                {
+                    "asset": "a1024",
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3824,7 +3824,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1101",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4015,7 +4015,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1013",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -4166,11 +4166,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1175",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1153",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -4323,15 +4323,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1093",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1057",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1048",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -4493,7 +4493,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1167",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4810,19 +4810,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1178",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1195",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1143",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1118",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4977,7 +4977,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1118",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5135,19 +5135,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1011",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1096",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1015",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1058",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -5300,11 +5300,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1058",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1031",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5614,15 +5614,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1019",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1060",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1032",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -5764,15 +5764,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1131",
-                    "number": 1
-                },
-                {
-                    "asset": "a1158",
                     "number": 0
                 },
                 {
+                    "asset": "a1158",
+                    "number": 1
+                },
+                {
                     "asset": "a1115",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5809,7 +5809,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1196",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -5848,7 +5848,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1021",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -5993,7 +5993,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1195",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1178",
@@ -6038,19 +6038,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1129",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1194",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1190",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1116",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6095,7 +6095,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1148",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -6248,19 +6248,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1057",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1093",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1059",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1053",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -6419,7 +6419,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1175",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1126",
@@ -6564,7 +6564,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1103",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -6625,19 +6625,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1101",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1024",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1071",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -6798,7 +6798,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1149",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -6953,11 +6953,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1150",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -7100,7 +7100,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -7258,7 +7258,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1083",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -7413,15 +7413,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1080",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1027",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1098",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7480,19 +7480,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1098",
-                    "number": 4
-                },
-                {
-                    "asset": "a1100",
-                    "number": 4
-                },
-                {
-                    "asset": "a1032",
                     "number": 3
                 },
                 {
+                    "asset": "a1100",
+                    "number": 3
+                },
+                {
+                    "asset": "a1032",
+                    "number": 5
+                },
+                {
                     "asset": "a1089",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7642,15 +7642,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1089",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1076",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1091",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7833,7 +7833,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1136",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7893,7 +7893,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1136",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1191",
@@ -7901,11 +7901,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1176",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1189",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -7964,11 +7964,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1189",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1132",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -8318,15 +8318,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1164",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1175",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1117",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -8385,7 +8385,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1183",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1179",
@@ -8393,11 +8393,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1103",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1158",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8542,11 +8542,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1058",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1040",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8687,11 +8687,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1153",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -8838,7 +8838,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1171",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8991,7 +8991,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1111",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1147",
@@ -9160,7 +9160,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1102",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -9364,11 +9364,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1159",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1192",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -9527,7 +9527,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1156",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1147",
@@ -9694,19 +9694,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1016",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1089",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1094",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1028",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -9868,11 +9868,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1128",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1188",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1177",
@@ -9880,7 +9880,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1194",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -9939,11 +9939,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1094",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1042",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -10097,11 +10097,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1020",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1050",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10260,7 +10260,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1195",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10299,7 +10299,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1131",
@@ -10342,19 +10342,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1018",
-                    "number": 3
-                },
-                {
-                    "asset": "a1101",
-                    "number": 1
-                },
-                {
-                    "asset": "a1030",
                     "number": 0
                 },
                 {
+                    "asset": "a1101",
+                    "number": 0
+                },
+                {
+                    "asset": "a1030",
+                    "number": 4
+                },
+                {
                     "asset": "a1059",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -10508,7 +10508,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1159",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1131",
@@ -10665,7 +10665,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1056",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10815,11 +10815,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1110",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1150",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10971,7 +10971,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1017",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1042",
@@ -11130,19 +11130,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1087",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1028",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1093",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -11288,11 +11288,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1089",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1015",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1066",
@@ -11493,15 +11493,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1091",
-                    "number": 3
-                },
-                {
-                    "asset": "a1058",
                     "number": 0
                 },
                 {
+                    "asset": "a1058",
+                    "number": 4
+                },
+                {
                     "asset": "a1052",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -11651,7 +11651,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1173",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -11801,11 +11801,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1046",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12124,11 +12124,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1153",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -12286,7 +12286,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1139",
@@ -12435,19 +12435,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1102",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1078",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1082",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1016",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12646,15 +12646,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1116",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1174",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1163",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -12813,7 +12813,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1079",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -12968,11 +12968,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1199",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1131",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -13135,19 +13135,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1175",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1189",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1134",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1107",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -13301,7 +13301,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1007",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13360,15 +13360,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1189",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1175",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1187",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -13571,19 +13571,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1131",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1199",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1197",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1126",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13622,15 +13622,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1126",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1179",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1163",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1174",
@@ -13785,7 +13785,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1074",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13940,11 +13940,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1078",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1102",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1056",
@@ -13952,7 +13952,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1038",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -14107,11 +14107,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1038",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1048",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -14266,7 +14266,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1052",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1047",
@@ -14421,11 +14421,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1010",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1045",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -14582,7 +14582,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1145",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -14735,7 +14735,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1024",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1072",
@@ -14743,7 +14743,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1051",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -14904,7 +14904,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1157",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1190",
@@ -14912,11 +14912,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1154",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1146",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -15059,11 +15059,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1046",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1065",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1014",
@@ -15217,19 +15217,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1088",
-                    "number": 0
-                },
-                {
-                    "asset": "a1092",
-                    "number": 1
-                },
-                {
-                    "asset": "a1027",
                     "number": 4
                 },
                 {
+                    "asset": "a1092",
+                    "number": 4
+                },
+                {
+                    "asset": "a1027",
+                    "number": 0
+                },
+                {
                     "asset": "a1086",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -15415,15 +15415,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 4
-                },
-                {
-                    "asset": "a1176",
                     "number": 5
                 },
                 {
+                    "asset": "a1176",
+                    "number": 3
+                },
+                {
                     "asset": "a1193",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -15584,7 +15584,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1041",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -15744,7 +15744,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -15894,7 +15894,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1055",
@@ -15902,7 +15902,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1028",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -16065,11 +16065,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1157",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1116",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -16108,7 +16108,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1100",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -16274,7 +16274,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1029",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16312,15 +16312,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1112",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1193",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1108",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1148",
@@ -16481,7 +16481,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1048",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -16648,19 +16648,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1140",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1192",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1175",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1186",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -16820,7 +16820,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1086",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16965,7 +16965,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1087",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -17169,11 +17169,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1045",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1054",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -17326,11 +17326,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1056",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1050",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -17487,11 +17487,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1100",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1010",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1044",
@@ -17644,7 +17644,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1144",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -17797,11 +17797,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1121",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1168",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1146",
@@ -17960,15 +17960,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1183",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1146",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1137",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -18125,7 +18125,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1037",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1055",
@@ -18133,7 +18133,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1100",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -18293,7 +18293,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1176",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1180",
@@ -18305,7 +18305,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1172",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -18460,15 +18460,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1172",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1161",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1177",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -18623,19 +18623,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1024",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1095",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1097",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1029",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -18789,19 +18789,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1129",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1186",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1173",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1187",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -18838,11 +18838,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1087",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1032",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -19038,11 +19038,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1202",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1132",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19236,19 +19236,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1173",
-                    "number": 1
-                },
-                {
-                    "asset": "a1185",
                     "number": 5
                 },
                 {
+                    "asset": "a1185",
+                    "number": 2
+                },
+                {
                     "asset": "a1129",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1197",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -19402,19 +19402,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1197",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1195",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1124",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1177",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -19452,15 +19452,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1060",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1072",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19613,19 +19613,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1113",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1179",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1176",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1200",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -19792,15 +19792,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1100",
-                    "number": 1
-                },
-                {
-                    "asset": "a1054",
                     "number": 4
                 },
                 {
+                    "asset": "a1054",
+                    "number": 5
+                },
+                {
                     "asset": "a1036",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -19950,11 +19950,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1083",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1050",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1045",
@@ -20113,15 +20113,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1045",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1067",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1020",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -20262,7 +20262,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1097",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -20299,19 +20299,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1009",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1099",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1022",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1070",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -20476,11 +20476,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1170",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1149",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -20634,7 +20634,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1088",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1052",
@@ -20824,7 +20824,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1162",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -20884,7 +20884,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1090",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -21047,19 +21047,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1074",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1091",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1038",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1013",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21361,19 +21361,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1003",
-                    "number": 2
-                },
-                {
-                    "asset": "a1091",
-                    "number": 5
-                },
-                {
-                    "asset": "a1010",
                     "number": 3
                 },
                 {
+                    "asset": "a1091",
+                    "number": 4
+                },
+                {
+                    "asset": "a1010",
+                    "number": 4
+                },
+                {
                     "asset": "a1053",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21433,7 +21433,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1053",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -21750,11 +21750,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1055",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1027",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -21916,11 +21916,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1126",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1152",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -22066,7 +22066,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1191",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -22216,7 +22216,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1015",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -22377,11 +22377,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1173",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1183",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -22524,19 +22524,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1124",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1189",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1185",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1111",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -22685,15 +22685,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1111",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1162",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1143",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -22849,19 +22849,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1051",
-                    "number": 1
-                },
-                {
-                    "asset": "a1087",
-                    "number": 3
-                },
-                {
-                    "asset": "a1054",
                     "number": 4
                 },
                 {
-                    "asset": "a1048",
+                    "asset": "a1087",
                     "number": 5
+                },
+                {
+                    "asset": "a1054",
+                    "number": 3
+                },
+                {
+                    "asset": "a1048",
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -23015,15 +23015,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1169",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1121",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -23177,7 +23177,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1197",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -23338,19 +23338,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1003",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1096",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1018",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1065",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -23411,11 +23411,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1165",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1143",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -23452,7 +23452,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1181",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1144",
@@ -23618,19 +23618,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1152",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1198",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1174",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1177",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -23784,7 +23784,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -23934,15 +23934,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1058",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1075",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1021",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24091,15 +24091,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1094",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1026",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1083",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -24262,11 +24262,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1083",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1070",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1085",
@@ -24415,19 +24415,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1199",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1183",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1170",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -24465,19 +24465,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1185",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1170",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1183",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24515,7 +24515,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1183",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24657,7 +24657,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1092",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24810,7 +24810,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1110",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24969,15 +24969,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1177",
-                    "number": 1
-                },
-                {
-                    "asset": "a1173",
                     "number": 3
                 },
                 {
-                    "asset": "a1197",
+                    "asset": "a1173",
                     "number": 2
+                },
+                {
+                    "asset": "a1197",
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -25122,11 +25122,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1052",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1034",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -25272,7 +25272,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1180",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1147",
@@ -25434,7 +25434,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1164",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -25472,11 +25472,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1202",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1140",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25667,7 +25667,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1096",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -25706,11 +25706,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1146",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1152",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -25856,11 +25856,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1149",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1141",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -26011,19 +26011,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1009",
-                    "number": 5
-                },
-                {
-                    "asset": "a1083",
                     "number": 1
                 },
                 {
+                    "asset": "a1083",
+                    "number": 5
+                },
+                {
                     "asset": "a1087",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1022",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -26188,19 +26188,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1122",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1181",
-                    "number": 1
-                },
-                {
-                    "asset": "a1171",
                     "number": 2
                 },
                 {
+                    "asset": "a1171",
+                    "number": 3
+                },
+                {
                     "asset": "a1188",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -26359,7 +26359,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1035",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -26554,11 +26554,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1013",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1043",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -26713,7 +26713,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1188",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -26917,7 +26917,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1023",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27064,7 +27064,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1011",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1094",
@@ -27072,11 +27072,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1023",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1052",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27376,7 +27376,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1049",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27527,11 +27527,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1200",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1142",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -27722,11 +27722,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1010",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1035",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -27883,19 +27883,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1070",
-                    "number": 0
-                },
-                {
-                    "asset": "a1080",
                     "number": 2
                 },
                 {
+                    "asset": "a1080",
+                    "number": 1
+                },
+                {
                     "asset": "a1021",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1086",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -28048,19 +28048,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1086",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1082",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1008",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1058",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -28210,11 +28210,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1140",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -28368,11 +28368,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1084",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1051",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -28529,7 +28529,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1166",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -28568,11 +28568,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1101",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1038",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -28759,7 +28759,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1192",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -28914,7 +28914,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1145",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -29079,11 +29079,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1141",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1131",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -29240,15 +29240,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1095",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1071",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1074",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
