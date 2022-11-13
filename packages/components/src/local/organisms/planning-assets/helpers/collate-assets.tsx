@@ -237,9 +237,9 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Reco
         case ATTRIBUTE_TYPE_STRING: {
           // trim the field, if necessary
           let val = ids[attrId]
-          if (typeof(val) === 'string') {
+          if (typeof (val) === 'string') {
             const str = val as string
-            if(str.length > 30) {
+            if (str.length > 30) {
               val = str.substring(0, 30) + '...'
             }
           }

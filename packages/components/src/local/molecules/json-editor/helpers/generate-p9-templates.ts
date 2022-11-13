@@ -152,7 +152,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const assetLocation = 'Asset Location'
   const strikeTarget = 'Strike Target'
 
-  let acts: Activity[] = []
+  const acts: Activity[] = []
   acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
   acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
   acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
@@ -180,7 +180,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
     const numActivities = act.acts && act.acts.filter((act) => [activity, point].includes(act)).length
     const descOrList = act.actDesc || []
     const numDescriptions = descOrList.length
-    if(numActivities !== numDescriptions) {
+    if (numActivities !== numDescriptions) {
       console.log('template checking failed:', act.title, numActivities, numDescriptions)
     }
   })
@@ -252,8 +252,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
     return perForce
   })
 
-  console.log('per force', res)
-  console.log(Object.values(templates))
+  !7 && console.log('per force', res)
+  !7 && console.log(Object.values(templates))
 
   return { val: 12 }
 }
