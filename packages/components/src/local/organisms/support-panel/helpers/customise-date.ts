@@ -41,7 +41,7 @@ export const getDateSlots = (gameTime: number, gameTurnTime: TurnLengthType): Ar
   const res: TimeSlot[] = []
   const formatStr = smallSteps ? shortFormat : longFormat
   for (let time = gameTime; time < finishTime; time += timeStep) {
-    const tNow = moment(time)
+    const tNow = moment.utc(time)
     res.push({ value: tNow.toISOString(), label: tNow.format(formatStr) })
   }
   return res

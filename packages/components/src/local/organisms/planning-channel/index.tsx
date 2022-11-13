@@ -32,6 +32,8 @@ import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
+type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
+
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
   reduxDispatch,
@@ -99,7 +101,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
-  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<{(newValue: PlannedActivityGeometry[]): void } | undefined>(undefined)
+  const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<PlannedActivityGeometryCallback | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
@@ -199,6 +201,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       getAllWargameMessages(currentWargame)(dispatch)
     }
     setChannelTabClass(`tab-content-${channelClassName}`)
+    // update default marker icon url
+    L.Marker.prototype.options.icon = L.icon({
+      iconUrl: 'images/marker-icon-2x.png',
+      iconSize: [25, 41]
+    })
   }, [])
 
   const onReadAll = (): void => {
@@ -543,28 +550,28 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 toolbarChildren={
                   <>
                     {!activityBeingPlanned &&
-                    <>
-                      {
-                        umpireInAdjudication &&
-                        <div className={cx('leaflet-control')}>
-                          <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                            onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                      <>
+                        {
+                          umpireInAdjudication &&
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                              onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                          </div>
+                        }
+                        {showInteractionGenerator ? <div className={cx('leaflet-control')}>
+                          <Item onClick={incrementDebugStep}>Step</Item>
                         </div>
-                      }
-                      {showInteractionGenerator ? <div className={cx('leaflet-control')}>
-                        <Item onClick={incrementDebugStep}>Step</Item>
-                      </div>
-                        : <>
-                          <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                          <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                          {7 && // don't bother with this, but keep it in case we want to gen more data
-                            <div className={cx('leaflet-control')}>
-                              <Item onClick={genData}>gen data</Item>
-                            </div>
-                          }
-                        </>
-                      }
-                    </>
+                          : <>
+                            <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                            <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                            {7 && // don't bother with this, but keep it in case we want to gen more data
+                              <div className={cx('leaflet-control')}>
+                                <Item onClick={genData}>gen data</Item>
+                              </div>
+                            }
+                          </>
+                        }
+                      </>
                     }
                   </>
                 }>

@@ -16,13 +16,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const messageValue = useRef<any>(null)
-
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -161,21 +160,34 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === message.details.from.forceId)
 
-        return <JsonEditor
-          messageContent={message.message}
-          viewSaveButton={true}
-          saveMessage={saveMessage}
-          customiseTemplate={customiseTemplate}
-          storeNewValue={editorValue}
-          messageId={rowData.id}
-          confirmCancel={confirmCancel}
-          template={template}
-          disabled={!canEdit}
-          gameDate={gameDate}
-          modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-          modifyForSave={expandLocation}
-          editCallback={localEditLocation}
-        />
+        const DetailPanelStateListener = () => {
+          useEffect(() => {
+            onDetailPanelOpen && onDetailPanelOpen(rowData)
+            return () => {
+              onDetailPanelClose && onDetailPanelClose(rowData)
+            }
+          }, [])
+          return <></>
+        }
+
+        return <>
+          <DetailPanelStateListener />
+          <JsonEditor
+            messageContent={message.message}
+            viewSaveButton={true}
+            saveMessage={saveMessage}
+            customiseTemplate={customiseTemplate}
+            storeNewValue={editorValue}
+            messageId={rowData.id}
+            confirmCancel={confirmCancel}
+            template={template}
+            disabled={!canEdit}
+            gameDate={gameDate}
+            modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
+            modifyForSave={expandLocation}
+            editCallback={localEditLocation}
+          />
+        </>
       } else {
         return <div>Template not found for {message.details.messageType}</div>
       }

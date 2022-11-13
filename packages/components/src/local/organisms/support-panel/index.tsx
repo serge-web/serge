@@ -9,9 +9,11 @@ import React, { createContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
+import { AdjudicationRow } from '../adjudication-messages-list/types/props'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
+import { OrderRow } from '../planning-messages-list/types/props'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
@@ -108,7 +110,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
         <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
-        { selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
+        {selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
         }
       </div>
     )
@@ -178,6 +180,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return current
   }
 
+  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
+    console.log('onDetailPanelOpen called: ', rowData)
+  }
+
+  const onDetailPanelClose = (rowData: OrderRow | AdjudicationRow) => {
+    console.log('onDetailPanelClose called ', rowData)
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -238,8 +248,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     turnFilter={turnFilter}
                     editLocation={editLocation}
                     forcePlanningActivities={forcePlanningActivities}
+                    onDetailPanelOpen={onDetailPanelOpen}
+                    onDetailPanelClose={onDetailPanelClose}
                   />
-                  { draftMessage && <NewMessage
+                  {draftMessage && <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
                     templates={allTemplates}
@@ -259,7 +271,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     postBack={postBack}
                     customiseTemplate={localCustomiseTemplate}
                     draftMessage={draftMessage}
-                  /> }
+                  />}
                 </div>
               }
             </TabPanel>
@@ -284,32 +296,34 @@ export const SupportPanel: React.FC<PropTypes> = ({
             {
               selectedForce.umpire && <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
                 {activeTab === TABS[3] &&
-                <div className={styles['order-group']}>
-                  <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
-                  <AdjudicationMessagesList
-                    interactionMessages={filteredInteractionMessages}
-                    planningMessages={filteredPlanningMessages}
-                    forces={allForces}
-                    gameDate={gameDate}
-                    playerForceId={selectedForce.uniqid}
-                    playerRoleId={selectedRoleId}
-                    isUmpire={!!selectedForce.umpire}
-                    turnPresentation={turnPresentation}
-                    forceColors={forceCols}
-                    hideForcesInChannel={false}
-                    onRead={onRead}
-                    onUnread={onUnread}
-                    onMarkAllAsRead={onReadAll}
-                    channel={channel}
-                    template={adjudicationTemplate}
-                    customiseTemplate={localCustomiseTemplate}
-                    selectedOrders={selectedOrders}
-                    setSelectedOrders={setSelectedOrders}
-                    forcePlanningActivities={forcePlanningActivities}
-                    turnFilter={turnFilter}
-                    platformTypes={platformTypes}
-                  />
-                </div>
+                  <div className={styles['order-group']}>
+                    <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                    <AdjudicationMessagesList
+                      interactionMessages={filteredInteractionMessages}
+                      planningMessages={filteredPlanningMessages}
+                      forces={allForces}
+                      gameDate={gameDate}
+                      playerForceId={selectedForce.uniqid}
+                      playerRoleId={selectedRoleId}
+                      isUmpire={!!selectedForce.umpire}
+                      turnPresentation={turnPresentation}
+                      forceColors={forceCols}
+                      hideForcesInChannel={false}
+                      onRead={onRead}
+                      onUnread={onUnread}
+                      onMarkAllAsRead={onReadAll}
+                      channel={channel}
+                      template={adjudicationTemplate}
+                      customiseTemplate={localCustomiseTemplate}
+                      selectedOrders={selectedOrders}
+                      setSelectedOrders={setSelectedOrders}
+                      forcePlanningActivities={forcePlanningActivities}
+                      turnFilter={turnFilter}
+                      platformTypes={platformTypes}
+                      onDetailPanelOpen={onDetailPanelOpen}
+                      onDetailPanelClose={onDetailPanelClose}
+                    />
+                  </div>
                 }
               </TabPanel>
             }
