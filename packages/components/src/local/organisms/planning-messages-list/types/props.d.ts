@@ -7,9 +7,8 @@ import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/pro
 
 export type OrderRow = {
   id: string
+  reference: string
   title: string
-  // turn when this order created
-  turn: number
   role: string
   activity: string
   startDate: string
