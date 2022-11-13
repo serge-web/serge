@@ -29,6 +29,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
+
   useEffect(() => {
     setMyMessages(interactionMessages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
   }, [interactionMessages, playerForceId])
@@ -174,7 +175,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const getInteraction = (): void => {
+    console.log('get interaction', forcePlanningActivities)
     const interaction = getNextInteraction(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30)
+    console.log('interaction', interaction)
     if (interaction) {
       // send up to parent
       handleAdjudication && handleAdjudication(interaction)

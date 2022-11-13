@@ -640,7 +640,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
-      console.log('find touch', me.id, other.id)
       // check it's not me
       if (myIndex !== otherIndex) {
         // don't compare geometries that are part of the same activity
@@ -656,6 +655,13 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             return planned.startTime
           }
 
+          // have we already checked this permutation (maybe in another bin)?
+          if (!interactionsConsidered.includes(id)) {
+            // has it already been adjudicated
+            if (!interactionsProcessed.includes(id)) {
+              interactionsConsidered.push(id)
+                if (differentForces(me, other) && overlapsInTime(me, other)) {
+
           // give us a dummy interaction
           dummyContact = {
             first: first,
@@ -665,14 +671,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             timeStart: timeFor(first.geometry.properties),
             timeEnd: timeFor(first.geometry.properties)
           }
-          console.log('dummy contact')
 
-          // have we already checked this permutation (maybe in another bin)?
-          if (!interactionsConsidered.includes(id)) {
-            // has it already been adjudicated
-            if (!interactionsProcessed.includes(id)) {
-              interactionsConsidered.push(id)
-              if (differentForces(me, other) && overlapsInTime(me, other)) {
                 // see if we have a cached contact
                 const cachedResult = interactionsTested[id]
                 if (cachedResult !== undefined) {
@@ -693,7 +692,9 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
-  return res.length ? res : [dummyContact as PlanningContact]
+  const safeDummy = dummyContact ? [dummyContact] : []
+  console.log('returning', res.length ? res : safeDummy)
+  return res.length ? res : safeDummy
 }
 
 export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
