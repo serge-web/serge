@@ -1,7 +1,7 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
-  PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role, TemplateBody
+  PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
@@ -259,7 +259,7 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
   return []
 }
 
-const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment, allTemplates: TemplateBody[]): MessagePlanning => {
+const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
   // details first
   const from = randomRole(force.roles, 4 + ctr)
   const fromD: MessageDetailsFrom = {
@@ -467,7 +467,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
   return res
 }
 
-export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[], allTemplates: TemplateBody[]): MessagePlanning[] => {
+export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
   const res: MessagePlanning[] = []
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
@@ -476,7 +476,7 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
     startTime = startTime.add(minsOffset, 'm')
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
-    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime, allTemplates)
+    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime)
     res.push(newMessage)
   }
   return res
