@@ -10,8 +10,8 @@ import Mapping from '../mapping'
 import { Phase } from '@serge/config'
 
 /* Import mock data */
-import { watuWargame } from '@serge/mocks'
 import { ChannelMapping, ChannelTypes, MappingConstraints } from '@serge/custom-types'
+import { watuWargame } from '@serge/mocks'
 
 const forces = watuWargame.data.forces.forces
 const platformTypes = watuWargame.data.platformTypes && watuWargame.data.platformTypes.platformTypes
@@ -26,7 +26,6 @@ const dummyConstrants: MappingConstraints = {
   minZoom: 12,
   maxZoom: 12,
   bounds: [[12, 13], [14, 25]],
-  maxNativeZoom: 12,
   h3res: 3
 }
 
