@@ -30,6 +30,7 @@ describe('Support Panel component: ', () => {
         platformTypes={platformTypes}
         allForces={P9Mock.data.forces.forces}
         gameDate={P9Mock.data.overview.gameDate}
+        gameTurnTime={P9Mock.data.overview.gameTurnTime}
         currentWargame={P9Mock.currentWargame || ''}
         selectedAssets={[]}
         attributeTypes={[]}

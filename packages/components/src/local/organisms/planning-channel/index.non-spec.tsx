@@ -69,7 +69,6 @@ describe('Planning Channel component: ', () => {
       markUnread={mockFn}
       openMessage={mockFn}
       saveMessage={saveMessage}
-      turnNumber={3}
       reduxDispatch={noop}
       saveNewActivityTimeMessage={(): any => noop}
       platformTypes={platformTypes}
@@ -80,6 +79,7 @@ describe('Planning Channel component: ', () => {
       phase={Phase.Planning}
       allForces={forces}
       gameDate={P9Mock.data.overview.gameDate}
+      gameTurnTime={wargame.overview.gameTurnTime}
       currentTurn={P9Mock.gameTurn}
       forcePlanningActivities={filledInPerForcePlanningActivities}
     />)

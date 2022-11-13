@@ -7,12 +7,13 @@ const game: Wargame = {
         "overview": {
             "name": "Overview - settings",
             "gameDescription": "",
-            "gameTurnTime": { "unit": "millis", "millis": 43200000 },
+            "gameTurnTime": { "unit": "millis", "millis": 259200000 },
             "realtimeTurnTime": 300000,
             "timeWarning": 60000,
-            "gameDate": "2022-11-11T08:43:01+01:00",
+            "turnPresentation": "Natural",
+            "gameDate": "2022-11-11T00:00:00+00:00",
             "showAccessCodes": true,
-            "logPlayerActivity": true,
+            "logPlayerActivity": false,
             "dirty": false
         },
         "forces": {
@@ -26,7 +27,7 @@ const game: Wargame = {
                     "roles": [
                         {
                             "name": "Game Designer",
-                            "roleId": "plac754x9",
+                            "roleId": "umpire",
                             "isGameControl": true,
                             "isObserver": true,
                             "isInsightViewer": true
@@ -6502,7 +6503,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "blue_land_asset.png",
+                    "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": ["a_Units"],
                     "conditions": [],
                     "states": [],
@@ -6832,7 +6833,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "re_land_asset.png",
+                    "icon": "n_red_land_asset.svg",
                     "attributeTypes": [
                         {
                             "attrId": "r_land_asset_equipment",
