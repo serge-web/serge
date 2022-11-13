@@ -5568,7 +5568,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "n_red_land_sam.svg",
+                    "icon": "n_red_land_asset.svg",
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_asset",
