@@ -192,7 +192,6 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
 
-
     asset.attributes = createModernAttributesFor(platformType, attributeTypes)
 
     // generate some perceptions:
