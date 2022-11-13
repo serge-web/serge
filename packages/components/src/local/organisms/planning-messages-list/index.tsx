@@ -164,7 +164,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           useEffect(() => {
             onDetailPanelOpen && onDetailPanelOpen(rowData)
             return () => {
-              onDetailPanelClose && onDetailPanelClose()
+              onDetailPanelClose && onDetailPanelClose(rowData)
             }
           }, [])
           return <></>

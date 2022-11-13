@@ -91,5 +91,5 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   onDetailPanelOpen?: (rowData: OrderRow) => void
 
-  onDetailPanelClose?: () => void
+  onDetailPanelClose?: (rowData: OrderRow) => void
 }

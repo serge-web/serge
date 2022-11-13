@@ -185,8 +185,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('onDetailPanelOpen called: ', rowData)
   }
 
-  const onDetailPanelClose = () => {
-    console.log('onDetailPanelClose called')
+  const onDetailPanelClose = (rowData: OrderRow | AdjudicationRow) => {
+    console.log('onDetailPanelClose called ', rowData)
   }
 
   const SlideComponent = useMemo(() => (
