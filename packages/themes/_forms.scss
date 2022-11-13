@@ -59,6 +59,11 @@
       @include game-admin-input;
     }
   }
+
+  &:disabled,
+  &[readonly] {
+    background-color: rgb(128, 128, 128) !important;
+  }
 }
 
 .react-select {
