@@ -60,7 +60,6 @@ describe('Planning Channel component: ', () => {
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
       allTemplates={templateBodies}
-      channelTemplates={templateBodies}
       channelId={channels[0].uniqid}
       adjudicationTemplate={planningMessageTemplatesMock[0]}
       dispatch={noop}

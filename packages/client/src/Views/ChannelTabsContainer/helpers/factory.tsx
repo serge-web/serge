@@ -141,6 +141,7 @@ const factory = (state: PlayerUi): Factory => {
       return null
     }
     const allTemplates = Object.values(state.allTemplatesByKey)
+    console.log('factory', allTemplates)
     const channelData: ChannelTypes = channel.cData
     const isV3 = !!channelData.channelType
     if (isV3) {

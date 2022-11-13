@@ -1,15 +1,17 @@
 import reducer from '../../../ActionsAndReducers/playerUi/playerUi_Reducer'
 
+import { PlayerUi } from '@serge/custom-types'
 import { actionSetWargameMessages } from '@serge/mocks'
 import { setWargameMessages } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import setAllMessagesData from './data/set_all_messages_mock'
-import { PlayerUi } from '@serge/custom-types'
 
 const playerUi: PlayerUi = {
   isGameControl: true,
   isUmpire: true,
   logPlayerActivity: false,
   hideForcesInChannels: false,
+  attributeTypes: [],
+  perForceActivities: [],
   infoMarkers: [],
   markerIcons: [],
   playerMessageLog: {},

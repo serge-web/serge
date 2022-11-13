@@ -113,7 +113,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
     channel={planningChannel}
-    channelTemplates={myTemplates}
     allTemplates={myTemplates}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     activityTimeChanel={noop}
