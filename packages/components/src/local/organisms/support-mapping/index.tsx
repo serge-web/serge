@@ -8,7 +8,7 @@ import MapCoordinates from './helper/Coordinates'
 import PropTypes from './types/props'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, toolbarChildren, mapWidth, children, tileLayer
+  position, bounds, toolbarChildren, mapWidth, children, tileLayer, maxZoom
 }) => {
   if (!tileLayer) {
     console.warn('warning, using fallback tile layer')
@@ -30,8 +30,7 @@ export const SupportMapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (position && map) {
-      const defaultZoom = 10
-      map.flyTo(position, defaultZoom, { duration: 0.6 })
+      map.flyTo(position, maxZoom, { duration: 0.6 })
     }
   }, [position])
 

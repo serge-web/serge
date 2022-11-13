@@ -323,7 +323,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         return bounds + ' ' + tiles + ' ' + cells
       }
 
-      const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = localChannelUpdates.constraints
+      const { bounds, minZoom, maxZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = localChannelUpdates.constraints
 
       return (
         <Accordion className={styles.accordion}>
@@ -441,13 +441,6 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
                           <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
-                          <TextField
-                            type='number'
-                            className={styles.input}
-                            InputProps={{ disableUnderline: true }}
-                            value={maxNativeZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
-                          />
                         </TableCell>
                       </TableRow>
                     </TableBody>

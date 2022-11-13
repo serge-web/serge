@@ -65,8 +65,7 @@ const createChannel = (
           h3res: 6,
           cellLabelsStyle: CellLabelStyle.X_Y_LABELS,
           minZoom: 3,
-          maxZoom: 10,
-          maxNativeZoom: 8
+          maxZoom: 10
         }
         const res: ChannelMapping = {
           uniqid: uniqid.time(),

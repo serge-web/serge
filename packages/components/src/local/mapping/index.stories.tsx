@@ -119,11 +119,11 @@ const osmMappingConstraints: MappingConstraints = {
   h3res: 3,
   tileLayer: {
     url: 'https://{s}.tile.openstreetmap.de/tiles/osmde/{z}/{x}/{y}.png',
-    attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>'
+    attribution: 'Data © <a href="http://osm.org/copyright">OpenStreetMap</a>',
+    maxNativeZoom: 12
   },
   minZoom: 8,
-  maxZoom: 13,
-  maxNativeZoom: 12
+  maxZoom: 13
 }
 
 const Template: Story<StoryPropTypes> = (args) => {

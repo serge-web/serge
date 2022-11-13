@@ -274,8 +274,7 @@ const wargame: Wargame = {
                         "h3res": 9,
                         "cellLabelsStyle": "x_y_labels",
                         "minZoom": 8,
-                        "maxZoom": 17,
-                        "maxNativeZoom": 7
+                        "maxZoom": 17
                     }
                 },
                 {

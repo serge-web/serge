@@ -933,7 +933,7 @@ export const Mapping: React.FC<PropTypes> = ({
             <TileLayer
               url={mappingConstraintState.tileLayer.url}
               attribution={mappingConstraintState.tileLayer.attribution}
-              maxNativeZoom={mappingConstraintState.maxNativeZoom}
+              maxNativeZoom={mappingConstraintState.tileLayer.maxNativeZoom}
               bounds={mapBounds}
             />
           }
