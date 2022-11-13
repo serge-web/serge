@@ -3,8 +3,12 @@ import { CellLabelStyle } from '@serge/config'
 export interface TileLayerDefinition {
   url: string,
   attribution: string
-  /** highest zoom level present in the data */
-  maxNativeZoom: number
+  /** highest zoom level present in the data 
+   * this is optional, since legacy
+   * games used the maxzoom level
+   * in the mapping constraints
+  */
+  maxNativeZoom?: number
 }
 
 /**
