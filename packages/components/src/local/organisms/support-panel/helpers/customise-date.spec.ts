@@ -10,7 +10,7 @@ it('creates two-hour slots for 8 hour period', () => {
   const slots = getDateSlots(start.valueOf(), eightHours)
   expect(slots).toBeTruthy()
   expect(slots.length).toEqual(4)
-  expect(slots[0].label).toEqual('120700Z')
+  expect(slots[0].label).toEqual('120000Z')
   expect(slots[0].value).toEqual(startTime)
 })
 
@@ -23,7 +23,7 @@ it('creates two-hour slots for 3 days period', () => {
   const slots = getDateSlots(start.valueOf(), threeDays)
   expect(slots).toBeTruthy()
   expect(slots.length).toEqual(36)
-  expect(slots[0].label).toEqual('120700Z')
+  expect(slots[0].label).toEqual('120000Z')
   expect(slots[0].value).toEqual(startTime)
 })
 
