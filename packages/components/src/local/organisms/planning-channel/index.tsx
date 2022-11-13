@@ -473,7 +473,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
-    url: '//'
+    url: '//',
+    maxNativeZoom: 6
   }
 
   if (!channel.constraints) {
@@ -483,6 +484,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   } else {
     const boundsToUse = channel.constraints.bounds
     const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
+
+    // constraints actually contains the max
+    const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 2 : 7
+
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
         <SupportPanelContext.Provider value={supportPanelContext}>
@@ -538,7 +543,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               maxBounds={boundsToUse}
               zoom={zoom}
               minZoom={channel.constraints.minZoom}
-              maxZoom={channel.constraints.maxZoom}
+              maxZoom={maxZoom}
               zoomSnap={0.5}
             >
               <SupportMapping
@@ -547,6 +552,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 actionCallback={mapActionCallback}
                 mapWidth={mapWidth}
                 tileLayer={channel.constraints.tileLayer || duffDefinition}
+                maxZoom={maxZoom}
                 toolbarChildren={
                   <>
                     {!activityBeingPlanned &&
