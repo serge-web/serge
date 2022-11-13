@@ -87,6 +87,7 @@ const routeOut = 'route-out'
 const activity = 'activity'
 const routeBack = 'route-back'
 const point = 'point'
+const oneWay = [routeOut]
 const thereBack = [routeOut, activity, routeBack]
 const oneWayTwoActivities = [routeOut, activity, activity]
 const thereBackTwoActivities = [routeOut, activity, activity, routeBack]
@@ -132,7 +133,7 @@ const activityGeometriesFor = (id: string, acts: string[], descs: string[]): Pla
 }
 
 export const generateAllTemplates = (): TemplatesAndActivities => {
-  console.log('gen all templates 4')
+  console.log('gen all templates 5')
   const red = 'f-red'
   const blue = 'f-blue'
   const green = 'f-green'
@@ -151,11 +152,11 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const strikeTarget = 'Strike Target'
 
   const acts: Activity[] = []
-  acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: thereBack, specific: 'Transit' })
+  acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
   acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
   acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
   acts.push({ title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
-  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
+  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
   acts.push({ title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
   acts.push({ title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
@@ -172,6 +173,20 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Target'], specific: 'EWAttack' })
   acts.push({ title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'SOFAttack' })
   acts.push({ title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'Cyber' })
+
+  // do some sanity testing
+  acts.forEach((act) => {
+    const numActivities = act.acts && act.acts.filter((act) => [activity, point].includes(act)).length
+    const descOrList = act.actDesc || []
+    const numDescriptions = descOrList.length
+    if(numActivities !== numDescriptions) {
+      console.log('template checking failed:', act.title, numActivities, numDescriptions)
+    }
+  })
+
+  // acts = []
+  // acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
+
 
   // const uniqList = _.uniqBy(acts, (item) => item.specific) as Activity[]
   // console.log('unique', uniqList.map((item: Activity) => {
