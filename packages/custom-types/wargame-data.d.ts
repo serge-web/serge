@@ -4,6 +4,7 @@ import Force from './force'
 import { AnnotationMarkerData, MapAnnotationData } from './map-annotation'
 import { ActivityTypeData } from './planning-activity'
 import PlatformType from './platform-type'
+import { TemplateData } from './template'
 import WargameOverview from './wargame-overview'
 
 export default interface WargameData {
@@ -15,4 +16,5 @@ export default interface WargameData {
   annotationIcons?: AnnotationMarkerData
   attributeTypes?: AttributeTypeData
   activities?: ActivityTypeData
+  templates?: TemplateData
 }
