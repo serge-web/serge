@@ -108,7 +108,7 @@ const game: Wargame = {
                         }
                     ],
                     "iconURL": "default_img/forceDefault.png",
-                    "color": "#3dd0ff",
+                    "color": "#147291",
                     "umpire": false,
                     "dirty": false,
                     "assets": [
