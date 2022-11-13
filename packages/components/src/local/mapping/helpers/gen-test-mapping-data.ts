@@ -104,7 +104,7 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
     switch (attr.attrType) {
       case ATTRIBUTE_TYPE_NUMBER: {
         const nType = attr as NumberAttributeType
-        attributes[id] =  nType.defaultValue || Math.floor(Math.random() * 50)
+        attributes[id] = nType.defaultValue || Math.floor(Math.random() * 50)
         break
       }
       case ATTRIBUTE_TYPE_STRING: {
