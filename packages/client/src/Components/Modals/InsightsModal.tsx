@@ -1,12 +1,11 @@
-import React from 'react'
-import ModalWrapper from './ModalWrapper'
 import { InsightForm } from '@serge/components'
-import {
-  sendFeedbackMessage,
-  closeModal
-} from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { usePlayerUiState, usePlayerUiDispatch } from '../../Store/PlayerUi'
 import { MessageDetailsFrom } from '@serge/custom-types'
+import React from 'react'
+import {
+  closeModal, sendFeedbackMessage
+} from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
+import ModalWrapper from './ModalWrapper'
 
 import '@serge/themes/App.scss'
 
@@ -23,6 +22,7 @@ const InsightsModal: React.FC = () => {
     const from: MessageDetailsFrom = {
       iconURL: '',
       force: selectedForce.name,
+      forceId: selectedForce.uniqid,
       forceColor: selectedForce.color,
       roleId: state.selectedRole,
       roleName: state.selectedRoleName,

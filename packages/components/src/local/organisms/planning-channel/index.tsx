@@ -218,14 +218,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
     // TODO: these filters should just use `messageType` to get the correct data, but currently
     // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
-    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction && msg.details.messageType === 'Land Activity')) as MessagePlanning[]
+    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
     const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
     // log of number of message ids and forces, used to config interactions
     !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId } }))
 
     // count of new messages
-    !7 && console.log('Page loaded', messages.length, myInteractionMessages.length)
+    !7 && console.log('Page loaded', messages, planningMessages, myPlanningMessages, myInteractionMessages.length)
 
     setPlanningMessages(myPlanningMessages)
     setInteractionMessages(myInteractionMessages)

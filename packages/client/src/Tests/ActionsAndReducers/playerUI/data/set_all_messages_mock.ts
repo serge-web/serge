@@ -55,6 +55,7 @@ const testState: PlayerUi = {
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
+            forceId: 'blue',
             roleId: 'CO',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
@@ -78,6 +79,7 @@ const testState: PlayerUi = {
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
+            forceId: 'blue',
             roleId: 'CO',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
@@ -102,6 +104,7 @@ const testState: PlayerUi = {
             force: 'Blue',
             forceColor: '#3dd0ff',
             roleId: 'CO',
+            forceId: 'blue',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
