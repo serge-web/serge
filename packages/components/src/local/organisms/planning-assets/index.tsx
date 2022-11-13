@@ -7,7 +7,10 @@ import { materialIcons } from '../support-panel/helpers/material-icons'
 import { getColumns, getRows } from './helpers/collate-assets'
 import PropTypes, { AssetRow } from './types/props'
 
-export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForce, opFor, forceColors, platformStyles, onSelectionChange, onVisibleRowsChange }: PropTypes) => {
+export const PlanningAssets: React.FC<PropTypes> = ({
+  assets, forces, playerForce, opFor, forceColors, platformStyles,
+  onSelectionChange, onVisibleRowsChange, platformTypes, attributeTypes
+}: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
@@ -15,10 +18,12 @@ export const PlanningAssets: React.FC<PropTypes> = ({ assets, forces, playerForc
   const { selectedAssets } = useContext(SupportPanelContext)
 
   useEffect(() => {
-    setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
+    if (columns.length === 0) {
+      setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
+    }
     // TODO - swap next line for
     // setRows(assets)
-    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets))
+    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes))
     if (selectedAssets.length) {
       const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
       const elmRow = document.getElementById(lastSelectedAssetId)

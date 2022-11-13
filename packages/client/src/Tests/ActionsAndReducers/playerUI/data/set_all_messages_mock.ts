@@ -10,6 +10,7 @@ const testState: PlayerUi = {
   },
   isRFIManager: false,
   infoMarkers: [],
+  attributeTypes: [],
   markerIcons: [],
   isGameControl: true,
   isUmpire: true,

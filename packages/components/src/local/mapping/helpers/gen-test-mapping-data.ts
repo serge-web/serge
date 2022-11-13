@@ -1,4 +1,9 @@
-import { Asset, ForceData, MappingConstraints, Perception, PlatformTypeData } from '@serge/custom-types'
+import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER, ATTRIBUTE_VALUE_STRING } from '@serge/config'
+import {
+  Asset, AttributeType, AttributeTypes, AttributeValue, AttributeValue2,
+  AttributeValues, AttributeValues2, EnumAttributeType, EnumAttributeValue,
+  ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, NumberAttributeValue2, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue, StringAttributeValue2
+} from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
@@ -68,12 +73,117 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   return perceptions
 }
 
-const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number, platformTypes: PlatformTypeData[], forces: ForceData[]): Asset[] => {
+const legacyAttributeTypesFor = (platformType: PlatformTypeData): AttributeTypes => {
+  if (platformType.attributeTypes) {
+    return platformType.attributeTypes
+  }
+  return []
+}
+
+const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: AttributeTypes): AttributeTypes => {
+  if (platformType.attributeTypeIds) {
+    const res = platformType.attributeTypeIds.map((id): AttributeType => {
+      const aType = attributes.find((attr) => attr.attrId === id)
+      if (aType) {
+        return aType
+      } else {
+        throw Error('Attribute type not found for:' + id)
+      }
+    })
+    return res
+  }
+  return []
+}
+
+const createModernAttributesFor = (platformType: PlatformTypeData, attributeTypes: AttributeTypes): AttributeValues2 => {
+  const attrTypes = modernAttributeTypesFor(platformType, attributeTypes)
+  const attrVals: AttributeValues2 = attrTypes.map((attr: AttributeType): AttributeValue2 => {
+    //  NumberAttributeType | EnumAttributeType | StringAttributeType
+    let res
+    switch (attr.attrType) {
+      case ATTRIBUTE_TYPE_NUMBER: {
+        const nType = attr as NumberAttributeType
+        const num: NumberAttributeValue2 = {
+          attrId: attr.attrId,
+          value: nType.defaultValue || Math.floor(Math.random() * 50)
+        }
+        res = num
+        break
+      }
+      case ATTRIBUTE_TYPE_STRING: {
+        const nType = attr as StringAttributeType
+        const num: StringAttributeValue2 = {
+          attrId: attr.attrId,
+          value: nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
+        }
+        return num
+      }
+      case ATTRIBUTE_TYPE_ENUM: {
+        const nType = attr as EnumAttributeType
+        const num: StringAttributeValue2 = {
+          attrId: attr.attrId,
+          value: nType.values[Math.floor(Math.random() * nType.values.length)]
+        }
+        return num
+      }
+      default: {
+        console.warn('Haven\'t handled attribute', attr)
+      }
+    }
+    return res as AttributeValue
+  })
+  return attrVals
+}
+
+const createLegacyAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
+  const attrTypes = legacyAttributeTypesFor(platformType)
+  const attrVals: AttributeValues = attrTypes.map((attr: AttributeType): AttributeValue => {
+    //  NumberAttributeType | EnumAttributeType | StringAttributeType
+    let res
+    switch (attr.attrType) {
+      case ATTRIBUTE_TYPE_NUMBER: {
+        const nType = attr as NumberAttributeType
+        const num: NumberAttributeValue = {
+          attrType: ATTRIBUTE_VALUE_NUMBER,
+          attrId: attr.attrId,
+          value: nType.defaultValue || Math.floor(Math.random() * 50)
+        }
+        res = num
+        break
+      }
+      case ATTRIBUTE_TYPE_STRING: {
+        const nType = attr as StringAttributeType
+        const num: StringAttributeValue = {
+          attrType: ATTRIBUTE_VALUE_STRING,
+          attrId: attr.attrId,
+          value: nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
+        }
+        return num
+      }
+      case ATTRIBUTE_TYPE_ENUM: {
+        const nType = attr as EnumAttributeType
+        const num: EnumAttributeValue = {
+          attrType: ATTRIBUTE_VALUE_ENUM,
+          attrId: attr.attrId,
+          value: nType.values[Math.floor(Math.random() * nType.values.length)]
+        }
+        return num
+      }
+      default: {
+        console.warn('Haven\'t handled attribute', attr)
+      }
+    }
+    return res as AttributeValue
+  })
+  return attrVals
+}
+
+const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined,
+  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising?:boolean): Asset[] => {
   const assets = []
-  const roles = force.roles
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
-    const h3Pos = h3.geoToH3(posit[1], posit[0], h3Res)
+    const h3Pos = h3Res ? h3.geoToH3(posit[1], posit[0], h3Res) : undefined
     const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
     const platformType = platformTypes[platformTypeCtr]
     if (!platformType) {
@@ -87,13 +197,23 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + i,
       perceptions: [],
-      platformTypeId: i === 0 ? 'id-task-group' : platformType.uniqid,
+      platformTypeId: platformType.uniqid,
       condition: 'working',
       status: statuses.length ? { state: statuses[Math.floor(Math.random() * statuses.length)].name } : undefined,
       position: h3Pos,
-      location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])],
-      owner: roles[Math.floor(roles.length * Math.random())].roleId
+      location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
+
+    const legacyAttrs = createLegacyAttributesFor(platformType)
+    const modernAttrs = createModernAttributesFor(platformType, attributeTypes)
+
+    if (legacyAttrs && legacyAttrs.length > 0) {
+      asset.attributeValues = legacyAttrs
+    }
+    if (modernAttrs && modernAttrs.length > 0) {
+      asset.attributes = modernAttrs
+    }
+
     // generate some perceptions:
     asset.perceptions = createPerceptions(asset, force.uniqid, forces)
     // make the first unit a composite one
@@ -101,12 +221,39 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       if (!assets[0].comprising) {
         assets[0].comprising = []
       }
-      assets[0].comprising.push(asset)
+      if (withComprising) {
+        assets[0].comprising.push(asset)
+      }
     } else {
       assets.push(asset)
     }
   }
   return assets
+}
+
+export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
+  platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
+  const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
+  const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
+
+  // regions
+  const bounds = L.latLngBounds(constraints.bounds)
+  const centre = bounds.getCenter()
+  const east = bounds.getEast()
+  const br = L.latLngBounds(bounds.getNorthWest(), L.latLng(centre.lat, east))
+  const rr = L.latLngBounds(bounds.getSouthWest(), L.latLng(centre.lat, east))
+
+  const bluePoly = L.polygon([br.getNorthWest(), br.getNorthEast(), br.getSouthEast(), br.getSouthWest(), br.getNorthWest()])
+  const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
+
+  console.log('blue', bluePoly, redPoly)
+
+  const newForces: ForceData[] = deepCopy(forces)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes)
+  console.log('blue', newForces[1].assets)
+  console.log('res', newForces[2].assets)
+  return newForces
 }
 
 const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
@@ -125,10 +272,10 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
   const h3Res = constraints.h3res
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res, platformTypes, forces)
-  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res, maritimePlatforms, forces))
-  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res, platformTypes, forces)
-  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res, maritimePlatforms, forces))
+  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [])
+  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, []))
+  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [])
+  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, []))
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   setForcesState(newForces)

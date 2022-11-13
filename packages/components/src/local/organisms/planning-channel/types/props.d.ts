@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { AttributeTypes, ChannelPlanning, ChatMessage, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnLengthType } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
 export default interface PropTypes {
@@ -18,10 +18,10 @@ export default interface PropTypes {
   channelId: string
   /** which phase game is currently in */
   phase: Phase
-  turnNumber: number
   allForces: ForceData[]
   gameDate: string
   currentTurn: number
+  gameTurnTime: TurnLengthType
   dispatch: React.Dispatch<PlayerUiActionTypes>
   reduxDispatch: Dispatch<any>
   getAllWargameMessages: (dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
@@ -33,6 +33,8 @@ export default interface PropTypes {
   /** set of activities that can be planned using this planning channel */
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   phase: Phase
+  /** generic descriptions of attributes */
+  attributeTypes?: AttributeTypes
 }
 
 export type PlanningActitivityMenuType = {

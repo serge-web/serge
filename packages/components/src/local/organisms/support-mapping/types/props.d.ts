@@ -1,3 +1,4 @@
+import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { LatLngBounds, LatLngExpression } from 'leaflet'
 import React from 'react'
 
@@ -20,4 +21,6 @@ export default interface PropTypes {
   children?: React.ReactElement
   /** toolbar buttons */
   toolbarChildren?: React.ReactElement
+  /** where to get the tile data from */
+  tileLayer: TileLayerDefinition
 }

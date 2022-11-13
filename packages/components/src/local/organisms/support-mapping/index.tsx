@@ -5,13 +5,15 @@ import React, { useEffect } from 'react'
 import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
 import MapControl from '../../map-control'
 import MapCoordinates from './helper/Coordinates'
-import { MapConstants } from './helper/MapConstants'
 import PropTypes from './types/props'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, toolbarChildren, mapWidth, children
+  position, bounds, toolbarChildren, mapWidth, children, tileLayer
 }) => {
-  const TileLayerProps = MapConstants.TileLayer
+  if (!tileLayer) {
+    console.warn('warning, using fallback tile layer')
+  }
+  const TileLayerProps = tileLayer
   const map = useMap()
 
   useEffect(() => {

@@ -47,15 +47,23 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const isString = typeof (assetId) === 'string'
     let numStr = ''
     if (isString) {
-      asset = assets.find((asset) => asset.uniqid === assetId)
+      try {
+        asset = assets.find((asset) => asset.uniqid === assetId)
+      } catch (e) {
+      }
     } else {
-      asset = assets.find((asset) => asset.uniqid === assetId.asset)
-      numStr = ' (' + assetId.number + ')'
+      try {
+        asset = assets.find((asset) => asset.uniqid === assetId.asset)
+        numStr = ' (' + assetId.number + ')'
+      } catch (e) {
+      }
     }
     if (!asset) {
-      throw Error('Failed to find asset:' + assetId)
+      console.warn('Failed to find asset:' + assetId)
+      return <li key={index}>Asset not found</li>
+    } else {
+      return <li key={index}>{asset.name}{numStr}</li>
     }
-    return <li key={index}>{asset.name}{numStr}</li>
   }
 
   const renderOrderDetail = (order1: boolean, row: AdjudicationRow, assets: Asset[], activity?: string): React.ReactElement => {
@@ -124,7 +132,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
       columnsData.splice(1, 0, turnColumn)
     }
-    setColumns(columnsData)
+    if (columns.length === 0) {
+      setColumns(columnsData)
+    }
   }, [myMessages])
 
   // fix unit-test for MaterialTable

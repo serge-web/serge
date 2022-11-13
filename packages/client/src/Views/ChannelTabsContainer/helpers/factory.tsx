@@ -190,13 +190,14 @@ const factory = (state: PlayerUi): Factory => {
             selectedRoleName={state.selectedRoleName}
             currentWargame={state.currentWargame}
             selectedForce={state.selectedForce}
+            attributeTypes={state.attributeTypes}
             isUmpire={state.isUmpire}
             phase={state.phase}
-            turnNumber={state.currentTurn}
             allForces={state.allForces}
             platformTypes={state.allPlatformTypes}
             gameDate={state.gameDate}
             currentTurn={state.currentTurn}
+            gameTurnTime={state.gameTurnTime}
             dispatch={dispatch}
             getAllWargameMessages={getAllWargameMessages}
             markAllAsRead={markAllAsRead}

@@ -12,10 +12,10 @@ import { HexGrid } from '../hex-grid'
 import InfoMarkers from '../info-markers'
 import data from './data/atlantic-cells'
 // Import component files
+import { uniq } from 'lodash'
 import Mapping from './index'
 import docs from './README.md'
 import MappingPropTypes from './types/props'
-import { uniq } from 'lodash'
 
 const watuWargame = deepCopy(watuPlaytest) as Wargame
 const forces: ForceData[] = deepCopy(watuWargame.data.forces.forces)
@@ -139,13 +139,13 @@ const lowerResolution = false
 lowerResolution && forces.forEach((force: ForceData) => {
   force.assets && force.assets.forEach((asset: Asset) => {
     if (asset.position) {
-      asset.position = fixIndex(asset.position, localConstraints.h3res)
+      asset.position = fixIndex(asset.position, localConstraints.h3res || 5)
     }
     if (asset.plannedTurns) {
-      asset.plannedTurns = cleanRoute(asset.plannedTurns, localConstraints.h3res)
+      asset.plannedTurns = cleanRoute(asset.plannedTurns, localConstraints.h3res || 5)
     }
     if (asset.history) {
-      asset.history = cleanRoute(asset.history, localConstraints.h3res)
+      asset.history = cleanRoute(asset.history, localConstraints.h3res || 5)
     }
   })
 })

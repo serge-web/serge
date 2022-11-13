@@ -1,15 +1,15 @@
-import Button from '@material-ui/core/Button'
-import { AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, NumberAttributeValue } from '@serge/custom-types'
-import cloneDeep from 'lodash/cloneDeep'
 import { faLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Select } from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER, ATTRIBUTE_VALUE_STRING } from '@serge/config'
+import { AttributeEditorData, AttributeType, AttributeTypes, AttributeValue, AttributeValues, EnumAttributeType, EnumAttributeValue, NumberAttributeValue, StringAttributeValue } from '@serge/custom-types'
+import cloneDeep from 'lodash/cloneDeep'
 import React, { useEffect, useRef, useState } from 'react'
 import Modal from 'react-modal'
 import MoreInfo from '../molecules/more-info'
 import styles from './styles.module.scss'
 import { Props } from './types/props'
-import { ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER } from '@serge/config'
-import { Select } from '@material-ui/core'
 
 /* Render component */
 export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes: attributes, onClose, onSave, inAdjudication }) => {
@@ -58,6 +58,14 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
         }
         return res
       }
+      case ATTRIBUTE_VALUE_STRING: {
+        const res: StringAttributeValue = {
+          attrId: data.attrId,
+          attrType: ATTRIBUTE_VALUE_STRING,
+          value: data.valueWrite
+        }
+        return res
+      }
     }
   }
 
@@ -72,6 +80,9 @@ export const AttributeEditor: React.FC<Props> = ({ isOpen, data, attributeTypes:
 
   const editorFor = (item: AttributeEditorData, attributes: AttributeTypes, idx: number): any => {
     switch (item.valueType) {
+      case ATTRIBUTE_VALUE_STRING: {
+        return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(e.target.value, idx)} />
+      }
       case ATTRIBUTE_VALUE_NUMBER: {
         return <input type='number' value={item.valueWrite} onChange={(e): void => onValueChange(parseInt(e.target.value), idx)} />
       }

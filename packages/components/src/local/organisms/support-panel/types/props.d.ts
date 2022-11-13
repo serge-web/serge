@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { AttributeTypes, ChannelPlanning, ForceData, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnLengthType } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
@@ -38,6 +38,7 @@ export default interface PropTypes {
   allForces: ForceData[]
   gameDate: string
   currentTurn: number
+  gameTurnTime: TurnLengthType
   currentWargame: string
   selectedAssets: string[]
   setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
@@ -55,6 +56,7 @@ export default interface PropTypes {
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   /** user wishes to edit location data */
   editLocation?: LocationEditCallbackHandler
+  attributeTypes: AttributeTypes
 }
 
 export type TabPanelProps = {

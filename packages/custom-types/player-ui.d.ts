@@ -1,15 +1,16 @@
-import { ChannelTypes } from './channel-data'
-import ForceData from './force-data'
-import PlatformTypeData from './platform-type-data'
-import { MessageFeedback, MessageChannel } from './message'
-import ChannelUI from './channel-ui'
-import { TemplateBodysByKey } from './message-types'
-import Role from './role'
-import { GameTurnLength } from './turn-length'
 import { TurnFormats } from '@serge/config'
-import { PlayerMessageLog } from './player-log'
+import { AttributeTypes } from './attributes'
+import { ChannelTypes } from './channel-data'
+import ChannelUI from './channel-ui'
+import ForceData from './force-data'
 import { AnnotationIcons, MapAnnotations } from './map-annotation'
 import MappingConstraints from './mapping-constraints'
+import { MessageChannel, MessageFeedback } from './message'
+import { TemplateBodysByKey } from './message-types'
+import PlatformTypeData from './platform-type-data'
+import { PlayerMessageLog } from './player-log'
+import Role from './role'
+import { GameTurnLength } from './turn-length'
 
 export interface PlayerUiChannels {
   [property: string]: ChannelUI
@@ -55,6 +56,11 @@ export default interface PlayerUi {
   markerIcons: AnnotationIcons,
   /** set of forces for ths current wargame */
   allForces: Array<ForceData>,
+  /** generic attribute types */
+  attributeTypes: AttributeTypes
+  /** templates, indexed by Id 
+   * to be @deprecated
+   */
   allTemplatesByKey: TemplateBodysByKey,
   /** descriptions of platforms available in current wargame */
   /*

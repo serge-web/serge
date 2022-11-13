@@ -1,4 +1,4 @@
-import { ForceData } from '@serge/custom-types'
+import { AttributeTypes, ForceData, PlatformTypeData } from '@serge/custom-types'
 import { ForceStyle, PlatformStyle } from '@serge/helpers'
 import { LatLng } from 'leaflet'
 
@@ -6,14 +6,14 @@ export type AssetRow = {
   id: string
   icon: string
   name: string
-  condition: string
-  status: string
   platformType: string
   parentId?: string
   force?: string
   owner?: string
   position?: LatLng
   tableData?: { checked: boolean }
+  health?: number
+  attributes: Record<string, any>
 }
 
 export default interface PropTypes {
@@ -37,4 +37,8 @@ export default interface PropTypes {
    *  set of assets visible to me
    */
   assets: AssetRow[]
+  /** platform type definitions */
+  platformTypes: PlatformTypeData[]
+  /** generic attribute types */
+  attributeTypes: AttributeTypes
 }

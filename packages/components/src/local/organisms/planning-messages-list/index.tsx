@@ -87,7 +87,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // drop the force column, since player only sees their force
       columns.splice(2, 1)
     }
-    setColumns(columnData)
+    if (columns.length === 0) {
+      setColumns(columnData)
+    }
   }, [myMessages, turnFilter])
 
   const editorValue = (val: { [property: string]: any }): void => {

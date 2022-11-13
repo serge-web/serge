@@ -1,5 +1,5 @@
 import { LaydownTypes } from '@serge/config'
-import { AttributeValues, Perception, PlatformTypeData, Role, RouteStatus, RouteTurn } from '.'
+import { AttributeValues, AttributeValues2, Perception, PlatformTypeData, Role, RouteStatus, RouteTurn } from '.'
 export interface Asset {
   /**
    * the name of this asset
@@ -66,7 +66,10 @@ export interface Asset {
   /** attributes for this asset 
    */
   attributeValues?: AttributeValues
-  /** health of this asset. 0-100, with 0 treated as destroyed */
+  /** attributes for this asset, using the streamlined notation
+   */
+  attributes?: AttributeValues2
+   /** health of this asset. 0-100, with 0 treated as destroyed */
   health?: number
 }
 
