@@ -2,7 +2,6 @@ import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
-import p9activitesMock from '@serge/mocks/p9-activities.mock'
 import * as turf from '@turf/turf'
 import { Feature, LineString, Polygon } from 'geojson'
 import moment from 'moment'
@@ -17,7 +16,7 @@ const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
 
-const activities = p9activitesMock
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
