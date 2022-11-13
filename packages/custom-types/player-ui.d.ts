@@ -7,6 +7,7 @@ import { AnnotationIcons, MapAnnotations } from './map-annotation'
 import MappingConstraints from './mapping-constraints'
 import { MessageChannel, MessageFeedback } from './message'
 import { TemplateBodysByKey } from './message-types'
+import { PerForcePlanningActivitySet } from './planning-activity'
 import PlatformTypeData from './platform-type-data'
 import { PlayerMessageLog } from './player-log'
 import Role from './role'
@@ -90,4 +91,6 @@ export default interface PlayerUi {
   mappingConstraints?: MappingConstraints
   /** whether to hide force memberships in channels */
   hideForcesInChannels?: boolean
+  /** definitions of activities for forces */
+  perForceActivities: PerForcePlanningActivitySet[]
 }

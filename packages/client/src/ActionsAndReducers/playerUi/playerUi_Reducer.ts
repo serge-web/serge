@@ -25,6 +25,7 @@ export const initialState: PlayerUi = {
   isUmpire: false,
   isGameControl: false,
   attributeTypes: [],
+  perForceActivities: [],
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
@@ -95,6 +96,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
       const attributeTypes = action.payload.data.attributeTypes
       newState.attributeTypes = attributeTypes ? attributeTypes.attributes : []
+      const perForceActivities = action.payload.data.activities
+      newState.perForceActivities = perForceActivities ? perForceActivities.activities : []
 
       // temporary workaround to remove duplicate channel definitions
       // TODO: delete workaround once fix in place

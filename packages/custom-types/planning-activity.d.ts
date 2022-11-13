@@ -138,3 +138,10 @@ export interface HealthOutcome extends CoreOutcome  {
   /** new location (zero for destroyed) */
   condition: number
 }
+
+
+/** top level database object for storing activity definitions */
+/** collection of map annotations */
+export interface ActivityTypeData {
+  activities: PerForcePlanningActivitySet[]
+}
