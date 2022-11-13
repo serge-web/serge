@@ -151,7 +151,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const assetLocation = 'Asset Location'
   const strikeTarget = 'Strike Target'
 
-  const acts: Activity[] = []
+  let acts: Activity[] = []
   acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
   acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
   acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
@@ -186,7 +186,6 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
 
   // acts = []
   // acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
-
 
   // const uniqList = _.uniqBy(acts, (item) => item.specific) as Activity[]
   // console.log('unique', uniqList.map((item: Activity) => {
@@ -232,8 +231,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
         }
-        if (act.acts && act.actDesc) {
-          activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc)
+        if (act.acts) {
+          activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc || [])
         }
         category.activities.push(activity)
       })
