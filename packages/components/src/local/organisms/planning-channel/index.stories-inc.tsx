@@ -1,6 +1,7 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
 import p9MessageTemplatesMock from '@serge/mocks/p9-message-templates.mock'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -42,12 +43,13 @@ const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
-// fix the URL for the openstreetmap mapping
-const planningChannel = channels.find((channel) => channel.channelType === 'ChannelPlanning')
+// fix the URL for the openstreetmap mapping, because we don't have arabian
+// sea in StoryBook
+const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
+const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
 if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
-  const pChan = planningChannel as ChannelPlanning
-  if (pChan.constraints.tileLayer) {
-    pChan.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  if (planningChannel.constraints.tileLayer) {
+    planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
 }
 
@@ -141,7 +143,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 
   return <PlanningChannel
-    channel={channels[0] as ChannelPlanning}
+    channel={planningChannel}
     messages={messages}
     allTemplates={p9MessageTemplatesMock}
     channelId={channels[0].uniqid}
