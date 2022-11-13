@@ -1,12 +1,12 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role } from '@serge/custom-types'
+import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
+import p9MessageTemplatesMock from '@serge/mocks/p9-message-templates.mock'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -59,9 +59,7 @@ forces.forEach((force: ForceData) => {
   })
 })
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
   title: 'local/organisms/PlanningChannelBravo',
@@ -140,22 +138,14 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
-  // get the templates for this user
-  const participants = planningChannel ? planningChannel.participants as ParticipantPlanning[] : []
-  const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
-  const templatesBlocks = participant ? participant.templates : []
-  const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
-  const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
-
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 
   return <PlanningChannel
     channel={channels[0] as ChannelPlanning}
     messages={messages}
-    allTemplates={templateBodies}
-    channelTemplates={templateBodies}
+    allTemplates={p9MessageTemplatesMock}
     channelId={channels[0].uniqid}
-    adjudicationTemplate={planningMessageTemplatesMock[0]}
+    adjudicationTemplate={p9MessageTemplatesMock[0]}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
@@ -175,7 +165,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
     gameTurnTime={P9BMock.data.overview.gameTurnTime}
-    forcePlanningActivities={filledInPerForcePlanningActivities}
+    forcePlanningActivities={activities}
   />
 }
 const doNotDoIt = 7 // don't transform the messages
@@ -189,9 +179,9 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   delete newMsg.message.ActivityType
   // find the force
   const thisForce = newMsg.details.from.forceId
-  const activities = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === thisForce)
-  if (activities) {
-    const grouped = activities.groupedActivities
+  const activities2 = activities.find((val: PerForcePlanningActivitySet) => val.force === thisForce)
+  if (activities2) {
+    const grouped = activities2.groupedActivities
     const randomGroup = grouped[Math.floor(Math.random() * grouped.length)]
     const activity = randomGroup.activities[Math.floor(Math.random() * randomGroup.activities.length)]
     if (activity && typeof activity !== 'string') {

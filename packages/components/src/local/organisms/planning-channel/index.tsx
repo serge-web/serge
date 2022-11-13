@@ -43,7 +43,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveNewActivityTimeMessage,
   openMessage,
   saveMessage,
-  channelTemplates,
   allTemplates,
   messages,
   channel,
@@ -270,7 +269,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        const newOrders = randomOrdersDocs(20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        const newOrders = randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
         console.log(newOrders)
       }
     }
@@ -496,7 +495,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             onReadAll={onReadAll}
             onUnread={onUnread}
             onRead={onRead}
-            channelTemplates={channelTemplates}
             allTemplates={allTemplates}
             adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}

@@ -11,6 +11,7 @@ const testState: PlayerUi = {
   isRFIManager: false,
   infoMarkers: [],
   attributeTypes: [],
+  perForceActivities: [],
   markerIcons: [],
   isGameControl: true,
   isUmpire: true,

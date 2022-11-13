@@ -17,7 +17,7 @@ export interface GroupedActivitySet {
   /** the category of activities (such as maritime, land, air) */
   category: string
   /** the set of activities for this category */
-  activities: Array<PlanningActivity | PlanningActivity['uniqid']>
+  activities: Array<PlanningActivity>
 }
 
 
@@ -28,7 +28,7 @@ export interface PlanningActivityGeometry {
   /**
    * the type of geometery that represents part of this activity
    */
-  aType: GeometryType
+  aType: GeometryType | string
   /** 
    * whether provision of this geometry is optional for the activity
    */
@@ -137,4 +137,11 @@ export interface LocationOutcome extends CoreOutcome  {
 export interface HealthOutcome extends CoreOutcome  {
   /** new location (zero for destroyed) */
   condition: number
+}
+
+
+/** top level database object for storing activity definitions */
+/** collection of map annotations */
+export interface ActivityTypeData {
+  activities: PerForcePlanningActivitySet[]
 }

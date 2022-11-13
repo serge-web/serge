@@ -34,7 +34,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onUnread,
   onReadAll,
   channel,
-  channelTemplates,
   allTemplates,
   adjudicationTemplate,
   saveMessage,
@@ -255,7 +254,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   {draftMessage && <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
-                    templates={channelTemplates}
+                    templates={allTemplates}
                     title={'New Orders'}
                     hideTemplateSelector={true}
                     saveCachedNewMessageValue={saveCachedNewMessageValue}

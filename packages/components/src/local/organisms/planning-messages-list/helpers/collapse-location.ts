@@ -15,8 +15,10 @@ export const collapseLocation = (document: Record<string, any>, activities?: Per
       // get the lists of activities
       const justActs = activities.groupedActivities.map((group) => group.activities)
       const flatActs = _.flatten(justActs) as PlanningActivity[]
+      // get the activities with geometries
+      const withGeoms = flatActs.filter((act) => act.geometries)
       // now extract the geometries
-      const geoms = flatActs.map((act) => act.geometries)
+      const geoms = withGeoms.map((act) => act.geometries)
       flatGeoms = _.flatten(geoms) as PlanningActivityGeometry[]
     }
     loc.forEach((geom) => {

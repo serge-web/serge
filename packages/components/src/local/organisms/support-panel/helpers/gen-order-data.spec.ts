@@ -1,11 +1,10 @@
 import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
 import { MessagePlanning, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import * as turf from '@turf/turf'
 import { Feature, LineString, Polygon } from 'geojson'
 import moment from 'moment'
-import { fixPerForcePlanningActivities } from '../../planning-channel/helpers/collate-plans-helper'
 import {
   findPlannedGeometries, findPlanningGeometry, geometriesFor, GeomWithOrders, injectTimes,
   invertMessages, ordersEndingAfterTime, ordersOverlappingTime, ordersStartingBeforeTime,
@@ -17,10 +16,9 @@ const forces = P9BMock.data.forces.forces
 const blueForce = forces[1]
 const redForce = forces[2]
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
+const planningChannelId = P9BMock.data.channels.channels[0].uniqid
 
-const activities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const planningMessages = planningChannelMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
@@ -89,7 +87,7 @@ const testActivity: PlanningActivity = {
 
 it('produces order data', () => {
   const numOrders = 20
-  const orders = randomOrdersDocs(numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities)
+  const orders = randomOrdersDocs(planningChannelId, numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities)
   expect(orders).toBeTruthy()
   expect(orders.length).toEqual(numOrders)
 })
@@ -253,7 +251,10 @@ it('overlaps works as expected', () => {
 })
 
 it('finds activities', () => {
-  const activity = activities[0].groupedActivities[1].activities[1] as PlanningActivity
+  const activity = activities[0].groupedActivities[1].activities[2] as PlanningActivity
+  // check the data is suitable
+  expect(activity.geometries).toBeTruthy()
+  expect(activity.geometries?.length).toBeGreaterThan(0)
   const found = findPlanningGeometry((activity.geometries && activity.geometries[1].uniqid) || '', activities[0].force, activities)
   expect(found).toBeTruthy()
   expect(found).toEqual(activity.geometries && activity.geometries[1].name)

@@ -1,5 +1,6 @@
 import { MessageDetails, TemplateBody } from '@serge/custom-types'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
+import p9MessageTemplatesMock from '@serge/mocks/p9-message-templates.mock'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import NewMessage from './index'
@@ -85,7 +86,11 @@ JustAdjuducation.args = {
 
 export const JustLandActivity = Template.bind({})
 const landActivityTemplate = planningMessageTemplatesMock.find((template) => template._id === 'k16e-land')
-console.log('tempalte', landActivityTemplate)
 JustLandActivity.args = {
   templates: landActivityTemplate ? [landActivityTemplate] : planningMessageTemplatesMock
+}
+
+export const P9Templates = Template.bind({})
+P9Templates.args = {
+  templates: p9MessageTemplatesMock
 }

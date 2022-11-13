@@ -16,9 +16,10 @@ export default interface PropTypes {
    * definition of this channel
    */
   channel: ChannelPlanning
-  /** new orders templates for this player */
-  channelTemplates: TemplateBody[]
-  /** full set of templates, used for rendering third-party messages */
+  /** new orders templates for this player. Note: this component
+   * receives all templates, since the template to use is controlled
+   * by the `PlanningActivity` for the orders being generated
+   */
   allTemplates: TemplateBody[]
   /** adjudication template */
   adjudicationTemplate: TemplateBody

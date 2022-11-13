@@ -9,6 +9,7 @@ const state: PlayerUi = {
   isUmpire: true,
   playerMessageLog: {},
   attributeTypes: [],
+  perForceActivities: [],
   updateMessageState: false,
   isRFIManager: false,
   markerIcons: [],

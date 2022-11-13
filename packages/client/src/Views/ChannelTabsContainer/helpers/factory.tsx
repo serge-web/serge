@@ -3,7 +3,7 @@ import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PerForcePlanningActivitySet, PlayerUi } from '@serge/custom-types'
+import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from '@serge/custom-types'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
@@ -15,7 +15,6 @@ import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import CollabChannel from '../../../Components/CollabChannel'
 import { usePlayerUiDispatch } from '../../../Store/PlayerUi'
-import { perForceMockActivityData } from './mock-activity-data'
 import { mockPlanningMessages } from './mock-message-data'
 
 type Factory = (node: TabNode) => React.ReactNode
@@ -158,8 +157,6 @@ const factory = (state: PlayerUi): Factory => {
         case CHANNEL_CUSTOM:
           return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
         case CHANNEL_PLANNING:
-          // TODO: get activity data from the database
-          const filledInPerForcePlanningActivities: PerForcePlanningActivitySet[] = perForceMockActivityData
           // TODO: take this template id from the channel definition
           const adjudicationTemplateId = 'k16-adjud'
           // NOTE: block of code to force mock messages into database
@@ -180,7 +177,6 @@ const factory = (state: PlayerUi): Factory => {
             }
           }
           return <PlanningChannel
-            channelTemplates={channel.templates}
             allTemplates={allTemplates}
             adjudicationTemplate={state.allTemplatesByKey[adjudicationTemplateId]}
             channelId={channel.uniqid}
@@ -206,7 +202,7 @@ const factory = (state: PlayerUi): Factory => {
             saveMessage={saveMessage}
             reduxDispatch={reduxDisplatch}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-            forcePlanningActivities={filledInPerForcePlanningActivities}
+            forcePlanningActivities={state.perForceActivities}
           />
         default:
           console.log('not yet handling', channelData)

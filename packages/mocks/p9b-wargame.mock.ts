@@ -113,1539 +113,1336 @@ const game: Wargame = {
                     "dirty": false,
                     "assets": [
                         {
-                            "uniqid": "a1003",
-                            "contactId": "CA2986",
+                            "uniqid": "a401",
+                            "contactId": "CA2028",
                             "name": "Blue:0",
                             "perceptions": [
                                 {
-                                    "by": "f-green",
-                                    "name": "Blue:0",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                40.4652,
-                                48.3297
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ],
-                            "comprising": []
-                        },
-                        {
-                            "uniqid": "a1007",
-                            "contactId": "CA1394",
-                            "name": "Blue:4",
-                            "perceptions": [
-                                {
                                     "by": "f-red",
-                                    "name": "CA1394"
+                                    "name": "Blue:0",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA1394",
+                                    "name": "Blue:0",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                41.8264,
+                                25.5758
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_5"
+                            },
+                            "comprising": []
+                        },
+                        {
+                            "uniqid": "a405",
+                            "contactId": "CA1471",
+                            "name": "Blue:4",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:4",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA1394",
+                                    "name": "CA1471",
+                                    "typeId": "blue_land_asset"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                51.4351,
+                                78.3456
+                            ],
+                            "attributes": {
+                                "a_Units": "_45"
+                            }
+                        },
+                        {
+                            "uniqid": "a406",
+                            "contactId": "CA1409",
+                            "name": "Blue:5",
+                            "perceptions": [],
+                            "platformTypeId": "blue_air_bomber",
+                            "condition": "working",
+                            "location": [
+                                52.8049,
+                                62.3539
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_13"
+                            }
+                        },
+                        {
+                            "uniqid": "a407",
+                            "contactId": "CA140",
+                            "name": "Blue:6",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:6",
+                                    "typeId": "blue_maritime_fiac"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:6",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                46.1362,
+                                64.7214
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a408",
+                            "contactId": "CA1763",
+                            "name": "Blue:7",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1763",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:7",
+                                    "typeId": "blue_land_unit"
                                 }
                             ],
                             "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                53.6592,
-                                32.0337
+                                39.2451,
+                                49.3683
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit33"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_37"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Size": "Size of military unit48",
+                                "a_Equipment": "_13"
+                            }
                         },
                         {
-                            "uniqid": "a1008",
-                            "contactId": "CA884",
-                            "name": "Blue:5",
-                            "perceptions": [],
-                            "platformTypeId": "blue_land_c2",
-                            "condition": "working",
-                            "location": [
-                                43.4625,
-                                40.156
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_1"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1009",
-                            "contactId": "CA2644",
-                            "name": "Blue:6",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2644",
-                                    "typeId": "blue_land_asset"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2644",
-                                    "typeId": "blue_land_asset"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                35.7984,
-                                37.266
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_49"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1010",
-                            "contactId": "CA162",
-                            "name": "Blue:7",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:7",
-                                    "typeId": "blue_land_asset",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA162",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                52.778,
-                                61.0773
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_35"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1011",
-                            "contactId": "CA1014",
+                            "uniqid": "a409",
+                            "contactId": "CA1222",
                             "name": "Blue:8",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:8",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1014",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                32.85,
-                                57.3068
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1012",
-                            "contactId": "CA2565",
-                            "name": "Blue:9",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2565",
-                                    "typeId": "blue_land_unit",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
-                            "condition": "working",
-                            "location": [
-                                37.9075,
-                                44.0435
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit32"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_10"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1013",
-                            "contactId": "CA291",
-                            "name": "Blue:10",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA291"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                48.9989,
-                                74.0449
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_7"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1014",
-                            "contactId": "CA3382",
-                            "name": "Blue:11",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA3382",
-                                    "typeId": "blue_maritime_mtg"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA3382",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:11",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                45.2723,
-                                83.6848
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_35"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1015",
-                            "contactId": "CA3012",
-                            "name": "Blue:12",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:12",
-                                    "typeId": "blue_land_asset",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3012",
-                                    "typeId": "blue_land_asset"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                33.7266,
-                                74.7957
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_40"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1016",
-                            "contactId": "CA738",
-                            "name": "Blue:13",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:13"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA738"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                50.9161,
-                                48.1087
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_8"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1017",
-                            "contactId": "CA2980",
-                            "name": "Blue:14",
-                            "perceptions": [],
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                36.9091,
-                                61.4422
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_3"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1018",
-                            "contactId": "CA2143",
-                            "name": "Blue:15",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2143",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:15"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                31.2635,
-                                73.2222
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_34"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1019",
-                            "contactId": "CA1318",
-                            "name": "Blue:16",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:16",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1318",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_c2",
-                            "condition": "working",
-                            "location": [
-                                52.768,
-                                58.7429
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_2"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1020",
-                            "contactId": "CA873",
-                            "name": "Blue:17",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:17",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-green"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Blue:17",
-                                    "typeId": "blue_air_logs",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA873",
+                                    "name": "CA1222",
                                     "typeId": "blue_air_logs"
                                 }
                             ],
                             "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                45.8862,
-                                75.6862
+                                53.5302,
+                                39.2908
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_13"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_18012345678900123456789001234567890012345678900123456789001234567890012345678900123456789001234567890"
+                            }
                         },
                         {
-                            "uniqid": "a1021",
-                            "contactId": "CA2376",
-                            "name": "Blue:18",
+                            "uniqid": "a410",
+                            "contactId": "CA1531",
+                            "name": "Blue:9",
                             "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA1531",
+                                    "typeId": "blue_land_ssm"
+                                },
                                 {
                                     "by": "f-white",
-                                    "name": "CA2376",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                42.8519,
-                                78.6788
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_5"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1022",
-                            "contactId": "CA3090",
-                            "name": "Blue:19",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:19",
-                                    "typeId": "blue_land_c2"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:19"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_c2",
-                            "condition": "working",
-                            "location": [
-                                49.9355,
-                                34.3353
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_9"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1023",
-                            "contactId": "CA1162",
-                            "name": "Blue:20",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1162",
-                                    "typeId": "blue_air_bomber"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1162",
+                                    "name": "CA1531",
                                     "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                38.5368,
+                                35.8002
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_4",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a411",
+                            "contactId": "CA2886",
+                            "name": "Blue:10",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:10",
+                                    "typeId": "blue_air_logs",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:10",
+                                    "typeId": "blue_air_logs"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2886",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                39.7074,
+                                60.7838
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_48"
+                            }
+                        },
+                        {
+                            "uniqid": "a412",
+                            "contactId": "CA926",
+                            "name": "Blue:11",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA926",
+                                    "typeId": "blue_air_bomber",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA926"
                                 }
                             ],
                             "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                51.9565,
-                                49.4502
+                                40.3227,
+                                84.5497
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_4"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_19"
+                            }
                         },
                         {
-                            "uniqid": "a1024",
-                            "contactId": "CA2550",
-                            "name": "Blue:21",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2550"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2550",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_fiac",
+                            "uniqid": "a413",
+                            "contactId": "CA2936",
+                            "name": "Blue:12",
+                            "perceptions": [],
+                            "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                47.734,
-                                30.3313
+                                51.0938,
+                                82.2623
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_38"
+                            }
                         },
                         {
-                            "uniqid": "a1025",
-                            "contactId": "CA246",
-                            "name": "Blue:22",
+                            "uniqid": "a414",
+                            "contactId": "CA1021",
+                            "name": "Blue:13",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA246",
-                                    "typeId": "blue_air_istar"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:22"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:22"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                54.3846,
-                                40.3006
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_43"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1026",
-                            "contactId": "CA2904",
-                            "name": "Blue:23",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2904",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2904",
-                                    "typeId": "blue_maritime_ship"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2904"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                36.3453,
-                                78.2127
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_23"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1027",
-                            "contactId": "CA1008",
-                            "name": "Blue:24",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1008",
-                                    "typeId": "blue_maritime_ship"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:24",
-                                    "typeId": "blue_maritime_ship"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1008",
-                                    "typeId": "blue_maritime_ship"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                41.9775,
-                                70.047
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_3"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1028",
-                            "contactId": "CA1827",
-                            "name": "Blue:25",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1827",
+                                    "name": "Blue:13",
                                     "typeId": "blue_land_asset",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:13",
                                     "force": "f-blue"
                                 }
                             ],
                             "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                36.9596,
-                                41.632
+                                39.2614,
+                                25.0694
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_39"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_31"
+                            }
                         },
                         {
-                            "uniqid": "a1029",
-                            "contactId": "CA2420",
-                            "name": "Blue:26",
+                            "uniqid": "a415",
+                            "contactId": "CA1671",
+                            "name": "Blue:14",
                             "perceptions": [
                                 {
-                                    "by": "f-red",
-                                    "name": "Blue:26",
-                                    "force": "f-blue"
-                                },
-                                {
                                     "by": "f-green",
-                                    "name": "Blue:26",
-                                    "typeId": "blue_air_istar"
+                                    "name": "CA1671",
+                                    "typeId": "blue_maritime_submarine"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Blue:26",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                45.4119,
-                                56.7386
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_25"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1030",
-                            "contactId": "CA2567",
-                            "name": "Blue:27",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2567",
-                                    "typeId": "blue_air_logs",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_logs",
-                            "condition": "working",
-                            "location": [
-                                32.8352,
-                                44.709
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_22"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1031",
-                            "contactId": "CA438",
-                            "name": "Blue:28",
-                            "perceptions": [],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                53.2799,
-                                46.9059
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_28"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1032",
-                            "contactId": "CA2209",
-                            "name": "Blue:29",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2209",
-                                    "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:29",
-                                    "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                30.4214,
-                                27.874
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_32"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1033",
-                            "contactId": "CA1766",
-                            "name": "Blue:30",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:30",
-                                    "typeId": "blue_air_istar"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:30",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                45.5705,
-                                35.2513
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_2"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1034",
-                            "contactId": "CA3014",
-                            "name": "Blue:31",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:31",
+                                    "name": "CA1671",
                                     "typeId": "blue_maritime_submarine",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3014"
+                                    "force": "f-green"
                                 }
                             ],
                             "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                30.2727,
-                                62.0847
+                                45.0904,
+                                40.8477
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_13"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_12"
+                            }
                         },
                         {
-                            "uniqid": "a1035",
-                            "contactId": "CA130",
-                            "name": "Blue:32",
+                            "uniqid": "a416",
+                            "contactId": "CA1450",
+                            "name": "Blue:15",
                             "perceptions": [
                                 {
-                                    "by": "f-green",
-                                    "name": "Blue:32",
+                                    "by": "f-red",
+                                    "name": "CA1450",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Blue:32",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-green"
+                                    "name": "Blue:15",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_istar",
+                            "condition": "working",
+                            "location": [
+                                54.9323,
+                                80.712
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_39",
+                                "a_Detection Range": 50
+                            }
+                        },
+                        {
+                            "uniqid": "a417",
+                            "contactId": "CA1886",
+                            "name": "Blue:16",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA1886",
+                                    "typeId": "blue_land_sam"
                                 }
                             ],
                             "platformTypeId": "blue_land_sam",
                             "condition": "working",
                             "location": [
-                                38.7791,
-                                72.01
+                                39.1969,
+                                43.3888
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_9"
-                                },
-                                {
-                                    "attrId": "a_Mez Range",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_32",
+                                "a_Mez Range": 100
+                            }
                         },
                         {
-                            "uniqid": "a1036",
-                            "contactId": "CA786",
-                            "name": "Blue:33",
+                            "uniqid": "a418",
+                            "contactId": "CA3205",
+                            "name": "Blue:17",
                             "perceptions": [
                                 {
-                                    "by": "f-red",
-                                    "name": "CA786",
-                                    "force": "f-blue"
-                                },
-                                {
                                     "by": "f-green",
-                                    "name": "CA786"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA786",
+                                    "name": "CA3205",
                                     "force": "f-blue"
                                 }
                             ],
                             "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                41.5472,
-                                38.0374
+                                36.9214,
+                                77.6885
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_10"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_33"
+                            }
                         },
                         {
-                            "uniqid": "a1037",
-                            "contactId": "CA602",
-                            "name": "Blue:34",
+                            "uniqid": "a419",
+                            "contactId": "CA2289",
+                            "name": "Blue:18",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA602",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "name": "Blue:18",
+                                    "typeId": "blue_air_fighter"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA602",
-                                    "force": "f-blue"
+                                    "name": "CA2289",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-white"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA602",
-                                    "force": "f-green"
+                                    "name": "Blue:18",
+                                    "typeId": "blue_air_fighter"
                                 }
                             ],
-                            "platformTypeId": "blue_maritime_fiac",
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                45.2402,
-                                48.5077
+                                48.3976,
+                                48.2278
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_28"
+                            }
                         },
                         {
-                            "uniqid": "a1038",
-                            "contactId": "CA3380",
-                            "name": "Blue:35",
+                            "uniqid": "a420",
+                            "contactId": "CA1773",
+                            "name": "Blue:19",
                             "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA3380"
-                                },
                                 {
                                     "by": "f-white",
-                                    "name": "Blue:35"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                32.6792,
-                                49.1807
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1039",
-                            "contactId": "CA1086",
-                            "name": "Blue:36",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1086",
+                                    "name": "Blue:19",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 }
                             ],
-                            "platformTypeId": "blue_air_bomber",
-                            "condition": "working",
-                            "location": [
-                                37.5598,
-                                40.0676
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_2"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1040",
-                            "contactId": "CA2333",
-                            "name": "Blue:37",
-                            "perceptions": [],
-                            "platformTypeId": "blue_air_bomber",
-                            "condition": "working",
-                            "location": [
-                                30.6146,
-                                78.8306
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_36"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1041",
-                            "contactId": "CA420",
-                            "name": "Blue:38",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA420",
-                                    "typeId": "blue_maritime_mine"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA420"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:38"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                32.3436,
-                                71.4223
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1042",
-                            "contactId": "CA1432",
-                            "name": "Blue:39",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1432",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1432",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1432"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                31.5977,
-                                55.8094
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1043",
-                            "contactId": "CA336",
-                            "name": "Blue:40",
-                            "perceptions": [],
                             "platformTypeId": "blue_land_sam",
                             "condition": "working",
                             "location": [
-                                51.6974,
-                                55.5048
+                                34.9935,
+                                39.9442
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_29"
-                                },
-                                {
-                                    "attrId": "a_Mez Range",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_39",
+                                "a_Mez Range": 100
+                            }
                         },
                         {
-                            "uniqid": "a1044",
-                            "contactId": "CA1138",
-                            "name": "Blue:41",
+                            "uniqid": "a421",
+                            "contactId": "CA2953",
+                            "name": "Blue:20",
+                            "perceptions": [],
+                            "platformTypeId": "blue_land_c2",
+                            "condition": "working",
+                            "location": [
+                                48.9939,
+                                77.9596
+                            ],
+                            "attributes": {
+                                "a_Connections": "_30"
+                            }
+                        },
+                        {
+                            "uniqid": "a422",
+                            "contactId": "CA1590",
+                            "name": "Blue:21",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:21",
+                                    "typeId": "blue_air_istar"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_istar",
+                            "condition": "working",
+                            "location": [
+                                31.1977,
+                                32.6918
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_16",
+                                "a_Detection Range": 50
+                            }
+                        },
+                        {
+                            "uniqid": "a423",
+                            "contactId": "CA3070",
+                            "name": "Blue:22",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "Blue:41",
-                                    "typeId": "blue_land_ssm",
+                                    "name": "Blue:22",
+                                    "typeId": "blue_maritime_submarine",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_submarine",
+                            "condition": "working",
+                            "location": [
+                                42.5091,
+                                83.6836
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_49"
+                            }
+                        },
+                        {
+                            "uniqid": "a424",
+                            "contactId": "CA1078",
+                            "name": "Blue:23",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA1078",
+                                    "typeId": "blue_maritime_ship"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                42.4098,
+                                61.3242
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_1"
+                            }
+                        },
+                        {
+                            "uniqid": "a425",
+                            "contactId": "CA2226",
+                            "name": "Blue:24",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:24",
+                                    "typeId": "blue_land_asset"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2226",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                31.7535,
+                                44.6505
+                            ],
+                            "attributes": {
+                                "a_Units": "_19"
+                            }
+                        },
+                        {
+                            "uniqid": "a426",
+                            "contactId": "CA1770",
+                            "name": "Blue:25",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:25",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:25",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                36.8269,
+                                42.8171
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_35"
+                            }
+                        },
+                        {
+                            "uniqid": "a427",
+                            "contactId": "CA2086",
+                            "name": "Blue:26",
+                            "perceptions": [],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                30.6007,
+                                29.762
+                            ],
+                            "attributes": {
+                                "a_Units": "_30"
+                            }
+                        },
+                        {
+                            "uniqid": "a428",
+                            "contactId": "CA565",
+                            "name": "Blue:27",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:27",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-green"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA1138",
-                                    "typeId": "blue_land_ssm"
+                                    "name": "Blue:27",
+                                    "typeId": "blue_land_asset",
+                                    "force": "f-white"
                                 }
                             ],
-                            "platformTypeId": "blue_land_ssm",
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                41.4004,
-                                43.4885
+                                48.2814,
+                                70.9237
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_3"
-                                },
-                                {
-                                    "attrId": "a_Range",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_15"
+                            }
                         },
                         {
-                            "uniqid": "a1045",
-                            "contactId": "CA563",
-                            "name": "Blue:42",
+                            "uniqid": "a429",
+                            "contactId": "CA2169",
+                            "name": "Blue:28",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:28",
+                                    "typeId": "blue_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                43.5689,
+                                79.301
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_47"
+                            }
+                        },
+                        {
+                            "uniqid": "a430",
+                            "contactId": "CA1672",
+                            "name": "Blue:29",
                             "perceptions": [
                                 {
                                     "by": "f-green",
-                                    "name": "CA563",
+                                    "name": "Blue:29"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_unit",
+                            "condition": "working",
+                            "location": [
+                                32.1236,
+                                79.1876
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit15",
+                                "a_Equipment": "_27"
+                            }
+                        },
+                        {
+                            "uniqid": "a431",
+                            "contactId": "CA1731",
+                            "name": "Blue:30",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:30",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1731",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA563",
+                                    "name": "CA1731",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                51.6971,
+                                79.5817
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_21"
+                            }
+                        },
+                        {
+                            "uniqid": "a432",
+                            "contactId": "CA2167",
+                            "name": "Blue:31",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:31",
+                                    "typeId": "blue_air_fighter"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2167",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:31",
+                                    "typeId": "blue_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                32.9258,
+                                68.8803
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_44"
+                            }
+                        },
+                        {
+                            "uniqid": "a433",
+                            "contactId": "CA2516",
+                            "name": "Blue:32",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:32",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-green"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:32",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2516",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_sam",
+                            "condition": "working",
+                            "location": [
+                                47.3597,
+                                43.5326
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_49",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a434",
+                            "contactId": "CA511",
+                            "name": "Blue:33",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA511",
+                                    "typeId": "blue_maritime_ship"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA511",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA511",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
                             "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                35.7739,
-                                48.5676
+                                30.9408,
+                                26.2814
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_29"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_36"
+                            }
                         },
                         {
-                            "uniqid": "a1046",
-                            "contactId": "CA2103",
+                            "uniqid": "a435",
+                            "contactId": "CA3211",
+                            "name": "Blue:34",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA3211",
+                                    "typeId": "blue_air_logs"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                46.5179,
+                                77.0017
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_6"
+                            }
+                        },
+                        {
+                            "uniqid": "a436",
+                            "contactId": "CA1767",
+                            "name": "Blue:35",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA1767",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:35",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:35",
+                                    "typeId": "blue_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                44.6737,
+                                84.935
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_0"
+                            }
+                        },
+                        {
+                            "uniqid": "a437",
+                            "contactId": "CA339",
+                            "name": "Blue:36",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA339"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA339",
+                                    "typeId": "blue_maritime_mtg",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                54.8937,
+                                55.1315
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_23"
+                            }
+                        },
+                        {
+                            "uniqid": "a438",
+                            "contactId": "CA2027",
+                            "name": "Blue:37",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:37"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                30.1683,
+                                35.8132
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_32"
+                            }
+                        },
+                        {
+                            "uniqid": "a439",
+                            "contactId": "CA2281",
+                            "name": "Blue:38",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:38",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                45.4733,
+                                40.1215
+                            ],
+                            "attributes": {
+                                "a_Units": "_34"
+                            }
+                        },
+                        {
+                            "uniqid": "a440",
+                            "contactId": "CA2654",
+                            "name": "Blue:39",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2654",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2654",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_sam",
+                            "condition": "working",
+                            "location": [
+                                46.9832,
+                                60.2221
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_9",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a441",
+                            "contactId": "CA1494",
+                            "name": "Blue:40",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:40",
+                                    "typeId": "blue_land_c2",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_c2",
+                            "condition": "working",
+                            "location": [
+                                54.5192,
+                                43.0073
+                            ],
+                            "attributes": {
+                                "a_Connections": "_1"
+                            }
+                        },
+                        {
+                            "uniqid": "a442",
+                            "contactId": "CA2098",
+                            "name": "Blue:41",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:41",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2098",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2098",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                32.9675,
+                                69.2081
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_22"
+                            }
+                        },
+                        {
+                            "uniqid": "a443",
+                            "contactId": "CA100",
+                            "name": "Blue:42",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:42",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA100",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                41.5704,
+                                66.2823
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_41"
+                            }
+                        },
+                        {
+                            "uniqid": "a444",
+                            "contactId": "CA2536",
                             "name": "Blue:43",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "Blue:43",
-                                    "typeId": "blue_maritime_submarine",
-                                    "force": "f-green"
+                                    "name": "CA2536"
                                 },
                                 {
-                                    "by": "f-green",
-                                    "name": "Blue:43",
-                                    "typeId": "blue_maritime_submarine"
+                                    "by": "f-white",
+                                    "name": "Blue:43"
                                 }
                             ],
-                            "platformTypeId": "blue_maritime_submarine",
+                            "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                47.2523,
-                                55.3328
+                                29.3128,
+                                63.4688
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_10"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_28"
+                            }
                         },
                         {
-                            "uniqid": "a1047",
-                            "contactId": "CA3122",
+                            "uniqid": "a445",
+                            "contactId": "CA1337",
                             "name": "Blue:44",
                             "perceptions": [
                                 {
-                                    "by": "f-red",
-                                    "name": "CA3122",
-                                    "typeId": "blue_maritime_submarine"
+                                    "by": "f-green",
+                                    "name": "CA1337"
                                 },
                                 {
-                                    "by": "f-green",
-                                    "name": "CA3122",
-                                    "typeId": "blue_maritime_submarine",
+                                    "by": "f-white",
+                                    "name": "CA1337",
                                     "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:44"
                                 }
                             ],
-                            "platformTypeId": "blue_maritime_submarine",
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                43.0926,
-                                51.675
+                                32.873,
+                                33.4674
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_28"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_39"
+                            }
                         },
                         {
-                            "uniqid": "a1048",
-                            "contactId": "CA1063",
+                            "uniqid": "a446",
+                            "contactId": "CA2523",
                             "name": "Blue:45",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:45",
-                                    "typeId": "blue_land_unit"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1063",
-                                    "typeId": "blue_land_unit"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1063",
-                                    "typeId": "blue_land_unit"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
+                            "perceptions": [],
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                43.851,
-                                46.3078
+                                30.3797,
+                                30.2334
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit32"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_3"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_46"
+                            }
                         },
                         {
-                            "uniqid": "a1049",
-                            "contactId": "CA2799",
+                            "uniqid": "a447",
+                            "contactId": "CA1747",
                             "name": "Blue:46",
                             "perceptions": [
                                 {
-                                    "by": "f-green",
-                                    "name": "CA2799",
-                                    "typeId": "blue_maritime_mine"
-                                },
-                                {
                                     "by": "f-white",
-                                    "name": "CA2799",
-                                    "force": "f-blue"
+                                    "name": "Blue:46",
+                                    "typeId": "blue_air_logs"
                                 }
                             ],
-                            "platformTypeId": "blue_maritime_mine",
+                            "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                29.1149,
-                                82.8963
+                                47.8751,
+                                72.7043
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_21"
+                            }
                         },
                         {
-                            "uniqid": "a1050",
-                            "contactId": "CA2200",
+                            "uniqid": "a448",
+                            "contactId": "CA2496",
                             "name": "Blue:47",
                             "perceptions": [
                                 {
-                                    "by": "f-red",
-                                    "name": "CA2200",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2200",
-                                    "typeId": "blue_maritime_mine"
-                                },
-                                {
                                     "by": "f-white",
-                                    "name": "Blue:47",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                35.8427,
-                                47.9011
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1051",
-                            "contactId": "CA2971",
-                            "name": "Blue:48",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2971",
-                                    "typeId": "blue_maritime_submarine"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:48",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2971"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_submarine",
-                            "condition": "working",
-                            "location": [
-                                49.776,
-                                35.7766
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_38"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1052",
-                            "contactId": "CA1463",
-                            "name": "Blue:49",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1463",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:49",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:49",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                48.239,
-                                77.5085
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_46"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1053",
-                            "contactId": "CA2370",
-                            "name": "Blue:50",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2370",
-                                    "typeId": "blue_land_unit"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
-                            "condition": "working",
-                            "location": [
-                                47.6749,
-                                34.0563
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit24"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_30"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1054",
-                            "contactId": "CA2632",
-                            "name": "Blue:51",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2632",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:51",
+                                    "name": "CA2496",
                                     "typeId": "blue_land_c2"
                                 }
                             ],
                             "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                52.1008,
-                                49.48
+                                39.1637,
+                                65.2465
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_37"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Connections": "_13"
+                            }
                         },
                         {
-                            "uniqid": "a1055",
-                            "contactId": "CA1335",
-                            "name": "Blue:52",
+                            "uniqid": "a449",
+                            "contactId": "CA3250",
+                            "name": "Blue:48",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA1335",
+                                    "name": "Blue:48",
+                                    "typeId": "blue_air_fighter"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:48",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA1335",
+                                    "name": "CA3250",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                53.1445,
+                                62.2869
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_31"
+                            }
+                        },
+                        {
+                            "uniqid": "a450",
+                            "contactId": "CA234",
+                            "name": "Blue:49",
+                            "perceptions": [],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                35.9423,
+                                67.5536
+                            ],
+                            "attributes": {
+                                "a_Units": "_10"
+                            }
+                        },
+                        {
+                            "uniqid": "a451",
+                            "contactId": "CA2490",
+                            "name": "Blue:50",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2490",
+                                    "typeId": "blue_maritime_ship"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2490",
+                                    "typeId": "blue_maritime_ship"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2490",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                32.0686,
+                                34.8395
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_29"
+                            }
+                        },
+                        {
+                            "uniqid": "a452",
+                            "contactId": "CA2381",
+                            "name": "Blue:51",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:51",
+                                    "typeId": "blue_maritime_mine"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2381",
+                                    "typeId": "blue_maritime_mine",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                46.0564,
+                                82.3589
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a453",
+                            "contactId": "CA1061",
+                            "name": "Blue:52",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA1061",
+                                    "typeId": "blue_maritime_ship"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1061",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                47.8639,
+                                53.342
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_9"
+                            }
+                        },
+                        {
+                            "uniqid": "a454",
+                            "contactId": "CA1995",
+                            "name": "Blue:53",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:53",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1995"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_unit",
+                            "condition": "working",
+                            "location": [
+                                40.605,
+                                42.4093
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit26",
+                                "a_Equipment": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a455",
+                            "contactId": "CA1983",
+                            "name": "Blue:54",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1983",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                33.056,
+                                45.7512
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_35"
+                            }
+                        },
+                        {
+                            "uniqid": "a456",
+                            "contactId": "CA2621",
+                            "name": "Blue:55",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2621",
                                     "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 }
@@ -1653,92 +1450,18 @@ const game: Wargame = {
                             "platformTypeId": "blue_maritime_mine",
                             "condition": "working",
                             "location": [
-                                43.3292,
-                                45.505
+                                40.4363,
+                                53.7453
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Density": 100
+                            }
                         },
                         {
-                            "uniqid": "a1056",
-                            "contactId": "CA3042",
-                            "name": "Blue:53",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3042"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                48.967,
-                                25.8956
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_20"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1057",
-                            "contactId": "CA3158",
-                            "name": "Blue:54",
-                            "perceptions": [],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                33.5107,
-                                48.3127
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1058",
-                            "contactId": "CA3176",
-                            "name": "Blue:55",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3176",
-                                    "typeId": "blue_maritime_mine"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                51.0539,
-                                49.4624
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1059",
-                            "contactId": "CA1129",
+                            "uniqid": "a457",
+                            "contactId": "CA994",
                             "name": "Blue:56",
                             "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1129",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:56",
@@ -1748,429 +1471,244 @@ const game: Wargame = {
                             "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                41.833,
-                                22.544
+                                53.9932,
+                                25.5688
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100
+                            }
                         },
                         {
-                            "uniqid": "a1060",
-                            "contactId": "CA3201",
+                            "uniqid": "a458",
+                            "contactId": "CA3120",
                             "name": "Blue:57",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA3201",
-                                    "typeId": "blue_land_unit",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
+                            "perceptions": [],
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                43.657,
-                                22.1245
+                                37.4919,
+                                50.7016
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit48"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_25"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_27"
+                            }
                         },
                         {
-                            "uniqid": "a1061",
-                            "contactId": "CA582",
+                            "uniqid": "a459",
+                            "contactId": "CA2880",
                             "name": "Blue:58",
                             "perceptions": [
                                 {
-                                    "by": "f-red",
-                                    "name": "Blue:58",
-                                    "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "by": "f-white",
+                                    "name": "CA2880",
+                                    "force": "f-green"
                                 }
                             ],
-                            "platformTypeId": "blue_air_bomber",
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                44.1199,
-                                74.3552
+                                50.8122,
+                                26.7617
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_40"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_36"
+                            }
                         },
                         {
-                            "uniqid": "a1062",
-                            "contactId": "CA276",
+                            "uniqid": "a460",
+                            "contactId": "CA964",
                             "name": "Blue:59",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA276",
-                                    "typeId": "blue_land_ssm",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA276"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:59"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                45.3915,
-                                48.9796
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_26"
-                                },
-                                {
-                                    "attrId": "a_Range",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1063",
-                            "contactId": "CA1054",
-                            "name": "Blue:60",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1054",
-                                    "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1054"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_bomber",
-                            "condition": "working",
-                            "location": [
-                                41.8111,
-                                78.8981
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_20"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1064",
-                            "contactId": "CA1123",
-                            "name": "Blue:61",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1123",
-                                    "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                41.996,
-                                29.9693
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_2"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1065",
-                            "contactId": "CA1150",
-                            "name": "Blue:62",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1150",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:62",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-white"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                50.4091,
-                                85.5352
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_7"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1066",
-                            "contactId": "CA1362",
-                            "name": "Blue:63",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:63",
+                                    "name": "Blue:59",
                                     "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA1362",
-                                    "typeId": "blue_land_c2",
+                                    "name": "CA964",
                                     "force": "f-blue"
                                 }
                             ],
                             "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                51.0559,
-                                22.7937
+                                43.6645,
+                                71.5246
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_32"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Connections": "_47"
+                            }
                         },
                         {
-                            "uniqid": "a1067",
-                            "contactId": "CA479",
-                            "name": "Blue:64",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA479",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:64"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                40.5031,
-                                76.1078
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_3"
-                                },
-                                {
-                                    "attrId": "a_Mez Range",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1068",
-                            "contactId": "CA25",
-                            "name": "Blue:65",
+                            "uniqid": "a461",
+                            "contactId": "CA2973",
+                            "name": "Blue:60",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA25",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "name": "CA2973",
+                                    "force": "f-green"
                                 },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA25"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                53.4648,
-                                82.9922
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_34"
-                                },
-                                {
-                                    "attrId": "a_Mez Range",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1069",
-                            "contactId": "CA1699",
-                            "name": "Blue:66",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1699",
-                                    "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                42.2124,
-                                29.4624
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_20"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1070",
-                            "contactId": "CA1602",
-                            "name": "Blue:67",
-                            "perceptions": [
                                 {
                                     "by": "f-white",
-                                    "name": "CA1602",
-                                    "typeId": "blue_maritime_fiac",
+                                    "name": "CA2973",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                45.7329,
+                                25.3074
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_48"
+                            }
+                        },
+                        {
+                            "uniqid": "a462",
+                            "contactId": "CA1243",
+                            "name": "Blue:61",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA1243"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:61",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:61",
+                                    "typeId": "blue_air_logs",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                30.7499,
+                                27.2321
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_2"
+                            }
+                        },
+                        {
+                            "uniqid": "a463",
+                            "contactId": "CA2084",
+                            "name": "Blue:62",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:62",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2084",
+                                    "typeId": "blue_maritime_ship"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                35.082,
+                                81.0484
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_36"
+                            }
+                        },
+                        {
+                            "uniqid": "a464",
+                            "contactId": "CA3147",
+                            "name": "Blue:63",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:63"
                                 }
                             ],
                             "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                45.6511,
-                                85.2424
+                                38.276,
+                                48.7653
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100
+                            }
                         },
                         {
-                            "uniqid": "a1071",
-                            "contactId": "CA1211",
-                            "name": "Blue:68",
-                            "perceptions": [],
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                42.8189,
-                                51.527
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1072",
-                            "contactId": "CA1337",
-                            "name": "Blue:69",
+                            "uniqid": "a465",
+                            "contactId": "CA1202",
+                            "name": "Blue:64",
                             "perceptions": [
                                 {
                                     "by": "f-green",
-                                    "name": "Blue:69",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
+                                    "name": "Blue:64",
+                                    "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA1337"
+                                    "name": "Blue:64",
+                                    "typeId": "blue_maritime_mine"
                                 }
                             ],
-                            "platformTypeId": "blue_land_c2",
+                            "platformTypeId": "blue_maritime_mine",
                             "condition": "working",
                             "location": [
-                                44.6476,
-                                51.4425
+                                47.8457,
+                                84.9323
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_14"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Density": 100
+                            }
                         },
                         {
-                            "uniqid": "a1073",
-                            "contactId": "CA945",
-                            "name": "Blue:70",
+                            "uniqid": "a466",
+                            "contactId": "CA965",
+                            "name": "Blue:65",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA945",
-                                    "typeId": "blue_maritime_mine"
+                                    "name": "Blue:65",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA945",
+                                    "name": "CA965",
+                                    "typeId": "blue_maritime_fiac"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                33.449,
+                                32.8826
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a467",
+                            "contactId": "CA621",
+                            "name": "Blue:66",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA621",
                                     "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 }
@@ -2178,809 +1716,184 @@ const game: Wargame = {
                             "platformTypeId": "blue_maritime_mine",
                             "condition": "working",
                             "location": [
-                                36.6258,
-                                43.0279
+                                30.0774,
+                                51.5145
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Density",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Density": 100
+                            }
                         },
                         {
-                            "uniqid": "a1074",
-                            "contactId": "CA3316",
-                            "name": "Blue:71",
+                            "uniqid": "a468",
+                            "contactId": "CA249",
+                            "name": "Blue:67",
                             "perceptions": [
                                 {
-                                    "by": "f-green",
-                                    "name": "CA3316",
-                                    "typeId": "blue_air_fighter",
-                                    "force": "f-white"
+                                    "by": "f-white",
+                                    "name": "Blue:67",
+                                    "typeId": "blue_maritime_submarine",
+                                    "force": "f-blue"
                                 }
                             ],
-                            "platformTypeId": "blue_air_fighter",
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                40.1729,
-                                22.482
+                                35.9489,
+                                58.2969
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_42"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_11"
+                            }
                         },
                         {
-                            "uniqid": "a1075",
-                            "contactId": "CA2102",
-                            "name": "Blue:72",
+                            "uniqid": "a469",
+                            "contactId": "CA2563",
+                            "name": "Blue:68",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "Blue:72",
-                                    "force": "f-green"
+                                    "name": "CA2563",
+                                    "typeId": "blue_air_logs"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA2102",
+                                    "name": "Blue:68",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                33.2775,
+                                84.6601
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_15"
+                            }
+                        },
+                        {
+                            "uniqid": "a470",
+                            "contactId": "CA2055",
+                            "name": "Blue:69",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:69",
+                                    "typeId": "blue_land_c2",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_c2",
+                            "condition": "working",
+                            "location": [
+                                47.645,
+                                68.669
+                            ],
+                            "attributes": {
+                                "a_Connections": "_1"
+                            }
+                        },
+                        {
+                            "uniqid": "a471",
+                            "contactId": "CA1040",
+                            "name": "Blue:70",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:70",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1040"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_bomber",
+                            "condition": "working",
+                            "location": [
+                                42.0713,
+                                66.7193
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_16"
+                            }
+                        },
+                        {
+                            "uniqid": "a472",
+                            "contactId": "CA2539",
+                            "name": "Blue:71",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:71",
+                                    "typeId": "blue_land_ssm",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2539",
+                                    "typeId": "blue_land_ssm"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:71",
                                     "typeId": "blue_land_ssm"
                                 }
                             ],
                             "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                44.1351,
-                                22.8965
+                                37.0798,
+                                33.7952
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_2"
-                                },
-                                {
-                                    "attrId": "a_Range",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_27",
+                                "a_Range": 100
+                            }
                         },
                         {
-                            "uniqid": "a1076",
-                            "contactId": "CA302",
-                            "name": "Blue:73",
+                            "uniqid": "a473",
+                            "contactId": "CA799",
+                            "name": "Blue:72",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA302",
-                                    "force": "f-blue"
+                                    "name": "CA799",
+                                    "typeId": "blue_maritime_mtg"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA302",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
-                            "condition": "working",
-                            "location": [
-                                52.5172,
-                                24.7799
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit14"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_34"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1077",
-                            "contactId": "CA960",
-                            "name": "Blue:74",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:74",
-                                    "typeId": "blue_land_ssm",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA960",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                37.2372,
-                                24.4823
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_5"
-                                },
-                                {
-                                    "attrId": "a_Range",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1078",
-                            "contactId": "CA1902",
-                            "name": "Blue:75",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1902",
-                                    "typeId": "blue_maritime_fiac"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:75",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                39.9928,
-                                27.4354
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1079",
-                            "contactId": "CA419",
-                            "name": "Blue:76",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA419",
-                                    "typeId": "blue_air_fighter",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:76",
-                                    "typeId": "blue_air_fighter"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                52.8708,
-                                45.9499
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_11"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1080",
-                            "contactId": "CA308",
-                            "name": "Blue:77",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA308",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA308",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                42.6292,
-                                67.8042
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_19"
-                                },
-                                {
-                                    "attrId": "a_Mez Range",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1081",
-                            "contactId": "CA2480",
-                            "name": "Blue:78",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2480",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                36.1884,
-                                24.4091
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1082",
-                            "contactId": "CA2665",
-                            "name": "Blue:79",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:79",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_unit",
-                            "condition": "working",
-                            "location": [
-                                48.6723,
-                                77.9399
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit49"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_43"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1083",
-                            "contactId": "CA957",
-                            "name": "Blue:80",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:80",
-                                    "typeId": "blue_air_bomber"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA957"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_bomber",
-                            "condition": "working",
-                            "location": [
-                                48.605,
-                                59.7386
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_40"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1084",
-                            "contactId": "CA3297",
-                            "name": "Blue:81",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:81",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_bomber",
-                            "condition": "working",
-                            "location": [
-                                28.8114,
-                                43.934
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_1"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1085",
-                            "contactId": "CA1901",
-                            "name": "Blue:82",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1901",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1901",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                28.7684,
-                                61.5673
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1086",
-                            "contactId": "CA1008",
-                            "name": "Blue:83",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA1008",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1008",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:83",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                49.0895,
-                                78.2142
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_37"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1087",
-                            "contactId": "CA2517",
-                            "name": "Blue:84",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2517",
-                                    "typeId": "blue_land_asset"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                50.3752,
-                                45.2069
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_23"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1088",
-                            "contactId": "CA2139",
-                            "name": "Blue:85",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2139",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2139"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:85",
-                                    "typeId": "blue_land_sam"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                44.2583,
-                                73.3476
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_22"
-                                },
-                                {
-                                    "attrId": "a_Mez Range",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1089",
-                            "contactId": "CA643",
-                            "name": "Blue:86",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:86",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA643",
-                                    "typeId": "blue_air_istar"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                52.9523,
-                                64.5561
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_23"
-                                },
-                                {
-                                    "attrId": "a_Detection Range",
-                                    "value": 50
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1090",
-                            "contactId": "CA2800",
-                            "name": "Blue:87",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA2800",
-                                    "typeId": "blue_air_fighter"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:87",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                28.8402,
-                                60.901
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_24"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1091",
-                            "contactId": "CA878",
-                            "name": "Blue:88",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA878",
-                                    "typeId": "blue_land_asset"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA878",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                38.2463,
-                                42.5706
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_39"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1092",
-                            "contactId": "CA1799",
-                            "name": "Blue:89",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1799",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "blue_land_c2",
-                            "condition": "working",
-                            "location": [
-                                35.5135,
-                                36.3218
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Connections",
-                                    "value": "_27"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1093",
-                            "contactId": "CA929",
-                            "name": "Blue:90",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA929",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:90",
-                                    "typeId": "blue_maritime_ship"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                36.5243,
-                                33.7796
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_16"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1094",
-                            "contactId": "CA2687",
-                            "name": "Blue:91",
-                            "perceptions": [],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                42.8877,
-                                40.6993
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1095",
-                            "contactId": "CA1996",
-                            "name": "Blue:92",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1996",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                51.7468,
-                                51.6343
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1096",
-                            "contactId": "CA3201",
-                            "name": "Blue:93",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "CA3201"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3201",
-                                    "typeId": "blue_air_bomber"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_bomber",
-                            "condition": "working",
-                            "location": [
-                                46.1877,
-                                64.28
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_8"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1097",
-                            "contactId": "CA3001",
-                            "name": "Blue:94",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA3001",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3001",
+                                    "name": "CA799",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-blue"
                                 }
                             ],
                             "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                47.8761,
-                                42.0565
+                                48.0547,
+                                64.8102
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_22"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_46"
+                            }
                         },
                         {
-                            "uniqid": "a1098",
-                            "contactId": "CA2104",
-                            "name": "Blue:95",
+                            "uniqid": "a474",
+                            "contactId": "CA2489",
+                            "name": "Blue:73",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA2104",
-                                    "force": "f-blue"
+                                    "name": "Blue:73",
+                                    "force": "f-green"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA2104",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2104",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                29.3382,
-                                82.3356
-                            ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_19"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1099",
-                            "contactId": "CA2754",
-                            "name": "Blue:96",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2754",
+                                    "name": "CA2489",
                                     "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
@@ -2988,97 +1901,370 @@ const game: Wargame = {
                             "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                29.6841,
-                                30.5025
+                                51.2833,
+                                75.8669
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Units",
-                                    "value": "_12"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_21"
+                            }
                         },
                         {
-                            "uniqid": "a1100",
-                            "contactId": "CA2850",
-                            "name": "Blue:97",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:97",
-                                    "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:97",
-                                    "force": "f-white"
-                                }
-                            ],
-                            "platformTypeId": "blue_air_bomber",
+                            "uniqid": "a475",
+                            "contactId": "CA71",
+                            "name": "Blue:74",
+                            "perceptions": [],
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                49.8195,
-                                83.1221
+                                38.2439,
+                                64.0921
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_40"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Size": "Size of military unit2",
+                                "a_Equipment": "_15"
+                            }
                         },
                         {
-                            "uniqid": "a1101",
-                            "contactId": "CA1542",
-                            "name": "Blue:98",
+                            "uniqid": "a476",
+                            "contactId": "CA115",
+                            "name": "Blue:75",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "Blue:98",
-                                    "typeId": "blue_land_unit"
+                                    "name": "CA115"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_c2",
+                            "condition": "working",
+                            "location": [
+                                30.4166,
+                                31.0415
+                            ],
+                            "attributes": {
+                                "a_Connections": "_8"
+                            }
+                        },
+                        {
+                            "uniqid": "a477",
+                            "contactId": "CA162",
+                            "name": "Blue:76",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:76",
+                                    "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA1542",
-                                    "force": "f-blue"
+                                    "name": "Blue:76"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:76"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                34.2549,
+                                54.6012
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_32"
+                            }
+                        },
+                        {
+                            "uniqid": "a478",
+                            "contactId": "CA2189",
+                            "name": "Blue:77",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2189",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:77",
+                                    "typeId": "blue_land_unit"
                                 }
                             ],
                             "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                51.6309,
-                                70.7031
+                                40.9379,
+                                65.1545
                             ],
-                            "attributes": [
-                                {
-                                    "attrId": "a_Size",
-                                    "value": "Size of military unit24"
-                                },
-                                {
-                                    "attrId": "a_Equipment",
-                                    "value": "_3"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Size": "Size of military unit7",
+                                "a_Equipment": "_12"
+                            }
                         },
                         {
-                            "uniqid": "a1102",
-                            "contactId": "CA3205",
-                            "name": "Blue:99",
+                            "uniqid": "a479",
+                            "contactId": "CA2976",
+                            "name": "Blue:78",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2976",
+                                    "typeId": "blue_maritime_fiac"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                49.5845,
+                                74.9786
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a480",
+                            "contactId": "CA1978",
+                            "name": "Blue:79",
                             "perceptions": [
                                 {
                                     "by": "f-red",
-                                    "name": "CA3205",
+                                    "name": "CA1978",
+                                    "typeId": "blue_land_asset"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                51.7508,
+                                27.4503
+                            ],
+                            "attributes": {
+                                "a_Units": "_26"
+                            }
+                        },
+                        {
+                            "uniqid": "a481",
+                            "contactId": "CA2082",
+                            "name": "Blue:80",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2082",
+                                    "typeId": "blue_air_logs",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                49.1089,
+                                22.2762
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_32"
+                            }
+                        },
+                        {
+                            "uniqid": "a482",
+                            "contactId": "CA2685",
+                            "name": "Blue:81",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2685",
+                                    "typeId": "blue_maritime_mtg"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2685",
+                                    "typeId": "blue_maritime_mtg",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                40.714,
+                                55.4503
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_39"
+                            }
+                        },
+                        {
+                            "uniqid": "a483",
+                            "contactId": "CA2549",
+                            "name": "Blue:82",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2549",
+                                    "typeId": "blue_maritime_ship"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:82"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                43.4341,
+                                28.3128
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_16"
+                            }
+                        },
+                        {
+                            "uniqid": "a484",
+                            "contactId": "CA2429",
+                            "name": "Blue:83",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2429",
+                                    "typeId": "blue_air_istar",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_istar",
+                            "condition": "working",
+                            "location": [
+                                31.0676,
+                                26.3101
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_42",
+                                "a_Detection Range": 50
+                            }
+                        },
+                        {
+                            "uniqid": "a485",
+                            "contactId": "CA2550",
+                            "name": "Blue:84",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2550"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2550",
+                                    "typeId": "blue_land_c2",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_c2",
+                            "condition": "working",
+                            "location": [
+                                45.6106,
+                                25.8256
+                            ],
+                            "attributes": {
+                                "a_Connections": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a486",
+                            "contactId": "CA590",
+                            "name": "Blue:85",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA590",
+                                    "typeId": "blue_air_istar",
+                                    "force": "f-green"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA590",
+                                    "typeId": "blue_air_istar"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_istar",
+                            "condition": "working",
+                            "location": [
+                                29.9682,
+                                83.5856
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_6",
+                                "a_Detection Range": 50
+                            }
+                        },
+                        {
+                            "uniqid": "a487",
+                            "contactId": "CA1308",
+                            "name": "Blue:86",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:86",
+                                    "typeId": "blue_maritime_mine"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1308",
+                                    "typeId": "blue_maritime_mine",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                42.9147,
+                                30.6444
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a488",
+                            "contactId": "CA377",
+                            "name": "Blue:87",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:87",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_bomber",
+                            "condition": "working",
+                            "location": [
+                                32.9262,
+                                38.37
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_47"
+                            }
+                        },
+                        {
+                            "uniqid": "a489",
+                            "contactId": "CA2490",
+                            "name": "Blue:88",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2490",
                                     "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
+                                    "by": "f-green",
+                                    "name": "CA2490",
+                                    "typeId": "blue_air_fighter"
+                                },
+                                {
                                     "by": "f-white",
-                                    "name": "Blue:99",
+                                    "name": "CA2490",
                                     "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 }
@@ -3086,19 +2272,286 @@ const game: Wargame = {
                             "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                30.2695,
-                                38.4138
+                                51.122,
+                                57.9241
                             ],
-                            "attributes": [
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_39"
+                            }
+                        },
+                        {
+                            "uniqid": "a490",
+                            "contactId": "CA923",
+                            "name": "Blue:89",
+                            "perceptions": [
                                 {
-                                    "attrId": "a_Number",
-                                    "value": 100
+                                    "by": "f-red",
+                                    "name": "Blue:89"
                                 },
                                 {
-                                    "attrId": "a_Equipment",
-                                    "value": "_13"
+                                    "by": "f-white",
+                                    "name": "Blue:89",
+                                    "typeId": "blue_air_logs"
                                 }
-                            ]
+                            ],
+                            "platformTypeId": "blue_air_logs",
+                            "condition": "working",
+                            "location": [
+                                37.2183,
+                                79.6633
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_22"
+                            }
+                        },
+                        {
+                            "uniqid": "a491",
+                            "contactId": "CA1849",
+                            "name": "Blue:90",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1849"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                41.0965,
+                                64.7497
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_20",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a492",
+                            "contactId": "CA598",
+                            "name": "Blue:91",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA598",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                53.7842,
+                                78.3056
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a493",
+                            "contactId": "CA3225",
+                            "name": "Blue:92",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:92",
+                                    "typeId": "blue_air_bomber"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_bomber",
+                            "condition": "working",
+                            "location": [
+                                53.5856,
+                                32.2349
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_31"
+                            }
+                        },
+                        {
+                            "uniqid": "a494",
+                            "contactId": "CA3213",
+                            "name": "Blue:93",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA3213",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                36.0815,
+                                41.6323
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_28"
+                            }
+                        },
+                        {
+                            "uniqid": "a495",
+                            "contactId": "CA2506",
+                            "name": "Blue:94",
+                            "perceptions": [],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                35.1891,
+                                73.439
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_30"
+                            }
+                        },
+                        {
+                            "uniqid": "a496",
+                            "contactId": "CA929",
+                            "name": "Blue:95",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA929",
+                                    "typeId": "blue_land_ssm",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA929",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                41.9754,
+                                29.0671
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_27",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a497",
+                            "contactId": "CA303",
+                            "name": "Blue:96",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA303"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA303",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA303",
+                                    "typeId": "blue_land_asset",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                48.2833,
+                                51.1996
+                            ],
+                            "attributes": {
+                                "a_Units": "_25"
+                            }
+                        },
+                        {
+                            "uniqid": "a498",
+                            "contactId": "CA2016",
+                            "name": "Blue:97",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:97",
+                                    "typeId": "blue_land_ssm",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2016",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2016"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                42.4378,
+                                26.2583
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_25",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a499",
+                            "contactId": "CA2277",
+                            "name": "Blue:98",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "CA2277"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2277",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "blue_land_unit",
+                            "condition": "working",
+                            "location": [
+                                42.4681,
+                                69.0055
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit17",
+                                "a_Equipment": "_28"
+                            }
+                        },
+                        {
+                            "uniqid": "a500",
+                            "contactId": "CA2083",
+                            "name": "Blue:99",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:99",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                33.6679,
+                                52.169
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_3"
+                            }
                         }
                     ]
                 },
@@ -3161,305 +2614,48 @@ const game: Wargame = {
                     "dirty": false,
                     "assets": [
                         {
-                            "uniqid": "a1103",
-                            "contactId": "CA2536",
+                            "uniqid": "a501",
+                            "contactId": "CA1308",
                             "name": "Red:0",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA2536",
-                                    "typeId": "red_air_istar",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2536",
+                                    "name": "CA1308",
                                     "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA2536"
+                                    "name": "CA1308",
+                                    "typeId": "red_air_istar"
                                 }
                             ],
                             "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                12.8821,
-                                69.0615
+                                18.823,
+                                81.8197
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_15"
-                                }
-                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_10",
+                                "a_Detection Range": 50
+                            },
                             "comprising": []
                         },
                         {
-                            "uniqid": "a1107",
-                            "contactId": "CA1568",
+                            "uniqid": "a505",
+                            "contactId": "CA2520",
                             "name": "Red:4",
                             "perceptions": [
                                 {
                                     "by": "f-green",
-                                    "name": "CA1568",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "name": "CA2520",
+                                    "typeId": "red_land_asset"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA1568",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                28.1412,
-                                43.3702
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_25"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1108",
-                            "contactId": "CA657",
-                            "name": "Red:5",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA657",
-                                    "typeId": "red_air_logs"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA657"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                11.5024,
-                                60.4067
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_25"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1109",
-                            "contactId": "CA2511",
-                            "name": "Red:6",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA2511"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:6"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                16.1374,
-                                58.6933
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_0"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1110",
-                            "contactId": "CA3160",
-                            "name": "Red:7",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA3160",
-                                    "typeId": "red_maritime_mine",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3160",
-                                    "typeId": "red_maritime_mine"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                12.9588,
-                                43.5015
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1111",
-                            "contactId": "CA3020",
-                            "name": "Red:8",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA3020",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                11.1092,
-                                34.0549
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_28"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1112",
-                            "contactId": "CA2232",
-                            "name": "Red:9",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:9",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2232",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                12.4807,
-                                58.5068
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_35"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1113",
-                            "contactId": "CA2841",
-                            "name": "Red:10",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:10"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:10",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                17.988,
-                                29.0435
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_42"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1114",
-                            "contactId": "CA3369",
-                            "name": "Red:11",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA3369"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                15.8303,
-                                76.872
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1115",
-                            "contactId": "CA326",
-                            "name": "Red:12",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA326",
+                                    "name": "Red:4",
                                     "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
@@ -3467,37 +2663,200 @@ const game: Wargame = {
                             "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                12.2432,
-                                69.5126
+                                11.6859,
+                                44.5899
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_31"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_48"
+                            }
                         },
                         {
-                            "uniqid": "a1116",
-                            "contactId": "CA2510",
-                            "name": "Red:13",
+                            "uniqid": "a506",
+                            "contactId": "CA704",
+                            "name": "Red:5",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA2510",
-                                    "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "name": "Red:5",
+                                    "typeId": "red_land_unit"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA2510",
-                                    "typeId": "red_maritime_mine",
-                                    "force": "f-blue"
+                                    "name": "CA704",
+                                    "force": "f-white"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA2510",
+                                    "name": "Red:5"
+                                }
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                18.6976,
+                                38.4454
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit3",
+                                "a_Equipment": "_13"
+                            }
+                        },
+                        {
+                            "uniqid": "a507",
+                            "contactId": "CA89",
+                            "name": "Red:6",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA89",
+                                    "typeId": "red_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                11.1964,
+                                50.9537
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_37"
+                            }
+                        },
+                        {
+                            "uniqid": "a508",
+                            "contactId": "CA2814",
+                            "name": "Red:7",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2814"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2814"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2814",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                14.8376,
+                                58.6674
+                            ],
+                            "attributes": {
+                                "a_Units": "_37"
+                            }
+                        },
+                        {
+                            "uniqid": "a509",
+                            "contactId": "CA155",
+                            "name": "Red:8",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA155"
+                                }
+                            ],
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                22.7055,
+                                59.2673
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_25",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a510",
+                            "contactId": "CA1273",
+                            "name": "Red:9",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1273"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:9",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                21.4992,
+                                65.0262
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit10",
+                                "a_Equipment": "_16"
+                            }
+                        },
+                        {
+                            "uniqid": "a511",
+                            "contactId": "CA2460",
+                            "name": "Red:10",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2460"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                15.7599,
+                                55.0265
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_31"
+                            }
+                        },
+                        {
+                            "uniqid": "a512",
+                            "contactId": "CA1361",
+                            "name": "Red:11",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:11",
+                                    "typeId": "red_land_unit"
+                                }
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                20.6397,
+                                44.7407
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit39",
+                                "a_Equipment": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a513",
+                            "contactId": "CA1057",
+                            "name": "Red:12",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA1057",
+                                    "typeId": "red_maritime_mine"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:12",
                                     "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 }
@@ -3505,30 +2864,688 @@ const game: Wargame = {
                             "platformTypeId": "red_maritime_mine",
                             "condition": "working",
                             "location": [
-                                8.934,
-                                33.9936
+                                19.2559,
+                                35.8596
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
+                            "attributes": {
+                                "a_Density": 100
+                            }
                         },
                         {
-                            "uniqid": "a1117",
-                            "contactId": "CA561",
-                            "name": "Red:14",
+                            "uniqid": "a514",
+                            "contactId": "CA1974",
+                            "name": "Red:13",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
+                                    "name": "Red:13",
+                                    "typeId": "red_land_asset"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1974",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1974"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                9.2986,
+                                66.2763
+                            ],
+                            "attributes": {
+                                "a_Units": "_38"
+                            }
+                        },
+                        {
+                            "uniqid": "a515",
+                            "contactId": "CA1018",
+                            "name": "Red:14",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
                                     "name": "Red:14",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_submarine",
+                            "condition": "working",
+                            "location": [
+                                18.1854,
+                                36.2785
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_26"
+                            }
+                        },
+                        {
+                            "uniqid": "a516",
+                            "contactId": "CA2845",
+                            "name": "Red:15",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:15",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2845",
+                                    "typeId": "red_land_asset"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                13.1701,
+                                28.6188
+                            ],
+                            "attributes": {
+                                "a_Units": "_39"
+                            }
+                        },
+                        {
+                            "uniqid": "a517",
+                            "contactId": "CA3006",
+                            "name": "Red:16",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:16",
+                                    "typeId": "red_land_asset"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:16",
+                                    "typeId": "red_land_asset"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA3006",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                18.4722,
+                                38.6854
+                            ],
+                            "attributes": {
+                                "a_Units": "_22"
+                            }
+                        },
+                        {
+                            "uniqid": "a518",
+                            "contactId": "CA3039",
+                            "name": "Red:17",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA3039",
+                                    "typeId": "red_maritime_fiac"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA3039",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA3039",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                19.8507,
+                                60.451
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a519",
+                            "contactId": "CA2230",
+                            "name": "Red:18",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2230",
+                                    "typeId": "red_land_c2"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2230",
+                                    "typeId": "red_land_c2"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:18",
+                                    "typeId": "red_land_c2"
+                                }
+                            ],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                6.6509,
+                                35.7502
+                            ],
+                            "attributes": {
+                                "a_Connections": "_10"
+                            }
+                        },
+                        {
+                            "uniqid": "a520",
+                            "contactId": "CA1519",
+                            "name": "Red:19",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:19",
+                                    "typeId": "red_land_c2",
+                                    "force": "f-green"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:19",
+                                    "typeId": "red_land_c2"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1519",
+                                    "typeId": "red_land_c2"
+                                }
+                            ],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                25.0725,
+                                22.7613
+                            ],
+                            "attributes": {
+                                "a_Connections": "_19"
+                            }
+                        },
+                        {
+                            "uniqid": "a521",
+                            "contactId": "CA2157",
+                            "name": "Red:20",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:20",
+                                    "typeId": "red_land_sam"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:20",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:20",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                20.4763,
+                                47.8802
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_48",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a522",
+                            "contactId": "CA2293",
+                            "name": "Red:21",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:21",
+                                    "typeId": "red_land_c2"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2293",
+                                    "typeId": "red_land_c2",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                15.3482,
+                                33.0049
+                            ],
+                            "attributes": {
+                                "a_Connections": "_6"
+                            }
+                        },
+                        {
+                            "uniqid": "a523",
+                            "contactId": "CA2090",
+                            "name": "Red:22",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2090",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:22",
+                                    "typeId": "red_land_asset"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                27.7831,
+                                55.7243
+                            ],
+                            "attributes": {
+                                "a_Units": "_23"
+                            }
+                        },
+                        {
+                            "uniqid": "a524",
+                            "contactId": "CA1710",
+                            "name": "Red:23",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1710",
+                                    "typeId": "red_maritime_mine"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1710",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                17.8412,
+                                26.7357
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a525",
+                            "contactId": "CA2340",
+                            "name": "Red:24",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2340",
+                                    "typeId": "red_maritime_mtg"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                23.2381,
+                                43.033
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_24"
+                            }
+                        },
+                        {
+                            "uniqid": "a526",
+                            "contactId": "CA2450",
+                            "name": "Red:25",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:25"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:25",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                5.5341,
+                                49.6541
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a527",
+                            "contactId": "CA3178",
+                            "name": "Red:26",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:26",
+                                    "typeId": "red_land_asset"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA3178",
+                                    "typeId": "red_land_asset"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                9.1009,
+                                37.698
+                            ],
+                            "attributes": {
+                                "a_Units": "_8"
+                            }
+                        },
+                        {
+                            "uniqid": "a528",
+                            "contactId": "CA1081",
+                            "name": "Red:27",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1081"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                8.5182,
+                                63.4513
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a529",
+                            "contactId": "CA900",
+                            "name": "Red:28",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:28",
+                                    "typeId": "red_maritime_mtg",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:28",
+                                    "typeId": "red_maritime_mtg",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:28",
+                                    "typeId": "red_maritime_mtg"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                3.3271,
+                                65.9838
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_44"
+                            }
+                        },
+                        {
+                            "uniqid": "a530",
+                            "contactId": "CA67",
+                            "name": "Red:29",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:29",
+                                    "typeId": "red_land_sam"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA67",
+                                    "typeId": "red_land_sam",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:29"
+                                }
+                            ],
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                15.8826,
+                                67.1244
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_7",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a531",
+                            "contactId": "CA3356",
+                            "name": "Red:30",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA3356",
+                                    "typeId": "red_land_c2",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA3356",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                13.7488,
+                                54.9815
+                            ],
+                            "attributes": {
+                                "a_Connections": "_25"
+                            }
+                        },
+                        {
+                            "uniqid": "a532",
+                            "contactId": "CA2210",
+                            "name": "Red:31",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2210"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                5.1007,
+                                36.3908
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_1"
+                            }
+                        },
+                        {
+                            "uniqid": "a533",
+                            "contactId": "CA980",
+                            "name": "Red:32",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:32",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA980",
+                                    "typeId": "red_land_asset"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                28.4175,
+                                63.2134
+                            ],
+                            "attributes": {
+                                "a_Units": "_6"
+                            }
+                        },
+                        {
+                            "uniqid": "a534",
+                            "contactId": "CA1874",
+                            "name": "Red:33",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:33",
+                                    "typeId": "red_land_unit"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1874",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                10.9024,
+                                53.2772
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit3",
+                                "a_Equipment": "_4"
+                            }
+                        },
+                        {
+                            "uniqid": "a535",
+                            "contactId": "CA178",
+                            "name": "Red:34",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:34",
+                                    "typeId": "red_air_fighter"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:34"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                23.0338,
+                                62.8778
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a536",
+                            "contactId": "CA1129",
+                            "name": "Red:35",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1129",
                                     "typeId": "red_land_ssm"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA561",
+                                    "name": "CA1129",
+                                    "typeId": "red_land_ssm"
+                                }
+                            ],
+                            "platformTypeId": "red_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                25.4968,
+                                63.1566
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_45",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a537",
+                            "contactId": "CA1572",
+                            "name": "Red:36",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA1572",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1572",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                8.0535,
+                                79.3669
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a538",
+                            "contactId": "CA2484",
+                            "name": "Red:37",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:37",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2484",
                                     "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
@@ -3536,364 +3553,23 @@ const game: Wargame = {
                             "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                12.1901,
-                                53.2887
+                                11.7778,
+                                51.4131
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_41"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_28",
+                                "a_Range": 100
+                            }
                         },
                         {
-                            "uniqid": "a1118",
-                            "contactId": "CA3309",
-                            "name": "Red:15",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:15"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:15",
-                                    "typeId": "red_air_fighter",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "red_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                18.0351,
-                                41.9679
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_fighter_equipment",
-                                    "value": "_15"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1119",
-                            "contactId": "CA1317",
-                            "name": "Red:16",
+                            "uniqid": "a539",
+                            "contactId": "CA3109",
+                            "name": "Red:38",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "Red:16",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:16",
-                                    "typeId": "red_air_fighter"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1317"
-                                }
-                            ],
-                            "platformTypeId": "red_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                4.6702,
-                                27.4313
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_fighter_equipment",
-                                    "value": "_34"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1120",
-                            "contactId": "CA3017",
-                            "name": "Red:17",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA3017"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA3017",
-                                    "typeId": "red_maritime_mtg"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                24.9734,
-                                62.1483
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_2"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1121",
-                            "contactId": "CA3280",
-                            "name": "Red:18",
-                            "perceptions": [],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                10.308,
-                                75.8406
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1122",
-                            "contactId": "CA532",
-                            "name": "Red:19",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:19",
-                                    "typeId": "red_air_fighter"
-                                }
-                            ],
-                            "platformTypeId": "red_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                19.3191,
-                                51.46
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_fighter_equipment",
-                                    "value": "_28"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1123",
-                            "contactId": "CA805",
-                            "name": "Red:20",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:20",
-                                    "typeId": "red_air_istar",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                6.7671,
-                                46.2626
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_21"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1124",
-                            "contactId": "CA383",
-                            "name": "Red:21",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA383",
-                                    "typeId": "red_air_fighter",
-                                    "force": "f-green"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA383",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:21",
-                                    "typeId": "red_air_fighter"
-                                }
-                            ],
-                            "platformTypeId": "red_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                22.0942,
-                                78.948
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_fighter_equipment",
-                                    "value": "_2"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1125",
-                            "contactId": "CA1701",
-                            "name": "Red:22",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:22",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                9.8703,
-                                36.7524
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_26"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1126",
-                            "contactId": "CA1430",
-                            "name": "Red:23",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:23"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1430",
-                                    "typeId": "red_land_c2",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1430",
-                                    "typeId": "red_land_c2"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                5.7494,
-                                66.4099
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_7"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1127",
-                            "contactId": "CA998",
-                            "name": "Red:24",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:24",
-                                    "typeId": "red_maritime_submarine"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:24",
-                                    "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA998",
-                                    "typeId": "red_maritime_submarine"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_submarine",
-                            "condition": "working",
-                            "location": [
-                                23.9833,
-                                26.0866
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_sub_equipment",
-                                    "value": "_40"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1128",
-                            "contactId": "CA1046",
-                            "name": "Red:25",
-                            "perceptions": [],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                13.965,
-                                38.1795
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_38"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1129",
-                            "contactId": "CA716",
-                            "name": "Red:26",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:26",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:26",
+                                    "name": "Red:38",
                                     "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
@@ -3901,317 +3577,263 @@ const game: Wargame = {
                             "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                28.2931,
-                                37.7767
+                                6.4943,
+                                66.0479
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_9"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Size": "Size of military unit19",
+                                "a_Equipment": "_15"
+                            }
                         },
                         {
-                            "uniqid": "a1130",
-                            "contactId": "CA410",
-                            "name": "Red:27",
+                            "uniqid": "a540",
+                            "contactId": "CA578",
+                            "name": "Red:39",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA410",
-                                    "typeId": "red_land_asset",
+                                    "name": "Red:39",
                                     "force": "f-white"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA410",
-                                    "typeId": "red_land_asset"
+                                    "name": "Red:39",
+                                    "typeId": "red_land_c2",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA578",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                14.8796,
+                                60.528
+                            ],
+                            "attributes": {
+                                "a_Connections": "_9"
+                            }
+                        },
+                        {
+                            "uniqid": "a541",
+                            "contactId": "CA3288",
+                            "name": "Red:40",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:40",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                25.1539,
+                                43.7902
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a542",
+                            "contactId": "CA3255",
+                            "name": "Red:41",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:41",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                5.3643,
+                                24.2703
+                            ],
+                            "attributes": {
+                                "a_Connections": "_4"
+                            }
+                        },
+                        {
+                            "uniqid": "a543",
+                            "contactId": "CA868",
+                            "name": "Red:42",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA868",
+                                    "force": "f-red"
                                 }
                             ],
                             "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                11.2464,
-                                29.2041
+                                22.6128,
+                                67.9393
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_41"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_33"
+                            }
                         },
                         {
-                            "uniqid": "a1131",
-                            "contactId": "CA466",
-                            "name": "Red:28",
+                            "uniqid": "a544",
+                            "contactId": "CA2292",
+                            "name": "Red:43",
                             "perceptions": [
                                 {
-                                    "by": "f-green",
-                                    "name": "CA466",
-                                    "typeId": "red_maritime_mine"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:28",
+                                    "by": "f-blue",
+                                    "name": "CA2292",
                                     "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                8.7186,
-                                49.0649
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1132",
-                            "contactId": "CA903",
-                            "name": "Red:29",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:29"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Red:29",
-                                    "force": "f-blue"
+                                    "name": "Red:43"
                                 }
                             ],
-                            "platformTypeId": "red_air_istar",
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                23.1228,
-                                84.4385
+                                16.398,
+                                82.9189
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_22"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_23"
+                            }
                         },
                         {
-                            "uniqid": "a1133",
-                            "contactId": "CA2105",
-                            "name": "Red:30",
+                            "uniqid": "a545",
+                            "contactId": "CA1990",
+                            "name": "Red:44",
                             "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2105"
-                                },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:30",
-                                    "typeId": "red_maritime_mtg"
+                                    "name": "CA1990",
+                                    "typeId": "red_land_unit"
                                 }
                             ],
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                22.8215,
-                                63.6366
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_41"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1134",
-                            "contactId": "CA1791",
-                            "name": "Red:31",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1791",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1791",
-                                    "typeId": "red_land_c2",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                16.1755,
-                                61.0408
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_34"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1135",
-                            "contactId": "CA308",
-                            "name": "Red:32",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA308"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA308",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA308",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                27.2426,
-                                34.5638
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_25"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1136",
-                            "contactId": "CA284",
-                            "name": "Red:33",
-                            "perceptions": [],
                             "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                22.4934,
-                                73.7654
+                                3.3427,
+                                25.9041
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_13"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Size": "Size of military unit46",
+                                "a_Equipment": "_11"
+                            }
                         },
                         {
-                            "uniqid": "a1137",
-                            "contactId": "CA1664",
-                            "name": "Red:34",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:34"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1664",
-                                    "typeId": "red_land_ssm"
-                                }
-                            ],
-                            "platformTypeId": "red_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                7.5556,
-                                72.7895
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_5"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1138",
-                            "contactId": "CA1332",
-                            "name": "Red:35",
+                            "uniqid": "a546",
+                            "contactId": "CA637",
+                            "name": "Red:45",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "Red:35",
+                                    "name": "CA637",
                                     "typeId": "red_air_logs",
-                                    "force": "f-green"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1332",
-                                    "typeId": "red_air_logs"
+                                    "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:35"
+                                    "name": "CA637",
+                                    "typeId": "red_air_logs",
+                                    "force": "f-red"
                                 }
                             ],
                             "platformTypeId": "red_air_logs",
                             "condition": "working",
                             "location": [
-                                25.4502,
-                                54.5914
+                                21.8144,
+                                72.8543
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_34"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_14"
+                            }
                         },
                         {
-                            "uniqid": "a1139",
-                            "contactId": "CA1531",
-                            "name": "Red:36",
+                            "uniqid": "a547",
+                            "contactId": "CA1971",
+                            "name": "Red:46",
                             "perceptions": [
                                 {
+                                    "by": "f-blue",
+                                    "name": "Red:46",
+                                    "typeId": "red_air_fighter",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1971",
+                                    "typeId": "red_air_fighter",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                20.6669,
+                                65.2602
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a548",
+                            "contactId": "CA2544",
+                            "name": "Red:47",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2544",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                3.1431,
+                                29.6123
+                            ],
+                            "attributes": {
+                                "a_Units": "_42"
+                            }
+                        },
+                        {
+                            "uniqid": "a549",
+                            "contactId": "CA2031",
+                            "name": "Red:48",
+                            "perceptions": [],
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                2.6731,
+                                70.3253
+                            ],
+                            "attributes": {
+                                "a_Connections": "_36"
+                            }
+                        },
+                        {
+                            "uniqid": "a550",
+                            "contactId": "CA1192",
+                            "name": "Red:49",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1192",
+                                    "typeId": "red_maritime_mtg"
+                                },
+                                {
                                     "by": "f-white",
-                                    "name": "CA1531",
+                                    "name": "CA1192",
                                     "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
@@ -4219,2002 +3841,1320 @@ const game: Wargame = {
                             "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                11.7743,
-                                28.8114
+                                6.3258,
+                                51.0918
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_21"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_34"
+                            }
                         },
                         {
-                            "uniqid": "a1140",
-                            "contactId": "CA1198",
-                            "name": "Red:37",
+                            "uniqid": "a551",
+                            "contactId": "CA1150",
+                            "name": "Red:50",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA1198"
+                                    "name": "Red:50"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA1198",
+                                    "name": "Red:50",
+                                    "typeId": "red_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                6.3294,
+                                49.583
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_33"
+                            }
+                        },
+                        {
+                            "uniqid": "a552",
+                            "contactId": "CA1454",
+                            "name": "Red:51",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:51",
+                                    "typeId": "red_air_fighter",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1454",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                7.5819,
+                                34.8324
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_41"
+                            }
+                        },
+                        {
+                            "uniqid": "a553",
+                            "contactId": "CA2747",
+                            "name": "Red:52",
+                            "perceptions": [],
+                            "platformTypeId": "red_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                6.4796,
+                                41.1308
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_22"
+                            }
+                        },
+                        {
+                            "uniqid": "a554",
+                            "contactId": "CA920",
+                            "name": "Red:53",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:53",
+                                    "typeId": "red_air_logs",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA920",
+                                    "typeId": "red_air_logs"
+                                }
+                            ],
+                            "platformTypeId": "red_air_logs",
+                            "condition": "working",
+                            "location": [
+                                22.8593,
+                                42.9889
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_46"
+                            }
+                        },
+                        {
+                            "uniqid": "a555",
+                            "contactId": "CA3396",
+                            "name": "Red:54",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:54",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA3396",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                9.3731,
+                                59.2615
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a556",
+                            "contactId": "CA3025",
+                            "name": "Red:55",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA3025",
+                                    "typeId": "red_maritime_submarine"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA3025"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_submarine",
+                            "condition": "working",
+                            "location": [
+                                7.2096,
+                                26.0686
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_17"
+                            }
+                        },
+                        {
+                            "uniqid": "a557",
+                            "contactId": "CA2327",
+                            "name": "Red:56",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2327",
+                                    "typeId": "red_land_unit"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2327",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:56",
+                                    "typeId": "red_land_unit",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                18.7273,
+                                76.3194
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit8",
+                                "a_Equipment": "_0"
+                            }
+                        },
+                        {
+                            "uniqid": "a558",
+                            "contactId": "CA690",
+                            "name": "Red:57",
+                            "perceptions": [],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                10.3318,
+                                45.7446
+                            ],
+                            "attributes": {
+                                "a_Units": "_3"
+                            }
+                        },
+                        {
+                            "uniqid": "a559",
+                            "contactId": "CA319",
+                            "name": "Red:58",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:58"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:58",
+                                    "typeId": "red_air_logs",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_logs",
+                            "condition": "working",
+                            "location": [
+                                15.6801,
+                                53.1688
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_1"
+                            }
+                        },
+                        {
+                            "uniqid": "a560",
+                            "contactId": "CA1514",
+                            "name": "Red:59",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:59",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1514",
+                                    "force": "f-green"
+                                }
+                            ],
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                10.3853,
+                                83.8341
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_26",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a561",
+                            "contactId": "CA2205",
+                            "name": "Red:60",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2205"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2205",
+                                    "typeId": "red_air_fighter",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                11.4209,
+                                30.312
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_30"
+                            }
+                        },
+                        {
+                            "uniqid": "a562",
+                            "contactId": "CA3153",
+                            "name": "Red:61",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:61",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                25.4272,
+                                52.7752
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a563",
+                            "contactId": "CA695",
+                            "name": "Red:62",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:62",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA695",
+                                    "typeId": "red_maritime_fiac"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                23.8776,
+                                65.3373
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a564",
+                            "contactId": "CA1260",
+                            "name": "Red:63",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:63",
+                                    "typeId": "red_land_ssm",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1260"
+                                }
+                            ],
+                            "platformTypeId": "red_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                24.5626,
+                                53.5045
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_14",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a565",
+                            "contactId": "CA746",
+                            "name": "Red:64",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA746",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:64",
+                                    "typeId": "red_air_logs"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA746",
+                                    "typeId": "red_air_logs"
+                                }
+                            ],
+                            "platformTypeId": "red_air_logs",
+                            "condition": "working",
+                            "location": [
+                                11.8568,
+                                24.2224
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_44"
+                            }
+                        },
+                        {
+                            "uniqid": "a566",
+                            "contactId": "CA2284",
+                            "name": "Red:65",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:65",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2284",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                18.337,
+                                28.5426
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a567",
+                            "contactId": "CA226",
+                            "name": "Red:66",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA226",
+                                    "typeId": "red_maritime_mtg",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:66",
+                                    "typeId": "red_maritime_mtg",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA226",
+                                    "typeId": "red_maritime_mtg"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mtg",
+                            "condition": "working",
+                            "location": [
+                                8.8185,
+                                56.2727
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a568",
+                            "contactId": "CA2276",
+                            "name": "Red:67",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:67",
+                                    "typeId": "red_maritime_mine"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2276",
+                                    "typeId": "red_maritime_mine"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                3.7077,
+                                48.488
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a569",
+                            "contactId": "CA3090",
+                            "name": "Red:68",
+                            "perceptions": [],
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                17.468,
+                                26.4674
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_49",
+                                "a_Mez Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a570",
+                            "contactId": "CA151",
+                            "name": "Red:69",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:69",
                                     "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:37",
+                                    "name": "CA151",
                                     "typeId": "red_land_asset"
                                 }
                             ],
                             "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                24.3767,
-                                44.6166
+                                25.9775,
+                                62.577
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_18"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_27"
+                            }
                         },
                         {
-                            "uniqid": "a1141",
-                            "contactId": "CA890",
-                            "name": "Red:38",
+                            "uniqid": "a571",
+                            "contactId": "CA1325",
+                            "name": "Red:70",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA1325"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA1325",
+                                    "typeId": "red_air_logs",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_logs",
+                            "condition": "working",
+                            "location": [
+                                3.1838,
+                                44.4462
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_7"
+                            }
+                        },
+                        {
+                            "uniqid": "a572",
+                            "contactId": "CA1087",
+                            "name": "Red:71",
                             "perceptions": [
                                 {
                                     "by": "f-green",
-                                    "name": "CA890",
-                                    "typeId": "red_land_asset",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:38"
+                                    "name": "Red:71",
+                                    "force": "f-white"
                                 }
                             ],
                             "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                27.7134,
-                                75.7985
+                                22.8491,
+                                48.5874
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_2"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_41"
+                            }
                         },
                         {
-                            "uniqid": "a1142",
-                            "contactId": "CA194",
-                            "name": "Red:39",
+                            "uniqid": "a573",
+                            "contactId": "CA1978",
+                            "name": "Red:72",
                             "perceptions": [
                                 {
-                                    "by": "f-blue",
-                                    "name": "CA194",
-                                    "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "by": "f-green",
+                                    "name": "CA1978",
+                                    "typeId": "red_air_istar"
                                 }
                             ],
                             "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                11.6152,
-                                67.8945
+                                13.2746,
+                                46.9623
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_9"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_15",
+                                "a_Detection Range": 50
+                            }
                         },
                         {
-                            "uniqid": "a1143",
-                            "contactId": "CA1027",
-                            "name": "Red:40",
+                            "uniqid": "a574",
+                            "contactId": "CA1743",
+                            "name": "Red:73",
                             "perceptions": [
                                 {
                                     "by": "f-green",
-                                    "name": "Red:40",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1027"
+                                    "name": "CA1743"
                                 }
                             ],
-                            "platformTypeId": "red_land_ssm",
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                22.4723,
-                                46.9578
+                                23.6031,
+                                84.6027
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_34"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100
+                            }
                         },
                         {
-                            "uniqid": "a1144",
-                            "contactId": "CA830",
-                            "name": "Red:41",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:41"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA830",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                5.7111,
-                                79.6806
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_29"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1145",
-                            "contactId": "CA401",
-                            "name": "Red:42",
+                            "uniqid": "a575",
+                            "contactId": "CA882",
+                            "name": "Red:74",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA401",
-                                    "typeId": "red_land_c2"
+                                    "name": "Red:74",
+                                    "typeId": "red_air_istar"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA401"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA401",
-                                    "typeId": "red_land_c2"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                11.9371,
-                                57.8808
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_45"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1146",
-                            "contactId": "CA1705",
-                            "name": "Red:43",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1705",
-                                    "typeId": "red_land_c2",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                17.3515,
-                                36.1633
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_41"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1147",
-                            "contactId": "CA1594",
-                            "name": "Red:44",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1594",
-                                    "typeId": "red_land_ssm",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:44",
-                                    "typeId": "red_land_ssm",
-                                    "force": "f-white"
-                                }
-                            ],
-                            "platformTypeId": "red_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                13.2894,
-                                73.008
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_25"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1148",
-                            "contactId": "CA1570",
-                            "name": "Red:45",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:45",
-                                    "typeId": "red_land_c2",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:45",
-                                    "typeId": "red_land_c2",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                11.2211,
-                                31.5333
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_9"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1149",
-                            "contactId": "CA3355",
-                            "name": "Red:46",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA3355",
-                                    "force": "f-green"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA3355",
-                                    "force": "f-white"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                18.0384,
-                                61.017
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_28"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1150",
-                            "contactId": "CA347",
-                            "name": "Red:47",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA347",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                21.5062,
-                                73.5286
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_21"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1151",
-                            "contactId": "CA149",
-                            "name": "Red:48",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA149",
+                                    "name": "CA882",
                                     "typeId": "red_air_istar"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA149"
+                                    "name": "CA882"
                                 }
                             ],
                             "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                10.5287,
-                                46.7462
+                                27.3368,
+                                38.5729
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_37"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_26",
+                                "a_Detection Range": 50
+                            }
                         },
                         {
-                            "uniqid": "a1152",
-                            "contactId": "CA1425",
-                            "name": "Red:49",
-                            "perceptions": [],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                3.938,
-                                55.5978
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_28"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1153",
-                            "contactId": "CA1673",
-                            "name": "Red:50",
+                            "uniqid": "a576",
+                            "contactId": "CA3221",
+                            "name": "Red:75",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA1673",
+                                    "name": "CA3221",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA3221",
+                                    "typeId": "red_maritime_fiac"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA3221",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                13.3582,
+                                75.1727
+                            ],
+                            "attributes": {
+                                "a_Number": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a577",
+                            "contactId": "CA3271",
+                            "name": "Red:76",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA3271",
+                                    "typeId": "red_air_fighter",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                21.3082,
+                                48.1883
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_39"
+                            }
+                        },
+                        {
+                            "uniqid": "a578",
+                            "contactId": "CA2768",
+                            "name": "Red:77",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:77",
+                                    "typeId": "red_land_asset"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:77"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                14.2992,
+                                36.425
+                            ],
+                            "attributes": {
+                                "a_Units": "_10"
+                            }
+                        },
+                        {
+                            "uniqid": "a579",
+                            "contactId": "CA138",
+                            "name": "Red:78",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:78"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:78",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                4.9019,
+                                78.8162
+                            ],
+                            "attributes": {
+                                "a_Units": "_39"
+                            }
+                        },
+                        {
+                            "uniqid": "a580",
+                            "contactId": "CA1285",
+                            "name": "Red:79",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA1285",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                14.4965,
+                                27.6986
+                            ],
+                            "attributes": {
+                                "a_Units": "_14"
+                            }
+                        },
+                        {
+                            "uniqid": "a581",
+                            "contactId": "CA2549",
+                            "name": "Red:80",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA2549",
+                                    "typeId": "red_air_fighter"
+                                }
+                            ],
+                            "platformTypeId": "red_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                9.0329,
+                                54.1027
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_13"
+                            }
+                        },
+                        {
+                            "uniqid": "a582",
+                            "contactId": "CA1468",
+                            "name": "Red:81",
+                            "perceptions": [
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1468",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_istar",
+                            "condition": "working",
+                            "location": [
+                                28.2617,
+                                80.0518
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_42",
+                                "a_Detection Range": 50
+                            }
+                        },
+                        {
+                            "uniqid": "a583",
+                            "contactId": "CA2801",
+                            "name": "Red:82",
+                            "perceptions": [],
+                            "platformTypeId": "red_maritime_submarine",
+                            "condition": "working",
+                            "location": [
+                                13.2183,
+                                52.4643
+                            ],
+                            "attributes": {
+                                "a_Equipment": "_17"
+                            }
+                        },
+                        {
+                            "uniqid": "a584",
+                            "contactId": "CA757",
+                            "name": "Red:83",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA757",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                26.3855,
+                                64.7337
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a585",
+                            "contactId": "CA2515",
+                            "name": "Red:84",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:84",
+                                    "typeId": "red_land_sam",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2515",
                                     "typeId": "red_land_sam"
                                 }
                             ],
                             "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                15.2578,
-                                26.6546
+                                11.0232,
+                                25.6757
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_sam_mez",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_sam_equipment",
-                                    "value": "_3"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_17",
+                                "a_Mez Range": 100
+                            }
                         },
                         {
-                            "uniqid": "a1154",
-                            "contactId": "CA539",
-                            "name": "Red:51",
+                            "uniqid": "a586",
+                            "contactId": "CA147",
+                            "name": "Red:85",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "Red:51"
+                                    "name": "CA147"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA539",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                24.0609,
-                                55.2006
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_7"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1155",
-                            "contactId": "CA1447",
-                            "name": "Red:52",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:52",
-                                    "typeId": "red_maritime_mtg"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:52",
-                                    "typeId": "red_maritime_mtg",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                5.225,
-                                85.6194
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_39"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1156",
-                            "contactId": "CA2911",
-                            "name": "Red:53",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "CA2911",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                19.4395,
-                                32.36
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_42"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1157",
-                            "contactId": "CA340",
-                            "name": "Red:54",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA340",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:54",
+                                    "name": "CA147",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-white"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA147",
+                                    "typeId": "red_land_ssm",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                22.8491,
+                                82.4964
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_24",
+                                "a_Range": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a587",
+                            "contactId": "CA461",
+                            "name": "Red:86",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:86"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA461",
+                                    "typeId": "red_maritime_mine"
+                                }
+                            ],
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                23.4576,
+                                51.3205
+                            ],
+                            "attributes": {
+                                "a_Density": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a588",
+                            "contactId": "CA2534",
+                            "name": "Red:87",
+                            "perceptions": [
+                                {
+                                    "by": "f-green",
+                                    "name": "CA2534",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA2534",
+                                    "typeId": "red_land_unit"
                                 }
                             ],
                             "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                18.6004,
-                                43.4124
+                                17.3195,
+                                44.812
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_30"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Size": "Size of military unit31",
+                                "a_Equipment": "_23"
+                            }
                         },
                         {
-                            "uniqid": "a1158",
-                            "contactId": "CA513",
-                            "name": "Red:55",
+                            "uniqid": "a589",
+                            "contactId": "CA1473",
+                            "name": "Red:88",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "Red:55",
-                                    "typeId": "red_land_asset",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:55",
-                                    "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "name": "Red:88",
+                                    "typeId": "red_air_fighter"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA513",
-                                    "typeId": "red_land_asset"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                25.7048,
-                                41.8151
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_18"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1159",
-                            "contactId": "CA1136",
-                            "name": "Red:56",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1136",
-                                    "typeId": "red_land_asset",
+                                    "name": "Red:88",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "platformTypeId": "red_land_asset",
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                6.1586,
-                                59.4881
+                                24.775,
+                                31.0961
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_20"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_8"
+                            }
                         },
                         {
-                            "uniqid": "a1160",
-                            "contactId": "CA40",
-                            "name": "Red:57",
+                            "uniqid": "a590",
+                            "contactId": "CA207",
+                            "name": "Red:89",
                             "perceptions": [
                                 {
-                                    "by": "f-blue",
-                                    "name": "CA40",
-                                    "force": "f-white"
+                                    "by": "f-green",
+                                    "name": "CA207",
+                                    "typeId": "red_maritime_mtg"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:89"
                                 }
                             ],
                             "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                28.2336,
-                                65.9443
+                                5.5705,
+                                69.6987
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_47"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_29"
+                            }
                         },
                         {
-                            "uniqid": "a1161",
-                            "contactId": "CA108",
-                            "name": "Red:58",
+                            "uniqid": "a591",
+                            "contactId": "CA2961",
+                            "name": "Red:90",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "Red:58",
-                                    "typeId": "red_land_ssm",
+                                    "name": "CA2961",
                                     "force": "f-red"
                                 },
                                 {
+                                    "by": "f-green",
+                                    "name": "Red:90"
+                                },
+                                {
                                     "by": "f-white",
-                                    "name": "Red:58",
+                                    "name": "Red:90",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "platformTypeId": "red_land_ssm",
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                25.9224,
-                                80.5487
+                                24.6931,
+                                77.9989
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_27"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_39"
+                            }
                         },
                         {
-                            "uniqid": "a1162",
-                            "contactId": "CA1863",
-                            "name": "Red:59",
+                            "uniqid": "a592",
+                            "contactId": "CA2063",
+                            "name": "Red:91",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA1863",
-                                    "force": "f-white"
+                                    "name": "CA2063",
+                                    "typeId": "red_air_istar"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Red:59",
-                                    "typeId": "red_air_logs"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                21.2712,
-                                53.8323
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_7"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1163",
-                            "contactId": "CA1619",
-                            "name": "Red:60",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1619",
-                                    "typeId": "red_air_logs"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1619",
-                                    "typeId": "red_air_logs"
+                                    "name": "Red:91"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA1619",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                11.7746,
-                                34.713
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_15"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1164",
-                            "contactId": "CA2874",
-                            "name": "Red:61",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2874",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                14.038,
-                                60.953
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1165",
-                            "contactId": "CA759",
-                            "name": "Red:62",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA759",
-                                    "typeId": "red_maritime_mine"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:62"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                24.9493,
-                                79.9526
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1166",
-                            "contactId": "CA1267",
-                            "name": "Red:63",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1267",
-                                    "typeId": "red_land_ssm",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:63"
-                                }
-                            ],
-                            "platformTypeId": "red_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                20.7122,
-                                79.7787
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_18"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1167",
-                            "contactId": "CA1620",
-                            "name": "Red:64",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:64"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1620",
-                                    "typeId": "red_maritime_mine"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1620",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                26.8514,
-                                67.1817
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1168",
-                            "contactId": "CA916",
-                            "name": "Red:65",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:65",
-                                    "typeId": "red_air_istar",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:65",
+                                    "name": "CA2063",
                                     "typeId": "red_air_istar"
                                 }
                             ],
                             "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                26.035,
-                                65.0776
+                                25.9581,
+                                81.8953
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_2"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_5",
+                                "a_Detection Range": 50
+                            }
                         },
                         {
-                            "uniqid": "a1169",
-                            "contactId": "CA357",
-                            "name": "Red:66",
+                            "uniqid": "a593",
+                            "contactId": "CA3175",
+                            "name": "Red:92",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA357"
+                                    "name": "CA3175",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:66",
+                                    "name": "Red:92",
                                     "force": "f-red"
                                 }
                             ],
-                            "platformTypeId": "red_maritime_mtg",
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                19.5568,
-                                61.5581
+                                20.7799,
+                                52.233
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_47"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Units": "_2"
+                            }
                         },
                         {
-                            "uniqid": "a1170",
-                            "contactId": "CA977",
-                            "name": "Red:67",
+                            "uniqid": "a594",
+                            "contactId": "CA1651",
+                            "name": "Red:93",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA977",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                13.721,
-                                23.7553
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_36"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1171",
-                            "contactId": "CA2355",
-                            "name": "Red:68",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA2355",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                13.1539,
-                                41.2506
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_36"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1172",
-                            "contactId": "CA2097",
-                            "name": "Red:69",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2097"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:69",
+                                    "name": "CA1651",
+                                    "typeId": "red_land_asset",
                                     "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_land_c2",
-                            "condition": "working",
-                            "location": [
-                                3.8406,
-                                26.621
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_c2_equipment",
-                                    "value": "_46"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1173",
-                            "contactId": "CA2129",
-                            "name": "Red:70",
-                            "perceptions": [],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                11.3066,
-                                44.2618
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_9"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1174",
-                            "contactId": "CA3254",
-                            "name": "Red:71",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA3254",
-                                    "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "CA3254",
+                                    "name": "Red:93",
+                                    "typeId": "red_land_asset",
+                                    "force": "f-white"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                2.5602,
+                                75.4909
+                            ],
+                            "attributes": {
+                                "a_Units": "_12"
+                            }
+                        },
+                        {
+                            "uniqid": "a595",
+                            "contactId": "CA878",
+                            "name": "Red:94",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA878",
+                                    "typeId": "red_maritime_submarine"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA878",
                                     "typeId": "red_maritime_submarine"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:71",
+                                    "name": "CA878",
                                     "typeId": "red_maritime_submarine"
                                 }
                             ],
                             "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                16.4527,
-                                52.361
+                                5.1159,
+                                75.7084
                             ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_sub_equipment",
-                                    "value": "_16"
-                                }
-                            ]
+                            "attributes": {
+                                "a_Equipment": "_21"
+                            }
                         },
                         {
-                            "uniqid": "a1175",
-                            "contactId": "CA228",
-                            "name": "Red:72",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:72",
-                                    "typeId": "red_air_fighter"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA228"
-                                }
-                            ],
-                            "platformTypeId": "red_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                26.8124,
-                                30.5575
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_fighter_equipment",
-                                    "value": "_34"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1176",
-                            "contactId": "CA741",
-                            "name": "Red:73",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:73",
-                                    "typeId": "red_land_unit"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                22.6553,
-                                27.8619
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_38"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1177",
-                            "contactId": "CA1315",
-                            "name": "Red:74",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1315"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1315",
-                                    "typeId": "red_land_unit"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                27.553,
-                                64.2691
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_34"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1178",
-                            "contactId": "CA1577",
-                            "name": "Red:75",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1577"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                7.4803,
-                                80.0119
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_48"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1179",
-                            "contactId": "CA1982",
-                            "name": "Red:76",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:76",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:76",
-                                    "typeId": "red_maritime_fiac"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                21.1526,
-                                77.311
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1180",
-                            "contactId": "CA79",
-                            "name": "Red:77",
-                            "perceptions": [
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:77",
-                                    "typeId": "red_air_istar",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                27.685,
-                                49.6421
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_4"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1181",
-                            "contactId": "CA2482",
-                            "name": "Red:78",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA2482",
-                                    "typeId": "red_land_asset",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2482",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                14.5164,
-                                32.8935
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_24"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1182",
-                            "contactId": "CA1052",
-                            "name": "Red:79",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1052",
-                                    "typeId": "red_maritime_fiac"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1052",
-                                    "typeId": "red_maritime_fiac",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                18.2047,
-                                62.1004
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1183",
-                            "contactId": "CA3108",
-                            "name": "Red:80",
-                            "perceptions": [],
-                            "platformTypeId": "red_land_sam",
-                            "condition": "working",
-                            "location": [
-                                15.7985,
-                                44.7777
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_sam_mez",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_sam_equipment",
-                                    "value": "_33"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1184",
-                            "contactId": "CA3394",
-                            "name": "Red:81",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:81",
-                                    "typeId": "red_land_asset",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                16.4273,
-                                73.8536
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_30"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1185",
-                            "contactId": "CA322",
-                            "name": "Red:82",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:82",
-                                    "force": "f-green"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "CA322",
-                                    "typeId": "red_air_istar"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA322",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                10.9422,
-                                72.0646
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_3"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1186",
-                            "contactId": "CA3169",
-                            "name": "Red:83",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:83",
-                                    "typeId": "red_maritime_fiac",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:83",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                26.4284,
-                                44.5474
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1187",
-                            "contactId": "CA867",
-                            "name": "Red:84",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA867",
-                                    "typeId": "red_land_ssm",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                4.0232,
-                                36.2015
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_range",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_ssm_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_ssm_equipment",
-                                    "value": "_28"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1188",
-                            "contactId": "CA916",
-                            "name": "Red:85",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA916",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                25.9948,
-                                63.3736
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_3"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1189",
-                            "contactId": "CA528",
-                            "name": "Red:86",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA528",
-                                    "force": "f-green"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                19.0741,
-                                25.4275
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1190",
-                            "contactId": "CA1811",
-                            "name": "Red:87",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA1811",
-                                    "typeId": "red_air_istar"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:87",
-                                    "typeId": "red_air_istar",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                3.2162,
-                                74.3292
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_47"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1191",
-                            "contactId": "CA1547",
-                            "name": "Red:88",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA1547",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:88"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                4.6915,
-                                33.5569
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_mtg_units",
-                                    "value": "_13"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1192",
-                            "contactId": "CA250",
-                            "name": "Red:89",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA250",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA250",
-                                    "typeId": "red_maritime_fiac",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                21.2464,
-                                51.2056
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1193",
-                            "contactId": "CA2010",
-                            "name": "Red:90",
-                            "perceptions": [
-                                {
-                                    "by": "f-green",
-                                    "name": "CA2010",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:90"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                4.8574,
-                                28.7112
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_13"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1194",
-                            "contactId": "CA392",
-                            "name": "Red:91",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:91",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                20.6496,
-                                63.278
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_12"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1195",
-                            "contactId": "CA1626",
-                            "name": "Red:92",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:92",
-                                    "typeId": "red_land_sam",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1626",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_sam",
-                            "condition": "working",
-                            "location": [
-                                13.1216,
-                                30.995
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_sam_mez",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_sam_equipment",
-                                    "value": "_7"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1196",
-                            "contactId": "CA2519",
-                            "name": "Red:93",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA2519",
-                                    "typeId": "red_maritime_fiac",
-                                    "force": "f-white"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:93",
-                                    "typeId": "red_maritime_fiac",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "platformTypeId": "red_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                20.611,
-                                30.6244
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_fiac_number",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1197",
-                            "contactId": "CA1691",
-                            "name": "Red:94",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:94"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "CA1691",
-                                    "typeId": "red_air_istar"
-                                }
-                            ],
-                            "platformTypeId": "red_air_istar",
-                            "condition": "working",
-                            "location": [
-                                24.7228,
-                                81.0946
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_range",
-                                    "value": 50
-                                },
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_istar_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_istar_equipment",
-                                    "value": "_46"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1198",
-                            "contactId": "CA1592",
+                            "uniqid": "a596",
+                            "contactId": "CA1260",
                             "name": "Red:95",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
-                                    "name": "CA1592",
+                                    "name": "CA1260",
                                     "typeId": "red_land_asset",
                                     "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                5.7634,
-                                59.8908
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_10"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1199",
-                            "contactId": "CA2280",
-                            "name": "Red:96",
-                            "perceptions": [],
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                21.4275,
-                                30.9463
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_mine_density",
-                                    "value": 100
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1200",
-                            "contactId": "CA98",
-                            "name": "Red:97",
-                            "perceptions": [],
-                            "platformTypeId": "red_land_asset",
-                            "condition": "working",
-                            "location": [
-                                20.0128,
-                                30.1444
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_asset_equipment",
-                                    "value": "_46"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1201",
-                            "contactId": "CA746",
-                            "name": "Red:98",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA746",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:98",
-                                    "typeId": "red_air_logs",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "platformTypeId": "red_air_logs",
-                            "condition": "working",
-                            "location": [
-                                18.4216,
-                                64.851
-                            ],
-                            "attributeValues": [
-                                {
-                                    "attrType": "AttributeValueNumber",
-                                    "attrId": "r_air_logs_number",
-                                    "value": 100
-                                },
-                                {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_air_logs_equipment",
-                                    "value": "_15"
-                                }
-                            ]
-                        },
-                        {
-                            "uniqid": "a1202",
-                            "contactId": "CA262",
-                            "name": "Red:99",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "CA262"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Red:99",
-                                    "typeId": "red_land_unit",
+                                    "name": "Red:95"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:95",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_land_asset",
+                            "condition": "working",
+                            "location": [
+                                13.5867,
+                                36.3506
+                            ],
+                            "attributes": {
+                                "a_Units": "_19"
+                            }
+                        },
+                        {
+                            "uniqid": "a597",
+                            "contactId": "CA3207",
+                            "name": "Red:96",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA3207",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "CA262"
+                                    "name": "Red:96",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "platformTypeId": "red_air_istar",
+                            "condition": "working",
+                            "location": [
+                                7.1823,
+                                75.8719
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_38",
+                                "a_Detection Range": 50
+                            }
+                        },
+                        {
+                            "uniqid": "a598",
+                            "contactId": "CA878",
+                            "name": "Red:97",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA878",
+                                    "typeId": "red_land_unit"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "CA878",
+                                    "force": "f-white"
                                 }
                             ],
                             "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                13.4246,
-                                76.8599
+                                25.2374,
+                                32.3771
                             ],
-                            "attributeValues": [
+                            "attributes": {
+                                "a_Size": "Size of military unit2",
+                                "a_Equipment": "_35"
+                            }
+                        },
+                        {
+                            "uniqid": "a599",
+                            "contactId": "CA1779",
+                            "name": "Red:98",
+                            "perceptions": [
                                 {
-                                    "attrType": "AttributeValueString",
-                                    "attrId": "r_land_equipment",
-                                    "value": "_15"
+                                    "by": "f-blue",
+                                    "name": "Red:98",
+                                    "typeId": "red_land_unit",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "CA1779",
+                                    "force": "f-red"
                                 }
-                            ]
+                            ],
+                            "platformTypeId": "red_land_unit",
+                            "condition": "working",
+                            "location": [
+                                11.0384,
+                                26.811
+                            ],
+                            "attributes": {
+                                "a_Size": "Size of military unit38",
+                                "a_Equipment": "_36"
+                            }
+                        },
+                        {
+                            "uniqid": "a600",
+                            "contactId": "CA89",
+                            "name": "Red:99",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "CA89",
+                                    "typeId": "red_air_logs",
+                                    "force": "f-white"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:99"
+                                }
+                            ],
+                            "platformTypeId": "red_air_logs",
+                            "condition": "working",
+                            "location": [
+                                3.4063,
+                                43.1293
+                            ],
+                            "attributes": {
+                                "a_Number": 100,
+                                "a_Equipment": "_27"
+                            }
                         }
                     ]
                 },
@@ -6260,7 +5200,6 @@ const game: Wargame = {
         "channels": {
             "name": "Channels",
             "channels": [
-
                 {
                     "channelType": "ChannelPlanning",
                     "name": "Planning",
@@ -6289,48 +5228,14 @@ const game: Wargame = {
                             "pType": "ParticipantPlanning",
                             "roles": [],
                             "subscriptionId": "huk3qr",
-                            "templates": [
-                                {
-                                    "_id": "k16e-maritime",
-                                    "title": "Maritime Activity"
-                                },
-                                {
-                                    "_id": "k16e-land",
-                                    "title": "Land Activity"
-                                },
-                                {
-                                    "_id": "k16e-air",
-                                    "title": "Air Activity"
-                                },
-                                {
-                                    "_id": "k16e-other",
-                                    "title": "Other Activity"
-                                }
-                            ]
+                            "templates": [ ]
                         },
                         {
                             "forceUniqid": "f-red",
                             "pType": "ParticipantPlanning",
                             "roles": [],
                             "subscriptionId": "h123qr",
-                            "templates": [
-                                {
-                                    "_id": "k16e-maritime",
-                                    "title": "Maritime Activity"
-                                },
-                                {
-                                    "_id": "k16e-land",
-                                    "title": "Land Activity"
-                                },
-                                {
-                                    "_id": "k16e-air",
-                                    "title": "Air Activity"
-                                },
-                                {
-                                    "_id": "k16e-other",
-                                    "title": "Other Activity"
-                                }
-                            ]
+                            "templates": [ ]
                         },
                         {
                             "forceUniqid": "umpire",
@@ -6444,13 +5349,19 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_fighter",
-                    "attributeTypeIds": ["a_Number", "a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment"
+                    ],
                     "travelMode": "air"
                 },
                 {
                     "name": "Bomber",
                     "icon": "n_blue_air_bomber.svg",
-                    "attributeTypeIds": ["a_Number", "a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_bomber",
@@ -6459,7 +5370,11 @@ const game: Wargame = {
                 {
                     "name": "SAM",
                     "icon": "n_blue_land_sam.svg",
-                    "attributeTypeIds": ["a_Number", "a_Equipment", "a_Mez Range"],
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment",
+                        "a_Mez Range"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_sam",
@@ -6468,7 +5383,9 @@ const game: Wargame = {
                 {
                     "name": "MTG",
                     "icon": "n_blue_maritime_task_force.svg",
-                    "attributeTypeIds": ["a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Equipment"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_mtg",
@@ -6477,7 +5394,9 @@ const game: Wargame = {
                 {
                     "name": "Ship",
                     "icon": "n_blue_maritime_destroyer.svg",
-                    "attributeTypeIds": ["a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Equipment"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_ship",
@@ -6486,7 +5405,9 @@ const game: Wargame = {
                 {
                     "name": "Submarine",
                     "icon": "n_blue_maritime_submarine.svg",
-                    "attributeTypeIds": ["a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Equipment"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_submarine",
@@ -6495,7 +5416,10 @@ const game: Wargame = {
                 {
                     "name": "Land Unit",
                     "icon": "n_blue_land_armed_inf.svg",
-                    "attributeTypeIds": ["a_Size", "a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Size",
+                        "a_Equipment"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_unit",
@@ -6504,7 +5428,9 @@ const game: Wargame = {
                 {
                     "name": "Fixed Asset",
                     "icon": "n_blue_land_asset.svg",
-                    "attributeTypeIds": ["a_Units"],
+                    "attributeTypeIds": [
+                        "a_Units"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_asset",
@@ -6513,7 +5439,11 @@ const game: Wargame = {
                 {
                     "name": "SSM",
                     "icon": "n_blue_land_ssm.svg",
-                    "attributeTypeIds": ["a_Number", "a_Equipment", "a_Range"],
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment",
+                        "a_Range"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_ssm",
@@ -6522,7 +5452,11 @@ const game: Wargame = {
                 {
                     "name": "ISTAR",
                     "icon": "n_blue_air_recce.svg",
-                    "attributeTypeIds": ["a_Number", "a_Equipment", "a_Detection Range"],
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment",
+                        "a_Detection Range"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_istar",
@@ -6531,7 +5465,10 @@ const game: Wargame = {
                 {
                     "name": "Air LOGS",
                     "icon": "n_blue_air_utility.svg",
-                    "attributeTypeIds": ["a_Number", "a_Equipment"],
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_logs",
@@ -6540,7 +5477,9 @@ const game: Wargame = {
                 {
                     "name": "C2 Node",
                     "icon": "n_blue_hq.svg",
-                    "attributeTypeIds": ["a_Connections"],
+                    "attributeTypeIds": [
+                        "a_Connections"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_c2",
@@ -6549,7 +5488,9 @@ const game: Wargame = {
                 {
                     "name": "FIAC",
                     "icon": "n_blue_maritime_destroyer.svg",
-                    "attributeTypeIds": ["a_Number"],
+                    "attributeTypeIds": [
+                        "a_Number"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_fiac",
@@ -6558,7 +5499,9 @@ const game: Wargame = {
                 {
                     "name": "Minefield",
                     "icon": "n_blue_maritime_minefield.svg",
-                    "attributeTypeIds": ["a_Density"],
+                    "attributeTypeIds": [
+                        "a_Density"
+                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_mine",
@@ -6570,284 +5513,151 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_air_fighter",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_fighter_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
-                    "travelMode": "air"
+                    "travelMode": "air",
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment"
+                    ]
                 },
                 {
                     "name": "SAM",
                     "icon": "n_red_land_sam.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_sam_mez",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "MEZ Range",
-                            "editableByPlayer": false,
-                            "name": "MEZ"
-                        },
-                        {
-                            "attrId": "r_sam_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_sam",
-                    "travelMode": "land"
+                    "travelMode": "land",
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment",
+                        "a_Mez Range"
+                    ]
                 },
                 {
                     "name": "MTG",
                     "icon": "n_red_maritime_task_force.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_mtg_units",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Members of Task Group",
-                            "editableByPlayer": false,
-                            "name": "Units"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_maritime_mtg",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Equipment"
+                    ]
                 },
                 {
                     "name": "Submarine",
                     "icon": "n_red_maritime_submarine.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_sub_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_maritime_submarine",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Equipment"
+                    ]
                 },
                 {
                     "name": "Land Unit",
                     "icon": "n_red_land_armed_inf.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_land_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_unit",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Size",
+                        "a_Equipment"
+                    ]
                 },
                 {
                     "name": "Fixed Asset",
                     "icon": "n_red_land_sam.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_land_asset_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Assets held by group",
-                            "editableByPlayer": false,
-                            "name": "Assets"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_asset",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Units"
+                    ]
                 },
                 {
                     "name": "SSM",
                     "icon": "n_red_land_ssm.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_ssm_range",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Range of asset",
-                            "editableByPlayer": false,
-                            "name": "range",
-                            "units": "km"
-                        },
-                        {
-                            "attrId": "r_ssm_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        },
-                        {
-                            "attrId": "r_ssm_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_ssm",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment",
+                        "a_Range"
+                    ]
                 },
                 {
                     "name": "ISTAR",
                     "icon": "n_red_air_recce.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_istar_range",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 50,
-                            "description": "Detection Range of asset",
-                            "editableByPlayer": false,
-                            "name": "Detection Range",
-                            "units": "km"
-                        },
-                        {
-                            "attrId": "r_istar_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        },
-                        {
-                            "attrId": "r_istar_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_air_istar",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment",
+                        "a_Detection Range"
+                    ]
                 },
                 {
                     "name": "Air LOGS",
                     "icon": "n_red_air_utility.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_air_logs_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        },
-                        {
-                            "attrId": "r_air_logs_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Equipment carried on asset",
-                            "editableByPlayer": false,
-                            "name": "Equipment"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_air_logs",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Number",
+                        "a_Equipment"
+                    ]
                 },
                 {
                     "name": "C2 Node",
                     "icon": "n_red_hq.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_c2_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "C2 Connections for asset",
-                            "editableByPlayer": false,
-                            "name": "Connections"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_c2",
-                    "travelMode": "land"
+                    "travelMode": "land",
+                    "attributeTypeIds": [
+                        "a_Connections"
+                    ]
                 },
                 {
                     "name": "FIAC",
                     "icon": "n_red_maritime_missile_boat.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_fiac_number",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Number of units",
-                            "editableByPlayer": false,
-                            "name": "number"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_maritime_fiac",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Number"
+                    ]
                 },
                 {
                     "name": "Minefield",
                     "icon": "n_red_maritime_minefield.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_mine_density",
-                            "attrType": "AttributeTypeNumber",
-                            "defaultValue": 100,
-                            "description": "Density of minefield",
-                            "editableByPlayer": false,
-                            "name": "density",
-                            "units": "per km2"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_maritime_mine",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Density"
+                    ]
                 },
                 {
                     "name": "Fixed Asset",
                     "icon": "n_red_land_asset.svg",
-                    "attributeTypes": [
-                        {
-                            "attrId": "r_land_asset_equipment",
-                            "attrType": "AttributeTypeString",
-                            "defaultValue": "",
-                            "description": "Assets held by group",
-                            "editableByPlayer": false,
-                            "name": "Assets"
-                        }
-                    ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_asset",
-                    "travelMode": "sea"
+                    "travelMode": "sea",
+                    "attributeTypeIds": [
+                        "a_Units"
+                    ]
                 }
             ],
             "selectedType": ""
@@ -6929,7 +5739,8396 @@ const game: Wargame = {
                     "name": "Units"
                 }
             ]
-        }
+        },
+         "activities": {
+            "activities": [
+                {
+                    "force": "f-blue",
+                    "groupedActivities": [
+                        {
+                            "category": "Land",
+                            "activities": [
+                                {
+                                    "name": "BMD MEZ",
+                                    "uniqid": "f-blue-Land-BMD MEZ",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "BMD MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "BMD MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-blue-Land-Ballistic Missile Strike",
+                                    "template": "Land--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Cruise Missile Strike",
+                                    "uniqid": "f-blue-Land-Cruise Missile Strike",
+                                    "template": "Land--MissileStrike",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-blue-Land-EW Attack",
+                                    "template": "Land--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-blue-Land-ISTAR",
+                                    "template": "Land--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-blue-Land-Patrol",
+                                    "template": "Land--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-blue-Land-Provide Logistics",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-blue-Land-Resupply",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SAM MEZ",
+                                    "uniqid": "f-blue-Land-SAM MEZ",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "SAM MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "SAM MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-blue-Land-Transit",
+                                    "template": "Land--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Maritime",
+                            "activities": [
+                                {
+                                    "name": "ASW Barrier",
+                                    "uniqid": "f-blue-Maritime-ASW Barrier",
+                                    "template": "Maritime--ASWBarrier",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "ASW Area",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "BMD MEZ",
+                                    "uniqid": "f-blue-Maritime-BMD MEZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "BMD MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "BMD MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-blue-Maritime-Ballistic Missile Strike",
+                                    "template": "Maritime--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Cruise Missile Strike",
+                                    "uniqid": "f-blue-Maritime-Cruise Missile Strike",
+                                    "template": "Maritime--MissileStrike",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-blue-Maritime-EW Attack",
+                                    "template": "Maritime--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "FIAC EZ",
+                                    "uniqid": "f-blue-Maritime-FIAC EZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "FIAC EZ Location",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-blue-Maritime-ISTAR",
+                                    "template": "Maritime--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mine Clearance",
+                                    "uniqid": "f-blue-Maritime-Mine Clearance",
+                                    "template": "Maritime--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Clearance Area Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mine Laying",
+                                    "uniqid": "f-blue-Maritime-Mine Laying",
+                                    "template": "Maritime--MineLaying",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-blue-Maritime-Patrol",
+                                    "template": "Maritime--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-blue-Maritime-Provide Logistics",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-blue-Maritime-Resupply",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SAM MEZ",
+                                    "uniqid": "f-blue-Maritime-SAM MEZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "SAM MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "SAM MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-blue-Maritime-Transit",
+                                    "template": "Maritime--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Air",
+                            "activities": [
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-blue-Air-Ballistic Missile Strike",
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "uniqid": "f-blue-Air-Defensive Counter Air",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "DCA Area",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-blue-Air-EW Attack",
+                                    "template": "Air--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-blue-Air-ISTAR",
+                                    "template": "Air--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "uniqid": "f-blue-Air-Offensive Counter Air",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-blue-Air-Patrol",
+                                    "template": "Air--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-blue-Air-Provide Logistics",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-blue-Air-Resupply",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Stand Off Strike",
+                                    "uniqid": "f-blue-Air-Stand Off Strike",
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-3"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Suppression of Air Defences (SEAD)",
+                                    "uniqid": "f-blue-Air-Suppression of Air Defences (SEAD)",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Time Sensitive Targeting (TST)",
+                                    "uniqid": "f-blue-Air-Time Sensitive Targeting (TST)",
+                                    "template": "Air--TST",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-blue-Air-Transit",
+                                    "template": "Air--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Other",
+                            "activities": [
+                                {
+                                    "name": "Cyber/Space Activity",
+                                    "uniqid": "f-blue-Other-Cyber/Space Activity",
+                                    "template": "Other--Cyber",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Activity Location",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SOF Activity",
+                                    "uniqid": "f-blue-Other-SOF Activity",
+                                    "template": "Other--SOFAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Activity Location",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Efect Location",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "force": "f-red",
+                    "groupedActivities": [
+                        {
+                            "category": "Land",
+                            "activities": [
+                                {
+                                    "name": "BMD MEZ",
+                                    "uniqid": "f-red-Land-BMD MEZ",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "BMD MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "BMD MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-red-Land-Ballistic Missile Strike",
+                                    "template": "Land--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Cruise Missile Strike",
+                                    "uniqid": "f-red-Land-Cruise Missile Strike",
+                                    "template": "Land--MissileStrike",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-red-Land-EW Attack",
+                                    "template": "Land--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-red-Land-ISTAR",
+                                    "template": "Land--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-red-Land-Patrol",
+                                    "template": "Land--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-red-Land-Provide Logistics",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-red-Land-Resupply",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SAM MEZ",
+                                    "uniqid": "f-red-Land-SAM MEZ",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "SAM MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "SAM MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-red-Land-Transit",
+                                    "template": "Land--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Maritime",
+                            "activities": [
+                                {
+                                    "name": "ASW Barrier",
+                                    "uniqid": "f-red-Maritime-ASW Barrier",
+                                    "template": "Maritime--ASWBarrier",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "ASW Area",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "BMD MEZ",
+                                    "uniqid": "f-red-Maritime-BMD MEZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "BMD MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "BMD MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-red-Maritime-Ballistic Missile Strike",
+                                    "template": "Maritime--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Cruise Missile Strike",
+                                    "uniqid": "f-red-Maritime-Cruise Missile Strike",
+                                    "template": "Maritime--MissileStrike",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-red-Maritime-EW Attack",
+                                    "template": "Maritime--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "FIAC EZ",
+                                    "uniqid": "f-red-Maritime-FIAC EZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "FIAC EZ Location",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-red-Maritime-ISTAR",
+                                    "template": "Maritime--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mine Clearance",
+                                    "uniqid": "f-red-Maritime-Mine Clearance",
+                                    "template": "Maritime--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Clearance Area Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mine Laying",
+                                    "uniqid": "f-red-Maritime-Mine Laying",
+                                    "template": "Maritime--MineLaying",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-red-Maritime-Patrol",
+                                    "template": "Maritime--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-red-Maritime-Provide Logistics",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-red-Maritime-Resupply",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SAM MEZ",
+                                    "uniqid": "f-red-Maritime-SAM MEZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "SAM MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "SAM MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-red-Maritime-Transit",
+                                    "template": "Maritime--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Air",
+                            "activities": [
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-red-Air-Ballistic Missile Strike",
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "uniqid": "f-red-Air-Defensive Counter Air",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "DCA Area",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-red-Air-EW Attack",
+                                    "template": "Air--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-red-Air-ISTAR",
+                                    "template": "Air--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "uniqid": "f-red-Air-Offensive Counter Air",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-red-Air-Patrol",
+                                    "template": "Air--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-red-Air-Provide Logistics",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-red-Air-Resupply",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Stand Off Strike",
+                                    "uniqid": "f-red-Air-Stand Off Strike",
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-3"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Suppression of Air Defences (SEAD)",
+                                    "uniqid": "f-red-Air-Suppression of Air Defences (SEAD)",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Time Sensitive Targeting (TST)",
+                                    "uniqid": "f-red-Air-Time Sensitive Targeting (TST)",
+                                    "template": "Air--TST",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-red-Air-Transit",
+                                    "template": "Air--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Other",
+                            "activities": [
+                                {
+                                    "name": "Cyber/Space Activity",
+                                    "uniqid": "f-red-Other-Cyber/Space Activity",
+                                    "template": "Other--Cyber",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Activity Location",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SOF Activity",
+                                    "uniqid": "f-red-Other-SOF Activity",
+                                    "template": "Other--SOFAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Activity Location",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Efect Location",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "force": "f-green",
+                    "groupedActivities": [
+                        {
+                            "category": "Land",
+                            "activities": [
+                                {
+                                    "name": "BMD MEZ",
+                                    "uniqid": "f-green-Land-BMD MEZ",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "BMD MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "BMD MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-green-Land-Ballistic Missile Strike",
+                                    "template": "Land--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Cruise Missile Strike",
+                                    "uniqid": "f-green-Land-Cruise Missile Strike",
+                                    "template": "Land--MissileStrike",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-green-Land-EW Attack",
+                                    "template": "Land--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-green-Land-ISTAR",
+                                    "template": "Land--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-green-Land-Patrol",
+                                    "template": "Land--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-green-Land-Provide Logistics",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-green-Land-Resupply",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SAM MEZ",
+                                    "uniqid": "f-green-Land-SAM MEZ",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "SAM MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "SAM MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-green-Land-Transit",
+                                    "template": "Land--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Maritime",
+                            "activities": [
+                                {
+                                    "name": "ASW Barrier",
+                                    "uniqid": "f-green-Maritime-ASW Barrier",
+                                    "template": "Maritime--ASWBarrier",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "ASW Area",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "BMD MEZ",
+                                    "uniqid": "f-green-Maritime-BMD MEZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "BMD MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "BMD MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-green-Maritime-Ballistic Missile Strike",
+                                    "template": "Maritime--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Cruise Missile Strike",
+                                    "uniqid": "f-green-Maritime-Cruise Missile Strike",
+                                    "template": "Maritime--MissileStrike",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Cruise Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-green-Maritime-EW Attack",
+                                    "template": "Maritime--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "FIAC EZ",
+                                    "uniqid": "f-green-Maritime-FIAC EZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "FIAC EZ Location",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "FIAC EZ-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-green-Maritime-ISTAR",
+                                    "template": "Maritime--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mine Clearance",
+                                    "uniqid": "f-green-Maritime-Mine Clearance",
+                                    "template": "Maritime--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Clearance Area Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Clearance-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Mine Laying",
+                                    "uniqid": "f-green-Maritime-Mine Laying",
+                                    "template": "Maritime--MineLaying",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Mine Area",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Mine Laying-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-green-Maritime-Patrol",
+                                    "template": "Maritime--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-green-Maritime-Provide Logistics",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-green-Maritime-Resupply",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SAM MEZ",
+                                    "uniqid": "f-green-Maritime-SAM MEZ",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Point",
+                                            "name": "SAM MEZ Location",
+                                            "optional": false,
+                                            "uniqid": "SAM MEZ-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-green-Maritime-Transit",
+                                    "template": "Maritime--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Air",
+                            "activities": [
+                                {
+                                    "name": "Ballistic Missile Strike",
+                                    "uniqid": "f-green-Air-Ballistic Missile Strike",
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Ballistic Missile Strike-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "uniqid": "f-green-Air-Defensive Counter Air",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "DCA Area",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Defensive Counter Air-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "EW Attack",
+                                    "uniqid": "f-green-Air-EW Attack",
+                                    "template": "Air--EWAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "EW Target",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "EW Attack-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "ISTAR",
+                                    "uniqid": "f-green-Air-ISTAR",
+                                    "template": "Air--ISTAR",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "uniqid": "f-green-Air-Offensive Counter Air",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Patrol",
+                                    "uniqid": "f-green-Air-Patrol",
+                                    "template": "Air--Patrol",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Patrol-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Patrol Area",
+                                            "optional": false,
+                                            "uniqid": "Patrol-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Patrol-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Provide Logistics",
+                                    "uniqid": "f-green-Air-Provide Logistics",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "LOGS Destination",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Provide Logistics-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Resupply",
+                                    "uniqid": "f-green-Air-Resupply",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Resupply-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Resupply Destingation",
+                                            "optional": false,
+                                            "uniqid": "Resupply-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Resupply-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Stand Off Strike",
+                                    "uniqid": "f-green-Air-Stand Off Strike",
+                                    "template": "Air--Transit",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Asset Location",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Strike Target",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Stand Off Strike-3"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Suppression of Air Defences (SEAD)",
+                                    "uniqid": "f-green-Air-Suppression of Air Defences (SEAD)",
+                                    "template": "Air--Duration",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Suppression of Air Defences (SEAD)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Time Sensitive Targeting (TST)",
+                                    "uniqid": "f-green-Air-Time Sensitive Targeting (TST)",
+                                    "template": "Air--TST",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "TST Area",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Time Sensitive Targeting (TST)-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Transit",
+                                    "uniqid": "f-green-Air-Transit",
+                                    "template": "Air--Transit"
+                                }
+                            ]
+                        },
+                        {
+                            "category": "Other",
+                            "activities": [
+                                {
+                                    "name": "Cyber/Space Activity",
+                                    "uniqid": "f-green-Other-Cyber/Space Activity",
+                                    "template": "Other--Cyber",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Activity Location",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Cyber/Space Activity-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "SOF Activity",
+                                    "uniqid": "f-green-Other-SOF Activity",
+                                    "template": "Other--SOFAttack",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Activity Location",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Efect Location",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-2"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "SOF Activity-3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+         },
+         "templates": {
+          "templates": [
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.409Z",
+                    "title": "Land--Transit",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "transitSpeed",
+                            "transitDuration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "transitSpeed": {
+                                "type": "integer",
+                                "title": "Transit Speed",
+                                "propertyOrder": 300,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitDuration": {
+                                "type": "string",
+                                "title": "Transit Duration",
+                                "propertyOrder": 301,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--Transit",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--Transit",
+                    "_rev": "2022-11-12T19:56:51.409Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.409Z",
+                    "title": "Maritime--Transit",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "transitSpeed",
+                            "transitDuration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "transitSpeed": {
+                                "type": "integer",
+                                "title": "Transit Speed",
+                                "propertyOrder": 300,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitDuration": {
+                                "type": "string",
+                                "title": "Transit Duration",
+                                "propertyOrder": 301,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--Transit",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--Transit",
+                    "_rev": "2022-11-12T19:56:51.409Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.409Z",
+                    "title": "Air--Transit",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "transitSpeed",
+                            "transitDuration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "transitSpeed": {
+                                "type": "integer",
+                                "title": "Transit Speed",
+                                "propertyOrder": 300,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitDuration": {
+                                "type": "string",
+                                "title": "Transit Duration",
+                                "propertyOrder": 301,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Transit",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Transit",
+                    "_rev": "2022-11-12T19:56:51.409Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.410Z",
+                    "title": "Land--MissileStrike",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "missileType",
+                            "missilesFired",
+                            "targetType",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "missileType": {
+                                "type": "string",
+                                "title": "Missile Type",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "missilesFired": {
+                                "type": "integer",
+                                "title": "Missiles Fired",
+                                "propertyOrder": 303,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "targetType": {
+                                "type": "string",
+                                "title": "Target Type",
+                                "propertyOrder": 304,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--MissileStrike",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--MissileStrike",
+                    "_rev": "2022-11-12T19:56:51.410Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.411Z",
+                    "title": "Maritime--MissileStrike",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "missileType",
+                            "missilesFired",
+                            "targetType",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "missileType": {
+                                "type": "string",
+                                "title": "Missile Type",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "missilesFired": {
+                                "type": "integer",
+                                "title": "Missiles Fired",
+                                "propertyOrder": 303,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "targetType": {
+                                "type": "string",
+                                "title": "Target Type",
+                                "propertyOrder": 304,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--MissileStrike",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--MissileStrike",
+                    "_rev": "2022-11-12T19:56:51.411Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.412Z",
+                    "title": "Land--Patrol",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "patrolType",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "patrolType": {
+                                "type": "string",
+                                "title": "Patrol Type",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--Patrol",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--Patrol",
+                    "_rev": "2022-11-12T19:56:51.412Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.412Z",
+                    "title": "Maritime--Patrol",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "patrolType",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "patrolType": {
+                                "type": "string",
+                                "title": "Patrol Type",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--Patrol",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--Patrol",
+                    "_rev": "2022-11-12T19:56:51.412Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.412Z",
+                    "title": "Air--Patrol",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "patrolType",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "patrolType": {
+                                "type": "string",
+                                "title": "Patrol Type",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Patrol",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Patrol",
+                    "_rev": "2022-11-12T19:56:51.412Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.415Z",
+                    "title": "Land--Standard",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--Standard",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--Standard",
+                    "_rev": "2022-11-12T19:56:51.415Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.415Z",
+                    "title": "Maritime--Standard",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--Standard",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--Standard",
+                    "_rev": "2022-11-12T19:56:51.415Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.417Z",
+                    "title": "Land--ISTAR",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "method",
+                            "duration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "method": {
+                                "type": "string",
+                                "title": "Observation Method",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 307,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--ISTAR",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--ISTAR",
+                    "_rev": "2022-11-12T19:56:51.417Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.417Z",
+                    "title": "Maritime--ISTAR",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "method",
+                            "duration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "method": {
+                                "type": "string",
+                                "title": "Observation Method",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 307,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--ISTAR",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--ISTAR",
+                    "_rev": "2022-11-12T19:56:51.417Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.417Z",
+                    "title": "Air--ISTAR",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "method",
+                            "duration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "method": {
+                                "type": "string",
+                                "title": "Observation Method",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 307,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--ISTAR",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--ISTAR",
+                    "_rev": "2022-11-12T19:56:51.417Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.418Z",
+                    "title": "Air--Duration",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "duration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 308,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Duration",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Duration",
+                    "_rev": "2022-11-12T19:56:51.418Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.419Z",
+                    "title": "Air--TST",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "duration",
+                            "targetPriority",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 309,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "targetPriority": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Target Type Priority",
+                                "propertyOrder": 310,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--TST",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--TST",
+                    "_rev": "2022-11-12T19:56:51.419Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.420Z",
+                    "title": "Maritime--MineLaying",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "duration",
+                            "density",
+                            "covert",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 311,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "density": {
+                                "type": "integer",
+                                "title": "Minefield Priority",
+                                "propertyOrder": 312,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 313,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--MineLaying",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--MineLaying",
+                    "_rev": "2022-11-12T19:56:51.420Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.420Z",
+                    "title": "Maritime--Duration",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "duration",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 308,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--Duration",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--Duration",
+                    "_rev": "2022-11-12T19:56:51.420Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.421Z",
+                    "title": "Maritime--ASWBarrier",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "duration",
+                            "active",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "duration": {
+                                "type": "integer",
+                                "title": "Duration (hrs)",
+                                "propertyOrder": 314,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "active": {
+                                "type": "boolean",
+                                "title": "Active?",
+                                "format": "checkbox",
+                                "propertyOrder": 315,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--ASWBarrier",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--ASWBarrier",
+                    "_rev": "2022-11-12T19:56:51.421Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.421Z",
+                    "title": "Air--Standard",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Standard",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Standard",
+                    "_rev": "2022-11-12T19:56:51.421Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.423Z",
+                    "title": "Land--EWAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "effect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "effect": {
+                                "type": "string",
+                                "title": "Effect Type",
+                                "propertyOrder": 316,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--EWAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--EWAttack",
+                    "_rev": "2022-11-12T19:56:51.423Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.423Z",
+                    "title": "Maritime--EWAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "effect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "effect": {
+                                "type": "string",
+                                "title": "Effect Type",
+                                "propertyOrder": 316,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--EWAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--EWAttack",
+                    "_rev": "2022-11-12T19:56:51.423Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.423Z",
+                    "title": "Air--EWAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "effect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "effect": {
+                                "type": "string",
+                                "title": "Effect Type",
+                                "propertyOrder": 316,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--EWAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--EWAttack",
+                    "_rev": "2022-11-12T19:56:51.423Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.425Z",
+                    "title": "Other--SOFAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "activityType",
+                            "intendedEffect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "activityType": {
+                                "enum": [
+                                    "Raid",
+                                    "Capture/Kill",
+                                    "Gather Int",
+                                    "Deliver Errect"
+                                ],
+                                "title": "Activity Type",
+                                "type": "string",
+                                "propertyOrder": 317,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "intendedEffect": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Intended Effect",
+                                "propertyOrder": 318,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Other--SOFAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Other--SOFAttack",
+                    "_rev": "2022-11-12T19:56:51.425Z"
+                },
+                {
+                    "lastUpdated": "2022-11-12T19:56:51.425Z",
+                    "title": "Other--Cyber",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "activityType",
+                            "intendedEffect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 3,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "format": "text",
+                                "title": "Sync with",
+                                "propertyOrder": 68,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "activityType": {
+                                "type": "string",
+                                "title": "Activity Type",
+                                "propertyOrder": 319,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "intendedEffect": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Intended Effect",
+                                "propertyOrder": 320,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "textarea",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Other--Cyber",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Other--Cyber",
+                    "_rev": "2022-11-12T19:56:51.425Z"
+                }
+              ]
+         }
     },
     "gameTurn": 6,
     "infoType": true,
