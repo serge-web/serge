@@ -29,9 +29,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * for ChannelMessage components
    */
   planningMessages: Array<MessagePlanning>
-   /** forces in this game
-   *
-   */
+  /** forces in this game
+  *
+  */
   forces: ForceData[]
   /**
    *  current game-date (may be used in JSON Editor for date-picker)
@@ -88,7 +88,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * there is a new interaction to adjudicate
    */
-  handleAdjudication?: {(contact: PlanningContact): void}
+  handleAdjudication?: { (contact: PlanningContact): void }
 
   /**
    * current turn filter (or -1 to show all turns)
@@ -96,4 +96,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** descriptions of platform types (used for perception drop-down) */
   platformTypes: PlatformTypeData[]
+
+  onDetailPanelOpen?: (rowData: AdjudicationRow) => void
+
+  onDetailPanelClose?: (rowData: AdjudicationRow) => void
 }
