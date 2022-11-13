@@ -1,5 +1,5 @@
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from '@serge/config'
-import { Asset, AttributeTypes, AttributeValue2, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
+import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import { Column } from 'material-table'
@@ -223,27 +223,27 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
 const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, unknown> => {
   const attrDict = {}
-  const ids = asset.attributes || []
-  ids.forEach((attr: AttributeValue2) => {
-    const aType = attributeTypes.find((aType) => aType.attrId === attr.attrId)
+  const ids = asset.attributes || {}
+  Object.keys(ids).forEach((attrId: string) => {
+    const aType = attributeTypes.find((aType) => aType.attrId === attrId)
     if (aType) {
       switch (aType.attrType) {
         case ATTRIBUTE_TYPE_NUMBER: {
           const nType = aType as NumberAttributeType
           const units = nType.units ? ' ' + nType.units : ''
-          attrDict[nType.name] = attr.value + units
+          attrDict[nType.name] = ids[attrId] + units
           break
         }
         case ATTRIBUTE_TYPE_STRING: {
-          attrDict[aType.name] = attr.value
+          attrDict[aType.name] = ids[attrId]
           break
         }
         case ATTRIBUTE_TYPE_ENUM: {
-          attrDict[aType.name] = attr.value
+          attrDict[aType.name] = ids[attrId]
           break
         }
         default: {
-          console.warn('Haven\'t handled attribute', attr)
+          console.warn('Haven\'t handled attribute', attrId)
         }
       }
     }

@@ -53,25 +53,10 @@ export interface EnumAttributeType extends BaseAttributeType {
 //////////////////////////////////////
 // a more versatile style of attributes,
 // where we define them as generic, and not per-platform-type
-export interface BaseAttributeValue2 {
-  attrId: BaseAttributeType['attrId']
-}
 
-/** note the string value actually supports enums and strings,
- * it's the `type` data that clarifies which
- */
-export interface StringAttributeValue2 extends BaseAttributeValue2 {
-  attrId: StringAttributeType['attrId'] | EnumAttributeType['attrId']
-  value: string
-}
+export type AttributeTypeIDs = StringAttributeType['attrId'] | EnumAttributeType['attrId'] | NumberAttributeType['attrId']
 
-export interface NumberAttributeValue2 extends BaseAttributeValue2 {
-  attrId: NumberAttributeType['attrId']
-  value: number
-}
-
-export type AttributeValue2 = StringAttributeValue2 | NumberAttributeValue2
-export type AttributeValues2 = Array<AttributeValue2>
+export type AttributeValues2 = Record<AttributeTypeIDs, string | number>
 
 /** the list of attribute types for a platform-type */
 export type GenericAttributes = Array<BaseAttributeType['attrId']>
