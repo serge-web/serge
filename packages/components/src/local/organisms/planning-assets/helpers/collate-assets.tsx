@@ -235,7 +235,15 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Reco
           break
         }
         case ATTRIBUTE_TYPE_STRING: {
-          attrDict[aType.name] = ids[attrId]
+          // trim the field, if necessary
+          let val = ids[attrId]
+          if (typeof(val) === 'string') {
+            const str = val as string
+            if(str.length > 30) {
+              val = str.substring(0, 30) + '...'
+            }
+          }
+          attrDict[aType.name] = val
           break
         }
         case ATTRIBUTE_TYPE_ENUM: {
