@@ -5,7 +5,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -160,7 +160,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -333,7 +333,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -487,7 +487,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -682,7 +682,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -840,7 +840,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -993,7 +993,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -1144,7 +1144,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1204,7 +1204,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1374,7 +1374,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1549,7 +1549,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -1719,7 +1719,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1891,7 +1891,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2052,7 +2052,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -2210,7 +2210,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2283,7 +2283,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -2446,7 +2446,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2605,7 +2605,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2777,7 +2777,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2946,7 +2946,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",

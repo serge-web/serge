@@ -4,7 +4,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -143,7 +143,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1051",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -159,7 +159,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -306,15 +306,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1143",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1196",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1178",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1189",
@@ -332,7 +332,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -471,7 +471,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1089",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -486,7 +486,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -666,7 +666,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1090",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -681,7 +681,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -816,7 +816,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1048",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1057",
@@ -839,7 +839,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -974,11 +974,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1060",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1054",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -992,7 +992,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -1127,7 +1127,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1027",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1143,7 +1143,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1188,7 +1188,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1203,7 +1203,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1350,7 +1350,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1124",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1172",
@@ -1358,7 +1358,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1149",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1373,7 +1373,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1520,19 +1520,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1154",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1187",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1150",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1141",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -1548,7 +1548,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -1695,11 +1695,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1041",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1059",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1007",
@@ -1718,7 +1718,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -1863,19 +1863,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1180",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1184",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1117",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1176",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -1890,7 +1890,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2029,15 +2029,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1176",
-                    "number": 4
-                },
-                {
-                    "asset": "a1165",
                     "number": 2
                 },
                 {
-                    "asset": "a1181",
+                    "asset": "a1165",
                     "number": 0
+                },
+                {
+                    "asset": "a1181",
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2051,7 +2051,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -2182,7 +2182,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1028",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1099",
@@ -2190,7 +2190,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1101",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1033",
@@ -2209,7 +2209,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2266,7 +2266,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1191",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2282,7 +2282,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -2429,7 +2429,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1036",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2445,7 +2445,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2588,7 +2588,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1136",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2604,7 +2604,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2749,19 +2749,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1177",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1190",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1133",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1201",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2776,7 +2776,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -2919,19 +2919,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1201",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1199",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1128",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1181",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -2945,7 +2945,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -3129,7 +3129,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1076",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -3145,7 +3145,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -3276,7 +3276,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1117",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1183",
@@ -3284,11 +3284,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1180",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1107",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -3302,7 +3302,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -3433,11 +3433,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1007",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1059",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1041",
@@ -3455,7 +3455,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -3500,19 +3500,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1050",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1087",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1054",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1049",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -3526,7 +3526,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -3665,15 +3665,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1049",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1071",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1024",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -3689,7 +3689,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -3839,7 +3839,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -4015,7 +4015,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1013",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4029,7 +4029,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -4166,11 +4166,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1175",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1153",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -4184,7 +4184,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -4323,15 +4323,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1093",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1057",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1048",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -4346,7 +4346,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -4493,7 +4493,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1167",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -4508,7 +4508,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -4657,7 +4657,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1095",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -4671,7 +4671,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -4810,19 +4810,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1178",
-                    "number": 1
-                },
-                {
-                    "asset": "a1195",
-                    "number": 2
-                },
-                {
-                    "asset": "a1143",
                     "number": 3
                 },
                 {
+                    "asset": "a1195",
+                    "number": 0
+                },
+                {
+                    "asset": "a1143",
+                    "number": 1
+                },
+                {
                     "asset": "a1118",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -4838,7 +4838,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -4992,7 +4992,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -5135,19 +5135,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1011",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1096",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1015",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1058",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -5163,7 +5163,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -5300,11 +5300,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1058",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1031",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -5320,7 +5320,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -5471,7 +5471,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -5614,15 +5614,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1019",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1060",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1032",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -5637,7 +5637,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -5764,15 +5764,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1131",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1158",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1115",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5786,7 +5786,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -5809,7 +5809,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1196",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -5825,7 +5825,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -5862,7 +5862,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -5993,15 +5993,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1195",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1178",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1188",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -6015,7 +6015,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -6042,15 +6042,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1194",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1190",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1116",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -6064,7 +6064,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -6087,15 +6087,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1116",
-                    "number": 1
-                },
-                {
-                    "asset": "a1167",
                     "number": 0
                 },
                 {
+                    "asset": "a1167",
+                    "number": 3
+                },
+                {
                     "asset": "a1148",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6109,7 +6109,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -6252,15 +6252,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1093",
-                    "number": 1
-                },
-                {
-                    "asset": "a1059",
                     "number": 2
                 },
                 {
+                    "asset": "a1059",
+                    "number": 3
+                },
+                {
                     "asset": "a1053",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6276,7 +6276,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -6415,15 +6415,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1153",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1175",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1126",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6437,7 +6437,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -6580,7 +6580,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -6625,7 +6625,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1101",
@@ -6633,11 +6633,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1024",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1071",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6653,7 +6653,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -6794,11 +6794,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1171",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1149",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6814,7 +6814,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -6953,11 +6953,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1150",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -6973,7 +6973,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -7100,7 +7100,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7115,7 +7115,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -7258,7 +7258,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1083",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -7274,7 +7274,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -7409,19 +7409,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1064",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1080",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1027",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1098",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -7435,7 +7435,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -7480,19 +7480,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1098",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1100",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1032",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1089",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7507,7 +7507,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -7642,7 +7642,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1089",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1076",
@@ -7650,7 +7650,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1091",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7665,7 +7665,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -7833,7 +7833,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1136",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -7848,7 +7848,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -7893,19 +7893,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1136",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1191",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1176",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1189",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7919,7 +7919,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -7964,11 +7964,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1189",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1132",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -7983,7 +7983,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -8183,7 +8183,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -8318,15 +8318,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1164",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1175",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1117",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -8340,7 +8340,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -8389,15 +8389,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1179",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1103",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1158",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -8411,7 +8411,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -8542,11 +8542,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1058",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1040",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -8560,7 +8560,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -8687,11 +8687,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1153",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -8707,7 +8707,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -8838,7 +8838,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1171",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -8852,7 +8852,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -8991,11 +8991,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1111",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1147",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -9011,7 +9011,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -9176,7 +9176,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -9360,11 +9360,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1153",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1159",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1192",
@@ -9384,7 +9384,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -9527,11 +9527,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1156",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1147",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -9547,7 +9547,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -9694,19 +9694,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1016",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1089",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1094",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1028",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -9721,7 +9721,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -9868,19 +9868,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1128",
-                    "number": 1
-                },
-                {
-                    "asset": "a1188",
-                    "number": 5
-                },
-                {
-                    "asset": "a1177",
                     "number": 2
                 },
                 {
-                    "asset": "a1194",
+                    "asset": "a1188",
                     "number": 1
+                },
+                {
+                    "asset": "a1177",
+                    "number": 5
+                },
+                {
+                    "asset": "a1194",
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -9894,7 +9894,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -9943,7 +9943,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1042",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -9958,7 +9958,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -10097,11 +10097,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1020",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1050",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -10117,7 +10117,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -10260,7 +10260,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1195",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10276,7 +10276,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -10299,11 +10299,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1131",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10319,7 +10319,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -10342,19 +10342,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1018",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1101",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1030",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1059",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10369,7 +10369,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -10508,11 +10508,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1159",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1131",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10526,7 +10526,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -10665,7 +10665,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1056",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10680,7 +10680,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -10815,11 +10815,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1110",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1150",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -10834,7 +10834,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -10971,11 +10971,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1017",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1042",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -10991,7 +10991,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -11130,19 +11130,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 5
-                },
-                {
-                    "asset": "a1087",
-                    "number": 2
-                },
-                {
-                    "asset": "a1028",
                     "number": 3
                 },
                 {
+                    "asset": "a1087",
+                    "number": 1
+                },
+                {
+                    "asset": "a1028",
+                    "number": 2
+                },
+                {
                     "asset": "a1093",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11157,7 +11157,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -11292,11 +11292,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1015",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1066",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -11311,7 +11311,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -11450,7 +11450,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1066",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1047",
@@ -11470,7 +11470,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -11493,15 +11493,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1091",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a1058",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1052",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -11516,7 +11516,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -11651,7 +11651,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1173",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -11666,7 +11666,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -11801,11 +11801,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1046",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11821,7 +11821,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -11962,7 +11962,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1200",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -11977,7 +11977,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -12124,11 +12124,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1153",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -12143,7 +12143,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -12286,11 +12286,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1139",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12304,7 +12304,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -12439,15 +12439,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1078",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1082",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1016",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12462,7 +12462,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -12646,15 +12646,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1116",
-                    "number": 3
-                },
-                {
-                    "asset": "a1174",
                     "number": 2
                 },
                 {
+                    "asset": "a1174",
+                    "number": 0
+                },
+                {
                     "asset": "a1163",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12670,7 +12670,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -12813,7 +12813,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1079",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12829,7 +12829,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -12968,11 +12968,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1199",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1131",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -12988,7 +12988,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -13139,15 +13139,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1189",
-                    "number": 4
-                },
-                {
-                    "asset": "a1134",
                     "number": 0
                 },
                 {
+                    "asset": "a1134",
+                    "number": 2
+                },
+                {
                     "asset": "a1107",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -13162,7 +13162,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -13301,7 +13301,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1007",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -13315,7 +13315,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -13360,15 +13360,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1189",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1175",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1187",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -13383,7 +13383,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -13571,7 +13571,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1131",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1199",
@@ -13583,7 +13583,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1126",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -13599,7 +13599,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -13626,15 +13626,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1179",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1163",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1174",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13650,7 +13650,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -13785,7 +13785,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1074",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13801,7 +13801,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -13940,19 +13940,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1078",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1102",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1056",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1038",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -13968,7 +13968,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -14107,7 +14107,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1038",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1048",
@@ -14125,7 +14125,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -14266,11 +14266,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1052",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1047",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -14286,7 +14286,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -14413,7 +14413,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1022",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1099",
@@ -14421,11 +14421,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1010",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1045",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -14439,7 +14439,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -14582,7 +14582,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1145",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -14596,7 +14596,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -14735,11 +14735,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1024",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1072",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1051",
@@ -14757,7 +14757,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -14904,19 +14904,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1157",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1190",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1154",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1146",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -14932,7 +14932,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -15059,7 +15059,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1046",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1065",
@@ -15067,7 +15067,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1014",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -15082,7 +15082,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -15217,7 +15217,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1088",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1092",
@@ -15225,7 +15225,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1027",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1086",
@@ -15243,7 +15243,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -15415,7 +15415,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1186",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1176",
@@ -15423,7 +15423,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1193",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -15437,7 +15437,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -15584,7 +15584,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1041",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -15599,7 +15599,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -15744,7 +15744,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1148",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -15759,7 +15759,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -15894,15 +15894,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1012",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1055",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1028",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -15916,7 +15916,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -16065,11 +16065,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1157",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1116",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -16085,7 +16085,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -16108,7 +16108,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1100",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -16123,7 +16123,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -16274,7 +16274,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1029",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -16289,7 +16289,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -16312,19 +16312,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1112",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1193",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1108",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1148",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16340,7 +16340,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -16497,7 +16497,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -16648,15 +16648,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1140",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1192",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1175",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1186",
@@ -16675,7 +16675,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -16820,7 +16820,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1086",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16834,7 +16834,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -16965,7 +16965,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1087",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -16981,7 +16981,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -17169,11 +17169,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1045",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1054",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -17187,7 +17187,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -17326,11 +17326,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1056",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1050",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -17344,7 +17344,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -17483,19 +17483,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1023",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1100",
-                    "number": 3
-                },
-                {
-                    "asset": "a1010",
                     "number": 1
                 },
                 {
+                    "asset": "a1010",
+                    "number": 0
+                },
+                {
                     "asset": "a1044",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -17509,7 +17509,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -17658,7 +17658,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -17797,15 +17797,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1121",
-                    "number": 3
-                },
-                {
-                    "asset": "a1168",
                     "number": 4
                 },
                 {
-                    "asset": "a1146",
+                    "asset": "a1168",
                     "number": 0
+                },
+                {
+                    "asset": "a1146",
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -17821,7 +17821,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -17960,15 +17960,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1183",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1146",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1137",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -17982,7 +17982,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -18129,7 +18129,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1055",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1100",
@@ -18148,7 +18148,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -18293,19 +18293,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1176",
-                    "number": 0
-                },
-                {
-                    "asset": "a1180",
-                    "number": 2
-                },
-                {
-                    "asset": "a1114",
                     "number": 4
                 },
                 {
+                    "asset": "a1180",
+                    "number": 0
+                },
+                {
+                    "asset": "a1114",
+                    "number": 3
+                },
+                {
                     "asset": "a1172",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -18321,7 +18321,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -18460,11 +18460,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1172",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1161",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1177",
@@ -18484,7 +18484,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -18623,11 +18623,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1024",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1095",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1097",
@@ -18635,7 +18635,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1029",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -18650,7 +18650,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -18789,7 +18789,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1129",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1186",
@@ -18797,7 +18797,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1173",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1187",
@@ -18815,7 +18815,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -18838,11 +18838,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1087",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1032",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -18858,7 +18858,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -19042,7 +19042,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1132",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19056,7 +19056,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -19236,11 +19236,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1173",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a1185",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1129",
@@ -19248,7 +19248,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1197",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19263,7 +19263,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -19402,19 +19402,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1197",
-                    "number": 0
-                },
-                {
-                    "asset": "a1195",
                     "number": 2
                 },
                 {
+                    "asset": "a1195",
+                    "number": 4
+                },
+                {
                     "asset": "a1124",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a1177",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -19429,7 +19429,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -19452,11 +19452,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1060",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1072",
@@ -19474,7 +19474,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -19613,19 +19613,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1113",
-                    "number": 5
-                },
-                {
-                    "asset": "a1179",
-                    "number": 5
-                },
-                {
-                    "asset": "a1176",
                     "number": 3
                 },
                 {
-                    "asset": "a1200",
+                    "asset": "a1179",
+                    "number": 3
+                },
+                {
+                    "asset": "a1176",
                     "number": 2
+                },
+                {
+                    "asset": "a1200",
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -19641,7 +19641,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -19792,7 +19792,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1100",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1054",
@@ -19800,7 +19800,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1036",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -19815,7 +19815,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -19950,11 +19950,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1083",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1050",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1045",
@@ -19974,7 +19974,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -20113,15 +20113,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1045",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1067",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1020",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -20135,7 +20135,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -20262,7 +20262,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1097",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -20276,7 +20276,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -20303,7 +20303,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1099",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1022",
@@ -20311,7 +20311,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1070",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -20327,7 +20327,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -20476,7 +20476,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1170",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1149",
@@ -20495,7 +20495,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -20634,7 +20634,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1088",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1052",
@@ -20652,7 +20652,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -20824,7 +20824,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1162",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -20839,7 +20839,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -20900,7 +20900,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -21047,19 +21047,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1074",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1091",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1038",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1013",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21075,7 +21075,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -21206,7 +21206,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1113",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -21222,7 +21222,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -21361,7 +21361,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1003",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1091",
@@ -21369,11 +21369,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1010",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1053",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -21388,7 +21388,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -21433,7 +21433,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1053",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21449,7 +21449,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -21592,7 +21592,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1155",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21607,7 +21607,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -21750,11 +21750,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1055",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a1027",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21769,7 +21769,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -21920,7 +21920,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1152",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -21935,7 +21935,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -22066,7 +22066,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1191",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -22081,7 +22081,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -22216,7 +22216,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1015",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -22230,7 +22230,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -22373,11 +22373,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1190",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1173",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1183",
@@ -22397,7 +22397,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -22524,15 +22524,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1124",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1189",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a1185",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1111",
@@ -22550,7 +22550,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -22685,15 +22685,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1111",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1162",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1143",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -22708,7 +22708,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -22849,19 +22849,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1051",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1087",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1054",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1048",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -22876,7 +22876,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -23019,11 +23019,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1169",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1121",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -23038,7 +23038,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -23177,7 +23177,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1197",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -23191,7 +23191,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -23338,19 +23338,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1003",
-                    "number": 3
-                },
-                {
-                    "asset": "a1096",
                     "number": 5
                 },
                 {
+                    "asset": "a1096",
+                    "number": 0
+                },
+                {
                     "asset": "a1018",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1065",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -23366,7 +23366,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -23415,7 +23415,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1143",
-                    "number": 0
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -23429,7 +23429,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -23452,11 +23452,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1181",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a1144",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -23471,7 +23471,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -23618,19 +23618,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1152",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1198",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1174",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1177",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -23645,7 +23645,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -23784,7 +23784,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1077",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -23799,7 +23799,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -23934,15 +23934,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1058",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1075",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a1021",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -23956,7 +23956,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -24087,19 +24087,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1093",
-                    "number": 1
-                },
-                {
-                    "asset": "a1094",
-                    "number": 3
-                },
-                {
-                    "asset": "a1026",
                     "number": 5
                 },
                 {
-                    "asset": "a1083",
+                    "asset": "a1094",
+                    "number": 1
+                },
+                {
+                    "asset": "a1026",
                     "number": 4
+                },
+                {
+                    "asset": "a1083",
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24115,7 +24115,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -24262,15 +24262,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1083",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1070",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a1085",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24284,7 +24284,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -24415,11 +24415,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a1199",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1183",
@@ -24427,7 +24427,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1170",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24442,7 +24442,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -24465,15 +24465,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1130",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a1185",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a1170",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1183",
@@ -24492,7 +24492,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -24515,7 +24515,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1183",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24530,7 +24530,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -24657,7 +24657,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1092",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24671,7 +24671,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -24802,15 +24802,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a1169",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a1110",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -24826,7 +24826,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -24969,15 +24969,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1177",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a1173",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1197",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -24991,7 +24991,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -25122,11 +25122,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1052",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1034",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25141,7 +25141,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -25272,11 +25272,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1180",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a1147",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -25291,7 +25291,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -25434,7 +25434,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1164",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25449,7 +25449,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -25472,11 +25472,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1202",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a1140",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -25491,7 +25491,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -25667,7 +25667,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1096",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -25683,7 +25683,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -25706,11 +25706,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1146",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1152",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -25725,7 +25725,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -25856,11 +25856,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1149",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a1141",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25876,7 +25876,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -26011,15 +26011,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1009",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1083",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a1087",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a1022",
@@ -26039,7 +26039,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -26188,15 +26188,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1122",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a1181",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1171",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a1188",
@@ -26216,7 +26216,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -26355,11 +26355,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1088",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a1035",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -26374,7 +26374,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -26554,11 +26554,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1013",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a1043",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -26572,7 +26572,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -26729,7 +26729,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -26917,7 +26917,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1023",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -26933,7 +26933,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -27064,19 +27064,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1011",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1094",
-                    "number": 4
-                },
-                {
-                    "asset": "a1023",
                     "number": 3
                 },
                 {
+                    "asset": "a1023",
+                    "number": 1
+                },
+                {
                     "asset": "a1052",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27090,7 +27090,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -27235,7 +27235,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1152",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27249,7 +27249,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -27376,7 +27376,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1049",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27392,7 +27392,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -27527,11 +27527,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1200",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a1142",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -27546,7 +27546,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -27722,11 +27722,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1010",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1035",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27742,7 +27742,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -27883,19 +27883,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1070",
-                    "number": 1
-                },
-                {
-                    "asset": "a1080",
-                    "number": 3
-                },
-                {
-                    "asset": "a1021",
                     "number": 0
                 },
                 {
+                    "asset": "a1080",
+                    "number": 0
+                },
+                {
+                    "asset": "a1021",
+                    "number": 3
+                },
+                {
                     "asset": "a1086",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27909,7 +27909,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -28048,11 +28048,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1086",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a1082",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a1008",
@@ -28060,7 +28060,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1058",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -28075,7 +28075,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -28210,11 +28210,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1158",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a1140",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -28229,7 +28229,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -28368,11 +28368,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1084",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a1051",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -28386,7 +28386,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -28529,7 +28529,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1166",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -28545,7 +28545,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -28572,7 +28572,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a1038",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -28587,7 +28587,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -28775,7 +28775,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -28910,11 +28910,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1140",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a1145",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -28930,7 +28930,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
@@ -29079,11 +29079,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1141",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a1131",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -29099,7 +29099,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
     {
         "messageType": "PlanningMessage",
         "details": {
-            "channel": "channel-blue-planning",
+            "channel": "channel-planning",
             "from": {
                 "force": "Blue",
                 "forceColor": "#3dd0ff",
@@ -29240,15 +29240,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1095",
-                    "number": 2
-                },
-                {
-                    "asset": "a1071",
                     "number": 1
                 },
                 {
+                    "asset": "a1071",
+                    "number": 5
+                },
+                {
                     "asset": "a1074",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
