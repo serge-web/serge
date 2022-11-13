@@ -6288,48 +6288,14 @@ const game: Wargame = {
                             "pType": "ParticipantPlanning",
                             "roles": [],
                             "subscriptionId": "huk3qr",
-                            "templates": [
-                                {
-                                    "_id": "k16e-maritime",
-                                    "title": "Maritime Activity"
-                                },
-                                {
-                                    "_id": "k16e-land",
-                                    "title": "Land Activity"
-                                },
-                                {
-                                    "_id": "k16e-air",
-                                    "title": "Air Activity"
-                                },
-                                {
-                                    "_id": "k16e-other",
-                                    "title": "Other Activity"
-                                }
-                            ]
+                            "templates": [ ]
                         },
                         {
                             "forceUniqid": "f-red",
                             "pType": "ParticipantPlanning",
                             "roles": [],
                             "subscriptionId": "h123qr",
-                            "templates": [
-                                {
-                                    "_id": "k16e-maritime",
-                                    "title": "Maritime Activity"
-                                },
-                                {
-                                    "_id": "k16e-land",
-                                    "title": "Land Activity"
-                                },
-                                {
-                                    "_id": "k16e-air",
-                                    "title": "Air Activity"
-                                },
-                                {
-                                    "_id": "k16e-other",
-                                    "title": "Other Activity"
-                                }
-                            ]
+                            "templates": [ ]
                         },
                         {
                             "forceUniqid": "umpire",
