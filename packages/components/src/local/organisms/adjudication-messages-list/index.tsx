@@ -30,6 +30,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
 
+  console.log('template', template)
+
   useEffect(() => {
     setMyMessages(interactionMessages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
   }, [interactionMessages, playerForceId])

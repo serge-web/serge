@@ -31,6 +31,10 @@ const planningMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageIn
 const interactionMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
 const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
 
+const handler = (contact: any): void => {
+  console.log('handling', contact)
+}
+
 export default {
   title: 'local/organisms/SupportPanel',
   component: SupportPanel,
@@ -110,6 +114,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     setSelectedAssets={noop}
     selectedOrders={[]}
     attributeTypes={attributeTypes}
+    handleAdjudication={handler}
     setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
     channel={planningChannel}

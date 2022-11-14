@@ -61,7 +61,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onCancelDraftMessage,
   forcePlanningActivities,
   editLocation,
-  attributeTypes
+  attributeTypes,
+  handleAdjudication
 }) => {
   const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -322,6 +323,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       platformTypes={platformTypes}
                       onDetailPanelOpen={onDetailPanelOpen}
                       onDetailPanelClose={onDetailPanelClose}
+                      handleAdjudication={handleAdjudication}
                     />
                   </div>
                 }
