@@ -76,7 +76,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           })
           // if GeoMan hasn't closed the poly, do it for it
           const data = longLats[0]
-          if(!_.isEqual(data[0], data[data.length-1])) {
+          if (!_.isEqual(data[0], data[data.length - 1])) {
             data.push(data[0])
           }
           res = {
