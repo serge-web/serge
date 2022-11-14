@@ -114,8 +114,8 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   let allAssets: Asset[] = []
   try {
     allAssets = uniqIds.map((id: string) => findAsset(forces, id))
-    console.warn('Failed to find asset with id')
   } catch (e) {
+    console.warn('Failed to find asset with id', uniqIds)
     allAssets = []
   }
   const sortedAllAssets = _.sortBy(allAssets, (a: Asset) => a.name)
