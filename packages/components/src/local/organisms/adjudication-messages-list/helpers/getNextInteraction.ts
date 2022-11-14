@@ -111,7 +111,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
 
   console.log('get interaction', orders)
   console.table(orders.map((order) => {
-    return {force: order.details.from.forceId}
+    return { force: order.details.from.forceId }
   }))
 
   console.log('Get Next. Ctr:' + _ctr + ' orders:' + orders.length + ' Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString(), !7 && !!tStart && !!tEnd)
