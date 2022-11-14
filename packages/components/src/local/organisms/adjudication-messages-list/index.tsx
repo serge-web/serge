@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle } from '@serge/helpers'
+import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -84,6 +85,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       console.warn('Failed to find message:', id)
       return <span>Order not found</span>
     }
+    console.log('keys', Object.keys(plan.message))
+    const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
+    const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
+      if (done.includes(item)) {
+        return <></>
+      } else {
+        const name = _.kebabCase(item)
+        return <><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br/></>
+      }
+    })
     return <div>
       <span><b>Title: </b> {plan.message.title} </span>
       <span><b>Activity: </b> {activity || 'n/a'} </span><br />
@@ -95,6 +106,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <ul> {
           plan.message.otherAssets.map((str, index) => renderAsset(str, assets, index))}
         </ul>}</span>
+      { items }
     </div>
   }
 
@@ -207,7 +219,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const detailPanel = (rowData: AdjudicationRow): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
-         localDetailPanelOpen(rowData)
+        localDetailPanelOpen(rowData)
         return () => {
           localDetailPanelClose(rowData)
         }
