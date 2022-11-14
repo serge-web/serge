@@ -90,7 +90,7 @@ const routeBack = 'route-back'
 const point = 'point'
 const oneWay = [routeOut]
 const thereBack = [routeOut, activity, routeBack]
-const oneWayTwoActivities = [routeOut, activity, activity]
+const oneWayOneActivity = [routeOut, activity]
 const thereBackTwoActivities = [routeOut, activity, activity, routeBack]
 
 const activityGeometriesFor = (id: string, acts: string[], descs: string[]): PlanningActivityGeometry[] => {
@@ -154,10 +154,10 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
 
   const acts: Activity[] = []
   acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
-  acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
+  acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayOneActivity, actDesc: [strikeTarget], specific: 'MissileStrike' })
   acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
   acts.push({ title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
-  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'MissileStrike' })
+  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayOneActivity, actDesc: [strikeTarget], specific: 'MissileStrike' })
   acts.push({ title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
   acts.push({ title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
