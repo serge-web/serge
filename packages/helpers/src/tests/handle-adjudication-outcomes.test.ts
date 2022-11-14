@@ -1,8 +1,8 @@
 import { expect, it } from '@jest/globals'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
-import deepCopy from 'src/deep-copy'
-import findAsset from 'src/find-asset'
+import deepCopy from '../deep-copy'
+import findAsset from '../find-asset'
 import handleAdjudicationOutcomes from '../handle-adjudication-outcomes'
 
 const allForces: ForceData[] = [
