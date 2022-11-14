@@ -52,20 +52,31 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
   return asset
 }
 
-export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): Record<string, any> => {
+const unknownId = 'unknown'
+const unknownLabel = 'Unknown'  
+
+export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
     force.enum = forces.map((force) => force.forceId)
     force.options.enum_titles = forces.map((force) => force.force)
+    if (includeUnknown) {
+      force.enum.unshift(unknownId)
+      force.options.enum_titles.unshift(unknownLabel)
+    }
   }
   return force
 }
 
-export const updatePlatformTypes = (force: Record<string, any>, pTypes: PlatformTypeData[]): Record<string, any> => {
-  if (force !== undefined) {
-    force.enum = pTypes.map((pType) => pType.uniqid)
-    force.options.enum_titles = pTypes.map((pType) => pType.name)
+export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: PlatformTypeData[], includeUnknown?: boolean): Record<string, any> => {
+  if (platformType !== undefined) {
+    platformType.enum = pTypes.map((pType) => pType.uniqid)
+    platformType.options.enum_titles = pTypes.map((pType) => pType.name)
+    if (includeUnknown) {
+      platformType.enum.unshift(unknownId)
+      platformType.options.enum_titles.unshift(unknownLabel)
+    }
   }
-  return force
+  return platformType
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],

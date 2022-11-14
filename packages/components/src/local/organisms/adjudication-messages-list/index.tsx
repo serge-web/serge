@@ -147,7 +147,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
     const firstUpdate = customiseTemplate ? customiseTemplate(document, schema) : schema
-
+    const includeUnknown = true
     // wrap manipulation code in `try` in case the template structure doesn't match
     try {
       // now our local changes
@@ -157,10 +157,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
       // now the perceived forces
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
-      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
+      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles, includeUnknown)
 
       // now the platform types
-      updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes)
+      updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes, includeUnknown)
     } catch (e) {
       console.warn('Failed to customise template. Does it not match expected adjudication template?', e)
     }
