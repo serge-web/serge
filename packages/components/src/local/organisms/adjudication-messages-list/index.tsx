@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle } from '@serge/helpers'
-import { noop } from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
@@ -29,6 +28,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
+  const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
+
+  const localDetailPanelOpen = (row: AdjudicationRow): void => {
+    setCurrentAdjudication(row.id)
+    onDetailPanelOpen && onDetailPanelOpen(row)
+  }
+
+  const localDetailPanelClose = (row: AdjudicationRow): void => {
+    setCurrentAdjudication(undefined)
+    onDetailPanelClose && onDetailPanelClose(row)
+  }
+
   useEffect(() => {
     setMyMessages(interactionMessages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
   }, [interactionMessages, playerForceId])
@@ -144,7 +155,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
     const firstUpdate = customiseTemplate ? customiseTemplate(document, schema) : schema
-
+    const includeUnknown = true
     // wrap manipulation code in `try` in case the template structure doesn't match
     try {
       // now our local changes
@@ -154,10 +165,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
       // now the perceived forces
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
-      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles)
+      updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedForce, forceStyles, includeUnknown)
 
       // now the platform types
-      updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes)
+      updatePlatformTypes(firstUpdate.properties.perceptionOutcomes.items.properties.perceivedType, platformTypes, includeUnknown)
     } catch (e) {
       console.warn('Failed to customise template. Does it not match expected adjudication template?', e)
     }
@@ -166,15 +177,27 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const localSubmitAdjudication = (): void => {
-    console.log('save message ')
+    console.log('save message ', currentAdjudication)
+    if (currentAdjudication) {
+      // get current message
+
+      // update message
+
+      // mark as adjudicatead
+
+      // postBack
+    }
   }
 
+  /** this is how we prevent draft messages getting corrected */
   const localStoreNewValue = (value: { [property: string]: any }): void => {
-    console.log('store new value', value)
+    setCurrentAdjudication(value.Reference)
   }
 
   const getInteraction = (): void => {
+    console.log('get interaction', forcePlanningActivities)
     const interaction = getNextInteraction(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30)
+    console.log('interaction', interaction)
     if (interaction) {
       // send up to parent
       handleAdjudication && handleAdjudication(interaction)
@@ -184,9 +207,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const detailPanel = (rowData: AdjudicationRow): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
-        onDetailPanelOpen && onDetailPanelOpen(rowData)
+         localDetailPanelOpen(rowData)
         return () => {
-          onDetailPanelClose && onDetailPanelClose(rowData)
+          localDetailPanelClose(rowData)
         }
       }, [])
       return <></>
@@ -220,14 +243,14 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               messageContent={msg}
               customiseTemplate={(document, schema) => localCustomiseTemplate(document, schema, data)}
               messageId={rowData.id}
-              template={template}
               disabled={false}
+              template={template}
               gameDate={gameDate}
-              saveMessage={localSubmitAdjudication}
+              saveMessage={() => localSubmitAdjudication()}
               storeNewValue={localStoreNewValue}
             />
             <div className='button-wrap' >
-              <Button color='secondary' onClick={noop} icon='save'>Submit Adjudication</Button>
+              <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
             </div>
           </>
         }

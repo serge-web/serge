@@ -88,7 +88,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * there is a new interaction to adjudicate
    */
-  handleAdjudication?: { (contact: PlanningContact): void }
+  handleAdjudication: { (contact: PlanningContact): void }
 
   /**
    * current turn filter (or -1 to show all turns)

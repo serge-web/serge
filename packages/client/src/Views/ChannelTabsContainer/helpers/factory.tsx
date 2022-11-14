@@ -158,7 +158,7 @@ const factory = (state: PlayerUi): Factory => {
           return <ChatChannel isCustomChannel={true} channelId={channel.uniqid} />
         case CHANNEL_PLANNING:
           // TODO: take this template id from the channel definition
-          const adjudicationTemplateId = 'k16-adjud'
+          const adjudicationTemplateId = 'p9adjudicate'
           // NOTE: block of code to force mock messages into database
           const writeData = false
           if (writeData) {

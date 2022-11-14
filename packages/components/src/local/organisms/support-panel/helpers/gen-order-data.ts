@@ -6,6 +6,7 @@ import {
 import { PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
+import { Position } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import L from 'leaflet'
 import _ from 'lodash'
@@ -444,12 +445,30 @@ export const ordersOverlappingTime = (messages: MessagePlanning[], time: number)
   return afterTime
 }
 
+// utility, since sometimes GeoMan doesn't close polys
+const fixPoly = (coords: number[][]): Position[] => {
+  const tmpCoors = deepCopy(coords) as number[][]
+  // we occasionally get unclosed polygons, since GeoMan didn't close them
+  const data = tmpCoors[0]
+  const tLen = data.length
+  if (!_.isEqual(data[tLen - 1], data[0])) {
+    // pop the first one on the end
+    data.push(data[0])
+    tmpCoors[0] = data
+  }
+  return tmpCoors as Position[]
+}
+
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
   messages.forEach((message: MessagePlanning) => {
     if (message.message.location) {
       const forceId = message.details.from.forceId || 'unknown'
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
+        if (plan.geometry.geometry.type === 'Polygon') {
+          const geom = plan.geometry.geometry as any
+          geom.coordinates = fixPoly(geom.coordinates)
+        }
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.title + '//' + activity + '//' + message._id
@@ -607,7 +626,8 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
           break
         }
         case 'Polygon': {
-          const thisPoly = turf.polygon(coords)
+          const coords2 = fixPoly(coords)
+          const thisPoly = turf.polygon(coords2 as any)
           if (turf.booleanOverlap(poly, thisPoly)) {
             thisBin.orders.push(order)
           }
@@ -636,6 +656,7 @@ const createContactReference = (me: string, other: string): string => {
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
   interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
   sensorRangeKm: number): PlanningContact[] => {
+  let dummyContact: PlanningContact | undefined
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
@@ -648,12 +669,28 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const first = meFirst ? me : other
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
+
+          const timeFor = (props: any): number => {
+            const planned = props as PlannedProps
+            return planned.startTime
+          }
+
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {
             // has it already been adjudicated
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
               if (differentForces(me, other) && overlapsInTime(me, other)) {
+                // give us a dummy interaction
+                dummyContact = {
+                  first: first,
+                  second: second,
+                  id: id,
+                  intersection: undefined,
+                  timeStart: timeFor(first.geometry.properties),
+                  timeEnd: timeFor(first.geometry.properties)
+                }
+
                 // see if we have a cached contact
                 const cachedResult = interactionsTested[id]
                 if (cachedResult !== undefined) {
@@ -674,7 +711,14 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
-  return res
+
+  if (res.length === 0) {
+    console.log('gen interaction returning dummy:', dummyContact)
+  } else {
+    console.log('gen interaction returning genuine data:', res)
+  }
+  const safeDummy = dummyContact ? [dummyContact] : []
+  return res.length ? res : safeDummy
 }
 
 export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {

@@ -112,8 +112,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
-  const adjudicationTemplateId = 'k16-adjud'
-
   useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want
@@ -264,12 +262,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const createAssets = true
+      const createAssets = false
       if (createAssets) {
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        const newOrders = randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
         console.log(newOrders)
       }
     }
@@ -321,7 +319,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       channel: channel.uniqid,
       from: from,
       interaction: interDetails,
-      messageType: adjudicationTemplateId,
+      messageType: adjudicationTemplate._id,
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
@@ -531,6 +529,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             onCancelDraftMessage={cancelDraftMessage}
             forcePlanningActivities={forcePlanningActivities}
             editLocation={editOrderGeometries}
+            handleAdjudication={handleAdjudication}
           />
         </SupportPanelContext.Provider>
         <div className={styles['map-container']}>

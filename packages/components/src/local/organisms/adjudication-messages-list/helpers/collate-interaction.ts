@@ -52,20 +52,33 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
   return asset
 }
 
-export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): Record<string, any> => {
+const unknownId = 'unknown'
+const unknownLabel = 'Unknown'
+
+export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
     force.enum = forces.map((force) => force.forceId)
     force.options.enum_titles = forces.map((force) => force.force)
+    if (includeUnknown) {
+      force.enum.unshift(unknownId)
+      force.options.enum_titles.unshift(unknownLabel)
+    }
   }
   return force
 }
 
-export const updatePlatformTypes = (force: Record<string, any>, pTypes: PlatformTypeData[]): Record<string, any> => {
-  if (force !== undefined) {
-    force.enum = pTypes.map((pType) => pType.uniqid)
-    force.options.enum_titles = pTypes.map((pType) => pType.name)
+export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: PlatformTypeData[], includeUnknown?: boolean): Record<string, any> => {
+  if (platformType !== undefined) {
+    // sort the list
+    const sorted = _.sortBy(pTypes, (pType) => pType.name)
+    platformType.enum = sorted.map((pType) => pType.uniqid)
+    platformType.options.enum_titles = sorted.map((pType) => pType.name)
+    if (includeUnknown) {
+      platformType.enum.unshift(unknownId)
+      platformType.options.enum_titles.unshift(unknownLabel)
+    }
   }
-  return force
+  return platformType
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
@@ -101,8 +114,8 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   let allAssets: Asset[] = []
   try {
     allAssets = uniqIds.map((id: string) => findAsset(forces, id))
-    console.warn('Failed to find asset with id')
   } catch (e) {
+    console.warn('Failed to find asset with id', uniqIds)
     allAssets = []
   }
   const sortedAllAssets = _.sortBy(allAssets, (a: Asset) => a.name)
