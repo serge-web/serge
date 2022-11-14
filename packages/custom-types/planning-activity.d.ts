@@ -1,5 +1,5 @@
 import { GeometryType } from "@serge/config"
-import { Asset, InteractionMessageStructure, PlatformTypeData } from "."
+import { Asset, PlatformTypeData } from "."
 import ForceData from "./force-data"
 import { TemplateBody } from "./template"
 
@@ -142,17 +142,6 @@ export interface HealthOutcome extends CoreOutcome  {
 export type LocationOutcomes = LocationOutcome[]
 export type HealthOutcomes = HealthOutcome[]
 export type PerceptionOutcomes = PerceptionOutcome[]
-
-/** the outcome-related content of an adjudication */
-export interface MessageAdjudicationOutcomes {
-  /** ref of the adjudication this refers to */
-  reference: InteractionMessageStructure['Reference']
-  health: HealthOutcomes
-  movement: LocationOutcomes
-  perception: PerceptionOutcomes
-}
-
-
 
 /** top level database object for storing activity definitions */
 /** collection of map annotations */

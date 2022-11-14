@@ -1,10 +1,10 @@
 import {
-  ADJUDICATION_OUTCOMES, CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
+  CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
   COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
 import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, LocationOutcome, PerceptionOutcome, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, HealthOutcomes, LocationOutcome, LocationOutcomes, MessageAdjudicationOutcomes, PerceptionOutcome, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -344,11 +344,6 @@ export interface MessageStateOfWorld {
   readonly state: StateOfWorld
 }
 
-export interface AdjudicationOutcomes {
-  readonly messageType: typeof ADJUDICATION_OUTCOMES,
-  readonly state: StateOfWorld
-}
-
 export interface MessageUpdateMarker {
   readonly messageType: typeof UPDATE_MARKER,
   readonly marker: MapAnnotation
@@ -364,6 +359,18 @@ export interface MessageCloneMarker {
   readonly marker: MapAnnotation
 }
 
+
+/** the outcome-related content of an adjudication */
+export interface MessageAdjudicationOutcomes {
+  readonly messageType: typeof ADJUDICATION_OUTCOMES,
+  /** ref of the adjudication this refers to */
+  readonly reference: InteractionMessageStructure['Reference']
+  readonly health: HealthOutcomes
+  readonly movement: LocationOutcomes
+  readonly perception: PerceptionOutcomes
+}
+
+
 export type MessageMap = MessageForceLaydown |
   MessagePerceptionOfContact |
   MessageVisibilityChanges |
@@ -375,7 +382,8 @@ export type MessageMap = MessageForceLaydown |
   MessageDeletePlatform |
   MessageUpdateMarker |
   MessageDeleteMarker |
-  MessageCloneMarker
+  MessageCloneMarker |
+  MessageAdjudicationOutcomes
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
