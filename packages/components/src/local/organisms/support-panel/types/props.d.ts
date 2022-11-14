@@ -1,7 +1,7 @@
 import { TurnFormats } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
-  PerForcePlanningActivitySet, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
+  PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
