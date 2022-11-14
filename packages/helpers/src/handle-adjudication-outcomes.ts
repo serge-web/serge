@@ -1,5 +1,5 @@
 import { ForceData, MessageAdjudicationOutcomes, Perception } from '@serge/custom-types'
-import { findAsset } from '@serge/helpers'
+import findAsset from './find-asset'
 
 /** modify the forces object to apply the adjudication outcomes */
 export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): ForceData[] => {

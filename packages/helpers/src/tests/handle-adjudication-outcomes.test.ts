@@ -1,6 +1,7 @@
 import { expect, it } from '@jest/globals'
 import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
-import { deepCopy, findAsset } from '@serge/helpers'
+import deepCopy from 'src/deep-copy'
+import findAsset from 'src/find-asset'
 import handleAdjudicationOutcomes from '../handle-adjudication-outcomes'
 
 const allForces: ForceData[] = [
