@@ -53,7 +53,7 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
 }
 
 const unknownId = 'unknown'
-const unknownLabel = 'Unknown'  
+const unknownLabel = 'Unknown'
 
 export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
@@ -69,8 +69,10 @@ export const updateForces = (force: Record<string, any>, forces: ForceStyle[], i
 
 export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: PlatformTypeData[], includeUnknown?: boolean): Record<string, any> => {
   if (platformType !== undefined) {
-    platformType.enum = pTypes.map((pType) => pType.uniqid)
-    platformType.options.enum_titles = pTypes.map((pType) => pType.name)
+    // sort the list
+    const sorted = _.sortBy(pTypes, (pType) => pType.name)
+    platformType.enum = sorted.map((pType) => pType.uniqid)
+    platformType.options.enum_titles = sorted.map((pType) => pType.name)
     if (includeUnknown) {
       platformType.enum.unshift(unknownId)
       platformType.options.enum_titles.unshift(unknownLabel)
