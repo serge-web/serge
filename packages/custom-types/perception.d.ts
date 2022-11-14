@@ -5,8 +5,8 @@ export default interface Perception {
   /**
    * the force that can perceive this asset
    */
-   by: ForceData['uniqid'],
-   /**
+  by: ForceData['uniqid'],
+  /**
    *  the force this force thiks the asset belongs to
    */
   force?: ForceData['uniqid'],
@@ -14,7 +14,7 @@ export default interface Perception {
    * the platform-type this force thinks the asset is 
   */
   typeId?: PlatformTypeData['uniqid'],
-   /** 
+  /** 
    * what this force thinks the asset is called 
    */
   name?: string
@@ -22,4 +22,8 @@ export default interface Perception {
    * the perceived condition of this asset
    */
   condition?: string
+  /** 
+   * the perceived health of this asset
+   */
+  health?: number
 }
