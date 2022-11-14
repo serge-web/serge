@@ -207,9 +207,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const detailPanel = (rowData: AdjudicationRow): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
-        localDetailPanelOpen && localDetailPanelOpen(rowData)
+         localDetailPanelOpen(rowData)
         return () => {
-          localDetailPanelClose && localDetailPanelClose(rowData)
+          localDetailPanelClose(rowData)
         }
       }, [])
       return <></>
