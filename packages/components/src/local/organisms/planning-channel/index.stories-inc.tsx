@@ -42,7 +42,7 @@ const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
-const templates = wargame.templates ? wargame.templates.templates  : []
+const templates = wargame.templates ? wargame.templates.templates : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook

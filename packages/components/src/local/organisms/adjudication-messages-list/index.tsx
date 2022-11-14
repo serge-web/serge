@@ -126,7 +126,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         throw Error('Interaction details missing')
       }
       const myMessage = message.details.from.roleId === playerRoleId
-      const incompleteMessageFromMe = (myMessage && !interaction.complete) 
+      const incompleteMessageFromMe = (myMessage && !interaction.complete)
       return {
         id: message._id,
         order1: interaction.orders1,

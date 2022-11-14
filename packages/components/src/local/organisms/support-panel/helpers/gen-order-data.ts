@@ -487,7 +487,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
 }
 
 const getDocFromThisForce = (messages: MessagePlanning[], forceId: string): MessagePlanning => {
-  let found = undefined
+  let found
   while (!found) {
     const doc = messages[Math.floor(Math.random() * messages.length)]
     if (doc.details.from.forceId === forceId) {
@@ -498,11 +498,11 @@ const getDocFromThisForce = (messages: MessagePlanning[], forceId: string): Mess
 }
 
 const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
-  let res: TimePeriod | undefined = undefined
+  let res: TimePeriod | undefined
   docs.forEach((doc) => {
     const msg = doc.message
     const tStart = moment(msg.startDate).utc().valueOf()
-    const tEnd  = moment(msg.endDate).utc().valueOf()
+    const tEnd = moment(msg.endDate).utc().valueOf()
     const period: TimePeriod = [tStart, tEnd]
     if (!res) {
       res = period
@@ -557,7 +557,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       from: from,
       channel: channelId,
       messageType: adjudicationTemplateId,
-      timestamp:  moment().toISOString(),
+      timestamp: moment().toISOString(),
       turnNumber: doc1.details.turnNumber,
       counter: index,
       interaction: interaction
@@ -569,7 +569,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       perceptionOutcomes: []
     }
     const msgInt: MessageInteraction = {
-      messageType: INTERACTION_MESSAGE, 
+      messageType: INTERACTION_MESSAGE,
       details: details,
       message: msgBody,
       _id: moment().toISOString()
