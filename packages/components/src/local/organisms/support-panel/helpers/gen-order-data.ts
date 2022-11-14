@@ -713,8 +713,13 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
+
+  if(res.length === 0) {
+    console.log('gen interaction returning dummy:', dummyContact)
+  } else {
+    console.log('gen interaction returning genuine data:', res)
+  }
   const safeDummy = dummyContact ? [dummyContact] : []
-  console.log('returning', res.length ? res : safeDummy)
   return res.length ? res : safeDummy
 }
 
