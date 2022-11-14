@@ -267,7 +267,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        const newOrders = randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
         console.log(newOrders)
       }
     }

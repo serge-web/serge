@@ -1,9 +1,8 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
-import p9MessageTemplatesMock from '@serge/mocks/p9-message-templates.mock'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -42,6 +41,8 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
+
+const templates = wargame.templates ? wargame.templates.templates  : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook
@@ -141,13 +142,14 @@ const Template: Story<PlanningChannelProps> = (args) => {
   }
 
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+  const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
     channel={planningChannel}
     messages={messages}
-    allTemplates={p9MessageTemplatesMock}
+    allTemplates={templates}
     channelId={channels[0].uniqid}
-    adjudicationTemplate={p9MessageTemplatesMock[0]}
+    adjudicationTemplate={adjudicationTemplate}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}

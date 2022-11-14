@@ -1,9 +1,9 @@
-import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
+import { GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
-import { PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { InteractionDetails, InteractionMessageStructure, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'
@@ -486,8 +486,36 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
   return res
 }
 
-export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
-  const res: MessagePlanning[] = []
+const getDocFromThisForce = (messages: MessagePlanning[], forceId: string): MessagePlanning => {
+  let found = undefined
+  while (!found) {
+    const doc = messages[Math.floor(Math.random() * messages.length)]
+    if (doc.details.from.forceId === forceId) {
+      found = doc
+    }
+  }
+  return found as MessagePlanning
+}
+
+const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
+  let res: TimePeriod | undefined = undefined
+  docs.forEach((doc) => {
+    const msg = doc.message
+    const tStart = moment(msg.startDate).utc().valueOf()
+    const tEnd  = moment(msg.endDate).utc().valueOf()
+    const period: TimePeriod = [tStart, tEnd]
+    if (!res) {
+      res = period
+    } else {
+      res = timeIntersect2(period, res)
+    }
+  })
+  return res as unknown as TimePeriod
+}
+
+export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[],
+  adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
+  const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
   for (let i = 0; i < count; i++) {
@@ -498,6 +526,56 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
     const newMessage = createMessage(channelId, authorForce, 2 + i * 3, orderTypes, startTime)
     res.push(newMessage)
   }
+  // have a go at a couple of interactions
+  const umpires = forces[0]
+  const umpireRoles = forces[0].roles
+  const justPlanning = deepCopy(res) as MessagePlanning[]
+  umpireRoles.forEach((role, index) => {
+    // find a force-1 doc
+    const doc1 = getDocFromThisForce(justPlanning, createFor[0])
+    const doc2 = getDocFromThisForce(justPlanning, createFor[1])
+    const time = outerTimeFor([doc1, doc2])
+    const reference = forces[0].uniqid + '-' + index
+    console.log('ddd', doc1, doc2, time)
+    const interaction: InteractionDetails = {
+      startTime: moment(time[0]).toISOString(),
+      endTime: moment(time[1]).toISOString(),
+      id: reference,
+      orders1: doc1._id,
+      orders2: doc2._id,
+      complete: false
+    }
+    const from: MessageDetailsFrom = {
+      force: umpires.name,
+      forceColor: umpires.color,
+      forceId: umpires.uniqid,
+      iconURL: '',
+      roleId: role.roleId,
+      roleName: role.name
+    }
+    const details: MessageDetails = {
+      from: from,
+      channel: channelId,
+      messageType: adjudicationTemplateId,
+      timestamp:  moment().toISOString(),
+      turnNumber: doc1.details.turnNumber,
+      counter: index,
+      interaction: interaction
+    }
+    const msgBody: InteractionMessageStructure = {
+      Reference: reference,
+      healthOutcomes: [],
+      locationOutcomes: [],
+      perceptionOutcomes: []
+    }
+    const msgInt: MessageInteraction = {
+      messageType: INTERACTION_MESSAGE, 
+      details: details,
+      message: msgBody,
+      _id: moment().toISOString()
+    }
+    res.push(msgInt)
+  })
   return res
 }
 
