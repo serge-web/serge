@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
@@ -117,6 +117,7 @@ const Template: Story<SupportPanelProps> = (args) => {
     handleAdjudication={handler}
     setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
+    phase={Phase.Planning}
     channel={planningChannel}
     allTemplates={myTemplates}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
