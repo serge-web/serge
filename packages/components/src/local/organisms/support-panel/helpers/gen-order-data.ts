@@ -680,8 +680,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             // has it already been adjudicated
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
-
-              console.log('check', differentForces(me, other), overlapsInTime(me, other))
               if (differentForces(me, other) && overlapsInTime(me, other)) {
                 // give us a dummy interaction
                 dummyContact = {
@@ -714,7 +712,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
     })
   })
 
-  if(res.length === 0) {
+  if (res.length === 0) {
     console.log('gen interaction returning dummy:', dummyContact)
   } else {
     console.log('gen interaction returning genuine data:', res)

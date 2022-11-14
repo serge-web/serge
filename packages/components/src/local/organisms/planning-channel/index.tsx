@@ -262,12 +262,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const createAssets = true
+      const createAssets = false
       if (createAssets) {
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        const newOrders = randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
         console.log(newOrders)
       }
     }

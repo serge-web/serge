@@ -244,7 +244,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               customiseTemplate={(document, schema) => localCustomiseTemplate(document, schema, data)}
               messageId={rowData.id}
               disabled={false}
-              template={template}              
+              template={template}
               gameDate={gameDate}
               saveMessage={() => localSubmitAdjudication()}
               storeNewValue={localStoreNewValue}
