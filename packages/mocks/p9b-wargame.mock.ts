@@ -8758,6 +8758,7 @@ const game: Wargame = {
                             "perceptionOutcomes": {
                                 "type": "array",
                                 "title": "Perception Outcomes",
+                                "propertyOrder": 10,
                                 "format": "table",
                                 "additionalProperties": false,
                                 "items": {
@@ -8770,6 +8771,7 @@ const game: Wargame = {
                                     "properties": {
                                         "force": {
                                             "title": "By",
+                                            "propertyOrder": 10,
                                             "type": "string",
                                             "enum": [
                                                 "f-a",
@@ -8789,6 +8791,7 @@ const game: Wargame = {
                                         },
                                         "asset": {
                                             "title": "Asset",
+                                            "propertyOrder": 20,
                                             "type": "string",
                                             "enum": [
                                                 "ta",
@@ -8808,6 +8811,7 @@ const game: Wargame = {
                                         },
                                         "perceivedForce": {
                                             "title": "Force",
+                                            "propertyOrder": 30,
                                             "type": "string",
                                             "enum": [
                                                 "Unknown",
@@ -8822,6 +8826,7 @@ const game: Wargame = {
                                         },
                                         "perceivedType": {
                                             "title": "Platform Type",
+                                            "propertyOrder": 40,
                                             "type": "string",
                                             "enum": [
                                                 "Unknown",
@@ -8836,8 +8841,10 @@ const game: Wargame = {
                                         },
                                         "health": {
                                             "title": "Health",
+                                            "propertyOrder": 50,
                                             "type": "string",
                                             "enum": [
+                                                "Unknown",
                                                 "100",
                                                 "75",
                                                 "50",
@@ -8850,15 +8857,18 @@ const game: Wargame = {
                                         },
                                         "perceivedName": {
                                             "title": "Name",
+                                            "propertyOrder": 60,
                                             "type": "string"
                                         },
                                         "narrative": {
                                             "title": "Comment",
+                                            "propertyOrder": 70,
                                             "type": "string",
                                             "format": "textarea"
                                         },
                                         "private": {
                                             "title": "Private",
+                                            "propertyOrder": 80,
                                             "type": "string",
                                             "format": "textarea"
                                         }
@@ -8868,6 +8878,7 @@ const game: Wargame = {
                             "healthOutcomes": {
                                 "type": "array",
                                 "format": "table",
+                                "propertyOrder": 20,
                                 "title": "Health Outcomes",
                                 "additionalProperties": false,
                                 "items": {
@@ -8927,6 +8938,7 @@ const game: Wargame = {
                             "locationOutcomes": {
                                 "type": "array",
                                 "format": "table",
+                                "propertyOrder": 30,
                                 "title": "Movement Outcomes",
                                 "additionalProperties": false,
                                 "items": {
