@@ -180,11 +180,15 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     }
     const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
     const statuses = platformType.states
+
+    const health = 5 * Math.floor(Math.random() * 20)
+
     const asset: Asset = {
       uniqid: uniqueId('a'),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + i,
       perceptions: [],
+      health: health,
       platformTypeId: platformType.uniqid,
       condition: 'working',
       status: statuses.length ? { state: statuses[Math.floor(Math.random() * statuses.length)].name } : undefined,

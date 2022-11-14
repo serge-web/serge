@@ -36,7 +36,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
   const getMarkerOption = useCallback((asset: AssetRow, index: number) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
-
+    const isDestroyed = asset.health && asset.health === 0
     return {
       eventHandlers: {
         click: (): void => {
@@ -49,7 +49,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
-        html: getAssetIcon(asset, isSelected, false),
+        html: getAssetIcon(asset, isSelected, !!isDestroyed),
         className: styles['map-icon']
       })
     }
