@@ -48,6 +48,8 @@ export const CREATE_TASK_GROUP = 'CreateTaskGroup'
 export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
 export const HOST_PLATFORM = 'HostPlatform'
 
+export const ADJUDUCATION_OUTCOMES = 'AdjudicationOutcomes'
+
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
