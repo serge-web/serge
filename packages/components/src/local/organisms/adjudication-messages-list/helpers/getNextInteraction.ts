@@ -99,8 +99,6 @@ const tEnd = (geom: Feature<Geometry>): string => {
   return 'End:' + props.endDate
 }
 
-
-
 export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number): PlanningContact | undefined => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
@@ -111,7 +109,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
 
   const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
 
-  console.log('get interaction', orders)  
+  console.log('get interaction', orders)
 
   console.log('Get Next. Ctr:' + _ctr + ' orders:' + orders.length + ' Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString(), !7 && !!tStart && !!tEnd)
   // console.table(trimmedGeoms.map((val) => {
@@ -128,7 +126,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
     const realGeometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, interactionWindow)
     const geometriesInTimeWindow = realGeometriesInTimeWindow.length > 0 ? realGeometriesInTimeWindow : trimmedGeoms
 
-    console.log('geoms in window.',  withTimes.length, geometriesInTimeWindow.length)
+    console.log('geoms in window.', withTimes.length, geometriesInTimeWindow.length)
     //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
     // now do spatial binning

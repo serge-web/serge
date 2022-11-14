@@ -57,7 +57,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         roles.push(author)
       }
       const plan = message.message as PlanningMessageStructureCore
-  
+
       const row: OrderRow = {
         id: message._id,
         reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
@@ -79,23 +79,23 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const trimmedActivities = activities.map((item) => trimActivity(playerForceId, item))
 
     const smallPadding: React.CSSProperties = {
-      paddingLeft: "10px",
-      paddingRight: "10px"
+      paddingLeft: '10px',
+      paddingRight: '10px'
     }
 
     const narrowCell: React.CSSProperties = {
-      ...smallPadding, width:"80px"
+      ...smallPadding, width: '80px'
     }
     const mediumCell: React.CSSProperties = {
-      ...smallPadding, width:"120px"
+      ...smallPadding, width: '120px'
     }
 
     const columnData: Column[] = jestWorkerId ? [] : [
-      { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell},
+      { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell },
       { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
       { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
-      { title: 'Activity', field: 'activity', lookup: arrToDict(trimmedActivities) , cellStyle: smallPadding, headerStyle: smallPadding},
-      { title: 'Start Date', field: 'startDate', cellStyle: narrowCell , headerStyle: narrowCell},
+      { title: 'Activity', field: 'activity', lookup: arrToDict(trimmedActivities), cellStyle: smallPadding, headerStyle: smallPadding },
+      { title: 'Start Date', field: 'startDate', cellStyle: narrowCell, headerStyle: narrowCell },
       { title: 'Finish Date', field: 'endDate', cellStyle: narrowCell, headerStyle: narrowCell }
     ]
 
