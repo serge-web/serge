@@ -4,6 +4,7 @@ import { PlannedActivityGeometry } from '@serge/custom-types'
 import { Feature } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
+import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
@@ -48,6 +49,10 @@ const layerToGeoJSON = (layer: GLayerObject): Feature | undefined => {
       coords = data.map((pt: LatLng[]): number[][] => {
         return pt.map((pt2: LatLng): number[] => switchLayer(pt2))
       })
+      const points = coords[0]
+      if (!_.isEqual(points[0], points[points.length - 1])) {
+        points.push(points[0])
+      }
       break
     }
     default:
@@ -115,7 +120,8 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
         editable: true,
         allowCutting: false,
         allowRemoval: false,
-        allowRotation: false
+        allowRotation: false,
+        allowSelfIntersectionEdit: false
       }
       setGlobalOptions(globalOpts)
 

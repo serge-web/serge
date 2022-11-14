@@ -74,6 +74,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
               return [pt2.lng, pt2.lat]
             })
           })
+          // if GeoMan hasn't closed the poly, do it for it
+          const data = longLats[0]
+          if (!_.isEqual(data[0], data[data.length - 1])) {
+            data.push(data[0])
+          }
           res = {
             type: 'Polygon',
             coordinates: longLats
@@ -115,7 +120,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         editable: false,
         allowCutting: false,
         allowRemoval: false,
-        allowRotation: false
+        allowRotation: false,
+        allowSelfIntersection: false
       }
 
       // switch off all controls
