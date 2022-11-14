@@ -86,8 +86,8 @@ const testActivity: PlanningActivity = {
 }
 
 it('produces order data', () => {
-  const numOrders = 20
-  const orders = randomOrdersDocs(planningChannelId, numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities)
+  const numOrders = 23
+  const orders = randomOrdersDocs(planningChannelId, numOrders, forces, [blueForce.uniqid, redForce.uniqid], activities, 'template-id')
   expect(orders).toBeTruthy()
   expect(orders.length).toEqual(numOrders)
 })
