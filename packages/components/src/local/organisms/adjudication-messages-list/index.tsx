@@ -2,7 +2,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
-import { forceColors, ForceStyle } from '@serge/helpers'
+import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
@@ -54,18 +54,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number }, assets: Asset[], index: number): React.ReactElement => {
+  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number }, forces: ForceData[], index: number): React.ReactElement => {
     let asset: Asset | undefined
     const isString = typeof (assetId) === 'string'
     let numStr = ''
     if (isString) {
       try {
-        asset = assets.find((asset) => asset.uniqid === assetId)
+        asset = findAsset(forces, assetId)
       } catch (e) {
       }
     } else {
       try {
-        asset = assets.find((asset) => asset.uniqid === assetId.asset)
+        asset = findAsset(forces, assetId.asset)
         numStr = ' (' + assetId.number + ')'
       } catch (e) {
       }
@@ -78,14 +78,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, assets: Asset[], activity?: string): React.ReactElement => {
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       console.warn('Failed to find message:', id)
       return <span>Order not found</span>
     }
-    console.log('keys', Object.keys(plan.message))
     const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
     const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
       if (done.includes(item)) {
@@ -100,11 +99,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       <span><b>Activity: </b> {activity || 'n/a'} </span><br />
       <span><b>Own: </b> {plan.message.ownAssets &&
         <ul> {
-          plan.message.ownAssets.map((str, index) => renderAsset(str, assets, index))}
+          plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
         </ul>}</span>
       <span><b>Other: </b> {plan.message.otherAssets &&
         <ul> {
-          plan.message.otherAssets.map((str, index) => renderAsset(str, assets, index))}
+          plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
         </ul>}</span>
       {items}
     </div>
@@ -126,17 +125,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (!interaction) {
         throw Error('Interaction details missing')
       }
-      const complete = interaction.complete || false
+      const myMessage = message.details.from.roleId === playerRoleId
+      const incompleteMessageFromMe = (myMessage && !interaction.complete) 
       return {
         id: message._id,
         order1: interaction.orders1,
         order2: interaction.orders2 || 'n/a',
         turn: message.details.turnNumber,
-        complete: complete,
+        complete: !!interaction.complete,
         activity: message.message.Reference,
         period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
         // if the item is incomplete
-        tableData: { showDetailPanel: complete ? undefined : detailPanel }
+        tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
       }
     })
     setRows(dataTable)
@@ -235,6 +235,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (!template) {
         console.log('template not found for', message.details.messageType, 'template:', template)
       }
+      console.log('open detail', template)
       if (message && template) {
         const msg = message.message
         const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
@@ -246,8 +247,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(true, rowData, data.allAssets, data.order1Activity)}</td>
-                  <td>{renderOrderDetail(false, rowData, data.allAssets, data.order2Activity)}</td>
+                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity)}</td>
+                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity)}</td>
                 </tr>
               </tbody>
             </Table>
