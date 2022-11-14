@@ -35,12 +35,12 @@ export default interface PropTypes {
   getCachedNewMessagevalue?: (value: string) => string
   clearCachedNewMessage?: (data: string[]) => void
   dispatch: Dispatch<any>
-  isUmpire: boolean
   selectedRoleName: Role['name']
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
   gameDate: string
+  phase: Phase
   currentTurn: number
   gameTurnTime: TurnLengthType
   currentWargame: string
