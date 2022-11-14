@@ -6047,15 +6047,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6072,15 +6066,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6291,15 +6279,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6316,15 +6298,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6572,15 +6548,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6950,15 +6920,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6975,15 +6939,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7194,15 +7152,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7219,15 +7171,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7475,15 +7421,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7853,15 +7793,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7878,15 +7812,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8097,15 +8025,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8122,15 +8044,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8378,15 +8294,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
