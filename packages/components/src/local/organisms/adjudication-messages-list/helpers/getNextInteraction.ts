@@ -149,6 +149,8 @@ export const getNextInteraction = (orders: MessagePlanning[],
       contacts.push(...newContacts)
     })
 
+    console.log('contacts', contacts.length)
+
     interactionWindow *= 2
   }
 

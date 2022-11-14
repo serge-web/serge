@@ -680,6 +680,8 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             // has it already been adjudicated
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
+                
+              console.log('check', differentForces(me, other), overlapsInTime(me, other))
               if (differentForces(me, other) && overlapsInTime(me, other)) {
                 // give us a dummy interaction
                 dummyContact = {
