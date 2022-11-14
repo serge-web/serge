@@ -289,6 +289,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const health = asset.health === 0 ? 0 : (asset.health || 100)
       if (perception) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
         const res: AssetRow = {
@@ -299,7 +300,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           platformType: perception.typeId,
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
-          health: asset.health || 99,
+          health: health,
           attributes: {}
         }
         itemRows.push(res)
@@ -311,6 +312,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const umpireInOwnFor = (isUmpire && !opFor)
     const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
+    const health = asset.health === 0 ? 0 : (asset.health || 100)
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
@@ -321,7 +323,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         owner: asset.owner ? asset.owner : '',
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
-        health: asset.health || 95,
+        health: health,
         attributes: modernAttrDict
       }
       // if we're handling the child of an asset, we need to specify the parent
