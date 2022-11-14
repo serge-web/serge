@@ -6,7 +6,7 @@ import { forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
@@ -89,10 +89,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
     const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
       if (done.includes(item)) {
-        return <></>
+        return <Fragment key={index} />
       } else {
         const name = _.kebabCase(item)
-        return <><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br/></>
+        return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
       }
     })
     return <div>
@@ -106,7 +106,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <ul> {
           plan.message.otherAssets.map((str, index) => renderAsset(str, assets, index))}
         </ul>}</span>
-      { items }
+      {items}
     </div>
   }
 
