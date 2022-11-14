@@ -1,4 +1,5 @@
 import { expect, it } from '@jest/globals'
+import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import deepCopy from 'src/deep-copy'
 import findAsset from 'src/find-asset'
@@ -44,6 +45,7 @@ const allForces: ForceData[] = [
 ]
 
 const emptyPayload: MessageAdjudicationOutcomes = {
+  messageType: ADJUDICATION_OUTCOMES,
   reference: 'umpire-234',
   health: [],
   perception: [],
@@ -59,6 +61,7 @@ it('empty lists results in no change', () => {
 })
 
 const validPayload: MessageAdjudicationOutcomes = {
+  messageType: ADJUDICATION_OUTCOMES,
   reference: 'umpire-234',
   health: [{ asset: 'alpha', health: 34 }],
   perception: [

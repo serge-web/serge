@@ -1,4 +1,5 @@
-import { ForceData, MessageAdjudicationOutcomes, Perception } from '@serge/custom-types'
+import { ForceData, Perception } from '@serge/custom-types'
+import { MessageAdjudicationOutcomes } from '@serge/custom-types/message'
 import findAsset from './find-asset'
 
 /** modify the forces object to apply the adjudication outcomes */
