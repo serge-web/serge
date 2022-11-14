@@ -132,7 +132,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     selectedRoleId={roleVal.roleId}
     selectedRoleName={roleVal.name}
     selectedForce={force}
-    isUmpire={!!force.umpire}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
     allOppAssets={opp}
