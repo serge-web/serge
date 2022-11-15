@@ -11,24 +11,31 @@ const p9StockTemplates: TemplateBody[] = [
       type: 'object',
       title: 'Adjudication Outcomes',
       format: 'grid',
-      required: ['narrative'],
+      required: [
+        'narrative'
+      ],
       properties: {
         Reference: {
           title: 'Reference',
+          propertyOrder: 10,
+          readonly: true,
           type: 'string'
         },
         narrative: {
           title: 'General Feedback',
+          propertyOrder: 20,
           type: 'string',
           format: 'textarea'
         },
         location: {
           title: 'Location',
+          propertyOrder: 30,
           type: 'string'
         },
         perceptionOutcomes: {
           type: 'array',
           title: 'Perception Outcomes',
+          propertyOrder: 40,
           format: 'table',
           additionalProperties: false,
           items: {
@@ -41,6 +48,7 @@ const p9StockTemplates: TemplateBody[] = [
             properties: {
               force: {
                 title: 'By',
+                propertyOrder: 10,
                 type: 'string',
                 enum: [
                   'f-a',
@@ -60,6 +68,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               asset: {
                 title: 'Asset',
+                propertyOrder: 20,
                 type: 'string',
                 enum: [
                   'ta',
@@ -79,6 +88,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               perceivedForce: {
                 title: 'Force',
+                propertyOrder: 30,
                 type: 'string',
                 enum: [
                   'Unknown',
@@ -93,6 +103,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               perceivedType: {
                 title: 'Platform Type',
+                propertyOrder: 40,
                 type: 'string',
                 enum: [
                   'Unknown',
@@ -107,8 +118,10 @@ const p9StockTemplates: TemplateBody[] = [
               },
               health: {
                 title: 'Health',
+                propertyOrder: 50,
                 type: 'string',
                 enum: [
+                  'Unknown',
                   '100',
                   '75',
                   '50',
@@ -121,25 +134,28 @@ const p9StockTemplates: TemplateBody[] = [
               },
               perceivedName: {
                 title: 'Name',
+                propertyOrder: 60,
                 type: 'string'
               },
               narrative: {
                 title: 'Comment',
+                propertyOrder: 70,
                 type: 'string',
                 format: 'textarea'
               },
               private: {
                 title: 'Private',
+                propertyOrder: 80,
                 type: 'string',
                 format: 'textarea'
               }
-
             }
           }
         },
         healthOutcomes: {
           type: 'array',
           format: 'table',
+          propertyOrder: 50,
           title: 'Health Outcomes',
           additionalProperties: false,
           items: {
@@ -199,6 +215,7 @@ const p9StockTemplates: TemplateBody[] = [
         locationOutcomes: {
           type: 'array',
           format: 'table',
+          propertyOrder: 60,
           title: 'Movement Outcomes',
           additionalProperties: false,
           items: {
