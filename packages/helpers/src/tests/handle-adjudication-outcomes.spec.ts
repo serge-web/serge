@@ -3,7 +3,7 @@ import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import deepCopy from '../deep-copy'
 import findAsset from '../find-asset'
-import handleAdjudicationOutcomes from '../handle-adjudication-outcomes'
+import handleAdjudicationOutcomes from '../handle-adjudication-outcomes-helper'
 
 const allForces: ForceData[] = [
   {
