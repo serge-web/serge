@@ -1,7 +1,7 @@
 
 import { MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 
-export const planningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = [
+export const planningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> =[
     {
         "messageType": "PlanningMessage",
         "details": {
@@ -144,7 +144,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a49",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -311,7 +311,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a194",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a176",
@@ -319,7 +319,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a187",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -472,7 +472,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a87",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -667,7 +667,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a88",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -817,7 +817,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a46",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a55",
@@ -825,7 +825,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a91",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -979,7 +979,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a52",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -1128,7 +1128,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a25",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -1189,7 +1189,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1351,11 +1351,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a122",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a170",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a147",
@@ -1521,19 +1521,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a152",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a185",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a148",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a139",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -1696,7 +1696,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a39",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a57",
@@ -1704,7 +1704,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a5",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1823,19 +1823,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a178",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a182",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a115",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a174",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -1989,7 +1989,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a174",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a163",
@@ -1997,7 +1997,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a179",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -2142,15 +2142,15 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a26",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a97",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a99",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a31",
@@ -2214,11 +2214,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a131",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a188",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a175",
@@ -2226,7 +2226,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 },
                 {
                     "asset": "a189",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2385,11 +2385,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a89",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a34",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -2544,11 +2544,11 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a107",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a134",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2668,19 +2668,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a175",
-                    "number": 0
-                },
-                {
-                    "asset": "a188",
                     "number": 1
                 },
                 {
+                    "asset": "a188",
+                    "number": 4
+                },
+                {
                     "asset": "a131",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a199",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -2838,19 +2838,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a199",
-                    "number": 5
-                },
-                {
-                    "asset": "a197",
-                    "number": 1
-                },
-                {
-                    "asset": "a126",
                     "number": 4
                 },
                 {
+                    "asset": "a197",
+                    "number": 4
+                },
+                {
+                    "asset": "a126",
+                    "number": 2
+                },
+                {
                     "asset": "a179",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -3040,15 +3040,15 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "ownAssets": [
                 {
                     "asset": "a79",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a63",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a74",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -3060,5 +3060,104 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         "hasBeenRead": false,
         "_id": "m_f-blue_63",
         "_rev": "2"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "umpire",
+                "roleName": "Game Designer"
+            },
+            "channel": "channel-planning",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-11-14T19:49:14.509Z",
+            "turnNumber": 3,
+            "counter": 0,
+            "interaction": {
+                "startTime": "2022-11-15T00:30:00.000Z",
+                "endTime": "2022-11-15T02:50:00.000Z",
+                "id": "umpire-0",
+                "orders1": "m_f-blue_21",
+                "orders2": "m_f-red_33",
+                "complete": false
+            }
+        },
+        "message": {
+            "Reference": "umpire-0",
+            "healthOutcomes": [],
+            "locationOutcomes": [],
+            "perceptionOutcomes": []
+        },
+        "_id": "2022-11-14T19:49:14.510Z"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "adjud-1",
+                "roleName": "Adjudicator 1"
+            },
+            "channel": "channel-planning",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-11-14T19:49:14.510Z",
+            "turnNumber": 3,
+            "counter": 1,
+            "interaction": {
+                "startTime": "2022-11-15T01:10:00.000Z",
+                "endTime": "2022-11-15T02:00:00.000Z",
+                "id": "umpire-1",
+                "orders1": "m_f-blue_45",
+                "orders2": "m_f-red_48",
+                "complete": false
+            }
+        },
+        "message": {
+            "Reference": "umpire-1",
+            "healthOutcomes": [],
+            "locationOutcomes": [],
+            "perceptionOutcomes": []
+        },
+        "_id": "2022-11-14T19:49:14.510Z"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "adjud-2",
+                "roleName": "Adjudicator 2"
+            },
+            "channel": "channel-planning",
+            "messageType": "Land--Transit",
+            "timestamp": "2022-11-14T19:49:14.510Z",
+            "turnNumber": 3,
+            "counter": 2,
+            "interaction": {
+                "startTime": "2022-11-15T01:10:00.000Z",
+                "endTime": "2022-11-15T03:15:00.000Z",
+                "id": "umpire-2",
+                "orders1": "m_f-blue_12",
+                "orders2": "m_f-red_54",
+                "complete": false
+            }
+        },
+        "message": {
+            "Reference": "umpire-2",
+            "healthOutcomes": [],
+            "locationOutcomes": [],
+            "perceptionOutcomes": []
+        },
+        "_id": "2022-11-14T19:49:14.510Z"
     }
 ]
