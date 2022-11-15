@@ -20,7 +20,6 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   const disableArrayDelete = 'disable_array_delete'
   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'
   const promptBeforeDelete = 'prompt_before_delete'
-  console.log('setup', schema, schema.type, ref.current, schema.properties.location)
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       setTimeout(() => {
