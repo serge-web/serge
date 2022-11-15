@@ -18,7 +18,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
-        <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} />
+        <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />
       </div>)
     )
   }
