@@ -55,9 +55,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
   const mainMessageOption = `${messageOption}-${UNSENT_CHAT_MESSAGE_TYPE}`
 
-  const messageEdits = useRef<Record<string, any> | string>('')
-
-  console.log('message creator', formValue, draftMessage, formMessage, messageEdits.current)
+  const messageBeingEdited = useRef<Record<string, any> | string>('')
 
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
@@ -101,9 +99,11 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     // send the data
     setPrivateValue('')
+    setFormValue(undefined)
     postBack && postBack(details, formMessage)
     setClearName(messageOption)
     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption])
     onMessageSend && onMessageSend(e)
   }
 
@@ -149,13 +149,13 @@ const MessageCreator: React.FC<PropTypes> = ({
   const responseHandler = (val: { [property: string]: any }): void => {
     console.log('response handler', val)
     setFormMessage(val)
-    messageEdits.current = val
+    messageBeingEdited.current = val
     createCachedCreatorMessage && createCachedCreatorMessage(val, mainMessageOption)
   }
 
   const localEditCallback = (): void => {
-    console.log('edit button for', messageEdits.current)
-    const current = messageEdits.current
+    console.log('edit button for', messageBeingEdited.current)
+    const current = messageBeingEdited.current
     if (typeof(current) === 'string') {
       console.warn('message edits contains string, not form contents')
     } else {
