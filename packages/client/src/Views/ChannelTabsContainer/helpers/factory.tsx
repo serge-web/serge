@@ -33,9 +33,7 @@ const factory = (state: PlayerUi): Factory => {
   const reduxDisplatch = useDispatch()
 
   const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
-    console.log('sending outcomes', outcomes.narrative)
     saveMapMessage(state.currentWargame, details, outcomes)
-    console.log('sent outcomes', outcomes.narrative)
   }
 
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
