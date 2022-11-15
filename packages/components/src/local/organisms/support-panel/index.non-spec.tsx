@@ -17,6 +17,10 @@ const platformTypes = (P9BMock.data.platformTypes && P9BMock.data.platformTypes.
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessages.filter((msg) => msg.details.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
+const handler = (contact: any): void => {
+  console.log('handling', contact)
+}
+
 describe('Support Panel component: ', () => {
   it('renders component correctly', () => {
     const tree = renderer
@@ -28,6 +32,7 @@ describe('Support Panel component: ', () => {
         currentWargame={P9BMock.currentWargame || ''}
         selectedAssets={[]}
         attributeTypes={[]}
+        handleAdjudication={handler}
         setSelectedAssets={noop}
         selectedOrders={[]}
         setSelectedOrders={noop}

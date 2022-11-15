@@ -81,8 +81,10 @@ export const lineLineContact = (lineOne: LineString, lineOneTime: TimePeriod, li
         return time >= tStart(period) && time <= tEnd(period)
       }
 
+      const notZeroLength = lineTwoTime[1] > lineTwoTime[0]
+
       // check if line two is alive at time one
-      if (containsTime2(lineTwoTime, timeOne)) {
+      if (notZeroLength && containsTime2(lineTwoTime, timeOne)) {
         // find where the second line would be at this time
         const fLineTwo = turf.lineString(lineTwo.coordinates)
         const proportion = (timeOne - lineTwoTime[0]) / (lineTwoTime[1] - lineTwoTime[0])

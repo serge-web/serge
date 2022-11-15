@@ -102,7 +102,6 @@ const tEnd = (geom: Feature<Geometry>): string => {
 export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number): PlanningContact | undefined => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
-
   const trimmedOrders = ordersOverlappingTime(orders, earliestTime)
 
   const newGeometries = invertMessages(trimmedOrders, activities)
@@ -110,7 +109,12 @@ export const getNextInteraction = (orders: MessagePlanning[],
 
   const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
 
-  console.log('Get Next. Ctr:' + _ctr + ' Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString(), !7 && !!tStart && !!tEnd)
+  console.log('get interaction', orders)
+  console.table(orders.map((order) => {
+    return { force: order.details.from.forceId }
+  }))
+
+  console.log('Get Next. Ctr:' + _ctr + ' orders:' + orders.length + ' Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString(), !7 && !!tStart && !!tEnd)
   // console.table(trimmedGeoms.map((val) => {
   //   // return { id: val._id, start: val.message.startDate, end: val.message.endDate }
   //   return { geometry: val.id, start: val.activity.message.startDate, end: val.activity.message.endDate }
@@ -122,8 +126,10 @@ export const getNextInteraction = (orders: MessagePlanning[],
   let interactionWindow = Math.max(diffMins / 10, 60)
   const contacts: PlanningContact[] = []
   while (contacts.length === 0 && interactionWindow < diffMins) {
-    const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, interactionWindow)
-    //  console.log('geoms in window.', moment(latestInteraction).toISOString(), withTimes.length, geomsStartingBeforeTime.length, gemosFinishingAfterTime.length, geometriesInTimeWindow.length)
+    const realGeometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, interactionWindow)
+    const geometriesInTimeWindow = realGeometriesInTimeWindow.length > 0 ? realGeometriesInTimeWindow : trimmedGeoms
+
+    console.log('geoms in window.', withTimes.length, geometriesInTimeWindow.length)
     //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
     // now do spatial binning
@@ -145,6 +151,8 @@ export const getNextInteraction = (orders: MessagePlanning[],
         interactionsTested, sensorRangeKm)
       contacts.push(...newContacts)
     })
+
+    console.log('contacts', contacts.length)
 
     interactionWindow *= 2
   }

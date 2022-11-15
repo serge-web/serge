@@ -5617,7 +5617,7 @@ const game: Wargame = {
             "name": "Platform Types",
             "platformTypes": [
                 {
-                    "name": "Fighter",
+                    "name": "Fighter (blue)",
                     "icon": "n_blue_air_fighter.svg",
                     "conditions": [],
                     "states": [],
@@ -5629,7 +5629,7 @@ const game: Wargame = {
                     "travelMode": "air"
                 },
                 {
-                    "name": "Bomber",
+                    "name": "Bomber (blue)",
                     "icon": "n_blue_air_bomber.svg",
                     "attributeTypeIds": [
                         "a_Number",
@@ -5641,7 +5641,7 @@ const game: Wargame = {
                     "travelMode": "air"
                 },
                 {
-                    "name": "SAM",
+                    "name": "SAM (blue)",
                     "icon": "n_blue_land_sam.svg",
                     "attributeTypeIds": [
                         "a_Number",
@@ -5654,7 +5654,7 @@ const game: Wargame = {
                     "travelMode": "land"
                 },
                 {
-                    "name": "MTG",
+                    "name": "MTG (blue)",
                     "icon": "n_blue_maritime_task_force.svg",
                     "attributeTypeIds": [
                         "a_Equipment"
@@ -5665,7 +5665,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Ship",
+                    "name": "Ship (blue)",
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
                         "a_Equipment"
@@ -5676,7 +5676,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Submarine",
+                    "name": "Submarine (blue)",
                     "icon": "n_blue_maritime_submarine.svg",
                     "attributeTypeIds": [
                         "a_Equipment"
@@ -5687,7 +5687,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Land Unit",
+                    "name": "Land Unit (blue)",
                     "icon": "n_blue_land_armed_inf.svg",
                     "attributeTypeIds": [
                         "a_Size",
@@ -5699,7 +5699,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Fixed Asset",
+                    "name": "Fixed Asset (blue)",
                     "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": [
                         "a_Units"
@@ -5710,7 +5710,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "SSM",
+                    "name": "SSM (blue)",
                     "icon": "n_blue_land_ssm.svg",
                     "attributeTypeIds": [
                         "a_Number",
@@ -5723,7 +5723,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "ISTAR",
+                    "name": "ISTAR (blue)",
                     "icon": "n_blue_air_recce.svg",
                     "attributeTypeIds": [
                         "a_Number",
@@ -5736,7 +5736,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Air LOGS",
+                    "name": "Air LOGS (blue)",
                     "icon": "n_blue_air_utility.svg",
                     "attributeTypeIds": [
                         "a_Number",
@@ -5748,7 +5748,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "C2 Node",
+                    "name": "C2 Node (blue)",
                     "icon": "n_blue_hq.svg",
                     "attributeTypeIds": [
                         "a_Connections"
@@ -5759,7 +5759,7 @@ const game: Wargame = {
                     "travelMode": "land"
                 },
                 {
-                    "name": "FIAC",
+                    "name": "FIAC (blue)",
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
                         "a_Number"
@@ -5770,7 +5770,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Minefield",
+                    "name": "Minefield (blue)",
                     "icon": "n_blue_maritime_minefield.svg",
                     "attributeTypeIds": [
                         "a_Density"
@@ -5781,7 +5781,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Fighter",
+                    "name": "Fighter (blue)",
                     "icon": "n_red_air_fighter.svg",
                     "conditions": [],
                     "states": [],
@@ -5793,7 +5793,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "SAM",
+                    "name": "SAM (red)",
                     "icon": "n_red_land_sam.svg",
                     "conditions": [],
                     "states": [],
@@ -5806,7 +5806,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "MTG",
+                    "name": "MTG (red)",
                     "icon": "n_red_maritime_task_force.svg",
                     "conditions": [],
                     "states": [],
@@ -5817,7 +5817,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Submarine",
+                    "name": "Submarine (red)",
                     "icon": "n_red_maritime_submarine.svg",
                     "conditions": [],
                     "states": [],
@@ -5828,7 +5828,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Land Unit",
+                    "name": "Land Unit (red)",
                     "icon": "n_red_land_armed_inf.svg",
                     "conditions": [],
                     "states": [],
@@ -5840,7 +5840,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Fixed Asset",
+                    "name": "Fixed Asset (red)",
                     "icon": "n_red_land_asset.svg",
                     "conditions": [],
                     "states": [],
@@ -5851,7 +5851,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "SSM",
+                    "name": "SSM (red)",
                     "icon": "n_red_land_ssm.svg",
                     "conditions": [],
                     "states": [],
@@ -5864,7 +5864,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "ISTAR",
+                    "name": "ISTAR (red)",
                     "icon": "n_red_air_recce.svg",
                     "conditions": [],
                     "states": [],
@@ -5877,7 +5877,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Air LOGS",
+                    "name": "Air LOGS (red)",
                     "icon": "n_red_air_utility.svg",
                     "conditions": [],
                     "states": [],
@@ -5889,7 +5889,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "C2 Node",
+                    "name": "C2 Node (red)",
                     "icon": "n_red_hq.svg",
                     "conditions": [],
                     "states": [],
@@ -5900,7 +5900,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "FIAC",
+                    "name": "FIAC (red)",
                     "icon": "n_red_maritime_missile_boat.svg",
                     "conditions": [],
                     "states": [],
@@ -5911,7 +5911,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Minefield",
+                    "name": "Minefield (red)",
                     "icon": "n_red_maritime_minefield.svg",
                     "conditions": [],
                     "states": [],
@@ -5922,7 +5922,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Fixed Asset",
+                    "name": "Fixed Asset (red)",
                     "icon": "n_red_land_asset.svg",
                     "conditions": [],
                     "states": [],
@@ -6047,15 +6047,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6072,15 +6066,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6291,15 +6279,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6316,15 +6298,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6572,15 +6548,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6950,15 +6920,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -6975,15 +6939,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7194,15 +7152,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7219,15 +7171,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7475,15 +7421,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7853,15 +7793,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -7878,15 +7812,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8097,15 +8025,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8122,15 +8044,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Cruise Missile Strike-2"
+                                            "uniqid": "Cruise Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8378,15 +8294,9 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
                                             "name": "Strike Target",
                                             "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-2"
+                                            "uniqid": "Ballistic Missile Strike-1"
                                         }
                                     ]
                                 },
@@ -8758,6 +8668,7 @@ const game: Wargame = {
                             "perceptionOutcomes": {
                                 "type": "array",
                                 "title": "Perception Outcomes",
+                                "propertyOrder": 10,
                                 "format": "table",
                                 "additionalProperties": false,
                                 "items": {
@@ -8770,6 +8681,7 @@ const game: Wargame = {
                                     "properties": {
                                         "force": {
                                             "title": "By",
+                                            "propertyOrder": 10,
                                             "type": "string",
                                             "enum": [
                                                 "f-a",
@@ -8789,6 +8701,7 @@ const game: Wargame = {
                                         },
                                         "asset": {
                                             "title": "Asset",
+                                            "propertyOrder": 20,
                                             "type": "string",
                                             "enum": [
                                                 "ta",
@@ -8808,6 +8721,7 @@ const game: Wargame = {
                                         },
                                         "perceivedForce": {
                                             "title": "Force",
+                                            "propertyOrder": 30,
                                             "type": "string",
                                             "enum": [
                                                 "Unknown",
@@ -8822,6 +8736,7 @@ const game: Wargame = {
                                         },
                                         "perceivedType": {
                                             "title": "Platform Type",
+                                            "propertyOrder": 40,
                                             "type": "string",
                                             "enum": [
                                                 "Unknown",
@@ -8836,8 +8751,10 @@ const game: Wargame = {
                                         },
                                         "health": {
                                             "title": "Health",
+                                            "propertyOrder": 50,
                                             "type": "string",
                                             "enum": [
+                                                "Unknown",
                                                 "100",
                                                 "75",
                                                 "50",
@@ -8850,15 +8767,18 @@ const game: Wargame = {
                                         },
                                         "perceivedName": {
                                             "title": "Name",
+                                            "propertyOrder": 60,
                                             "type": "string"
                                         },
                                         "narrative": {
                                             "title": "Comment",
+                                            "propertyOrder": 70,
                                             "type": "string",
                                             "format": "textarea"
                                         },
                                         "private": {
                                             "title": "Private",
+                                            "propertyOrder": 80,
                                             "type": "string",
                                             "format": "textarea"
                                         }
@@ -8868,6 +8788,7 @@ const game: Wargame = {
                             "healthOutcomes": {
                                 "type": "array",
                                 "format": "table",
+                                "propertyOrder": 20,
                                 "title": "Health Outcomes",
                                 "additionalProperties": false,
                                 "items": {
@@ -8927,6 +8848,7 @@ const game: Wargame = {
                             "locationOutcomes": {
                                 "type": "array",
                                 "format": "table",
+                                "propertyOrder": 30,
                                 "title": "Movement Outcomes",
                                 "additionalProperties": false,
                                 "items": {

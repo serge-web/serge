@@ -61,7 +61,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onCancelDraftMessage,
   forcePlanningActivities,
   editLocation,
-  attributeTypes
+  attributeTypes,
+  handleAdjudication
 }) => {
   const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
@@ -108,7 +109,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return (
       <div className={cx(styles['action-tab'], className)}>
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
-        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
+        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
         {selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
         }
@@ -322,6 +323,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       platformTypes={platformTypes}
                       onDetailPanelOpen={onDetailPanelOpen}
                       onDetailPanelClose={onDetailPanelClose}
+                      handleAdjudication={handleAdjudication}
                     />
                   </div>
                 }
