@@ -47,8 +47,8 @@ const runServer = (
   const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
 
   // workaround to allow large documents to be saved
-  app.use(bodyParser.json({limit: '200mb'}));
-  app.use(bodyParser.urlencoded({limit: '200mb', extended: true}));
+  app.use(bodyParser.json({ limit: '200mb' }));
+  app.use(bodyParser.urlencoded({ limit: '200mb', extended: true }));
 
   const clientBuildPath = '../client/build'
 
