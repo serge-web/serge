@@ -27,6 +27,7 @@ export { default as getSelectedItem } from './getSelectedItem'
 export { default as groupCreateNewGroup } from './group-create-new-group'
 export { default as groupMoveToRoot } from './group-move-to-root'
 export { default as groupHostPlatform } from './group-host-platform'
+export { default as handleAdjudicationOutcomesHelper } from './handle-adjudication-outcomes-helper'
 export {
   default as handleChannelUpdates,
   handleAllInitialChannelMessages,

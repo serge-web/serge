@@ -9,7 +9,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
-import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -43,6 +43,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveNewActivityTimeMessage,
   openMessage,
   saveMessage,
+  mapPostBack,
   allTemplates,
   messages,
   channel,
@@ -267,7 +268,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        const newOrders = randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
         console.log(newOrders)
       }
     }
@@ -323,7 +324,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: InteractionMessageStructure = {
+    const message: MessageAdjudicationOutcomes = {
+      messageType: 'AdjudicationOutcomes',
       Reference: '',
       narrative: '',
       perceptionOutcomes: [],
@@ -395,7 +397,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
     const unmangledMessage = expandLocation(message)
-    setDraftMessage(undefined)
+    // if this is a draft plans, clear the draft plan
+    if (!details.interaction) {
+      setDraftMessage(undefined)
+    }
     return saveMessage(dbName, details, unmangledMessage)
   }
 
@@ -502,10 +507,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
+            mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
             currentWargame={currentWargame}
-            isUmpire={!!selectedForce.umpire}
             selectedRoleName={selectedRoleName}
             selectedRoleId={selectedRoleId}
             selectedForce={currentForce}
@@ -513,6 +518,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameDate={gameDate}
             gameTurnTime={gameTurnTime}
             currentTurn={currentTurn}
+            phase={phase}
             selectedAssets={selectedAssets}
             setSelectedAssets={setLocalSelectedAssets}
             selectedOrders={selectedOrders}

@@ -131,14 +131,17 @@ export interface PerceptionOutcome extends CoreOutcome {
 
 export interface LocationOutcome extends CoreOutcome  {
   /** new location */
-  location: number[]
+  location: [number, number]
 }
 
 export interface HealthOutcome extends CoreOutcome  {
   /** new location (zero for destroyed) */
-  condition: number
+  health: number
 }
 
+export type LocationOutcomes = LocationOutcome[]
+export type HealthOutcomes = HealthOutcome[]
+export type PerceptionOutcomes = PerceptionOutcome[]
 
 /** top level database object for storing activity definitions */
 /** collection of map annotations */

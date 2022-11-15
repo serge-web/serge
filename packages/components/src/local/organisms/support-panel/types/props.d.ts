@@ -1,11 +1,12 @@
 import { TurnFormats } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
-  PerForcePlanningActivitySet, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
+  PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
+import { AdjudicationPostBack } from '../../planning-channel/types/props'
 import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
 
 export default interface PropTypes {
@@ -35,12 +36,12 @@ export default interface PropTypes {
   getCachedNewMessagevalue?: (value: string) => string
   clearCachedNewMessage?: (data: string[]) => void
   dispatch: Dispatch<any>
-  isUmpire: boolean
   selectedRoleName: Role['name']
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
   gameDate: string
+  phase: Phase
   currentTurn: number
   gameTurnTime: TurnLengthType
   currentWargame: string
@@ -65,6 +66,12 @@ export default interface PropTypes {
    * there is a new interaction to adjudicate
    */
   handleAdjudication: { (contact: PlanningContact): void }
+  /**
+   * The method for posting messages out of the mapping components. They have
+   * special handlers since the message may involve making changes to the forces
+   * in the wargame
+   */
+  mapPostBack?: AdjudicationPostBack
 }
 
 export type TabPanelProps = {

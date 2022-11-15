@@ -8654,21 +8654,25 @@ const game: Wargame = {
                         "properties": {
                             "Reference": {
                                 "title": "Reference",
+                                "propertyOrder": 10,
+                                "readonly": true,
                                 "type": "string"
                             },
                             "narrative": {
                                 "title": "General Feedback",
+                                "propertyOrder": 20,
                                 "type": "string",
                                 "format": "textarea"
                             },
                             "location": {
                                 "title": "Location",
+                                "propertyOrder": 30,
                                 "type": "string"
                             },
                             "perceptionOutcomes": {
                                 "type": "array",
                                 "title": "Perception Outcomes",
-                                "propertyOrder": 10,
+                                "propertyOrder": 40,
                                 "format": "table",
                                 "additionalProperties": false,
                                 "items": {
@@ -8788,7 +8792,7 @@ const game: Wargame = {
                             "healthOutcomes": {
                                 "type": "array",
                                 "format": "table",
-                                "propertyOrder": 20,
+                                "propertyOrder": 50,
                                 "title": "Health Outcomes",
                                 "additionalProperties": false,
                                 "items": {
@@ -8848,7 +8852,7 @@ const game: Wargame = {
                             "locationOutcomes": {
                                 "type": "array",
                                 "format": "table",
-                                "propertyOrder": 30,
+                                "propertyOrder": 60,
                                 "title": "Movement Outcomes",
                                 "additionalProperties": false,
                                 "items": {

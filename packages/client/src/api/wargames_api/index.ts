@@ -1,4 +1,5 @@
 import {
+  ADJUDICATION_OUTCOMES,
   ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
   MSG_TYPE_STORE,
   PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings
@@ -17,13 +18,14 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
   ApiWargameDb, ApiWargameDbObject, ListenNewMessageType
 } from './types.d'
 
+import handleAdjudicationOutcomes from '../../ActionsAndReducers/playerUi/helpers/handleAdjudicationOutcomes'
 import handleStateOfWorldChanges from '../../ActionsAndReducers/playerUi/helpers/handleStateOfWorldChanges'
 import incrementGameTime from '../../Helpers/increment-game-time'
 import DbProvider from '../db'
@@ -777,6 +779,10 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageDeleteMarker = message
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
+        } else if (message.messageType === ADJUDICATION_OUTCOMES) {
+          const validMessage: MessageAdjudicationOutcomes = message
+          console.log('handling outcomes')
+          res.data.forces.forces = handleAdjudicationOutcomes(validMessage, res.data.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
