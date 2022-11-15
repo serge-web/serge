@@ -47,9 +47,9 @@ const allForces: ForceData[] = [
 const emptyPayload: MessageAdjudicationOutcomes = {
   messageType: ADJUDICATION_OUTCOMES,
   reference: 'umpire-234',
-  health: [],
-  perception: [],
-  movement: [],
+  healthOutcomes: [],
+  perceptionOutcomes: [],
+  locationOutcomes: [],
   narrative: 'well done'
 }
 
@@ -64,12 +64,12 @@ it('empty lists results in no change', () => {
 const validPayload: MessageAdjudicationOutcomes = {
   messageType: ADJUDICATION_OUTCOMES,
   reference: 'umpire-234',
-  health: [{ asset: 'alpha', health: 34 }],
-  perception: [
+  healthOutcomes: [{ asset: 'alpha', health: 34 }],
+  perceptionOutcomes: [
     { force: 'f-Red', asset: 'alpha', perceivedHealth: 22, perceivedName: 'alfred', perceivedForce: 'f-Green' },
     { force: 'f-Green', asset: 'bravo', perceivedForce: 'f-Orange' }
   ],
-  movement: [],
+  locationOutcomes: [],
   narrative: 'well done'
 }
 

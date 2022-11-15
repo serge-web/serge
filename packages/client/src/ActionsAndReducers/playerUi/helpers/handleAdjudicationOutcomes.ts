@@ -8,17 +8,18 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   // NOTE: so, I copied the implementation into here.  If updates are necessary
   // NOTE: I suggest fixing the helper, covering it with the helper test 
   // NOTE: and then copying the code here
-  payload.health.forEach((health) => {
+  console.log('handling', payload)
+  payload.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
     asset.health = health.health
   })
 
-  payload.movement.forEach((movement) => {
+  payload.locationOutcomes.forEach((movement) => {
     const asset = findAsset(allForces, movement.asset)
     asset.location = movement.location
   })
 
-  payload.perception.forEach((perception) => {
+  payload.perceptionOutcomes.forEach((perception) => {
     const asset = findAsset(allForces, perception.asset)
     const by = perception.force
     // drop the existing perception

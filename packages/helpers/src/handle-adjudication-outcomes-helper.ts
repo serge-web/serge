@@ -4,17 +4,17 @@ import findAsset from './find-asset'
 
 /** modify the forces object to apply the adjudication outcomes */
 export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): ForceData[] => {
-  payload.health.forEach((health) => {
+  payload.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
     asset.health = health.health
   })
 
-  payload.movement.forEach((movement) => {
+  payload.locationOutcomes.forEach((movement) => {
     const asset = findAsset(allForces, movement.asset)
     asset.location = movement.location
   })
 
-  payload.perception.forEach((perception) => {
+  payload.perceptionOutcomes.forEach((perception) => {
     const asset = findAsset(allForces, perception.asset)
     const by = perception.force
     // drop the existing perception

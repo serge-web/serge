@@ -189,7 +189,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const localSubmitAdjudication = (): void => {
-    console.log('save message ', currentAdjudication.current)
+  console.log('save message ', currentAdjudication.current)
 
     if (currentAdjudication && currentAdjudication.current) {
       // get current message
@@ -202,7 +202,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // mark as adjudicatead
           interaction.complete = true
         }
-        
+
         // for the map handler to work, the message type needs to be int he emssage
         const outAsAny = outcomes as any
         outAsAny.messageType = ADJUDICATION_OUTCOMES

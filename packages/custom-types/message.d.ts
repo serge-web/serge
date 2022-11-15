@@ -267,9 +267,9 @@ export interface MessageAdjudicationOutcomes {
   readonly messageType: typeof ADJUDICATION_OUTCOMES,
   /** ref of the adjudication this refers to */
   readonly reference: InteractionMessageStructure['Reference']
-  readonly health: HealthOutcomes
-  readonly movement: LocationOutcomes
-  readonly perception: PerceptionOutcomes
+  readonly healthOutcomes: HealthOutcomes
+  readonly locationOutcomes: LocationOutcomes
+  readonly perceptionOutcomes: PerceptionOutcomes
   readonly narrative: string
 }
 
