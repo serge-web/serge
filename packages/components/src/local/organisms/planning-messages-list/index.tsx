@@ -192,7 +192,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         return <>
           <DetailPanelStateListener />
-          { canEdit && 
+          { canEdit &&
             <Button color='secondary' onClick={() => { editDocument(rowData.id) }} icon='edit'>Edit</Button>
           }
           <JsonEditor

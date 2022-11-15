@@ -156,7 +156,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const localEditCallback = (): void => {
     console.log('edit button for', messageBeingEdited.current)
     const current = messageBeingEdited.current
-    if (typeof(current) === 'string') {
+    if (typeof (current) === 'string') {
       console.warn('message edits contains string, not form contents')
     } else {
       const records = current as Record<string, any>
@@ -172,7 +172,7 @@ const MessageCreator: React.FC<PropTypes> = ({
       const anyDraft = draftMessage as any
       if (anyDraft.message) {
         // see if we have any cached content
-        if(formValue) {
+        if (formValue) {
           setMessageContent(formValue)
         } else {
           setMessageContent(anyDraft.message)

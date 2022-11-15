@@ -86,7 +86,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
 
-
   const ORDERS_TAB = 1
 
   const onTabChange = (tab: string): void => {
@@ -101,7 +100,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     if (forcePlanningActivities) {
       const thisForce = forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === selectedForce.uniqid)
-      setActivitiesForThisForce(thisForce)  
+      setActivitiesForThisForce(thisForce)
     }
   }, [forcePlanningActivities, selectedForce])
 
@@ -175,12 +174,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const postBack = (details: MessageDetails, message: any): void => {
-
     // do we have any pending geometry
     if (pendingLocationData.length > 0) {
       console.log('injecting geometry')
     }
-    
+
     const activity: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
@@ -329,7 +327,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     postBack={postBack}
                     customiseTemplate={localCustomiseTemplate}
                     modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-                    modifyForSave={expandLocation}        
+                    modifyForSave={expandLocation}
                     draftMessage={localDraftMessage}
                     editCallback={localEditLocation}
                   />}

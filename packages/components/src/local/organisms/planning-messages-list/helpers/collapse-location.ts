@@ -6,7 +6,7 @@ export const collapseLocation = (document: Record<string, any>, activities?: Per
   const res = deepCopy(document)
   const parent = res.message || res
   if (parent && parent.location) {
-    if (typeof(parent.location) !== 'string') {
+    if (typeof (parent.location) !== 'string') {
       const loc = parent.location as PlannedActivityGeometry[]
       let str = ''
       let flatGeoms: PlanningActivityGeometry[] = []
@@ -37,7 +37,6 @@ export const collapseLocation = (document: Record<string, any>, activities?: Per
       })
       parent.location = str
       parent.hiddenStore = JSON.stringify(loc)
-    
     }
   }
   return res
