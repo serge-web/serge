@@ -270,6 +270,7 @@ export interface MessageAdjudicationOutcomes {
   readonly health: HealthOutcomes
   readonly movement: LocationOutcomes
   readonly perception: PerceptionOutcomes
+  readonly narrative: string
 }
 
 /** message containing updated game status, could be one of:

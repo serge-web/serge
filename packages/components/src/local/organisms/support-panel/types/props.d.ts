@@ -1,11 +1,12 @@
 import { TurnFormats } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ForceData, MapPostBack, MessageDetails, MessagePlanning,
+  AttributeTypes, ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
+import { AdjudicationPostBack } from '../../planning-channel/types/props'
 import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
 
 export default interface PropTypes {
@@ -70,7 +71,7 @@ export default interface PropTypes {
    * special handlers since the message may involve making changes to the forces
    * in the wargame
    */
-  mapPostBack?: MapPostBack
+  mapPostBack?: AdjudicationPostBack
 }
 
 export type TabPanelProps = {

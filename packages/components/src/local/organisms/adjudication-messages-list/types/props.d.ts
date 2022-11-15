@@ -1,9 +1,10 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MapPostBack, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import React from 'react'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
+import { AdjudicationPostBack } from '../../planning-channel/types/props'
 import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
 export type AdjudicationRow = {
@@ -108,5 +109,5 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * special handlers since the message may involve making changes to the forces
    * in the wargame
    */
-  mapPostBack?: MapPostBack
+  mapPostBack?: AdjudicationPostBack
 }

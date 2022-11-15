@@ -1,4 +1,4 @@
-import { ForceData, MessageMap, Message, MessageDetails, Role } from '@serge/custom-types'
+import { ForceData, Message, MessageDetails, MessageMap, Role } from '@serge/custom-types'
 
 /**
  * @param mType message type

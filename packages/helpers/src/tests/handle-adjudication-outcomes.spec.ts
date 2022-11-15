@@ -49,7 +49,8 @@ const emptyPayload: MessageAdjudicationOutcomes = {
   reference: 'umpire-234',
   health: [],
   perception: [],
-  movement: []
+  movement: [],
+  narrative: 'well done'
 }
 
 it('empty lists results in no change', () => {
@@ -68,7 +69,8 @@ const validPayload: MessageAdjudicationOutcomes = {
     { force: 'f-Red', asset: 'alpha', perceivedHealth: 22, perceivedName: 'alfred', perceivedForce: 'f-Green' },
     { force: 'f-Green', asset: 'bravo', perceivedForce: 'f-Orange' }
   ],
-  movement: []
+  movement: [],
+  narrative: 'well done'
 }
 
 it('correctly updates perception with perception entry not present', () => {

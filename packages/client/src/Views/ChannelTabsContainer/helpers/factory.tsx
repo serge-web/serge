@@ -3,7 +3,7 @@ import {
   CHANNEL_CHAT, CHANNEL_COLLAB,
   CHANNEL_CUSTOM, CHANNEL_MAPPING, CHANNEL_PLANNING, CLONE_MARKER, CREATE_TASK_GROUP, DELETE_MARKER, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, Phase, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
-import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from '@serge/custom-types'
+import { ChannelMapping, ChannelPlanning, ChannelTypes, ChannelUI, MappingConstraints, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessageMap, MessagePlanning, PlayerUi } from '@serge/custom-types'
 import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
@@ -31,6 +31,12 @@ const phaseFor = (phase: string): Phase => {
 const factory = (state: PlayerUi): Factory => {
   const dispatch = usePlayerUiDispatch()
   const reduxDisplatch = useDispatch()
+
+  const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
+    console.log('sending outcomes', outcomes.narrative)
+    saveMapMessage(state.currentWargame, details, outcomes)
+    console.log('sent outcomes', outcomes.narrative)
+  }
 
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
     if (channelID === '') return
@@ -195,6 +201,7 @@ const factory = (state: PlayerUi): Factory => {
             currentTurn={state.currentTurn}
             gameTurnTime={state.gameTurnTime}
             dispatch={dispatch}
+            mapPostBack={adjudicatePostBack}
             getAllWargameMessages={getAllWargameMessages}
             markAllAsRead={markAllAsRead}
             markUnread={markUnread}

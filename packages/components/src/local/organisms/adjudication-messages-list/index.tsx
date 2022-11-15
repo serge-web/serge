@@ -1,7 +1,6 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
-import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionMessageStructure, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
@@ -21,7 +20,7 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, postBack, mapPostBack
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -202,9 +201,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // mark as adjudicatead
           interaction.complete = true
         }
+
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
-        mapPostBack && console.log('sending', ADJUDICATION_OUTCOMES, details, outcomes)//  mapPostBack(ADJUDICATION_OUTCOMES, details, outcomes)
+        mapPostBack && mapPostBack(details, outcomes)
       }
     }
   }
