@@ -39,9 +39,23 @@
   box-sizing: border-box;
   width: 100%;
   height: 100%;
+  position: relative;
 
   img {
     width: 100%;
     display: block;
   }
+}
+
+.corner-line {
+  background: rgb(0, 0, 0);
+  height: 5px;
+  width: 100%;
+  transform: rotate(45deg);
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

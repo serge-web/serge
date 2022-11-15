@@ -131,9 +131,9 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   if (!row.icon) return <></>
   const icons = row.icon.split(',')
   if (icons.length === 3) {
-    return <span><AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />{icons[2]}</span>
+    return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} color={icons[1]} health={+icons[3]} />{icons[2]}</span>
   }
-  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
+  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[1]}</span>
 }
 
 export const arrToDict = (arr: string[]): any => {
@@ -294,7 +294,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
+          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name + ',' + health,
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
           name: perception.name,
           platformType: perception.typeId,
@@ -316,7 +316,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
-        icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,
+        icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name + ',' + health,
         force: assetForce.name,
         name: asset.name,
         platformType: asset.platformTypeId || '',
