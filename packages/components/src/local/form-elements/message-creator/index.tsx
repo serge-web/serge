@@ -5,6 +5,7 @@ import {
   CHANNEL_COLLAB,
   CollaborativeMessageStates,
   InitialStates,
+  UNSENT_CHAT_MESSAGE_TYPE,
   UNSENT_PRIVATE_MESSAGE_TYPE,
   UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
@@ -47,13 +48,16 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [clearName, setClearName] = useState<string>(messageOption)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
+  const [formValue, setFormValue] = useState<Record<string, any> | undefined>(undefined)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
+  const mainMessageOption = `${messageOption}-${UNSENT_CHAT_MESSAGE_TYPE}`
 
   const messageEdits = useRef<Record<string, any> | string>('')
 
+  console.log('message creator', formValue, draftMessage, formMessage, messageEdits.current)
 
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
@@ -107,6 +111,10 @@ const MessageCreator: React.FC<PropTypes> = ({
     const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
     setPrivateValue(privateValues)
 
+    const mainAny: any = getcachedCreatorMessageValue && getcachedCreatorMessageValue(mainMessageOption)
+    const mainForm = mainAny ? mainAny as Record<string, any> : undefined
+    setFormValue(mainForm)
+
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
     }
@@ -128,6 +136,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setConfirmIsOpen(false)
     setPrivateValue('')
     setClearName(messageOption)
+    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption, UNSENT_CHAT_MESSAGE_TYPE])
     clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
     onCancel && onCancel(event)
   }
@@ -138,8 +147,10 @@ const MessageCreator: React.FC<PropTypes> = ({
   }
 
   const responseHandler = (val: { [property: string]: any }): void => {
+    console.log('response handler', val)
     setFormMessage(val)
     messageEdits.current = val
+    createCachedCreatorMessage && createCachedCreatorMessage(val, mainMessageOption)
   }
 
   const localEditCallback = (): void => {
@@ -156,15 +167,21 @@ const MessageCreator: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
+    console.log('draft message', draftMessage, formValue)
     if (draftMessage) {
       const anyDraft = draftMessage as any
       if (anyDraft.message) {
-        setMessageContent(anyDraft.message)
+        // see if we have any cached content
+        if(formValue) {
+          setMessageContent(formValue)
+        } else {
+          setMessageContent(anyDraft.message)
+        }
       } else {
         setMessageContent(undefined)
       }
     }
-  }, [draftMessage])
+  }, [draftMessage, formValue])
 
   return (
     <>
