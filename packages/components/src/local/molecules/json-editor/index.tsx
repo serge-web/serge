@@ -238,14 +238,15 @@ export const JsonEditor: React.FC<Props> = ({
       } else {
         editor.enable()
       }
+      console.log('layout beingEdited:',beingEdited)
       setTimeout(() => {
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
-          if (beingEdited) {
+          //if (beingEdited) {
             btn.classList.remove('btn-hide')
-          } else {
-            btn.classList.add('btn-hide')
-          }
+          // } else {
+          //   btn.classList.add('btn-hide')
+          // }
         })
       }, 10)
     }

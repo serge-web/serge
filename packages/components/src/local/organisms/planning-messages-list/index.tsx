@@ -112,7 +112,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const editDocument = (docId: string): void => {
-    editThisMessage(docId)
+    editThisMessage && editThisMessage(docId)
   }
 
   const detailPanel = (rowData: OrderRow): any => {

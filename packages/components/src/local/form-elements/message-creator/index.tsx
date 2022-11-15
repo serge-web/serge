@@ -12,7 +12,7 @@ import {
   ChannelCollab,
   MessageDetails
 } from '@serge/custom-types'
-import React, { createRef, MouseEvent, useEffect, useState } from 'react'
+import React, { createRef, MouseEvent, useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 
 import flatpickr from 'flatpickr'
@@ -37,7 +37,10 @@ const MessageCreator: React.FC<PropTypes> = ({
   createCachedCreatorMessage,
   getcachedCreatorMessageValue,
   clearCachedCreatorMessage,
-  draftMessage
+  draftMessage,
+  modifyForEdit,
+  modifyForSave,
+  editCallback
 }) => {
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
@@ -48,6 +51,10 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
+
+  const messageEdits = useRef<Record<string, any> | string>('')
+
+
   const sendMessage = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.persist()
     const details: MessageDetails = {
@@ -132,6 +139,20 @@ const MessageCreator: React.FC<PropTypes> = ({
 
   const responseHandler = (val: { [property: string]: any }): void => {
     setFormMessage(val)
+    messageEdits.current = val
+  }
+
+  const localEditCallback = (): void => {
+    console.log('edit button for', messageEdits.current)
+    const current = messageEdits.current
+    if (typeof(current) === 'string') {
+      console.warn('message edits contains string, not form contents')
+    } else {
+      const records = current as Record<string, any>
+      const ref = records.Reference
+      console.log('editing', ref, records.location)
+      editCallback && editCallback(ref, records.location)
+    }
   }
 
   useEffect(() => {
@@ -168,6 +189,9 @@ const MessageCreator: React.FC<PropTypes> = ({
         disabled={false}
         gameDate={gameDate}
         messageContent={messageContent}
+        modifyForEdit={modifyForEdit}
+        modifyForSave={modifyForSave}
+        editCallback={localEditCallback}
       />
       {privateMessage && (
         <div className="flex-content form-group">

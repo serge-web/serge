@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -47,5 +47,5 @@ export default interface PropTypes {
   /**
    *  user has clicked on custom edit button
    */
-  editCallback?: { (): void }
+  editCallback?: { (doc: string, geoms: PlannedActivityGeometry[]): void }
 }

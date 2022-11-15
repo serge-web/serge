@@ -20,10 +20,11 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   const disableArrayDelete = 'disable_array_delete'
   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'
   const promptBeforeDelete = 'prompt_before_delete'
-
+  console.log('setup', schema, schema.type, ref.current, schema.properties.location)
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       setTimeout(() => {
+        console.log('in timeout')
         const hiddenStores = document.querySelectorAll('div[data-schemapath$="hiddenStore"]') as NodeListOf<HTMLDivElement>
         Array.from(hiddenStores).forEach(hiddenStores => {
           hiddenStores.style.display = 'none'
@@ -31,6 +32,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
 
         const locationSections = document.querySelectorAll('div[data-schemaid="locationArea"]') as NodeListOf<HTMLDivElement>
         Array.from(locationSections).forEach(locationSection => {
+          console.log('procssing loc secitons', locationSection.childNodes.length)
           // do not manipuate processed textarea
           if (locationSection.childNodes.length === 3) {
             return
