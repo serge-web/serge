@@ -6,7 +6,7 @@ import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
@@ -29,15 +29,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
-  const [, setCurrentAdjudication] = useState<string | undefined>(undefined)
+  // const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
+  const currentAdjudication = useRef<string>('')
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
-    // setCurrentAdjudication(row.id)
+    currentAdjudication.current = row.id
     onDetailPanelOpen && onDetailPanelOpen(row)
   }
 
   const localDetailPanelClose = (row: AdjudicationRow): void => {
-    // setCurrentAdjudication(undefined)
+    currentAdjudication.current = ''
     onDetailPanelClose && onDetailPanelClose(row)
   }
 
@@ -188,8 +189,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return firstUpdate
   }
 
-  const localSubmitAdjudication = (currentAdjudication: string): void => {
-    console.log('save message ', currentAdjudication)
+  const localSubmitAdjudication = (): void => {
+    console.log('save message ', currentAdjudication.current)
+
     if (currentAdjudication) {
       // get current message
 
@@ -203,7 +205,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   /** this is how we prevent draft messages getting corrected */
   const localStoreNewValue = (value: { [property: string]: any }): void => {
-    setCurrentAdjudication(value.Reference)
+    currentAdjudication.current = value.Reference
   }
 
   const getInteraction = (): void => {
@@ -259,11 +261,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               disabled={false}
               template={template}
               gameDate={gameDate}
-              saveMessage={() => localSubmitAdjudication(rowData.id)}
+              saveMessage={localSubmitAdjudication}
               storeNewValue={localStoreNewValue}
             />
             <div className='button-wrap' >
-              <Button color='secondary' onClick={() => localSubmitAdjudication(rowData.id)} icon='save'>Submit Adjudication</Button>
+              <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
             </div>
           </>
         }
