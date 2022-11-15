@@ -147,27 +147,23 @@ const MessageCreator: React.FC<PropTypes> = ({
   }
 
   const responseHandler = (val: { [property: string]: any }): void => {
-    console.log('response handler', val)
     setFormMessage(val)
     messageBeingEdited.current = val
     createCachedCreatorMessage && createCachedCreatorMessage(val, mainMessageOption)
   }
 
   const localEditCallback = (): void => {
-    console.log('edit button for', messageBeingEdited.current)
     const current = messageBeingEdited.current
     if (typeof (current) === 'string') {
       console.warn('message edits contains string, not form contents')
     } else {
       const records = current as Record<string, any>
       const ref = records.Reference
-      console.log('editing', ref, records.location)
       editCallback && editCallback(ref, records.location)
     }
   }
 
   useEffect(() => {
-    console.log('draft message', draftMessage, formValue)
     if (draftMessage) {
       const anyDraft = draftMessage as any
       if (anyDraft.message) {

@@ -174,7 +174,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               pendingLocationData.push(newValue as PlannedActivityGeometry[])
             }
             // pass the location data object
-            editLocation && editLocation(message.message.location, localCallback)
+            canEdit && editLocation && editLocation(message.message.location, localCallback)
           }
         }
 

@@ -176,7 +176,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const postBack = (details: MessageDetails, message: any): void => {
     // do we have any pending geometry
     if (pendingLocationData.length > 0) {
-      console.log('injecting geometry')
+      const plan = message as MessagePlanning
+      console.log('injecting geometry', plan.message.locationm, pendingLocationData)
     }
 
     const activity: MessageSentInteraction = {
