@@ -327,6 +327,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       onDetailPanelOpen={onDetailPanelOpen}
                       onDetailPanelClose={onDetailPanelClose}
                       handleAdjudication={handleAdjudication}
+                      postBack={postBack}
                     />
                   </div>
                 }
