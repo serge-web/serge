@@ -36,6 +36,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   channel,
   allTemplates,
   adjudicationTemplate,
+  mapPostBack,
   saveMessage,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
@@ -316,6 +317,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       onRead={onRead}
                       onUnread={onUnread}
                       onMarkAllAsRead={onReadAll}
+                      mapPostBack={mapPostBack}
                       channel={channel}
                       template={adjudicationTemplate}
                       customiseTemplate={localCustomiseTemplate}

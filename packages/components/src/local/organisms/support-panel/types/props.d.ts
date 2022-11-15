@@ -1,6 +1,6 @@
 import { TurnFormats } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
+  AttributeTypes, ChannelPlanning, ForceData, MapPostBack, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
@@ -65,6 +65,12 @@ export default interface PropTypes {
    * there is a new interaction to adjudicate
    */
   handleAdjudication: { (contact: PlanningContact): void }
+  /**
+   * The method for posting messages out of the mapping components. They have
+   * special handlers since the message may involve making changes to the forces
+   * in the wargame
+   */
+  mapPostBack?: MapPostBack
 }
 
 export type TabPanelProps = {

@@ -1,6 +1,7 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
+import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionMessageStructure, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
@@ -20,7 +21,7 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, postBack
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, postBack, mapPostBack
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -195,16 +196,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const outcomes: InteractionMessageStructure = currentAdjudication.current
       const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
-        // update message
-        document.message = currentAdjudication.current
-
-        const interaction = document.details.interaction
+        const details = document.details
+        const interaction = details.interaction
         if (interaction) {
         // mark as adjudicatead
           interaction.complete = true
         }
-        // postBack
-        postBack && postBack(document.details, currentAdjudication.current)
+        // postBack. note - we use the mapping post back handler, so it
+        // can modify the wargame, in addition to sending the message
+        mapPostBack && console.log('sending', ADJUDICATION_OUTCOMES, details, outcomes)//  mapPostBack(ADJUDICATION_OUTCOMES, details, outcomes)
       }
     }
   }

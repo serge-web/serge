@@ -1,5 +1,5 @@
 import { TurnFormats } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MapPostBack, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import React from 'react'
@@ -102,4 +102,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onDetailPanelClose?: (rowData: AdjudicationRow) => void
 
   postBack?: { (details: MessageDetails, message: any): void }
+
+  /**
+   * The method for posting messages out of the mapping components. They have
+   * special handlers since the message may involve making changes to the forces
+   * in the wargame
+   */
+  mapPostBack?: MapPostBack
 }

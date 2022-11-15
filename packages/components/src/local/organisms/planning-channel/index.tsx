@@ -43,6 +43,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveNewActivityTimeMessage,
   openMessage,
   saveMessage,
+  mapPostBack,
   allTemplates,
   messages,
   channel,
@@ -395,7 +396,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
     const unmangledMessage = expandLocation(message)
-    setDraftMessage(undefined)
+    // if this is a draft plans, clear the draft plan
+    if (!details.interaction) {
+      setDraftMessage(undefined)
+    }
     return saveMessage(dbName, details, unmangledMessage)
   }
 
@@ -502,6 +506,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
+            mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
             currentWargame={currentWargame}
