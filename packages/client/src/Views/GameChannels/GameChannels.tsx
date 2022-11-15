@@ -1,26 +1,25 @@
 import { faAddressBook, faBookOpen, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
+import { CHANGE_TAB_INTERACTION } from '@serge/config'
+import { ChangeTabInteraction } from '@serge/custom-types'
 import classNames from 'classnames'
 import { TabNode } from 'flexlayout-react'
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import {
-  nextGameTurn,
+  markAllAsRead,
+  markAllAsUnread, nextGameTurn,
   openModal,
   openTour,
-  showHideObjectives,
-  markAllAsRead,
-  markAllAsUnread
+  showHideObjectives
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
 import { expiredStorage } from '../../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import PlayerLog from '../PlayerLog'
-import { useDispatch } from 'react-redux'
-import { ChangeTabInteraction } from '@serge/custom-types'
-import { CHANGE_TAB_INTERACTION } from '@serge/config'
 
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
@@ -123,7 +122,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         turnEndTime={`${turnEndTime}`}
         wargameInitiated={wargameInitiated}
         onNextTurn={nextGameTurn(currentWargame)}
-        showTimeRemaining={true}
+        showTimeRemaining={false}
       />
 
       <div className='message-group-button'>
