@@ -5,6 +5,7 @@ import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
+import { Button } from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -16,7 +17,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
+  editThisMessage
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -109,6 +111,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     messageValue.current = val
   }
 
+  const editDocument = (docId: string): void => {
+    editThisMessage(docId)
+  }
+
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
@@ -186,16 +192,19 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         return <>
           <DetailPanelStateListener />
+          { canEdit && 
+            <Button color='secondary' onClick={() => { editDocument(rowData.id) }} icon='edit'>Edit</Button>
+          }
           <JsonEditor
             messageContent={message.message}
-            viewSaveButton={true}
+            viewSaveButton={false}
             saveMessage={saveMessage}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
             messageId={rowData.id}
             confirmCancel={confirmCancel}
             template={template}
-            disabled={!canEdit}
+            disabled={true}
             gameDate={gameDate}
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
             modifyForSave={expandLocation}
