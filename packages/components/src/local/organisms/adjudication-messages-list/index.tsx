@@ -30,15 +30,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   // const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
-  const currentAdjudication = useRef<string>('')
+  const currentAdjudication = useRef<Record<string,any>>({})
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
-    currentAdjudication.current = row.id
     onDetailPanelOpen && onDetailPanelOpen(row)
   }
 
   const localDetailPanelClose = (row: AdjudicationRow): void => {
-    currentAdjudication.current = ''
     onDetailPanelClose && onDetailPanelClose(row)
   }
 
@@ -205,7 +203,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   /** this is how we prevent draft messages getting corrected */
   const localStoreNewValue = (value: { [property: string]: any }): void => {
-    currentAdjudication.current = value.Reference
+    currentAdjudication.current = value
   }
 
   const getInteraction = (): void => {
