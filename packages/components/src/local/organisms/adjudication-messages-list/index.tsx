@@ -16,6 +16,7 @@ import { collateInteraction, InteractionData, updateAssets, updateForces, update
 import { getNextInteraction } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
+import cx from 'classnames'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
@@ -289,7 +290,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         icons={materialIcons}
         actions={jestWorkerId ? [] : [
           {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
+            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'action' } : { color: 'disabled' },
             tooltip: 'Show filter controls',
             isFreeAction: true,
