@@ -100,4 +100,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onDetailPanelOpen?: (rowData: AdjudicationRow) => void
 
   onDetailPanelClose?: (rowData: AdjudicationRow) => void
+
+  postBack?: { (details: MessageDetails, message: any): void }
 }

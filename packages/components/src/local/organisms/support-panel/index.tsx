@@ -1,6 +1,6 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { MESSAGE_SENT_INTERACTION } from '@serge/config'
+import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
@@ -48,6 +48,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   gameTurnTime,
   currentTurn,
+  phase,
   currentWargame,
   setSelectedAssets,
   selectedOrders,
@@ -64,7 +65,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   attributeTypes,
   handleAdjudication
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
+  const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
+  console.log('support', selectedForce, phase)
+  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
@@ -324,6 +327,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       onDetailPanelOpen={onDetailPanelOpen}
                       onDetailPanelClose={onDetailPanelClose}
                       handleAdjudication={handleAdjudication}
+                      postBack={postBack}
                     />
                   </div>
                 }

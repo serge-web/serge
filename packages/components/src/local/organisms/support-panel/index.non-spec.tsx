@@ -1,5 +1,5 @@
 /* global it expect */
-import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
@@ -34,6 +34,7 @@ describe('Support Panel component: ', () => {
         attributeTypes={[]}
         handleAdjudication={handler}
         setSelectedAssets={noop}
+        phase={Phase.Adjudication}
         selectedOrders={[]}
         setSelectedOrders={noop}
         currentTurn={P9BMock.gameTurn}
@@ -52,7 +53,6 @@ describe('Support Panel component: ', () => {
         selectedForce={blueForce}
         selectedRoleId={blueRole.roleId}
         selectedRoleName={blueRole.name}
-        isUmpire={false}
         setOpForcesForParent={noop}
         setOwnForcesForParent={noop}
         allOppAssets={[]}

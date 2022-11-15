@@ -267,7 +267,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [])
+        const newOrders = randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
         console.log(newOrders)
       }
     }
@@ -505,7 +505,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
             currentWargame={currentWargame}
-            isUmpire={!!selectedForce.umpire}
             selectedRoleName={selectedRoleName}
             selectedRoleId={selectedRoleId}
             selectedForce={currentForce}
@@ -513,6 +512,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameDate={gameDate}
             gameTurnTime={gameTurnTime}
             currentTurn={currentTurn}
+            phase={phase}
             selectedAssets={selectedAssets}
             setSelectedAssets={setLocalSelectedAssets}
             selectedOrders={selectedOrders}
