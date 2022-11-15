@@ -30,8 +30,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
-  // const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
-  const currentAdjudication = useRef<MessageAdjudicationOutcomes | undefined>(undefined)
+  const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -191,7 +190,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localSubmitAdjudication = (): void => {
     if (currentAdjudication.current) {
       // get current message
-      const outcomes: MessageAdjudicationOutcomes = currentAdjudication.current
+      const outcomes = currentAdjudication.current as any as MessageAdjudicationOutcomes
       const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         const details = document.details
