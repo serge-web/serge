@@ -29,7 +29,7 @@ export { default as MessageTypes, TemplateBodysByKey } from './message-types.d'
 export {
   ChatMessage, CollaborationDetails, CoreMessage, default as Message, FeedbackItem, InteractionDetails,
   // All template based messages
-  InteractionMessageStructure, MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
+  InteractionMessageStructure, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCounter, MessageCreateTaskGroup,
   // All template based messages
   MessageCustom, MessageDeleteMarker, MessageDeletePlatform, MessageDetails, MessageDetailsFrom,
   // System Messages

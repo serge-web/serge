@@ -1,10 +1,11 @@
 import {
+  ADJUDICATION_OUTCOMES,
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
   COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
 import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, LocationOutcome, PerceptionOutcome, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, HealthOutcomes, LocationOutcome, LocationOutcomes, PerceptionOutcome, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -261,6 +262,16 @@ export interface MessageFeedback extends CoreMessage {
   message: MessageStructure
 }
 
+/** the outcome-related content of an adjudication */
+export interface MessageAdjudicationOutcomes {
+  readonly messageType: typeof ADJUDICATION_OUTCOMES,
+  /** ref of the adjudication this refers to */
+  readonly reference: InteractionMessageStructure['Reference']
+  readonly health: HealthOutcomes
+  readonly movement: LocationOutcomes
+  readonly perception: PerceptionOutcomes
+}
+
 /** message containing updated game status, could be one of:
  * new turn
  * updated wargame
@@ -370,7 +381,8 @@ export type MessageMap = MessageForceLaydown |
   MessageDeletePlatform |
   MessageUpdateMarker |
   MessageDeleteMarker |
-  MessageCloneMarker
+  MessageCloneMarker |
+  MessageAdjudicationOutcomes
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
