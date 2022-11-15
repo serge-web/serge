@@ -196,7 +196,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         // update message
-        document.message === currentAdjudication.current
+        document.message = currentAdjudication.current
 
         const interaction = document.details.interaction
         if (interaction) {
