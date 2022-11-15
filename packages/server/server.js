@@ -46,8 +46,9 @@ const runServer = (
   // note: indicator that we're running on Heroku
   const io = new Server(process.env.PORT ? http : 4000, { cors: { origin: '*' } })
 
-  app.use(express.json())
-  app.use(bodyParser.urlencoded({ extended: true }))
+  // workaround to allow large documents to be saved
+  app.use(bodyParser.json({limit: '200mb'}));
+  app.use(bodyParser.urlencoded({limit: '200mb', extended: true}));
 
   const clientBuildPath = '../client/build'
 
