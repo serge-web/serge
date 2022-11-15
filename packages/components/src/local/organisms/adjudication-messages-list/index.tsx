@@ -189,7 +189,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const localSubmitAdjudication = (): void => {
-    if (currentAdjudication && currentAdjudication.current) {
+    if (currentAdjudication.current) {
       // get current message
       const outcomes: MessageAdjudicationOutcomes = currentAdjudication.current
       const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
