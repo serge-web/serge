@@ -1,7 +1,7 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
-import { Asset, ForceData, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, InteractionMessageStructure, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
@@ -20,7 +20,7 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
   customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, postBack
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -30,7 +30,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   // const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
-  const currentAdjudication = useRef<Record<string,any>>({})
+  const currentAdjudication = useRef<InteractionMessageStructure | undefined>(undefined)
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -190,20 +190,28 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localSubmitAdjudication = (): void => {
     console.log('save message ', currentAdjudication.current)
 
-    if (currentAdjudication) {
+    if (currentAdjudication && currentAdjudication.current) {
       // get current message
+      const outcomes: InteractionMessageStructure = currentAdjudication.current
+      const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
+      if (document) {
+        // update message
+        document?.message === currentAdjudication.current
 
-      // update message
-
-      // mark as adjudicatead
-
-      // postBack
+        const interaction = document.details.interaction
+        if (interaction) {
+        // mark as adjudicatead
+        interaction.complete = true
+        }
+        // postBack
+        postBack && postBack(document.details, currentAdjudication.current)
+      }
     }
   }
 
   /** this is how we prevent draft messages getting corrected */
   const localStoreNewValue = (value: { [property: string]: any }): void => {
-    currentAdjudication.current = value
+    currentAdjudication.current = value as InteractionMessageStructure
   }
 
   const getInteraction = (): void => {
