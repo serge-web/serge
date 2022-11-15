@@ -238,7 +238,6 @@ export const JsonEditor: React.FC<Props> = ({
       } else {
         editor.enable()
       }
-      console.log('layout beingEdited:',beingEdited)
       setTimeout(() => {
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
