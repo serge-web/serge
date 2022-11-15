@@ -29,15 +29,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
-  const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
+  const [, setCurrentAdjudication] = useState<string | undefined>(undefined)
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
-    setCurrentAdjudication(row.id)
+    // setCurrentAdjudication(row.id)
     onDetailPanelOpen && onDetailPanelOpen(row)
   }
 
   const localDetailPanelClose = (row: AdjudicationRow): void => {
-    setCurrentAdjudication(undefined)
+    // setCurrentAdjudication(undefined)
     onDetailPanelClose && onDetailPanelClose(row)
   }
 
@@ -188,7 +188,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return firstUpdate
   }
 
-  const localSubmitAdjudication = (): void => {
+  const localSubmitAdjudication = (currentAdjudication: string): void => {
     console.log('save message ', currentAdjudication)
     if (currentAdjudication) {
       // get current message
@@ -259,11 +259,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               disabled={false}
               template={template}
               gameDate={gameDate}
-              saveMessage={() => localSubmitAdjudication()}
+              saveMessage={() => localSubmitAdjudication(rowData.id)}
               storeNewValue={localStoreNewValue}
             />
             <div className='button-wrap' >
-              <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
+              <Button color='secondary' onClick={() => localSubmitAdjudication(rowData.id)} icon='save'>Submit Adjudication</Button>
             </div>
           </>
         }
