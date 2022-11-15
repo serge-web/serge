@@ -2,7 +2,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionMessageStructure, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
@@ -31,7 +31,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   // const [currentAdjudication, setCurrentAdjudication] = useState<string | undefined>(undefined)
-  const currentAdjudication = useRef<InteractionMessageStructure | undefined>(undefined)
+  const currentAdjudication = useRef<MessageAdjudicationOutcomes | undefined>(undefined)
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -189,11 +189,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const localSubmitAdjudication = (): void => {
-  console.log('save message ', currentAdjudication.current)
-
     if (currentAdjudication && currentAdjudication.current) {
       // get current message
-      const outcomes: InteractionMessageStructure = currentAdjudication.current
+      const outcomes: MessageAdjudicationOutcomes = currentAdjudication.current
       const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         const details = document.details
@@ -216,7 +214,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   /** this is how we prevent draft messages getting corrected */
   const localStoreNewValue = (value: { [property: string]: any }): void => {
-    currentAdjudication.current = value as InteractionMessageStructure
+    currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
   const getInteraction = (): void => {

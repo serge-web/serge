@@ -29,7 +29,9 @@ export const dummyMessages: Array<MessageInteraction | MessagePlanning | Message
       Reference: 'Blue-21',
       locationOutcomes: [],
       perceptionOutcomes: [],
-      healthOutcomes: []
+      healthOutcomes: [],
+      narrative: '',
+      messageType: 'AdjudicationOutcomes'
     },
     hasBeenRead: false,
     _id: 'adjud_23423',
@@ -63,7 +65,9 @@ export const dummyMessages: Array<MessageInteraction | MessagePlanning | Message
       Reference: 'Blue-15',
       locationOutcomes: [],
       perceptionOutcomes: [],
-      healthOutcomes: []
+      healthOutcomes: [],
+      narrative: '',
+      messageType: 'AdjudicationOutcomes'
     },
     hasBeenRead: false,
     _id: 'adjud_23111',

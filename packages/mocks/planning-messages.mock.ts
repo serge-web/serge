@@ -3090,7 +3090,10 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "umpire-0",
             "healthOutcomes": [],
             "locationOutcomes": [],
-            "perceptionOutcomes": []
+            "perceptionOutcomes": [],
+            "messageType": 'AdjudicationOutcomes',
+            "narrative": 'aaa'
+
         },
         "_id": "2022-11-14T19:49:14.510Z"
     },
@@ -3123,7 +3126,9 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "umpire-1",
             "healthOutcomes": [],
             "locationOutcomes": [],
-            "perceptionOutcomes": []
+            "perceptionOutcomes": [],
+            "messageType": 'AdjudicationOutcomes',
+            "narrative": 'aaa'
         },
         "_id": "2022-11-14T19:49:14.510Z"
     },
@@ -3156,7 +3161,9 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "umpire-2",
             "healthOutcomes": [],
             "locationOutcomes": [],
-            "perceptionOutcomes": []
+            "perceptionOutcomes": [],
+            "messageType": 'AdjudicationOutcomes',
+            "narrative": 'aaa'
         },
         "_id": "2022-11-14T19:49:14.510Z"
     }

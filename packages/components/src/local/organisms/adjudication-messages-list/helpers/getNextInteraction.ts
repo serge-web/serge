@@ -1,5 +1,5 @@
 import { INTERACTION_MESSAGE } from '@serge/config'
-import { ForceData, InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { ForceData, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
@@ -39,12 +39,13 @@ export const interactionFor = (contact: PlanningContact, selectedForce: ForceDat
     timestamp: moment().toISOString(),
     turnNumber: turnNumber
   }
-  const message: InteractionMessageStructure = {
+  const message: MessageAdjudicationOutcomes = {
     Reference: '',
-    narrative: '',
     perceptionOutcomes: [],
     locationOutcomes: [],
-    healthOutcomes: []
+    healthOutcomes: [],
+    narrative: '',
+    messageType: 'AdjudicationOutcomes'
   }
   const msgInter: MessageInteraction = {
     details: details,

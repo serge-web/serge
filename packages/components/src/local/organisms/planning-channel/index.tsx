@@ -9,7 +9,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { faCalculator } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
-import { InteractionDetails, InteractionMessageStructure, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -324,7 +324,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: InteractionMessageStructure = {
+    const message: MessageAdjudicationOutcomes = {
+      messageType: 'AdjudicationOutcomes',
       Reference: '',
       narrative: '',
       perceptionOutcomes: [],

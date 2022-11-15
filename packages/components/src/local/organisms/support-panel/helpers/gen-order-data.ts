@@ -3,7 +3,7 @@ import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
-import { InteractionDetails, InteractionMessageStructure, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { Position } from '@turf/turf'
@@ -562,11 +562,13 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       counter: index,
       interaction: interaction
     }
-    const msgBody: InteractionMessageStructure = {
+    const msgBody: MessageAdjudicationOutcomes = {
       Reference: reference,
       healthOutcomes: [],
       locationOutcomes: [],
-      perceptionOutcomes: []
+      perceptionOutcomes: [],
+      narrative: '',
+      messageType: 'AdjudicationOutcomes'
     }
     const msgInt: MessageInteraction = {
       messageType: INTERACTION_MESSAGE,

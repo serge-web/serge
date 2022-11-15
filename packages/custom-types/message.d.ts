@@ -5,7 +5,7 @@ import {
 } from '@serge/config'
 
 import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, HealthOutcomes, LocationOutcome, LocationOutcomes, PerceptionOutcome, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -116,25 +116,6 @@ export interface PlanningMessageStructureCore {
 export interface PlanningMessageStructure extends PlanningMessageStructureCore {
   /** allow template properties */
   [property: string]: any
-}
-
-
-
-/** Content of an interaction. Note: the fixed 
- * metadata is in the details.  It's the new (Editable)
- * content that is in here
- */
-export interface InteractionMessageStructure {
-  /** unique id for this message thread */
-  Reference: string
-  /** textual description of interaction */
-  narrative?: string
-  /** perception outcomes */
-  perceptionOutcomes: PerceptionOutcome[]
-  /** location outcomes */
-  locationOutcomes: LocationOutcome[]
-  /** condition outcomes */
-  healthOutcomes: HealthOutcome[]
 }
 
 export interface CoreMessage {
@@ -254,7 +235,7 @@ export interface MessagePlanning extends CoreMessage {
 /** messages being used in support of adjudicating an interaction */
 export interface MessageInteraction extends CoreMessage {
   readonly messageType: typeof INTERACTION_MESSAGE,
-  message: InteractionMessageStructure
+  message: MessageAdjudicationOutcomes
 }
 
 export interface MessageFeedback extends CoreMessage {
@@ -266,7 +247,7 @@ export interface MessageFeedback extends CoreMessage {
 export interface MessageAdjudicationOutcomes {
   readonly messageType: typeof ADJUDICATION_OUTCOMES,
   /** ref of the adjudication this refers to */
-  readonly reference: InteractionMessageStructure['Reference']
+  readonly Reference: string
   readonly healthOutcomes: HealthOutcomes
   readonly locationOutcomes: LocationOutcomes
   readonly perceptionOutcomes: PerceptionOutcomes
