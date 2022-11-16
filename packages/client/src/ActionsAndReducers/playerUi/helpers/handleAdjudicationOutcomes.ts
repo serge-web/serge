@@ -16,7 +16,12 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
 
   payload.locationOutcomes.forEach((movement) => {
     const asset = findAsset(allForces, movement.asset)
-    asset.location = movement.location
+    // double-check we're not using a dummy value
+    if (Array.isArray(movement)) {
+      asset.location = movement.location
+    } else {
+      console.warn('received non-array movement destination')
+    }
   })
 
   payload.perceptionOutcomes.forEach((perception) => {
