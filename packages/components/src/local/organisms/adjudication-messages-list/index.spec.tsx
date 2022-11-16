@@ -26,7 +26,7 @@ describe('AdjudicationMessagesList component: ', () => {
     const planningMessages: MessagePlanning[] = []
 
     const tree = renderer
-      .create(<AdjudicationMessagesList handleAdjudication={handler} planningMessages={planningMessages} forces={forces} 
+      .create(<AdjudicationMessagesList handleAdjudication={handler} planningMessages={planningMessages} forces={forces}
         template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         interactionMessages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
         platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />)

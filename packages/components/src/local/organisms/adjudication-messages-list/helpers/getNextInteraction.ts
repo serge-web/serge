@@ -110,7 +110,6 @@ export const getNextInteraction = (orders: MessagePlanning[],
   //   return {id: inter._id, start: inter.message.startDate, end: inter.message.endDate, force: inter.details.from.forceId}
   // }))
 
-
   const newGeometries = invertMessages(trimmedOrders, activities)
   const withTimes = injectTimes(newGeometries)
 
@@ -136,7 +135,6 @@ export const getNextInteraction = (orders: MessagePlanning[],
   // console.table(orders.map((order) => {
   //   return { endTime: order.message.endDate }
   // }))
-
 
   let interactionWindow = Math.max(diffMins / 10, 60)
   const contacts: PlanningContact[] = []

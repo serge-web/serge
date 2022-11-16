@@ -65,7 +65,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *
    */
   forceColors: ForceStyle[]
-  /** 
+  /**
    * the range of planning activities for each force
    */
   forcePlanningActivities?: PerForcePlanningActivitySet[]

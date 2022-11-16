@@ -43,15 +43,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages : 
-    interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-      setFilteredInteractions(messages)
+    const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
+      : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
+    setFilteredInteractions(messages)
   }, [interactionMessages])
 
   useEffect(() => {
-    const plans = turnFilter === SHOW_ALL_TURNS ? planningMessages : 
-    planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-      setFilteredPlans(plans)
+    const plans = turnFilter === SHOW_ALL_TURNS ? planningMessages
+      : planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
+    setFilteredPlans(plans)
   }, [planningMessages])
 
   /** custom date formatter, for compact date/time display */
@@ -130,7 +130,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // check we have our planning messages
-    if(filteredPlans.length > 0 && filteredInteractions.length > 0) {
+    if (filteredPlans.length > 0 && filteredInteractions.length > 0) {
       const dataTable = filteredInteractions.map((message: MessageInteraction): AdjudicationRow => {
         const interaction = message.details.interaction
         if (!interaction) {
@@ -151,7 +151,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         }
       })
       setRows(dataTable)
-  
+
       const umpireForce = forces.find((force: ForceData) => force.umpire)
       const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
       const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
@@ -237,7 +237,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // send up to parent
       handleAdjudication && handleAdjudication(interaction)
     } else {
-      alert('Interaction not found')
+      window.alert('Interaction not found')
     }
   }
 

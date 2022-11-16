@@ -531,9 +531,9 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
   const umpireRoles = forces[0].roles
   const justPlanning = deepCopy(res) as MessagePlanning[]
   const interactions: MessageInteraction[] = []
-  var ctr = 0
+  let ctr = 0
   umpireRoles.forEach((role) => {
-    for (var i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; i++) {
       // find a force-1 doc
       const doc1 = getDocFromThisForce(justPlanning, createFor[0])
       const doc2 = getDocFromThisForce(justPlanning, createFor[1])
