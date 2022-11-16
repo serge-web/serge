@@ -77,8 +77,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
-    const id = order1 ? row.order1 : row.order2
+  const renderOrderDetail = (id: string, forces: ForceData[], activity?: string): React.ReactElement => {
     const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       console.warn('Failed to find message:', id)
@@ -256,8 +255,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity)}</td>
-                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity)}</td>
+                  <td>{renderOrderDetail(rowData.order1, forces, data.order1Activity)}</td>
+                  <td>{renderOrderDetail(rowData.order2, forces, data.order2Activity)}</td>
                 </tr>
               </tbody>
             </Table>
