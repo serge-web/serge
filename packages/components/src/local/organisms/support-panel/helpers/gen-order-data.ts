@@ -736,7 +736,7 @@ const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => 
   return me.force !== other.force
 }
 
-const createContactReference = (me: string, other: string): string => {
+export const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
@@ -761,6 +761,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             const planned = props as PlannedProps
             return planned.startTime
           }
+          console.log('already handled', interactionsProcessed.includes(id))
 
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {

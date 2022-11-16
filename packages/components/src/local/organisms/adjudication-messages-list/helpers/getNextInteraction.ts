@@ -107,6 +107,11 @@ export const getNextInteraction = (orders: MessagePlanning[],
 
   const newGeometries = invertMessages(trimmedOrders, activities)
   const withTimes = injectTimes(newGeometries)
+  
+    // console.log('last interaction', moment(earliestTime).toISOString())
+    // console.table(interactions.map((inter) => {
+    //   return {id: inter.details.interaction?.id}
+    // }))
 
   const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
 
