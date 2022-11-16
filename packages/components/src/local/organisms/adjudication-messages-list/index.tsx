@@ -19,18 +19,33 @@ import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, interactionMessages, planningMessages, template, isUmpire, gameDate,
-  customiseTemplate, playerForceId, playerRoleId, forcePlanningActivities, handleAdjudication,
+  forces, interactionMessages, planningMessages, template, gameDate,
+  customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+  const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
+  const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
-  const [myMessages, setMyMessages] = useState<MessageInteraction[]>([])
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
+
+  console.log('turn', turnFilter, filteredPlanningMessages)
+
+  useEffect(() => {
+    const thisTurnMessages = turnFilter === SHOW_ALL_TURNS ? interactionMessages :
+      interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
+    setFilteredInteractionMessages(thisTurnMessages)
+  }, [interactionMessages, turnFilter])
+
+  useEffect(() => {
+    const thisTurnMessages = turnFilter === SHOW_ALL_TURNS ? planningMessages :
+      planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
+    setFilteredPlanningMessages(thisTurnMessages)
+  }, [planningMessages, turnFilter])
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -39,10 +54,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localDetailPanelClose = (row: AdjudicationRow): void => {
     onDetailPanelClose && onDetailPanelClose(row)
   }
-
-  useEffect(() => {
-    setMyMessages(interactionMessages.filter((message: MessageInteraction) => isUmpire || message.details.from.roleId === playerRoleId))
-  }, [interactionMessages, playerForceId])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -78,7 +89,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const renderOrderDetail = (id: string, forces: ForceData[], activity?: string): React.ReactElement => {
-    const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
+    const plan: MessagePlanning | undefined = filteredPlanningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       console.warn('Failed to find message:', id)
       return <span>Order not found</span>
@@ -109,7 +120,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const renderOrderTitle = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
-    const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
+    const plan: MessagePlanning | undefined = filteredPlanningMessages.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       console.warn('Failed to find message:', id)
       return <span>Order not found</span>
@@ -118,7 +129,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const dataTable = myMessages.map((message: MessageInteraction): AdjudicationRow => {
+    const dataTable = filteredInteractionMessages.map((message: MessageInteraction): AdjudicationRow => {
       const interaction = message.details.interaction
       if (!interaction) {
         throw Error('Interaction details missing')
@@ -156,7 +167,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (columns.length === 0) {
       setColumns(columnsData)
     }
-  }, [myMessages])
+  }, [filteredPlanningMessages])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
@@ -190,12 +201,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (currentAdjudication.current) {
       // get current message
       const outcomes = currentAdjudication.current as any as MessageAdjudicationOutcomes
-      const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
+      const document = filteredPlanningMessages.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         const details = document.details
         const interaction = details.interaction
         if (interaction) {
-        // mark as adjudicatead
+          // mark as adjudicatead
           interaction.complete = true
         }
 
@@ -217,7 +228,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const getInteraction = (): void => {
     console.log('get interaction', forcePlanningActivities)
-    const interaction = getNextInteraction(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30)
+    const interaction = getNextInteraction(filteredPlanningMessages, forcePlanningActivities || [], filteredInteractionMessages, 0, 30)
     console.log('interaction', interaction)
     if (interaction) {
       // send up to parent
@@ -237,16 +248,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
 
     // retrieve the message & template
-    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = filteredInteractionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
-      console.error('message not found, id:', rowData.id, 'messages:', interactionMessages)
+      console.error('message not found, id:', rowData.id, 'messages:', filteredInteractionMessages)
     } else {
       if (!template) {
         console.log('template not found for', message.details.messageType, 'template:', template)
       }
       if (message && template) {
         const msg = message.message
-        const data = collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
+        const data = collateInteraction(message._id, filteredInteractionMessages, filteredPlanningMessages, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
