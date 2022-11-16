@@ -757,14 +757,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
 
-          const startTime = (props: any): number => {
-            const planned = props as PlannedProps
-            return planned.startTime
-          }
-          const endTime = (props: any): number => {
-            const planned = props as PlannedProps
-            return planned.startTime
-          }
           console.log('already handled', interactionsProcessed.includes(id))
 
           // have we already checked this permutation (maybe in another bin)?
@@ -779,8 +771,8 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   second: second,
                   id: id,
                   intersection: undefined,
-                  timeStart: startTime(first.geometry.properties),
-                  timeEnd: endTime(first.geometry.properties)
+                  timeStart: moment(first.activity.message.startDate).valueOf(),
+                  timeEnd: moment(second.activity.message.endDate).valueOf()
                 }
 
                 // see if we have a cached contact
