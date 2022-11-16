@@ -7,7 +7,6 @@ import { AdjudicationMessagesList } from './index'
 
 import { forceColors } from '@serge/helpers'
 import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
-import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const forces = P9Mock.data.forces.forces
@@ -27,9 +26,10 @@ describe('AdjudicationMessagesList component: ', () => {
     const planningMessages: MessagePlanning[] = []
 
     const tree = renderer
-      .create(<AdjudicationMessagesList handleAdjudication={handler} planningMessages={planningMessages} selectedOrders={[]} setSelectedOrders={noop} forces={forces} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel} hideForcesInChannel={false}
-        interactionMessages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />)
+      .create(<AdjudicationMessagesList handleAdjudication={handler} planningMessages={planningMessages} forces={forces} 
+        template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
+        interactionMessages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
+        platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />)
       .toJSON()
     expect(tree).toMatchSnapshot()
   })
