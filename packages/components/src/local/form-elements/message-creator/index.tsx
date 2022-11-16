@@ -167,12 +167,8 @@ const MessageCreator: React.FC<PropTypes> = ({
     if (draftMessage) {
       const anyDraft = draftMessage as any
       if (anyDraft.message) {
-        // see if we have any cached content
-        if (formValue) {
-          setMessageContent(formValue)
-        } else {
-          setMessageContent(anyDraft.message)
-        }
+        // store cached content, if we have any
+        setMessageContent(formValue || anyDraft.message)
       } else {
         setMessageContent(undefined)
       }
