@@ -236,6 +236,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (interaction) {
       // send up to parent
       handleAdjudication && handleAdjudication(interaction)
+    } else {
+      alert('Interaction not found')
     }
   }
 
@@ -260,6 +262,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
       if (message && template) {
         const msg = message.message
+        const isComplete = message.details.interaction?.complete
         const data = collateInteraction(message._id, filteredInteractions, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
@@ -278,15 +281,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               messageContent={msg}
               customiseTemplate={(document, schema) => localCustomiseTemplate(document, schema, data)}
               messageId={rowData.id}
-              disabled={false}
+              disabled={isComplete}
               template={template}
               gameDate={gameDate}
               saveMessage={localSubmitAdjudication}
               storeNewValue={localStoreNewValue}
             />
-            <div className='button-wrap' >
-              <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
-            </div>
+            {!isComplete &&
+              <div className='button-wrap' >
+                <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
+              </div>
+            }
           </>
         }
       } else {
