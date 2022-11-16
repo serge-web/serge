@@ -757,7 +757,11 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
 
-          const timeFor = (props: any): number => {
+          const startTime = (props: any): number => {
+            const planned = props as PlannedProps
+            return planned.startTime
+          }
+          const endTime = (props: any): number => {
             const planned = props as PlannedProps
             return planned.startTime
           }
@@ -775,8 +779,8 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   second: second,
                   id: id,
                   intersection: undefined,
-                  timeStart: timeFor(first.geometry.properties),
-                  timeEnd: timeFor(first.geometry.properties)
+                  timeStart: startTime(first.geometry.properties),
+                  timeEnd: endTime(first.geometry.properties)
                 }
 
                 // see if we have a cached contact
