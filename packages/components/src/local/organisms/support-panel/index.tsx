@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import moment from 'moment'
@@ -13,6 +13,7 @@ import { AdjudicationRow } from '../adjudication-messages-list/types/props'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
+import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
@@ -67,7 +68,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   handleAdjudication
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
-  console.log('support', selectedForce, phase)
   const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
@@ -80,12 +80,29 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
 
+  const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
+
+  const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet|undefined>(undefined)
+
+  const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
+
   const ORDERS_TAB = 1
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
   }
+
+  useEffect(() => {
+    setLocalDraftMessage(draftMessage)
+  }, [draftMessage])
+
+  useEffect(() => {
+    if (forcePlanningActivities) {
+      const thisForce = forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === selectedForce.uniqid)
+      setActivitiesForThisForce(thisForce)
+    }
+  }, [forcePlanningActivities, selectedForce])
 
   useEffect(() => {
     const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
@@ -152,14 +169,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const cancelNewOrders = (): void => {
     onCancelDraftMessage && onCancelDraftMessage()
+    // also the local document
+    setLocalDraftMessage(undefined)
   }
 
   const postBack = (details: MessageDetails, message: any): void => {
+    // do we have any pending geometry
+    if (pendingLocationData.length > 0) {
+      const plan = message as MessagePlanning
+      console.log('injecting geometry', plan.message.locationm, pendingLocationData)
+    }
+
     const activity: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
     saveMessage(currentWargame, details, message)()
+    // also clear local one
+    setLocalDraftMessage(undefined)
   }
 
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
@@ -185,12 +212,36 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return current
   }
 
+  const editThisMessage = (docId: string): void => {
+    const order = planningMessages.find((doc) => doc._id === docId)
+    setLocalDraftMessage(order)
+  }
+
   const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
-    console.log('onDetailPanelOpen called: ', rowData)
+    !7 && console.log('onDetailPanelOpen called: ', rowData)
   }
 
   const onDetailPanelClose = (rowData: OrderRow | AdjudicationRow) => {
-    console.log('onDetailPanelClose called ', rowData)
+    !7 && console.log('onDetailPanelClose called ', rowData)
+  }
+
+  const storeNewLocation = (geoms: PlannedActivityGeometry[]):void => {
+    console.log('storing new geometries', geoms)
+    setPendingLocationData(geoms)
+  }
+
+  const localEditLocation = (doc: string, geoms: PlannedActivityGeometry[]): void => {
+    console.log('local edit location', doc, geoms)
+    setPendingLocationData(geoms)
+    editLocation && editLocation(geoms, storeNewLocation)
+
+    // if (message.message.location) {
+    //   const localCallback = (newValue: unknown): void => {
+    //     pendingLocationData.push(newValue as PlannedActivityGeometry[])
+    //   }
+    //   // pass the location data object
+    //   editLocation && editLocation(message.message.location, localCallback)
+    // }
   }
 
   const SlideComponent = useMemo(() => (
@@ -255,8 +306,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     forcePlanningActivities={forcePlanningActivities}
                     onDetailPanelOpen={onDetailPanelOpen}
                     onDetailPanelClose={onDetailPanelClose}
+                    editThisMessage={editThisMessage}
                   />
-                  {draftMessage && <NewMessage
+                  {localDraftMessage && <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
                     templates={allTemplates}
@@ -275,7 +327,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     postBack={postBack}
                     customiseTemplate={localCustomiseTemplate}
-                    draftMessage={draftMessage}
+                    modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
+                    modifyForSave={expandLocation}
+                    draftMessage={localDraftMessage}
+                    editCallback={localEditLocation}
                   />}
                 </div>
               }
@@ -355,7 +410,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     turnFilter,
     draftMessage,
     platformTypes,
-    planningMessages
+    planningMessages,
+    localDraftMessage
   ]
   )
 

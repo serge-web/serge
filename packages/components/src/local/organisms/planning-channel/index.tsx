@@ -437,7 +437,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     })
   }
 
-  const editOrderGeometries: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void => {
+  const editOrderGeometries: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void => {
+    console.log('processing new geometries', plans)
     // if we just store `callback` then it will get called.  So we need to indirectly store it
     setActivityBeingEditedCallback(() => callback)
     setActivityBeingEdited(plans)
