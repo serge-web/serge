@@ -530,54 +530,61 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
   const umpires = forces[0]
   const umpireRoles = forces[0].roles
   const justPlanning = deepCopy(res) as MessagePlanning[]
-  umpireRoles.forEach((role, index) => {
-    // find a force-1 doc
-    const doc1 = getDocFromThisForce(justPlanning, createFor[0])
-    const doc2 = getDocFromThisForce(justPlanning, createFor[1])
-    const time = outerTimeFor([doc1, doc2])
-    const reference = forces[0].uniqid + '-' + index
-    console.log('ddd', doc1, doc2, time)
-    const interaction: InteractionDetails = {
-      startTime: moment(time[0]).toISOString(),
-      endTime: moment(time[1]).toISOString(),
-      id: reference,
-      orders1: doc1._id,
-      orders2: doc2._id,
-      complete: false
+  const interactions: MessageInteraction[] = []
+  var ctr = 0
+  umpireRoles.forEach((role) => {
+    for (var i = 0; i < 5; i++) {
+      // find a force-1 doc
+      const doc1 = getDocFromThisForce(justPlanning, createFor[0])
+      const doc2 = getDocFromThisForce(justPlanning, createFor[1])
+      const time = outerTimeFor([doc1, doc2])
+      const reference = forces[0].uniqid + '-' + ++ctr
+      const interaction: InteractionDetails = {
+        startTime: moment(time[0]).toISOString(),
+        endTime: moment(time[1]).toISOString(),
+        id: reference,
+        orders1: doc1._id,
+        orders2: doc2._id,
+        complete: true
+      }
+      const from: MessageDetailsFrom = {
+        force: umpires.name,
+        forceColor: umpires.color,
+        forceId: umpires.uniqid,
+        iconURL: '',
+        roleId: role.roleId,
+        roleName: role.name
+      }
+      const details: MessageDetails = {
+        from: from,
+        channel: channelId,
+        messageType: adjudicationTemplateId,
+        timestamp: moment().toISOString(),
+        turnNumber: doc1.details.turnNumber,
+        counter: ctr,
+        interaction: interaction
+      }
+      const msgBody: MessageAdjudicationOutcomes = {
+        Reference: reference,
+        healthOutcomes: [],
+        locationOutcomes: [],
+        perceptionOutcomes: [],
+        narrative: '',
+        messageType: 'AdjudicationOutcomes'
+      }
+      const msgInt: MessageInteraction = {
+        messageType: INTERACTION_MESSAGE,
+        details: details,
+        message: msgBody,
+        _id: moment().toISOString()
+      }
+      // check it's not already present
+      if (!interactions.find((inter) => inter.message.Reference === msgInt.message.Reference)) {
+        interactions.push(msgInt)
+      }
     }
-    const from: MessageDetailsFrom = {
-      force: umpires.name,
-      forceColor: umpires.color,
-      forceId: umpires.uniqid,
-      iconURL: '',
-      roleId: role.roleId,
-      roleName: role.name
-    }
-    const details: MessageDetails = {
-      from: from,
-      channel: channelId,
-      messageType: adjudicationTemplateId,
-      timestamp: moment().toISOString(),
-      turnNumber: doc1.details.turnNumber,
-      counter: index,
-      interaction: interaction
-    }
-    const msgBody: MessageAdjudicationOutcomes = {
-      Reference: reference,
-      healthOutcomes: [],
-      locationOutcomes: [],
-      perceptionOutcomes: [],
-      narrative: '',
-      messageType: 'AdjudicationOutcomes'
-    }
-    const msgInt: MessageInteraction = {
-      messageType: INTERACTION_MESSAGE,
-      details: details,
-      message: msgBody,
-      _id: moment().toISOString()
-    }
-    res.push(msgInt)
   })
+  res.push(...interactions)
   return res
 }
 
