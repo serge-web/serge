@@ -26,26 +26,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-  const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
-  const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
+
+  const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
+  const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
-
-  console.log('turn', turnFilter, filteredPlanningMessages)
-
-  useEffect(() => {
-    const thisTurnMessages = turnFilter === SHOW_ALL_TURNS ? interactionMessages :
-      interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-    setFilteredInteractionMessages(thisTurnMessages)
-  }, [interactionMessages, turnFilter])
-
-  useEffect(() => {
-    const thisTurnMessages = turnFilter === SHOW_ALL_TURNS ? planningMessages :
-      planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-    setFilteredPlanningMessages(thisTurnMessages)
-  }, [planningMessages, turnFilter])
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -54,6 +41,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const localDetailPanelClose = (row: AdjudicationRow): void => {
     onDetailPanelClose && onDetailPanelClose(row)
   }
+
+  useEffect(() => {
+    const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages : 
+    interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
+      setFilteredInteractions(messages)
+  }, [interactionMessages])
+
+  useEffect(() => {
+    const plans = turnFilter === SHOW_ALL_TURNS ? planningMessages : 
+    planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
+      setFilteredPlans(plans)
+  }, [planningMessages])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
@@ -88,8 +87,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const renderOrderDetail = (id: string, forces: ForceData[], activity?: string): React.ReactElement => {
-    const plan: MessagePlanning | undefined = filteredPlanningMessages.find((val: MessagePlanning) => val._id === id)
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
+    const id = order1 ? row.order1 : row.order2
+    const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       console.warn('Failed to find message:', id)
       return <span>Order not found</span>
@@ -120,7 +120,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const renderOrderTitle = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
-    const plan: MessagePlanning | undefined = filteredPlanningMessages.find((val: MessagePlanning) => val._id === id)
+    const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
       console.warn('Failed to find message:', id)
       return <span>Order not found</span>
@@ -129,45 +129,48 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const dataTable = filteredInteractionMessages.map((message: MessageInteraction): AdjudicationRow => {
-      const interaction = message.details.interaction
-      if (!interaction) {
-        throw Error('Interaction details missing')
+    // check we have our planning messages
+    if(filteredPlans.length > 0 && filteredInteractions.length > 0) {
+      const dataTable = filteredInteractions.map((message: MessageInteraction): AdjudicationRow => {
+        const interaction = message.details.interaction
+        if (!interaction) {
+          throw Error('Interaction details missing')
+        }
+        const myMessage = message.details.from.roleId === playerRoleId
+        const incompleteMessageFromMe = (myMessage && !interaction.complete)
+        return {
+          id: message._id,
+          order1: interaction.orders1,
+          order2: interaction.orders2 || 'n/a',
+          turn: message.details.turnNumber,
+          complete: !!interaction.complete,
+          activity: message.message.Reference,
+          period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
+          // if the item is incomplete
+          tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
+        }
+      })
+      setRows(dataTable)
+  
+      const umpireForce = forces.find((force: ForceData) => force.umpire)
+      const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+      const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
+        { title: 'ID', field: 'id' },
+        { title: 'Complete', field: 'complete', render: renderBoolean },
+        { title: 'Order 1', field: 'order1', render: (row) => renderOrderTitle(true, row) },
+        { title: 'Order 2', field: 'order2', render: (row) => renderOrderTitle(false, row) },
+        { title: 'Activity', field: 'Reference' },
+        { title: 'Duration', field: 'period' }
+      ]
+      if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
+        const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
+        columnsData.splice(1, 0, turnColumn)
       }
-      const myMessage = message.details.from.roleId === playerRoleId
-      const incompleteMessageFromMe = (myMessage && !interaction.complete)
-      return {
-        id: message._id,
-        order1: interaction.orders1,
-        order2: interaction.orders2 || 'n/a',
-        turn: message.details.turnNumber,
-        complete: !!interaction.complete,
-        activity: message.message.Reference,
-        period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
-        // if the item is incomplete
-        tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
+      if (columns.length === 0) {
+        setColumns(columnsData)
       }
-    })
-    setRows(dataTable)
-
-    const umpireForce = forces.find((force: ForceData) => force.umpire)
-    const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-    const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
-      { title: 'ID', field: 'id' },
-      { title: 'Complete', field: 'complete', render: renderBoolean },
-      { title: 'Order 1', field: 'order1', render: (row) => renderOrderTitle(true, row) },
-      { title: 'Order 2', field: 'order2', render: (row) => renderOrderTitle(false, row) },
-      { title: 'Activity', field: 'Reference' },
-      { title: 'Duration', field: 'period' }
-    ]
-    if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
-      const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
-      columnsData.splice(1, 0, turnColumn)
     }
-    if (columns.length === 0) {
-      setColumns(columnsData)
-    }
-  }, [filteredPlanningMessages])
+  }, [filteredInteractions, filteredPlans])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
@@ -201,12 +204,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (currentAdjudication.current) {
       // get current message
       const outcomes = currentAdjudication.current as any as MessageAdjudicationOutcomes
-      const document = filteredPlanningMessages.find((msg) => msg.message.Reference === outcomes.Reference)
+      const document = filteredInteractions.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         const details = document.details
         const interaction = details.interaction
         if (interaction) {
-          // mark as adjudicatead
+        // mark as adjudicatead
           interaction.complete = true
         }
 
@@ -228,7 +231,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const getInteraction = (): void => {
     console.log('get interaction', forcePlanningActivities)
-    const interaction = getNextInteraction(filteredPlanningMessages, forcePlanningActivities || [], filteredInteractionMessages, 0, 30)
+    const interaction = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
     console.log('interaction', interaction)
     if (interaction) {
       // send up to parent
@@ -248,16 +251,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
 
     // retrieve the message & template
-    const message: MessageInteraction | undefined = filteredInteractionMessages.find((value: MessageInteraction) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = filteredInteractions.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
-      console.error('message not found, id:', rowData.id, 'messages:', filteredInteractionMessages)
+      console.error('message not found, id:', rowData.id, 'messages:', filteredInteractions)
     } else {
       if (!template) {
         console.log('template not found for', message.details.messageType, 'template:', template)
       }
       if (message && template) {
         const msg = message.message
-        const data = collateInteraction(message._id, filteredInteractionMessages, filteredPlanningMessages, forces, forceStyles, forcePlanningActivities)
+        const data = collateInteraction(message._id, filteredInteractions, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
@@ -266,8 +269,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(rowData.order1, forces, data.order1Activity)}</td>
-                  <td>{renderOrderDetail(rowData.order2, forces, data.order2Activity)}</td>
+                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity)}</td>
+                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity)}</td>
                 </tr>
               </tbody>
             </Table>
