@@ -1,4 +1,5 @@
 import JSONEditor from '@json-editor/json-editor'
+import { PlannedActivityGeometry, PlanningActivityGeometry } from '@serge/custom-types'
 
 export const initLocationEditor = (editCallback: () => void): void => {
   JSONEditor.defaults.editors.location = JSONEditor.AbstractEditor.extend({
@@ -22,7 +23,6 @@ export const initLocationEditor = (editCallback: () => void): void => {
         if (e.currentTarget.value) {
           this.addEditButton()
         } else {
-          console.log('xx> remove edit button')
           this.removeEditButton()
         }
       })
@@ -43,20 +43,40 @@ export const initLocationEditor = (editCallback: () => void): void => {
         this.editButton = document.createElement('button')
         this.editButton.innerText = 'Edit'
         this.editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')
-        this.editButton.addEventListener('click', () => editCallback())
+        this.editButton.addEventListener('click', editCallback)
         this.groupTextArea.appendChild(this.editButton)
       }
     },
 
     removeEditButton: function () {
-      if (this.groupTextArea.childNodes.length === 2) {
+      if (this.groupTextArea.childNodes.length >= 2) {
         this.groupTextArea.removeChild(this.editButton)
       }
     },
 
-    setValue: function (value: string) {
-      this.textArea.value = value
-      if (value) {
+    setValue: function (locations: PlannedActivityGeometry[] | string) {
+      if (!locations) {
+        return
+      }
+      this.textArea.value = ''
+      const flatGeoms: PlanningActivityGeometry[] = []
+      if (locations instanceof Array) {
+        locations.forEach((geom) => {
+          let name = geom.uniqid
+          if (flatGeoms.length) {
+            const theAct = flatGeoms.find((act) => act.uniqid === geom.uniqid)
+            if (theAct) {
+              name = theAct.name
+            } else {
+              console.warn('failed to find activity for', name)
+            }
+          }
+          this.textArea.value += '* ' + name + '\n'
+        })
+      } else {
+        this.textArea.value += '* ' + locations + '\n'
+      }
+      if (this.textArea.value) {
         this.addEditButton()
       }
     },

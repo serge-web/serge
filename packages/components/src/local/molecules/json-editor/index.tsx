@@ -33,7 +33,6 @@ export const JsonEditor: React.FC<Props> = ({
   cachedName,
   clearCachedName,
   saveMessage,
-  modifyForEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
@@ -176,8 +175,7 @@ export const JsonEditor: React.FC<Props> = ({
         nextEditor.on('change', changeListenter)
       } else if (messageContent) {
         const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
-        const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
-        nextEditor.setValue(modified)
+        nextEditor.setValue(contentAsJSON)
         nextEditor.on('change', changeListenter)
       } else {
         nextEditor.on('change', changeListenter)
