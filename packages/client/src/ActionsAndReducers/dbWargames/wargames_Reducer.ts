@@ -64,7 +64,7 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
       
     case ActionConstant.SET_CURRENT_FORCES:
       if (action.payload.forces) {
-        newState.data.forces = action.payload && action.payload.forces
+        newState.data.forces = action.payload.forces
       }
       return newState
 
