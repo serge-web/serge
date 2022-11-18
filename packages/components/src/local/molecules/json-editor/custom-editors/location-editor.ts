@@ -1,46 +1,64 @@
-/* eslint-disable @typescript-eslint/no-this-alias */
 import JSONEditor from '@json-editor/json-editor'
 
 export const initLocationEditor = (editCallback: () => void): void => {
   JSONEditor.defaults.editors.location = JSONEditor.AbstractEditor.extend({
     build: function () {
-      const self = this
+      this.group = document.createElement('div')
+      this.group.classList.add('form-group')
+      this.container.appendChild(this.group)
 
-      self.group = document.createElement('div')
-      self.group.classList.add('form-group')
-      self.container.appendChild(self.group)
+      this.label = document.createElement('label')
+      this.label.classList.add('control-label')
+      this.label.innerText = this.schema.title ? this.schema.title : ''
+      this.group.appendChild(this.label)
 
-      self.label = document.createElement('label')
-      self.label.classList.add('control-label')
-      self.label.innerText = self.schema.title ? self.schema.title : ''
-      self.group.appendChild(self.label)
+      this.textArea = document.createElement('textarea')
+      this.textArea.name = this.formname
+      this.textArea.classList.add('form-control')
+      this.textArea.addEventListener('change', (e: any) => {
+        e.preventDefault()
+        e.stopPropagation()
+        this.onChange(e.currentTarget.value)
+        if (e.currentTarget.value) {
+          this.addEditButton()
+        } else {
+          console.log('xx> remove edit button')
+          this.removeEditButton()
+        }
+      })
 
-      self.textArea = document.createElement('textarea')
-      self.textArea.name = self.formname
-      self.textArea.classList.add('form-control')
+      this.groupTextArea = document.createElement('div')
+      this.groupTextArea.classList.add('location-editor')
+      this.groupTextArea.appendChild(this.textArea)
 
-      self.groupTextArea = document.createElement('div')
-      self.groupTextArea.classList.add('location-editor')
-      self.groupTextArea.appendChild(self.textArea)
-
-      if (self.schema.readOnly || self.schema.readonly || self.schema.template) {
+      if (this.schema.readOnly || this.schema.readonly || this.schema.template) {
         this.disable(true)
         this.textArea.setAttribute('readonly', 'true')
-      } else {
-        self.editButton = document.createElement('button')
-        self.editButton.innerText = 'Edit'
-        self.editButton.name = 'editInLocation'
-        self.editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')
-        self.editButton.style.height = '40px'
-        self.editButton.style.transform = 'translateX(-60px)'
-        self.editButton.addEventListener('click', () => editCallback())
-        self.groupTextArea.appendChild(self.editButton)
       }
-      self.group.appendChild(self.groupTextArea)
+      this.group.appendChild(this.groupTextArea)
+    },
+
+    addEditButton: function () {
+      if (this.groupTextArea.childNodes.length < 2) {
+        this.editButton = document.createElement('button')
+        this.editButton.innerText = 'Edit'
+        this.editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')
+        this.editButton.addEventListener('click', () => editCallback())
+        this.groupTextArea.appendChild(this.editButton)
+      }
+    },
+
+    removeEditButton: function () {
+      if (this.groupTextArea.childNodes.length === 2) {
+        this.groupTextArea.removeChild(this.editButton)
+      }
     },
 
     setValue: function (value: string) {
-      this.textArea.innerHTML = value
+      this.textArea.value = value
+      if (value) {
+        this.addEditButton()
+      }
     },
 
     getValue: function () {
@@ -49,8 +67,9 @@ export const initLocationEditor = (editCallback: () => void): void => {
   })
 
   JSONEditor.defaults.resolvers.unshift((schema: any) => {
-    if (schema.format === 'customLocation' && schema.type === 'location') {
+    if (schema.format === 'location' && schema.type === 'string') {
       return 'location'
     }
+    return schema
   })
 }

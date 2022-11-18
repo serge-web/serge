@@ -78,4 +78,9 @@
 .location-editor {
   display: flex;
   align-items: center;
+  button {
+    height: 40px;
+    position: absolute;
+    right: 20px;
+  }
 }
