@@ -71,6 +71,7 @@ export const COUNTER_MESSAGE = 'CounterMessage'
 // series of constants used for `messageType` when sending system messages
 // an INFO_MESSAGE is an update to the wargame document
 export const INFO_MESSAGE = 'InfoMessage'
+export const FORCE_MESSAGE = 'ForcesMessage'
 export const INFO_MESSAGE_CLIPPED = 'InfoMessageClipped'
 
 // return states of adjudication form
@@ -171,6 +172,7 @@ export const replicate = 'replicate/'
 export const deletePath = 'delete/'
 /** name of the document used to store the initial wargame definition */
 export const wargameSettings = 'initial_wargame'
+export const Force_Settings = 'initial_force'
 // default name for role name
 export const NEW_ROLE = 'New Role'
 

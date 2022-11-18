@@ -15,6 +15,7 @@ import {
     SET_CURRENT_GAME_SETUP_TAB,
     SET_CURRENT_WARGAME,
     SET_EXPORT_WARGAME,
+    SET_CURRENT_FORCES,
     SET_FORCE_COLOR,
     SET_GAME_SETUP_DATA,
     SET_SELECTED_CHANNEL,
@@ -27,6 +28,7 @@ import {
 import Wargame from './wargame'
 import { ChannelTypes } from './channel-data'
 import WargameOverview from './wargame-overview'
+import Forces from './forces'
 
 export interface WargameRevision {
     name: string,
@@ -43,6 +45,11 @@ interface AllWargameNameSaved {
 interface SetCurrentWargame {
     type: typeof SET_CURRENT_WARGAME | typeof SET_EXPORT_WARGAME,
     payload: Wargame
+}
+
+interface SetCurrentForce {
+    type: typeof SET_CURRENT_FORCES,
+    payload: Forces
 }
 
 interface SetCurrentGameSetupTab {
@@ -138,6 +145,7 @@ AddIcon |
 LoginAdmin |
 PopulatingDb |
 RemoveRoleFromForce | 
-AddNotification
+AddNotification | 
+SetCurrentForce
 
 export type WargameDispatch = Dispatch<WargameActionTypes>

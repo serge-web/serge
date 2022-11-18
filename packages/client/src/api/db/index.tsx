@@ -1,7 +1,7 @@
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame } from '@serge/custom-types'
+import { Message, MessageCustom, PlayerLogEntries, Wargame, Forces } from '@serge/custom-types'
 
 import { io } from 'socket.io-client'
 import {
@@ -53,7 +53,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  get (query: string): Promise<Wargame | Message | { status: number }> {
+  get (query: string): Promise<Wargame | Message | { status: number } | Forces> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + 'get/' + this.getDbName() + '/' + query)
         .then(res => res.json() as Promise<FetchData>)
@@ -72,7 +72,7 @@ export class DbProvider implements DbProviderInterface {
     return url.replace(databasePath, '')
   }
 
-  put (doc: Wargame | Message): Promise<Wargame | Message> {
+  put (doc: Wargame | Message | Forces): Promise<Wargame | Message> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName(), {
         method: 'PUT',
@@ -125,9 +125,9 @@ export class DbProvider implements DbProviderInterface {
     })  
   }
 
-  lastWargame (): Promise<MessageInfoType> {
+  lastDoc (messageType: string): Promise<Wargame | Forces> {
     return new Promise((resolve, reject) => {
-      fetch(serverPath + this.getDbName() + '/' + 'last')
+      fetch(serverPath + this.getDbName() + '/' + messageType + '/' + 'last')
         .then(res => res.json() as Promise<FetchData>)
         .then((res) => {
           const { msg, data } = res

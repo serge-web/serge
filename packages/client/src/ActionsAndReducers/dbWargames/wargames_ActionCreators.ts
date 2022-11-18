@@ -16,7 +16,8 @@ import {
   WargameOverview,
   WargameRevision,
   IconOption,
-  AnnotationMarkerData
+  AnnotationMarkerData,
+  Forces
 } from '@serge/custom-types'
 
 export const setCurrentTab = (tab: Notification): WargameActionTypes => ({
@@ -69,6 +70,11 @@ const saveAllWargameNames = (names: WargameRevision[] | string | Wargame[]): War
 
 const setCurrentWargame = (data: Wargame): WargameActionTypes => ({
   type: ActionConstant.SET_CURRENT_WARGAME,
+  payload: data
+})
+
+const setCurrentForce = (data: Forces): WargameActionTypes => ({
+  type: ActionConstant.SET_CURRENT_FORCES,
   payload: data
 })
 
@@ -163,7 +169,7 @@ export const populateWargameStore = () => {
 export const createNewWargameDB = () => {
   return async (dispatch: WargameDispatch) => {
     // @ts-ignore
-    const wargame = await wargamesApi.createWargame(dispatch)
+    const wargame = await wargamesApi.createWargame(dispatch) 
 
     const wargames = await wargamesApi.getAllWargames()
 
@@ -198,8 +204,9 @@ export const deleteWargame = (name: string) => {
 export const editWargame = (name: string) => {
   return async (dispatch: WargameDispatch) => {
     const wargame = await wargamesApi.editWargame(name)
-
+    const force = await wargamesApi.editForce(name)
     dispatch(setCurrentWargame(wargame))
+    dispatch(setCurrentForce(force))
   }
 }
 
@@ -322,7 +329,7 @@ export const updateForcesAndDeletePlatformType = (dbName: string, newData: Force
   }
 }
 
-export const saveForce = (dbName: string, newData: ForceData) => {
+export const saveForce = (dbName: string, newData: ForceData, Initiated: boolean | undefined) => {
   return async (dispatch: WargameDispatch, state: any) => {
     const oldForceData = state().wargame.data.forces.selectedForce
     if (newData.iconURL !== oldForceData.iconURL && newData.iconURL !== forceTemplate.iconURL) {
@@ -330,9 +337,9 @@ export const saveForce = (dbName: string, newData: ForceData) => {
       newData.iconURL = savedIconURL.path
     }
 
-    const wargame = await wargamesApi.saveForce(dbName, newData)
-
-    dispatch(setCurrentWargame(wargame))
+    const Force = await wargamesApi.saveForce(dbName, newData, Initiated)
+    
+    dispatch(setCurrentForce(Force))
     dispatch(setTabSaved())
     dispatch(setSelectedForce({ name: newData.name, uniqid: newData.uniqid, iconURL: newData.iconURL }))
     dispatch(addNotification('Force saved.', 'success'))
@@ -412,20 +419,19 @@ export const duplicatePlatformType = (dbName: string, platformType: PlatformType
   }
 }
 
-export const duplicateForce = (dbName: string, force: ForceData) => {
+export const duplicateForce = (dbName: string, force: ForceData, Initiated?: boolean) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.duplicateForce(dbName, force)
-
-    dispatch(setCurrentWargame(wargame))
+    const Force = await wargamesApi.duplicateForce(dbName, force, Initiated)
+    dispatch(setCurrentForce(Force))
     dispatch(addNotification('Force duplicated.', 'success'))
   }
 }
 
-export const deleteSelectedForce = (dbName: string, forceId: string) => {
+export const deleteSelectedForce = (dbName: string, forceId: string, Initiated?: boolean) => {
   return async (dispatch: WargameDispatch) => {
-    const wargame = await wargamesApi.deleteForce(dbName, forceId)
+    const Force = await wargamesApi.deleteForce(dbName, forceId, Initiated)
 
-    dispatch(setCurrentWargame(wargame))
+    dispatch(setCurrentForce(Force))
 
     dispatch(addNotification('Force deleted.', 'warning'))
   }

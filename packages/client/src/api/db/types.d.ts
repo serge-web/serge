@@ -1,13 +1,13 @@
-import { Message, MessageInfoType, Wargame, PlayerLogEntries } from '@serge/custom-types'
+import { Message, Wargame, PlayerLogEntries, Forces } from '@serge/custom-types'
 import DbProvider from '.'
 
 export interface DbProviderInterface {
   changes: (listener: (doc: Message | Wargame) => void) => void
   destroy: () => void
-  get: (query: string) => Promise<Wargame | Message | { status: number }>
-  put: (doc: Wargame | Message) => Promise<Wargame | Message >
+  get: (query: string) => Promise<Wargame | Message | { status: number } | Forces>
+  put: (doc: Wargame | Message | Forces) => Promise<Wargame | Message >
   allDocs: () => Promise<Message[]>
-  lastWargame: () => Promise<MessageInfoType>
+  lastDoc: (type: string) => Promise<Wargame | Forces>
   lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>
   putPlayerLogs: (docs: PlayerLogEntries) => Promise<{msg: string}> 
@@ -34,7 +34,7 @@ export interface FetchReferenc {
 
 export interface FetchData {
   msg: string,
-  data: Wargame | Message,
+  data: Wargame | Message | Forces,
   status: number
 }
 export interface FetchDataArray {

@@ -155,6 +155,16 @@ export const dbDefaultPlaylogSettings = {
   isOpen: false
 }
 
+export const dbDefaultForceSettings = {
+  forces: {
+    name: 'Forces',
+    forces: [umpireForceTemplate],
+    selectedForce: umpireForceTemplate,
+    dirty: false
+  },
+  _id: Globals.Force_Settings
+}
+
 export const dbDefaultSettings = {
   _id: Globals.wargameSettings,
   wargameTitle: '',
@@ -171,12 +181,7 @@ export const dbDefaultSettings = {
       showAccessCodes: true,
       logPlayerActivity: true
     },
-    forces: {
-      name: 'Forces',
-      forces: [umpireForceTemplate],
-      selectedForce: umpireForceTemplate,
-      dirty: false
-    },
+    forces: dbDefaultForceSettings.forces,
     channels: {
       name: 'Channels',
       channels: [],

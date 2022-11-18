@@ -56,7 +56,8 @@ const AdminGameSetup = () => {
     currentWargame,
     currentTab,
     wargameList,
-    wargameTitle
+    wargameTitle,
+    wargameInitiated
   } = wargame
   const {
     overview,
@@ -181,11 +182,11 @@ const AdminGameSetup = () => {
   
       if (typeof forceName === 'string' && forceName.length > 0) {
         if (!isUniqueForceName(newForceData)) return
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+        if (currentWargame) dispatch(saveForce(currentWargame, newForceData, wargameInitiated))
       }
   
       if (forceName === null) {
-        if (currentWargame) dispatch(saveForce(currentWargame, newForceData))
+        if (currentWargame) dispatch(saveForce(currentWargame, newForceData, wargameInitiated))
       } else if (forceName.length === 0) {
         dispatch(addNotification('No Force Name', 'warning'))
       }
@@ -253,7 +254,7 @@ const AdminGameSetup = () => {
       template.roles.forEach(role => {
         role.roleId = getUniquePasscode(forces.forces, 'p')
       })
-      if (currentWargame) dispatch(saveForce(currentWargame, template))
+      if (currentWargame) dispatch(saveForce(currentWargame, template, wargame.wargameInitiated))
     }
   }
 
@@ -265,7 +266,7 @@ const AdminGameSetup = () => {
   }
 
   const onDuplicateForce = (data: ForceData) => {
-    if (currentWargame) dispatch(duplicateForce(currentWargame, data))
+    if (currentWargame) dispatch(duplicateForce(currentWargame, data, wargameInitiated))
   }
 
   const onCreateChannel = (id: string, createdChannel: ChannelTypes) => {

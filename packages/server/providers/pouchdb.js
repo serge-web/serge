@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, CUSTOM_MESSAGE } = require('../consts')
+const { wargameSettings, forceSettings, dbSuffix, settings, CUSTOM_MESSAGE, INFO_MESSAGE } = require('../consts')
 
 const pouchDb = (app, io, pouchOptions) => {
   const PouchDB = require('pouchdb-core')
@@ -149,13 +149,13 @@ const pouchDb = (app, io, pouchOptions) => {
         const docs = result.rows.map((item) => item.doc)
         // drop wargame & info messages
         // NO, don't. We need the info messages, for the turn markers
-        // const ignoreTypes = [] //INFO_MESSAGE, COUNTER_MESSAGE]
+        // const ignoreTypes = [] //INFO_MESSAGE, FORCE_MESSAGE, COUNTER_MESSAGE]
         // const messages = docs.filter((doc) => !ignoreTypes.includes(doc.messageType))
         res.send({ msg: 'ok', data: docs })
       }).catch(() => res.send([]))
   })
 
-  app.get('/:wargame/last', (req, res) => {
+  app.get('/:wargame/:messageType/last', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
 
     if (!databaseName) {
@@ -163,6 +163,8 @@ const pouchDb = (app, io, pouchOptions) => {
     }
 
     const db = new PouchDB(databaseName, pouchOptions)
+    const ignoreId = INFO_MESSAGE === req.params.messageType ? wargameSettings : forceSettings
+
     // NOTE: if we end up with a performance problem from the "reverse sort" processing
     // NOTE: here is a suggested alternate strategy:
     // NOTE: for each "new wargame" we push two documents: the wargame with date-time id
@@ -172,8 +174,8 @@ const pouchDb = (app, io, pouchOptions) => {
     // NOTE: If we do "wind-back" of wargame, delete "settings"
     db.find({
       selector: {
-        messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings }
+        messageType: req.params.messageType,
+        _id: { $ne: ignoreId }
       },
       limit: 1,
       sort: [{ _id: 'desc' }]

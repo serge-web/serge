@@ -2,7 +2,7 @@ import {
   ADJUDICATION_OUTCOMES,
   ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
   MSG_TYPE_STORE,
-  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings
+  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings, FORCE_MESSAGE, Force_Settings
 } from '@serge/config'
 import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import _ from 'lodash'
@@ -10,7 +10,7 @@ import moment from 'moment'
 import fetch from 'node-fetch'
 import uniqid from 'uniqid'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { dbDefaultSettings } from '../../consts'
+import { dbDefaultSettings, dbDefaultForceSettings } from '../../consts'
 import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
@@ -18,7 +18,7 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, Forces, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, PlatformType, ParticipantChat, ParticipantTypes, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
@@ -191,21 +191,50 @@ export const saveIcon = (file) => {
   }).then((res) => res.json())
 }
 
-export const createWargame = (): Promise<Wargame> => {
+export const createWargame = async (): Promise<Wargame> => {
   const name: string = `wargame-${uniqid.time()}`
   const db = new DbProvider(databasePath + name)
   addWargameDbStore({ name: name, db })
-
+  
   // TODo: update dbDefaultSettings to valid wargame json
   // @ts-ignore
   const settings: Wargame = { ...dbDefaultSettings, name: name, wargameTitle: name }
-
+  // const settingsForce: Forces = dbDefaultForceSettings
+  
   return new Promise((resolve, reject) => {
     // TODO: this method returns the inserted wargame.  I believe we could
     // return that, instead of `getLatestWargameRevisiion`
     db.put(settings)
       .then(() => {
         db.get(dbDefaultSettings._id).then((res) => {
+          createForce(name)
+          // @ts-ignore
+          resolve(res)
+        }).catch((err) => {
+          reject(err)
+        })
+      }).catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+export const createForce = (dbName: string): Promise<Forces> => {
+  // TODo: update dbDefaultForceSettings to valid force json
+  // @ts-ignore
+  const settings: Forces = {
+    ...dbDefaultForceSettings,
+    messageType: FORCE_MESSAGE
+  }
+  const { db } = getWargameDbByName(dbName)
+  
+  return new Promise((resolve, reject) => {
+    // TODO: this method returns the inserted force.  I believe we could
+    // return that, instead of `getLatestForceRevision`
+    db.put(settings)
+      .then(() => {
+        db.get(dbDefaultForceSettings._id).then((res) => {
           // @ts-ignore
           resolve(res)
         }).catch((err) => {
@@ -231,7 +260,7 @@ export const checkIfWargameStarted = (dbName: string): Promise<boolean> => {
 // then only one document goes over network.
 export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   const { db } = getWargameDbByName(dbName)
-  return db.lastWargame().then((message) => {
+  return db.lastDoc(INFO_MESSAGE).then((message) => {
     if (message) return message
     // TODO: if we haven't got an INFO MESSAGE then the database hasn't been
     // TODO: created properly, and we should thrown an error
@@ -239,9 +268,23 @@ export const getLatestWargameRevision = (dbName: string): Promise<Wargame> => {
   }).catch(err => err)
 }
 
-export const editWargame = (dbPath: string): Promise<Wargame> => (
-  getLatestWargameRevision(getNameFromPath(dbPath))
-)
+export const getLatestForceRevision = (dbName: string): Promise<Forces> => {
+  const { db } = getWargameDbByName(dbName)
+  return db.lastDoc(FORCE_MESSAGE).then((message) => {
+    if (message) return message
+    // TODO: if we haven't got an ForcesMessage then the database hasn't been
+    // TODO: created properly, and we should thrown an error
+    return getForceLocalFromName(dbName)
+  }).catch(err => err)
+}
+
+export const editWargame = (dbPath: string): Promise<Wargame> => {
+  return getLatestWargameRevision(getNameFromPath(dbPath))
+}
+
+export const editForce = (dbPath: string): Promise<Forces> => {
+  return getLatestForceRevision(getNameFromPath(dbPath))
+}
 
 export const exportWargame = (dbPath: string): Promise<Wargame> => {
   const dbName = getNameFromPath(dbPath)
@@ -432,10 +475,46 @@ export const saveForces = (dbName: string, newData: ForceData[]) => {
   })
 }
 
-export const saveForce = (dbName: string, newData: ForceData) => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
+export const createLatestForceRevision = (dbName: string, force: Forces): Promise<Forces> => {
+  const copiedData: Forces = deepCopy(force)
+  const { db } = getWargameDbByName(dbName)
+  // TODO: this put() method returns the inserted force.  I believe we could
+  // return that, instead of `getLatestForceRevision`
+
+  const forceNewData :Forces = {
+    ...copiedData,
+    _rev: undefined,
+    _id: new Date().toISOString(),
+    messageType: FORCE_MESSAGE
+  }
+  return db.put(forceNewData).then(() => {
+    return getLatestForceRevision(dbName)
+  })
+}
+
+const updateForceByDb = (nextForce: Forces, dbName: string, Initiated?: boolean): Promise<Forces> => {
+  const { db } = getWargameDbByName(dbName)
+
+  if (Initiated) {
+    // store with new id
+    return createLatestForceRevision(dbName, nextForce)
+  } else {
+    // retain un-initiated status id
+    // TODO: this put() method returns the inserted force.  I believe we could
+    // return that, instead of `getLatestForceRevision`
+    return db.put({
+      ...nextForce,
+      _id: Force_Settings
+    }).then(() => {
+      return db.get(Force_Settings) as Promise<Forces>
+    })
+  }
+}
+
+export const saveForce = (dbName: string, newData: ForceData, Initiated?: boolean) => {
+  return getLatestForceRevision(dbName).then((res) => {
+    const newDoc: Forces = deepCopy(res)
+    const updatedData = newDoc
     const forces = updatedData.forces.forces
     const forceNew = forces.every((force) => force.uniqid !== newData.uniqid)
 
@@ -448,14 +527,14 @@ export const saveForce = (dbName: string, newData: ForceData) => {
     }
 
     updatedData.forces.forces = forces
-
+    
     // remove default before calc
-
+     
     const forceCheck: ForceData[] = deepCopy(forces)
     const umpireIndex = forceCheck.findIndex((force) => force.umpire)
     forceCheck.splice(umpireIndex, 1)
 
-    return updateWargame({ ...res, data: updatedData }, dbName)
+    return updateForceByDb(updatedData, dbName, Initiated)
     // if (newDoc.wargameInitiated) {
     //   return createLatestWargameRevision(dbName, newDoc) // TODO: <<< check this part  `updatedData` saves only if wargame not Initiated
     // } else {
@@ -473,15 +552,11 @@ export const saveForce = (dbName: string, newData: ForceData) => {
   })
 }
 
-export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> => {
+export const removeChannels = (dbName: string, forceId: string): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
-    const forces = updatedData.forces.forces
-
-    // remove the indicated force
-    updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
-
+ 
     // remove participations for this force
     updatedData.channels.channels.forEach((channel: ChannelTypes) => {
       // in the next time we're 'tricking' the compiler into accepting the
@@ -508,18 +583,31 @@ export const deleteForce = (dbName: string, forceId: string): Promise<Wargame> =
   })
 }
 
-export const duplicateForce = (dbName: string, currentForce: ForceData): Promise<Wargame> => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
+export const deleteForce = (dbName: string, forceId: string, Initiated?: boolean): Promise<Forces> => {
+  return getLatestForceRevision(dbName).then((res) => {
+    const newDoc: Forces = deepCopy(res)
+    const updatedData = newDoc
+    const forces = updatedData.forces.forces
+    // remove the indicated force
+    updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
+
+    removeChannels(dbName, forceId)
+    return updateForceByDb(updatedData, dbName, Initiated)
+  })
+}
+
+export const duplicateForce = (dbName: string, currentForce: ForceData, Initiated?: boolean): Promise<Forces> => {
+  return getLatestForceRevision(dbName).then((res) => {
+    const newDoc: Forces = deepCopy(res)
+    const updatedData = newDoc
     const forces = updatedData.forces.forces || []
     const forceIndex = forces.findIndex((force) => force.uniqid === currentForce.uniqid)
     const duplicate = duplicateThisForce(forces[forceIndex])
     forces.splice(forceIndex, 0, duplicate)
     updatedData.forces.forces = forces
     updatedData.forces.selectedForce = duplicate as any
-
-    return updateWargame({ ...res, data: updatedData }, dbName)
+    
+    return updateForceByDb(newDoc, dbName, Initiated)
   })
 }
 
@@ -606,6 +694,13 @@ export const getWargameLocalFromName = (dbName: string): Promise<Wargame> => {
   // TODO: this should look for most recent wargame (INFO), it currently
   // looks for the un-initiated version of the wargame
   return db.get(dbDefaultSettings._id).then((res) => res as Wargame)
+}
+
+export const getForceLocalFromName = (dbName: string): Promise<Forces> => {
+  const { db } = getWargameDbByName(dbName)
+  // TODO: this should look for most recent force (INFO), it currently
+  // looks for the un-initiated version of the force
+  return db.get(dbDefaultForceSettings._id).then((res) => res as Forces)
 }
 
 export const getWargame = (gamePath: string): Promise<Wargame> => {
