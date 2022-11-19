@@ -113,6 +113,25 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
+  const [currentAssets, setCurrentAssets] = useState<string[]>([])
+  const [currentOrder, setCurrentOrders] = useState<string[]>([])
+  const [currentOwnAssets, setCurrentOwnAssets] = useState<string[]>([])
+  const [currentOppAssets, setCurrentOppAssets] = useState<string[]>([])
+
+  useEffect(() => {
+    const result = currentAssets.reduce((result: { ownAsset: string[], oppAsset: string[] }, curAsset: string) => {
+      if (allOwnAssets.some(ownAsset => ownAsset.id === curAsset)) {
+        result.ownAsset.push(curAsset)
+      }
+      if (allOppAssets.some(oppAsset => oppAsset.id === curAsset)) {
+        result.oppAsset.push(curAsset)
+      }
+      return result
+    }, { ownAsset: [], oppAsset: [] })
+    setCurrentOwnAssets(result.ownAsset)
+    setCurrentOppAssets(result.oppAsset)
+  }, [currentAssets, allOwnAssets, allOppAssets])
+
   useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want
@@ -249,13 +268,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const onPanelWidthChange = (width: number): void => setMapWidth(`calc(100% - ${width}px)`)
+  const onPanelWidthChange = (width: number): void => {
+    setMapWidth(`calc(100% - ${width}px)`)
+  }
 
   const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
 
-  const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
+  const supportPanelContext = useMemo(() => (
+    { selectedAssets, setCurrentAssets, setCurrentOrders }
+  ), [selectedAssets, setCurrentAssets, setCurrentOrders])
 
   const genData = (): void => {
     const doGenny = 7
@@ -459,12 +482,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
-            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrder.length ? currentOrder : selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup pmIgnore={true} key={'own-forces'}>
-              <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+              <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets.length ? selectedAssets : currentOwnAssets} />
             </LayerGroup>
             <LayerGroup key={'opp-forces'}>
-              <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+              <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets.length ? selectedAssets : currentOppAssets} />
             </LayerGroup>
             {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
@@ -473,7 +496,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, currentOrder, currentOwnAssets, currentOppAssets])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',

@@ -4,8 +4,9 @@ import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
+import { noop } from 'lodash'
 import moment from 'moment'
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -24,7 +25,7 @@ import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [] })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -75,16 +76,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
-
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
-
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
-
-  const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet|undefined>(undefined)
-
+  const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
+  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext);
 
   const ORDERS_TAB = 1
 
@@ -96,6 +94,28 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     setLocalDraftMessage(draftMessage)
   }, [draftMessage])
+
+  useEffect(() => {
+    if (activeTab === TABS[ORDERS_TAB]) {
+      const currentOrders: string[] = []
+      const currentAssets: string[] = []
+      planningMessages.forEach(m => {
+        currentOrders.push(m._id)
+        const message = m.message
+        if (message.otherAssets) {
+          currentAssets.push(...message.otherAssets)
+        }
+        if (message.ownAssets) {
+          currentAssets.push(...message.ownAssets.map(o => o.asset))
+        }
+      })
+      setCurrentAssets(currentAssets)
+      setCurrentOrders(currentOrders)
+    } else {
+      setCurrentAssets([])
+      setCurrentOrders([])
+    }
+  }, [activeTab])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -225,7 +245,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     !7 && console.log('onDetailPanelClose called ', rowData)
   }
 
-  const storeNewLocation = (geoms: PlannedActivityGeometry[]):void => {
+  const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
     console.log('storing new geometries', geoms)
     setPendingLocationData(geoms)
   }
