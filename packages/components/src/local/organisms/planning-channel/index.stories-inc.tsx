@@ -13,21 +13,33 @@ import PlanningChannelProps from './types/props'
 
 console.clear()
 
-const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, style?: CSSProperties }> = ({ src, children, style }) => {
+type ScriptDecoratorProps = {
+  scripts: string[]
+  children: React.ReactElement
+  style: CSSProperties
+}
+
+const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
 
+  const loadScript = (script: string): Promise<boolean> => {
+    return new Promise(resolve => {
+      const head = document.querySelector('head')
+      const scriptElm = document.createElement('script')
+      if (!head) {
+        return
+      }
+      scriptElm.async = true
+      scriptElm.src = script
+      scriptElm.onload = () => {
+        resolve(true)
+      }
+      head.appendChild(scriptElm)
+    })
+  }
+
   useEffect(() => {
-    const head = document.querySelector('head')
-    const script = document.createElement('script')
-    if (!head) {
-      return
-    }
-    script.async = true
-    script.src = src
-    script.onload = () => {
-      setLoaded(true)
-    }
-    head.appendChild(script)
+    Promise.all(scripts.map(script => loadScript(script))).then(() => setLoaded(true))
   }, [])
 
   return (
@@ -35,7 +47,7 @@ const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, sty
   )
 }
 
-const wrapper: React.FC = (storyFn: any) => <ScriptDecorator src='/leaflet.select/leaflet.control.select.js' style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
+const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/select/leaflet.select.js', '/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
 
 const wargame = P9BMock.data
 const channels = wargame.channels.channels
@@ -173,7 +185,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   />
 }
 const doNotDoIt = 7 // don't transform the messages
-const channelMessages = PlanningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning|MessageInteraction>
+const channelMessages = PlanningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = channelMessages.filter((msg) => msg.details.interaction === undefined) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
