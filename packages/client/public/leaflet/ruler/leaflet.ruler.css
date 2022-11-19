@@ -1,4 +1,3 @@
-/* stylelint-disable */
 .leaflet-ruler {
   height: 35px;
   width: 35px;
@@ -15,7 +14,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("asset/icon-colored.png");
-  border-color: rgb(40, 40, 40) !important;
+  /* border-color: rgb(40, 40, 40) !important; */
 }
 .leaflet-bar {
   background-color: #ffffff;
