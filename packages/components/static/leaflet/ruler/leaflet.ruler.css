@@ -1,3 +1,4 @@
+/* stylelint-disable */
 .leaflet-ruler {
   height: 35px;
   width: 35px;
@@ -8,13 +9,14 @@
 .leaflet-ruler:hover {
   background-image: url("asset/icon-colored.png"); /* <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div> */
 }
+
 .leaflet-ruler-clicked {
   height: 35px;
   width: 35px;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url("asset/icon-colored.png");
-  border-color: chartreuse !important;
+  border-color: rgb(40, 40, 40) !important;
 }
 .leaflet-bar {
   background-color: #ffffff;

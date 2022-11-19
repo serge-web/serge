@@ -88,7 +88,7 @@
         if (this._movingLatLong) {
           L.polyline([this._clickedPoints[this._clickCount - 1], this._movingLatLong], this.options.lineStyle).addTo(this._polylineLayer)
         }
-        var text
+        let text
         this._totalLength += this._result.Distance
         if (this._clickCount > 1) {
           text = '<b>' + this.options.angleUnit.label + '</b>&nbsp;' + this._result.Bearing.toFixed(this.options.angleUnit.decimal) + '&nbsp;' + this.options.angleUnit.display + '<br><b>' + this.options.lengthUnit.label + '</b>&nbsp;' + this._totalLength.toFixed(this.options.lengthUnit.decimal) + '&nbsp;' + this.options.lengthUnit.display
@@ -107,7 +107,7 @@
           this._map.removeLayer(this._tempLine)
           this._map.removeLayer(this._tempPoint)
         }
-        var text
+        let text
         this._addedLength = 0
         this._tempLine = L.featureGroup()
         this._tempPoint = L.featureGroup()
@@ -135,21 +135,21 @@
       }
     },
     _calculateBearingAndDistance: function () {
-      var f1 = this._clickedLatLong.lat; var l1 = this._clickedLatLong.lng; var f2 = this._movingLatLong.lat; var l2 = this._movingLatLong.lng
-      var toRadian = Math.PI / 180
+      const f1 = this._clickedLatLong.lat; const l1 = this._clickedLatLong.lng; const f2 = this._movingLatLong.lat; const l2 = this._movingLatLong.lng
+      const toRadian = Math.PI / 180
       // haversine formula
       // bearing
-      var y = Math.sin((l2 - l1) * toRadian) * Math.cos(f2 * toRadian)
-      var x = Math.cos(f1 * toRadian) * Math.sin(f2 * toRadian) - Math.sin(f1 * toRadian) * Math.cos(f2 * toRadian) * Math.cos((l2 - l1) * toRadian)
-      var brng = Math.atan2(y, x) * ((this.options.angleUnit.factor ? this.options.angleUnit.factor / 2 : 180) / Math.PI)
+      const y = Math.sin((l2 - l1) * toRadian) * Math.cos(f2 * toRadian)
+      const x = Math.cos(f1 * toRadian) * Math.sin(f2 * toRadian) - Math.sin(f1 * toRadian) * Math.cos(f2 * toRadian) * Math.cos((l2 - l1) * toRadian)
+      let brng = Math.atan2(y, x) * ((this.options.angleUnit.factor ? this.options.angleUnit.factor / 2 : 180) / Math.PI)
       brng += brng < 0 ? (this.options.angleUnit.factor ? this.options.angleUnit.factor : 360) : 0
       // distance
-      var R = this.options.lengthUnit.factor ? 6371 * this.options.lengthUnit.factor : 6371 // kilometres
-      var deltaF = (f2 - f1) * toRadian
-      var deltaL = (l2 - l1) * toRadian
-      var a = Math.sin(deltaF / 2) * Math.sin(deltaF / 2) + Math.cos(f1 * toRadian) * Math.cos(f2 * toRadian) * Math.sin(deltaL / 2) * Math.sin(deltaL / 2)
-      var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-      var distance = R * c
+      const R = this.options.lengthUnit.factor ? 6371 * this.options.lengthUnit.factor : 6371 // kilometres
+      const deltaF = (f2 - f1) * toRadian
+      const deltaL = (l2 - l1) * toRadian
+      const a = Math.sin(deltaF / 2) * Math.sin(deltaF / 2) + Math.cos(f1 * toRadian) * Math.cos(f2 * toRadian) * Math.sin(deltaL / 2) * Math.sin(deltaL / 2)
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+      const distance = R * c
       this._result = {
         Bearing: brng,
         Distance: distance
