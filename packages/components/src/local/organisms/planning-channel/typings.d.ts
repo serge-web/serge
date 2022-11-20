@@ -51,19 +51,43 @@ class Select extends Control {
   constructor(options?: SelectOption);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
-  remove(): void
+  remove(): void;
 }
 
 class Ruler extends Control {
   constructor(options?: RulerOption);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
-  remove(): void
+  remove(): void;
 }
 
+class Timeline extends Control {
+  constructor(options?: {});
+  addTo(map: Map): this;
+  // remove comes from the parent contrlol
+  remove(): void;
+
+  addTimelines: (timelines?: TimelineData) => void
+}
+
+class TimelineData extends Control {
+  constructor(options?: {});
+  addTo(map: Map): this;
+  // remove comes from the parent contrlol
+  remove(): void;
+}
+
+type TimelineControlOption = {
+  formatOutput: (date: string | number | Date) => string
+}
+type TimelineDataOption = {
+  pointToLayer: (data: { properties: { mag: number; url: string } }, latlng: L.LatLngExpression) => number
+}
 declare module 'leaflet' {
   export namespace control {
     function select(options?: SelectOption): Select;
     function ruler(options?: RulerOption): Ruler;
   }
+  export function timelineSliderControl(options?: TimelineControlOption): Timeline;
+  export function timeline(data?: FeatureCollection<Geometry, GeoJsonProperties>, option?: TimelineDataOption): TimelineData;
 }

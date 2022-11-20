@@ -33,6 +33,7 @@ import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 import Ruler from './helpers/Ruler'
+import Timeline from './helpers/Timeline'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -116,7 +117,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
-  const [, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+  const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -172,6 +173,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setTimeControlEvents(undefined)
     }
   }, [showTimeControl, planningMessages])
+
+  useEffect(() => {
+    console.log('xx> timeControlEvents: ', timeControlEvents)
+  }, [timeControlEvents])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -493,6 +498,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return (
       <>
         <Ruler showControl={true} />
+        <Timeline showControl={true} data={timeControlEvents} />
         {playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
@@ -511,7 +517,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -623,7 +629,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         }
                         <div className={cx('leaflet-control')}>
                           <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
-                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} />asd</Item>
+                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
                         </div>
                       </>
                     }
