@@ -557,8 +557,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         })
       } else if (geom.coordinate) {
         const val = geom.coordinate as [number, number]
-          const pos = L.latLng(val[0], val[1])
-          localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+        const pos = L.latLng(val[0], val[1])
+        localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
       }
     })
     if (localBounds) {
