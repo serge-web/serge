@@ -30,10 +30,10 @@ import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
-import styles from './styles.module.scss'
-import PropTypes from './types/props'
 import Ruler from './helpers/Ruler'
 import Timeline from './helpers/Timeline'
+import styles from './styles.module.scss'
+import PropTypes from './types/props'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -498,8 +498,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return (
       <>
         <Ruler showControl={true} />
-        <Timeline showControl={true} data={timeControlEvents} />
-        {playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
+        <Timeline showControl={showTimeControl} data={timeControlEvents} />
+        <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
