@@ -19,13 +19,13 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {
     if (!timelineControl) {
       const timelineControl = L.timelineSliderControl({
         formatOutput: function (date: string | number | Date) {
-          return new Date(date).toString();
-        },
-      });
+          return new Date(date).toString()
+        }
+      })
       setTimelineControl(timelineControl)
     }
     if (!timelineData && data) {
-      const timeline = L.timeline(data);
+      const timeline = L.timeline(data)
       setTimelineData(timeline)
     }
   }, [data])
@@ -33,9 +33,9 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {
   useEffect(() => {
     if (timelineControl && timelineData) {
       if (showControl) {
-        timelineControl.addTo(map);
-        timelineControl.addTimelines(timelineData);
-        timelineData.addTo(map);
+        timelineControl.addTo(map)
+        timelineControl.addTimelines(timelineData)
+        timelineData.addTo(map)
       } else {
         timelineControl.remove()
         timelineData.remove()
