@@ -61,20 +61,20 @@ class Ruler extends Control {
   remove(): void;
 }
 
+class TimelineData extends Control {
+  constructor(options?: Record<string, unknown>);
+  addTo(map: Map): this;
+  // remove comes from the parent contrlol
+  remove(): void;
+}
+
 class Timeline extends Control {
-  constructor(options?: {});
+  constructor(options?: Record<string, unknown>);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
 
   addTimelines: (timelines?: TimelineData) => void
-}
-
-class TimelineData extends Control {
-  constructor(options?: {});
-  addTo(map: Map): this;
-  // remove comes from the parent contrlol
-  remove(): void;
 }
 
 type TimelineControlOption = {
