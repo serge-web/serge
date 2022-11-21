@@ -61,15 +61,23 @@ class Ruler extends Control {
   remove(): void;
 }
 
+type TimelineControlOption = {
+  formatOutput: (date: string | number | Date) => string
+}
+
+type TimelineDataOption = {
+  pointToLayer: (data: { properties: { mag: number, url: string } }, latlng: L.LatLngExpression) => number
+}
+
 class TimelineData extends Control {
-  constructor(options?: Record<string, unknown>);
+  constructor(options?: TimelineDataOption);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
 }
 
 class Timeline extends Control {
-  constructor(options?: Record<string, unknown>);
+  constructor(options?: TimelineControlOption);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
@@ -77,12 +85,6 @@ class Timeline extends Control {
   addTimelines: (timelines?: TimelineData) => void
 }
 
-type TimelineControlOption = {
-  formatOutput: (date: string | number | Date) => string
-}
-type TimelineDataOption = {
-  pointToLayer: (data: { properties: { mag: number, url: string } }, latlng: L.LatLngExpression) => number
-}
 declare module 'leaflet' {
   export namespace control {
     function select(options?: SelectOption): Select;
