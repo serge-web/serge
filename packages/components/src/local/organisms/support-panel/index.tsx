@@ -16,7 +16,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
+import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS, TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseDate } from './helpers/customise-date'
@@ -82,9 +82,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext);
 
-  const ORDERS_TAB = 1
+  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext);
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -94,28 +93,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     setLocalDraftMessage(draftMessage)
   }, [draftMessage])
-
-  useEffect(() => {
-    if (activeTab === TABS[ORDERS_TAB]) {
-      const currentOrders: string[] = []
-      const currentAssets: string[] = []
-      planningMessages.forEach(m => {
-        currentOrders.push(m._id)
-        const message = m.message
-        if (message.otherAssets) {
-          currentAssets.push(...message.otherAssets)
-        }
-        if (message.ownAssets) {
-          currentAssets.push(...message.ownAssets.map(o => o.asset))
-        }
-      })
-      setCurrentAssets(currentAssets)
-      setCurrentOrders(currentOrders)
-    } else {
-      setCurrentAssets([])
-      setCurrentOrders([])
-    }
-  }, [activeTab])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -171,7 +148,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     // if there is a draft message, open the `my orders` tab
     if (draftMessage) {
-      setActiveTab(TABS[ORDERS_TAB])
+      setActiveTab(TAB_MY_ORDERS)
     }
   }, [draftMessage])
 
@@ -237,12 +214,60 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setLocalDraftMessage(order)
   }
 
-  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
-    !7 && console.log('onDetailPanelOpen called: ', rowData)
+  const assetsForOrders = (id?: string): string[] => {
+    let res: string[] = []
+    const plan = planningMessages.find((msg) => msg._id === id)
+    if (plan) {
+      const mine = plan.message.ownAssets || []
+      const myIds = mine.map((val: {asset: string, number: number}):string => val.asset)
+      const others = plan.message.otherAssets || []
+      res = myIds.concat(others)
+    }
+    return res
   }
 
-  const onDetailPanelClose = (rowData: OrderRow | AdjudicationRow) => {
-    !7 && console.log('onDetailPanelClose called ', rowData)
+  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
+    // if this is an orders item, or an adjudication, mark the relevant data
+    // as 'current
+    switch (activeTab) {
+      case TAB_MY_ORDERS: {
+        const order = rowData as OrderRow
+        const plan = planningMessages.find((msg) => msg._id === order.id)
+        if (plan) {
+          const mine = plan.message.ownAssets || []
+          const myIds = mine.map((val: {asset: string, number: number}):string => val.asset)
+          const others = plan.message.otherAssets || []
+          const allIds = myIds.concat(others)
+          setCurrentAssets(allIds)
+          setCurrentOrders([plan._id])
+        }
+        break
+      } 
+      case TAB_ADJUDICATE: {
+        const adj = rowData as AdjudicationRow
+        const doc = interactionMessages.find((doc) => doc._id === adj.id)
+        if (doc) {
+          const inter = doc.details.interaction
+          if (inter) {
+            // get the assets
+            const assets1 = assetsForOrders(inter.orders1)
+            const assets2 = assetsForOrders(inter.orders2)
+            const allAssets = assets1.concat(assets2)
+            setCurrentAssets(allAssets)
+            if (inter.orders2) {
+              setCurrentOrders([inter.orders1, inter.orders2])
+            } else {
+              setCurrentOrders([inter.orders1])
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const onDetailPanelClose = () => {
+    setCurrentAssets([])
+    setCurrentOrders([])
   }
 
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
@@ -296,8 +321,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
-              {activeTab === TABS[ORDERS_TAB] &&
+            <TabPanel className={styles['tab-panel']} value={TAB_MY_ORDERS} active={activeTab ===TAB_MY_ORDERS} >
+              {activeTab === TAB_MY_ORDERS &&
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
