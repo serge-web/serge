@@ -82,7 +82,12 @@ export const initLocationEditor = (editCallback: () => void): void => {
     },
 
     getValue: function () {
-      return this.textArea.value
+      // note: the text area may not have been initialised yet.
+      if (this.textArea) {
+        return this.textArea.value
+      } else {
+        return ''
+      }
     }
   })
 
