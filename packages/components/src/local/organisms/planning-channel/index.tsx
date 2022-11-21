@@ -544,6 +544,27 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('processing new geometries', plans)
     // if we just store `callback` then it will get called.  So we need to indirectly store it
     setActivityBeingEditedCallback(() => callback)
+
+    // get bounds of geometries
+    let localBounds: L.LatLngBounds | undefined
+    plans.forEach((plan) => {
+      const geom = plan.geometry.geometry as any
+      if (geom.coordinates) {
+        const coords = geom.coordinates as Array<[number, number]>
+        coords.forEach((val: [number, number]) => {
+          const pos = L.latLng(val[0], val[1])
+          localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+        })
+      } else if (geom.coordinate) {
+        const val = geom.coordinate as [number, number]
+          const pos = L.latLng(val[0], val[1])
+          localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+      }
+    })
+    if (localBounds) {
+      setBounds(localBounds)
+    }
+
     setActivityBeingEdited(plans)
   }
 
