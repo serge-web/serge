@@ -71,7 +71,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     components={{
       Body: (props): React.ReactElement => {
         if (props.columns.length && onVisibleRowsChange) {
-          onVisibleRowsChange(props.renderData)
+          setTimeout(() => {
+            onVisibleRowsChange(props.renderData)
+          })
         }
         return (<MTableBody
           {...props}

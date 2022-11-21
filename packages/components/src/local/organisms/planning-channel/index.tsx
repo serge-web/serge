@@ -6,10 +6,11 @@ import L, { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
 
-import { faCalculator } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faHistory } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { Feature, FeatureCollection } from 'geojson'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -31,6 +32,7 @@ import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import Ruler from './helpers/Ruler'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -113,6 +115,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
+  const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
+  const [, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+
   useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want
@@ -136,6 +141,37 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setPlayerInPlanning(!isUmpire && planningPhase)
     setUmpireInAdjudication(isUmpire && !planningPhase)
   }, [selectedForce, phase])
+
+  useEffect(() => {
+    if (showTimeControl) {
+      const features: Feature[] = []
+      planningMessages.forEach((plan) => {
+        if (plan.message.location) {
+          // until we have times in features, we get it from the message
+          const startTime = plan.message.startDate
+          const endTime = plan.message.endDate
+          const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
+            // create the new props, if they are missing
+            if (geom.geometry && geom.geometry.properties) {
+              const props = geom.geometry.properties
+              props.start = moment(startTime).valueOf()
+              props.end = moment(endTime).valueOf()
+            }
+            return geom.geometry
+          })
+          features.push(...steps)
+        }
+      })
+      const collection: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: features
+      }
+      setTimeControlEvents(collection)
+      console.log('time features', collection)
+    } else {
+      setTimeControlEvents(undefined)
+    }
+  }, [showTimeControl, planningMessages])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -455,7 +491,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const mapChildren = useMemo(() => {
     return (
-      <>{playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
+      <>
+        <Ruler showControl={true} />
+        {playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <>
@@ -583,6 +621,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             }
                           </>
                         }
+                        <div className={cx('leaflet-control')}>
+                          <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
+                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} />asd</Item>
+                        </div>
                       </>
                     }
                   </>
