@@ -30,7 +30,7 @@ export default interface PropTypes {
   /** descriptions of platform types (used to generate icons) */
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
-  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => {(): void}
+  saveMessage: (currentWargame: string, details: MessageDetails, message: any) => { (): void }
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
   getCachedNewMessagevalue?: (value: string) => string
@@ -57,7 +57,7 @@ export default interface PropTypes {
   /** a draft copy of an new orders */
   draftMessage?: MessagePlanning
   /** player cancels creating a new set of orders */
-  onCancelDraftMessage?: {(): void}
+  onCancelDraftMessage?: { (): void }
   forcePlanningActivities?: PerForcePlanningActivitySet[]
   /** user wishes to edit location data */
   editLocation?: LocationEditCallbackHandler
@@ -88,4 +88,6 @@ export type PanelActionTabsProps = {
 
 export type SupportPanelContextInterface = {
   selectedAssets: string[]
+  setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
 }
