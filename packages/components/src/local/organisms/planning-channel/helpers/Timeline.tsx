@@ -1,6 +1,5 @@
 import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
 import L from 'leaflet'
-import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { Timeline as TimelineType, TimelineData } from '../typings'
@@ -9,8 +8,6 @@ type TimelineProps = {
   showControl: boolean
   data?: FeatureCollection<Geometry, GeoJsonProperties>
 }
-
-const DateFormat = 'YYYY MMM DD HHmm[Z]'
 
 const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {
   const map = useMap()

@@ -66,7 +66,7 @@ type TimelineControlOption = {
 }
 
 type TimelineDataOption = {
-  pointToLayer: (data: { properties: { mag: number, url: string } }, latlng: L.LatLngExpression) => number
+  pointToLayer: (data: any, latlng: L.LatLngExpression) => void
 }
 
 class TimelineData extends Control {

@@ -19,6 +19,13 @@
 }
 .leaflet-control.leaflet-timeline-control input[type="range"] {
   width: 80%;
+  /* -webkit-appearance: none;
+  display: flex;
+  border: solid 1px rgb(42, 42, 42);
+  border-radius: 8px;
+  height: 7px;
+  align-items: center;
+  outline: none; */
 }
 .leaflet-control.leaflet-timeline-control .sldr-ctrl-container {
   float: left;
