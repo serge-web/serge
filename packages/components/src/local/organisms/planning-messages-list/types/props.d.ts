@@ -7,16 +7,15 @@ import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/pro
 
 export type OrderRow = {
   id: string
+  reference: string
   title: string
-  // turn when this order created
-  turn: number
   role: string
   activity: string
   startDate: string
   endDate: string
 }
 
-export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: unknown): void }): void }
+export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void }
 
 export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 'names' | 'colors'> {
   /**
@@ -92,4 +91,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onDetailPanelOpen?: (rowData: OrderRow) => void
 
   onDetailPanelClose?: (rowData: OrderRow) => void
+
+  editThisMessage?: (docId: string) => void
 }

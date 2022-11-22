@@ -48,6 +48,11 @@
     &::placeholder {
       color: rgba(255, 255, 255, 0.2);
     }
+
+    &:disabled,
+    &[readonly] {
+      background-color: rgb(128, 128, 128) !important;
+    }
   }
 
   .out-of-game-feed & {

@@ -14,14 +14,22 @@ import {
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
-import { Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, MessageStructure, PlanningActivity } from '@serge/custom-types'
+import {
+  Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction,
+  MessagePlanning, MessageStructure, PlanningActivity
+} from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
 import moment from 'moment'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
+import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
 import { customiseDate } from '../../organisms/support-panel/helpers/customise-date'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
+import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
+import { coreTemplate } from './helpers/p9-core'
+import { maritimeTemplate } from './helpers/p9-maritime'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -58,7 +66,6 @@ const templateMessageCreator = {
 }
 
 const Template: Story<Props> = ({ messageId, disabled, template, messageContent, modifyForEdit, customiseTemplate }) => {
-  console.log('cust template', customiseTemplate)
   return (
     <JsonEditor
       storeNewValue={storeNewValue}
@@ -139,13 +146,13 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       acts.push({ id: plan.uniqid, name: val.category + '-' + plan.name })
     })
   })
+  const overview = P9BMock.data.overview
 
   const customisers: Array<{ (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
     (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities),
-    (document, template) => customiseDate(document, template, moment('2022-11-12T00:00:00.000Z').valueOf(), P9BMock.data.overview.gameTurnTime),
+    (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
     (document, template) => customiseLocation(document, template)
-
   ]
 
   let res: Record<string, any> = schema
@@ -160,6 +167,37 @@ PlanningMessage.args = {
   customiseTemplate: localCustomise,
   template: landActivityTemplate,
   messageContent: landMessage.message,
+  messageId: 'id_2b',
+  disabled: false,
+  gameDate: WargameMock.data.overview.gameDate
+}
+
+// const land = generateTemplate('first', coreTemplate, landTemplate)
+const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'tmplCyber')
+// const air = generateTemplate('first', coreTemplate, airTemplate)
+// const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
+
+generateAllTemplates()
+
+export const P9Message = Template.bind({})
+P9Message.args = {
+  customiseTemplate: localCustomise,
+  modifyForEdit: (document) => collapseLocation(document),
+  template: maritime,
+  messageContent: landMessage.message,
+  messageId: 'id_2b',
+  disabled: false,
+  gameDate: WargameMock.data.overview.gameDate
+}
+
+export const P9MessageWithoutLocation = Template.bind({})
+const msg = deepCopy(landMessage.message)
+delete msg.location
+P9MessageWithoutLocation.args = {
+  // customiseTemplate: localCustomise,
+  modifyForEdit: (document) => collapseLocation(document),
+  template: maritime,
+  messageContent: msg,
   messageId: 'id_2b',
   disabled: false,
   gameDate: WargameMock.data.overview.gameDate

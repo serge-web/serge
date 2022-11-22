@@ -1,11 +1,12 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure } from '@serge/custom-types'
+import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
+import { noop } from 'lodash'
 import moment from 'moment'
-import React, { createContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -13,8 +14,9 @@ import { AdjudicationRow } from '../adjudication-messages-list/types/props'
 import PlanningAssets from '../planning-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
+import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS } from './constants'
+import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS, TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseDate } from './helpers/customise-date'
@@ -23,7 +25,7 @@ import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [] })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -34,9 +36,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onUnread,
   onReadAll,
   channel,
-  channelTemplates,
   allTemplates,
   adjudicationTemplate,
+  mapPostBack,
   saveMessage,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
@@ -49,6 +51,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   gameDate,
   gameTurnTime,
   currentTurn,
+  phase,
   currentWargame,
   setSelectedAssets,
   selectedOrders,
@@ -62,26 +65,41 @@ export const SupportPanel: React.FC<PropTypes> = ({
   onCancelDraftMessage,
   forcePlanningActivities,
   editLocation,
-  attributeTypes
+  attributeTypes,
+  handleAdjudication
 }) => {
-  const [activeTab, setActiveTab] = useState<string>(selectedForce.umpire ? TABS[3] : TABS[0])
+  const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
+  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TABS[3] : TABS[0])
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
-
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
+  const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
+  const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
+  const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
 
-  const ORDERS_TAB = 1
+  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext);
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
   }
+
+  useEffect(() => {
+    setLocalDraftMessage(draftMessage)
+  }, [draftMessage])
+
+  useEffect(() => {
+    if (forcePlanningActivities) {
+      const thisForce = forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === selectedForce.uniqid)
+      setActivitiesForThisForce(thisForce)
+    }
+  }, [forcePlanningActivities, selectedForce])
 
   useEffect(() => {
     const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
@@ -109,7 +127,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return (
       <div className={cx(styles['action-tab'], className)}>
         <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
-        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>My Orders</p>
+        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>Orders</p>
         <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
         {selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
         }
@@ -130,7 +148,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     // if there is a draft message, open the `my orders` tab
     if (draftMessage) {
-      setActiveTab(TABS[ORDERS_TAB])
+      setActiveTab(TAB_MY_ORDERS)
     }
   }, [draftMessage])
 
@@ -148,14 +166,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const cancelNewOrders = (): void => {
     onCancelDraftMessage && onCancelDraftMessage()
+    // also the local document
+    setLocalDraftMessage(undefined)
   }
 
   const postBack = (details: MessageDetails, message: any): void => {
+    // do we have any pending geometry
+    if (pendingLocationData.length > 0) {
+      const plan = message as MessagePlanning
+      console.log('injecting geometry', plan.message.locationm, pendingLocationData)
+    }
+
     const activity: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
     saveMessage(currentWargame, details, message)()
+    // also clear local one
+    setLocalDraftMessage(undefined)
   }
 
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
@@ -181,12 +209,84 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return current
   }
 
-  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
-    console.log('onDetailPanelOpen called: ', rowData)
+  const editThisMessage = (docId: string): void => {
+    const order = planningMessages.find((doc) => doc._id === docId)
+    setLocalDraftMessage(order)
   }
 
-  const onDetailPanelClose = (rowData: OrderRow | AdjudicationRow) => {
-    console.log('onDetailPanelClose called ', rowData)
+  const assetsForOrders = (id?: string): string[] => {
+    let res: string[] = []
+    const plan = planningMessages.find((msg) => msg._id === id)
+    if (plan) {
+      const mine = plan.message.ownAssets || []
+      const myIds = mine.map((val: {asset: string, number: number}):string => val.asset)
+      const others = plan.message.otherAssets || []
+      res = myIds.concat(others)
+    }
+    return res
+  }
+
+  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
+    // if this is an orders item, or an adjudication, mark the relevant data
+    // as 'current
+    switch (activeTab) {
+      case TAB_MY_ORDERS: {
+        const order = rowData as OrderRow
+        const plan = planningMessages.find((msg) => msg._id === order.id)
+        if (plan) {
+          const mine = plan.message.ownAssets || []
+          const myIds = mine.map((val: {asset: string, number: number}):string => val.asset)
+          const others = plan.message.otherAssets || []
+          const allIds = myIds.concat(others)
+          setCurrentAssets(allIds)
+          setCurrentOrders([plan._id])
+        }
+        break
+      } 
+      case TAB_ADJUDICATE: {
+        const adj = rowData as AdjudicationRow
+        const doc = interactionMessages.find((doc) => doc._id === adj.id)
+        if (doc) {
+          const inter = doc.details.interaction
+          if (inter) {
+            // get the assets
+            const assets1 = assetsForOrders(inter.orders1)
+            const assets2 = assetsForOrders(inter.orders2)
+            const allAssets = assets1.concat(assets2)
+            setCurrentAssets(allAssets)
+            if (inter.orders2) {
+              setCurrentOrders([inter.orders1, inter.orders2])
+            } else {
+              setCurrentOrders([inter.orders1])
+            }
+          }
+        }
+      }
+    }
+  }
+
+  const onDetailPanelClose = () => {
+    setCurrentAssets([])
+    setCurrentOrders([])
+  }
+
+  const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
+    console.log('storing new geometries', geoms)
+    setPendingLocationData(geoms)
+  }
+
+  const localEditLocation = (doc: string, geoms: PlannedActivityGeometry[]): void => {
+    console.log('local edit location', doc, geoms)
+    setPendingLocationData(geoms)
+    editLocation && editLocation(geoms, storeNewLocation)
+
+    // if (message.message.location) {
+    //   const localCallback = (newValue: unknown): void => {
+    //     pendingLocationData.push(newValue as PlannedActivityGeometry[])
+    //   }
+    //   // pass the location data object
+    //   editLocation && editLocation(message.message.location, localCallback)
+    // }
   }
 
   const SlideComponent = useMemo(() => (
@@ -221,8 +321,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TABS[ORDERS_TAB]} active={activeTab === TABS[ORDERS_TAB]} >
-              {activeTab === TABS[ORDERS_TAB] &&
+            <TabPanel className={styles['tab-panel']} value={TAB_MY_ORDERS} active={activeTab ===TAB_MY_ORDERS} >
+              {activeTab === TAB_MY_ORDERS &&
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
@@ -251,11 +351,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     forcePlanningActivities={forcePlanningActivities}
                     onDetailPanelOpen={onDetailPanelOpen}
                     onDetailPanelClose={onDetailPanelClose}
+                    editThisMessage={editThisMessage}
                   />
-                  {draftMessage && <NewMessage
+                  {localDraftMessage && <NewMessage
                     orderableChannel={true}
                     privateMessage={!!selectedForce.umpire}
-                    templates={channelTemplates}
+                    templates={allTemplates}
                     title={'New Orders'}
                     hideTemplateSelector={true}
                     saveCachedNewMessageValue={saveCachedNewMessageValue}
@@ -271,7 +372,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     postBack={postBack}
                     customiseTemplate={localCustomiseTemplate}
-                    draftMessage={draftMessage}
+                    modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
+                    modifyForSave={expandLocation}
+                    draftMessage={localDraftMessage}
+                    editCallback={localEditLocation}
                   />}
                 </div>
               }
@@ -304,25 +408,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       planningMessages={filteredPlanningMessages}
                       forces={allForces}
                       gameDate={gameDate}
-                      playerForceId={selectedForce.uniqid}
                       playerRoleId={selectedRoleId}
-                      isUmpire={!!selectedForce.umpire}
-                      turnPresentation={turnPresentation}
                       forceColors={forceCols}
-                      hideForcesInChannel={false}
                       onRead={onRead}
                       onUnread={onUnread}
                       onMarkAllAsRead={onReadAll}
+                      mapPostBack={mapPostBack}
                       channel={channel}
                       template={adjudicationTemplate}
                       customiseTemplate={localCustomiseTemplate}
-                      selectedOrders={selectedOrders}
-                      setSelectedOrders={setSelectedOrders}
                       forcePlanningActivities={forcePlanningActivities}
                       turnFilter={turnFilter}
                       platformTypes={platformTypes}
                       onDetailPanelOpen={onDetailPanelOpen}
                       onDetailPanelClose={onDetailPanelClose}
+                      handleAdjudication={handleAdjudication}
+                      postBack={postBack}
                     />
                   </div>
                 }
@@ -347,7 +448,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
     selectedRoleId,
     turnFilter,
     draftMessage,
-    platformTypes
+    platformTypes,
+    planningMessages,
+    localDraftMessage
   ]
   )
 

@@ -22,4 +22,8 @@ export default interface Perception {
    * the perceived condition of this asset
    */
   condition?: string
+  /** 
+   * the perceived health of this asset
+   */
+   health?: number
 }

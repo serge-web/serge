@@ -1,38 +1,21 @@
-import { 
-  MessageMap, 
-  ForceData, 
-  MessageDetails, 
-  MessageForceLaydown, 
-  MessageVisibilityChanges, 
-  MessagePerceptionOfContact, 
-  MessageSubmitPlans, 
-  MessageHostPlatform,
-  MessageDeletePlatform,
-  MessageCreateTaskGroup,
-  MessageLeaveTaskGroup, 
-  PlatformTypeData
+import {
+  ForceData, MessageAdjudicationOutcomes, MessageCreateTaskGroup, MessageDeletePlatform, MessageDetails,
+  MessageForceLaydown, MessageHostPlatform, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact,
+  MessageSubmitPlans, MessageVisibilityChanges, PlatformTypeData
 } from '@serge/custom-types'
 
-import { handleVisibilityAndConditionChanges } from '@serge/helpers'
-import handlePerceptionChange from './handlePerceptionChanges'
-import handleForceLaydownChanges from './handleForceLaydownChanges'
-import handlePlansSubmittedChanges from './handlePlansSubmittedChanges'
-import handleCreateTaskGroup from './handleCreateTaskGroup'
-import handleLeaveTaskGroup from './handleLeaveTaskGroup'
-import handleHostPlatform from './handleHostPlatform'
-import handleDeletePlatform from './handleDeletePlatform'
 import {
-  FORCE_LAYDOWN,
-  VISIBILITY_CHANGES,
-  PERCEPTION_OF_CONTACT,
-  SUBMIT_PLANS,
-  STATE_OF_WORLD,
-  CREATE_TASK_GROUP,
-  LEAVE_TASK_GROUP,
-  HOST_PLATFORM,
-  DELETE_PLATFORM,
-  UMPIRE_LAYDOWN
+  ADJUDICATION_OUTCOMES, CREATE_TASK_GROUP, DELETE_PLATFORM, FORCE_LAYDOWN, HOST_PLATFORM, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, STATE_OF_WORLD, SUBMIT_PLANS, UMPIRE_LAYDOWN, VISIBILITY_CHANGES
 } from '@serge/config'
+import { handleVisibilityAndConditionChanges } from '@serge/helpers'
+import handleAdjudicationOutcomes from './handleAdjudicationOutcomes'
+import handleCreateTaskGroup from './handleCreateTaskGroup'
+import handleDeletePlatform from './handleDeletePlatform'
+import handleForceLaydownChanges from './handleForceLaydownChanges'
+import handleHostPlatform from './handleHostPlatform'
+import handleLeaveTaskGroup from './handleLeaveTaskGroup'
+import handlePerceptionChange from './handlePerceptionChanges'
+import handlePlansSubmittedChanges from './handlePlansSubmittedChanges'
 // TODO: change it to @serge/config
 
 /** create a marker for the supplied set of details */
@@ -66,6 +49,8 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
       return handleHostPlatform(message as MessageHostPlatform, allForces, platformTypes)
     case DELETE_PLATFORM:
       return handleDeletePlatform(message as MessageDeletePlatform, allForces)
+    case ADJUDICATION_OUTCOMES:
+      return handleAdjudicationOutcomes(message as MessageAdjudicationOutcomes, allForces)
     default:
       console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces

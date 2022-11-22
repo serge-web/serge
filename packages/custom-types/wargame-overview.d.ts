@@ -1,6 +1,5 @@
-import MappingConstraints from "./mapping-constraints";
+import { TurnFormats } from "@serge/config";
 import { GameTurnLength } from "./turn-length";
-import { TurnFormats } from "@serge/config"
 
 export default interface WargameOverview {
   /** title for this wargame */

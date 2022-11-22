@@ -48,7 +48,7 @@ const checkImageStatus = (imageSrc: string | undefined): Promise<boolean> => {
   return new Promise((resolve) => resolve(true))
 }
 
-const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected, imageSrc, onClick, className }) => {
+const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected, imageSrc, onClick, className, health }) => {
   const [loadStatus, setLoadStatus] = useState(true)
 
   useEffect(() => {
@@ -81,6 +81,11 @@ const AssetIcon: React.FC<AssetIconProps> = ({ color = '', destroyed, isSelected
         <img src={fixUrl(loadStatus ? imageSrc : 'unknown.svg')} alt={typePrefix(imageSrc)} className={combinedClassName} />
       </div>
     }
+    {
+      health === 0
+        ? <span className={styles['corner-line']} /> : null
+    }
+
   </div>
 }
 

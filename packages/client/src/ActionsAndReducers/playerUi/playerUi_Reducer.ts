@@ -25,6 +25,7 @@ export const initialState: PlayerUi = {
   isUmpire: false,
   isGameControl: false,
   attributeTypes: [],
+  perForceActivities: [],
   currentTurn: 0,
   turnPresentation: TurnFormats.Natural,
   phase: '',
@@ -95,6 +96,16 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.hideForcesInChannels = !!action.payload.data.overview.hideForcesInChannels
       const attributeTypes = action.payload.data.attributeTypes
       newState.attributeTypes = attributeTypes ? attributeTypes.attributes : []
+      const perForceActivities = action.payload.data.activities
+      newState.perForceActivities = perForceActivities ? perForceActivities.activities : []
+
+      // temporary workaround to get templates from warga
+      const allTemplates = action.payload.data.templates ? action.payload.data.templates.templates : []
+      const templatesByKey = {}
+      allTemplates.forEach((template) => {
+        templatesByKey[template._id] = template
+      })
+      newState.allTemplatesByKey = templatesByKey
 
       // temporary workaround to remove duplicate channel definitions
       // TODO: delete workaround once fix in place
@@ -137,7 +148,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       break
 
     case SET_ALL_TEMPLATES_PLAYERUI:
-      newState.allTemplatesByKey = action.payload
+      console.warn('ignoring templates from message types database')
+      // newState.allTemplatesByKey = action.payload
       break
 
     case SHOW_HIDE_OBJECTIVES:

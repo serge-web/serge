@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
-import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
-import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
-import { usePlayerUiState } from '../../Store/PlayerUi'
-import { useDispatch } from 'react-redux'
-import { MessageDetails } from '@serge/custom-types'
-import Props from './types'
 import { JsonEditor } from '@serge/components'
+import { MessageDetails } from '@serge/custom-types'
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
+import { saveMessage } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { usePlayerUiState } from '../../Store/PlayerUi'
+import Props from './types'
 
 const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactElement => {
   const [message, setMessage] = useState<any>({})
@@ -22,6 +22,7 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
         from: {
           force: selectedForce.name,
           forceColor: selectedForce.color,
+          forceId: selectedForce.uniqid,
           roleId: state.selectedRole,
           roleName: state.selectedRoleName,
           iconURL: selectedForce.iconURL || (selectedForce.icon || '')

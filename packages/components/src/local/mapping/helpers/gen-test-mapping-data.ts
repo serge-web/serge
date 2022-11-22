@@ -1,8 +1,7 @@
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, ATTRIBUTE_VALUE_ENUM, ATTRIBUTE_VALUE_NUMBER, ATTRIBUTE_VALUE_STRING } from '@serge/config'
 import {
-  Asset, AttributeType, AttributeTypes, AttributeValue, AttributeValue2,
-  AttributeValues, AttributeValues2, EnumAttributeType, EnumAttributeValue,
-  ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, NumberAttributeValue2, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue, StringAttributeValue2
+  Asset, AttributeType, AttributeTypes, AttributeValue, AttributeValues, AttributeValues2, EnumAttributeType, EnumAttributeValue,
+  ForceData, MappingConstraints, NumberAttributeType, NumberAttributeValue, Perception, PlatformTypeData, StringAttributeType, StringAttributeValue
 } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
@@ -97,45 +96,34 @@ const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: Att
 
 const createModernAttributesFor = (platformType: PlatformTypeData, attributeTypes: AttributeTypes): AttributeValues2 => {
   const attrTypes = modernAttributeTypesFor(platformType, attributeTypes)
-  const attrVals: AttributeValues2 = attrTypes.map((attr: AttributeType): AttributeValue2 => {
-    //  NumberAttributeType | EnumAttributeType | StringAttributeType
-    let res
+  const attributes = {}
+  attrTypes.forEach((attr: AttributeType) => {
+    const id = attr.attrId
     switch (attr.attrType) {
       case ATTRIBUTE_TYPE_NUMBER: {
         const nType = attr as NumberAttributeType
-        const num: NumberAttributeValue2 = {
-          attrId: attr.attrId,
-          value: nType.defaultValue || Math.floor(Math.random() * 50)
-        }
-        res = num
+        attributes[id] = nType.defaultValue || Math.floor(Math.random() * 50)
         break
       }
       case ATTRIBUTE_TYPE_STRING: {
         const nType = attr as StringAttributeType
-        const num: StringAttributeValue2 = {
-          attrId: attr.attrId,
-          value: nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
-        }
-        return num
+        attributes[id] = nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
+        break
       }
       case ATTRIBUTE_TYPE_ENUM: {
         const nType = attr as EnumAttributeType
-        const num: StringAttributeValue2 = {
-          attrId: attr.attrId,
-          value: nType.values[Math.floor(Math.random() * nType.values.length)]
-        }
-        return num
+        attributes[id] = nType.values[Math.floor(Math.random() * nType.values.length)]
+        break
       }
       default: {
         console.warn('Haven\'t handled attribute', attr)
       }
     }
-    return res as AttributeValue
   })
-  return attrVals
+  return attributes
 }
 
-const createLegacyAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
+export const createLegacyAttributesFor = (platformType: PlatformTypeData): AttributeValues => {
   const attrTypes = legacyAttributeTypesFor(platformType)
   const attrVals: AttributeValues = attrTypes.map((attr: AttributeType): AttributeValue => {
     //  NumberAttributeType | EnumAttributeType | StringAttributeType
@@ -192,11 +180,15 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     }
     const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
     const statuses = platformType.states
+
+    const health = 5 * Math.floor(Math.random() * 20)
+
     const asset: Asset = {
       uniqid: uniqueId('a'),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + i,
       perceptions: [],
+      health: health,
       platformTypeId: platformType.uniqid,
       condition: 'working',
       status: statuses.length ? { state: statuses[Math.floor(Math.random() * statuses.length)].name } : undefined,
@@ -204,15 +196,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       location: [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
     }
 
-    const legacyAttrs = createLegacyAttributesFor(platformType)
-    const modernAttrs = createModernAttributesFor(platformType, attributeTypes)
-
-    if (legacyAttrs && legacyAttrs.length > 0) {
-      asset.attributeValues = legacyAttrs
-    }
-    if (modernAttrs && modernAttrs.length > 0) {
-      asset.attributes = modernAttrs
-    }
+    asset.attributes = createModernAttributesFor(platformType, attributeTypes)
 
     // generate some perceptions:
     asset.perceptions = createPerceptions(asset, force.uniqid, forces)
@@ -245,8 +229,6 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
 
   const bluePoly = L.polygon([br.getNorthWest(), br.getNorthEast(), br.getSouthEast(), br.getSouthWest(), br.getNorthWest()])
   const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
-
-  console.log('blue', bluePoly, redPoly)
 
   const newForces: ForceData[] = deepCopy(forces)
   newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes)

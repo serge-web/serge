@@ -29,7 +29,7 @@ export default {
 }
 
 const Template: Story<SupportMappingProps> = () => {
-  return <SupportMapping tileLayer={MapConstants.TileLayer}
+  return <SupportMapping maxZoom={7} tileLayer={MapConstants.TileLayer}
     position={[101.505, 20.09]}
   />
 }

@@ -31,7 +31,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
       }
 
       // sort out what to render
-      const withLocation = orders.filter((msg: MessagePlanning) => msg.message && (msg.message.location !== undefined))
+      // note: we were failing on the next line because incomplete messages had an empty string in for location
+      const withLocation = orders.filter((msg: MessagePlanning) => msg.message && (msg.message.location !== undefined) && Array.isArray(msg.message.location))
       const isSelected = withLocation.filter((msg: MessagePlanning) => selectedOrders && selectedOrders.includes(msg._id))
       const geometries = isSelected.map((msg: MessagePlanning): Feature[] => {
         if (msg.message.location) {
@@ -92,10 +93,10 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
   }, [orders])
 
   return <>
-    { orderGeometries && orderGeometries.length > 0 &&
+    {orderGeometries && orderGeometries.length > 0 &&
       <LayerGroup key={'orders'}>
-        { orderGeometries }
-      </LayerGroup> }
+        {orderGeometries}
+      </LayerGroup>}
   </>
 }
 

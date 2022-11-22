@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -34,4 +34,18 @@ export default interface PropTypes {
    * draft message to open in editor. The template should come from the details-messageType
    */
   draftMessage?: CoreMessage
+
+  /**
+ *  modify document prior to rendering in JSON editor
+ */
+  modifyForEdit?: { (document: Record<string, any>): Record<string, any> }
+
+  /**
+   *  modify document prior to being stored
+   */
+  modifyForSave?: { (document: Record<string, any>): Record<string, any> }
+  /**
+   *  user has clicked on custom edit button
+   */
+  editCallback?: { (doc: string, geoms: PlannedActivityGeometry[]): void }
 }

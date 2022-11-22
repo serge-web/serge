@@ -1,10 +1,12 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import cx from 'classnames'
 import MaterialTable, { Column, MTableBody, MTableBodyRow } from 'material-table'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { getColumns, getRows } from './helpers/collate-assets'
+import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
@@ -51,7 +53,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
     actions={jestWorkerId ? [] : [
       {
-        icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
+        icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
         iconProps: filter ? { color: 'action' } : { color: 'disabled' },
         tooltip: 'Show filter controls',
         isFreeAction: true,
@@ -69,7 +71,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     components={{
       Body: (props): React.ReactElement => {
         if (props.columns.length && onVisibleRowsChange) {
-          onVisibleRowsChange(props.renderData)
+          setTimeout(() => {
+            onVisibleRowsChange(props.renderData)
+          })
         }
         return (<MTableBody
           {...props}

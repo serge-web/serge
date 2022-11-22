@@ -1,33 +1,45 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantPlanning, ParticipantTemplate, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk, planningMessageTemplatesMock } from '@serge/mocks'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { deepCopy } from '@serge/helpers'
+import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { fixPerForcePlanningActivities } from './helpers/collate-plans-helper'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
 console.clear()
 
-const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, style?: CSSProperties }> = ({ src, children, style }) => {
+type ScriptDecoratorProps = {
+  scripts: string[]
+  children: React.ReactElement
+  style: CSSProperties
+}
+
+const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, style }) => {
   const [loaded, setLoaded] = useState<boolean>(false)
 
+  const loadScript = (script: string): Promise<boolean> => {
+    return new Promise(resolve => {
+      const head = document.querySelector('head')
+      const scriptElm = document.createElement('script')
+      if (!head) {
+        return
+      }
+      scriptElm.async = true
+      scriptElm.src = script
+      scriptElm.onload = () => {
+        resolve(true)
+      }
+      head.appendChild(scriptElm)
+    })
+  }
+
   useEffect(() => {
-    const head = document.querySelector('head')
-    const script = document.createElement('script')
-    if (!head) {
-      return
-    }
-    script.async = true
-    script.src = src
-    script.onload = () => {
-      setLoaded(true)
-    }
-    head.appendChild(script)
+    Promise.all(scripts.map(script => loadScript(script))).then(() => setLoaded(true))
   }, [])
 
   return (
@@ -35,19 +47,22 @@ const ScriptDecorator: React.FC<{ src: string, children: React.ReactElement, sty
   )
 }
 
-const wrapper: React.FC = (storyFn: any) => <ScriptDecorator src='/leaflet.select/leaflet.control.select.js' style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
+const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/select/leaflet.select.js', '/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
 
 const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 
-// fix the URL for the openstreetmap mapping
-const planningChannel = channels.find((channel) => channel.channelType === 'ChannelPlanning')
+const templates = wargame.templates ? wargame.templates.templates : []
+
+// fix the URL for the openstreetmap mapping, because we don't have arabian
+// sea in StoryBook
+const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
+const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
 if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
-  const pChan = planningChannel as ChannelPlanning
-  if (pChan.constraints.tileLayer) {
-    pChan.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+  if (planningChannel.constraints.tileLayer) {
+    planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
 }
 
@@ -59,9 +74,7 @@ forces.forEach((force: ForceData) => {
   })
 })
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
   title: 'local/organisms/PlanningChannelBravo',
@@ -140,22 +153,15 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
-  // get the templates for this user
-  const participants = planningChannel ? planningChannel.participants as ParticipantPlanning[] : []
-  const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
-  const templatesBlocks = participant ? participant.templates : []
-  const templateIDs: string[] = templatesBlocks.map((templ: ParticipantTemplate) => templ._id)
-  const templateBodies = planningMessageTemplatesMock.filter((template: TemplateBody) => templateIDs.includes(template._id))
-
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+  const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
-    channel={channels[0] as ChannelPlanning}
+    channel={planningChannel}
     messages={messages}
-    allTemplates={templateBodies}
-    channelTemplates={templateBodies}
+    allTemplates={templates}
     channelId={channels[0].uniqid}
-    adjudicationTemplate={planningMessageTemplatesMock[0]}
+    adjudicationTemplate={adjudicationTemplate}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
@@ -175,11 +181,11 @@ const Template: Story<PlanningChannelProps> = (args) => {
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
     gameTurnTime={P9BMock.data.overview.gameTurnTime}
-    forcePlanningActivities={filledInPerForcePlanningActivities}
+    forcePlanningActivities={activities}
   />
 }
 const doNotDoIt = 7 // don't transform the messages
-const channelMessages = PlanningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning|MessageInteraction>
+const channelMessages = PlanningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = channelMessages.filter((msg) => msg.details.interaction === undefined) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
@@ -189,9 +195,9 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   delete newMsg.message.ActivityType
   // find the force
   const thisForce = newMsg.details.from.forceId
-  const activities = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === thisForce)
-  if (activities) {
-    const grouped = activities.groupedActivities
+  const activities2 = activities.find((val: PerForcePlanningActivitySet) => val.force === thisForce)
+  if (activities2) {
+    const grouped = activities2.groupedActivities
     const randomGroup = grouped[Math.floor(Math.random() * grouped.length)]
     const activity = randomGroup.activities[Math.floor(Math.random() * randomGroup.activities.length)]
     if (activity && typeof activity !== 'string') {
@@ -228,18 +234,20 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
 export const Default = Template.bind({})
 Default.args = {
   messages: channelMessages,
+  selectedRoleId: allRoles[5],
   phase: Phase.Planning
 }
 
 export const BulkData = Template.bind({})
 BulkData.args = {
   messages: planningMessagesBulk,
+  selectedRoleId: allRoles[5],
   phase: Phase.Planning
 }
 
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
   messages: planningMessagesBulk,
-  selectedRoleId: allRoles[5],
+  selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }

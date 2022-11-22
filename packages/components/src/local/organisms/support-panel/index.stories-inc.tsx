@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
@@ -30,6 +30,10 @@ const nonInfoMessage = planningChannelMessages.filter((msg) => msg.messageType !
 const planningMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 const interactionMessages = nonInfoMessage.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
 const attributeTypes = P9BMock.data.attributeTypes ? P9BMock.data.attributeTypes.attributes : []
+
+const handler = (contact: any): void => {
+  console.log('handling', contact)
+}
 
 export default {
   title: 'local/organisms/SupportPanel',
@@ -110,10 +114,11 @@ const Template: Story<SupportPanelProps> = (args) => {
     setSelectedAssets={noop}
     selectedOrders={[]}
     attributeTypes={attributeTypes}
+    handleAdjudication={handler}
     setSelectedOrders={noop} onUnread={noop}
     onRead={noop}
+    phase={Phase.Planning}
     channel={planningChannel}
-    channelTemplates={myTemplates}
     allTemplates={myTemplates}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     activityTimeChanel={noop}
@@ -128,7 +133,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     selectedRoleId={roleVal.roleId}
     selectedRoleName={roleVal.name}
     selectedForce={force}
-    isUmpire={!!force.umpire}
     setOpForcesForParent={noop}
     setOwnForcesForParent={noop}
     allOppAssets={opp}

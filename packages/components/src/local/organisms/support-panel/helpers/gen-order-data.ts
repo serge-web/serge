@@ -1,11 +1,12 @@
-import { GeometryType, PLANNING_MESSAGE } from '@serge/config'
+import { GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
-import { PlanningMessageStructureCore } from '@serge/custom-types/message'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { deepCopy, findPerceivedAsTypes } from '@serge/helpers'
 import * as turf from '@turf/turf'
+import { Position } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import L from 'leaflet'
 import _ from 'lodash'
@@ -204,7 +205,8 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
         }
       }
     }
-    case GeometryType.polyline: {
+    case GeometryType.polyline:
+    default: {
       const ownPt = own.location || dummyLocation
       const tgtPt = target.location || dummyLocation
       const numBreaks = Math.floor(psora(seed) * 4) + 1
@@ -258,7 +260,7 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
   return []
 }
 
-const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
+const createMessage = (channelId: string, force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
   // details first
   const from = randomRole(force.roles, 4 + ctr)
   const fromD: MessageDetailsFrom = {
@@ -269,13 +271,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
     iconURL: sample.details.from.iconURL,
     forceId: force.forceId
   }
-  const details: MessageDetails = {
-    channel: sample.details.channel,
-    from: fromD,
-    messageType: 'Land Activity',
-    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
-    turnNumber: 3
-  }
+
   // assets
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
@@ -305,6 +301,7 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
   const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
   const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
   const activity = randomArrayItem(flatActivities, ctr++)
+
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
     activity, 5 * psora(4 * ctr), timeNow)
 
@@ -331,6 +328,14 @@ const createMessage = (force: PerForceData, ctr: number, orderTypes: PerForcePla
     const timeEnd = timeStart.clone().add(minsOffset, 'm')
     startDate = timeStart
     endDate = timeEnd
+  }
+
+  const details: MessageDetails = {
+    channel: channelId,
+    from: fromD,
+    messageType: activity.template,
+    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
+    turnNumber: 3
   }
 
   // create the message
@@ -440,12 +445,30 @@ export const ordersOverlappingTime = (messages: MessagePlanning[], time: number)
   return afterTime
 }
 
+// utility, since sometimes GeoMan doesn't close polys
+const fixPoly = (coords: number[][]): Position[] => {
+  const tmpCoors = deepCopy(coords) as number[][]
+  // we occasionally get unclosed polygons, since GeoMan didn't close them
+  const data = tmpCoors[0]
+  const tLen = data.length
+  if (!_.isEqual(data[tLen - 1], data[0])) {
+    // pop the first one on the end
+    data.push(data[0])
+    tmpCoors[0] = data
+  }
+  return tmpCoors as Position[]
+}
+
 export const invertMessages = (messages: MessagePlanning[], activities: PerForcePlanningActivitySet[]): GeomWithOrders[] => {
   const res: GeomWithOrders[] = []
   messages.forEach((message: MessagePlanning) => {
     if (message.message.location) {
       const forceId = message.details.from.forceId || 'unknown'
       message.message.location.forEach((plan: PlannedActivityGeometry) => {
+        if (plan.geometry.geometry.type === 'Polygon') {
+          const geom = plan.geometry.geometry as any
+          geom.coordinates = fixPoly(geom.coordinates)
+        }
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.title + '//' + activity + '//' + message._id
@@ -463,8 +486,36 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
   return res
 }
 
-export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[]): MessagePlanning[] => {
-  const res: MessagePlanning[] = []
+const getDocFromThisForce = (messages: MessagePlanning[], forceId: string): MessagePlanning => {
+  let found
+  while (!found) {
+    const doc = messages[Math.floor(Math.random() * messages.length)]
+    if (doc.details.from.forceId === forceId) {
+      found = doc
+    }
+  }
+  return found as MessagePlanning
+}
+
+const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
+  let res: TimePeriod | undefined
+  docs.forEach((doc) => {
+    const msg = doc.message
+    const tStart = moment(msg.startDate).utc().valueOf()
+    const tEnd = moment(msg.endDate).utc().valueOf()
+    const period: TimePeriod = [tStart, tEnd]
+    if (!res) {
+      res = period
+    } else {
+      res = timeIntersect2(period, res)
+    }
+  })
+  return res as unknown as TimePeriod
+}
+
+export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[],
+  adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
+  const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
   let startTime = moment('2022-11-15T00:00:00.000Z')
   for (let i = 0; i < count; i++) {
@@ -472,9 +523,68 @@ export const randomOrdersDocs = (count: number, forces: ForceData[], createFor: 
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
     startTime = startTime.add(minsOffset, 'm')
     const authorForce: PerForceData = randomArrayItem(perForce, 3 + i)
-    const newMessage = createMessage(authorForce, 2 + i * 3, orderTypes, startTime)
+    const newMessage = createMessage(channelId, authorForce, 2 + i * 3, orderTypes, startTime)
     res.push(newMessage)
   }
+  // have a go at a couple of interactions
+  const umpires = forces[0]
+  const umpireRoles = forces[0].roles
+  const justPlanning = deepCopy(res) as MessagePlanning[]
+  const interactions: MessageInteraction[] = []
+  let ctr = 0
+  umpireRoles.forEach((role) => {
+    for (let i = 0; i < 5; i++) {
+      // find a force-1 doc
+      const doc1 = getDocFromThisForce(justPlanning, createFor[0])
+      const doc2 = getDocFromThisForce(justPlanning, createFor[1])
+      const time = outerTimeFor([doc1, doc2])
+      const reference = forces[0].uniqid + '-' + ++ctr
+      const interaction: InteractionDetails = {
+        startTime: moment(time[0]).toISOString(),
+        endTime: moment(time[1]).toISOString(),
+        id: reference,
+        orders1: doc1._id,
+        orders2: doc2._id,
+        complete: true
+      }
+      const from: MessageDetailsFrom = {
+        force: umpires.name,
+        forceColor: umpires.color,
+        forceId: umpires.uniqid,
+        iconURL: '',
+        roleId: role.roleId,
+        roleName: role.name
+      }
+      const details: MessageDetails = {
+        from: from,
+        channel: channelId,
+        messageType: adjudicationTemplateId,
+        timestamp: moment().toISOString(),
+        turnNumber: doc1.details.turnNumber,
+        counter: ctr,
+        interaction: interaction
+      }
+      const msgBody: MessageAdjudicationOutcomes = {
+        Reference: reference,
+        healthOutcomes: [],
+        locationOutcomes: [],
+        perceptionOutcomes: [],
+        narrative: '',
+        messageType: 'AdjudicationOutcomes'
+      }
+      const msgInt: MessageInteraction = {
+        messageType: INTERACTION_MESSAGE,
+        details: details,
+        message: msgBody,
+        _id: moment().toISOString()
+      }
+      // check it's not already present
+      if (!interactions.find((inter) => inter.message.Reference === msgInt.message.Reference)) {
+        interactions.push(msgInt)
+      }
+    }
+  })
+  res.push(...interactions)
   return res
 }
 
@@ -603,7 +713,8 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
           break
         }
         case 'Polygon': {
-          const thisPoly = turf.polygon(coords)
+          const coords2 = fixPoly(coords)
+          const thisPoly = turf.polygon(coords2 as any)
           if (turf.booleanOverlap(poly, thisPoly)) {
             thisBin.orders.push(order)
           }
@@ -625,13 +736,14 @@ const differentForces = (me: GeomWithOrders, other: GeomWithOrders): boolean => 
   return me.force !== other.force
 }
 
-const createContactReference = (me: string, other: string): string => {
+export const createContactReference = (me: string, other: string): string => {
   return me + ' ' + other
 }
 
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
   interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
   sensorRangeKm: number): PlanningContact[] => {
+  let dummyContact: PlanningContact | undefined
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
@@ -644,12 +756,23 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const first = meFirst ? me : other
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
+
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {
             // has it already been adjudicated
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
               if (differentForces(me, other) && overlapsInTime(me, other)) {
+                // give us a dummy interaction
+                dummyContact = {
+                  first: first,
+                  second: second,
+                  id: id,
+                  intersection: undefined,
+                  timeStart: moment(first.activity.message.startDate).valueOf(),
+                  timeEnd: moment(second.activity.message.endDate).valueOf()
+                }
+
                 // see if we have a cached contact
                 const cachedResult = interactionsTested[id]
                 if (cachedResult !== undefined) {
@@ -670,7 +793,14 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
-  return res
+
+  if (res.length === 0) {
+    console.log('gen interaction returning dummy:', dummyContact)
+  } else {
+    console.log('gen interaction returning genuine data:', res)
+  }
+  const safeDummy = dummyContact ? [dummyContact] : []
+  return res.length ? res : safeDummy
 }
 
 export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {

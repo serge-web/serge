@@ -1,5 +1,5 @@
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from '@serge/config'
-import { Asset, AttributeTypes, AttributeValue2, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
+import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import { Column } from 'material-table'
@@ -131,9 +131,9 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   if (!row.icon) return <></>
   const icons = row.icon.split(',')
   if (icons.length === 3) {
-    return <span><AssetIcon className={styles['cell-icon']} color={icons[1]} imageSrc={icons[0]} />{icons[2]}</span>
+    return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} color={icons[1]} health={+icons[3]} />{icons[2]}</span>
   }
-  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} />{icons[1]}</span>
+  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]}</span>
 }
 
 export const arrToDict = (arr: string[]): any => {
@@ -223,27 +223,35 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
 const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, unknown> => {
   const attrDict = {}
-  const ids = asset.attributes || []
-  ids.forEach((attr: AttributeValue2) => {
-    const aType = attributeTypes.find((aType) => aType.attrId === attr.attrId)
+  const ids = asset.attributes || {}
+  Object.keys(ids).forEach((attrId: string) => {
+    const aType = attributeTypes.find((aType) => aType.attrId === attrId)
     if (aType) {
       switch (aType.attrType) {
         case ATTRIBUTE_TYPE_NUMBER: {
           const nType = aType as NumberAttributeType
           const units = nType.units ? ' ' + nType.units : ''
-          attrDict[nType.name] = attr.value + units
+          attrDict[nType.name] = ids[attrId] + units
           break
         }
         case ATTRIBUTE_TYPE_STRING: {
-          attrDict[aType.name] = attr.value
+          // trim the field, if necessary
+          let val = ids[attrId]
+          if (typeof (val) === 'string') {
+            const str = val as string
+            if (str.length > 30) {
+              val = str.substring(0, 30) + '...'
+            }
+          }
+          attrDict[aType.name] = val
           break
         }
         case ATTRIBUTE_TYPE_ENUM: {
-          attrDict[aType.name] = attr.value
+          attrDict[aType.name] = ids[attrId]
           break
         }
         default: {
-          console.warn('Haven\'t handled attribute', attr)
+          console.warn('Haven\'t handled attribute', attrId)
         }
       }
     }
@@ -281,17 +289,18 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const health = asset.health === 0 ? 0 : (asset.health || 100)
       if (perception) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name,
+          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name + ',' + health,
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
           name: perception.name,
           platformType: perception.typeId,
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
-          health: asset.health || 99,
+          health: health,
           attributes: {}
         }
         itemRows.push(res)
@@ -303,17 +312,18 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const umpireInOwnFor = (isUmpire && !opFor)
     const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
+    const health = asset.health === 0 ? 0 : (asset.health || 100)
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
-        icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name,
+        icon: iconFor(asset.platformTypeId) + ',' + assetForce.color + ',' + asset.name + ',' + health,
         force: assetForce.name,
         name: asset.name,
         platformType: asset.platformTypeId || '',
         owner: asset.owner ? asset.owner : '',
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
-        health: asset.health || 95,
+        health: health,
         attributes: modernAttrDict
       }
       // if we're handling the child of an asset, we need to specify the parent
