@@ -13,19 +13,18 @@ export const initLocationEditor = (editCallback: () => void): void => {
       this.label.innerText = this.schema.title ? this.schema.title : ''
       this.group.appendChild(this.label)
 
-      this.textArea = document.createElement('textarea')
+      this.textArea = document.createElement('div')
       this.textArea.name = this.formname
-      this.textArea.classList.add('form-control')
-      this.textArea.addEventListener('change', (e: any) => {
-        e.preventDefault()
-        e.stopPropagation()
-        this.onChange(e.currentTarget.value)
-        if (e.currentTarget.value) {
-          this.addEditButton()
-        } else {
-          this.removeEditButton()
-        }
-      })
+      // this.textArea.addEventListener('change', (e: any) => {
+      //   e.preventDefault()
+      //   e.stopPropagation()
+      //   this.onChange(e.currentTarget.value)
+      //   if (e.currentTarget.value) {
+      //     this.addEditButton()
+      //   } else {
+      //     this.removeEditButton()
+      //   }
+      // })
 
       this.groupTextArea = document.createElement('div')
       this.groupTextArea.classList.add('location-editor')
@@ -58,7 +57,7 @@ export const initLocationEditor = (editCallback: () => void): void => {
       if (!locations) {
         return
       }
-      this.textArea.value = ''
+      this.textArea.innerText = ''
       const flatGeoms: PlanningActivityGeometry[] = []
       if (locations instanceof Array) {
         locations.forEach((geom) => {
@@ -71,12 +70,12 @@ export const initLocationEditor = (editCallback: () => void): void => {
               console.warn('failed to find activity for', name)
             }
           }
-          this.textArea.value += '* ' + name + '\n'
+          this.textArea.innerText += '* ' + name + '\n'
         })
       } else {
-        this.textArea.value += '* ' + locations + '\n'
+        this.textArea.innerText += '* ' + locations + '\n'
       }
-      if (this.textArea.value) {
+      if (this.textArea.innerText) {
         this.addEditButton()
       }
     },
@@ -84,7 +83,7 @@ export const initLocationEditor = (editCallback: () => void): void => {
     getValue: function () {
       // note: the text area may not have been initialised yet.
       if (this.textArea) {
-        return this.textArea.value
+        return this.textArea.innerText
       } else {
         return ''
       }

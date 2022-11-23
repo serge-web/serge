@@ -78,6 +78,13 @@
 .location-editor {
   align-items: center;
   display: flex;
+  div {
+    min-height: 50px;
+    width: 100%;
+    border: solid 1px #ced4da;
+    border-radius: 5px;
+    padding: 5px;
+  }
   button {
     height: 40px;
     position: absolute;

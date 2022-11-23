@@ -54,18 +54,6 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     //     })
     //   })
 
-    // test custom editor
-    schema.properties.location = {
-      format: 'location',
-      options: {
-        grid_columns: 6
-      },
-      propertyOrder: 55,
-      // readonly: 'readonly',
-      title: 'Location',
-      type: 'string'
-    }
-
     const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',
