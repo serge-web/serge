@@ -1,8 +1,8 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
@@ -229,7 +229,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         features: features
       }
       setTimeControlEvents(collection)
-      console.log('time features', collection)
     } else {
       setTimeControlEvents(undefined)
     }
@@ -555,11 +554,46 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setActivityBeingEdited(undefined)
   }
 
+  const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const forceName = thisForce ? thisForce.name : 'Force not found'
+    const label = forceName + ' - ' + props.id
+    layer.bindPopup(label)
+  }
+
+  const timelineStyle = (data: Feature): PathOptions => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const color = thisForce ? thisForce.color : '#ff0'
+    return {
+      color: color
+    }
+  }
+
+  const timelinePointToLayer = (data: Feature<any>, latlng: LatLngExpression): Layer => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const thisCol = thisForce ? thisForce.color : '#f00'
+    const geojsonMarkerOptions = {
+      radius: 10,
+      fillColor: thisCol,
+      color: thisCol,
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }
+    return circleMarker(latlng, geojsonMarkerOptions)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
         <Ruler showControl={true} />
-        <Timeline showControl={showTimeControl} data={timeControlEvents} />
+        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
