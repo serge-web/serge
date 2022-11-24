@@ -1,5 +1,5 @@
-import { FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
-import L from 'leaflet'
+import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson'
+import L, { Layer, PathOptions } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { Timeline as TimelineType, TimelineData } from '../typings'
@@ -7,9 +7,15 @@ import { Timeline as TimelineType, TimelineData } from '../typings'
 type TimelineProps = {
   showControl: boolean
   data?: FeatureCollection<Geometry, GeoJsonProperties>
+  /** function to style features in GeoJSON layer */
+  style?: (data: Feature) => PathOptions
+  /** function that gets called on creation of each feature */
+  onEachFeature?: (data: Feature, layer: L.Layer) => void
+  /** provide a feature to use for point locations */
+  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => Layer
 }
 
-const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {
+const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer }) => {
   const map = useMap()
 
   const [timelineControl, setTimelineControl] = useState<TimelineType>()
@@ -26,10 +32,9 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {
     }
     if (!timelineData && data) {
       const timeline = L.timeline(data, {
-        // style: (data) => ({ color: 'green'})
-        onEachFeature: (data, layer) => {
-          layer.bindPopup(data.geometry.type)
-        }
+        style: style,
+        onEachFeature: onEachFeature,
+        pointToLayer: pointToLayer
       })
       setTimelineData(timeline)
     }
