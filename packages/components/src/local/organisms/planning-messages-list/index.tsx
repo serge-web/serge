@@ -6,20 +6,19 @@ import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
-// import { Button } from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
-const PLAING_MESSAGELIST = 'PLAING_MESSAGELIST'
+const PLANNING_MESSAGE_LIST = 'PLANNING_MESSAGE_LIST'
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  saveCachedPlanningMessageValue, getCachedPlanningMessagevalue, clearCachedPlanningMessage
+  saveCachedPlanningMessageValue, getCachedPlanningMessageValue, clearCachedPlanningMessage
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -27,7 +26,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const tableRef: any = useRef()
   const messageValue = useRef<any>(null)
-  const localName = `${PLAING_MESSAGELIST}-${UNSENT_SELECT_BY_DEFAULT_VALUE}`
+  const localName = `${PLANNING_MESSAGE_LIST}-${UNSENT_SELECT_BY_DEFAULT_VALUE}`
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
@@ -59,7 +58,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const roles: string[] = []
     const { detailPanel } = tableRef.current.props
     const handleShowDetailPanel = detailPanel
-    const CachedDefaultValue = getCachedPlanningMessagevalue && getCachedPlanningMessagevalue(localName)
+    const CachedDefaultValue = getCachedPlanningMessageValue && getCachedPlanningMessageValue(localName)
     setEditorDefaultId(CachedDefaultValue)
 
     const dataTable: OrderRow[] = myMessages.map((message) => {
