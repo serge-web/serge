@@ -1,8 +1,8 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
@@ -30,9 +30,10 @@ import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
+import Ruler from './helpers/Ruler'
+import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import Ruler from './helpers/Ruler'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -116,7 +117,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
-  const [, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+  const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
 
   // the currently active assets and orders. i.e. if an order or adjudication is expanded,
   // show the child elements, regardless of what is selected
@@ -146,7 +147,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setPlayerInPlanning(!isUmpire && planningPhase)
     setUmpireInAdjudication(isUmpire && !planningPhase)
   }, [selectedForce, phase])
-
 
   useEffect(() => {
     // find bounds of assets & orders
@@ -178,21 +178,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 const pos = L.latLng(value[0], value[1])
                 if (!workingBounds) {
                   workingBounds = L.latLngBounds(pos, pos)
-                } else 
-                {
+                } else {
                   workingBounds = workingBounds.extend(pos)
-                }  
+                }
               })
             } else if (geom.coordinate) {
               const value = geom.coordinate as [number, number]
               const pos = L.latLng(value[0], value[1])
               if (!workingBounds) {
                 workingBounds = L.latLngBounds(pos, pos)
-              } else 
-              {
+              } else {
                 workingBounds = workingBounds.extend(pos)
-              }  
-          }
+              }
+            }
           })
         }
       }
@@ -208,8 +206,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (showTimeControl) {
+      const isUmpire = selectedForce.umpire
+      const myOrders = isUmpire ? planningMessages : planningMessages.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
       const features: Feature[] = []
-      planningMessages.forEach((plan) => {
+      myOrders.forEach((plan) => {
         if (plan.message.location) {
           // until we have times in features, we get it from the message
           const startTime = plan.message.startDate
@@ -231,11 +231,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         features: features
       }
       setTimeControlEvents(collection)
-      console.log('time features', collection)
     } else {
       setTimeControlEvents(undefined)
     }
-  }, [showTimeControl, planningMessages])
+  }, [showTimeControl, planningMessages, selectedForce])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -557,15 +556,50 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setActivityBeingEdited(undefined)
   }
 
+  const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const forceName = thisForce ? thisForce.name : 'Force not found'
+    const label = forceName + ' - ' + props.id
+    layer.bindPopup(label)
+  }
+
+  const timelineStyle = (data: Feature): PathOptions => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const color = thisForce ? thisForce.color : '#ff0'
+    return {
+      color: color
+    }
+  }
+
+  const timelinePointToLayer = (data: Feature<any>, latlng: LatLngExpression): Layer => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const thisCol = thisForce ? thisForce.color : '#f00'
+    const geojsonMarkerOptions = {
+      radius: 10,
+      fillColor: thisCol,
+      color: thisCol,
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }
+    return circleMarker(latlng, geojsonMarkerOptions)
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
         <Ruler showControl={true} />
-        {playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
+        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
+        <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
-          : 
-          <Fragment>
+          : <Fragment>
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
@@ -591,7 +625,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, currentOrders, currentAssetIds])
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -703,7 +737,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         }
                         <div className={cx('leaflet-control')}>
                           <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
-                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} />asd</Item>
+                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
                         </div>
                       </>
                     }
