@@ -1,36 +1,39 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { UNSENT_SELECT_BY_DEFAULT_VALUE } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { useEffect, useRef, useState } from 'react'
-import { Button } from '../../atoms/button'
+// import { Button } from '../../atoms/button'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
-
+const PLAING_MESSAGELIST = 'PLAING_MESSAGELIST'
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  editThisMessage
+  saveCachedPlanningMessageValue, getCachedPlanningMessagevalue, clearCachedPlanningMessage
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-  const messageValue = useRef<any>(null)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
-
+  const tableRef: any = useRef()
+  const messageValue = useRef<any>(null)
+  const localName = `${PLAING_MESSAGELIST}-${UNSENT_SELECT_BY_DEFAULT_VALUE}`
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
+  const [editorDefaultId, setEditorDefaultId] = useState<string>()
   useEffect(() => {
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
@@ -54,7 +57,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const roles: string[] = []
-    const dataTable: OrderRow[] = myMessages.map(message => {
+    const { detailPanel } = tableRef.current.props
+    const handleShowDetailPanel = detailPanel
+    const CachedDefaultValue = getCachedPlanningMessagevalue && getCachedPlanningMessagevalue(localName)
+    setEditorDefaultId(CachedDefaultValue)
+
+    const dataTable: OrderRow[] = myMessages.map((message) => {
       const author = message.details.from.roleName
       if (!roles.includes(author)) {
         roles.push(author)
@@ -68,7 +76,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         role: author,
         activity: trimActivity(playerForceId, plan.activity),
         startDate: shortDate(plan.startDate),
-        endDate: shortDate(plan.endDate)
+        endDate: shortDate(plan.endDate),
+        tableData: {
+          showDetailPanel: message._id === CachedDefaultValue ? handleShowDetailPanel : undefined
+        }
       }
       return row
     })
@@ -111,9 +122,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     messageValue.current = val
   }
 
-  const editDocument = (docId: string): void => {
-    editThisMessage && editThisMessage(docId)
-  }
+  // const editDocument = (docId: string): void => {
+  //   editThisMessage && editThisMessage(docId)
+  // }
 
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
@@ -162,6 +173,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             }
 
             postBack && postBack(details, messageValue.current)
+            clearCachedPlanningMessage && clearCachedPlanningMessage([localName])
             messageValue.current = ''
           }
         }
@@ -190,21 +202,25 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <></>
         }
 
+        saveCachedPlanningMessageValue && saveCachedPlanningMessageValue(message._id, localName)
+        const editorRightValue = message._id === editorDefaultId ? undefined : message.message
         return <>
           <DetailPanelStateListener />
-          { canEdit &&
-            <Button color='secondary' onClick={() => { editDocument(rowData.id) }} icon='edit'>Edit</Button>
-          }
+          {/* { canEdit &&
+            <Button color='secondary' onClick={() => {
+              editDocument(rowData.id)
+            }} icon='edit'>Edit</Button>
+          } */}
           <JsonEditor
-            messageContent={message.message}
-            viewSaveButton={false}
+            messageContent={editorRightValue}
+            viewSaveButton={true}
             saveMessage={saveMessage}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
             messageId={rowData.id}
             confirmCancel={confirmCancel}
             template={template}
-            disabled={true}
+            disabled={!canEdit}
             gameDate={gameDate}
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
             modifyForSave={expandLocation}
@@ -234,6 +250,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
+        tableRef={tableRef}
         columns={columns}
         data={rows}
         icons={materialIcons}
@@ -257,6 +274,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           search: false,
           paging: false,
           sorting: true,
+          // defaultExpanded: true,
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
         }}

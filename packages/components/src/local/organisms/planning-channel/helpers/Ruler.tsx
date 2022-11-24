@@ -16,8 +16,8 @@ const Ruler: React.FC<RulerProps> = ({ showControl }) => {
     if (!rulerControl) {
       const options: RulerOption = {
         position: 'bottomright'
-      };
-      const rulerControl = L.control.ruler(options);
+      }
+      const rulerControl = L.control.ruler(options)
       setRulerControl(rulerControl)
     }
   }, [])

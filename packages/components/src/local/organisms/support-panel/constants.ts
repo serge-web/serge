@@ -3,7 +3,7 @@ import { CSSProperties } from 'react'
 export const TAB_MY_ORDERS = 'my_orders'
 export const TAB_ADJUDICATE = 'adjudication'
 
-export const TABS = ['my_force', TAB_MY_ORDERS, 'opfor',TAB_ADJUDICATE ]
+export const TABS = ['my_force', TAB_MY_ORDERS, 'opfor', TAB_ADJUDICATE]
 export const MIN_PANEL_WIDTH = 330
 export const MAX_PANEL_WIDTH = '80%'
 export const MIN_PANEL_HEIGHT = '100%'

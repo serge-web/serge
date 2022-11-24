@@ -56,7 +56,6 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const memoryName = `${messageId}-${template._id}`
-
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
@@ -74,19 +73,25 @@ export const JsonEditor: React.FC<Props> = ({
     return memoryName
   }
 
+  const getEditLocalStorgaeid = (): string => `edit-${genLocalStorageId()}`
+
   const OnSave = () => {
     saveMessage && saveMessage()
     expiredStorage.removeItem(genLocalStorageId())
+    expiredStorage.removeItem(getEditLocalStorgaeid())
   }
 
   const onPopupCancel = (): void => {
-    expiredStorage.removeItem(genLocalStorageId())
+    // removePlanning
     setConfirmIsOpen(false)
   }
 
   const onPopupConfirm = (): void => {
-    expiredStorage.removeItem(genLocalStorageId())
-    initEditor()
+    if (!viewSaveButton) {
+      expiredStorage.removeItem(genLocalStorageId())
+      initEditor()
+    }
+    expiredStorage.removeItem(getEditLocalStorgaeid())
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }
@@ -230,12 +235,14 @@ export const JsonEditor: React.FC<Props> = ({
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
+    const editStatus = expiredStorage.getItem(getEditLocalStorgaeid()) ? JSON.parse(expiredStorage.getItem(getEditLocalStorgaeid()) || '{}') : null
     if (editor) {
-      if (viewSaveButton && !beingEdited) {
+      if (viewSaveButton && !beingEdited && !editStatus) {
         editor.disable()
       } else if (disabled && !viewSaveButton) {
         editor.disable()
       } else {
+        setBeingEdited(!!editStatus)
         editor.enable()
       }
       setTimeout(() => {
@@ -263,7 +270,10 @@ export const JsonEditor: React.FC<Props> = ({
                 : null
             }
           </>
-          : !disabled ? <Button color='secondary' onClick={() => { setBeingEdited(true) }} icon='edit'>Edit</Button>
+          : !disabled ? <Button color='secondary' onClick={() => {
+            setBeingEdited(true)
+            expiredStorage.setItem(getEditLocalStorgaeid(), JSON.stringify('edit'))
+          }} icon='edit'>Edit</Button>
             : null
         }
       </div>

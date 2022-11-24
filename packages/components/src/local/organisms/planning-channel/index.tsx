@@ -146,7 +146,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setPlayerInPlanning(!isUmpire && planningPhase)
     setUmpireInAdjudication(isUmpire && !planningPhase)
   }, [selectedForce, phase])
-
+  
 
   useEffect(() => {
     // find bounds of assets & orders
@@ -178,21 +178,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 const pos = L.latLng(value[0], value[1])
                 if (!workingBounds) {
                   workingBounds = L.latLngBounds(pos, pos)
-                } else 
-                {
+                } else {
                   workingBounds = workingBounds.extend(pos)
-                }  
+                }
               })
             } else if (geom.coordinate) {
               const value = geom.coordinate as [number, number]
               const pos = L.latLng(value[0], value[1])
               if (!workingBounds) {
                 workingBounds = L.latLngBounds(pos, pos)
-              } else 
-              {
+              } else {
                 workingBounds = workingBounds.extend(pos)
-              }  
-          }
+              }
+            }
           })
         }
       }
@@ -564,8 +562,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
-          : 
-          <Fragment>
+          : <Fragment>
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>

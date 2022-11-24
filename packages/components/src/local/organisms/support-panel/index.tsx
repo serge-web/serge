@@ -83,7 +83,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
 
-  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext);
+  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -242,7 +242,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           setCurrentOrders([plan._id])
         }
         break
-      } 
+      }
       case TAB_ADJUDICATE: {
         const adj = rowData as AdjudicationRow
         const doc = interactionMessages.find((doc) => doc._id === adj.id)
@@ -321,7 +321,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TAB_MY_ORDERS} active={activeTab ===TAB_MY_ORDERS} >
+            <TabPanel className={styles['tab-panel']} value={TAB_MY_ORDERS} active={activeTab === TAB_MY_ORDERS} >
               {activeTab === TAB_MY_ORDERS &&
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
@@ -330,6 +330,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
+                    saveCachedPlanningMessageValue={saveCachedNewMessageValue}
+                    getCachedPlanningMessagevalue={getCachedNewMessagevalue}
+                    clearCachedPlanningMessage={clearCachedNewMessage}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
                     selectedForce={selectedForce}

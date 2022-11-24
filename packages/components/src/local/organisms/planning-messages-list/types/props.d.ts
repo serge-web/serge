@@ -13,6 +13,7 @@ export type OrderRow = {
   activity: string
   startDate: string
   endDate: string
+  tableData: any
 }
 
 export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void }
@@ -82,6 +83,9 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** callback for the location of a document being edited */
   editLocation?: LocationEditCallbackHandler
+  saveCachedPlanningMessageValue?: (editMessage: any, messageOption: string) => void
+  getCachedPlanningMessagevalue?: (value: string) => string
+  clearCachedPlanningMessage?: (data: string[]) => void
 
   /**
    *  the range of planning activities for each force
