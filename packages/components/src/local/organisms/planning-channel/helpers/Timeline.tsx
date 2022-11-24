@@ -25,7 +25,12 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data }) => {
       setTimelineControl(timelineControl)
     }
     if (!timelineData && data) {
-      const timeline = L.timeline(data)
+      const timeline = L.timeline(data, {
+        // style: (data) => ({ color: 'green'})
+        onEachFeature: (data, layer) => {
+          layer.bindPopup(data.geometry.type)
+        }
+      })
       setTimelineData(timeline)
     }
   }, [data])

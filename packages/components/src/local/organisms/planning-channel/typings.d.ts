@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { GeoJsonProperties, Geometry } from 'geojson'
 import 'leaflet'
 
 type SelectItem = {
@@ -66,7 +67,9 @@ type TimelineControlOption = {
 }
 
 type TimelineDataOption = {
-  pointToLayer: (data: any, latlng: L.LatLngExpression) => void
+  style?: (data: FeatureCollection<Geometry, GeoJsonProperties>) => { [name: string]: any }
+  pointToLayer?: (data: FeatureCollection<Geometry, GeoJsonProperties>, latlng: L.LatLngExpression) => void
+  onEachFeature?: (data: FeatureCollection<Geometry, GeoJsonProperties>, layer: L.Layer) => void
 }
 
 class TimelineData extends Control {
