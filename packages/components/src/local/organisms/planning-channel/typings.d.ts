@@ -67,9 +67,9 @@ type TimelineControlOption = {
 }
 
 type TimelineDataOption = {
-  style?: (data: FeatureCollection<Geometry, GeoJsonProperties>) => { [name: string]: any }
-  pointToLayer?: (data: FeatureCollection<Geometry, GeoJsonProperties>, latlng: L.LatLngExpression) => void
-  onEachFeature?: (data: FeatureCollection<Geometry, GeoJsonProperties>, layer: L.Layer) => void
+  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => void
+  style?: (data: Feature) => { [name: string]: any }
+  onEachFeature?: (data: Feature, layer: L.Layer) => void
 }
 
 class TimelineData extends Control {
