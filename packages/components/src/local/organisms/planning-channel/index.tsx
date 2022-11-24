@@ -206,8 +206,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (showTimeControl) {
+      const isUmpire = selectedForce.umpire
+      const myOrders = isUmpire ? planningMessages : planningMessages.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
       const features: Feature[] = []
-      planningMessages.forEach((plan) => {
+      myOrders.forEach((plan) => {
         if (plan.message.location) {
           // until we have times in features, we get it from the message
           const startTime = plan.message.startDate
@@ -232,7 +234,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     } else {
       setTimeControlEvents(undefined)
     }
-  }, [showTimeControl, planningMessages])
+  }, [showTimeControl, planningMessages, selectedForce])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
