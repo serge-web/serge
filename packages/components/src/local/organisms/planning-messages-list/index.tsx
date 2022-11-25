@@ -5,7 +5,7 @@ import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedAc
 import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -54,7 +54,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const roles: string[] = []
     const { detailPanel } = tableRef.current.props
     const handleShowDetailPanel = detailPanel
