@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { GeoJsonProperties, Geometry } from 'geojson'
 import 'leaflet'
 
 type SelectItem = {
@@ -51,14 +52,40 @@ class Select extends Control {
   constructor(options?: SelectOption);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
-  remove(): void
+  remove(): void;
 }
 
 class Ruler extends Control {
   constructor(options?: RulerOption);
   addTo(map: Map): this;
   // remove comes from the parent contrlol
-  remove(): void
+  remove(): void;
+}
+
+type TimelineControlOption = {
+  formatOutput: (date: string | number | Date) => string
+}
+
+type TimelineDataOption = {
+  pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => void
+  style?: (data: Feature) => { [name: string]: any }
+  onEachFeature?: (data: Feature, layer: L.Layer) => void
+}
+
+class TimelineData extends Control {
+  constructor(options?: TimelineDataOption);
+  addTo(map: Map): this;
+  // remove comes from the parent contrlol
+  remove(): void;
+}
+
+class Timeline extends Control {
+  constructor(options?: TimelineControlOption);
+  addTo(map: Map): this;
+  // remove comes from the parent contrlol
+  remove(): void;
+
+  addTimelines: (timelines?: TimelineData) => void
 }
 
 declare module 'leaflet' {
@@ -66,4 +93,6 @@ declare module 'leaflet' {
     function select(options?: SelectOption): Select;
     function ruler(options?: RulerOption): Ruler;
   }
+  export function timelineSliderControl(options?: TimelineControlOption): Timeline;
+  export function timeline(data?: FeatureCollection<Geometry, GeoJsonProperties>, option?: TimelineDataOption): TimelineData;
 }
