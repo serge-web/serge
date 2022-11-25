@@ -15,7 +15,7 @@ import setupEditor from './helpers/setupEditor'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
-
+const EDIT_BUTTON = 'edit'
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
   messageId,
@@ -65,20 +65,27 @@ export const JsonEditor: React.FC<Props> = ({
     storeNewValue && storeNewValue(newDoc)
   }
 
-  const genLocalStorageId = (): string => {
+  const genLocalStorageId = (edit?: string): string => {
     if (!template._id) {
       console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
     }
 
-    return memoryName
+    if(edit) {
+      // get the key
+      // get more information about the status of an edited but unsent message
+      return `${edit}-${genLocalStorageId()}`
+    } else {
+      return memoryName
+    }
   }
 
-  const getEditLocalStorageId = (): string => `edit-${genLocalStorageId()}`
 
   const OnSave = () => {
     saveMessage && saveMessage()
-    expiredStorage.removeItem(genLocalStorageId())
-    expiredStorage.removeItem(getEditLocalStorageId())
+    const data: string[] = [genLocalStorageId(), genLocalStorageId(EDIT_BUTTON)]
+    data.forEach((removeType) => {
+      return expiredStorage.removeItem(removeType)
+    })
   }
 
   const onPopupCancel = (): void => {
@@ -91,7 +98,7 @@ export const JsonEditor: React.FC<Props> = ({
       expiredStorage.removeItem(genLocalStorageId())
       initEditor()
     }
-    expiredStorage.removeItem(getEditLocalStorageId())
+    expiredStorage.removeItem(genLocalStorageId(EDIT_BUTTON))
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }
@@ -235,7 +242,7 @@ export const JsonEditor: React.FC<Props> = ({
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
-    const editStatus = expiredStorage.getItem(getEditLocalStorageId()) ? JSON.parse(expiredStorage.getItem(getEditLocalStorageId()) || '{}') : null
+    const editStatus = expiredStorage.getItem(genLocalStorageId(EDIT_BUTTON)) ? expiredStorage.getItem(genLocalStorageId(EDIT_BUTTON)) : ''
     if (editor) {
       if (viewSaveButton && !beingEdited && !editStatus) {
         editor.disable()
@@ -272,7 +279,7 @@ export const JsonEditor: React.FC<Props> = ({
           </>
           : !disabled ? <Button color='secondary' onClick={() => {
             setBeingEdited(true)
-            expiredStorage.setItem(getEditLocalStorageId(), JSON.stringify('edit'))
+            expiredStorage.setItem(genLocalStorageId(EDIT_BUTTON), EDIT_BUTTON)
           }} icon='edit'>Edit</Button>
             : null
         }
