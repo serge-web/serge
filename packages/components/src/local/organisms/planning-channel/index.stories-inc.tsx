@@ -47,7 +47,14 @@ const ScriptDecorator: React.FC<ScriptDecoratorProps> = ({ scripts, children, st
   )
 }
 
-const wrapper: React.FC = (storyFn: any) => <ScriptDecorator scripts={['/leaflet/select/leaflet.select.js', '/leaflet/ruler/leaflet.ruler.js']} style={{ height: '600px' }}>{storyFn()}</ScriptDecorator>
+const wrapper: React.FC = (storyFn: any) =>
+  <ScriptDecorator scripts={[
+    '/leaflet/select/leaflet.select.js',
+    '/leaflet/ruler/leaflet.ruler.js',
+    '/leaflet/timeline/leaflet.timeline.js'
+  ]} style={{ height: '600px' }}>
+    {storyFn()}
+  </ScriptDecorator>
 
 const wargame = P9BMock.data
 const channels = wargame.channels.channels
