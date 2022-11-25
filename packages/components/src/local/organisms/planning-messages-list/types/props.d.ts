@@ -84,7 +84,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /** callback for the location of a document being edited */
   editLocation?: LocationEditCallbackHandler
   saveCachedPlanningMessageValue?: (editMessage: any, messageOption: string) => void
-  getCachedPlanningMessagevalue?: (value: string) => string
+  getCachedPlanningMessageValue?: (value: string) => string
   clearCachedPlanningMessage?: (data: string[]) => void
 
   /**

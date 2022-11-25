@@ -148,9 +148,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setUmpireInAdjudication(isUmpire && !planningPhase)
   }, [selectedForce, phase])
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
 >>>>>>> 9d681f49db7ef9cb33b5503332671ed02f20babf
+=======
+>>>>>>> 81f7068cc86464f1a62c64f745d3f410793a5bba
 
   useEffect(() => {
     // find bounds of assets & orders

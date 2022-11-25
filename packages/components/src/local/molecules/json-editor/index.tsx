@@ -73,12 +73,12 @@ export const JsonEditor: React.FC<Props> = ({
     return memoryName
   }
 
-  const getEditLocalStorgaeid = (): string => `edit-${genLocalStorageId()}`
+  const getEditLocalStorageId = (): string => `edit-${genLocalStorageId()}`
 
   const OnSave = () => {
     saveMessage && saveMessage()
     expiredStorage.removeItem(genLocalStorageId())
-    expiredStorage.removeItem(getEditLocalStorgaeid())
+    expiredStorage.removeItem(getEditLocalStorageId())
   }
 
   const onPopupCancel = (): void => {
@@ -91,7 +91,7 @@ export const JsonEditor: React.FC<Props> = ({
       expiredStorage.removeItem(genLocalStorageId())
       initEditor()
     }
-    expiredStorage.removeItem(getEditLocalStorgaeid())
+    expiredStorage.removeItem(getEditLocalStorageId())
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }
@@ -235,7 +235,7 @@ export const JsonEditor: React.FC<Props> = ({
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
-    const editStatus = expiredStorage.getItem(getEditLocalStorgaeid()) ? JSON.parse(expiredStorage.getItem(getEditLocalStorgaeid()) || '{}') : null
+    const editStatus = expiredStorage.getItem(getEditLocalStorageId()) ? JSON.parse(expiredStorage.getItem(getEditLocalStorageId()) || '{}') : null
     if (editor) {
       if (viewSaveButton && !beingEdited && !editStatus) {
         editor.disable()
@@ -272,7 +272,7 @@ export const JsonEditor: React.FC<Props> = ({
           </>
           : !disabled ? <Button color='secondary' onClick={() => {
             setBeingEdited(true)
-            expiredStorage.setItem(getEditLocalStorgaeid(), JSON.stringify('edit'))
+            expiredStorage.setItem(getEditLocalStorageId(), JSON.stringify('edit'))
           }} icon='edit'>Edit</Button>
             : null
         }
