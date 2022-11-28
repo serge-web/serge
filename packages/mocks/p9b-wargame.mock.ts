@@ -13777,7 +13777,7 @@ const game: Wargame = {
                                 }
                             },
                             "startDate": {
-                                "format": "serge-date",
+                                "format": "datetime-local",
                                 "type": "string",
                                 "title": "Start date",
                                 "propertyOrder": 30,
@@ -13786,13 +13786,20 @@ const game: Wargame = {
                                 }
                             },
                             "endDate": {
-                                "format": "serge-date",
+                                "format": "datetime-local",
                                 "type": "string",
                                 "propertyOrder": 40,
-                                "title": "End date",
+                                "title": "End date 1",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    }, "flatpickr": {
+                                        "time_24hr": true,
+                                        "dateFormat": "Z",
+                                        "enableTime": true
+                                    }
+                                },
                             },
                             "activity": {
                                 "title": "Activity",
