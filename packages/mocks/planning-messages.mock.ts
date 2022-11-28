@@ -22,7 +22,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "Blue-6",
             "title": "Order item 6",
             "startDate": "2022-11-15T00:05:00.000Z",
-            "endDate": "2022-11-15T04:35:00.000Z",
+            "endDate": "2022-11-15T14:00:00.000Z",
             "location": [
                 {
                     "uniqid": "EW Attack-0",
