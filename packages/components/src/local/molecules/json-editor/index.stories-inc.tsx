@@ -8,8 +8,7 @@ import docs from './README.md'
 // Import mock
 import {
   messageDataCollaborativeEditing, messageDataCollaborativeResponding,
-  MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
-  planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
+  MessageTemplatesMoskByTitle, P9BMock, planningMessages as planningChannelMessages, WargameMock
 } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
@@ -19,13 +18,10 @@ import {
   MessagePlanning, MessageStructure, PlanningActivity
 } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import moment from 'moment'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
-import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
 import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
-import { customiseDate } from '../../organisms/support-panel/helpers/customise-date'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
@@ -106,13 +102,13 @@ MessageCreator.args = {
   gameDate: WargameMock.data.overview.gameDate
 }
 
+const templates = P9BMock.data.templates ? P9BMock.data.templates.templates : []
+
 const planningMessages = planningChannelMessages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
-const landActivityTemplate = planningMessageTemplatesMock.find((template) => template.title === planningMessages[0].details.messageType)
+const landActivityTemplate = templates.find((template) => template.title === planningMessages[0].details.messageType)
 const landMessage = planningMessages[0]
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const localCustomise = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
   const forces = P9BMock.data.forces.forces
@@ -135,7 +131,7 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   // and the activities
   const isBlue = _document && _document.Reference && _document.Reference.includes('Blue')
 
-  const forceActivities = isBlue ? filledInPerForcePlanningActivities[0] : filledInPerForcePlanningActivities[1]
+  const forceActivities = isBlue ? activities[0] : activities[1]
   const acts: Array<{ id: string, name: string }> = []
   forceActivities.groupedActivities.forEach((val: GroupedActivitySet) => {
     val.activities.forEach((val2: string | PlanningActivity) => {
@@ -146,12 +142,12 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       acts.push({ id: plan.uniqid, name: val.category + '-' + plan.name })
     })
   })
-  const overview = P9BMock.data.overview
+  // const overview = P9BMock.data.overview
 
   const customisers: Array<{ (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
-    (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities),
-    (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
+    (document, template) => customiseActivities(document, template, activities),
+    // (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
     (document, template) => customiseLocation(document, template)
   ]
 
@@ -161,6 +157,8 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   })
   return res
 }
+
+console.log('template', landActivityTemplate, templates, planningMessages[0].details.messageType)
 
 export const PlanningMessage = Template.bind({})
 PlanningMessage.args = {
