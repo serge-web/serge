@@ -94,14 +94,14 @@ const runServer = (
   })
 
   app.get('/tiles/:folder/:z/:y/:x', (req, res) => {
-    const {folder, z, y, x} = req.params
+    const { folder, z, y, x } = req.params
     if (dataDir) {
       return res.sendFile(
-        path.join(process.cwd(), dataDir,  folder, z, y, x)
+        path.join(process.cwd(), dataDir, folder, z, y, x)
       )
     }
-    
-    res.sendFile(path.join(__dirname, '../', 'data', folder, z, y, x ))
+
+    res.sendFile(path.join(__dirname, '../', 'data', folder, z, y, x))
   })
 
   app.use(
