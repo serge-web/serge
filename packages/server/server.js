@@ -93,6 +93,17 @@ const runServer = (
     res.sendFile(path.join(__dirname, '../', 'data', req.params.filename))
   })
 
+  app.get('/tiles/:folder/:z/:y/:x', (req, res) => {
+    const { folder, z, y, x } = req.params
+    if (dataDir) {
+      return res.sendFile(
+        path.join(process.cwd(), dataDir, folder, z, y, x)
+      )
+    }
+
+    res.sendFile(path.join(__dirname, '../', 'data', folder, z, y, x))
+  })
+
   app.use(
     '/saveIcon',
     express.raw({ type: ['image/png', 'image/svg+xml'], limit: '20kb' })
