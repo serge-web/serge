@@ -625,7 +625,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents])
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+    currentAssetIds, currentOrders])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
