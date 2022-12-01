@@ -603,10 +603,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                {allOwnAssets.length !== ownAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+                {allOwnAssets.length === ownAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
               </LayerGroup>
               <LayerGroup key={'sel-opp-forces'}>
-                <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                {allOppAssets.length !== opAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+                {allOppAssets.length === opAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
               </LayerGroup>
             </Fragment>
             <Fragment key='currentObjects'>
