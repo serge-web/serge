@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
 import { fixPerForcePlanningActivities } from '../planning-channel/helpers/collate-plans-helper'
@@ -17,8 +17,8 @@ import MessageListPropTypes, { LocationEditCallbackHandler } from './types/props
 
 console.clear()
 
-const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
-const forces = P9Mock.data.forces.forces
+const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
+const forces = P9BMock.data.forces.forces
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 export default {
@@ -54,7 +54,7 @@ const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForc
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 
-const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: {(newValue: unknown): void}): void => {
+const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: {(newValue: PlannedActivityGeometry[]): void}): void => {
   console.log('edit location', plans, !!callback)
 }
 
@@ -82,9 +82,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
           id: asset.uniqid,
           icon: 'aaa',
           name: asset.name,
-          condition: asset.condition,
-          status: asset.status ? asset.status.state : 'unknown',
-          platformType: asset.platformTypeId
+          platformType: asset.platformTypeId,
+          health: 100,
+          attributes: { word: 'text', number: 123 }
         }
         return row
       })
@@ -92,7 +92,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     if (!(document && document.Reference)) {
       console.error('We were relying on there being a document Reference')
     }
-    const blueForce = document && document.Reference.includes('Blue')
+    const blueForce = document && document.Reference && document.Reference.includes('Blue')
     const ownForce = blueForce ? forces[1] : forces[2]
     const oppForce = blueForce ? forces[2] : forces[1]
     return customiseAssets(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
@@ -107,7 +107,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     messages={newestMessages}
     channel={planningChannel}
     customiseTemplate={localCustomiseTemplate}
-    gameDate={P9Mock.data.overview.gameDate}
+    gameDate={P9BMock.data.overview.gameDate}
     allTemplates={planningMessageTemplatesMock}
     playerForceId={playerForceId}
     playerRoleId={playerRoleId}
@@ -123,7 +123,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   />
 }
 
-const blueForce = P9Mock.data.forces.forces[0]
+const blueForce = P9BMock.data.forces.forces[0]
 const blueRole = blueForce.roles[0]
 
 export const Default = Template.bind({})
@@ -133,6 +133,6 @@ Default.args = {
   selectedForce: blueForce,
   playerRoleId: blueRole.roleId,
   hideForcesInChannel: true,
-  currentTurn: P9Mock.gameTurn,
+  currentTurn: P9BMock.gameTurn,
   turnFilter: -1
 }

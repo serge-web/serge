@@ -42,13 +42,7 @@ exports[`CheckboxType renders correctly 1`] = `
           >
             <ul>
               <li>
-                Blue:18 - mpa (4)
-              </li>
-              <li>
-                Blue:24 - frigate-ta (12)
-              </li>
-              <li>
-                Blue:36 - Missile (2)
+                Blue:0 - Ship (1)
               </li>
             </ul>
           </div>
@@ -81,10 +75,7 @@ exports[`CheckboxType renders correctly 1`] = `
           >
             <ul>
               <li>
-                Red Force:10 - frigate-ta
-              </li>
-              <li>
-                Red Force:56 - frigate-ta
+                Red Force:0 - Fixed Asset
               </li>
             </ul>
           </div>

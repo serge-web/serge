@@ -50,7 +50,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
     </button>
   </div>
   <div
-    className="MuiPaper-root-164 MuiPaper-elevation2-168 MuiPaper-rounded-165"
+    className="MuiPaper-root-155 MuiPaper-elevation2-159 MuiPaper-rounded-156"
     style={
       Object {
         "position": "relative",
@@ -58,50 +58,39 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
     }
   >
     <div
-      className="MuiToolbar-root-197 MuiToolbar-regular-199 MuiToolbar-gutters-198 MTableToolbar-root-191"
+      className="MuiToolbar-root-188 MuiToolbar-regular-190 MuiToolbar-gutters-189 MTableToolbar-root-182"
     >
       <div
-        className="MTableToolbar-title-195"
+        className="MTableToolbar-title-186"
       >
         <h6
-          className="MuiTypography-root-201 MuiTypography-h6-218"
+          className="MuiTypography-root-192 MuiTypography-h6-209"
         >
           Adjudication
         </h6>
       </div>
       <div
-        className="MTableToolbar-spacer-193"
+        className="MTableToolbar-spacer-184"
       />
       <div
-        className="MuiFormControl-root-237 MTableToolbar-searchField-196"
+        className="MuiFormControl-root-228 MTableToolbar-searchField-187"
         color="inherit"
       >
         <div
-          className="MuiInputBase-root-254 MuiInput-root-241 MuiInput-underline-245 MuiInputBase-formControl-255 MuiInput-formControl-242 MuiInputBase-adornedStart-258 MuiInputBase-adornedEnd-259"
+          className="MuiInputBase-root-245 MuiInput-root-232 MuiInput-underline-236 MuiInputBase-formControl-246 MuiInput-formControl-233 MuiInputBase-adornedStart-249 MuiInputBase-adornedEnd-250"
           onClick={[Function]}
           style={Object {}}
         >
           <div
-            className="MuiInputAdornment-root-271 MuiInputAdornment-positionStart-273"
+            className="MuiInputAdornment-root-262 MuiInputAdornment-positionStart-264"
           >
-            <span
-              aria-describedby={null}
-              aria-hidden="true"
-              className="material-icons MuiIcon-root-284 MuiIcon-fontSizeSmall-291"
-              onBlur={[Function]}
-              onFocus={[Function]}
-              onMouseLeave={[Function]}
-              onMouseOver={[Function]}
-              onTouchEnd={[Function]}
-              onTouchStart={[Function]}
-              title="Search"
-            >
-              search
-            </span>
+            <svg
+              className="svg-inline--fa fa-magnifying-glass"
+            />
           </div>
           <input
             aria-invalid={false}
-            className="MuiInputBase-input-264 MuiInput-input-249 MuiInputBase-inputAdornedStart-269 MuiInputBase-inputAdornedEnd-270"
+            className="MuiInputBase-input-255 MuiInput-input-240 MuiInputBase-inputAdornedStart-260 MuiInputBase-inputAdornedEnd-261"
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
@@ -111,10 +100,10 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
             value=""
           />
           <div
-            className="MuiInputAdornment-root-271 MuiInputAdornment-positionEnd-274"
+            className="MuiInputAdornment-root-262 MuiInputAdornment-positionEnd-265"
           >
             <button
-              className="MuiButtonBase-root-299 MuiButtonBase-disabled-300 MuiIconButton-root-293 MuiIconButton-disabled-297"
+              className="MuiButtonBase-root-281 MuiButtonBase-disabled-282 MuiIconButton-root-275 MuiIconButton-disabled-279"
               disabled={true}
               onBlur={[Function]}
               onClick={[Function]}
@@ -132,21 +121,18 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
               type="button"
             >
               <span
-                className="MuiIconButton-label-298"
+                className="MuiIconButton-label-280"
               >
-                <span
-                  aria-hidden="true"
-                  className="material-icons MuiIcon-root-284 MuiIcon-fontSizeSmall-291"
-                >
-                  clear
-                </span>
+                <svg
+                  className="svg-inline--fa fa-xmark"
+                />
               </span>
             </button>
           </div>
         </div>
       </div>
       <div
-        className="MTableToolbar-actions-194"
+        className="MTableToolbar-actions-185"
       >
         <div>
           <div />
@@ -170,20 +156,20 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
           }
         >
           <table
-            className="MuiTable-root-302"
+            className="MuiTable-root-284"
           >
             <thead
-              className="MuiTableHead-root-304"
+              className="MuiTableHead-root-286"
             >
               <tr
-                className="MuiTableRow-root-305 MuiTableRow-head-308"
+                className="MuiTableRow-root-287 MuiTableRow-head-290"
               />
             </thead>
             <tbody
-              className="MuiTableBody-root-310"
+              className="MuiTableBody-root-292"
             >
               <tr
-                className="MuiTableRow-root-305"
+                className="MuiTableRow-root-287"
                 style={
                   Object {
                     "height": 49,
@@ -192,7 +178,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
               >
                 <td
                   aria-sort={null}
-                  className="MuiTableCell-root-311 MuiTableCell-body-313"
+                  className="MuiTableCell-root-293 MuiTableCell-body-295"
                   colSpan={0}
                   style={
                     Object {

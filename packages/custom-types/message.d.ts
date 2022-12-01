@@ -1,10 +1,11 @@
 import {
+  ADJUDICATION_OUTCOMES,
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
   COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
 import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcome, LocationOutcome, PerceptionOutcome, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -61,6 +62,12 @@ export interface MessageDetails {
    * explain source for answer, or assumptions made
    */
   privateMessage?: string,
+  /** 
+   * Incremental counter for messages from this force, in this game.
+   * Used server-side to generate `message.message.Reference`.
+   * Only present for messages with `message.message.Reference`
+   */
+  counter?: number
   /** if this message has been archived */
   archived?: boolean
 }
@@ -72,7 +79,8 @@ export interface MessageStructure {
    */
   [property: string]: any
   title?: string
-  content?: string
+  /** the reference number for this force in this game */
+  Reference?: string
 }
 
 /** Core elements of planning messages. These are the fields
@@ -108,25 +116,6 @@ export interface PlanningMessageStructureCore {
 export interface PlanningMessageStructure extends PlanningMessageStructureCore {
   /** allow template properties */
   [property: string]: any
-}
-
-
-
-/** Content of an interaction. Note: the fixed 
- * metadata is in the details.  It's the new (Editable)
- * content that is in here
- */
-export interface InteractionMessageStructure {
-  /** unique id for this message thread */
-  Reference: string
-  /** textual description of interaction */
-  narrative?: string
-  /** perception outcomes */
-  perceptionOutcomes: PerceptionOutcome[]
-  /** location outcomes */
-  locationOutcomes: LocationOutcome[]
-  /** condition outcomes */
-  healthOutcomes: HealthOutcome[]
 }
 
 export interface CoreMessage {
@@ -246,12 +235,23 @@ export interface MessagePlanning extends CoreMessage {
 /** messages being used in support of adjudicating an interaction */
 export interface MessageInteraction extends CoreMessage {
   readonly messageType: typeof INTERACTION_MESSAGE,
-  message: InteractionMessageStructure
+  message: MessageAdjudicationOutcomes
 }
 
 export interface MessageFeedback extends CoreMessage {
   readonly messageType: typeof FEEDBACK_MESSAGE,
   message: MessageStructure
+}
+
+/** the outcome-related content of an adjudication */
+export interface MessageAdjudicationOutcomes {
+  readonly messageType: typeof ADJUDICATION_OUTCOMES,
+  /** ref of the adjudication this refers to */
+  readonly Reference: string
+  readonly healthOutcomes: HealthOutcomes
+  readonly locationOutcomes: LocationOutcomes
+  readonly perceptionOutcomes: PerceptionOutcomes
+  readonly narrative: string
 }
 
 /** message containing updated game status, could be one of:
@@ -363,7 +363,8 @@ export type MessageMap = MessageForceLaydown |
   MessageDeletePlatform |
   MessageUpdateMarker |
   MessageDeleteMarker |
-  MessageCloneMarker
+  MessageCloneMarker |
+  MessageAdjudicationOutcomes
 
 export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom

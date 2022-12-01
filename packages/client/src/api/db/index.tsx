@@ -1,20 +1,15 @@
-import { 
-  serverPath,
-  databasePath,
-  socketPath,
-  replicate,
-  deletePath,
-  wargameSettings
+import {
+  databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, Wargame, PlayerLogEntries } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame } from '@serge/custom-types'
 
 import { io } from 'socket.io-client'
 import {
-  ProviderDbInterface,
   DbProviderInterface,
   FetchData,
   FetchDataArray,
-  FetchDataLogs
+  FetchDataLogs,
+  FetchReferenc, ProviderDbInterface
 } from './types'
 
 export class DbProvider implements DbProviderInterface {
@@ -137,6 +132,18 @@ export class DbProvider implements DbProviderInterface {
         .then((res) => {
           const { msg, data } = res
           if (msg === 'ok') resolve(data[0])
+          else reject(msg)
+        })
+    })
+  }
+
+  lastCounter (roleId: string, id: string): Promise<number> {
+    return new Promise((resolve, reject) => {
+      fetch(serverPath + this.getDbName() + '/' + roleId + '/' + id + '/' + 'counter')
+        .then(res => res.json() as Promise<FetchReferenc>)
+        .then((res) => {
+          const { msg, data } = res
+          if (msg === 'ok') resolve(data)
           else reject(msg)
         })
     })

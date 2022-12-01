@@ -48,6 +48,8 @@ export const CREATE_TASK_GROUP = 'CreateTaskGroup'
 export const LEAVE_TASK_GROUP = 'LeaveTaskGroup'
 export const HOST_PLATFORM = 'HostPlatform'
 
+export const ADJUDICATION_OUTCOMES = 'AdjudicationOutcomes'
+
 // series of constants used for `messageType` when sending custom messages
 export const CUSTOM_MESSAGE = 'CustomMessage'
 
@@ -108,6 +110,8 @@ export const PARTICIPANT_PLANNING = 'ParticipantPlanning'
 // types of attribute
 export const ATTRIBUTE_TYPE_NUMBER = 'AttributeTypeNumber'
 export const ATTRIBUTE_VALUE_NUMBER = 'AttributeValueNumber'
+export const ATTRIBUTE_TYPE_STRING = 'AttributeTypeString'
+export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
 export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
 export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 

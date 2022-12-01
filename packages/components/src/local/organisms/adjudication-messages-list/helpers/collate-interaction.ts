@@ -1,5 +1,5 @@
 
-import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningMessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlanningMessageStructure, PlatformTypeData } from '@serge/custom-types'
 import { findAsset, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 
@@ -46,22 +46,39 @@ const getActivity = (activities:PerForcePlanningActivitySet[], activityId: Plann
 
 export const updateAssets = (asset: Record<string, any>, interaction: InteractionData): Record<string, any> => {
   if (asset !== undefined) {
-    const allAssIds = interaction.allAssets.map((asset) => asset.uniqid)
-    const allAssNames = interaction.allAssets.map((asset) => asset.name)
-    asset.enum = allAssIds
-    asset.options.enum_titles = allAssNames
+    asset.enum = interaction.allAssets.map((asset) => asset.uniqid)
+    asset.options.enum_titles = interaction.allAssets.map((asset) => asset.name)
   }
   return asset
 }
 
-export const updateForces = (force: Record<string, any>, forces: ForceStyle[]): Record<string, any> => {
+const unknownId = 'unknown'
+const unknownLabel = 'Unknown'
+
+export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
-    const allForceIds = forces.map((force) => force.forceId)
-    const allForceNames = forces.map((force) => force.force)
-    force.enum = allForceIds
-    force.options.enum_titles = allForceNames
+    force.enum = forces.map((force) => force.forceId)
+    force.options.enum_titles = forces.map((force) => force.force)
+    if (includeUnknown) {
+      force.enum.unshift(unknownId)
+      force.options.enum_titles.unshift(unknownLabel)
+    }
   }
   return force
+}
+
+export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: PlatformTypeData[], includeUnknown?: boolean): Record<string, any> => {
+  if (platformType !== undefined) {
+    // sort the list
+    const sorted = _.sortBy(pTypes, (pType) => pType.name)
+    platformType.enum = sorted.map((pType) => pType.uniqid)
+    platformType.options.enum_titles = sorted.map((pType) => pType.name)
+    if (includeUnknown) {
+      platformType.enum.unshift(unknownId)
+      platformType.options.enum_titles.unshift(unknownLabel)
+    }
+  }
+  return platformType
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
@@ -94,7 +111,13 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
 
   const allIds = order1AssetsIds.concat(order2AssetsIds)
   const uniqIds = _.uniq(allIds)
-  const allAssets = uniqIds.map((id: string) => findAsset(forces, id))
+  let allAssets: Asset[] = []
+  try {
+    allAssets = uniqIds.map((id: string) => findAsset(forces, id))
+  } catch (e) {
+    console.warn('Failed to find asset with id', uniqIds)
+    allAssets = []
+  }
   const sortedAllAssets = _.sortBy(allAssets, (a: Asset) => a.name)
   const sortedAllAssetNames = sortedAllAssets.map((asset: Asset) => {
     const force = order1AssetsIds.includes(asset.uniqid)

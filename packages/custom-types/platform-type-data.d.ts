@@ -1,4 +1,4 @@
-import { AttributeTypes } from '.';
+import { AttributeTypes, GenericAttributes } from '.';
 import State from './state';
 
 /** description of if/how to display 
@@ -36,6 +36,10 @@ export default interface PlatformTypeData {
   travelMode: string,
   /** list of attribute types for this platform type */
   attributeTypes?: AttributeTypes
+  /** list of attribute ids for this platofrm type - allows
+   * use of generic attribute types
+   */
+  attributeTypeIds?: GenericAttributes
   /** if/how to display orientation data for the asset */
   orientation?: OrientationMarkers
   /** optional turning circle radius, in meters */

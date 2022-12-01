@@ -853,38 +853,39 @@ const planningMessageTemplatesMock: TemplateBody[] = [
         "otherAssets"
       ],
       "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title",
+          "propertyOrder": 5,
+          "options": {
+            "grid_columns": 12
+          }
+        },
         "Reference": {
           "type": "string",
-          "title": "Reference (locked)",
+          "title": "Reference",
           "readonly": "readonly",
           "propertyOrder": 15,
           "options": {
-            "grid_columns": 4
-          }
-        },
-        "title": {
-          "type": "string",
-          "propertyOrder": 20,
-          "options": {
-            "grid_columns": 8
+            "grid_columns": 2
           }
         },
         "startDate": {
-          "format": "datetime-local",
+          "format": "serge-date",
           "type": "string",
           "title": "Start date",
           "propertyOrder": 30,
           "options": {
-            "grid_columns": 4
+            "grid_columns": 2
           }
         },
         "endDate": {
-          "format": "datetime-local",
+          "format": "serge-date",
           "type": "string",
           "propertyOrder": 40,
           "title": "End date",
           "options": {
-            "grid_columns": 4
+            "grid_columns": 2
           }
         },
         "activity": {
@@ -898,7 +899,7 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             "asymmetric"
           ],
           "options": {
-            "grid_columns": 4,
+            "grid_columns": 6,
             "enum_titles": [
               "Transit1",
               "Kinetic1",
@@ -906,7 +907,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
             ]
           }
         },
-
         "description": {
           "format": "textarea",
           "propertyOrder": 50,

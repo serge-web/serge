@@ -8,6 +8,8 @@ const state: PlayerUi = {
   selectedRoleName: 'CO', 
   isUmpire: true,
   playerMessageLog: {},
+  attributeTypes: [],
+  perForceActivities: [],
   updateMessageState: false,
   isRFIManager: false,
   markerIcons: [],
@@ -381,7 +383,6 @@ const state: PlayerUi = {
         constraints: {
           bounds: [[2, 3], [2, 4]],
           h3res: 3,
-          maxNativeZoom: 23,
           minZoom: 4          
         },
         name: 'mapping',
@@ -462,7 +463,6 @@ const state: PlayerUi = {
       constraints: {
         bounds: [[2, 3], [3, 2]],
         h3res: 3,
-        maxNativeZoom: 12,
         minZoom: 4
       },
       channelType: CHANNEL_MAPPING,

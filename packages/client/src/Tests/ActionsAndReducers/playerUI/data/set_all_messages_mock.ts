@@ -10,6 +10,8 @@ const testState: PlayerUi = {
   },
   isRFIManager: false,
   infoMarkers: [],
+  attributeTypes: [],
+  perForceActivities: [],
   markerIcons: [],
   isGameControl: true,
   isUmpire: true,
@@ -53,6 +55,7 @@ const testState: PlayerUi = {
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
+            forceId: 'blue',
             roleId: 'CO',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
@@ -76,6 +79,7 @@ const testState: PlayerUi = {
           from: {
             force: 'Blue',
             forceColor: '#3dd0ff',
+            forceId: 'blue',
             roleId: 'CO',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
@@ -100,6 +104,7 @@ const testState: PlayerUi = {
             force: 'Blue',
             forceColor: '#3dd0ff',
             roleId: 'CO',
+            forceId: 'blue',
             roleName: 'CO',
             iconURL: 'http://localhost:8080/default_img/forceDefault.png'
           },
@@ -158,8 +163,7 @@ const testState: PlayerUi = {
         constraints: {
           bounds: [[1, 2], [3, 4]],
           minZoom: 3,
-          h3res: 3,
-          maxNativeZoom: 3
+          h3res: 3
         }
       }
     }
@@ -221,8 +225,7 @@ const testState: PlayerUi = {
       constraints: {
         bounds: [[2, 3], [4, 5]],
         h3res: 3,
-        minZoom: 5,
-        maxNativeZoom: 12
+        minZoom: 5
       },
       channelType: CHANNEL_MAPPING,
       participants: [

@@ -3,6 +3,12 @@ import { CellLabelStyle } from '@serge/config'
 export interface TileLayerDefinition {
   url: string,
   attribution: string
+  /** highest zoom level present in the data 
+   * this is optional, since legacy
+   * games used the maxzoom level
+   * in the mapping constraints
+  */
+  maxNativeZoom: number
 }
 
 /**
@@ -10,13 +16,13 @@ export interface TileLayerDefinition {
  */
 export default interface MappingConstraints {
   /** 
-   * bounding rectangle [lat, lng]
+   * bounding rectangle for the tile data [lat, lng]
    */
   bounds: [[number, number], [number, number]],
   /** 
    * h3 resolution to use
    */
-  h3res: number,
+  h3res?: number,
   /** 
    * the strategy to use for the cell labels 
    * Note: we allow string so that we can read
@@ -35,10 +41,6 @@ export default interface MappingConstraints {
    * The maximum zoom level
    */
   maxZoom?: number
-  /** the maximum zoom present for tiles, after this
-   * they will be scaled
-   */
-  maxNativeZoom: number
   /**
    * Json data url to load atlantic cells data
    * Should refer to file in packages/data folder, 

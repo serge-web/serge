@@ -27,7 +27,10 @@ const NewMessage: React.FC<PropTypes> = ({
   customiseTemplate,
   draftMessage,
   title,
-  hideTemplateSelector
+  hideTemplateSelector,
+  modifyForEdit,
+  modifyForSave,
+  editCallback
 }) => {
   const prevTemplates: TemplateBody = usePrevious(templates)
   const [selectedSchema, setSelectedSchema] = useState<Record<string, any> | null>(null)
@@ -147,6 +150,9 @@ const NewMessage: React.FC<PropTypes> = ({
           postBack={postBack}
           customiseTemplate={customiseTemplate}
           draftMessage={draftMessage}
+          modifyForEdit={modifyForEdit}
+          modifyForSave={modifyForSave}
+          editCallback={editCallback}
         />
       </Collapsible>
     </div>

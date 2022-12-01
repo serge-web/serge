@@ -4,7 +4,7 @@ import { RefObject } from 'react'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: {(): void}): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: { (): void }): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
@@ -20,7 +20,6 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   const disableArrayDelete = 'disable_array_delete'
   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'
   const promptBeforeDelete = 'prompt_before_delete'
-
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       setTimeout(() => {
@@ -44,6 +43,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
 
           const editButton = document.createElement('button')
           editButton.innerText = 'Edit'
+          editButton.name = 'editInLocation'
           editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')
           editButton.style.height = '40px'
           editButton.style.transform = 'translateX(-60px)'

@@ -1,7 +1,7 @@
 const listeners = {}
 let addListenersQueue = []
 let wargameName = ''
-const { wargameSettings, INFO_MESSAGE, dbSuffix, settings } = require('../consts')
+const { wargameSettings, INFO_MESSAGE, dbSuffix, settings, CUSTOM_MESSAGE } = require('../consts')
 
 const { COUCH_ACCOUNT, COUCH_URL, COUCH_PASSWORD } = process.env
 
@@ -234,6 +234,43 @@ const couchDb = (app, io, pouchOptions) => {
       res.send({ msg: 'ok', data: result.docs })
     })
       .catch(() => res.send([]))
+  })
+
+  app.get('/:wargame/:force/:id/counter', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new CouchDB(couchDbURL(databaseName))
+
+    let messageDefaultCount = 1
+
+    db.get(req.params.id)
+      .then(data => res.send({ msg: 'ok', data: data.details.counter }))
+      .catch(() => {
+        db.find({
+          selector: {
+            messageType: CUSTOM_MESSAGE,
+            details: {
+              from: { force: req.params.force },
+              counter: { $exists: true }
+            },
+            _id: { $ne: settings, $gte: null }
+          },
+          fields: ['details.counter']
+        }).then((result) => {
+          if (result.docs.length) {
+            const Biggestcount = Math.max(...result.docs.map(data => data.details.counter))
+            if (Biggestcount) {
+              messageDefaultCount += Biggestcount
+            }
+          }
+          res.send({ msg: 'ok', data: messageDefaultCount })
+        })
+          .catch(() => res.send([]))
+      })
   })
 
   app.get('/:wargame/:dbname/logs-latest', (req, res) => {

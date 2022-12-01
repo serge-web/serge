@@ -21,13 +21,13 @@ import React, { ChangeEvent, useEffect, useState } from 'react'
 import Confirm from '../../../atoms/confirm'
 import { CustomDialog } from '../../../atoms/custom-dialog'
 import FormGroup from '../../../atoms/form-group-shadow'
+import { hexCellsInArea } from '../../../mapping/helpers/h3-helpers'
 import EditableRow, { EDITABLE_SELECT_ITEM, Item as RowItem } from '../../../molecules/editable-row'
 import { Option, SelectItem } from '../../../molecules/editable-row/types/props'
 import MoreInfo from '../../../molecules/more-info'
 import { defaultParticipantMapping } from '../helpers/defaultParticipant'
 import styles from '../styles.module.scss'
 import { ForceData, Role } from '../types/props'
-import { hexCellsInArea } from '../../../mapping/helpers/h3-helpers'
 
 type MappingChannelProps = {
   channel: ChannelMapping
@@ -267,7 +267,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
       const checkCellSizes = (): void => {
         const res = localChannelUpdates.constraints.h3res
         const bounds = localChannelUpdates.constraints.bounds
-        const numCells = hexCellsInArea(res, bounds)
+        const numCells = hexCellsInArea(res || 5, bounds)
         if (numCells > 100000) {
           setProblems('Serge will struggle with more than 100,000 cells. These bounds at this res produce roughly ' + numCells + ' cells')
         }
@@ -323,7 +323,7 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         return bounds + ' ' + tiles + ' ' + cells
       }
 
-      const { bounds, minZoom, maxZoom, maxNativeZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = localChannelUpdates.constraints
+      const { bounds, minZoom, maxZoom, h3res, tileLayer, polygonAreasURL, gridCellsURL } = localChannelUpdates.constraints
 
       return (
         <Accordion className={styles.accordion}>
@@ -441,13 +441,6 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
                           <span><MoreInfo description='Maximum zoom present in tile layer. Images get scaled beyond this zoom'>Max Native</MoreInfo></span>
                         </TableCell>
                         <TableCell className={styles['constraints-cell']}>
-                          <TextField
-                            type='number'
-                            className={styles.input}
-                            InputProps={{ disableUnderline: true }}
-                            value={maxNativeZoom}
-                            onInput={(e: ChangeEvent<HTMLInputElement>): void => updateMapConstraintsZoom(e.target.value, 'maxNativeZoom')}
-                          />
                         </TableCell>
                       </TableRow>
                     </TableBody>

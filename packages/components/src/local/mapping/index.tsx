@@ -281,7 +281,7 @@ export const Mapping: React.FC<PropTypes> = ({
       const data: DeclutterData = { routes: routeStore, markers: infoMarkersState }
 
       // sort out the cell diameter
-      const cellRes = mappingConstraintState.h3res
+      const cellRes = mappingConstraintState.h3res || 5
       const edgeLengthM = h3.edgeLength(cellRes, 'm')
       const diamMins = edgeLengthM / 1852.0 * 2
       const declutteredData: DeclutterData = clutterFunc(data, diamMins)
@@ -515,7 +515,7 @@ export const Mapping: React.FC<PropTypes> = ({
     if (!mappingConstraintState) {
       throw new Error('Cannot calculate distance without mapping constraints')
     }
-    const tileRadiusM = h3.edgeLength(mappingConstraintState.h3res, 'm')
+    const tileRadiusM = h3.edgeLength(mappingConstraintState.h3res || 5, 'm')
     const tileDiameterM = tileRadiusM * 2
     return tileDiameterM * 0.75
   }
@@ -933,7 +933,7 @@ export const Mapping: React.FC<PropTypes> = ({
             <TileLayer
               url={mappingConstraintState.tileLayer.url}
               attribution={mappingConstraintState.tileLayer.attribution}
-              maxNativeZoom={mappingConstraintState.maxNativeZoom}
+              maxNativeZoom={mappingConstraintState.tileLayer.maxNativeZoom}
               bounds={mapBounds}
             />
           }

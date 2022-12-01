@@ -1,5 +1,6 @@
 import { mount } from 'enzyme'
 import React from 'react'
+import { MapConstants } from './helper/MapConstants'
 import SupportMapping from './index'
 
 jest.mock('leaflet', () => ({
@@ -28,7 +29,7 @@ jest.mock('react-leaflet-v4', () => ({
 
 describe('Support Mapping component: ', () => {
   it('renders component correctly', () => {
-    const tree = mount(<SupportMapping
+    const tree = mount(<SupportMapping maxZoom={7} tileLayer={MapConstants.TileLayer}
       position={[51.505, -0.09]} />)
     expect(tree).toMatchSnapshot()
   })
