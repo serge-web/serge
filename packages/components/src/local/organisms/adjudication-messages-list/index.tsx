@@ -334,12 +334,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       />
     </div>
   )
-
-  // return (
-  //   <div className={styles['messages-list']}>
-  //     <Orders title='Adjudication' detailPanelFnc={detailPanel} columns={columns} rows={rows} />
-  //   </div>
-  // )
 }
 
 export default AdjudicationMessagesList
