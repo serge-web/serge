@@ -8,7 +8,6 @@ import FunctionsIcon from '@material-ui/icons/Functions'
 import SaveIcon from '@material-ui/icons/Save'
 import React from 'react'
 
-
 /* Import Types */
 import { Props } from './types/props'
 
