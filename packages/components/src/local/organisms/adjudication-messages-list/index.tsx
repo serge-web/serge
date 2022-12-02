@@ -327,6 +327,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         isOpen={dialogMessage.length > 0}
         header={'Generate interactions'}
         cancelBtnText={'OK'}
+        // TODO: fix issue on next line
         // deepscan-disable-next-line
         onClose={(): void => closeDialog()}
         content={dialogMessage}
