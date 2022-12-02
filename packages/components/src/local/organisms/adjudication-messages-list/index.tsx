@@ -315,7 +315,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     detailPanel: detailPanel
   }
 
-  const closeDialog = () => {
+  const closeDialog = (): void => {
     if (dialogMessage !== '') {
       setDialogMessage('')
     }
