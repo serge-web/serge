@@ -315,13 +315,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     detailPanel: detailPanel
   }
 
+  const closeDialog = () => {
+    setDialogMessage('')
+  }
+
   return (
     <div className={styles['messages-list']}>
       <CustomDialog
         isOpen={dialogMessage.length > 0}
         header={'Generate interactions'}
         cancelBtnText={'OK'}
-        onClose={() => setDialogMessage('')}
+        onClose={closeDialog}
         content={dialogMessage}
       />
       <div className='button-wrap' >
