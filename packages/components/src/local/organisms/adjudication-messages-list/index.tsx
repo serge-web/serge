@@ -9,6 +9,7 @@ import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
+import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -26,6 +27,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+
+  const [dialogMessage, setDialogMessage] = useState<string>('')
 
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
@@ -230,7 +233,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (): void => {
-    console.log('count remaining', forcePlanningActivities)
+    console.log('count remaining')
+    const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
+    console.log('contacts', contacts)
+    const message = '' + contacts.length + ' interactions remaining'
+    setDialogMessage(message)
   }
 
   const getInteraction = (): void => {
@@ -310,6 +317,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']}>
+      <CustomDialog
+        isOpen={dialogMessage.length > 0}
+        header={'Generate interactions'}
+        cancelBtnText={'OK'}
+        onClose={(): void => setDialogMessage('')}
+        content={dialogMessage}
+      />
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
         &nbsp;
