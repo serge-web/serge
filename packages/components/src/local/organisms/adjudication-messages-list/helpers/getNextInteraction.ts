@@ -101,7 +101,7 @@ const tEnd = (geom: Feature<Geometry>): string => {
 }
 
 export const getNextInteraction = (orders: MessagePlanning[],
-  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number): PlanningContact | undefined => {
+  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, getAll?: boolean): PlanningContact[] => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
   const trimmedOrders = ordersOverlappingTime(orders, earliestTime)
 
@@ -136,7 +136,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
   //   return { endTime: order.message.endDate }
   // }))
 
-  let interactionWindow = Math.max(diffMins / 10, 60)
+  let interactionWindow = getAll ? Number.MAX_SAFE_INTEGER : Math.max(diffMins / 10, 60)
   const contacts: PlanningContact[] = []
 
   console.log('inter window', interactionWindow, diffMins, moment(earliestTime).toISOString(), moment(latestTime).toISOString())
@@ -174,19 +174,21 @@ export const getNextInteraction = (orders: MessagePlanning[],
     interactionWindow *= 2
   }
 
-  if (contacts.length) {
-    //    console.log('got contacts', Math.floor(interactionWindow), contacts.length, contacts[0].id)
-    // sort then
-    const sortFunc = (order: PlanningContact): number => {
-      return order.timeStart
+  if (contacts.length > 0) {
+    if (getAll) {
+      return contacts
+    } else {
+      //    console.log('got contacts', Math.floor(interactionWindow), contacts.length, contacts[0].id)
+      // sort then
+      const sortFunc = (order: PlanningContact): number => {
+        return order.timeStart
+      }
+      const sortedContacts: PlanningContact[] = _.sortBy(contacts, sortFunc)
+      // console.table(sortedContacts.map((value) => { return { id: value.id, time: moment(value.timeStart).toISOString() } }))
+      const first = sortedContacts[0]
+      return [first]
     }
-    const sortedContacts: PlanningContact[] = _.sortBy(contacts, sortFunc)
-    // console.table(sortedContacts.map((value) => { return { id: value.id, time: moment(value.timeStart).toISOString() } }))
-
-    const first = sortedContacts[0]
-
-    return first
   } else {
-    return undefined
+    return []
   }
 }

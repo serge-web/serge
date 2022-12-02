@@ -229,13 +229,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
+  const countRemainingInteractions = (): void => {
+    console.log('count remaining', forcePlanningActivities)
+  }
+
   const getInteraction = (): void => {
     console.log('get interaction', forcePlanningActivities)
-    const interaction = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
-    console.log('interaction', interaction)
-    if (interaction) {
+    const interactions = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
+    console.log('interaction', interactions)
+    if (interactions.length > 0) {
       // send up to parent
-      handleAdjudication && handleAdjudication(interaction)
+      handleAdjudication && handleAdjudication(interactions[0])
     } else {
       window.alert('Interaction not found')
     }
@@ -308,6 +312,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     <div className={styles['messages-list']}>
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
+        &nbsp;
+        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
       </div>
 
       <MaterialTable
