@@ -1,9 +1,9 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE, PLANNING_MESSAGE_UPDATE_SIZE } from '@serge/config'
 import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
@@ -61,6 +61,7 @@ const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometr
 const Template: Story<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
+  const scrollPossitionRef = useRef<any>(null)
 
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
@@ -98,9 +99,16 @@ const Template: Story<MessageListPropTypes> = (args) => {
     return customiseAssets(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
   }
 
+  const scrollPosition = (val: number) => {
+    scrollPossitionRef.current = val
+  }
+
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(planningMessages)
   return <PlanningMessagesList
+    scrollPosition={scrollPosition}
+    allowUpdate={scrollPossitionRef.current}
+    scrollSize={PLANNING_MESSAGE_UPDATE_SIZE}
     selectedRoleName={blueRole.name}
     selectedForce={selectedForce}
     currentTurn={currentTurn}

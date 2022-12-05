@@ -70,7 +70,7 @@ export const JsonEditor: React.FC<Props> = ({
       console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
     }
 
-    if(edit) {
+    if (edit) {
       // get the key
       // get more information about the status of an edited but unsent message
       return `${edit}-${genLocalStorageId()}`
@@ -78,7 +78,6 @@ export const JsonEditor: React.FC<Props> = ({
       return memoryName
     }
   }
-
 
   const OnSave = () => {
     saveMessage && saveMessage()

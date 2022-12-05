@@ -3,6 +3,7 @@
 exports[`ChannelMessagesList component:  renders component correctly 1`] = `
 <div
   className="messages-list"
+  onScroll={[Function]}
   style={
     Object {
       "zIndex": 9,

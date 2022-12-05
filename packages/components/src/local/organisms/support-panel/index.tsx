@@ -1,12 +1,12 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
+import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION, PLANNING_MESSAGE_UPDATE_SIZE } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useState, useRef } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -73,6 +73,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
+  const [updatePllaningList, setUpdatePllaningList] = useState<boolean>(false)
 
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
@@ -82,7 +83,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-
+  const scrollPossitionRef = useRef<any>(null)
   const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
@@ -289,6 +290,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
+  const scrollPosition = (val: number) => {
+    if (val < PLANNING_MESSAGE_UPDATE_SIZE) {
+      setUpdatePllaningList(true)
+    } else if (val > PLANNING_MESSAGE_UPDATE_SIZE) {
+      setUpdatePllaningList(false)
+    }
+    scrollPossitionRef.current = val
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -321,8 +331,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TAB_MY_ORDERS} active={activeTab === TAB_MY_ORDERS} >
-              {activeTab === TAB_MY_ORDERS &&
+            {activeTab === TAB_MY_ORDERS &&
                 <div className={styles['order-group']}>
                   <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                   <PlanningMessagesList
@@ -330,6 +339,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
+                    scrollPosition={scrollPosition}
+                    scrollSize={scrollPossitionRef.current}
+                    allowUpdate={PLANNING_MESSAGE_UPDATE_SIZE}
                     saveCachedPlanningMessageValue={saveCachedNewMessageValue}
                     getCachedPlanningMessageValue={getCachedNewMessagevalue}
                     clearCachedPlanningMessage={clearCachedNewMessage}
@@ -381,8 +393,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     editCallback={localEditLocation}
                   />}
                 </div>
-              }
-            </TabPanel>
+            }
 
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
@@ -445,6 +456,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   ), [
     isShowPanel,
     activeTab,
+    updatePllaningList,
     allForces,
     filteredPlanningMessages,
     filteredInteractionMessages,
