@@ -121,10 +121,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const chachedScrollValue = getCachedPlanningMessageValue && getCachedPlanningMessageValue(scrollChachedName)
     if (chachedScrollValue) {
       setTimeout(() => {
-        console.log('ChachedScrollValue', chachedScrollValue)
-        if (chachedScrollValue) {
-          scrollRef.current.scrollTop = Number(chachedScrollValue)
-        }
+        scrollRef.current.scrollTop = Number(chachedScrollValue)
       }, 20)
     }
   }, [myMessages, turnFilter])
