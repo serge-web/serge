@@ -48,6 +48,48 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         className="MuiTouchRipple-root"
       />
     </button>
+     
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedSecondary"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        <span
+          className="MuiButton-startIcon MuiButton-iconSizeMedium"
+        >
+          <svg
+            aria-hidden={true}
+            className="MuiSvgIcon-root"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M18 4H6v2l6.5 6L6 18v2h12v-3h-7l5-5-5-5h7z"
+            />
+          </svg>
+        </span>
+        Remaining
+      </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </button>
   </div>
   <div
     className="MuiPaper-root-155 MuiPaper-elevation2-159 MuiPaper-rounded-156"

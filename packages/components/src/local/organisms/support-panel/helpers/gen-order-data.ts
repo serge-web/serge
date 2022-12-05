@@ -743,7 +743,6 @@ export const createContactReference = (me: string, other: string): string => {
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
   interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
   sensorRangeKm: number): PlanningContact[] => {
-  let dummyContact: PlanningContact | undefined
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
@@ -763,16 +762,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
               if (differentForces(me, other) && overlapsInTime(me, other)) {
-                // give us a dummy interaction
-                dummyContact = {
-                  first: first,
-                  second: second,
-                  id: id,
-                  intersection: undefined,
-                  timeStart: moment(first.activity.message.startDate).valueOf(),
-                  timeEnd: moment(second.activity.message.endDate).valueOf()
-                }
-
                 // see if we have a cached contact
                 const cachedResult = interactionsTested[id]
                 if (cachedResult !== undefined) {
@@ -793,14 +782,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
-
-  if (res.length === 0) {
-    console.log('gen interaction returning dummy:', dummyContact)
-  } else {
-    console.log('gen interaction returning genuine data:', res)
-  }
-  const safeDummy = dummyContact ? [dummyContact] : []
-  return res.length ? res : safeDummy
+  return res
 }
 
 export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
