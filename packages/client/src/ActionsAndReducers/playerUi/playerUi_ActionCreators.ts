@@ -178,6 +178,17 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
+export const saveDraftMessage = (dbName: string, message: MessageCustom, draftMessage: object): Function => {
+  // return wargamesApi.postDraftMessage(dbName, message, draftMessage)
+  return async (): Promise<void> => {
+    // the following block of commented out code was used in the past
+    // to generate bulk volumes of test data, by repeatedly submitting
+    // the provided message, with id/ref changed each time
+    //
+    await wargamesApi.postDraftMessage(dbName, message, draftMessage)
+  }
+}
+
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message)

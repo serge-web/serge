@@ -49,6 +49,7 @@ describe('Support Panel component: ', () => {
         activityTimeChanel={noop}
         dispatch={noop}
         saveMessage={(): any => noop}
+        saveDraftMessage={(): any => noop}
         saveNewActivityTimeMessage={(): any => noop}
         selectedForce={blueForce}
         selectedRoleId={blueRole.roleId}

@@ -32,6 +32,7 @@ export const JsonEditor: React.FC<Props> = ({
   disableArrayToolsWithEditor = true,
   cachedName,
   clearCachedName,
+  draftMessage,
   saveMessage,
   modifyForEdit,
   modifyForSave,
@@ -41,6 +42,7 @@ export const JsonEditor: React.FC<Props> = ({
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
+  const [drafMessage, setDraftMessage] = useState<any>(messageContent)
   const [beingEdited, setBeingEdited] = useState<boolean>(false)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
 
@@ -62,6 +64,7 @@ export const JsonEditor: React.FC<Props> = ({
 
   const handleChange = (value: { [property: string]: any }): void => {
     const newDoc = modifyForSave ? modifyForSave(value) : value
+    setDraftMessage(newDoc)
     storeNewValue && storeNewValue(newDoc)
   }
 
@@ -114,6 +117,15 @@ export const JsonEditor: React.FC<Props> = ({
     // but it is always false
     editCallback && editCallback()
   }
+
+  useEffect(() => {
+    const putDraftMessagea = setTimeout(() => {
+      if (drafMessage && !disabled && beingEdited) {
+        draftMessage && draftMessage(drafMessage)
+      }
+    }, 1000)
+    return (): void => clearTimeout(putDraftMessagea)
+  }, [drafMessage])
 
   const initEditor = (): () => void => {
     const hideArrayButtons = disabled
@@ -241,14 +253,12 @@ export const JsonEditor: React.FC<Props> = ({
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
-    const editStatus = expiredStorage.getItem(genLocalStorageId(EDIT_BUTTON)) ? expiredStorage.getItem(genLocalStorageId(EDIT_BUTTON)) : ''
     if (editor) {
-      if (viewSaveButton && !beingEdited && !editStatus) {
+      if (viewSaveButton && !beingEdited) {
         editor.disable()
       } else if (disabled && !viewSaveButton) {
         editor.disable()
       } else {
-        setBeingEdited(!!editStatus)
         editor.enable()
       }
       setTimeout(() => {

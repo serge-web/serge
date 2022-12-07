@@ -160,6 +160,12 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
+  const saveDraftMessages = (dbName: string, message: MessagePlanning, DraftMessage: any) => {
+    return async (): Promise<void> => {
+      console.log('dbName: ', dbName, ', message: ', message, 'DraftMessage: ', DraftMessage)
+    }
+  }
+
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
@@ -175,6 +181,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     markAllAsRead={mockFn}
     markUnread={mockFn}
     openMessage={mockFn}
+    saveDraftMessages={saveDraftMessages}
     saveMessage={saveMessage}
     reduxDispatch={noop}
     saveNewActivityTimeMessage={(): any => noop}

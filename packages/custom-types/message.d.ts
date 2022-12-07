@@ -194,6 +194,8 @@ export interface MessageCustom extends CoreMessage {
   readonly messageType: typeof CUSTOM_MESSAGE,
   /** the strutured message */
   message: MessageStructure,
+  /** the draft message */
+  draftMessage?: MessageStructure,
   /** whether this message is open/expanded on the current client */
   isOpen: boolean
   /** the game turn when this was sent */
@@ -229,7 +231,8 @@ export interface ChatMessage extends CoreMessage {
 /** messages being used in support of planning */
 export interface MessagePlanning extends CoreMessage {
   readonly messageType: typeof PLANNING_MESSAGE,
-  message: PlanningMessageStructure
+  message: PlanningMessageStructure,
+  draftMessage?: PlanningMessageStructure
 }
 
 /** messages being used in support of adjudicating an interaction */
@@ -371,6 +374,7 @@ export type MessageChannel = MessageInfoTypeClipped |
 
 type Message = MessageCustom |
   ChatMessage |
+  MessagePlanning |
   MessageFeedback |
   MessageInfoTypeClipped |
   MessageMap |

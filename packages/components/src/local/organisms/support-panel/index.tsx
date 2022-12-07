@@ -1,6 +1,6 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION, PLANNING_MESSAGE_UPDATE_SIZE } from '@serge/config'
+import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
@@ -24,7 +24,7 @@ import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
-
+export const PLANNING_MESSAGE_UPDATE_SIZE = 120
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
@@ -40,6 +40,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   adjudicationTemplate,
   mapPostBack,
   saveMessage,
+  saveDraftMessage,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
@@ -183,6 +184,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
     saveMessage(currentWargame, details, message)()
+    // also clear local one
+    setLocalDraftMessage(undefined)
+  }
+
+  const postBackDraft = (message: MessagePlanning, draftMessage: any): void => {
+    // do we have any pending geometry
+    if (pendingLocationData.length > 0) {
+      const plan = draftMessage as MessagePlanning
+      console.log('injecting geometry', plan.message.locationm, pendingLocationData)
+    }
+
+    const activity: MessageSentInteraction = {
+      aType: MESSAGE_SENT_INTERACTION
+    }
+    saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
+    saveDraftMessage(currentWargame, message, draftMessage)()
     // also clear local one
     setLocalDraftMessage(undefined)
   }
@@ -342,9 +359,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     scrollPosition={scrollPosition}
                     scrollSize={scrollPossitionRef.current}
                     allowUpdate={PLANNING_MESSAGE_UPDATE_SIZE}
-                    saveCachedPlanningMessageValue={saveCachedNewMessageValue}
-                    getCachedPlanningMessageValue={getCachedNewMessagevalue}
-                    clearCachedPlanningMessage={clearCachedNewMessage}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
                     selectedForce={selectedForce}
@@ -360,6 +374,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     customiseTemplate={localCustomiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
+                    postBackDraft={postBackDraft}
                     postBack={postBack}
                     turnFilter={turnFilter}
                     editLocation={editLocation}

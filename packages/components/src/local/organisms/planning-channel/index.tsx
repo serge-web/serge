@@ -46,6 +46,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   saveNewActivityTimeMessage,
   openMessage,
   saveMessage,
+  saveDraftMessages,
   mapPostBack,
   allTemplates,
   messages,
@@ -507,6 +508,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return saveMessage(dbName, details, unmangledMessage)
   }
 
+  const saveDraftMessageLocal = (dbName: string, message: MessagePlanning, draftMessage: any): { (): void } => {
+    const unmangledMessage = expandLocation(draftMessage)
+    // if this is a draft plans, clear the draft plan
+    if (!message.details.interaction) {
+      setDraftMessage(undefined)
+    }
+    return saveDraftMessages(dbName, message, unmangledMessage)
+  }
+
   /** player has used menu to trigger the creation of a new set of orders (activity) */
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     if (forcePlanningActivities) {
@@ -671,6 +681,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
+            saveDraftMessage={saveDraftMessageLocal}
             mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}

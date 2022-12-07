@@ -1,5 +1,5 @@
 import { Phase } from '@serge/config'
-import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody, MessagePlanning } from '@serge/custom-types'
 import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
@@ -47,6 +47,12 @@ const saveMessage = (dbName: string, details: MessageDetails, message: CoreMessa
   }
 }
 
+const saveDraftMessages = (dbName: string, details: MessagePlanning, draftMessage: any) => {
+  return async (): Promise<void> => {
+    console.log('dbName: ', dbName, ', details: ', details, ', message: ', draftMessage)
+  }
+}
+
 // get the templates for this user
 const participants = planningChannel.participants as ParticipantPlanning[]
 const participant = participants.find((p: ParticipantPlanning) => (p.roles.length === 0) || (p.roles.includes(role?.roleId || '')))
@@ -68,6 +74,7 @@ describe('Planning Channel component: ', () => {
       markUnread={mockFn}
       openMessage={mockFn}
       saveMessage={saveMessage}
+      saveDraftMessages={saveDraftMessages}
       reduxDispatch={noop}
       saveNewActivityTimeMessage={(): any => noop}
       platformTypes={platformTypes}

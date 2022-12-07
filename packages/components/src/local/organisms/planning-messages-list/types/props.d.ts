@@ -13,7 +13,6 @@ export type OrderRow = {
   activity: string
   startDate: string
   endDate: string
-  tableData: any
 }
 
 export type LocationEditCallbackHandler = { (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void }
@@ -60,6 +59,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
+  postBackDraft?:{ (message: MessagePlanning, draftMessage: any): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
   scrollPosition?: (editMessage: number) => void

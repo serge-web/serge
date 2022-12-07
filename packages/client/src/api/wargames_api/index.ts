@@ -700,6 +700,22 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
   })
 }
 
+export const postDraftMessage = async (dbName: string, message: MessageCustom, draftMessage: MessageStructure): Promise<MessageCustom> => {
+  const { db } = getWargameDbByName(dbName)
+  const details = message.details
+  const id = details.timestamp ? details.timestamp : new Date().toISOString()
+  const customMessage: MessageCustom = {
+    ...message,
+    draftMessage,
+    _id: id,
+    messageType: CUSTOM_MESSAGE
+  }
+
+  return checkReference(customMessage, db, details).then(messageUpdated => {
+    return db.put(messageUpdated).catch(rejectDefault)
+  })
+}
+
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
   const { db } = getWargameDbByName(dbName)
   const id = details.timestamp ? details.timestamp : new Date().toISOString()

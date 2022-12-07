@@ -1,6 +1,5 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { UNSENT_SELECT_BY_DEFAULT_VALUE } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
@@ -12,14 +11,11 @@ import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
-const PLANNING_MESSAGE_LIST = 'PLANNING_MESSAGE_LIST'
-const PLANNING_SCROLL_CHACHED = 'SCROLL_CHACHED'
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
-  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter, allowUpdate,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose, scrollPosition,
-  saveCachedPlanningMessageValue, getCachedPlanningMessageValue, clearCachedPlanningMessage
+  confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose, scrollPosition, postBackDraft
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -27,15 +23,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const tableRef: any = useRef()
   const messageValue = useRef<any>(null)
-  const scrollRef = useRef<any>(null)
-  const localName = `${PLANNING_MESSAGE_LIST}-${UNSENT_SELECT_BY_DEFAULT_VALUE}`
-  const scrollChachedName = `${PLANNING_MESSAGE_LIST}-${PLANNING_SCROLL_CHACHED}`
+
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
-  const [editorDefaultId, setEditorDefaultId] = useState<string>()
   useEffect(() => {
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
@@ -59,10 +52,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useLayoutEffect(() => {
     const roles: string[] = []
-    const { detailPanel } = tableRef.current.props
-    const handleShowDetailPanel = detailPanel
-    const CachedDefaultValue = getCachedPlanningMessageValue && getCachedPlanningMessageValue(localName)
-    setEditorDefaultId(CachedDefaultValue)
 
     const dataTable: OrderRow[] = myMessages.map((message) => {
       const author = message.details.from.roleName
@@ -78,10 +67,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         role: author,
         activity: trimActivity(playerForceId, plan.activity),
         startDate: shortDate(plan.startDate),
-        endDate: shortDate(plan.endDate),
-        tableData: {
-          showDetailPanel: message._id === CachedDefaultValue ? handleShowDetailPanel : undefined
-        }
+        endDate: shortDate(plan.endDate)
       }
       return row
     })
@@ -118,12 +104,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (columns.length === 0) {
       setColumns(columnData)
     }
-    const chachedScrollValue = getCachedPlanningMessageValue && getCachedPlanningMessageValue(scrollChachedName)
-    if (chachedScrollValue) {
-      setTimeout(() => {
-        scrollRef.current.scrollTop = Number(chachedScrollValue)
-      }, 20)
-    }
   }, [myMessages, turnFilter])
 
   const editorValue = (val: { [property: string]: any }): void => {
@@ -148,6 +128,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
       if (message && template) {
         const pendingLocationData: Array<PlannedActivityGeometry[]> = []
+        const saveDraftMessage = () => {
+          if (messageValue.current) {
+            if (messageValue.current.content === '') return
+            postBackDraft && postBackDraft(message, messageValue.current)
+          }
+        }
 
         const saveMessage = () => {
           if (messageValue.current) {
@@ -181,7 +167,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             }
 
             postBack && postBack(details, messageValue.current)
-            clearCachedPlanningMessage && clearCachedPlanningMessage([localName])
             messageValue.current = ''
           }
         }
@@ -210,9 +195,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <></>
         }
 
-        saveCachedPlanningMessageValue && saveCachedPlanningMessageValue(message._id, localName)
-        const editorRightValue = message._id === editorDefaultId ? undefined : message.message
+        const editorRightValue = message.draftMessage && canEdit ? message.draftMessage : message.message
         return <>
+
           <DetailPanelStateListener />
           {/* { canEdit &&
             <Button color='secondary' onClick={() => {
@@ -222,6 +207,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           <JsonEditor
             messageContent={editorRightValue}
             viewSaveButton={true}
+            draftMessage={saveDraftMessage}
             saveMessage={saveMessage}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
@@ -255,14 +241,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
-    if (event.currentTarget.scrollTop < allowUpdate) {
-      clearCachedPlanningMessage && clearCachedPlanningMessage([scrollChachedName])
-    }
     scrollPosition && scrollPosition(event.currentTarget.scrollTop)
-    saveCachedPlanningMessageValue && saveCachedPlanningMessageValue(event.currentTarget.scrollTop, scrollChachedName)
   }
   return (
-    <div ref={scrollRef} onScroll={handleScroll} className={styles['messages-list']} style={{ zIndex: 9 }}>
+    <div onScroll={handleScroll} className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
         tableRef={tableRef}
@@ -302,6 +284,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
 const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => {
   if (nextProps.scrollSize >= prevProps.allowUpdate) {
+    return true
+  } else if (nextProps.messages[0].draftMessage) {
     return true
   } else {
     return false
