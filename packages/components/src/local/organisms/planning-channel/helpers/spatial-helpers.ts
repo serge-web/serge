@@ -8,7 +8,6 @@ import L from 'leaflet'
  * @returns the outer bounds of the points in the geometry
  */
 export const boundsForGeometry = (geometry: Geometry, existingBounds: L.LatLngBounds | undefined): L.LatLngBounds | undefined => {
-  console.log(geometry)
   let workingBounds = existingBounds
 
   switch (geometry.type) {
