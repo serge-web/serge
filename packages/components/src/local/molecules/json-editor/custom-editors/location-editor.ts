@@ -1,7 +1,7 @@
 import JSONEditor from '@json-editor/json-editor'
 import { PlannedActivityGeometry, PlanningActivityGeometry } from '@serge/custom-types'
 
-export const initLocationEditor = (editCallback: () => void): void => {
+export const initLocationEditor = (editCallback: () => void, onLocationEditorLoaded: (editorElm: HTMLDivElement) => void): void => {
   JSONEditor.defaults.editors.location = JSONEditor.AbstractEditor.extend({
     build: function () {
       this.group = document.createElement('div')
@@ -35,6 +35,7 @@ export const initLocationEditor = (editCallback: () => void): void => {
         this.textArea.setAttribute('readonly', 'true')
       }
       this.group.appendChild(this.groupTextArea)
+      onLocationEditorLoaded(this.group)
     },
 
     addEditButton: function () {
@@ -78,6 +79,7 @@ export const initLocationEditor = (editCallback: () => void): void => {
       if (this.textArea.innerText) {
         this.addEditButton()
       }
+      onLocationEditorLoaded(this.group)
     },
 
     getValue: function () {

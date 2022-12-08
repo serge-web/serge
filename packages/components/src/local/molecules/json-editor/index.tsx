@@ -36,7 +36,8 @@ export const JsonEditor: React.FC<Props> = ({
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
-  editCallback
+  editCallback,
+  onLocationEditorLoaded
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -103,6 +104,10 @@ export const JsonEditor: React.FC<Props> = ({
     editCallback && editCallback()
   }
 
+  const onEditorLoaded = (editorElm: HTMLDivElement) => {
+    onLocationEditorLoaded && onLocationEditorLoaded(editorElm);
+  }
+
   const initEditor = (): () => void => {
     const hideArrayButtons = disabled
     const jsonEditorConfig = hideArrayButtons
@@ -117,7 +122,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
 
     const changeListenter = (): void => {
       if (nextEditor) {

@@ -92,4 +92,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    * in the wargame
    */
   mapPostBack?: AdjudicationPostBack
+
+  onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
 }

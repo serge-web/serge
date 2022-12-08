@@ -18,7 +18,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  editThisMessage
+  editThisMessage, onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -209,6 +209,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
             modifyForSave={expandLocation}
             editCallback={localEditLocation}
+            onLocationEditorLoaded={onLocationEditorLoaded}
           />
         </>
       } else {

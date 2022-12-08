@@ -5,13 +5,13 @@ import { initLocationEditor } from '../custom-editors/location-editor'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: { (): void }): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: () => void, onLocationEditorLoaded: (editorElm: HTMLDivElement) => void): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
   }
 
-  initLocationEditor(editCallback)
+  initLocationEditor(editCallback, onLocationEditorLoaded)
   configDateTimeCustomValidation()
 
   const disableCollapse = 'disable_collapse'
@@ -54,6 +54,9 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     //     })
     //   })
 
+    if (schema.properties.location) {
+      schema.properties.location.format = 'location'
+    }
     const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',

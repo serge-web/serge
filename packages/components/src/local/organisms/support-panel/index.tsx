@@ -289,6 +289,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
+  const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
+    console.log('editorElm: ', editorElm)
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -352,6 +356,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     onDetailPanelOpen={onDetailPanelOpen}
                     onDetailPanelClose={onDetailPanelClose}
                     editThisMessage={editThisMessage}
+                    onLocationEditorLoaded={onLocationEditorLoaded}
                   />
                   {localDraftMessage && <NewMessage
                     orderableChannel={true}
@@ -424,6 +429,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       onDetailPanelClose={onDetailPanelClose}
                       handleAdjudication={handleAdjudication}
                       postBack={postBack}
+                      onLocationEditorLoaded={onLocationEditorLoaded}
                     />
                   </div>
                 }

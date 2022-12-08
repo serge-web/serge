@@ -93,4 +93,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onDetailPanelClose?: (rowData: OrderRow) => void
 
   editThisMessage?: (docId: string) => void
+
+  onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
 }

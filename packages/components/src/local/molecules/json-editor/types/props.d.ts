@@ -66,5 +66,7 @@ export default interface Props {
   /**
    *  user has clicked on custom edit button
    */
-  editCallback?: {(): void}
+  editCallback?: { (): void }
+  
+  onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
 }
