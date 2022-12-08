@@ -79,11 +79,11 @@
   align-items: center;
   display: flex;
   div {
-    min-height: 50px;
-    width: 100%;
     border: solid 1px #ced4da;
     border-radius: 5px;
+    min-height: 50px;
     padding: 5px;
+    width: 100%;
   }
   button {
     height: 40px;

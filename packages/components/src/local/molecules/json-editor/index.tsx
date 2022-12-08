@@ -105,7 +105,7 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const onEditorLoaded = (editorElm: HTMLDivElement) => {
-    onLocationEditorLoaded && onLocationEditorLoaded(editorElm);
+    onLocationEditorLoaded && onLocationEditorLoaded(editorElm)
   }
 
   const initEditor = (): () => void => {
