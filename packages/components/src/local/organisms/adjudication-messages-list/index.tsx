@@ -9,6 +9,7 @@ import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
+import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -27,6 +28,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+
+  const [dialogMessage, setDialogMessage] = useState<string>('')
 
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
@@ -230,13 +233,21 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
+  const countRemainingInteractions = (): void => {
+    console.log('count remaining')
+    const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
+    console.log('contacts', contacts)
+    const message = '' + contacts.length + ' interactions remaining'
+    setDialogMessage(message)
+  }
+
   const getInteraction = (): void => {
     console.log('get interaction', forcePlanningActivities)
-    const interaction = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
-    console.log('interaction', interaction)
-    if (interaction) {
+    const interactions = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
+    console.log('interaction', interactions)
+    if (interactions.length > 0) {
       // send up to parent
-      handleAdjudication && handleAdjudication(interaction)
+      handleAdjudication && handleAdjudication(interactions[0])
     } else {
       window.alert('Interaction not found')
     }
@@ -306,10 +317,27 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     detailPanel: detailPanel
   }
 
+  const closeDialog = (): void => {
+    if (dialogMessage !== '') {
+      setDialogMessage('')
+    }
+  }
+
   return (
     <div className={styles['messages-list']}>
+      <CustomDialog
+        isOpen={dialogMessage.length > 0}
+        header={'Generate interactions'}
+        cancelBtnText={'OK'}
+        // TODO: fix issue on next line
+        // deepscan-disable-next-line
+        onClose={(): void => closeDialog()}
+        content={dialogMessage}
+      />
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
+        &nbsp;
+        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
       </div>
 
       <MaterialTable
@@ -336,12 +364,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       />
     </div>
   )
-
-  // return (
-  //   <div className={styles['messages-list']}>
-  //     <Orders title='Adjudication' detailPanelFnc={detailPanel} columns={columns} rows={rows} />
-  //   </div>
-  // )
 }
 
 export default AdjudicationMessagesList
