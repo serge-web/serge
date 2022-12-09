@@ -15,7 +15,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose, scrollPosition
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -243,11 +243,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     detailPanel: detailPanel
   }
 
-  const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
-    scrollPosition && scrollPosition(event.currentTarget.scrollTop)
-  }
   return (
-    <div onScroll={handleScroll} className={styles['messages-list']} style={{ zIndex: 9 }}>
+    <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
         columns={columns}

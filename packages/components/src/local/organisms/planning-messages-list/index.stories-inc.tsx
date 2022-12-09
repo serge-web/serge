@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
@@ -61,7 +61,6 @@ const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometr
 const Template: Story<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
-  const scrollPossitionRef = useRef<any>(null)
 
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
@@ -99,14 +98,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
     return customiseAssets(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
   }
 
-  const scrollPosition = (val: number) => {
-    scrollPossitionRef.current = val
-  }
-
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(planningMessages)
   return <PlanningMessagesList
-    scrollPosition={scrollPosition}
     selectedRoleName={blueRole.name}
     selectedForce={selectedForce}
     currentTurn={currentTurn}

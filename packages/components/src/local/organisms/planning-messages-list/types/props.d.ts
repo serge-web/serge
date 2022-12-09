@@ -61,7 +61,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   postBack?: { (details: MessageDetails, message: any): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
-  scrollPosition?: (editMessage: number) => void
 
   selectedForce?: ForceData
   selectedRoleName: string
@@ -84,10 +83,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** callback for the location of a document being edited */
   editLocation?: LocationEditCallbackHandler
-  saveCachedPlanningMessageValue?: (editMessage: any, messageOption: string) => void
-  getCachedPlanningMessageValue?: (value: string) => string
-  clearCachedPlanningMessage?: (data: string[]) => void
-
   /**
    *  the range of planning activities for each force
    */
