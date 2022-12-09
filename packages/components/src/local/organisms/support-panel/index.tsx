@@ -40,7 +40,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   adjudicationTemplate,
   mapPostBack,
   saveMessage,
-  saveDraftMessage,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
@@ -74,7 +73,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
-  const [updatePllaningList, setUpdatePllaningList] = useState<boolean>(false)
 
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
@@ -188,22 +186,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setLocalDraftMessage(undefined)
   }
 
-  const postBackDraft = (message: MessagePlanning, draftMessage: any): void => {
-    // do we have any pending geometry
-    if (pendingLocationData.length > 0) {
-      const plan = draftMessage as MessagePlanning
-      console.log('injecting geometry', plan.message.locationm, pendingLocationData)
-    }
-
-    const activity: MessageSentInteraction = {
-      aType: MESSAGE_SENT_INTERACTION
-    }
-    saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-    saveDraftMessage(currentWargame, message, draftMessage)()
-    // also clear local one
-    setLocalDraftMessage(undefined)
-  }
-
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
     onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
   }
@@ -307,15 +289,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
-  const scrollPosition = (val: number) => {
-    if (val < PLANNING_MESSAGE_UPDATE_SIZE) {
-      setUpdatePllaningList(true)
-    } else if (val > PLANNING_MESSAGE_UPDATE_SIZE) {
-      setUpdatePllaningList(false)
-    }
-    scrollPossitionRef.current = val
-  }
-
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -356,7 +329,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
-                    scrollPosition={scrollPosition}
                     scrollSize={scrollPossitionRef.current}
                     allowUpdate={PLANNING_MESSAGE_UPDATE_SIZE}
                     isUmpire={!!selectedForce.umpire}
@@ -374,7 +346,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     customiseTemplate={localCustomiseTemplate}
                     selectedOrders={selectedOrders}
                     setSelectedOrders={setSelectedOrders}
-                    postBackDraft={postBackDraft}
                     postBack={postBack}
                     turnFilter={turnFilter}
                     editLocation={editLocation}
@@ -471,7 +442,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   ), [
     isShowPanel,
     activeTab,
-    updatePllaningList,
     allForces,
     filteredPlanningMessages,
     filteredInteractionMessages,

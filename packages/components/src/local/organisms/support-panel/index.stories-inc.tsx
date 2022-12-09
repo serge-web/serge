@@ -91,12 +91,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     }
   }
 
-  const saveDraftMessage = (dbName: string, message: MessagePlanning, draftMessage: any) => {
-    return async (): Promise<void> => {
-      console.log('dbName: ', dbName, ', message: ', message, ', draftmessage: ', draftMessage)
-    }
-  }
-
   const force = forces.find((value: ForceData) => value.uniqid === forceStr)
   if (!force) {
     throw Error('can\'t find force')
@@ -135,7 +129,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     currentTurn={P9BMock.gameTurn}
     dispatch={noop}
     saveMessage={saveMessage}
-    saveDraftMessage={saveDraftMessage}
     saveNewActivityTimeMessage={() => (): void => { console.log('save activity') }}
     selectedRoleId={roleVal.roleId}
     selectedRoleName={roleVal.name}

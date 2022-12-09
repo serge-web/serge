@@ -4,7 +4,7 @@ import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedAc
 import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { useEffect, useLayoutEffect, useRef, useState, memo } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -15,30 +15,57 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose, scrollPosition, postBackDraft
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose, scrollPosition
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
-  const tableRef: any = useRef()
   const messageValue = useRef<any>(null)
-
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
+  const roles: string[] = []
   useEffect(() => {
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
-    setMyMessages(myRoleMessages)
+
+    if (myMessages.length === 0) {
+      setMyMessages(myRoleMessages)
+    } else {
+      const newMessage = myRoleMessages[0]
+      if (newMessage) {
+        const row = addRow(newMessage)
+        setRows([...rows, row])
+      }
+    }
   }, [messages, playerForceId, onlyShowMyOrders, playerRoleId])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
     return value ? moment(value).format('DDHHmm[Z]') : ''
+  }
+
+  const addRow = (message: MessagePlanning): OrderRow => {
+    const author = message.details.from.roleName
+    if (!roles.includes(author)) {
+      roles.push(author)
+    }
+    const plan = message.message as PlanningMessageStructureCore
+
+    const row: OrderRow = {
+      id: message._id,
+      reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
+      title: plan.title,
+      role: author,
+      activity: trimActivity(playerForceId, plan.activity),
+      startDate: shortDate(plan.startDate),
+      endDate: shortDate(plan.endDate)
+    }
+    return row
   }
 
   const trimActivity = (forceId: string, activity?: string): string => {
@@ -51,25 +78,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   useLayoutEffect(() => {
-    const roles: string[] = []
-
     const dataTable: OrderRow[] = myMessages.map((message) => {
-      const author = message.details.from.roleName
-      if (!roles.includes(author)) {
-        roles.push(author)
-      }
-      const plan = message.message as PlanningMessageStructureCore
-
-      const row: OrderRow = {
-        id: message._id,
-        reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
-        title: plan.title,
-        role: author,
-        activity: trimActivity(playerForceId, plan.activity),
-        startDate: shortDate(plan.startDate),
-        endDate: shortDate(plan.endDate)
-      }
-      return row
+      return addRow(message)
     })
     setRows(dataTable)
 
@@ -128,12 +138,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
       if (message && template) {
         const pendingLocationData: Array<PlannedActivityGeometry[]> = []
-        const saveDraftMessage = () => {
-          if (messageValue.current) {
-            if (messageValue.current.content === '') return
-            postBackDraft && postBackDraft(message, messageValue.current)
-          }
-        }
 
         const saveMessage = () => {
           if (messageValue.current) {
@@ -194,8 +198,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }, [])
           return <></>
         }
+        const editorRightValue = message.message ? message.message : undefined
 
-        const editorRightValue = message.draftMessage && canEdit ? message.draftMessage : message.message
         return <>
 
           <DetailPanelStateListener />
@@ -207,7 +211,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           <JsonEditor
             messageContent={editorRightValue}
             viewSaveButton={true}
-            draftMessage={saveDraftMessage}
             saveMessage={saveMessage}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
@@ -247,7 +250,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     <div onScroll={handleScroll} className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
-        tableRef={tableRef}
         columns={columns}
         data={rows}
         icons={materialIcons}
@@ -282,14 +284,4 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   )
 }
 
-const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => {
-  if (nextProps.scrollSize >= prevProps.allowUpdate) {
-    return true
-  } else if (nextProps.messages[0].draftMessage) {
-    return true
-  } else {
-    return false
-  }
-}
-
-export default memo(PlanningMessagesList, areEqual)
+export default PlanningMessagesList

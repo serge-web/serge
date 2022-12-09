@@ -59,7 +59,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
-  postBackDraft?:{ (message: MessagePlanning, draftMessage: any): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
   scrollPosition?: (editMessage: number) => void

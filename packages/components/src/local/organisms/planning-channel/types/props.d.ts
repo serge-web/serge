@@ -33,7 +33,7 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
-  saveDraftMessages: (dbName: string, message: MessagePlanning, draftMessage: any) => {(): void}
+
   /**
    * The method for posting messages out of the mapping components. They have
    * special handlers since the message may involve making changes to the forces
