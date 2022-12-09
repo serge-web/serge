@@ -31,6 +31,7 @@ import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import Ruler from './helpers/Ruler'
+import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
@@ -172,26 +173,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const activities = plan.message.location
         if (activities) {
           activities.forEach((act) => {
-            const geom = act.geometry.geometry as any
-            if (geom.coordinates) {
-              const coords = geom.coordinates as Array<[number, number]>
-              coords.forEach((value: [number, number]) => {
-                const pos = L.latLng(value[0], value[1])
-                if (!workingBounds) {
-                  workingBounds = L.latLngBounds(pos, pos)
-                } else {
-                  workingBounds = workingBounds.extend(pos)
-                }
-              })
-            } else if (geom.coordinate) {
-              const value = geom.coordinate as [number, number]
-              const pos = L.latLng(value[0], value[1])
-              if (!workingBounds) {
-                workingBounds = L.latLngBounds(pos, pos)
-              } else {
-                workingBounds = workingBounds.extend(pos)
-              }
-            }
+            workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
           })
         }
       }
