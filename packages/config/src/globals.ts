@@ -188,4 +188,3 @@ export const CONTROL_ALL = 'control-all:'
 export const UNSENT_PRIVATE_MESSAGE_TYPE = 'private'
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
-export const PLANNING_MESSAGE_UPDATE_SIZE = 170
