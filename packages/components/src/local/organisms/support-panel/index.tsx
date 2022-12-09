@@ -6,7 +6,7 @@ import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/he
 import cx from 'classnames'
 import { noop } from 'lodash'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useMemo, useState, useRef } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -24,7 +24,6 @@ import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
-export const PLANNING_MESSAGE_UPDATE_SIZE = 120
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
@@ -82,7 +81,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const scrollPossitionRef = useRef<any>(null)
   const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
@@ -329,8 +327,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     gameDate={gameDate}
                     playerForceId={selectedForce.uniqid}
                     playerRoleId={selectedRoleId}
-                    scrollSize={scrollPossitionRef.current}
-                    allowUpdate={PLANNING_MESSAGE_UPDATE_SIZE}
                     isUmpire={!!selectedForce.umpire}
                     turnPresentation={turnPresentation}
                     selectedForce={selectedForce}

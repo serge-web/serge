@@ -63,8 +63,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
   scrollPosition?: (editMessage: number) => void
 
-  scrollSize: number
-  allowUpdate: number
   selectedForce?: ForceData
   selectedRoleName: string
   currentTurn: number

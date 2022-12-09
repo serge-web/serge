@@ -1,5 +1,5 @@
 /* global it expect */
-import { PLANNING_MESSAGE, PLANNING_MESSAGE_UPDATE_SIZE } from '@serge/config'
+import { PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
@@ -48,7 +48,7 @@ describe('ChannelMessagesList component: ', () => {
     console.log('blueRole.name', blueRole)
 
     const tree = renderer
-      .create(<PlanningMessagesList allowUpdate={PLANNING_MESSAGE_UPDATE_SIZE} scrollSize={PLANNING_MESSAGE_UPDATE_SIZE} selectedForce={blueForce} selectedRoleName={blueRole.name} currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
+      .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name} currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} editLocation={noop} onMarkAllAsRead={markAllAsRead} />)

@@ -32,7 +32,7 @@ export class DbProvider implements DbProviderInterface {
       // we use a special name for the wargame document
       const specialFiles = [wargameSettings]
       // have we just received this message?
-      if (!specialFiles.includes(data._id) && (this.message_ID === data._id) && !data.draftMessage) {
+      if (!specialFiles.includes(data._id) && (this.message_ID === data._id)) {
         // yes. warn maintainer but don't propagate message
         console.warn('duplicate message, skipping', data._id)
         // yes - stop listening on this socket

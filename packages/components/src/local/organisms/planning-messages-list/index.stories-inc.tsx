@@ -3,7 +3,7 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState, useRef } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE, PLANNING_MESSAGE_UPDATE_SIZE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
 import { mostRecentPlanningOnly } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
@@ -107,8 +107,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const newestMessages = mostRecentPlanningOnly(planningMessages)
   return <PlanningMessagesList
     scrollPosition={scrollPosition}
-    allowUpdate={scrollPossitionRef.current}
-    scrollSize={PLANNING_MESSAGE_UPDATE_SIZE}
     selectedRoleName={blueRole.name}
     selectedForce={selectedForce}
     currentTurn={currentTurn}
