@@ -15,7 +15,6 @@ import setupEditor from './helpers/setupEditor'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
-const EDIT_BUTTON = 'edit'
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
   messageId,
@@ -65,24 +64,18 @@ export const JsonEditor: React.FC<Props> = ({
     storeNewValue && storeNewValue(newDoc)
   }
 
-  const genLocalStorageId = (edit?: string): string => {
+  const genLocalStorageId = () => {
     if (!template._id) {
       console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
     }
 
-    if (edit) {
-      // get the key
-      // get more information about the status of an edited but unsent message
-      return `${edit}-${genLocalStorageId()}`
-    } else {
-      return memoryName
-    }
+    return memoryName
   }
 
   const OnSave = () => {
     saveMessage && saveMessage()
     setBeingEdited(false)
-    const data: string[] = [genLocalStorageId(), genLocalStorageId(EDIT_BUTTON)]
+    const data: string[] = [genLocalStorageId()]
     data.forEach((removeType) => {
       return expiredStorage.removeItem(removeType)
     })
@@ -98,7 +91,6 @@ export const JsonEditor: React.FC<Props> = ({
       expiredStorage.removeItem(genLocalStorageId())
       initEditor()
     }
-    expiredStorage.removeItem(genLocalStorageId(EDIT_BUTTON))
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }
