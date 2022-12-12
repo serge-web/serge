@@ -14,6 +14,7 @@ describe('ChannelMessageDetail:', () => {
         template={template}
         messageId={`${message._id}_${message.message.Reference}`}
         disabled={true}
+        chacheMessage={false}
         gameDate={WargameMock.data.overview.gameDate}
       />)
       .toJSON()

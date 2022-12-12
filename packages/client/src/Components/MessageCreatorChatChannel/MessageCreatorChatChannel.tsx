@@ -51,6 +51,7 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
       }}
       clearCachedName={setClearName}
       cachedName={clearName}
+      chacheMessage={true}
       messageId={state.chatChannel.name}
       formClassName={'form-group message-creator'}
       title={'Response'}

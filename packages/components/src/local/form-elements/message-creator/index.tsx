@@ -194,6 +194,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         formClassName={'form-group message-creator'}
         title={messageOption}
         cachedName={clearName}
+        chacheMessage={true}
         storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}

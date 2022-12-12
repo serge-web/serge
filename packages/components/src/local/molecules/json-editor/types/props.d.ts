@@ -27,6 +27,7 @@ export default interface Props {
   clearCachedName?: React.Dispatch<string>
   saveMessage?: () => void
   confirmCancel?: boolean
+  chacheMessage?: boolean
   /**
    * whether the form is editable (disable for read-only view)
    */
