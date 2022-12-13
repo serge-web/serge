@@ -31,6 +31,7 @@ import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
 import Ruler from './helpers/Ruler'
+import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
@@ -171,26 +172,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const activities = plan.message.location
         if (activities) {
           activities.forEach((act) => {
-            const geom = act.geometry.geometry as any
-            if (geom.coordinates) {
-              const coords = geom.coordinates as Array<[number, number]>
-              coords.forEach((value: [number, number]) => {
-                const pos = L.latLng(value[0], value[1])
-                if (!workingBounds) {
-                  workingBounds = L.latLngBounds(pos, pos)
-                } else {
-                  workingBounds = workingBounds.extend(pos)
-                }
-              })
-            } else if (geom.coordinate) {
-              const value = geom.coordinate as [number, number]
-              const pos = L.latLng(value[0], value[1])
-              if (!workingBounds) {
-                workingBounds = L.latLngBounds(pos, pos)
-              } else {
-                workingBounds = workingBounds.extend(pos)
-              }
-            }
+            workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
           })
         }
       }
@@ -603,10 +585,20 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                {allOwnAssets.length !== ownAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+                {allOwnAssets.length === ownAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
               </LayerGroup>
               <LayerGroup key={'sel-opp-forces'}>
-                <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                {allOppAssets.length !== opAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+                {allOppAssets.length === opAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
               </LayerGroup>
             </Fragment>
             <Fragment key='currentObjects'>
@@ -625,7 +617,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents])
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+    currentAssetIds, currentOrders])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',

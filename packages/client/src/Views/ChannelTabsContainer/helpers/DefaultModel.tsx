@@ -1,5 +1,5 @@
-import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../../consts'
 import { ChannelTypes } from '@serge/custom-types'
+import { FLEX_LAYOUT_MODEL_DEFAULT } from '../../../consts'
 
 export const setDefaultModel = (allChannels: ChannelTypes[]) => {
   const hasMap = allChannels.find(({ name }) => name.toLowerCase() === 'mapping')
@@ -25,7 +25,9 @@ export const setDefaultModel = (allChannels: ChannelTypes[]) => {
   }
   
   const chunks = [...allChannels]
-  const chunkSize = 2
+  // note: switch chunkSize to 2, to start off with two stacks of channels,
+  // note: which is useful with lots of channels
+  const chunkSize = allChannels.length > 6 ? 2 : 1
   const firstSet = chunks.splice(0, Math.round(chunks.length / chunkSize))
   const tabChildren = (id: Number) => {
     const collections = id === 0 ? firstSet : chunks

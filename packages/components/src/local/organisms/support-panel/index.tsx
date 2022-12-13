@@ -448,6 +448,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     selectedRoleId,
     turnFilter,
     draftMessage,
+    selectedOrders,
     platformTypes,
     planningMessages,
     localDraftMessage

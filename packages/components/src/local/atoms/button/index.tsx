@@ -1,11 +1,12 @@
-import React from 'react'
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles'
 import MaterialButton from '@material-ui/core/Button'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import AddIcon from '@material-ui/icons/Add'
-import SaveIcon from '@material-ui/icons/Save'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 import CopyIcon from '@material-ui/icons/FileCopy'
+import FunctionsIcon from '@material-ui/icons/Functions'
+import SaveIcon from '@material-ui/icons/Save'
+import React from 'react'
 
 /* Import Types */
 import { Props } from './types/props'
@@ -59,7 +60,8 @@ const iconsMap = {
   save: <SaveIcon />,
   delete: <DeleteIcon />,
   edit: <EditIcon />,
-  copy: <CopyIcon />
+  copy: <CopyIcon />,
+  functions: <FunctionsIcon/>
 }
 
 export const Button: React.FC<Props> = ({ customColor, icon, children, customVariant, ...props }: Props) => {
