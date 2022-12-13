@@ -7,16 +7,16 @@ import docs from './README.md'
 
 // Import mock
 import {
-  messageDataCollaborativeEditing, messageDataCollaborativeResponding,
-  MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
-  planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
+    messageDataCollaborativeEditing, messageDataCollaborativeResponding,
+    MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
+    planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
 } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
 import {
-  Asset, MessageInfoTypeClipped, MessageInteraction,
-  MessagePlanning, MessageStructure
+    Asset, MessageInfoTypeClipped, MessageInteraction,
+    MessagePlanning, MessageStructure
 } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import moment from 'moment'
@@ -86,7 +86,7 @@ Standard.args = {
   messageId: 'id_1',
   template: template,
   disabled: false,
-  chacheMessage: false,
+  cacheMessage: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
@@ -96,7 +96,7 @@ Response.args = {
   messageContent: messageDataCollaborativeResponding[0].message,
   messageId: 'id_2ß',
   disabled: false,
-  chacheMessage: false,
+  cacheMessage: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
@@ -105,7 +105,7 @@ MessageCreator.args = {
   template: templateMessageCreator,
   messageId: 'id_2ß',
   disabled: false,
-  chacheMessage: false,
+  cacheMessage: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 

@@ -28,7 +28,7 @@ export const JsonEditor: React.FC<Props> = ({
   disabled = false,
   expandHeight = true,
   gameDate,
-  chacheMessage = false,
+  cacheMessage = false,
   disableArrayToolsWithEditor = true,
   cachedName,
   clearCachedName,
@@ -129,7 +129,7 @@ export const JsonEditor: React.FC<Props> = ({
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        chacheMessage && expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+        cacheMessage && expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
       }
     }
 
