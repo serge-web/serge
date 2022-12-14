@@ -9,7 +9,7 @@ import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import { Confirm } from '../../atoms/confirm'
 import Props from './types/props'
 
-import { expiredStorage } from '@serge/config'
+import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '@serge/config'
 import { Button } from '../../atoms/button'
 import setupEditor from './helpers/setupEditor'
 
@@ -129,7 +129,7 @@ export const JsonEditor: React.FC<Props> = ({
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        cacheMessage && expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
+        cacheMessage && expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue), LOCAL_STORAGE_TIMEOUT)
       }
     }
 
@@ -222,7 +222,7 @@ export const JsonEditor: React.FC<Props> = ({
       } else {
         setBeingEdited(false)
         initEditor()
-        if(!cacheMessage) expiredStorage.removeItem(genLocalStorageId())
+        if (!cacheMessage) expiredStorage.removeItem(genLocalStorageId())
       }
     }
 
