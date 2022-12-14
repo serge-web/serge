@@ -1,12 +1,11 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
-import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
+import { toRow, toColumn } from './helpers/genData'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import styles from './styles.module.scss'
@@ -27,7 +26,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
-  const roles: string[] = []
   useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
     if (myMessages.length === 0) {
@@ -35,7 +33,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     } else {
       const newMessage = myForceMessages[0]
       if (newMessage) {
-        const row = toRow(newMessage)
+        const row = toRow(newMessage, playerForceId)
         setRows([...rows, row])
       }
     }
@@ -48,72 +46,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setMyMessages(myRoleMessages)
   }, [onlyShowMyOrders])
 
-  /** custom date formatter, for compact date/time display */
-  const shortDate = (value?: string): string => {
-    return value ? moment(value).format('DDHHmm[Z]') : ''
-  }
-
-  const toRow = (message: MessagePlanning): OrderRow => {
-    const author = message.details.from.roleName
-    if (!roles.includes(author)) {
-      roles.push(author)
-    }
-    const plan = message.message as PlanningMessageStructureCore
-
-    const row: OrderRow = {
-      id: message._id,
-      reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
-      title: plan.title,
-      role: author,
-      activity: trimActivity(playerForceId, plan.activity),
-      startDate: shortDate(plan.startDate),
-      endDate: shortDate(plan.endDate)
-    }
-    return row
-  }
-
-  const trimActivity = (forceId: string, activity?: string): string => {
-    if (!activity) {
-      return 'N/A'
-    } else {
-      const len = forceId.length
-      return activity.slice(len + 1)
-    }
-  }
-
   useLayoutEffect(() => {
     const dataTable: OrderRow[] = myMessages.map((message) => {
-      return toRow(message)
+      return toRow(message, playerForceId)
     })
     setRows(dataTable)
 
-    // fix unit-test for MaterialTable
-    const jestWorkerId = process.env.JEST_WORKER_ID
-    // end
-
-    const activities = collateActivities(myMessages)
-    const trimmedActivities = activities.map((item) => trimActivity(playerForceId, item))
-
-    const smallPadding: React.CSSProperties = {
-      paddingLeft: '10px',
-      paddingRight: '10px'
-    }
-
-    const narrowCell: React.CSSProperties = {
-      ...smallPadding, width: '80px'
-    }
-    const mediumCell: React.CSSProperties = {
-      ...smallPadding, width: '120px'
-    }
-
-    const columnData: Column[] = jestWorkerId ? [] : [
-      { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell },
-      { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
-      { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
-      { title: 'Activity', field: 'activity', lookup: arrToDict(trimmedActivities), cellStyle: smallPadding, headerStyle: smallPadding },
-      { title: 'Start Date', field: 'startDate', cellStyle: narrowCell, headerStyle: narrowCell },
-      { title: 'Finish Date', field: 'endDate', cellStyle: narrowCell, headerStyle: narrowCell }
-    ]
+    const columnData = toColumn(myMessages, playerForceId)
 
     if (columns.length === 0) {
       setColumns(columnData)
