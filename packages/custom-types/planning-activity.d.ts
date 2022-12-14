@@ -64,6 +64,10 @@ export interface PlannedProps {
   id: string
   startDate: string
   endDate: string
+  // id of the Planning Activity Geometry that this element refers to
+  geomId: string
+  // human-readable summary of metadata, for popup 
+  name: string
   // unix epoch, for quicker date comparison
   startTime: number
   // unix epoch, for quicker date comparison

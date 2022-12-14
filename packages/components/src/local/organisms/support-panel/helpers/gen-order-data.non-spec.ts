@@ -172,7 +172,9 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
     endDate: timeFinish,
     force: ownForce,
     startTime: moment(timeStart).valueOf(),
-    endTime: moment(timeFinish).valueOf()
+    endTime: moment(timeFinish).valueOf(),
+    geomId: geometry.uniqid,
+    name: ownForce + '//' + seedIn + '//' + geometry.name
   }
   switch (geometry.aType) {
     case GeometryType.point: {
