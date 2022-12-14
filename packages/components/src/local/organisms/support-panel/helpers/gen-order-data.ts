@@ -931,9 +931,22 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanOverlap(mePoly, turfPoly))
+          // if one contains the other, overlap doesn't work
+          const overlaps = turf.booleanOverlap(mePoly, turfPoly)
+          const aContainsB = turf.booleanContains(mePoly, turfPoly)
+          const bContainsA = turf.booleanContains(turfPoly, mePoly)
+          res = overlaps || aContainsB || bContainsA
           if (res) {
-            const intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+            let intersects
+            // if they overlap, then intersect returns intersecting region
+            // but, if one contains the other, the `other` represents the intersection
+            if (overlaps) {
+              intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+            } else if (aContainsB) {
+              intersects = turfPoly
+            } else {
+              intersects = mePoly
+            }
             if (!intersects) {
               throw Error('One method reported overlap, the other didn\'t')
             }
