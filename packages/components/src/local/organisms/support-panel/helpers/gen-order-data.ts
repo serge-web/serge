@@ -172,7 +172,9 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
     endDate: timeFinish,
     force: ownForce,
     startTime: moment(timeStart).valueOf(),
-    endTime: moment(timeFinish).valueOf()
+    endTime: moment(timeFinish).valueOf(),
+    geomId: geometry.uniqid,
+    name: ownForce + '//' + seedIn + '//' + geometry.name
   }
   switch (geometry.aType) {
     case GeometryType.point: {
@@ -476,9 +478,21 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
-        newItem.geometry.properties.name = message.details.from.force + '//' + message.message.title + '//' + activity
-        newItem.geometry.properties.geomId = plan.uniqid
-        newItem.geometry.properties.force = forceId
+        const props = newItem.geometry.properties as PlannedProps
+        props.name = message.details.from.force + '//' + message.message.title + '//' + activity
+        props.geomId = plan.uniqid
+        props.force = forceId
+        // fill in date/time, if not present
+        if (!props.startDate) {
+          if (message.message.startDate) {
+            props.startDate = message.message.startDate
+            props.startTime = moment(props.startDate).valueOf()
+          }
+          if (message.message.endDate) {
+            props.endDate = message.message.endDate
+            props.endTime = moment(props.endDate).valueOf()
+          }
+        }
         res.push(newItem)
       })
     }
@@ -615,7 +629,9 @@ export const findPlannedGeometries = (orders: GeomWithOrders[], time: number, wi
   const timeEnd = moment(time).add(windowMins, 'm')
   const inWindow = orders.filter((value: GeomWithOrders) => {
     const props = value.geometry.properties as PlannedProps
-    return moment(props.startDate).isSameOrBefore(timeEnd) && moment(props.endDate).isSameOrAfter(timeStart)
+    const geomStart = props.startDate ? moment(props.startDate) : moment(props.startTime)
+    const geomEnd = props.endDate ? moment(props.endDate) : moment(props.startTime)
+    return geomStart.isSameOrBefore(timeEnd) && geomEnd.isSameOrAfter(timeStart)
   })
   return deepCopy(inWindow)
 }
