@@ -715,7 +715,9 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
         case 'Polygon': {
           const coords2 = fixPoly(coords)
           const thisPoly = turf.polygon(coords2 as any)
-          if (turf.booleanOverlap(poly, thisPoly)) {
+          // note: overlap return false if one contains the other, so also
+          // note: check for one containing the other
+          if (turf.booleanOverlap(poly, thisPoly) || turf.booleanContains(poly, thisPoly) || turf.booleanContains(thisPoly, poly)) {
             thisBin.orders.push(order)
           }
           break
