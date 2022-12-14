@@ -1,4 +1,4 @@
-import JSONEditor from '@json-editor/json-editor'
+import { JSONEditor } from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 import { RefObject } from 'react'
 import { configDateTimeCustomValidation } from './jsonValidation'
