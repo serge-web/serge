@@ -103,15 +103,16 @@ const tEnd = (geom: Feature<Geometry>): string => {
 export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, getAll?: boolean): PlanningContact[] => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
-  const trimmedOrders = getAll ? orders : ordersOverlappingTime(orders, earliestTime)
 
   // console.log('earliest time', moment(earliestTime).toISOString())
   // console.table(trimmedOrders.map((inter) => {
   //   return {id: inter._id, start: inter.message.startDate, end: inter.message.endDate, force: inter.details.from.forceId}
   // }))
 
-  const newGeometries = invertMessages(trimmedOrders, activities)
+  const newGeometries = invertMessages(orders, activities)
   const withTimes = injectTimes(newGeometries)
+
+  // console.log('geoms', orders, newGeometries, withTimes)
 
   const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
 
