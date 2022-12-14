@@ -35,7 +35,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     } else {
       const newMessage = myForceMessages[0]
       if (newMessage) {
-        const row = addRow(newMessage)
+        const row = toRow(newMessage)
         setRows([...rows, row])
       }
     }
@@ -53,7 +53,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     return value ? moment(value).format('DDHHmm[Z]') : ''
   }
 
-  const addRow = (message: MessagePlanning): OrderRow => {
+  const toRow = (message: MessagePlanning): OrderRow => {
     const author = message.details.from.roleName
     if (!roles.includes(author)) {
       roles.push(author)
@@ -83,7 +83,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useLayoutEffect(() => {
     const dataTable: OrderRow[] = myMessages.map((message) => {
-      return addRow(message)
+      return toRow(message)
     })
     setRows(dataTable)
 
