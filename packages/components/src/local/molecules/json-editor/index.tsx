@@ -222,6 +222,7 @@ export const JsonEditor: React.FC<Props> = ({
       } else {
         setBeingEdited(false)
         initEditor()
+        if(!cacheMessage) expiredStorage.removeItem(genLocalStorageId())
       }
     }
 
