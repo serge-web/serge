@@ -7,16 +7,16 @@ import docs from './README.md'
 
 // Import mock
 import {
-    messageDataCollaborativeEditing, messageDataCollaborativeResponding,
-    MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
-    planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
+  messageDataCollaborativeEditing, messageDataCollaborativeResponding,
+  MessageTemplatesMoskByTitle, MockPerForceActivities, MockPlanningActivities, P9BMock,
+  planningMessages as planningChannelMessages, planningMessageTemplatesMock, WargameMock
 } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 
 import { PLANNING_MESSAGE } from '@serge/config'
 import {
-    Asset, MessageInfoTypeClipped, MessageInteraction,
-    MessagePlanning, MessageStructure
+  Asset, MessageInfoTypeClipped, MessageInteraction,
+  MessagePlanning, MessageStructure
 } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import moment from 'moment'

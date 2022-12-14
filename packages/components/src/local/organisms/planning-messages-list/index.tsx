@@ -29,20 +29,24 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const roles: string[] = []
   useEffect(() => {
-    const showOrdersForAllRoles = !onlyShowMyOrders
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
-    const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
-
     if (myMessages.length === 0) {
-      setMyMessages(myRoleMessages)
+      setMyMessages(myForceMessages)
     } else {
-      const newMessage = myRoleMessages[0]
+      const newMessage = myForceMessages[0]
       if (newMessage) {
         const row = addRow(newMessage)
         setRows([...rows, row])
       }
     }
-  }, [messages, playerForceId, onlyShowMyOrders, playerRoleId])
+  }, [messages, playerForceId, playerRoleId])
+
+  useEffect(() => {
+    const showOrdersForAllRoles = !onlyShowMyOrders
+    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
+    const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
+    setMyMessages(myRoleMessages)
+  }, [onlyShowMyOrders])
 
   /** custom date formatter, for compact date/time display */
   const shortDate = (value?: string): string => {
