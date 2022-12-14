@@ -3,7 +3,7 @@ import { ForceData, InteractionDetails, MessageAdjudicationOutcomes, MessageDeta
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
-import { findPlannedGeometries, findTouching, injectTimes, invertMessages, ordersOverlappingTime, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -141,14 +141,13 @@ export const getNextInteraction = (orders: MessagePlanning[],
   let interactionWindow = getAll ? diffMins : Math.max(diffMins / 10, 60)
   const contacts: PlanningContact[] = []
 
-  console.log('inter window', interactionWindow, diffMins, moment(earliestTime).toISOString(), moment(latestTime).toISOString())
+  // console.log('inter window', interactionWindow, diffMins, moment(earliestTime).toISOString(), moment(latestTime).toISOString())
 
   while (contacts.length === 0 && interactionWindow <= diffMins) {
     const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, interactionWindow)
 
-    //    console.log('geoms', trimmedOrders.length, trimmedGeoms.length, geometriesInTimeWindow.length)
-
-    console.log('real geoms in window.', moment(earliestTime).toISOString(), ' windows size (mins):', interactionWindow, 'matching geoms:', geometriesInTimeWindow.length)
+    const timeEnd = moment(earliestTime).add(interactionWindow, 'm')
+    console.log('geoms in this window:', moment(earliestTime).toISOString(), timeEnd.toISOString(), ' windows size (mins):', interactionWindow, 'matching geoms:', geometriesInTimeWindow.length)
     //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
 
     // now do spatial binning
@@ -166,8 +165,7 @@ export const getNextInteraction = (orders: MessagePlanning[],
     const interactionsTested: Record<string, PlanningContact | null> = {}
 
     binnedOrders.forEach((bin: SpatialBin, _index: number) => {
-      console.log('process bin', _index, contacts.length)
-      // console.log('checking bin', bin)
+      // console.log('process bin', _index, bin.orders.length, contacts.length)
       const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
         interactionsTested, sensorRangeKm)
       contacts.push(...newContacts)
