@@ -33,8 +33,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     } else {
       const newMessage = myForceMessages[0]
       if (newMessage) {
-        const row = toRow(newMessage, playerForceId)
-        setRows([...rows, row])
+          //remove the previous object of the save message
+          const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
+          const row = toRow(newMessage, playerForceId)
+          //push a new row
+          setRows([...filterSaveMessage, row])
       }
     }
   }, [messages, playerForceId, playerRoleId])
