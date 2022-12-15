@@ -48,7 +48,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     setMyMessages(myRoleMessages)
   }, [onlyShowMyOrders])
-
+  
+  // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message, playerForceId)
