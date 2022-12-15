@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import jsonMetaSchema from './data.json'
-import { JSONEditor } from '@json-editor/json-editor'
+import JSONEditor from '@json-editor/json-editor'
 import Editor from './jsonEditor'
 import Preview from './editorPreview'
 import '@fortawesome/fontawesome-free/css/all.css'
@@ -11,8 +11,8 @@ class SchemaEditor extends Component {
   constructor (props, content) {
     super(props, content)
 
-    JSONEditor.defaults.options.iconlib = 'fontawesome5'
-    JSONEditor.defaults.options.theme = 'bootstrap4'
+    JSONEditor.JSONEditor.defaults.options.iconlib = 'fontawesome5'
+    JSONEditor.JSONEditor.defaults.options.theme = 'bootstrap4'
     this.updateMetaSchema = this.updateMetaSchema.bind(this)
     this.updatePreviewSchema = this.updatePreviewSchema.bind(this)
     this.updateOptions = this.updateOptions.bind(this)
