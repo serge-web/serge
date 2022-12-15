@@ -76,10 +76,7 @@ export const JsonEditor: React.FC<Props> = ({
   const OnSave = () => {
     saveMessage && saveMessage()
     setBeingEdited(false)
-    const data: string[] = [genLocalStorageId()]
-    data.forEach((removeType) => {
-      return expiredStorage.removeItem(removeType)
-    })
+    expiredStorage.removeItem(genLocalStorageId())
   }
 
   const onPopupCancel = (): void => {
