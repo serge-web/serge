@@ -34,23 +34,11 @@ const force = {
 const Template: Story<ChatPropTypes> = (args) => {
   const { from, role, roleName, isUmpire, channel } = args
 
-  const onChangePrivateStorage = (message: string): void => console.log('message:', message)
-
-  const onchangeChatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
-
-  const privatMessageValue = (privat: string): string => privat
-
-  const chatEntryFormValue = (chat: string): string => chat
-
   const postBack = (details: MessageDetails, message: any): void => {
     console.log('send message', details, message)
   }
 
   return <ChatEntryForm
-    chatEntryFormValue={chatEntryFormValue}
-    privatMessageValue={privatMessageValue}
-    onChangePrivateStorage={onChangePrivateStorage}
-    onchangeChatInputMessage={onchangeChatInputMessage}
     turnNumber={1}
     from={from}
     isUmpire={isUmpire}
