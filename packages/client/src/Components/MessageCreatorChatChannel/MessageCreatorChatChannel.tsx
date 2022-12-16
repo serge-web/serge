@@ -9,7 +9,6 @@ import Props from './types'
 
 const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactElement => {
   const [message, setMessage] = useState<any>({})
-  const [clearName, setClearName] = useState<string>('')
   const state = usePlayerUiState()
   const dispatch = useDispatch()
   const { selectedForce } = state
@@ -34,7 +33,6 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
 
       if (message.content === '') return
       saveMessage(state.currentWargame, messageDetails, message)()
-      setClearName(state.chatChannel.name)
       saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
     }
   }
@@ -49,9 +47,6 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
         details: schema,
         _id: state.selectedRole
       }}
-      clearCachedName={setClearName}
-      cachedName={clearName}
-      chacheMessage={true}
       messageId={state.chatChannel.name}
       formClassName={'form-group message-creator'}
       title={'Response'}

@@ -86,7 +86,6 @@ Standard.args = {
   messageId: 'id_1',
   template: template,
   disabled: false,
-  cacheMessage: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
@@ -96,7 +95,6 @@ Response.args = {
   messageContent: messageDataCollaborativeResponding[0].message,
   messageId: 'id_2ß',
   disabled: false,
-  cacheMessage: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 
@@ -105,7 +103,6 @@ MessageCreator.args = {
   template: templateMessageCreator,
   messageId: 'id_2ß',
   disabled: false,
-  cacheMessage: false,
   gameDate: WargameMock.data.overview.gameDate
 }
 

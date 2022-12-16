@@ -33,11 +33,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     } else {
       const newMessage = myForceMessages[0]
       if (newMessage) {
-          //remove the previous object of the save message
-          const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-          const row = toRow(newMessage, playerForceId)
-          //push a new row
-          setRows([...filterSaveMessage, row])
+        // remove the previous object of the save message
+        const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
+        const row = toRow(newMessage, playerForceId)
+        // push a new row
+        setRows([...filterSaveMessage, row])
       }
     }
   }, [messages, playerForceId, playerRoleId])
@@ -48,7 +48,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     setMyMessages(myRoleMessages)
   }, [onlyShowMyOrders])
-  
+
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
     const dataTable: OrderRow[] = myMessages.map((message) => {

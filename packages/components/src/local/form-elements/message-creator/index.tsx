@@ -102,8 +102,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setFormValue(undefined)
     postBack && postBack(details, formMessage)
     setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
-    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, mainMessageOption])
     onMessageSend && onMessageSend(e)
   }
 
@@ -194,7 +193,6 @@ const MessageCreator: React.FC<PropTypes> = ({
         formClassName={'form-group message-creator'}
         title={messageOption}
         cachedName={clearName}
-        cacheMessage={false}
         storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}

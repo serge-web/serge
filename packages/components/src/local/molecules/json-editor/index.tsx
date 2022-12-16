@@ -9,7 +9,6 @@ import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import { Confirm } from '../../atoms/confirm'
 import Props from './types/props'
 
-import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '@serge/config'
 import { Button } from '../../atoms/button'
 import setupEditor from './helpers/setupEditor'
 
@@ -28,7 +27,6 @@ export const JsonEditor: React.FC<Props> = ({
   disabled = false,
   expandHeight = true,
   gameDate,
-  cacheMessage = false,
   disableArrayToolsWithEditor = true,
   cachedName,
   clearCachedName,
@@ -55,7 +53,6 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
-  const memoryName = `${messageId}-${template._id}`
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
@@ -65,18 +62,9 @@ export const JsonEditor: React.FC<Props> = ({
     storeNewValue && storeNewValue(newDoc)
   }
 
-  const genLocalStorageId = () => {
-    if (!template._id) {
-      console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
-    }
-
-    return memoryName
-  }
-
   const OnSave = () => {
     saveMessage && saveMessage()
     setBeingEdited(false)
-    expiredStorage.removeItem(genLocalStorageId())
   }
 
   const onPopupCancel = (): void => {
@@ -86,7 +74,6 @@ export const JsonEditor: React.FC<Props> = ({
 
   const onPopupConfirm = (): void => {
     if (!viewSaveButton) {
-      expiredStorage.removeItem(genLocalStorageId())
       initEditor()
     }
     setConfirmIsOpen(false)
@@ -126,7 +113,6 @@ export const JsonEditor: React.FC<Props> = ({
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        cacheMessage && expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue), LOCAL_STORAGE_TIMEOUT)
       }
     }
 
@@ -152,33 +138,13 @@ export const JsonEditor: React.FC<Props> = ({
       }
     }
 
-    const handleClick = ({ target }: any): void => {
-      const storageData = expiredStorage.getItem(genLocalStorageId()) ? JSON.parse(expiredStorage.getItem(genLocalStorageId()) || '{}') : null
-      const targetId = target.getAttribute('id')
-      if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
-        if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
-          expiredStorage.removeItem(genLocalStorageId())
-          // remove click listener for unmounted component
-          document.removeEventListener('click', handleClick)
-        }
-      }
-    }
-
-    // add click listener for remove item in local storage
-    document.addEventListener('click', handleClick)
-
     // add keydown listener to be able to track input changes
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
       // only retrieve from expired content if we haven't been provided with message content
-      const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
-      if (messageJson && !messageContent) {
-        nextEditor.setValue(JSON.parse(messageJson))
-        nextEditor.on('change', changeListenter)
-      } else if (messageContent) {
-        const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
-        const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
+      if (messageContent) {
+        const modified = modifyForEdit ? modifyForEdit(messageContent) : messageContent
         nextEditor.setValue(modified)
         nextEditor.on('change', changeListenter)
       } else {
@@ -212,14 +178,12 @@ export const JsonEditor: React.FC<Props> = ({
     //    if (!messageContent && template.details && template.details.type) {
     if (template.details && template.details.type) {
       if (cachedName === messageId) {
-        expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
         setBeingEdited(false)
       } else {
         setBeingEdited(false)
         initEditor()
-        if (!cacheMessage) expiredStorage.removeItem(genLocalStorageId())
       }
     }
 
