@@ -275,6 +275,6 @@ button {
 
 .json-editor-btn-copy {
   &:disabled {
-    color: rgb(165, 165, 165) !important;
+    display: none;
   }
 }
