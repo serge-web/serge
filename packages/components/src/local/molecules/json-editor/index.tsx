@@ -33,11 +33,11 @@ export const JsonEditor: React.FC<Props> = ({
   cachedName,
   clearCachedName,
   saveMessage,
-  modifyForEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
-  editCallback
+  editCallback,
+  onLocationEditorLoaded
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -104,6 +104,10 @@ export const JsonEditor: React.FC<Props> = ({
     editCallback && editCallback()
   }
 
+  const onEditorLoaded = (editorElm: HTMLDivElement) => {
+    onLocationEditorLoaded && onLocationEditorLoaded(editorElm)
+  }
+
   const initEditor = (): () => void => {
     const hideArrayButtons = disabled
     const jsonEditorConfig = hideArrayButtons
@@ -118,7 +122,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -177,13 +181,11 @@ export const JsonEditor: React.FC<Props> = ({
           nextEditor.on('change', changeListenter)
         } else if (messageContent) {
           const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
-          const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
-          nextEditor.setValue(modified)
+          nextEditor.setValue(contentAsJSON)
           nextEditor.on('change', changeListenter)
         } else {
           nextEditor.on('change', changeListenter)
         }
-
         setEditor(nextEditor)
       })
     }

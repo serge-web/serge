@@ -18,7 +18,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  editThisMessage
+  editThisMessage, onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -170,8 +170,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const localEditLocation = (): void => {
           if (message.message.location) {
-            const localCallback = (newValue: unknown): void => {
-              pendingLocationData.push(newValue as PlannedActivityGeometry[])
+            const localCallback = (newValue: PlannedActivityGeometry[]): void => {
+              pendingLocationData.push(newValue)
             }
             // pass the location data object
             canEdit && editLocation && editLocation(message.message.location, localCallback)
@@ -209,6 +209,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
             modifyForSave={expandLocation}
             editCallback={localEditLocation}
+            onLocationEditorLoaded={onLocationEditorLoaded}
           />
         </>
       } else {
