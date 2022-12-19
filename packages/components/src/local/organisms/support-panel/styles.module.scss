@@ -98,6 +98,7 @@
   justify-content: flex-start;
   flex-direction: column;
   height: calc(100% - 20px);
+  overflow-y: auto;
 }
 
 .new-order-input {

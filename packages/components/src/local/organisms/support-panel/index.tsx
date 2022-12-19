@@ -398,9 +398,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            {
-              selectedForce.umpire && <TabPanel className={styles['tab-panel']} value={TABS[3]} active={activeTab === TABS[3]} >
-                {activeTab === TABS[3] &&
+            {activeTab === TABS[3] &&
                   <div className={styles['order-group']}>
                     <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                     <AdjudicationMessagesList
@@ -426,8 +424,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       postBack={postBack}
                     />
                   </div>
-                }
-              </TabPanel>
             }
             <div className={styles['resize-indicator-container']} >
               <div className={styles['resize-indicator-icon']} >
