@@ -281,9 +281,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }, [])
       return <></>
     }
-
+    
     // retrieve the message & template
-    const message: MessageInteraction | undefined = filteredInteractions.find((value: MessageInteraction) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', filteredInteractions)
     } else {
@@ -293,7 +293,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const msg = message.message
         const isComplete = message.details.interaction?.complete
-        const data = collateInteraction(message._id, filteredInteractions, filteredPlans, forces, forceStyles, forcePlanningActivities)
+        const data = collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
