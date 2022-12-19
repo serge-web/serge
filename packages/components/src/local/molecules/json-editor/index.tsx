@@ -169,22 +169,24 @@ export const JsonEditor: React.FC<Props> = ({
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
-      // only retrieve from expired content if we haven't been provided with message content
-      const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
-      if (messageJson && !messageContent) {
-        nextEditor.setValue(JSON.parse(messageJson))
-        nextEditor.on('change', changeListenter)
-      } else if (messageContent) {
-        const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
-        const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
-        nextEditor.setValue(modified)
-        nextEditor.on('change', changeListenter)
-      } else {
-        nextEditor.on('change', changeListenter)
-      }
-    }
+      setTimeout(() => {
+        // only retrieve from expired content if we haven't been provided with message content
+        const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
+        if (messageJson && !messageContent) {
+          nextEditor.setValue(JSON.parse(messageJson))
+          nextEditor.on('change', changeListenter)
+        } else if (messageContent) {
+          const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
+          const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
+          nextEditor.setValue(modified)
+          nextEditor.on('change', changeListenter)
+        } else {
+          nextEditor.on('change', changeListenter)
+        }
 
-    setEditor(nextEditor)
+        setEditor(nextEditor)
+      })
+    }
 
     // handle textarea height to fit its content
     if (expandHeight && jsonEditorRef.current) {
@@ -229,16 +231,16 @@ export const JsonEditor: React.FC<Props> = ({
     //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
-  useLayoutEffect(() => {
-    if (editor) {
-      if (viewSaveButton && !beingEdited) {
-        editor.disable()
-      } else if (disabled && !viewSaveButton) {
-        editor.disable()
-      } else {
-        editor.enable()
-      }
-      setTimeout(() => {
+  useEffect(() => {
+    setTimeout(() => {
+      if (editor) {
+        if (viewSaveButton && !beingEdited) {
+          editor.disable()
+        } else if (disabled && !viewSaveButton) {
+          editor.disable()
+        } else {
+          editor.enable()
+        }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
           // if (beingEdited) {
@@ -247,8 +249,8 @@ export const JsonEditor: React.FC<Props> = ({
           //   btn.classList.add('btn-hide')
           // }
         })
-      }, 10)
-    }
+      }
+    }, 50)
   }, [editor, beingEdited])
 
   const SaveMessageButton = () => (
