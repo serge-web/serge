@@ -1,4 +1,4 @@
-import JSONEditor from '@json-editor/json-editor'
+import {JSONEditor} from '@json-editor/json-editor'
 import _ from 'lodash'
 
 const configCommonValidation = (
