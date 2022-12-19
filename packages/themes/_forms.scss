@@ -74,3 +74,20 @@
   position: absolute;
   z-index: 10000;
 }
+
+.location-editor {
+  align-items: center;
+  display: flex;
+  div {
+    border: solid 1px #ced4da;
+    border-radius: 5px;
+    min-height: 50px;
+    padding: 5px;
+    width: 100%;
+  }
+  button {
+    height: 40px;
+    position: absolute;
+    right: 20px;
+  }
+}
