@@ -272,9 +272,3 @@ button {
 .btn-hide {
   display: none !important;
 }
-
-.json-editor-btn-copy {
-  &:disabled {
-    display: none;
-  }
-}

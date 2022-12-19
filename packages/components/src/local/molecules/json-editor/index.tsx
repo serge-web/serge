@@ -31,6 +31,7 @@ export const JsonEditor: React.FC<Props> = ({
   cachedName,
   clearCachedName,
   saveMessage,
+  modifyForEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
@@ -143,7 +144,8 @@ export const JsonEditor: React.FC<Props> = ({
     if (nextEditor) {
       // only retrieve from expired content if we haven't been provided with message content
       if (messageContent) {
-        nextEditor.setValue(messageContent)
+        const modified = modifyForEdit ? modifyForEdit(messageContent) : messageContent
+        nextEditor.setValue(modified)
         nextEditor.on('change', changeListenter)
       } else {
         nextEditor.on('change', changeListenter)
@@ -194,16 +196,16 @@ export const JsonEditor: React.FC<Props> = ({
     //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (editor) {
-        if (viewSaveButton && !beingEdited) {
-          editor.disable()
-        } else if (disabled && !viewSaveButton) {
-          editor.disable()
-        } else {
-          editor.enable()
-        }
+  useLayoutEffect(() => {
+    if (editor) {
+      if (viewSaveButton && !beingEdited) {
+        editor.disable()
+      } else if (disabled && !viewSaveButton) {
+        editor.disable()
+      } else {
+        editor.enable()
+      }
+      setTimeout(() => {
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
           // if (beingEdited) {
@@ -212,8 +214,8 @@ export const JsonEditor: React.FC<Props> = ({
           //   btn.classList.add('btn-hide')
           // }
         })
-      }
-    }, 50)
+      }, 10)
+    }
   }, [editor, beingEdited])
 
   const SaveMessageButton = () => (

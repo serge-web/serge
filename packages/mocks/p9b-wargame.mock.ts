@@ -13829,8 +13829,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true
+                                    "grid_columns": 6
                                 },
                                 "items": {
                                     "type": "object",
