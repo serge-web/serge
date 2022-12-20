@@ -71,17 +71,32 @@ val: number
 }
 
 interface Activity {
+  // compact id for activity. Human and computer-readable
+  uniqid: string
+  // human-readable title for activity
   title: string
   // forces we generate this activity for
   forces: string[]
   // domains where this is present
   domains: string[]
-  // speicic child activities (geometries)
+  // specific child activities (geometries)
   acts?: string[]
   // name for target areas
   actDesc?: string[]
   // the (optional) specific template to use
   specific?: string
+  // list of activities this activity can interact with
+  interactsWith?: Array<Activity['uniqid']>
+  // if activity interaction includes oppFor assets under geometries
+  provideSpatialAssets?: boolean
+}
+
+/** collated data on what this activity interacts with  */
+interface InteractsWithEntry {
+  // compact id for activity. Human and computer-readable
+  uniqid: string
+  // list of activities this activity can interact with
+  interactsWith: Array<Activity['uniqid']>
 }
 
 const routeOut = 'route-out'
@@ -152,36 +167,64 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const assetLocation = 'Asset Location'
   const strikeTarget = 'Strike Target'
 
+  // store which activites interact with which other activities
+  const actInteracts: InteractsWithEntry[] = []
+  actInteracts.push({ uniqid:'BMD-MEZ', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'SEAD'] })
+  actInteracts.push({ uniqid:'SAM-MEZ', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'SEAD'] })
+  actInteracts.push({ uniqid:'STRIKE', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'RESUPP', 'TRANSIT','ASW-B', 'DCA', 'OCA' ]})
+  actInteracts.push({ uniqid:'EW', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'CYB/SPA', 'SOF']})
+  actInteracts.push({ uniqid:'ISTAR', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA']})
+  actInteracts.push({ uniqid:'PATRL', interactsWith: [ 'EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid:'RESUPP', interactsWith: ['STRIKE', 'EW', 'ASW-B', 'FIAC', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid:'TRANSIT', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'ASW-B', 'FIAC',  'DCA', 'OCA']})
+  actInteracts.push({ uniqid:'ASW-B', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT'] })
+  actInteracts.push({ uniqid:'FIAC', interactsWith: ['EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'M-Clr', 'M-Lay'] })
+  actInteracts.push({ uniqid:'M-Clr', interactsWith: ['EW', 'ISTAR', 'PATRL','FIAC']})
+  actInteracts.push({ uniqid:'M-Lay', interactsWith: ['EW', 'ISTAR', 'PATRL','FIAC'] })
+  actInteracts.push({ uniqid:'DCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST']})
+  actInteracts.push({ uniqid:'OCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST']})
+  actInteracts.push({ uniqid:'SoffS', interactsWith: ['EW', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid:'SEAD', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'DCA', 'OCA']})
+  actInteracts.push({ uniqid:'TST', interactsWith: ['EW', 'DCA', 'OCA'] })
+  actInteracts.push({ uniqid:'CYB/SPA', interactsWith: ['EW']})
+  actInteracts.push({ uniqid:'SOF', interactsWith: ['EW'] })
+
+
   const acts: Activity[] = []
-  acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
-  acts.push({ title: 'Cruise Missile Strike', forces: allForces, domains: landMar, acts: oneWayOneActivity, actDesc: [strikeTarget], specific: 'MissileStrike' })
-  acts.push({ title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
-  acts.push({ title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
-  acts.push({ title: 'Ballistic Missile Strike', forces: allForces, domains: seaAirLand, acts: oneWayOneActivity, actDesc: [strikeTarget], specific: 'MissileStrike' })
-  acts.push({ title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
-  acts.push({ title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
-  acts.push({ title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
-  acts.push({ title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Observation Area'], specific: 'ISTAR' })
-  acts.push({ title: 'Offensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['OCA Area'], specific: 'Duration' })
-  acts.push({ title: 'Defensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['DCA Area'], specific: 'Duration' })
-  acts.push({ title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST' })
-  acts.push({ title: 'Suppression of Air Defences (SEAD)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'Duration' })
-  acts.push({ title: 'Mine Laying', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'MineLaying' })
-  acts.push({ title: 'Mine Clearance', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], specific: 'Duration' })
-  acts.push({ title: 'ASW Barrier', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'ASWBarrier' })
-  acts.push({ title: 'Provide Logistics', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['LOGS Destination'] })
-  acts.push({ title: 'Resupply', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply Destingation'] })
-  acts.push({ title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Target'], specific: 'EWAttack' })
-  acts.push({ title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'SOFAttack' })
-  acts.push({ title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'Cyber' })
+  acts.push({ uniqid:'BMD-MEZ', title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
+  acts.push({ uniqid:'SAM-MEZ', title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
+  acts.push({ uniqid:'STRIKE', title: 'Strike', forces: allForces, domains: landMar, acts: oneWayOneActivity, actDesc: [strikeTarget], specific: 'MissileStrike' })
+  acts.push({ uniqid:'EW', title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Target'], specific: 'EWAttack', provideSpatialAssets: true })
+  acts.push({ uniqid:'ISTAR', title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Observation Area'], specific: 'ISTAR', provideSpatialAssets: true })
+  acts.push({ uniqid:'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
+  acts.push({ uniqid:'RESUPP', title: 'Resupply', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply Destingation'] })
+  acts.push({ uniqid:'TRANSIT', title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
+  acts.push({ uniqid:'ASW-B', title: 'ASW Barrier', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'ASWBarrier' })
+  acts.push({ uniqid:'FIAC', title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
+  acts.push({ uniqid:'M-Clr', title: 'Mine Clearance', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], specific: 'Duration', provideSpatialAssets: true })
+  acts.push({ uniqid:'M-Lay', title: 'Mine Laying', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'MineLaying', provideSpatialAssets: true })
+  acts.push({ uniqid:'DCA', title: 'Defensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['DCA Area'], specific: 'Duration' })
+  acts.push({ uniqid:'OCA', title: 'Offensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['OCA Area'], specific: 'Duration' })
+  acts.push({ uniqid:'SoffS', title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
+  acts.push({ uniqid:'SEAD', title: 'Suppression of Air Defences (SEAD)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'Duration' })
+  acts.push({ uniqid:'TST', title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', provideSpatialAssets: true })
+  acts.push({ uniqid:'CYB/SPA', title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'Cyber' })
+  acts.push({ uniqid:'SOF', title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'SOFAttack' })
 
   // do some sanity testing
-  acts.forEach((act) => {
+  acts.forEach((act: Activity) => {
     const numActivities = act.acts && act.acts.filter((act) => [activity, point].includes(act)).length
     const descOrList = act.actDesc || []
     const numDescriptions = descOrList.length
     if (numActivities !== numDescriptions) {
       console.log('template checking failed:', act.title, numActivities, numDescriptions)
+    }
+    // inject the interactions
+    const inters = actInteracts.find((val: InteractsWithEntry) => val.uniqid === act.uniqid)
+    if (!inters) {
+      console.error('failed to find this activity', act.uniqid)
+    } else {
+      act.interactsWith = inters.interactsWith
     }
   })
 
@@ -230,12 +273,15 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
         }
         const activity: PlanningActivity = {
           name: act.title,
+          actId: act.uniqid,
+          interactsWith: act.interactsWith,
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
         }
         if (act.acts) {
           activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc || [])
         }
+        activity.interactsWith = act.interactsWith
         category.activities.push(activity)
       })
     })
@@ -252,8 +298,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
     return perForce
   })
 
-  !7 && console.log('per force', res)
-  !7 && console.log(Object.values(templates))
+  7 && console.log('per force', res)
+  7 && console.log(Object.values(templates))
 
   return { val: 12 }
 }
