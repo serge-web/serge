@@ -107,6 +107,14 @@ export interface PlanningActivity {
    * color for the activity
    */
   color?: ForceData['color']
+  /**
+   * for interaction, return all OpFor assets contained within Geometries for this activity
+   */
+  provideSpatialAssets?: boolean
+  /** 
+   * list of activity types that this activity interacts with
+   */
+  interactsWith?: Array<PlanningActivity['uniqid']>
 }
 
 export interface CoreOutcome {
