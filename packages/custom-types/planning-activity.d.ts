@@ -88,9 +88,13 @@ export interface PlannedProps {
  */
 export interface PlanningActivity {
   /**
-   * id for this activity
+   * id for this activity (unique to force and domain)
    */
   uniqid: string
+  /**
+   *  id for this type of activity (used for interaction checking)
+   */
+  actId: string
   /** 
    * human readable name for this activity
    */
@@ -114,7 +118,7 @@ export interface PlanningActivity {
   /** 
    * list of activity types that this activity interacts with
    */
-  interactsWith?: Array<PlanningActivity['uniqid']>
+  interactsWith?: Array<PlanningActivity['actId']>
 }
 
 export interface CoreOutcome {
