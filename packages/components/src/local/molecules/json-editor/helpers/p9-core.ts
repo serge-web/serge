@@ -147,14 +147,33 @@ export const coreTemplate = {
     },
     type: 'string'
   },
-  synchronisedWith: {
-    format: 'text',
-    title: 'Sync with',
-    propertyOrder: 68,
+  synchronisedWith:  {
+    type: 'array',
+    propertyOrder: 100,
+    format: 'table',
+    minItems: 0,
+    title: 'Synchronised with',
     options: {
       grid_columns: 6
     },
-    type: 'string'
+    items: {
+      title: 'Order',
+      type: 'string',
+      enum: [
+        'o-a',
+        'o-b',
+        'o-c',
+        'o-d'
+      ],
+      options: {
+        enum_titles: [
+          'Orders A',
+          'Orders B',
+          'Orders C',
+          'Orders D'
+        ]
+      }
+    }
   },
   supports: {
     format: 'textarea',
