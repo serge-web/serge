@@ -20,6 +20,7 @@ import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseDate } from './helpers/customise-date'
+import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
@@ -195,10 +196,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+    const liveOrders: MessagePlanning[] = planningMessages
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
+      (document, template) => customiseLiveOrders(document, template, liveOrders),
       (document, template) => customiseDate(document, template, moment(gameDate).valueOf(), gameTurnTime)
     ]
 
