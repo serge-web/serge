@@ -50,7 +50,7 @@ it('gets all interactions', () => {
     const interactions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
       return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
     })
-    expect(interactions.length).toEqual(248)
+    expect(interactions.length).toEqual(226)
   }
 }
 )
