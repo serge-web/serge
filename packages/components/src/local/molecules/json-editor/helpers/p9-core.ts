@@ -147,7 +147,7 @@ export const coreTemplate = {
     },
     type: 'string'
   },
-  synchronisedWith:  {
+  synchronisedWith: {
     type: 'array',
     propertyOrder: 100,
     format: 'table',
