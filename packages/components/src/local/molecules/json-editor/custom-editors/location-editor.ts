@@ -1,4 +1,4 @@
-import JSONEditor from '@json-editor/json-editor'
+import {JSONEditor} from '@json-editor/json-editor'
 import { PlannedActivityGeometry, PlanningActivityGeometry } from '@serge/custom-types'
 
 export const initLocationEditor = (editCallback: () => void, onLocationEditorLoaded: (editorElm: HTMLDivElement) => void): void => {

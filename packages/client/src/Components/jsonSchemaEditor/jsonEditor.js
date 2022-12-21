@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, CardFooter } from 'reactstrap'
 import { SchemaEditor } from './json-schema-editor/editor'
 import PropTypes from 'prop-types'
-import JSONEditor from '@json-editor/json-editor'
+import { JSONEditor } from '@json-editor/json-editor'
 
 class JsonSchemaEditor extends Component {
   constructor (props, content) {
