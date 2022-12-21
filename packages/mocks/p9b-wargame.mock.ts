@@ -9588,7 +9588,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -9820,7 +9820,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -9831,7 +9831,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -9945,7 +9945,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -10065,7 +10065,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -10353,10 +10353,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -10588,7 +10588,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -10599,7 +10599,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -10713,7 +10713,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -10833,7 +10833,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11121,10 +11121,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -11359,7 +11359,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -11370,7 +11370,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -11484,7 +11484,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -11604,7 +11604,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11916,10 +11916,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12154,7 +12154,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -12165,7 +12165,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -12279,7 +12279,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -12399,7 +12399,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12711,10 +12711,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -12947,7 +12947,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -12958,7 +12958,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -13072,7 +13072,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -13192,7 +13192,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -13488,10 +13488,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13724,7 +13724,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -13735,7 +13735,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -13849,7 +13849,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -13969,7 +13969,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -14265,10 +14265,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -14501,7 +14501,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -14512,7 +14512,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -14626,7 +14626,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -14746,7 +14746,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -15042,10 +15042,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -15279,7 +15279,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -15290,7 +15290,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -15404,7 +15404,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -15524,7 +15524,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -15828,10 +15828,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -16065,7 +16065,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -16076,7 +16076,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -16190,7 +16190,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -16310,7 +16310,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -16614,10 +16614,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.925Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -16851,7 +16851,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -16862,7 +16862,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -16976,7 +16976,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -17096,7 +17096,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -17400,10 +17400,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2022-12-21T09:39:16.925Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -17636,7 +17636,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -17647,7 +17647,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -17761,7 +17761,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -17881,7 +17881,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -18177,10 +18177,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -18413,7 +18413,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -18424,7 +18424,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -18538,7 +18538,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -18658,7 +18658,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -18954,10 +18954,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -19190,7 +19190,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -19201,7 +19201,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -19315,7 +19315,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -19435,7 +19435,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -19731,10 +19731,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.142Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -19966,7 +19966,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -19977,7 +19977,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -20091,7 +20091,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -20211,7 +20211,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -20499,10 +20499,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.142Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -20736,7 +20736,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -20747,7 +20747,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -20861,7 +20861,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -20981,7 +20981,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -21285,10 +21285,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -21522,7 +21522,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -21533,7 +21533,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -21647,7 +21647,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -21767,7 +21767,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -22071,10 +22071,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -22308,7 +22308,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -22319,7 +22319,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -22433,7 +22433,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -22553,7 +22553,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -22857,10 +22857,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -23094,7 +23094,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -23105,7 +23105,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -23219,7 +23219,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -23339,7 +23339,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -23644,10 +23644,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Maritime--Duration",
                     "details": {
                         "format": "grid",
@@ -23880,7 +23880,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -23891,7 +23891,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -24005,7 +24005,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -24125,7 +24125,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -24421,10 +24421,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Duration",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -24659,7 +24659,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -24670,7 +24670,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -24784,7 +24784,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -24904,7 +24904,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -25217,10 +25217,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Air--Duration",
                     "details": {
                         "format": "grid",
@@ -25453,7 +25453,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -25464,7 +25464,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -25578,7 +25578,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -25698,7 +25698,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -25994,10 +25994,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Duration",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.926Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -26231,7 +26231,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -26242,7 +26242,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -26356,7 +26356,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -26476,7 +26476,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -26781,10 +26781,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2022-12-21T09:39:16.926Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.927Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -27018,7 +27018,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -27029,7 +27029,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -27143,7 +27143,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -27263,7 +27263,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -27568,10 +27568,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2022-12-21T09:39:16.927Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T09:39:16.927Z",
+                    "lastUpdated": "2022-12-21T09:49:12.143Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -27805,7 +27805,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -27816,7 +27816,7 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "type": "object",
@@ -27930,7 +27930,7 @@ const game: Wargame = {
                                                 "a100"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Blue:0",
                                                     "Blue:4",
@@ -28050,7 +28050,7 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -28361,7 +28361,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2022-12-21T09:39:16.927Z"
+                    "_rev": "2022-12-21T09:49:12.143Z"
                 }
             ]
         }

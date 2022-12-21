@@ -58,7 +58,7 @@ export const coreTemplate = {
     title: 'Intent',
     propertyOrder: 60,
     options: {
-      grid_columns: 8
+      grid_columns: 6
     },
     type: 'string'
   },
@@ -69,7 +69,7 @@ export const coreTemplate = {
     propertyOrder: 70,
     title: 'Own Assets',
     options: {
-      grid_columns: 6
+      grid_columns: 5
     },
     items: {
       type: 'object',
@@ -90,7 +90,7 @@ export const coreTemplate = {
             'pa'
           ],
           options: {
-            grid_columns: 3,
+            grid_columns: 2,
             enum_titles: [
               'Tank A',
               'Tank B',
@@ -117,7 +117,7 @@ export const coreTemplate = {
     minItems: 0,
     title: 'Subject(s) of orders',
     options: {
-      grid_columns: 6
+      grid_columns: 5
     },
     items: {
       title: 'Asset',
