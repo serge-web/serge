@@ -8,9 +8,138 @@ export const tmplTransit = {
 
 // note: this template is used for a range of types of strike
 export const tmplMissileStrike = {
-  missileType: textObject('Missile Type', 4, order++),
-  missilesFired: numberObject('Missiles Fired', 4, order++),
-  targetType: textObject('Target Type', 4, order++)
+  targetType: textObject('Target Type', 4, order++),
+  ownAssets: {
+    type: 'array',
+    format: 'table',
+    minItems: 0,
+    propertyOrder: 70,
+    title: 'Launchers',
+    options: {
+      grid_columns: 7,
+      enable_array_copy: true,
+      disable_array_reorder: true
+    },
+    items: {
+      type: 'object',
+      format: 'grid',
+      title: 'Asset',
+      required: [
+        'asset',
+        'number'
+      ],
+      properties: {
+        asset: {
+          title: 'Launcher',
+          type: 'string',
+          enum: [
+            'ta',
+            'tb',
+            'tc',
+            'pa'
+          ],
+          options: {
+            grid_columns: 2,
+            enum_titles: [
+              'Tank A',
+              'Tank B',
+              'Tank C',
+              'Plane A'
+            ]
+          }
+        },
+        missileType: {
+          title: 'Missile Type',
+          type: 'string',
+          enum: [
+            'SRBM',
+            'MRBM',
+            'IRBM',
+            'Standard Cruise',
+            'Low Obs Cruise',
+            'Propellor OWA UAV',
+            'Jet OWA UAV',
+          ],
+          options: {
+            grid_columns: 2
+          }
+        },
+        number: {
+          title: 'Quantity',
+          type: 'string',
+          options: {
+            grid_columns: 1
+          },
+          format: 'number'
+        }
+      }
+    }
+  },
+  otherAssets: {
+    type: 'array',
+    format: 'table',
+    minItems: 0,
+    propertyOrder: 75,
+    title: 'Targets',
+    options: {
+      grid_columns: 7,
+      enable_array_copy: true
+    },
+    items: {
+      type: 'object',
+      format: 'grid',
+      title: 'Asset',
+      required: [
+        'asset',
+        'number'
+      ],
+      properties: {
+        asset: {
+          title: 'Target',
+          type: 'string',
+          enum: [
+            'ta',
+            'tb',
+            'tc',
+            'pa'
+          ],
+          options: {
+            grid_columns: 2,
+            enum_titles: [
+              'Tank A',
+              'Tank B',
+              'Tank C',
+              'Plane A'
+            ]
+          }
+        },
+        missileType: {
+          title: 'Missile Type',
+          type: 'string',
+          enum: [
+            'SRBM',
+            'MRBM',
+            'IRBM',
+            'Standard Cruise',
+            'Low Obs Cruise',
+            'Propellor OWA UAV',
+            'Jet OWA UAV',
+          ],
+          options: {
+            grid_columns: 2
+          }
+        },
+        number: {
+          title: 'Quantity',
+          type: 'string',
+          options: {
+            grid_columns: 1
+          },
+          format: 'number'
+        }
+      }
+    }
+  }
 }
 
 export const tmplPatrol = {
@@ -48,7 +177,7 @@ export const tmplEWAttack = {
 }
 
 export const tmplSOFAttack = {
-  activityType: dropDownObject('Activity Type', ['Raid', 'Capture/Kill', 'Gather Int', 'Deliver Errect'], 4, order++),
+  activityType: dropDownObject('Activity Type', ['Raid', 'Capture/Kill', 'Gather Int', 'Deliver Effect'], 4, order++),
   intendedEffect: textAreaObject('Intended Effect', 4, order++)
 }
 
