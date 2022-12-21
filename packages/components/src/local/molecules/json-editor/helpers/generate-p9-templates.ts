@@ -11,7 +11,7 @@ import { tmplASWBarrier, tmplCyber, tmplDuration, tmplEWAttack, tmplISTAR, tmplM
 import p9StockTemplates from './p9-stock-messages'
 
 const locationComponent = {
-  format: 'textarea',
+  format: 'location',
   title: 'Location',
   id: 'locationArea',
   type: 'string',
