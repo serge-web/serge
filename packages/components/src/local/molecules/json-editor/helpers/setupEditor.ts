@@ -1,7 +1,7 @@
 import { JSONEditor } from '@json-editor/json-editor'
 import { Editor } from '@serge/custom-types'
 import { RefObject } from 'react'
-import { initLocationEditor } from '../custom-editors/location-editor'
+// import { initLocationEditor } from '../custom-editors/location-editor'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -11,7 +11,8 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     editor = null
   }
 
-  initLocationEditor(editCallback, onLocationEditorLoaded)
+  console.log(editCallback, onLocationEditorLoaded);
+  // initLocationEditor(editCallback, onLocationEditorLoaded)
   configDateTimeCustomValidation()
 
   const disableCollapse = 'disable_collapse'
