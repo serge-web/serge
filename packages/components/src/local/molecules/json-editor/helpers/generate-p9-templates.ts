@@ -36,16 +36,35 @@ const templateDict = {
   Cyber: tmplCyber
 }
 
-export const generateTemplate = (title: string, location: boolean, core: Record<string, any>, domain: Record<string, any>, specific?: string): Record<string, any> => {
+/**
+ * 
+ * @param title title of template
+ * @param location  whether to include location box
+ * @param core core template to use
+ * @param domain domain to specify
+ * @param specific specific template to use (optional)
+ * @returns 
+ */
+export const generateTemplate = (title: string, location: boolean, core: Record<string, any>, 
+  domain: Record<string, any>, specific?: string): Record<string, any> => {
   let specTemplate
+  const coreTemplate = { ...core}
   if (specific) {
-    specTemplate = templateDict[specific]
+    specTemplate = { ...templateDict[specific]}
+    // ok, check if it has custom ownAssets and oppForAssets
+    if (specTemplate.ownAssets) {
+      // ok, drop it 
+      delete coreTemplate.ownAssets
+    }
+    if (specTemplate.otherAssets) {
+      delete coreTemplate.otherAssets
+    }
   }
-
-  const combinedTemplates = specTemplate ? { ...core, ...domain, ...specTemplate } : { ...core, ...domain }
+  const combinedTemplates = specTemplate ? { ...coreTemplate, ...domain, ...specTemplate } : { ...coreTemplate, ...domain }
   if (location) {
     combinedTemplates.location = locationComponent
   }
+
   const fieldNames = Object.keys(combinedTemplates).map((name: string) => name)
   const wrappedDetails = {
     format: 'grid',
@@ -149,7 +168,7 @@ const activityGeometriesFor = (id: string, acts: string[], descs: string[]): Pla
 }
 
 export const generateAllTemplates = (): TemplatesAndActivities => {
-  console.log('gen all templates 5')
+  console.log('gen all templates 5', coreTemplate)
   const red = 'f-red'
   const blue = 'f-blue'
   const green = 'f-green'
@@ -238,10 +257,10 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const perForceActs: PerForcePlanningActivitySet[] = []
 
   const domainTemplates = {
-    land: landTemplate,
-    mar: maritimeTemplate,
-    air: airTemplate,
-    other: otherTemplate
+    Land: landTemplate,
+    Maritime: maritimeTemplate,
+    Air: airTemplate,
+    Other: otherTemplate
   }
 
   const templates = {
