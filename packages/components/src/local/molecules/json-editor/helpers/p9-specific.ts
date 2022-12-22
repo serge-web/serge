@@ -1,4 +1,4 @@
-import { booleanObject, dropDownObject, numberObject, textAreaObject, textObject } from './p9-helpers'
+import { booleanObject, dropDownObject, multiSelectDropDownObject, numberObject, textAreaObject, textObject } from './p9-helpers'
 
 let order = 300
 export const tmplTransit = {
@@ -148,6 +148,8 @@ export const tmplPatrol = {
 }
 
 export const tmplISTAR = {
+  domain: multiSelectDropDownObject('Target Domain', ['Maritime', 'Air', 'Land'], 2, order++),
+  covert: booleanObject('Covert', 1, order++),
   method: textObject('Observation Method', 4, order++),
   duration: numberObject('Duration (hrs)', 4, order++)
 }
