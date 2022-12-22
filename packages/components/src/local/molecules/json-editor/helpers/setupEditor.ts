@@ -11,7 +11,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     editor = null
   }
 
-  console.log(editCallback, onLocationEditorLoaded);
+  console.log(editCallback, onLocationEditorLoaded)
   // initLocationEditor(editCallback, onLocationEditorLoaded)
   configDateTimeCustomValidation()
 

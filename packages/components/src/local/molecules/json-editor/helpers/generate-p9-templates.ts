@@ -37,23 +37,23 @@ const templateDict = {
 }
 
 /**
- * 
+ *
  * @param title title of template
  * @param location  whether to include location box
  * @param core core template to use
  * @param domain domain to specify
  * @param specific specific template to use (optional)
- * @returns 
+ * @returns
  */
-export const generateTemplate = (title: string, location: boolean, core: Record<string, any>, 
+export const generateTemplate = (title: string, location: boolean, core: Record<string, any>,
   domain: Record<string, any>, specific?: string): Record<string, any> => {
   let specTemplate
-  const coreTemplate = { ...core}
+  const coreTemplate = { ...core }
   if (specific) {
-    specTemplate = { ...templateDict[specific]}
+    specTemplate = { ...templateDict[specific] }
     // ok, check if it has custom ownAssets and oppForAssets
     if (specTemplate.ownAssets) {
-      // ok, drop it 
+      // ok, drop it
       delete coreTemplate.ownAssets
     }
     if (specTemplate.otherAssets) {

@@ -49,7 +49,7 @@ export const getDateSlots = (gameTime: number, gameTurnTime: TurnLengthType): Ar
 
 export const customiseDate = (_document: MessageStructure | undefined, schema: Record<string, any>,
   gameTime: number, gameTurnTime: TurnLengthType): Record<string, any> => {
-  const res = { ...schema}
+  const res = { ...schema }
   if (schema) {
     const slots = getDateSlots(gameTime, gameTurnTime)
     const keys = Object.keys(res.properties)

@@ -19,9 +19,9 @@ export const customiseAssets = (_document: MessageStructure | undefined, schema:
           targetsTable.enum = otherAssets.map((asset: AssetRow) => asset.id)
           targetsTable.options.enum_titles = otherAssets.map((asset: AssetRow) => asset.name)
         }
-          } else {
+      } else {
         oldOwnTargets.enum = otherAssets.map((asset: AssetRow) => asset.id)
-        oldOwnTargets.options.enum_titles = otherAssets.map((asset: AssetRow) => asset.name)  
+        oldOwnTargets.options.enum_titles = otherAssets.map((asset: AssetRow) => asset.name)
       }
     }
   }

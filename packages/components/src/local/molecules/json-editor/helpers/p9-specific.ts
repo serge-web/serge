@@ -58,7 +58,7 @@ export const tmplMissileStrike = {
             'Standard Cruise',
             'Low Obs Cruise',
             'Propellor OWA UAV',
-            'Jet OWA UAV',
+            'Jet OWA UAV'
           ],
           options: {
             grid_columns: 2
@@ -123,7 +123,7 @@ export const tmplMissileStrike = {
             'Standard Cruise',
             'Low Obs Cruise',
             'Propellor OWA UAV',
-            'Jet OWA UAV',
+            'Jet OWA UAV'
           ],
           options: {
             grid_columns: 2
