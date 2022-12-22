@@ -6234,21 +6234,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Land-Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Strike-1"
-                                        }
-                                    ]
+                                    "template": "Land--MissileStrike"
                                 },
                                 {
                                     "name": "Transit",
@@ -6625,21 +6611,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Strike-1"
-                                        }
-                                    ]
+                                    "template": "Maritime--MissileStrike"
                                 },
                                 {
                                     "name": "Transit",
@@ -7044,27 +7016,7 @@ const game: Wargame = {
                                         "EW"
                                     ],
                                     "uniqid": "f-blue-Other-Cyber/Space Activity",
-                                    "template": "Other--Cyber",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Activity Location",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-2"
-                                        }
-                                    ]
+                                    "template": "Other--Cyber"
                                 },
                                 {
                                     "name": "SOF Activity",
@@ -7089,7 +7041,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Efect Location",
+                                            "name": "Effect Location",
                                             "optional": false,
                                             "uniqid": "SOF Activity-2"
                                         },
@@ -7324,21 +7276,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Land-Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Strike-1"
-                                        }
-                                    ]
+                                    "template": "Land--MissileStrike"
                                 },
                                 {
                                     "name": "Transit",
@@ -7702,6 +7640,23 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Sea Denial",
+                                    "actId": "Sea Denial",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
+                                    "uniqid": "f-red-Maritime-Sea Denial",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Sea Denial Area",
+                                            "optional": false,
+                                            "uniqid": "Sea Denial-0"
+                                        }
+                                    ]
+                                },
+                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -7715,21 +7670,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Strike-1"
-                                        }
-                                    ]
+                                    "template": "Maritime--MissileStrike"
                                 },
                                 {
                                     "name": "Transit",
@@ -8134,27 +8075,7 @@ const game: Wargame = {
                                         "EW"
                                     ],
                                     "uniqid": "f-red-Other-Cyber/Space Activity",
-                                    "template": "Other--Cyber",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Activity Location",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-2"
-                                        }
-                                    ]
+                                    "template": "Other--Cyber"
                                 },
                                 {
                                     "name": "SOF Activity",
@@ -8179,7 +8100,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Efect Location",
+                                            "name": "Effect Location",
                                             "optional": false,
                                             "uniqid": "SOF Activity-2"
                                         },
@@ -8414,21 +8335,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Land-Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Strike-1"
-                                        }
-                                    ]
+                                    "template": "Land--MissileStrike"
                                 },
                                 {
                                     "name": "Transit",
@@ -8805,21 +8712,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Strike-1"
-                                        }
-                                    ]
+                                    "template": "Maritime--MissileStrike"
                                 },
                                 {
                                     "name": "Transit",
@@ -9224,27 +9117,7 @@ const game: Wargame = {
                                         "EW"
                                     ],
                                     "uniqid": "f-green-Other-Cyber/Space Activity",
-                                    "template": "Other--Cyber",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Activity Location",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-2"
-                                        }
-                                    ]
+                                    "template": "Other--Cyber"
                                 },
                                 {
                                     "name": "SOF Activity",
@@ -9269,7 +9142,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Efect Location",
+                                            "name": "Effect Location",
                                             "optional": false,
                                             "uniqid": "SOF Activity-2"
                                         },
@@ -9588,7 +9461,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.187Z",
+                    "lastUpdated": "2022-12-22T14:33:38.732Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -9681,7 +9554,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -9729,7 +9603,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -9849,10 +9724,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2022-12-21T18:29:47.187Z"
+                    "_rev": "2022-12-22T14:33:38.732Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.187Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -9946,7 +9821,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -9994,7 +9870,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -10124,10 +10001,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2022-12-21T18:29:47.187Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.187Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10147,8 +10024,7 @@ const game: Wargame = {
                             "emconState",
                             "targetType",
                             "ownAssets",
-                            "otherAssets",
-                            "location"
+                            "otherAssets"
                         ],
                         "properties": {
                             "Reference": {
@@ -10378,7 +10254,8 @@ const game: Wargame = {
                                 "title": "Targets",
                                 "options": {
                                     "grid_columns": 7,
-                                    "enable_array_copy": true
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -10434,17 +10311,6 @@ const game: Wargame = {
                                         }
                                     }
                                 }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
                             }
                         },
                         "title": "Land--MissileStrike",
@@ -10452,10 +10318,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2022-12-21T18:29:47.187Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.187Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10476,8 +10342,7 @@ const game: Wargame = {
                             "posture",
                             "targetType",
                             "ownAssets",
-                            "otherAssets",
-                            "location"
+                            "otherAssets"
                         ],
                         "properties": {
                             "Reference": {
@@ -10717,7 +10582,8 @@ const game: Wargame = {
                                 "title": "Targets",
                                 "options": {
                                     "grid_columns": 7,
-                                    "enable_array_copy": true
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -10773,17 +10639,6 @@ const game: Wargame = {
                                         }
                                     }
                                 }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
                             }
                         },
                         "title": "Maritime--MissileStrike",
@@ -10791,10 +10646,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2022-12-21T18:29:47.187Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -10888,7 +10743,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -10936,7 +10792,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11064,10 +10921,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11162,7 +11019,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11210,7 +11068,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11348,10 +11207,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11447,7 +11306,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11495,7 +11355,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11641,10 +11502,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11739,7 +11600,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11787,7 +11649,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11923,10 +11786,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12022,7 +11885,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12070,7 +11934,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12216,10 +12081,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12316,7 +12181,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12364,7 +12230,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12518,10 +12385,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -12615,7 +12482,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12663,7 +12531,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12791,10 +12660,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -12889,7 +12758,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12937,7 +12807,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -13075,10 +12946,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -13174,7 +13045,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -13222,7 +13094,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -13368,10 +13241,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -13466,7 +13339,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -13514,7 +13388,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -13652,10 +13527,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -13750,7 +13625,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -13798,7 +13674,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -13934,10 +13811,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -14033,7 +13910,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -14081,7 +13959,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -14227,10 +14106,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -14327,7 +14206,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -14375,7 +14255,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -14529,10 +14410,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -14628,7 +14509,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -14676,7 +14558,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -14823,10 +14706,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--Duration",
                     "details": {
                         "format": "grid",
@@ -14921,7 +14804,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -14969,7 +14853,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -15107,10 +14992,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Duration",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -15207,7 +15092,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -15255,7 +15141,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -15410,10 +15297,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--Duration",
                     "details": {
                         "format": "grid",
@@ -15509,7 +15396,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -15557,7 +15445,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -15703,10 +15592,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Duration",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -15803,7 +15692,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -15851,7 +15741,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -16006,10 +15897,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.733Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.733Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -16035,8 +15926,7 @@ const game: Wargame = {
                             "activityDesc",
                             "effectDesc",
                             "activityType",
-                            "intendedEffect",
-                            "location"
+                            "intendedEffect"
                         ],
                         "properties": {
                             "Reference": {
@@ -16109,7 +15999,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -16157,7 +16048,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -16320,17 +16212,6 @@ const game: Wargame = {
                                 "options": {
                                     "grid_columns": 4
                                 }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
                             }
                         },
                         "title": "Other--Cyber",
@@ -16338,10 +16219,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.734Z"
                 },
                 {
-                    "lastUpdated": "2022-12-21T18:29:47.188Z",
+                    "lastUpdated": "2022-12-22T14:33:38.735Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -16441,7 +16322,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -16489,7 +16371,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 5
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -16676,7 +16559,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2022-12-21T18:29:47.188Z"
+                    "_rev": "2022-12-22T14:33:38.735Z"
                 }
             ]
         }
