@@ -9,6 +9,11 @@ export const customiseLiveOrders = (_document: MessageStructure | undefined, sch
       oldOrders.enum = liveOrders.map((order: MessagePlanning) => order.message.Reference)
       oldOrders.options.enum_titles = liveOrders.map((order: MessagePlanning) => order.message.title)
     }
+    const oldSupports = res.properties?.supportsOther?.items
+    if (oldSupports) {
+      oldSupports.enum = liveOrders.map((order: MessagePlanning) => order.message.Reference)
+      oldSupports.options.enum_titles = liveOrders.map((order: MessagePlanning) => order.message.title)
+    }
   }
   return res
 }
