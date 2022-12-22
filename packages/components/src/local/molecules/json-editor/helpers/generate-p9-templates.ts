@@ -124,7 +124,6 @@ const routeBack = 'route-back'
 const point = 'point'
 const oneWay = [routeOut]
 const thereBack = [routeOut, activity, routeBack]
-const oneWayOneActivity = [routeOut, activity]
 const thereBackTwoActivities = [routeOut, activity, activity, routeBack]
 
 const activityGeometriesFor = (id: string, acts: string[], descs: string[]): PlanningActivityGeometry[] => {
@@ -207,11 +206,12 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'TST', interactsWith: ['EW', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'CYB/SPA', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'SOF', interactsWith: ['EW'] })
+  actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW'] })
 
   const acts: Activity[] = []
   acts.push({ uniqid: 'BMD-MEZ', title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ uniqid: 'SAM-MEZ', title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
-  acts.push({ uniqid: 'STRIKE', title: 'Strike', forces: allForces, domains: landMar, acts: oneWayOneActivity, actDesc: [strikeTarget], specific: 'MissileStrike' })
+  acts.push({ uniqid: 'STRIKE', title: 'Strike', forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Target'], specific: 'EWAttack', provideSpatialAssets: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Observation Area'], specific: 'ISTAR', provideSpatialAssets: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
@@ -226,12 +226,13 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBackTwoActivities, actDesc: [assetLocation, strikeTarget], specific: 'Transit' })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'Duration' })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', provideSpatialAssets: true })
-  acts.push({ uniqid: 'CYB/SPA', title: 'Cyber/Space Activity', forces: allForces, domains: [other], acts: thereBack, actDesc: ['Activity Location'], specific: 'Cyber' })
-  acts.push({ uniqid: 'SOF', title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Efect Location'], specific: 'SOFAttack' })
+  acts.push({ uniqid: 'CYB/SPA', title: 'Cyber/Space Activity', forces: allForces, domains: [other], specific: 'Cyber' })
+  acts.push({ uniqid: 'SOF', title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'SOFAttack' })
+  acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Sea Denial Area']})
 
   // do some sanity testing
   acts.forEach((act: Activity) => {
-    const numActivities = act.acts && act.acts.filter((act) => [activity, point].includes(act)).length
+    const numActivities = act.acts ? act.acts.filter((act) => [activity, point].includes(act)).length : 0
     const descOrList = act.actDesc || []
     const numDescriptions = descOrList.length
     if (numActivities !== numDescriptions) {
