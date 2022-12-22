@@ -1,3 +1,5 @@
+import { dropDownObject } from "./p9-helpers";
+
 export const maritimeTemplate = {
   rulesOfEngagement: {
     type: 'string',
@@ -17,14 +19,5 @@ export const maritimeTemplate = {
       grid_columns: 4
     }
   },
-  posture: {
-    type: 'string',
-    title: 'Posture',
-    format: 'textarea',
-    propertyOrder: 220,
-    options: {
-      grid_columns: 4,
-      grid_break: true
-    }
-  }
+  posture: dropDownObject('Posture', ['ASW focus', 'ASuW focus', 'AAW focus'], 4, 220),
 }
