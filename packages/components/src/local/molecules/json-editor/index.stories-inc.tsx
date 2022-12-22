@@ -136,7 +136,6 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
 
   const overview = P9BMock.data.overview
 
-
   const liveOrders: MessagePlanning[] = planningMessages
 
   const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
@@ -165,7 +164,7 @@ PlanningMessage.args = {
 }
 
 // const land = generateTemplate('first', coreTemplate, landTemplate)
-//const maritime2 = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'ISTAR')
+// const maritime2 = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'ISTAR')
 const maritime = generateTemplate('first', true, coreTemplate, otherTemplate, 'ISTAR')
 // const air = generateTemplate('first', coreTemplate, airTemplate)
 // const other = generateTemplate('first', coreTemplate, otherTemplate, transit)

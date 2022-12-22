@@ -1,4 +1,4 @@
-import { dropDownObject } from "./p9-helpers";
+import { dropDownObject } from './p9-helpers'
 
 export const maritimeTemplate = {
   rulesOfEngagement: {
@@ -19,5 +19,5 @@ export const maritimeTemplate = {
       grid_columns: 4
     }
   },
-  posture: dropDownObject('Posture', ['ASW focus', 'ASuW focus', 'AAW focus'], 4, 220),
+  posture: dropDownObject('Posture', ['ASW focus', 'ASuW focus', 'AAW focus'], 4, 220)
 }

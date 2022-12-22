@@ -58,7 +58,7 @@ export const dropDownObject = (description: string, items: string[], cols: numbe
 
 export const multiSelectDropDownObject = (description: string, items: string[], cols: number, order: number): Record<string, any> => {
   return {
-    type: "array",
+    type: 'array',
     uniqueItems: true,
     title: description,
     propertyOrder: order,
@@ -66,7 +66,7 @@ export const multiSelectDropDownObject = (description: string, items: string[], 
       grid_columns: cols
     },
     items: {
-      type: "string",
+      type: 'string',
       enum: items
     }
   }
