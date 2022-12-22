@@ -228,7 +228,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', provideSpatialAssets: true })
   acts.push({ uniqid: 'CYB/SPA', title: 'Cyber/Space Activity', forces: allForces, domains: [other], specific: 'Cyber' })
   acts.push({ uniqid: 'SOF', title: 'SOF Activity', forces: allForces, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'SOFAttack' })
-  acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Sea Denial Area']})
+  acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Sea Denial Area'] })
 
   // do some sanity testing
   acts.forEach((act: Activity) => {

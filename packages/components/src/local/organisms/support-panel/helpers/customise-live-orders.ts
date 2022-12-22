@@ -2,7 +2,7 @@ import { MessagePlanning, MessageStructure } from '@serge/custom-types'
 
 export const customiseLiveOrders = (_document: MessageStructure | undefined, schema: Record<string, any>,
   liveOrders: MessagePlanning[]): Record<string, any> => {
-  const res = { ...schema }  
+  const res = { ...schema }
   if (schema) {
     const oldOrders = res.properties?.synchronisedWith?.items
     if (oldOrders) {

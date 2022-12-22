@@ -2,7 +2,7 @@ import { ForceData, GroupedActivitySet, MessageStructure, PerForcePlanningActivi
 
 export const customiseActivities = (_document: MessageStructure | undefined, schema: Record<string, any>,
   activities: PerForcePlanningActivitySet[], force?: ForceData): Record<string, any> => {
-  const res = { ...schema }  
+  const res = { ...schema }
   if (schema) {
     const oldActivity = res.properties?.activity
     if (oldActivity && activities.length) {

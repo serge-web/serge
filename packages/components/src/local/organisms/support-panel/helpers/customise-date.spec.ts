@@ -54,8 +54,8 @@ it('creates slots for months', () => {
 it('returns cloned copy', () => {
   const eightDays: MonthTurns = { unit: 'months', months: 3 }
   const start = moment(startTime)
-  const schema = { properties:{ obj: { val2: 3, val3: 43}}}
-  const res = customiseDate(undefined, schema, start.valueOf(), eightDays )
+  const schema = { properties: { obj: { val2: 3, val3: 43 } } }
+  const res = customiseDate(undefined, schema, start.valueOf(), eightDays)
   // check the contents aren't modified
   expect(res).toEqual(schema)
   // check it's a different object
@@ -65,7 +65,7 @@ it('returns cloned copy', () => {
 it('gets modified', () => {
   const eightDays: MonthTurns = { unit: 'months', months: 3 }
   const start = moment(startTime)
-  const schema = { properties:{ dumbDate: {options: {}}, obj: { val2: 3, val3: 43}}}
-  const res = customiseDate(undefined, schema, start.valueOf(), eightDays )
+  const schema = { properties: { dumbDate: { options: {} }, obj: { val2: 3, val3: 43 } } }
+  const res = customiseDate(undefined, schema, start.valueOf(), eightDays)
   expect(res).not.toBe(schema)
 })
