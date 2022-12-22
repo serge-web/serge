@@ -56,6 +56,7 @@ export default {
 }
 const storeNewValue = (_value: { [property: string]: any }): void => {
   console.log('store test', _value)
+  generateAllTemplates()
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
@@ -141,7 +142,7 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
     (document, template) => customiseLocation(document, template)
   ]
 
-  let res: Record<string, any> = schema
+  let res: Record<string, any> = { ...schema }
   customisers.forEach((fn) => {
     res = fn(document, res)
   })
@@ -159,15 +160,15 @@ PlanningMessage.args = {
 }
 
 // const land = generateTemplate('first', coreTemplate, landTemplate)
-const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'tmplCyber')
+const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'MissileStrike')
 // const air = generateTemplate('first', coreTemplate, airTemplate)
 // const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
 
-generateAllTemplates()
+// generateAllTemplates()
 
 export const P9Message = Template.bind({})
 P9Message.args = {
-  customiseTemplate: localCustomise,
+ // customiseTemplate: localCustomise,
   modifyForEdit: (document) => collapseLocation(document),
   template: maritime,
   messageContent: landMessage.message,

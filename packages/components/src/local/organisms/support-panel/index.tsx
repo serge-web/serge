@@ -205,7 +205,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       (document, template) => customiseDate(document, template, moment(gameDate).valueOf(), gameTurnTime)
     ]
 
-    let current: Record<string, any> = schema
+    let current: Record<string, any> = { ...schema }
     customisers.forEach((fn) => {
       current = fn(document, current)
     })
