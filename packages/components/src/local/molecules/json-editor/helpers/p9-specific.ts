@@ -83,7 +83,8 @@ export const tmplMissileStrike = {
     title: 'Targets',
     options: {
       grid_columns: 7,
-      enable_array_copy: true
+      enable_array_copy: true,
+      disable_array_reorder: true
     },
     items: {
       type: 'object',

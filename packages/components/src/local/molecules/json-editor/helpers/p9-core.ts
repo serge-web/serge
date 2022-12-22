@@ -69,7 +69,8 @@ export const coreTemplate = {
     propertyOrder: 70,
     title: 'Own Assets',
     options: {
-      grid_columns: 5
+      grid_columns: 5,
+      disable_array_reorder: true
     },
     items: {
       type: 'object',
@@ -117,7 +118,8 @@ export const coreTemplate = {
     minItems: 0,
     title: 'Subject(s) of orders',
     options: {
-      grid_columns: 5
+      grid_columns: 5,
+      disable_array_reorder: true
     },
     items: {
       title: 'Asset',
