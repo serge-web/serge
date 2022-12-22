@@ -9461,7 +9461,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.732Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -9724,10 +9724,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2022-12-22T14:33:38.732Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -9975,13 +9975,16 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
                                 }
                             },
                             "location": {
@@ -10001,10 +10004,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10175,7 +10178,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 302,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -10318,10 +10321,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10491,19 +10494,22 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
                                 }
                             },
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 302,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -10646,10 +10652,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -10921,10 +10927,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11173,13 +11179,16 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
                                 }
                             },
                             "effect": {
@@ -11207,10 +11216,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11502,10 +11511,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11525,8 +11534,9 @@ const game: Wargame = {
                             "activityDescription",
                             "rulesOfEngagement",
                             "emconState",
+                            "domain",
+                            "covert",
                             "method",
-                            "duration",
                             "location"
                         ],
                         "properties": {
@@ -11753,18 +11763,36 @@ const game: Wargame = {
                                     "grid_columns": 6
                                 }
                             },
+                            "domain": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "title": "Target Domain",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 2
+                                },
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Maritime",
+                                        "Air",
+                                        "Land"
+                                    ]
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 1
+                                }
+                            },
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 304,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 305,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -11786,10 +11814,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11810,8 +11838,9 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "posture",
+                            "domain",
+                            "covert",
                             "method",
-                            "duration",
                             "location"
                         ],
                         "properties": {
@@ -12039,27 +12068,48 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
+                                }
+                            },
+                            "domain": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "title": "Target Domain",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 2
+                                },
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Maritime",
+                                        "Air",
+                                        "Land"
+                                    ]
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 1
                                 }
                             },
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 304,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 305,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -12081,10 +12131,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12106,8 +12156,9 @@ const game: Wargame = {
                             "emconState",
                             "posture",
                             "requiresAirToAir",
+                            "domain",
+                            "covert",
                             "method",
-                            "duration",
                             "location"
                         ],
                         "properties": {
@@ -12352,18 +12403,36 @@ const game: Wargame = {
                                     "grid_columns": 4
                                 }
                             },
+                            "domain": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "title": "Target Domain",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 2
+                                },
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Maritime",
+                                        "Air",
+                                        "Land"
+                                    ]
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 1
+                                }
+                            },
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 304,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 305,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -12385,10 +12454,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -12638,7 +12707,7 @@ const game: Wargame = {
                             "patrolType": {
                                 "type": "string",
                                 "title": "Patrol Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -12660,10 +12729,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -12912,19 +12981,22 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
                                 }
                             },
                             "patrolType": {
                                 "type": "string",
                                 "title": "Patrol Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -12946,10 +13018,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -13219,7 +13291,7 @@ const game: Wargame = {
                             "patrolType": {
                                 "type": "string",
                                 "title": "Patrol Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -13241,10 +13313,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -13527,10 +13599,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -13552,6 +13624,7 @@ const game: Wargame = {
                             "emconState",
                             "transitSpeed",
                             "transitDuration",
+                            "transitPosture",
                             "location"
                         ],
                         "properties": {
@@ -13794,6 +13867,19 @@ const game: Wargame = {
                                     "grid_columns": 3
                                 }
                             },
+                            "transitPosture": {
+                                "enum": [
+                                    "Rapid",
+                                    "Standard",
+                                    "Slow"
+                                ],
+                                "title": "Transit Posture",
+                                "type": "string",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
                             "location": {
                                 "format": "location",
                                 "title": "Location",
@@ -13811,10 +13897,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -13837,6 +13923,7 @@ const game: Wargame = {
                             "posture",
                             "transitSpeed",
                             "transitDuration",
+                            "transitPosture",
                             "location"
                         ],
                         "properties": {
@@ -14064,13 +14151,16 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
                                 }
                             },
                             "transitSpeed": {
@@ -14087,6 +14177,19 @@ const game: Wargame = {
                                 "propertyOrder": 301,
                                 "options": {
                                     "grid_columns": 3
+                                }
+                            },
+                            "transitPosture": {
+                                "enum": [
+                                    "Rapid",
+                                    "Standard",
+                                    "Slow"
+                                ],
+                                "title": "Transit Posture",
+                                "type": "string",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
                                 }
                             },
                             "location": {
@@ -14106,10 +14209,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -14133,6 +14236,7 @@ const game: Wargame = {
                             "requiresAirToAir",
                             "transitSpeed",
                             "transitDuration",
+                            "transitPosture",
                             "location"
                         ],
                         "properties": {
@@ -14393,6 +14497,19 @@ const game: Wargame = {
                                     "grid_columns": 3
                                 }
                             },
+                            "transitPosture": {
+                                "enum": [
+                                    "Rapid",
+                                    "Standard",
+                                    "Slow"
+                                ],
+                                "title": "Transit Posture",
+                                "type": "string",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
                             "location": {
                                 "format": "location",
                                 "title": "Location",
@@ -14410,10 +14527,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -14434,7 +14551,6 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "posture",
-                            "duration",
                             "active",
                             "location"
                         ],
@@ -14663,19 +14779,14 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
-                                }
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 312,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -14706,10 +14817,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--Duration",
                     "details": {
                         "format": "grid",
@@ -14958,19 +15069,22 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
                                 "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
+                                    "grid_columns": 4
                                 }
                             },
                             "duration": {
                                 "type": "integer",
                                 "title": "Duration (hrs)",
-                                "propertyOrder": 306,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -14992,10 +15106,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Duration",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -15016,7 +15130,6 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "posture",
-                            "duration",
                             "density",
                             "covert",
                             "location"
@@ -15246,27 +15359,22 @@ const game: Wargame = {
                                 }
                             },
                             "posture": {
-                                "type": "string",
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
                                 "title": "Posture",
-                                "format": "textarea",
+                                "type": "string",
                                 "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 4,
-                                    "grid_break": true
-                                }
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "density": {
                                 "type": "integer",
-                                "title": "Minefield Priority",
-                                "propertyOrder": 310,
+                                "title": "Minefield Density",
+                                "propertyOrder": 311,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -15275,7 +15383,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Covert",
                                 "format": "checkbox",
-                                "propertyOrder": 311,
+                                "propertyOrder": 312,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -15297,10 +15405,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.418Z",
                     "title": "Air--Duration",
                     "details": {
                         "format": "grid",
@@ -15570,7 +15678,7 @@ const game: Wargame = {
                             "duration": {
                                 "type": "integer",
                                 "title": "Duration (hrs)",
-                                "propertyOrder": 306,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -15592,10 +15700,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Duration",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.418Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.419Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -15866,7 +15974,7 @@ const game: Wargame = {
                             "duration": {
                                 "type": "integer",
                                 "title": "Duration (hrs)",
-                                "propertyOrder": 307,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -15875,7 +15983,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Target Type Priority",
-                                "propertyOrder": 308,
+                                "propertyOrder": 310,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -15897,10 +16005,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2022-12-22T14:33:38.733Z"
+                    "_rev": "2022-12-22T16:18:13.419Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.733Z",
+                    "lastUpdated": "2022-12-22T16:18:13.419Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -16171,11 +16279,31 @@ const game: Wargame = {
                                 }
                             },
                             "supportsOther": {
-                                "type": "string",
-                                "title": "Supporting Another Activity?",
+                                "type": "array",
                                 "propertyOrder": 204,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Supports another activity",
                                 "options": {
-                                    "grid_columns": 3
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "o-a",
+                                        "o-b",
+                                        "o-c",
+                                        "o-d"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Orders A",
+                                            "Orders B",
+                                            "Orders C",
+                                            "Orders D"
+                                        ]
+                                    }
                                 }
                             },
                             "activityDesc": {
@@ -16219,10 +16347,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2022-12-22T14:33:38.734Z"
+                    "_rev": "2022-12-22T16:18:13.419Z"
                 },
                 {
-                    "lastUpdated": "2022-12-22T14:33:38.735Z",
+                    "lastUpdated": "2022-12-22T16:18:13.419Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -16494,11 +16622,31 @@ const game: Wargame = {
                                 }
                             },
                             "supportsOther": {
-                                "type": "string",
-                                "title": "Supporting Another Activity?",
+                                "type": "array",
                                 "propertyOrder": 204,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Supports another activity",
                                 "options": {
-                                    "grid_columns": 3
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "o-a",
+                                        "o-b",
+                                        "o-c",
+                                        "o-d"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Orders A",
+                                            "Orders B",
+                                            "Orders C",
+                                            "Orders D"
+                                        ]
+                                    }
                                 }
                             },
                             "activityDesc": {
@@ -16559,7 +16707,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2022-12-22T14:33:38.735Z"
+                    "_rev": "2022-12-22T16:18:13.419Z"
                 }
             ]
         }
