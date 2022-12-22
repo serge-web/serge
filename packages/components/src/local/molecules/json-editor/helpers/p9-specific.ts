@@ -3,7 +3,8 @@ import { booleanObject, dropDownObject, multiSelectDropDownObject, numberObject,
 let order = 300
 export const tmplTransit = {
   transitSpeed: numberObject('Transit Speed', 3, order++),
-  transitDuration: textObject('Transit Duration', 3, order++)
+  transitDuration: textObject('Transit Duration', 3, order++),
+  transitPosture: dropDownObject('Transit Posture', ['Rapid',  'Standard', 'Slow'], 4, order++)
 }
 
 // note: this template is used for a range of types of strike
@@ -150,8 +151,7 @@ export const tmplPatrol = {
 export const tmplISTAR = {
   domain: multiSelectDropDownObject('Target Domain', ['Maritime', 'Air', 'Land'], 2, order++),
   covert: booleanObject('Covert', 1, order++),
-  method: textObject('Observation Method', 4, order++),
-  duration: numberObject('Duration (hrs)', 4, order++)
+  method: textObject('Observation Method', 4, order++)
 }
 
 /** note: used for offensive and defensive operations */
@@ -165,13 +165,11 @@ export const tmplTST = {
 }
 
 export const tmplMineLaying = {
-  duration: numberObject('Duration (hrs)', 4, order++),
-  density: numberObject('Minefield Priority', 4, order++),
+  density: numberObject('Minefield Density', 4, order++),
   covert: booleanObject('Covert', 4, order++)
 }
 
 export const tmplASWBarrier = {
-  duration: numberObject('Duration (hrs)', 4, order++),
   active: booleanObject('Active?', 4, order++)
 }
 
