@@ -2,8 +2,9 @@ import { ForceData, GroupedActivitySet, MessageStructure, PerForcePlanningActivi
 
 export const customiseActivities = (_document: MessageStructure | undefined, schema: Record<string, any>,
   activities: PerForcePlanningActivitySet[], force?: ForceData): Record<string, any> => {
+  const res = { ...schema }  
   if (schema) {
-    const oldActivity = schema.properties?.activity
+    const oldActivity = res.properties?.activity
     if (oldActivity && activities.length) {
       let myActivities: PerForcePlanningActivitySet
       if (force && force.umpire) {
@@ -35,5 +36,5 @@ export const customiseActivities = (_document: MessageStructure | undefined, sch
       oldActivity.options.enum_titles = acts.map((val) => val.name)
     }
   }
-  return schema
+  return res
 }
