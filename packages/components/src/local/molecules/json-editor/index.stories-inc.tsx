@@ -26,10 +26,11 @@ import { collapseLocation } from '../../organisms/planning-messages-list/helpers
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
 import { customiseDate } from '../../organisms/support-panel/helpers/customise-date'
+import { customiseLiveOrders } from '../../organisms/support-panel/helpers/customise-live-orders'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
-import { maritimeTemplate } from './helpers/p9-maritime'
+import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -135,10 +136,14 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
 
   const overview = P9BMock.data.overview
 
+
+  const liveOrders: MessagePlanning[] = planningMessages
+
   const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
     (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities),
     (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
+    (document, template) => customiseLiveOrders(document, template, liveOrders),
     (document, template) => customiseLocation(document, template)
   ]
 
@@ -160,7 +165,8 @@ PlanningMessage.args = {
 }
 
 // const land = generateTemplate('first', coreTemplate, landTemplate)
-const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'MissileStrike')
+//const maritime2 = generateTemplate('first', true, coreTemplate, maritimeTemplate, 'ISTAR')
+const maritime = generateTemplate('first', true, coreTemplate, otherTemplate, 'ISTAR')
 // const air = generateTemplate('first', coreTemplate, airTemplate)
 // const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
 
@@ -168,7 +174,7 @@ const maritime = generateTemplate('first', true, coreTemplate, maritimeTemplate,
 
 export const P9Message = Template.bind({})
 P9Message.args = {
- // customiseTemplate: localCustomise,
+  customiseTemplate: localCustomise,
   modifyForEdit: (document) => collapseLocation(document),
   template: maritime,
   messageContent: landMessage.message,
