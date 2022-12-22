@@ -33,11 +33,11 @@ export const JsonEditor: React.FC<Props> = ({
   cachedName,
   clearCachedName,
   saveMessage,
-  modifyForEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
-  editCallback
+  editCallback,
+  onLocationEditorLoaded
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -104,6 +104,10 @@ export const JsonEditor: React.FC<Props> = ({
     editCallback && editCallback()
   }
 
+  const onEditorLoaded = (editorElm: HTMLDivElement) => {
+    onLocationEditorLoaded && onLocationEditorLoaded(editorElm)
+  }
+
   const initEditor = (): () => void => {
     const hideArrayButtons = disabled
     const jsonEditorConfig = hideArrayButtons
@@ -118,7 +122,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -169,22 +173,22 @@ export const JsonEditor: React.FC<Props> = ({
     document.addEventListener('keydown', handleKeyDown)
 
     if (nextEditor) {
-      // only retrieve from expired content if we haven't been provided with message content
-      const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
-      if (messageJson && !messageContent) {
-        nextEditor.setValue(JSON.parse(messageJson))
-        nextEditor.on('change', changeListenter)
-      } else if (messageContent) {
-        const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
-        const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
-        nextEditor.setValue(modified)
-        nextEditor.on('change', changeListenter)
-      } else {
-        nextEditor.on('change', changeListenter)
-      }
+      setTimeout(() => {
+        // only retrieve from expired content if we haven't been provided with message content
+        const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
+        if (messageJson && !messageContent) {
+          nextEditor.setValue(JSON.parse(messageJson))
+          nextEditor.on('change', changeListenter)
+        } else if (messageContent) {
+          const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
+          nextEditor.setValue(contentAsJSON)
+          nextEditor.on('change', changeListenter)
+        } else {
+          nextEditor.on('change', changeListenter)
+        }
+        setEditor(nextEditor)
+      })
     }
-
-    setEditor(nextEditor)
 
     // handle textarea height to fit its content
     if (expandHeight && jsonEditorRef.current) {
@@ -229,16 +233,16 @@ export const JsonEditor: React.FC<Props> = ({
     //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
-  useLayoutEffect(() => {
-    if (editor) {
-      if (viewSaveButton && !beingEdited) {
-        editor.disable()
-      } else if (disabled && !viewSaveButton) {
-        editor.disable()
-      } else {
-        editor.enable()
-      }
-      setTimeout(() => {
+  useEffect(() => {
+    setTimeout(() => {
+      if (editor) {
+        if (viewSaveButton && !beingEdited) {
+          editor.disable()
+        } else if (disabled && !viewSaveButton) {
+          editor.disable()
+        } else {
+          editor.enable()
+        }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
           // if (beingEdited) {
@@ -247,8 +251,8 @@ export const JsonEditor: React.FC<Props> = ({
           //   btn.classList.add('btn-hide')
           // }
         })
-      }, 10)
-    }
+      }
+    }, 50)
   }, [editor, beingEdited])
 
   const SaveMessageButton = () => (
