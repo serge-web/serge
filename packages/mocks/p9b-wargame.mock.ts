@@ -428,7 +428,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_19",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -641,7 +641,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_49",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1801,7 +1801,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_37",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1829,7 +1829,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_3",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1884,7 +1884,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_34",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1934,7 +1934,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_2",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -2403,7 +2403,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_46",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -2514,7 +2514,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_8",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -3154,7 +3154,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_3",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -3575,7 +3575,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_27",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4366,7 +4366,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_7",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4750,7 +4750,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_40",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4818,7 +4818,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_12",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4931,7 +4931,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_43",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -5072,7 +5072,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_3",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -5165,7 +5165,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_26",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -5370,7 +5370,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_36",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         }
                     ],
@@ -5646,7 +5646,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
-                        "a_Mez Range",
+                        "a_Mez_Range",
                         "a_C2_Status"
                     ],
                     "conditions": [],
@@ -5703,7 +5703,8 @@ const game: Wargame = {
                     "name": "Fixed Asset (blue)",
                     "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": [
-                        "a_Units"
+                        "a_Units",
+                        "a_Building_Type"
                     ],
                     "conditions": [],
                     "states": [],
@@ -5816,7 +5817,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
-                        "a_Mez Range",
+                        "a_Mez_Range",
                         "a_C2_Status"
                     ]
                 },
@@ -5862,7 +5863,8 @@ const game: Wargame = {
                     "uniqid": "red_land_asset",
                     "travelMode": "land",
                     "attributeTypeIds": [
-                        "a_Units"
+                        "a_Units",
+                        "a_Building_Type"
                     ]
                 },
                 {
@@ -5948,17 +5950,6 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Density"
                     ]
-                },
-                {
-                    "name": "Fixed Asset (red)",
-                    "icon": "n_red_land_asset.svg",
-                    "conditions": [],
-                    "states": [],
-                    "uniqid": "red_land_asset",
-                    "travelMode": "land",
-                    "attributeTypeIds": [
-                        "a_Units"
-                    ]
                 }
             ],
             "selectedType": ""
@@ -5973,7 +5964,7 @@ const game: Wargame = {
                     "editableByPlayer": false,
                     "name": "Number"
                 }, {
-                    "attrId": "a_Mez Range",
+                    "attrId": "a_Mez_Range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
                     "description": "MEZ Range",
@@ -5990,11 +5981,28 @@ const game: Wargame = {
                 },
                 {
                     "attrId": "a_C2_Status",
-                    "attrType": "AttributeTypeString",
+                    "attrType": "AttributeTypeEnum",
                     "defaultValue": "Operational",
-                    "description": "C2 Status (None, Degraded, Operational)",
+                    "description": "C2 Status",
+                    "values": ["None", "Degraded", "Operational"],
                     "editableByPlayer": false,
                     "name": "C2 Status"
+                },
+                {
+                    "attrId": "a_C2_Status",
+                    "attrType": "AttributeTypeEnum",
+                    "defaultValue": "Operational",
+                    "description": "C2 Status",
+                    "values": ["None", "Degraded", "Operational"],
+                    "editableByPlayer": false,
+                    "name": "C2 Status"
+                },                {
+                    "attrId": "a_Building_Type",
+                    "attrType": "AttributeTypeEnum",
+                    "description": "Type of fixed land asset",
+                    "values": ["B-Type-A", "B-Type-B", "B-Type-C"],
+                    "editableByPlayer": false,
+                    "name": "Building Type"
                 },
                 {
                     "attrId": "a_Range",
