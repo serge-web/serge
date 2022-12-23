@@ -160,7 +160,6 @@ export const tmplDuration = {
 }
 
 export const tmplTST = {
-  duration: numberObject('Duration (hrs)', 4, order++),
   targetPriority: textAreaObject('Target Type Priority', 4, order++)
 }
 
