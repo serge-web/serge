@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import jsonMetaSchema from './data.json'
-import JSONEditor from '@json-editor/json-editor'
+import * as JSONEditor from '@json-editor/json-editor'
 import Editor from './jsonEditor'
 import Preview from './editorPreview'
 import '@fortawesome/fontawesome-free/css/all.css'
@@ -55,7 +55,7 @@ class SchemaEditor extends Component {
       metaSchema: jsonMetaSchema,
       previewSchema: null,
       options: {
-        layout: JSONEditor.defaults.options.object_layout,
+        layout: JSONEditor.JSONEditor.defaults.options.object_layout,
         booleanOptions: {}
       }
     }

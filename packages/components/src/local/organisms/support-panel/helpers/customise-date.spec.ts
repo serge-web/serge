@@ -1,6 +1,6 @@
 import { MilliTurns, MonthTurns } from '@serge/custom-types'
 import moment from 'moment'
-import { getDateSlots } from './customise-date'
+import { customiseDate, getDateSlots } from './customise-date'
 
 const startTime = '2022-11-12T00:00:00.000Z'
 
@@ -49,4 +49,23 @@ it('creates slots for months', () => {
   expect(slots.length).toEqual(92)
   expect(slots[0].label).toEqual('Nov 12')
   expect(slots[0].value).toEqual(startTime)
+})
+
+it('returns cloned copy', () => {
+  const eightDays: MonthTurns = { unit: 'months', months: 3 }
+  const start = moment(startTime)
+  const schema = { properties: { obj: { val2: 3, val3: 43 } } }
+  const res = customiseDate(undefined, schema, start.valueOf(), eightDays)
+  // check the contents aren't modified
+  expect(res).toEqual(schema)
+  // check it's a different object
+  expect(res).not.toBe(schema)
+})
+
+it('gets modified', () => {
+  const eightDays: MonthTurns = { unit: 'months', months: 3 }
+  const start = moment(startTime)
+  const schema = { properties: { dumbDate: { options: {} }, obj: { val2: 3, val3: 43 } } }
+  const res = customiseDate(undefined, schema, start.valueOf(), eightDays)
+  expect(res).not.toBe(schema)
 })

@@ -428,7 +428,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_19",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -641,7 +641,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_49",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1801,7 +1801,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_37",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1829,7 +1829,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_3",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1884,7 +1884,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_34",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -1934,7 +1934,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_2",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -2403,7 +2403,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_46",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -2514,7 +2514,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_8",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -3154,7 +3154,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_3",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -3575,7 +3575,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_27",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4366,7 +4366,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_7",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4750,7 +4750,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_40",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4818,7 +4818,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_12",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -4931,7 +4931,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_43",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -5072,7 +5072,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_3",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -5165,7 +5165,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_26",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         },
                         {
@@ -5370,7 +5370,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Number": 100,
                                 "a_Equipment": "_36",
-                                "a_Mez Range": 100
+                                "a_Mez_Range": 100
                             }
                         }
                     ],
@@ -5617,7 +5617,7 @@ const game: Wargame = {
             "name": "Platform Types",
             "platformTypes": [
                 {
-                    "name": "Fighter (blue)",
+                    "name": "Fast Jet Squadron (blue)",
                     "icon": "n_blue_air_fighter.svg",
                     "conditions": [],
                     "states": [],
@@ -5629,7 +5629,7 @@ const game: Wargame = {
                     "travelMode": "air"
                 },
                 {
-                    "name": "Bomber (blue)",
+                    "name": "Bomber Squadron (blue)",
                     "icon": "n_blue_air_bomber.svg",
                     "attributeTypeIds": [
                         "a_Number",
@@ -5646,7 +5646,8 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
-                        "a_Mez Range"
+                        "a_Mez_Range",
+                        "a_C2_Status"
                     ],
                     "conditions": [],
                     "states": [],
@@ -5696,18 +5697,19 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_unit",
-                    "travelMode": "sea"
+                    "travelMode": "land"
                 },
                 {
                     "name": "Fixed Asset (blue)",
                     "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": [
-                        "a_Units"
+                        "a_Units",
+                        "a_Building_Type"
                     ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_asset",
-                    "travelMode": "sea"
+                    "travelMode": "land"
                 },
                 {
                     "name": "SSM (blue)",
@@ -5715,12 +5717,13 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
-                        "a_Range"
+                        "a_Range",
+                        "a_C2_Status"
                     ],
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_land_ssm",
-                    "travelMode": "sea"
+                    "travelMode": "land"
                 },
                 {
                     "name": "ISTAR (blue)",
@@ -5733,7 +5736,7 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_istar",
-                    "travelMode": "sea"
+                    "travelMode": "air"
                 },
                 {
                     "name": "Air LOGS (blue)",
@@ -5745,13 +5748,14 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_air_logs",
-                    "travelMode": "sea"
+                    "travelMode": "air"
                 },
                 {
                     "name": "C2 Node (blue)",
                     "icon": "n_blue_hq.svg",
                     "attributeTypeIds": [
-                        "a_Connections"
+                        "a_Connections",
+                        "a_C2_Status"
                     ],
                     "conditions": [],
                     "states": [],
@@ -5770,7 +5774,7 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Minefield (blue)",
+                    "name": "Maritime Minefield (blue)",
                     "icon": "n_blue_maritime_minefield.svg",
                     "attributeTypeIds": [
                         "a_Density"
@@ -5781,7 +5785,18 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Fighter (blue)",
+                    "name": "Land Minefield (blue)",
+                    "icon": "n_blue_maritime_minefield.svg",
+                    "attributeTypeIds": [
+                        "a_Density"
+                    ],
+                    "conditions": [],
+                    "states": [],
+                    "uniqid": "blue_land_mine",
+                    "travelMode": "land"
+                },
+                {
+                    "name": "Fast Jet Squadron (red)",
                     "icon": "n_red_air_fighter.svg",
                     "conditions": [],
                     "states": [],
@@ -5798,11 +5813,12 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_sam",
-                    "travelMode": "land",
+                    "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
-                        "a_Mez Range"
+                        "a_Mez_Range",
+                        "a_C2_Status"
                     ]
                 },
                 {
@@ -5833,7 +5849,7 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_unit",
-                    "travelMode": "sea",
+                    "travelMode": "land",
                     "attributeTypeIds": [
                         "a_Size",
                         "a_Equipment"
@@ -5845,9 +5861,10 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_asset",
-                    "travelMode": "sea",
+                    "travelMode": "land",
                     "attributeTypeIds": [
-                        "a_Units"
+                        "a_Units",
+                        "a_Building_Type"
                     ]
                 },
                 {
@@ -5856,11 +5873,12 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_land_ssm",
-                    "travelMode": "sea",
+                    "travelMode": "land",
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
-                        "a_Range"
+                        "a_Range",
+                        "a_C2_Status"
                     ]
                 },
                 {
@@ -5869,7 +5887,7 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_air_istar",
-                    "travelMode": "sea",
+                    "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment",
@@ -5882,7 +5900,7 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],
                     "uniqid": "red_air_logs",
-                    "travelMode": "sea",
+                    "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Number",
                         "a_Equipment"
@@ -5896,7 +5914,8 @@ const game: Wargame = {
                     "uniqid": "red_land_c2",
                     "travelMode": "land",
                     "attributeTypeIds": [
-                        "a_Connections"
+                        "a_Connections",
+                        "a_C2_Status"
                     ]
                 },
                 {
@@ -5911,7 +5930,7 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Minefield (red)",
+                    "name": "Maritime Minefield (red)",
                     "icon": "n_red_maritime_minefield.svg",
                     "conditions": [],
                     "states": [],
@@ -5922,14 +5941,14 @@ const game: Wargame = {
                     ]
                 },
                 {
-                    "name": "Fixed Asset (red)",
-                    "icon": "n_red_land_asset.svg",
+                    "name": "Land Minefield (red)",
+                    "icon": "n_red_maritime_minefield.svg",
                     "conditions": [],
                     "states": [],
-                    "uniqid": "red_land_asset",
-                    "travelMode": "sea",
+                    "uniqid": "red_land_mine",
+                    "travelMode": "land",
                     "attributeTypeIds": [
-                        "a_Units"
+                        "a_Density"
                     ]
                 }
             ],
@@ -5945,7 +5964,7 @@ const game: Wargame = {
                     "editableByPlayer": false,
                     "name": "Number"
                 }, {
-                    "attrId": "a_Mez Range",
+                    "attrId": "a_Mez_Range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
                     "description": "MEZ Range",
@@ -5959,6 +5978,31 @@ const game: Wargame = {
                     "description": "Equipment carried on asset",
                     "editableByPlayer": false,
                     "name": "Size"
+                },
+                {
+                    "attrId": "a_C2_Status",
+                    "attrType": "AttributeTypeEnum",
+                    "defaultValue": "Operational",
+                    "description": "C2 Status",
+                    "values": ["None", "Degraded", "Operational"],
+                    "editableByPlayer": false,
+                    "name": "C2 Status"
+                },
+                {
+                    "attrId": "a_C2_Status",
+                    "attrType": "AttributeTypeEnum",
+                    "defaultValue": "Operational",
+                    "description": "C2 Status",
+                    "values": ["None", "Degraded", "Operational"],
+                    "editableByPlayer": false,
+                    "name": "C2 Status"
+                },                {
+                    "attrId": "a_Building_Type",
+                    "attrType": "AttributeTypeEnum",
+                    "description": "Type of fixed land asset",
+                    "values": ["B-Type-A", "B-Type-B", "B-Type-C"],
+                    "editableByPlayer": false,
+                    "name": "Building Type"
                 },
                 {
                     "attrId": "a_Range",
@@ -6023,6 +6067,13 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "BMD MEZ",
+                                    "actId": "BMD-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-blue-Land-BMD MEZ",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -6035,45 +6086,29 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-blue-Land-Ballistic Missile Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "Cruise Missile Strike",
-                                    "uniqid": "f-blue-Land-Cruise Missile Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-blue-Land-EW Attack",
                                     "template": "Land--EWAttack",
                                     "geometries": [
@@ -6085,7 +6120,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -6095,10 +6130,26 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "geometries": [
@@ -6110,20 +6161,40 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Land-Patrol",
                                     "template": "Land--Patrol",
                                     "geometries": [
@@ -6148,32 +6219,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-blue-Land-Provide Logistics",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Land-Resupply",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -6185,7 +6240,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -6199,6 +6254,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "SAM MEZ",
+                                    "actId": "SAM-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-blue-Land-SAM MEZ",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -6211,7 +6273,34 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Strike",
+                                    "actId": "STRIKE",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-blue-Land-Strike",
+                                    "template": "Land--MissileStrike"
+                                },
+                                {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Land-Transit",
                                     "template": "Land--Transit",
                                     "geometries": [
@@ -6230,6 +6319,15 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "ASW Barrier",
+                                    "actId": "ASW-B",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT"
+                                    ],
                                     "uniqid": "f-blue-Maritime-ASW Barrier",
                                     "template": "Maritime--ASWBarrier",
                                     "geometries": [
@@ -6255,6 +6353,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "BMD MEZ",
+                                    "actId": "BMD-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-blue-Maritime-BMD MEZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -6267,45 +6372,29 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-blue-Maritime-Ballistic Missile Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "Cruise Missile Strike",
-                                    "uniqid": "f-blue-Maritime-Cruise Missile Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-blue-Maritime-EW Attack",
                                     "template": "Maritime--EWAttack",
                                     "geometries": [
@@ -6317,7 +6406,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -6327,10 +6416,21 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "FIAC EZ",
+                                    "actId": "FIAC",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "M-Clr",
+                                        "M-Lay"
+                                    ],
                                     "uniqid": "f-blue-Maritime-FIAC EZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -6356,6 +6456,21 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "geometries": [
@@ -6367,22 +6482,36 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Mine Clearance",
+                                    "actId": "M-Clr",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
                                     "uniqid": "f-blue-Maritime-Mine Clearance",
-                                    "template": "Maritime--Duration",
+                                    "template": "Maritime--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6402,10 +6531,18 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Mine Clearance-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Mine Laying",
+                                    "actId": "M-Lay",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
                                     "uniqid": "f-blue-Maritime-Mine Laying",
                                     "template": "Maritime--MineLaying",
                                     "geometries": [
@@ -6427,10 +6564,24 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Mine Laying-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Maritime-Patrol",
                                     "template": "Maritime--Patrol",
                                     "geometries": [
@@ -6455,32 +6606,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-blue-Maritime-Provide Logistics",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Maritime-Resupply",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -6492,7 +6627,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -6506,6 +6641,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "SAM MEZ",
+                                    "actId": "SAM-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-blue-Maritime-SAM MEZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -6518,7 +6660,34 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Strike",
+                                    "actId": "STRIKE",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-blue-Maritime-Strike",
+                                    "template": "Maritime--MissileStrike"
+                                },
+                                {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Maritime-Transit",
                                     "template": "Maritime--Transit",
                                     "geometries": [
@@ -6536,28 +6705,23 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-blue-Air-Ballistic Missile Strike",
-                                    "template": "Air--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Defensive Counter Air",
+                                    "actId": "DCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
                                     "uniqid": "f-blue-Air-Defensive Counter Air",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6581,6 +6745,28 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-blue-Air-EW Attack",
                                     "template": "Air--EWAttack",
                                     "geometries": [
@@ -6592,7 +6778,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -6602,10 +6788,26 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "geometries": [
@@ -6617,22 +6819,43 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
                                     "uniqid": "f-blue-Air-Offensive Counter Air",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6656,6 +6879,19 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-Patrol",
                                     "template": "Air--Patrol",
                                     "geometries": [
@@ -6680,32 +6916,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-blue-Air-Provide Logistics",
-                                    "template": "Air--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-Resupply",
                                     "template": "Air--Standard",
                                     "geometries": [
@@ -6717,7 +6937,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -6731,8 +6951,14 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Stand Off Strike",
+                                    "actId": "SoffS",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-Stand Off Strike",
-                                    "template": "Air--Transit",
+                                    "template": "Air--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6742,28 +6968,30 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
+                                            "name": "Launch Location",
                                             "optional": false,
                                             "uniqid": "Stand Off Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Stand Off Strike-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Stand Off Strike-3"
+                                            "uniqid": "Stand Off Strike-2"
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Suppression of Air Defences (SEAD)",
+                                    "actId": "SEAD",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-Suppression of Air Defences (SEAD)",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -6773,7 +7001,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "TST Area",
+                                            "name": "SEAD Area",
                                             "optional": false,
                                             "uniqid": "Suppression of Air Defences (SEAD)-1"
                                         },
@@ -6787,6 +7015,12 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Time Sensitive Targeting (TST)",
+                                    "actId": "TST",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-Time Sensitive Targeting (TST)",
                                     "template": "Air--TST",
                                     "geometries": [
@@ -6808,10 +7042,22 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Time Sensitive Targeting (TST)-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-blue-Air-Transit",
                                     "template": "Air--Transit",
                                     "geometries": [
@@ -6830,31 +7076,19 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "Cyber/Space Activity",
+                                    "actId": "CYB/SPA",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
                                     "uniqid": "f-blue-Other-Cyber/Space Activity",
-                                    "template": "Other--Cyber",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Activity Location",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-2"
-                                        }
-                                    ]
+                                    "template": "Other--Cyber"
                                 },
                                 {
                                     "name": "SOF Activity",
+                                    "actId": "SOF",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
                                     "uniqid": "f-blue-Other-SOF Activity",
                                     "template": "Other--SOFAttack",
                                     "geometries": [
@@ -6872,7 +7106,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Efect Location",
+                                            "name": "Effect Location",
                                             "optional": false,
                                             "uniqid": "SOF Activity-2"
                                         },
@@ -6896,6 +7130,13 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "BMD MEZ",
+                                    "actId": "BMD-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-red-Land-BMD MEZ",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -6908,45 +7149,29 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-red-Land-Ballistic Missile Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "Cruise Missile Strike",
-                                    "uniqid": "f-red-Land-Cruise Missile Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-red-Land-EW Attack",
                                     "template": "Land--EWAttack",
                                     "geometries": [
@@ -6958,7 +7183,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -6968,10 +7193,26 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "geometries": [
@@ -6983,20 +7224,40 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Land-Patrol",
                                     "template": "Land--Patrol",
                                     "geometries": [
@@ -7021,32 +7282,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-red-Land-Provide Logistics",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Land-Resupply",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -7058,7 +7303,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -7072,6 +7317,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "SAM MEZ",
+                                    "actId": "SAM-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-red-Land-SAM MEZ",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -7084,7 +7336,34 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Strike",
+                                    "actId": "STRIKE",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-red-Land-Strike",
+                                    "template": "Land--MissileStrike"
+                                },
+                                {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Land-Transit",
                                     "template": "Land--Transit",
                                     "geometries": [
@@ -7103,6 +7382,15 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "ASW Barrier",
+                                    "actId": "ASW-B",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT"
+                                    ],
                                     "uniqid": "f-red-Maritime-ASW Barrier",
                                     "template": "Maritime--ASWBarrier",
                                     "geometries": [
@@ -7128,6 +7416,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "BMD MEZ",
+                                    "actId": "BMD-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-red-Maritime-BMD MEZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -7140,45 +7435,29 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-red-Maritime-Ballistic Missile Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "Cruise Missile Strike",
-                                    "uniqid": "f-red-Maritime-Cruise Missile Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-red-Maritime-EW Attack",
                                     "template": "Maritime--EWAttack",
                                     "geometries": [
@@ -7190,7 +7469,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -7200,10 +7479,21 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "FIAC EZ",
+                                    "actId": "FIAC",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "M-Clr",
+                                        "M-Lay"
+                                    ],
                                     "uniqid": "f-red-Maritime-FIAC EZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -7229,6 +7519,21 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "geometries": [
@@ -7240,22 +7545,36 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Mine Clearance",
+                                    "actId": "M-Clr",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
                                     "uniqid": "f-red-Maritime-Mine Clearance",
-                                    "template": "Maritime--Duration",
+                                    "template": "Maritime--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7275,10 +7594,18 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Mine Clearance-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Mine Laying",
+                                    "actId": "M-Lay",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
                                     "uniqid": "f-red-Maritime-Mine Laying",
                                     "template": "Maritime--MineLaying",
                                     "geometries": [
@@ -7300,10 +7627,24 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Mine Laying-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Maritime-Patrol",
                                     "template": "Maritime--Patrol",
                                     "geometries": [
@@ -7328,32 +7669,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-red-Maritime-Provide Logistics",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Maritime-Resupply",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -7365,7 +7690,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -7379,6 +7704,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "SAM MEZ",
+                                    "actId": "SAM-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-red-Maritime-SAM MEZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -7391,7 +7723,51 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Sea Denial",
+                                    "actId": "Sea Denial",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
+                                    "uniqid": "f-red-Maritime-Sea Denial",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Sea Denial Area",
+                                            "optional": false,
+                                            "uniqid": "Sea Denial-0"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Strike",
+                                    "actId": "STRIKE",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-red-Maritime-Strike",
+                                    "template": "Maritime--MissileStrike"
+                                },
+                                {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Maritime-Transit",
                                     "template": "Maritime--Transit",
                                     "geometries": [
@@ -7409,28 +7785,23 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-red-Air-Ballistic Missile Strike",
-                                    "template": "Air--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Defensive Counter Air",
+                                    "actId": "DCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
                                     "uniqid": "f-red-Air-Defensive Counter Air",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7454,6 +7825,28 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-red-Air-EW Attack",
                                     "template": "Air--EWAttack",
                                     "geometries": [
@@ -7465,7 +7858,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -7475,10 +7868,26 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "geometries": [
@@ -7490,22 +7899,43 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
                                     "uniqid": "f-red-Air-Offensive Counter Air",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7529,6 +7959,19 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-Patrol",
                                     "template": "Air--Patrol",
                                     "geometries": [
@@ -7553,32 +7996,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-red-Air-Provide Logistics",
-                                    "template": "Air--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-Resupply",
                                     "template": "Air--Standard",
                                     "geometries": [
@@ -7590,7 +8017,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -7604,8 +8031,14 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Stand Off Strike",
+                                    "actId": "SoffS",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-Stand Off Strike",
-                                    "template": "Air--Transit",
+                                    "template": "Air--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7615,28 +8048,30 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
+                                            "name": "Launch Location",
                                             "optional": false,
                                             "uniqid": "Stand Off Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Stand Off Strike-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Stand Off Strike-3"
+                                            "uniqid": "Stand Off Strike-2"
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Suppression of Air Defences (SEAD)",
+                                    "actId": "SEAD",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-Suppression of Air Defences (SEAD)",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -7646,7 +8081,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "TST Area",
+                                            "name": "SEAD Area",
                                             "optional": false,
                                             "uniqid": "Suppression of Air Defences (SEAD)-1"
                                         },
@@ -7660,6 +8095,12 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Time Sensitive Targeting (TST)",
+                                    "actId": "TST",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-Time Sensitive Targeting (TST)",
                                     "template": "Air--TST",
                                     "geometries": [
@@ -7681,10 +8122,22 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Time Sensitive Targeting (TST)-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-red-Air-Transit",
                                     "template": "Air--Transit",
                                     "geometries": [
@@ -7703,31 +8156,19 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "Cyber/Space Activity",
+                                    "actId": "CYB/SPA",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
                                     "uniqid": "f-red-Other-Cyber/Space Activity",
-                                    "template": "Other--Cyber",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Activity Location",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-2"
-                                        }
-                                    ]
+                                    "template": "Other--Cyber"
                                 },
                                 {
                                     "name": "SOF Activity",
+                                    "actId": "SOF",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
                                     "uniqid": "f-red-Other-SOF Activity",
                                     "template": "Other--SOFAttack",
                                     "geometries": [
@@ -7745,7 +8186,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Efect Location",
+                                            "name": "Effect Location",
                                             "optional": false,
                                             "uniqid": "SOF Activity-2"
                                         },
@@ -7769,6 +8210,13 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "BMD MEZ",
+                                    "actId": "BMD-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-green-Land-BMD MEZ",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -7781,45 +8229,29 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-green-Land-Ballistic Missile Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "Cruise Missile Strike",
-                                    "uniqid": "f-green-Land-Cruise Missile Strike",
-                                    "template": "Land--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-green-Land-EW Attack",
                                     "template": "Land--EWAttack",
                                     "geometries": [
@@ -7831,7 +8263,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -7841,10 +8273,26 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Land-ISTAR",
                                     "template": "Land--ISTAR",
                                     "geometries": [
@@ -7856,20 +8304,40 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Land-Patrol",
                                     "template": "Land--Patrol",
                                     "geometries": [
@@ -7894,32 +8362,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-green-Land-Provide Logistics",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Land-Resupply",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -7931,7 +8383,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -7945,6 +8397,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "SAM MEZ",
+                                    "actId": "SAM-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-green-Land-SAM MEZ",
                                     "template": "Land--Standard",
                                     "geometries": [
@@ -7957,7 +8416,34 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Strike",
+                                    "actId": "STRIKE",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Land-Strike",
+                                    "template": "Land--MissileStrike"
+                                },
+                                {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Land-Transit",
                                     "template": "Land--Transit",
                                     "geometries": [
@@ -7976,6 +8462,15 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "ASW Barrier",
+                                    "actId": "ASW-B",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT"
+                                    ],
                                     "uniqid": "f-green-Maritime-ASW Barrier",
                                     "template": "Maritime--ASWBarrier",
                                     "geometries": [
@@ -8001,6 +8496,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "BMD MEZ",
+                                    "actId": "BMD-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-green-Maritime-BMD MEZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -8013,45 +8515,29 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-green-Maritime-Ballistic Missile Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "Cruise Missile Strike",
-                                    "uniqid": "f-green-Maritime-Cruise Missile Strike",
-                                    "template": "Maritime--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Cruise Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-green-Maritime-EW Attack",
                                     "template": "Maritime--EWAttack",
                                     "geometries": [
@@ -8063,7 +8549,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -8073,10 +8559,21 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "FIAC EZ",
+                                    "actId": "FIAC",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "M-Clr",
+                                        "M-Lay"
+                                    ],
                                     "uniqid": "f-green-Maritime-FIAC EZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -8102,6 +8599,21 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Maritime-ISTAR",
                                     "template": "Maritime--ISTAR",
                                     "geometries": [
@@ -8113,22 +8625,36 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Mine Clearance",
+                                    "actId": "M-Clr",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
                                     "uniqid": "f-green-Maritime-Mine Clearance",
-                                    "template": "Maritime--Duration",
+                                    "template": "Maritime--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8148,10 +8674,18 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Mine Clearance-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Mine Laying",
+                                    "actId": "M-Lay",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "FIAC"
+                                    ],
                                     "uniqid": "f-green-Maritime-Mine Laying",
                                     "template": "Maritime--MineLaying",
                                     "geometries": [
@@ -8173,10 +8707,24 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Mine Laying-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Maritime-Patrol",
                                     "template": "Maritime--Patrol",
                                     "geometries": [
@@ -8201,32 +8749,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-green-Maritime-Provide Logistics",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Maritime-Resupply",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -8238,7 +8770,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -8252,6 +8784,13 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "SAM MEZ",
+                                    "actId": "SAM-MEZ",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "SEAD"
+                                    ],
                                     "uniqid": "f-green-Maritime-SAM MEZ",
                                     "template": "Maritime--Standard",
                                     "geometries": [
@@ -8264,7 +8803,34 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
+                                    "name": "Strike",
+                                    "actId": "STRIKE",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Maritime-Strike",
+                                    "template": "Maritime--MissileStrike"
+                                },
+                                {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Maritime-Transit",
                                     "template": "Maritime--Transit",
                                     "geometries": [
@@ -8282,28 +8848,23 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Ballistic Missile Strike",
-                                    "uniqid": "f-green-Air-Ballistic Missile Strike",
-                                    "template": "Air--MissileStrike",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Ballistic Missile Strike-1"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Defensive Counter Air",
+                                    "actId": "DCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
                                     "uniqid": "f-green-Air-Defensive Counter Air",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8327,6 +8888,28 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "EW Attack",
+                                    "actId": "EW",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST",
+                                        "CYB/SPA",
+                                        "SOF"
+                                    ],
                                     "uniqid": "f-green-Air-EW Attack",
                                     "template": "Air--EWAttack",
                                     "geometries": [
@@ -8338,7 +8921,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "EW Target",
+                                            "name": "EW Area of Effect",
                                             "optional": false,
                                             "uniqid": "EW Attack-1"
                                         },
@@ -8348,10 +8931,26 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "EW Attack-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "ISTAR",
+                                    "actId": "ISTAR",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-ISTAR",
                                     "template": "Air--ISTAR",
                                     "geometries": [
@@ -8363,22 +8962,43 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Observation Area",
+                                            "name": "Patrol Area",
                                             "optional": false,
                                             "uniqid": "ISTAR-1"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "Observation Area",
+                                            "optional": false,
+                                            "uniqid": "ISTAR-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "ISTAR-2"
+                                            "uniqid": "ISTAR-3"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
                                     "uniqid": "f-green-Air-Offensive Counter Air",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8402,6 +9022,19 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Patrol",
+                                    "actId": "PATRL",
+                                    "interactsWith": [
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "TRANSIT",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "M-Clr",
+                                        "M-Lay",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-Patrol",
                                     "template": "Air--Patrol",
                                     "geometries": [
@@ -8426,32 +9059,16 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "Provide Logistics",
-                                    "uniqid": "f-green-Air-Provide Logistics",
-                                    "template": "Air--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "LOGS Destination",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Provide Logistics-2"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Resupply",
+                                    "actId": "RESUPP",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-Resupply",
                                     "template": "Air--Standard",
                                     "geometries": [
@@ -8463,7 +9080,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Resupply Destingation",
+                                            "name": "Resupply at this location",
                                             "optional": false,
                                             "uniqid": "Resupply-1"
                                         },
@@ -8477,8 +9094,14 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Stand Off Strike",
+                                    "actId": "SoffS",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-Stand Off Strike",
-                                    "template": "Air--Transit",
+                                    "template": "Air--MissileStrike",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8488,28 +9111,30 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Asset Location",
+                                            "name": "Launch Location",
                                             "optional": false,
                                             "uniqid": "Stand Off Strike-1"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Strike Target",
-                                            "optional": false,
-                                            "uniqid": "Stand Off Strike-2"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Stand Off Strike-3"
+                                            "uniqid": "Stand Off Strike-2"
                                         }
                                     ]
                                 },
                                 {
                                     "name": "Suppression of Air Defences (SEAD)",
+                                    "actId": "SEAD",
+                                    "interactsWith": [
+                                        "BMD-MEZ",
+                                        "SAM-MEZ",
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-Suppression of Air Defences (SEAD)",
-                                    "template": "Air--Duration",
+                                    "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
@@ -8519,7 +9144,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "TST Area",
+                                            "name": "SEAD Area",
                                             "optional": false,
                                             "uniqid": "Suppression of Air Defences (SEAD)-1"
                                         },
@@ -8533,6 +9158,12 @@ const game: Wargame = {
                                 },
                                 {
                                     "name": "Time Sensitive Targeting (TST)",
+                                    "actId": "TST",
+                                    "interactsWith": [
+                                        "EW",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-Time Sensitive Targeting (TST)",
                                     "template": "Air--TST",
                                     "geometries": [
@@ -8554,10 +9185,22 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Time Sensitive Targeting (TST)-2"
                                         }
-                                    ]
+                                    ],
+                                    "provideSpatialAssets": true
                                 },
                                 {
                                     "name": "Transit",
+                                    "actId": "TRANSIT",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
                                     "uniqid": "f-green-Air-Transit",
                                     "template": "Air--Transit",
                                     "geometries": [
@@ -8576,31 +9219,19 @@ const game: Wargame = {
                             "activities": [
                                 {
                                     "name": "Cyber/Space Activity",
+                                    "actId": "CYB/SPA",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
                                     "uniqid": "f-green-Other-Cyber/Space Activity",
-                                    "template": "Other--Cyber",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "Activity Location",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Cyber/Space Activity-2"
-                                        }
-                                    ]
+                                    "template": "Other--Cyber"
                                 },
                                 {
                                     "name": "SOF Activity",
+                                    "actId": "SOF",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
                                     "uniqid": "f-green-Other-SOF Activity",
                                     "template": "Other--SOFAttack",
                                     "geometries": [
@@ -8618,7 +9249,7 @@ const game: Wargame = {
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "Efect Location",
+                                            "name": "Effect Location",
                                             "optional": false,
                                             "uniqid": "SOF Activity-2"
                                         },
@@ -8937,2194 +9568,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Land--Transit",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "transitSpeed",
-                            "transitDuration",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "transitSpeed": {
-                                "type": "integer",
-                                "title": "Transit Speed",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitDuration": {
-                                "type": "string",
-                                "title": "Transit Duration",
-                                "propertyOrder": 301,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Land--Transit",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Land--Transit",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Maritime--Transit",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "transitSpeed",
-                            "transitDuration",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "transitSpeed": {
-                                "type": "integer",
-                                "title": "Transit Speed",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitDuration": {
-                                "type": "string",
-                                "title": "Transit Duration",
-                                "propertyOrder": 301,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--Transit",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--Transit",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Air--Transit",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "transitSpeed",
-                            "transitDuration",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "transitSpeed": {
-                                "type": "integer",
-                                "title": "Transit Speed",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitDuration": {
-                                "type": "string",
-                                "title": "Transit Duration",
-                                "propertyOrder": 301,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Air--Transit",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Air--Transit",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Land--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "missileType",
-                            "missilesFired",
-                            "targetType",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "missileType": {
-                                "type": "string",
-                                "title": "Missile Type",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "missilesFired": {
-                                "type": "integer",
-                                "title": "Missiles Fired",
-                                "propertyOrder": 303,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 304,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Land--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Land--MissileStrike",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Maritime--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "missileType",
-                            "missilesFired",
-                            "targetType",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "missileType": {
-                                "type": "string",
-                                "title": "Missile Type",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "missilesFired": {
-                                "type": "integer",
-                                "title": "Missiles Fired",
-                                "propertyOrder": 303,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 304,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--MissileStrike",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Land--Patrol",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "patrolType",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "patrolType": {
-                                "type": "string",
-                                "title": "Patrol Type",
-                                "propertyOrder": 305,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Land--Patrol",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Land--Patrol",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Maritime--Patrol",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "patrolType",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "patrolType": {
-                                "type": "string",
-                                "title": "Patrol Type",
-                                "propertyOrder": 305,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--Patrol",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--Patrol",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Air--Patrol",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "patrolType",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "patrolType": {
-                                "type": "string",
-                                "title": "Patrol Type",
-                                "propertyOrder": 305,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Air--Patrol",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Air--Patrol",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
-                    "title": "Air--MissileStrike",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "missileType",
-                            "missilesFired",
-                            "targetType",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "missileType": {
-                                "type": "string",
-                                "title": "Missile Type",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "missilesFired": {
-                                "type": "integer",
-                                "title": "Missiles Fired",
-                                "propertyOrder": 303,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 304,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Air--MissileStrike",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Air--MissileStrike",
-                    "_rev": "2022-11-13T17:53:07.470Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -11142,6 +9586,8 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
                             "location"
                         ],
                         "properties": {
@@ -11168,8 +9614,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -11177,8 +9699,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11204,7 +9802,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -11215,7 +9813,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11236,7 +9835,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -11263,7 +9862,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11294,13 +9894,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -11329,8 +9980,26 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "location": {
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
                                 "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "location": {
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -11346,10 +10015,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2022-11-13T17:53:07.470Z"
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.470Z",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -11367,6 +10036,9 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
                             "location"
                         ],
                         "properties": {
@@ -11393,8 +10065,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -11402,8 +10150,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11429,7 +10253,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -11440,7 +10264,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11461,7 +10286,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -11488,7 +10313,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11519,13 +10345,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -11554,8 +10431,39 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "location": {
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
                                 "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -11571,10 +10479,3181 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2022-11-13T17:53:07.470Z"
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Land--MissileStrike",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "targetType",
+                            "ownAssets",
+                            "otherAssets"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "targetType": {
+                                "type": "string",
+                                "title": "Target Type",
+                                "propertyOrder": 303,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Launchers",
+                                "options": {
+                                    "grid_columns": 7,
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Launcher",
+                                            "type": "string",
+                                            "enum": [
+                                                "a1",
+                                                "a5",
+                                                "a6",
+                                                "a7",
+                                                "a8",
+                                                "a9",
+                                                "a10",
+                                                "a11",
+                                                "a12",
+                                                "a13",
+                                                "a14",
+                                                "a15",
+                                                "a16",
+                                                "a17",
+                                                "a18",
+                                                "a19",
+                                                "a20",
+                                                "a21",
+                                                "a22",
+                                                "a23",
+                                                "a24",
+                                                "a25",
+                                                "a26",
+                                                "a27",
+                                                "a28",
+                                                "a29",
+                                                "a30",
+                                                "a31",
+                                                "a32",
+                                                "a33",
+                                                "a34",
+                                                "a35",
+                                                "a36",
+                                                "a37",
+                                                "a38",
+                                                "a39",
+                                                "a40",
+                                                "a41",
+                                                "a42",
+                                                "a43",
+                                                "a44",
+                                                "a45",
+                                                "a46",
+                                                "a47",
+                                                "a48",
+                                                "a49",
+                                                "a50",
+                                                "a51",
+                                                "a52",
+                                                "a53",
+                                                "a54",
+                                                "a55",
+                                                "a56",
+                                                "a57",
+                                                "a58",
+                                                "a59",
+                                                "a60",
+                                                "a61",
+                                                "a62",
+                                                "a63",
+                                                "a64",
+                                                "a65",
+                                                "a66",
+                                                "a67",
+                                                "a68",
+                                                "a69",
+                                                "a70",
+                                                "a71",
+                                                "a72",
+                                                "a73",
+                                                "a74",
+                                                "a75",
+                                                "a76",
+                                                "a77",
+                                                "a78",
+                                                "a79",
+                                                "a80",
+                                                "a81",
+                                                "a82",
+                                                "a83",
+                                                "a84",
+                                                "a85",
+                                                "a86",
+                                                "a87",
+                                                "a88",
+                                                "a89",
+                                                "a90",
+                                                "a91",
+                                                "a92",
+                                                "a93",
+                                                "a94",
+                                                "a95",
+                                                "a96",
+                                                "a97",
+                                                "a98",
+                                                "a99",
+                                                "a100"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Blue:0",
+                                                    "Blue:4",
+                                                    "Blue:5",
+                                                    "Blue:6",
+                                                    "Blue:7",
+                                                    "Blue:8",
+                                                    "Blue:9",
+                                                    "Blue:10",
+                                                    "Blue:11",
+                                                    "Blue:12",
+                                                    "Blue:13",
+                                                    "Blue:14",
+                                                    "Blue:15",
+                                                    "Blue:16",
+                                                    "Blue:17",
+                                                    "Blue:18",
+                                                    "Blue:19",
+                                                    "Blue:20",
+                                                    "Blue:21",
+                                                    "Blue:22",
+                                                    "Blue:23",
+                                                    "Blue:24",
+                                                    "Blue:25",
+                                                    "Blue:26",
+                                                    "Blue:27",
+                                                    "Blue:28",
+                                                    "Blue:29",
+                                                    "Blue:30",
+                                                    "Blue:31",
+                                                    "Blue:32",
+                                                    "Blue:33",
+                                                    "Blue:34",
+                                                    "Blue:35",
+                                                    "Blue:36",
+                                                    "Blue:37",
+                                                    "Blue:38",
+                                                    "Blue:39",
+                                                    "Blue:40",
+                                                    "Blue:41",
+                                                    "Blue:42",
+                                                    "Blue:43",
+                                                    "Blue:44",
+                                                    "Blue:45",
+                                                    "Blue:46",
+                                                    "Blue:47",
+                                                    "Blue:48",
+                                                    "Blue:49",
+                                                    "Blue:50",
+                                                    "Blue:51",
+                                                    "Blue:52",
+                                                    "Blue:53",
+                                                    "Blue:54",
+                                                    "Blue:55",
+                                                    "Blue:56",
+                                                    "Blue:57",
+                                                    "Blue:58",
+                                                    "Blue:59",
+                                                    "Blue:60",
+                                                    "Blue:61",
+                                                    "Blue:62",
+                                                    "Blue:63",
+                                                    "Blue:64",
+                                                    "Blue:65",
+                                                    "Blue:66",
+                                                    "Blue:67",
+                                                    "Blue:68",
+                                                    "Blue:69",
+                                                    "Blue:70",
+                                                    "Blue:71",
+                                                    "Blue:72",
+                                                    "Blue:73",
+                                                    "Blue:74",
+                                                    "Blue:75",
+                                                    "Blue:76",
+                                                    "Blue:77",
+                                                    "Blue:78",
+                                                    "Blue:79",
+                                                    "Blue:80",
+                                                    "Blue:81",
+                                                    "Blue:82",
+                                                    "Blue:83",
+                                                    "Blue:84",
+                                                    "Blue:85",
+                                                    "Blue:86",
+                                                    "Blue:87",
+                                                    "Blue:88",
+                                                    "Blue:89",
+                                                    "Blue:90",
+                                                    "Blue:91",
+                                                    "Blue:92",
+                                                    "Blue:93",
+                                                    "Blue:94",
+                                                    "Blue:95",
+                                                    "Blue:96",
+                                                    "Blue:97",
+                                                    "Blue:98",
+                                                    "Blue:99"
+                                                ]
+                                            }
+                                        },
+                                        "missileType": {
+                                            "title": "Missile Type",
+                                            "type": "string",
+                                            "enum": [
+                                                "SRBM",
+                                                "MRBM",
+                                                "IRBM",
+                                                "Standard Cruise",
+                                                "Low Obs Cruise",
+                                                "Propellor OWA UAV",
+                                                "Jet OWA UAV"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 75,
+                                "title": "Targets",
+                                "options": {
+                                    "grid_columns": 7,
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "a101",
+                                                "a105",
+                                                "a106",
+                                                "a107",
+                                                "a108",
+                                                "a109",
+                                                "a110",
+                                                "a111",
+                                                "a112",
+                                                "a113",
+                                                "a114",
+                                                "a115",
+                                                "a116",
+                                                "a117",
+                                                "a118",
+                                                "a119",
+                                                "a120",
+                                                "a121",
+                                                "a122",
+                                                "a123",
+                                                "a124",
+                                                "a125",
+                                                "a126",
+                                                "a127",
+                                                "a128",
+                                                "a129",
+                                                "a130",
+                                                "a131",
+                                                "a132",
+                                                "a133",
+                                                "a134",
+                                                "a135",
+                                                "a136",
+                                                "a137",
+                                                "a138",
+                                                "a139",
+                                                "a140",
+                                                "a141",
+                                                "a142",
+                                                "a143",
+                                                "a144",
+                                                "a145",
+                                                "a146",
+                                                "a147",
+                                                "a148",
+                                                "a149",
+                                                "a150",
+                                                "a151",
+                                                "a152",
+                                                "a153",
+                                                "a154",
+                                                "a155",
+                                                "a156",
+                                                "a157",
+                                                "a158",
+                                                "a159",
+                                                "a160",
+                                                "a161",
+                                                "a162",
+                                                "a163",
+                                                "a164",
+                                                "a165",
+                                                "a166",
+                                                "a167",
+                                                "a168",
+                                                "a169",
+                                                "a170",
+                                                "a171",
+                                                "a172",
+                                                "a173",
+                                                "a174",
+                                                "a175",
+                                                "a176",
+                                                "a177",
+                                                "a178",
+                                                "a179",
+                                                "a180",
+                                                "a181",
+                                                "a182",
+                                                "a183",
+                                                "a184",
+                                                "a185",
+                                                "a186",
+                                                "a187",
+                                                "a188",
+                                                "a189",
+                                                "a190",
+                                                "a191",
+                                                "a192",
+                                                "a193",
+                                                "a194",
+                                                "a195",
+                                                "a196",
+                                                "a197",
+                                                "a198",
+                                                "a199",
+                                                "a200"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Red:0",
+                                                    "Red:4",
+                                                    "Red:5",
+                                                    "Red:6",
+                                                    "Red:7",
+                                                    "Red:8",
+                                                    "Red:9",
+                                                    "Red:10",
+                                                    "Red:11",
+                                                    "Red:12",
+                                                    "Red:13",
+                                                    "Red:14",
+                                                    "Red:15",
+                                                    "Red:16",
+                                                    "Red:17",
+                                                    "Red:18",
+                                                    "Red:19",
+                                                    "Red:20",
+                                                    "Red:21",
+                                                    "Red:22",
+                                                    "Red:23",
+                                                    "Red:24",
+                                                    "Red:25",
+                                                    "Red:26",
+                                                    "Red:27",
+                                                    "Red:28",
+                                                    "Red:29",
+                                                    "Red:30",
+                                                    "Red:31",
+                                                    "Red:32",
+                                                    "Red:33",
+                                                    "Red:34",
+                                                    "Red:35",
+                                                    "Red:36",
+                                                    "Red:37",
+                                                    "Red:38",
+                                                    "Red:39",
+                                                    "Red:40",
+                                                    "Red:41",
+                                                    "Red:42",
+                                                    "Red:43",
+                                                    "Red:44",
+                                                    "Red:45",
+                                                    "Red:46",
+                                                    "Red:47",
+                                                    "Red:48",
+                                                    "Red:49",
+                                                    "Red:50",
+                                                    "Red:51",
+                                                    "Red:52",
+                                                    "Red:53",
+                                                    "Red:54",
+                                                    "Red:55",
+                                                    "Red:56",
+                                                    "Red:57",
+                                                    "Red:58",
+                                                    "Red:59",
+                                                    "Red:60",
+                                                    "Red:61",
+                                                    "Red:62",
+                                                    "Red:63",
+                                                    "Red:64",
+                                                    "Red:65",
+                                                    "Red:66",
+                                                    "Red:67",
+                                                    "Red:68",
+                                                    "Red:69",
+                                                    "Red:70",
+                                                    "Red:71",
+                                                    "Red:72",
+                                                    "Red:73",
+                                                    "Red:74",
+                                                    "Red:75",
+                                                    "Red:76",
+                                                    "Red:77",
+                                                    "Red:78",
+                                                    "Red:79",
+                                                    "Red:80",
+                                                    "Red:81",
+                                                    "Red:82",
+                                                    "Red:83",
+                                                    "Red:84",
+                                                    "Red:85",
+                                                    "Red:86",
+                                                    "Red:87",
+                                                    "Red:88",
+                                                    "Red:89",
+                                                    "Red:90",
+                                                    "Red:91",
+                                                    "Red:92",
+                                                    "Red:93",
+                                                    "Red:94",
+                                                    "Red:95",
+                                                    "Red:96",
+                                                    "Red:97",
+                                                    "Red:98",
+                                                    "Red:99"
+                                                ]
+                                            }
+                                        },
+                                        "missileType": {
+                                            "title": "Missile Type",
+                                            "type": "string",
+                                            "enum": [
+                                                "SRBM",
+                                                "MRBM",
+                                                "IRBM",
+                                                "Standard Cruise",
+                                                "Low Obs Cruise",
+                                                "Propellor OWA UAV",
+                                                "Jet OWA UAV"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "title": "Land--MissileStrike",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--MissileStrike",
+                    "_rev": "2022-12-23T14:54:40.889Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Maritime--MissileStrike",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "targetType",
+                            "ownAssets",
+                            "otherAssets"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "targetType": {
+                                "type": "string",
+                                "title": "Target Type",
+                                "propertyOrder": 303,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Launchers",
+                                "options": {
+                                    "grid_columns": 7,
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Launcher",
+                                            "type": "string",
+                                            "enum": [
+                                                "a1",
+                                                "a5",
+                                                "a6",
+                                                "a7",
+                                                "a8",
+                                                "a9",
+                                                "a10",
+                                                "a11",
+                                                "a12",
+                                                "a13",
+                                                "a14",
+                                                "a15",
+                                                "a16",
+                                                "a17",
+                                                "a18",
+                                                "a19",
+                                                "a20",
+                                                "a21",
+                                                "a22",
+                                                "a23",
+                                                "a24",
+                                                "a25",
+                                                "a26",
+                                                "a27",
+                                                "a28",
+                                                "a29",
+                                                "a30",
+                                                "a31",
+                                                "a32",
+                                                "a33",
+                                                "a34",
+                                                "a35",
+                                                "a36",
+                                                "a37",
+                                                "a38",
+                                                "a39",
+                                                "a40",
+                                                "a41",
+                                                "a42",
+                                                "a43",
+                                                "a44",
+                                                "a45",
+                                                "a46",
+                                                "a47",
+                                                "a48",
+                                                "a49",
+                                                "a50",
+                                                "a51",
+                                                "a52",
+                                                "a53",
+                                                "a54",
+                                                "a55",
+                                                "a56",
+                                                "a57",
+                                                "a58",
+                                                "a59",
+                                                "a60",
+                                                "a61",
+                                                "a62",
+                                                "a63",
+                                                "a64",
+                                                "a65",
+                                                "a66",
+                                                "a67",
+                                                "a68",
+                                                "a69",
+                                                "a70",
+                                                "a71",
+                                                "a72",
+                                                "a73",
+                                                "a74",
+                                                "a75",
+                                                "a76",
+                                                "a77",
+                                                "a78",
+                                                "a79",
+                                                "a80",
+                                                "a81",
+                                                "a82",
+                                                "a83",
+                                                "a84",
+                                                "a85",
+                                                "a86",
+                                                "a87",
+                                                "a88",
+                                                "a89",
+                                                "a90",
+                                                "a91",
+                                                "a92",
+                                                "a93",
+                                                "a94",
+                                                "a95",
+                                                "a96",
+                                                "a97",
+                                                "a98",
+                                                "a99",
+                                                "a100"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Blue:0",
+                                                    "Blue:4",
+                                                    "Blue:5",
+                                                    "Blue:6",
+                                                    "Blue:7",
+                                                    "Blue:8",
+                                                    "Blue:9",
+                                                    "Blue:10",
+                                                    "Blue:11",
+                                                    "Blue:12",
+                                                    "Blue:13",
+                                                    "Blue:14",
+                                                    "Blue:15",
+                                                    "Blue:16",
+                                                    "Blue:17",
+                                                    "Blue:18",
+                                                    "Blue:19",
+                                                    "Blue:20",
+                                                    "Blue:21",
+                                                    "Blue:22",
+                                                    "Blue:23",
+                                                    "Blue:24",
+                                                    "Blue:25",
+                                                    "Blue:26",
+                                                    "Blue:27",
+                                                    "Blue:28",
+                                                    "Blue:29",
+                                                    "Blue:30",
+                                                    "Blue:31",
+                                                    "Blue:32",
+                                                    "Blue:33",
+                                                    "Blue:34",
+                                                    "Blue:35",
+                                                    "Blue:36",
+                                                    "Blue:37",
+                                                    "Blue:38",
+                                                    "Blue:39",
+                                                    "Blue:40",
+                                                    "Blue:41",
+                                                    "Blue:42",
+                                                    "Blue:43",
+                                                    "Blue:44",
+                                                    "Blue:45",
+                                                    "Blue:46",
+                                                    "Blue:47",
+                                                    "Blue:48",
+                                                    "Blue:49",
+                                                    "Blue:50",
+                                                    "Blue:51",
+                                                    "Blue:52",
+                                                    "Blue:53",
+                                                    "Blue:54",
+                                                    "Blue:55",
+                                                    "Blue:56",
+                                                    "Blue:57",
+                                                    "Blue:58",
+                                                    "Blue:59",
+                                                    "Blue:60",
+                                                    "Blue:61",
+                                                    "Blue:62",
+                                                    "Blue:63",
+                                                    "Blue:64",
+                                                    "Blue:65",
+                                                    "Blue:66",
+                                                    "Blue:67",
+                                                    "Blue:68",
+                                                    "Blue:69",
+                                                    "Blue:70",
+                                                    "Blue:71",
+                                                    "Blue:72",
+                                                    "Blue:73",
+                                                    "Blue:74",
+                                                    "Blue:75",
+                                                    "Blue:76",
+                                                    "Blue:77",
+                                                    "Blue:78",
+                                                    "Blue:79",
+                                                    "Blue:80",
+                                                    "Blue:81",
+                                                    "Blue:82",
+                                                    "Blue:83",
+                                                    "Blue:84",
+                                                    "Blue:85",
+                                                    "Blue:86",
+                                                    "Blue:87",
+                                                    "Blue:88",
+                                                    "Blue:89",
+                                                    "Blue:90",
+                                                    "Blue:91",
+                                                    "Blue:92",
+                                                    "Blue:93",
+                                                    "Blue:94",
+                                                    "Blue:95",
+                                                    "Blue:96",
+                                                    "Blue:97",
+                                                    "Blue:98",
+                                                    "Blue:99"
+                                                ]
+                                            }
+                                        },
+                                        "missileType": {
+                                            "title": "Missile Type",
+                                            "type": "string",
+                                            "enum": [
+                                                "SRBM",
+                                                "MRBM",
+                                                "IRBM",
+                                                "Standard Cruise",
+                                                "Low Obs Cruise",
+                                                "Propellor OWA UAV",
+                                                "Jet OWA UAV"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 75,
+                                "title": "Targets",
+                                "options": {
+                                    "grid_columns": 7,
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "a101",
+                                                "a105",
+                                                "a106",
+                                                "a107",
+                                                "a108",
+                                                "a109",
+                                                "a110",
+                                                "a111",
+                                                "a112",
+                                                "a113",
+                                                "a114",
+                                                "a115",
+                                                "a116",
+                                                "a117",
+                                                "a118",
+                                                "a119",
+                                                "a120",
+                                                "a121",
+                                                "a122",
+                                                "a123",
+                                                "a124",
+                                                "a125",
+                                                "a126",
+                                                "a127",
+                                                "a128",
+                                                "a129",
+                                                "a130",
+                                                "a131",
+                                                "a132",
+                                                "a133",
+                                                "a134",
+                                                "a135",
+                                                "a136",
+                                                "a137",
+                                                "a138",
+                                                "a139",
+                                                "a140",
+                                                "a141",
+                                                "a142",
+                                                "a143",
+                                                "a144",
+                                                "a145",
+                                                "a146",
+                                                "a147",
+                                                "a148",
+                                                "a149",
+                                                "a150",
+                                                "a151",
+                                                "a152",
+                                                "a153",
+                                                "a154",
+                                                "a155",
+                                                "a156",
+                                                "a157",
+                                                "a158",
+                                                "a159",
+                                                "a160",
+                                                "a161",
+                                                "a162",
+                                                "a163",
+                                                "a164",
+                                                "a165",
+                                                "a166",
+                                                "a167",
+                                                "a168",
+                                                "a169",
+                                                "a170",
+                                                "a171",
+                                                "a172",
+                                                "a173",
+                                                "a174",
+                                                "a175",
+                                                "a176",
+                                                "a177",
+                                                "a178",
+                                                "a179",
+                                                "a180",
+                                                "a181",
+                                                "a182",
+                                                "a183",
+                                                "a184",
+                                                "a185",
+                                                "a186",
+                                                "a187",
+                                                "a188",
+                                                "a189",
+                                                "a190",
+                                                "a191",
+                                                "a192",
+                                                "a193",
+                                                "a194",
+                                                "a195",
+                                                "a196",
+                                                "a197",
+                                                "a198",
+                                                "a199",
+                                                "a200"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Red:0",
+                                                    "Red:4",
+                                                    "Red:5",
+                                                    "Red:6",
+                                                    "Red:7",
+                                                    "Red:8",
+                                                    "Red:9",
+                                                    "Red:10",
+                                                    "Red:11",
+                                                    "Red:12",
+                                                    "Red:13",
+                                                    "Red:14",
+                                                    "Red:15",
+                                                    "Red:16",
+                                                    "Red:17",
+                                                    "Red:18",
+                                                    "Red:19",
+                                                    "Red:20",
+                                                    "Red:21",
+                                                    "Red:22",
+                                                    "Red:23",
+                                                    "Red:24",
+                                                    "Red:25",
+                                                    "Red:26",
+                                                    "Red:27",
+                                                    "Red:28",
+                                                    "Red:29",
+                                                    "Red:30",
+                                                    "Red:31",
+                                                    "Red:32",
+                                                    "Red:33",
+                                                    "Red:34",
+                                                    "Red:35",
+                                                    "Red:36",
+                                                    "Red:37",
+                                                    "Red:38",
+                                                    "Red:39",
+                                                    "Red:40",
+                                                    "Red:41",
+                                                    "Red:42",
+                                                    "Red:43",
+                                                    "Red:44",
+                                                    "Red:45",
+                                                    "Red:46",
+                                                    "Red:47",
+                                                    "Red:48",
+                                                    "Red:49",
+                                                    "Red:50",
+                                                    "Red:51",
+                                                    "Red:52",
+                                                    "Red:53",
+                                                    "Red:54",
+                                                    "Red:55",
+                                                    "Red:56",
+                                                    "Red:57",
+                                                    "Red:58",
+                                                    "Red:59",
+                                                    "Red:60",
+                                                    "Red:61",
+                                                    "Red:62",
+                                                    "Red:63",
+                                                    "Red:64",
+                                                    "Red:65",
+                                                    "Red:66",
+                                                    "Red:67",
+                                                    "Red:68",
+                                                    "Red:69",
+                                                    "Red:70",
+                                                    "Red:71",
+                                                    "Red:72",
+                                                    "Red:73",
+                                                    "Red:74",
+                                                    "Red:75",
+                                                    "Red:76",
+                                                    "Red:77",
+                                                    "Red:78",
+                                                    "Red:79",
+                                                    "Red:80",
+                                                    "Red:81",
+                                                    "Red:82",
+                                                    "Red:83",
+                                                    "Red:84",
+                                                    "Red:85",
+                                                    "Red:86",
+                                                    "Red:87",
+                                                    "Red:88",
+                                                    "Red:89",
+                                                    "Red:90",
+                                                    "Red:91",
+                                                    "Red:92",
+                                                    "Red:93",
+                                                    "Red:94",
+                                                    "Red:95",
+                                                    "Red:96",
+                                                    "Red:97",
+                                                    "Red:98",
+                                                    "Red:99"
+                                                ]
+                                            }
+                                        },
+                                        "missileType": {
+                                            "title": "Missile Type",
+                                            "type": "string",
+                                            "enum": [
+                                                "SRBM",
+                                                "MRBM",
+                                                "IRBM",
+                                                "Standard Cruise",
+                                                "Low Obs Cruise",
+                                                "Propellor OWA UAV",
+                                                "Jet OWA UAV"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "title": "Maritime--MissileStrike",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--MissileStrike",
+                    "_rev": "2022-12-23T14:54:40.889Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Land--EWAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "effect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "effect": {
+                                "type": "string",
+                                "title": "Effect Type",
+                                "propertyOrder": 313,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--EWAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--EWAttack",
+                    "_rev": "2022-12-23T14:54:40.889Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Maritime--EWAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "effect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "effect": {
+                                "type": "string",
+                                "title": "Effect Type",
+                                "propertyOrder": 313,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--EWAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--EWAttack",
+                    "_rev": "2022-12-23T14:54:40.889Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Air--EWAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "effect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
+                                "type": "boolean",
+                                "title": "Requires A to A",
+                                "format": "checkbox",
+                                "propertyOrder": 230,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "effect": {
+                                "type": "string",
+                                "title": "Effect Type",
+                                "propertyOrder": 313,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--EWAttack",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--EWAttack",
+                    "_rev": "2022-12-23T14:54:40.889Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11592,8 +13671,11 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "domain",
+                            "covert",
                             "method",
-                            "duration",
                             "location"
                         ],
                         "properties": {
@@ -11620,8 +13702,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -11629,8 +13787,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11656,7 +13890,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -11667,7 +13901,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11688,7 +13923,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -11715,7 +13950,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11746,13 +13982,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -11781,24 +14068,60 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "domain": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "title": "Target Domain",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 2
+                                },
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Maritime",
+                                        "Air",
+                                        "Land"
+                                    ]
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 1
+                                }
+                            },
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 306,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
                                 "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -11814,10 +14137,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11835,8 +14158,12 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "domain",
+                            "covert",
                             "method",
-                            "duration",
                             "location"
                         ],
                         "properties": {
@@ -11863,8 +14190,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -11872,8 +14275,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11899,7 +14378,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -11910,7 +14389,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -11931,7 +14411,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -11958,7 +14438,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -11989,13 +14470,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -12024,24 +14556,73 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "method": {
+                            "rulesOfEngagement": {
                                 "type": "string",
-                                "title": "Observation Method",
-                                "propertyOrder": 306,
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "domain": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "title": "Target Domain",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 2
+                                },
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Maritime",
+                                        "Air",
+                                        "Land"
+                                    ]
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 1
+                                }
+                            },
+                            "method": {
+                                "type": "string",
+                                "title": "Observation Method",
                                 "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -12057,10 +14638,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12078,8 +14659,13 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "domain",
+                            "covert",
                             "method",
-                            "duration",
                             "location"
                         ],
                         "properties": {
@@ -12106,8 +14692,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -12115,8 +14777,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12142,7 +14880,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -12153,7 +14891,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12174,7 +14913,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -12201,7 +14940,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12232,13 +14972,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -12267,24 +15058,78 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "method": {
+                            "rulesOfEngagement": {
                                 "type": "string",
-                                "title": "Observation Method",
-                                "propertyOrder": 306,
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
+                                "type": "boolean",
+                                "title": "Requires A to A",
+                                "format": "checkbox",
+                                "propertyOrder": 230,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "domain": {
+                                "type": "array",
+                                "uniqueItems": true,
+                                "title": "Target Domain",
+                                "propertyOrder": 305,
+                                "options": {
+                                    "grid_columns": 2
+                                },
+                                "items": {
+                                    "type": "string",
+                                    "enum": [
+                                        "Maritime",
+                                        "Air",
+                                        "Land"
+                                    ]
+                                }
+                            },
+                            "covert": {
+                                "type": "boolean",
+                                "title": "Covert",
+                                "format": "checkbox",
+                                "propertyOrder": 306,
+                                "options": {
+                                    "grid_columns": 1
+                                }
+                            },
+                            "method": {
+                                "type": "string",
+                                "title": "Observation Method",
                                 "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -12300,11 +15145,11 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
-                    "title": "Air--Duration",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -12321,7 +15166,9 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
-                            "duration",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "patrolType",
                             "location"
                         ],
                         "properties": {
@@ -12348,8 +15195,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -12357,8 +15280,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12384,7 +15383,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -12395,7 +15394,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12416,7 +15416,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -12443,7 +15443,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12474,13 +15475,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -12509,16 +15561,34 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 308,
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "patrolType": {
+                                "type": "string",
+                                "title": "Patrol Type",
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -12529,16 +15599,16 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "Air--Duration",
+                        "title": "Land--Patrol",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "Air--Duration",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_id": "Land--Patrol",
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
-                    "title": "Air--TST",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -12555,8 +15625,10 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
-                            "duration",
-                            "targetPriority",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "patrolType",
                             "location"
                         ],
                         "properties": {
@@ -12583,8 +15655,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -12592,8 +15740,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12619,7 +15843,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -12630,7 +15854,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12651,7 +15876,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -12678,7 +15903,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12709,13 +15935,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -12744,25 +16021,47 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 309,
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
-                            "targetPriority": {
+                            "emconState": {
                                 "type": "string",
+                                "title": "Emcon State",
                                 "format": "textarea",
-                                "title": "Target Type Priority",
-                                "propertyOrder": 310,
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "patrolType": {
+                                "type": "string",
+                                "title": "Patrol Type",
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -12773,15 +16072,2918 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "Air--TST",
+                        "title": "Maritime--Patrol",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "Air--TST",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_id": "Maritime--Patrol",
+                    "_rev": "2022-12-23T14:54:40.889Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
+                    "lastUpdated": "2022-12-23T14:54:40.889Z",
+                    "title": "Air--Patrol",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "patrolType",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
+                                "type": "boolean",
+                                "title": "Requires A to A",
+                                "format": "checkbox",
+                                "propertyOrder": 230,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "patrolType": {
+                                "type": "string",
+                                "title": "Patrol Type",
+                                "propertyOrder": 304,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Patrol",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Patrol",
+                    "_rev": "2022-12-23T14:54:40.889Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Air--Standard",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
+                                "type": "boolean",
+                                "title": "Requires A to A",
+                                "format": "checkbox",
+                                "propertyOrder": 230,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Standard",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Standard",
+                    "_rev": "2022-12-23T14:54:40.890Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Land--Transit",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "transitSpeed",
+                            "transitDuration",
+                            "transitPosture",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "transitSpeed": {
+                                "type": "integer",
+                                "title": "Transit Speed",
+                                "propertyOrder": 300,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitDuration": {
+                                "type": "string",
+                                "title": "Transit Duration",
+                                "propertyOrder": 301,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitPosture": {
+                                "enum": [
+                                    "Rapid",
+                                    "Standard",
+                                    "Slow"
+                                ],
+                                "title": "Transit Posture",
+                                "type": "string",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--Transit",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--Transit",
+                    "_rev": "2022-12-23T14:54:40.890Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Maritime--Transit",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "transitSpeed",
+                            "transitDuration",
+                            "transitPosture",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "transitSpeed": {
+                                "type": "integer",
+                                "title": "Transit Speed",
+                                "propertyOrder": 300,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitDuration": {
+                                "type": "string",
+                                "title": "Transit Duration",
+                                "propertyOrder": 301,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitPosture": {
+                                "enum": [
+                                    "Rapid",
+                                    "Standard",
+                                    "Slow"
+                                ],
+                                "title": "Transit Posture",
+                                "type": "string",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--Transit",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--Transit",
+                    "_rev": "2022-12-23T14:54:40.890Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Air--Transit",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "transitSpeed",
+                            "transitDuration",
+                            "transitPosture",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
+                                "type": "boolean",
+                                "title": "Requires A to A",
+                                "format": "checkbox",
+                                "propertyOrder": 230,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "transitSpeed": {
+                                "type": "integer",
+                                "title": "Transit Speed",
+                                "propertyOrder": 300,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitDuration": {
+                                "type": "string",
+                                "title": "Transit Duration",
+                                "propertyOrder": 301,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "transitPosture": {
+                                "enum": [
+                                    "Rapid",
+                                    "Standard",
+                                    "Slow"
+                                ],
+                                "title": "Transit Posture",
+                                "type": "string",
+                                "propertyOrder": 302,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Air--Transit",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Air--Transit",
+                    "_rev": "2022-12-23T14:54:40.890Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Maritime--ASWBarrier",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "active",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "active": {
+                                "type": "boolean",
+                                "title": "Active?",
+                                "format": "checkbox",
+                                "propertyOrder": 312,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--ASWBarrier",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--ASWBarrier",
+                    "_rev": "2022-12-23T14:54:40.890Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -12799,7 +19001,9 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
-                            "duration",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
                             "density",
                             "covert",
                             "location"
@@ -12828,8 +19032,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -12837,8 +19117,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12864,7 +19220,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -12875,7 +19231,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -12896,7 +19253,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -12923,7 +19280,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -12954,13 +19312,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -12989,18 +19398,41 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 311,
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "density": {
                                 "type": "integer",
-                                "title": "Minefield Priority",
-                                "propertyOrder": 312,
+                                "title": "Minefield Density",
+                                "propertyOrder": 310,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -13009,13 +19441,13 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Covert",
                                 "format": "checkbox",
-                                "propertyOrder": 313,
+                                "propertyOrder": 311,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -13031,11 +19463,11 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_rev": "2022-12-23T14:54:40.890Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
-                    "title": "Maritime--Duration",
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -13045,14 +19477,18 @@ const game: Wargame = {
                             "endDate",
                             "activity",
                             "intent",
-                            "ownAssets",
-                            "otherAssets",
                             "actionsOn",
                             "synchronisedWith",
                             "supports",
                             "activityCard",
                             "activityDescription",
-                            "duration",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "targetType",
+                            "ownAssets",
+                            "otherAssets",
                             "location"
                         ],
                         "properties": {
@@ -13079,8 +19515,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -13088,8 +19600,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -13115,85 +19703,9 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
                             },
                             "actionsOn": {
                                 "format": "textarea",
@@ -13205,13 +19717,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -13240,260 +19803,556 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 308,
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
-                            "location": {
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
                                 "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--Duration",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--Duration",
-                    "_rev": "2022-11-13T17:53:07.471Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.471Z",
-                    "title": "Maritime--ASWBarrier",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "duration",
-                            "active",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "duration": {
-                                "type": "integer",
-                                "title": "Duration (hrs)",
-                                "propertyOrder": 314,
+                                "propertyOrder": 210,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
-                            "active": {
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
                                 "type": "boolean",
-                                "title": "Active?",
+                                "title": "Requires A to A",
                                 "format": "checkbox",
-                                "propertyOrder": 315,
+                                "propertyOrder": 230,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
+                            "targetType": {
+                                "type": "string",
+                                "title": "Target Type",
+                                "propertyOrder": 303,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Launchers",
+                                "options": {
+                                    "grid_columns": 7,
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Launcher",
+                                            "type": "string",
+                                            "enum": [
+                                                "a1",
+                                                "a5",
+                                                "a6",
+                                                "a7",
+                                                "a8",
+                                                "a9",
+                                                "a10",
+                                                "a11",
+                                                "a12",
+                                                "a13",
+                                                "a14",
+                                                "a15",
+                                                "a16",
+                                                "a17",
+                                                "a18",
+                                                "a19",
+                                                "a20",
+                                                "a21",
+                                                "a22",
+                                                "a23",
+                                                "a24",
+                                                "a25",
+                                                "a26",
+                                                "a27",
+                                                "a28",
+                                                "a29",
+                                                "a30",
+                                                "a31",
+                                                "a32",
+                                                "a33",
+                                                "a34",
+                                                "a35",
+                                                "a36",
+                                                "a37",
+                                                "a38",
+                                                "a39",
+                                                "a40",
+                                                "a41",
+                                                "a42",
+                                                "a43",
+                                                "a44",
+                                                "a45",
+                                                "a46",
+                                                "a47",
+                                                "a48",
+                                                "a49",
+                                                "a50",
+                                                "a51",
+                                                "a52",
+                                                "a53",
+                                                "a54",
+                                                "a55",
+                                                "a56",
+                                                "a57",
+                                                "a58",
+                                                "a59",
+                                                "a60",
+                                                "a61",
+                                                "a62",
+                                                "a63",
+                                                "a64",
+                                                "a65",
+                                                "a66",
+                                                "a67",
+                                                "a68",
+                                                "a69",
+                                                "a70",
+                                                "a71",
+                                                "a72",
+                                                "a73",
+                                                "a74",
+                                                "a75",
+                                                "a76",
+                                                "a77",
+                                                "a78",
+                                                "a79",
+                                                "a80",
+                                                "a81",
+                                                "a82",
+                                                "a83",
+                                                "a84",
+                                                "a85",
+                                                "a86",
+                                                "a87",
+                                                "a88",
+                                                "a89",
+                                                "a90",
+                                                "a91",
+                                                "a92",
+                                                "a93",
+                                                "a94",
+                                                "a95",
+                                                "a96",
+                                                "a97",
+                                                "a98",
+                                                "a99",
+                                                "a100"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Blue:0",
+                                                    "Blue:4",
+                                                    "Blue:5",
+                                                    "Blue:6",
+                                                    "Blue:7",
+                                                    "Blue:8",
+                                                    "Blue:9",
+                                                    "Blue:10",
+                                                    "Blue:11",
+                                                    "Blue:12",
+                                                    "Blue:13",
+                                                    "Blue:14",
+                                                    "Blue:15",
+                                                    "Blue:16",
+                                                    "Blue:17",
+                                                    "Blue:18",
+                                                    "Blue:19",
+                                                    "Blue:20",
+                                                    "Blue:21",
+                                                    "Blue:22",
+                                                    "Blue:23",
+                                                    "Blue:24",
+                                                    "Blue:25",
+                                                    "Blue:26",
+                                                    "Blue:27",
+                                                    "Blue:28",
+                                                    "Blue:29",
+                                                    "Blue:30",
+                                                    "Blue:31",
+                                                    "Blue:32",
+                                                    "Blue:33",
+                                                    "Blue:34",
+                                                    "Blue:35",
+                                                    "Blue:36",
+                                                    "Blue:37",
+                                                    "Blue:38",
+                                                    "Blue:39",
+                                                    "Blue:40",
+                                                    "Blue:41",
+                                                    "Blue:42",
+                                                    "Blue:43",
+                                                    "Blue:44",
+                                                    "Blue:45",
+                                                    "Blue:46",
+                                                    "Blue:47",
+                                                    "Blue:48",
+                                                    "Blue:49",
+                                                    "Blue:50",
+                                                    "Blue:51",
+                                                    "Blue:52",
+                                                    "Blue:53",
+                                                    "Blue:54",
+                                                    "Blue:55",
+                                                    "Blue:56",
+                                                    "Blue:57",
+                                                    "Blue:58",
+                                                    "Blue:59",
+                                                    "Blue:60",
+                                                    "Blue:61",
+                                                    "Blue:62",
+                                                    "Blue:63",
+                                                    "Blue:64",
+                                                    "Blue:65",
+                                                    "Blue:66",
+                                                    "Blue:67",
+                                                    "Blue:68",
+                                                    "Blue:69",
+                                                    "Blue:70",
+                                                    "Blue:71",
+                                                    "Blue:72",
+                                                    "Blue:73",
+                                                    "Blue:74",
+                                                    "Blue:75",
+                                                    "Blue:76",
+                                                    "Blue:77",
+                                                    "Blue:78",
+                                                    "Blue:79",
+                                                    "Blue:80",
+                                                    "Blue:81",
+                                                    "Blue:82",
+                                                    "Blue:83",
+                                                    "Blue:84",
+                                                    "Blue:85",
+                                                    "Blue:86",
+                                                    "Blue:87",
+                                                    "Blue:88",
+                                                    "Blue:89",
+                                                    "Blue:90",
+                                                    "Blue:91",
+                                                    "Blue:92",
+                                                    "Blue:93",
+                                                    "Blue:94",
+                                                    "Blue:95",
+                                                    "Blue:96",
+                                                    "Blue:97",
+                                                    "Blue:98",
+                                                    "Blue:99"
+                                                ]
+                                            }
+                                        },
+                                        "missileType": {
+                                            "title": "Missile Type",
+                                            "type": "string",
+                                            "enum": [
+                                                "SRBM",
+                                                "MRBM",
+                                                "IRBM",
+                                                "Standard Cruise",
+                                                "Low Obs Cruise",
+                                                "Propellor OWA UAV",
+                                                "Jet OWA UAV"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 75,
+                                "title": "Targets",
+                                "options": {
+                                    "grid_columns": 7,
+                                    "enable_array_copy": true,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "a101",
+                                                "a105",
+                                                "a106",
+                                                "a107",
+                                                "a108",
+                                                "a109",
+                                                "a110",
+                                                "a111",
+                                                "a112",
+                                                "a113",
+                                                "a114",
+                                                "a115",
+                                                "a116",
+                                                "a117",
+                                                "a118",
+                                                "a119",
+                                                "a120",
+                                                "a121",
+                                                "a122",
+                                                "a123",
+                                                "a124",
+                                                "a125",
+                                                "a126",
+                                                "a127",
+                                                "a128",
+                                                "a129",
+                                                "a130",
+                                                "a131",
+                                                "a132",
+                                                "a133",
+                                                "a134",
+                                                "a135",
+                                                "a136",
+                                                "a137",
+                                                "a138",
+                                                "a139",
+                                                "a140",
+                                                "a141",
+                                                "a142",
+                                                "a143",
+                                                "a144",
+                                                "a145",
+                                                "a146",
+                                                "a147",
+                                                "a148",
+                                                "a149",
+                                                "a150",
+                                                "a151",
+                                                "a152",
+                                                "a153",
+                                                "a154",
+                                                "a155",
+                                                "a156",
+                                                "a157",
+                                                "a158",
+                                                "a159",
+                                                "a160",
+                                                "a161",
+                                                "a162",
+                                                "a163",
+                                                "a164",
+                                                "a165",
+                                                "a166",
+                                                "a167",
+                                                "a168",
+                                                "a169",
+                                                "a170",
+                                                "a171",
+                                                "a172",
+                                                "a173",
+                                                "a174",
+                                                "a175",
+                                                "a176",
+                                                "a177",
+                                                "a178",
+                                                "a179",
+                                                "a180",
+                                                "a181",
+                                                "a182",
+                                                "a183",
+                                                "a184",
+                                                "a185",
+                                                "a186",
+                                                "a187",
+                                                "a188",
+                                                "a189",
+                                                "a190",
+                                                "a191",
+                                                "a192",
+                                                "a193",
+                                                "a194",
+                                                "a195",
+                                                "a196",
+                                                "a197",
+                                                "a198",
+                                                "a199",
+                                                "a200"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Red:0",
+                                                    "Red:4",
+                                                    "Red:5",
+                                                    "Red:6",
+                                                    "Red:7",
+                                                    "Red:8",
+                                                    "Red:9",
+                                                    "Red:10",
+                                                    "Red:11",
+                                                    "Red:12",
+                                                    "Red:13",
+                                                    "Red:14",
+                                                    "Red:15",
+                                                    "Red:16",
+                                                    "Red:17",
+                                                    "Red:18",
+                                                    "Red:19",
+                                                    "Red:20",
+                                                    "Red:21",
+                                                    "Red:22",
+                                                    "Red:23",
+                                                    "Red:24",
+                                                    "Red:25",
+                                                    "Red:26",
+                                                    "Red:27",
+                                                    "Red:28",
+                                                    "Red:29",
+                                                    "Red:30",
+                                                    "Red:31",
+                                                    "Red:32",
+                                                    "Red:33",
+                                                    "Red:34",
+                                                    "Red:35",
+                                                    "Red:36",
+                                                    "Red:37",
+                                                    "Red:38",
+                                                    "Red:39",
+                                                    "Red:40",
+                                                    "Red:41",
+                                                    "Red:42",
+                                                    "Red:43",
+                                                    "Red:44",
+                                                    "Red:45",
+                                                    "Red:46",
+                                                    "Red:47",
+                                                    "Red:48",
+                                                    "Red:49",
+                                                    "Red:50",
+                                                    "Red:51",
+                                                    "Red:52",
+                                                    "Red:53",
+                                                    "Red:54",
+                                                    "Red:55",
+                                                    "Red:56",
+                                                    "Red:57",
+                                                    "Red:58",
+                                                    "Red:59",
+                                                    "Red:60",
+                                                    "Red:61",
+                                                    "Red:62",
+                                                    "Red:63",
+                                                    "Red:64",
+                                                    "Red:65",
+                                                    "Red:66",
+                                                    "Red:67",
+                                                    "Red:68",
+                                                    "Red:69",
+                                                    "Red:70",
+                                                    "Red:71",
+                                                    "Red:72",
+                                                    "Red:73",
+                                                    "Red:74",
+                                                    "Red:75",
+                                                    "Red:76",
+                                                    "Red:77",
+                                                    "Red:78",
+                                                    "Red:79",
+                                                    "Red:80",
+                                                    "Red:81",
+                                                    "Red:82",
+                                                    "Red:83",
+                                                    "Red:84",
+                                                    "Red:85",
+                                                    "Red:86",
+                                                    "Red:87",
+                                                    "Red:88",
+                                                    "Red:89",
+                                                    "Red:90",
+                                                    "Red:91",
+                                                    "Red:92",
+                                                    "Red:93",
+                                                    "Red:94",
+                                                    "Red:95",
+                                                    "Red:96",
+                                                    "Red:97",
+                                                    "Red:98",
+                                                    "Red:99"
+                                                ]
+                                            }
+                                        },
+                                        "missileType": {
+                                            "title": "Missile Type",
+                                            "type": "string",
+                                            "enum": [
+                                                "SRBM",
+                                                "MRBM",
+                                                "IRBM",
+                                                "Standard Cruise",
+                                                "Low Obs Cruise",
+                                                "Propellor OWA UAV",
+                                                "Jet OWA UAV"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -13504,16 +20363,16 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "Maritime--ASWBarrier",
+                        "title": "Air--MissileStrike",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "Maritime--ASWBarrier",
-                    "_rev": "2022-11-13T17:53:07.471Z"
+                    "_id": "Air--MissileStrike",
+                    "_rev": "2022-12-23T14:54:40.890Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.472Z",
-                    "title": "Air--Standard",
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Air--TST",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -13530,6 +20389,11 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "requiresAirToAir",
+                            "targetPriority",
                             "location"
                         ],
                         "properties": {
@@ -13556,8 +20420,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -13565,8 +20505,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -13592,7 +20608,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -13603,7 +20619,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -13624,7 +20641,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -13651,7 +20668,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -13682,241 +20700,65 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Air--Standard",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Air--Standard",
-                    "_rev": "2022-11-13T17:53:07.472Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.472Z",
-                    "title": "Land--EWAttack",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "effect",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
                                 "type": "array",
+                                "propertyOrder": 100,
                                 "format": "table",
                                 "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enable_array_copy": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
                                 "items": {
-                                    "title": "Asset",
+                                    "title": "Order",
                                     "type": "string",
                                     "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
                                     ],
                                     "options": {
                                         "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
                                         ]
                                     }
                                 }
                             },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
                             "supports": {
                                 "format": "textarea",
                                 "title": "Supports High-Level",
@@ -13944,16 +20786,53 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
-                            "effect": {
+                            "rulesOfEngagement": {
                                 "type": "string",
-                                "title": "Effect Type",
-                                "propertyOrder": 316,
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "type": "string",
+                                "title": "Posture",
+                                "format": "textarea",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "requiresAirToAir": {
+                                "type": "boolean",
+                                "title": "Requires A to A",
+                                "format": "checkbox",
+                                "propertyOrder": 230,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "targetPriority": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Target Type Priority",
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -13964,733 +20843,15 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "Land--EWAttack",
+                        "title": "Air--TST",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "Land--EWAttack",
-                    "_rev": "2022-11-13T17:53:07.472Z"
+                    "_id": "Air--TST",
+                    "_rev": "2022-12-23T14:54:40.890Z"
                 },
                 {
-                    "lastUpdated": "2022-11-13T17:53:07.472Z",
-                    "title": "Maritime--EWAttack",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "effect",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "effect": {
-                                "type": "string",
-                                "title": "Effect Type",
-                                "propertyOrder": 316,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--EWAttack",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--EWAttack",
-                    "_rev": "2022-11-13T17:53:07.472Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.472Z",
-                    "title": "Air--EWAttack",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "effect",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "effect": {
-                                "type": "string",
-                                "title": "Effect Type",
-                                "propertyOrder": 316,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Air--EWAttack",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Air--EWAttack",
-                    "_rev": "2022-11-13T17:53:07.472Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.472Z",
-                    "title": "Other--SOFAttack",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "activityType",
-                            "intendedEffect",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "title": "Start date",
-                                "propertyOrder": 30,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "endDate": {
-                                "format": "serge-date",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "End date",
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 6,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 3,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "activityType": {
-                                "enum": [
-                                    "Raid",
-                                    "Capture/Kill",
-                                    "Gather Int",
-                                    "Deliver Errect"
-                                ],
-                                "title": "Activity Type",
-                                "type": "string",
-                                "propertyOrder": 317,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "intendedEffect": {
-                                "type": "string",
-                                "format": "textarea",
-                                "title": "Intended Effect",
-                                "propertyOrder": 318,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "textarea",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Other--SOFAttack",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Other--SOFAttack",
-                    "_rev": "2022-11-13T17:53:07.472Z"
-                },
-                {
-                    "lastUpdated": "2022-11-13T17:53:07.472Z",
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -14708,9 +20869,15 @@ const game: Wargame = {
                             "supports",
                             "activityCard",
                             "activityDescription",
+                            "discussedWithSMEs",
+                            "isPreadjudicated",
+                            "standaloneActivity",
+                            "requiresAS",
+                            "supportsOther",
+                            "activityDesc",
+                            "effectDesc",
                             "activityType",
-                            "intendedEffect",
-                            "location"
+                            "intendedEffect"
                         ],
                         "properties": {
                             "Reference": {
@@ -14736,8 +20903,84 @@ const game: Wargame = {
                                 "title": "Start date",
                                 "propertyOrder": 30,
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "endDate": {
                                 "format": "serge-date",
@@ -14745,8 +20988,84 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End date",
                                 "options": {
-                                    "grid_columns": 3
-                                }
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
                             },
                             "activity": {
                                 "title": "Activity",
@@ -14772,7 +21091,7 @@ const game: Wargame = {
                                 "title": "Intent",
                                 "propertyOrder": 60,
                                 "options": {
-                                    "grid_columns": 8
+                                    "grid_columns": 6
                                 },
                                 "type": "string"
                             },
@@ -14783,7 +21102,8 @@ const game: Wargame = {
                                 "propertyOrder": 70,
                                 "title": "Own Assets",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "type": "object",
@@ -14804,7 +21124,7 @@ const game: Wargame = {
                                                 "pa"
                                             ],
                                             "options": {
-                                                "grid_columns": 3,
+                                                "grid_columns": 2,
                                                 "enum_titles": [
                                                     "Tank A",
                                                     "Tank B",
@@ -14831,7 +21151,8 @@ const game: Wargame = {
                                 "minItems": 0,
                                 "title": "Subject(s) of orders",
                                 "options": {
-                                    "grid_columns": 6
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
                                 },
                                 "items": {
                                     "title": "Asset",
@@ -14862,13 +21183,64 @@ const game: Wargame = {
                                 "type": "string"
                             },
                             "synchronisedWith": {
-                                "format": "text",
-                                "title": "Sync with",
-                                "propertyOrder": 68,
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
                                 "options": {
                                     "grid_columns": 6
                                 },
-                                "type": "string"
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
                             },
                             "supports": {
                                 "format": "textarea",
@@ -14897,10 +21269,92 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
+                            "discussedWithSMEs": {
+                                "type": "boolean",
+                                "title": "Has this been discussed with SMEs?",
+                                "format": "checkbox",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "isPreadjudicated": {
+                                "type": "boolean",
+                                "title": "Is this pre-adjudicated?",
+                                "format": "checkbox",
+                                "propertyOrder": 201,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "standaloneActivity": {
+                                "type": "boolean",
+                                "title": "Stand-Alone Activity?",
+                                "format": "checkbox",
+                                "propertyOrder": 202,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "requiresAS": {
+                                "type": "boolean",
+                                "title": "Does this require AS Discussion?",
+                                "format": "checkbox",
+                                "propertyOrder": 203,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "supportsOther": {
+                                "type": "array",
+                                "propertyOrder": 204,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Supports another activity",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "o-a",
+                                        "o-b",
+                                        "o-c",
+                                        "o-d"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Orders A",
+                                            "Orders B",
+                                            "Orders C",
+                                            "Orders D"
+                                        ]
+                                    }
+                                }
+                            },
+                            "activityDesc": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 205,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "effectDesc": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Effect Description",
+                                "propertyOrder": 206,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
                             "activityType": {
                                 "type": "string",
                                 "title": "Activity Type",
-                                "propertyOrder": 319,
+                                "propertyOrder": 316,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -14909,13 +21363,546 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Intended Effect",
-                                "propertyOrder": 320,
+                                "propertyOrder": 317,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            }
+                        },
+                        "title": "Other--Cyber",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Other--Cyber",
+                    "_rev": "2022-12-23T14:54:40.890Z"
+                },
+                {
+                    "lastUpdated": "2022-12-23T14:54:40.890Z",
+                    "title": "Other--SOFAttack",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "discussedWithSMEs",
+                            "isPreadjudicated",
+                            "standaloneActivity",
+                            "requiresAS",
+                            "supportsOther",
+                            "activityDesc",
+                            "effectDesc",
+                            "activityType",
+                            "intendedEffect",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "title": "Start date",
+                                "propertyOrder": 30,
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "endDate": {
+                                "format": "serge-date",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "End date",
+                                "options": {
+                                    "grid_columns": 3,
+                                    "enum_titles": [
+                                        "110000Z",
+                                        "110200Z",
+                                        "110400Z",
+                                        "110600Z",
+                                        "110800Z",
+                                        "111000Z",
+                                        "111200Z",
+                                        "111400Z",
+                                        "111600Z",
+                                        "111800Z",
+                                        "112000Z",
+                                        "112200Z",
+                                        "120000Z",
+                                        "120200Z",
+                                        "120400Z",
+                                        "120600Z",
+                                        "120800Z",
+                                        "121000Z",
+                                        "121200Z",
+                                        "121400Z",
+                                        "121600Z",
+                                        "121800Z",
+                                        "122000Z",
+                                        "122200Z",
+                                        "130000Z",
+                                        "130200Z",
+                                        "130400Z",
+                                        "130600Z",
+                                        "130800Z",
+                                        "131000Z",
+                                        "131200Z",
+                                        "131400Z",
+                                        "131600Z",
+                                        "131800Z",
+                                        "132000Z",
+                                        "132200Z"
+                                    ]
+                                },
+                                "enum": [
+                                    "2022-11-11T00:00:00.000Z",
+                                    "2022-11-11T02:00:00.000Z",
+                                    "2022-11-11T04:00:00.000Z",
+                                    "2022-11-11T06:00:00.000Z",
+                                    "2022-11-11T08:00:00.000Z",
+                                    "2022-11-11T10:00:00.000Z",
+                                    "2022-11-11T12:00:00.000Z",
+                                    "2022-11-11T14:00:00.000Z",
+                                    "2022-11-11T16:00:00.000Z",
+                                    "2022-11-11T18:00:00.000Z",
+                                    "2022-11-11T20:00:00.000Z",
+                                    "2022-11-11T22:00:00.000Z",
+                                    "2022-11-12T00:00:00.000Z",
+                                    "2022-11-12T02:00:00.000Z",
+                                    "2022-11-12T04:00:00.000Z",
+                                    "2022-11-12T06:00:00.000Z",
+                                    "2022-11-12T08:00:00.000Z",
+                                    "2022-11-12T10:00:00.000Z",
+                                    "2022-11-12T12:00:00.000Z",
+                                    "2022-11-12T14:00:00.000Z",
+                                    "2022-11-12T16:00:00.000Z",
+                                    "2022-11-12T18:00:00.000Z",
+                                    "2022-11-12T20:00:00.000Z",
+                                    "2022-11-12T22:00:00.000Z",
+                                    "2022-11-13T00:00:00.000Z",
+                                    "2022-11-13T02:00:00.000Z",
+                                    "2022-11-13T04:00:00.000Z",
+                                    "2022-11-13T06:00:00.000Z",
+                                    "2022-11-13T08:00:00.000Z",
+                                    "2022-11-13T10:00:00.000Z",
+                                    "2022-11-13T12:00:00.000Z",
+                                    "2022-11-13T14:00:00.000Z",
+                                    "2022-11-13T16:00:00.000Z",
+                                    "2022-11-13T18:00:00.000Z",
+                                    "2022-11-13T20:00:00.000Z",
+                                    "2022-11-13T22:00:00.000Z"
+                                ]
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 6,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "title": "Asset",
+                                    "type": "string",
+                                    "enum": [
+                                        "ra",
+                                        "rb",
+                                        "rc",
+                                        "da"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Boat A",
+                                            "Bike B",
+                                            "Band C",
+                                            "Plane A"
+                                        ]
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "Blue-6",
+                                        "Red-9",
+                                        "Blue-12",
+                                        "Blue-15",
+                                        "Blue-18",
+                                        "Blue-21",
+                                        "Blue-24",
+                                        "Red-27",
+                                        "Red-30",
+                                        "Red-33",
+                                        "Blue-36",
+                                        "Red-39",
+                                        "Red-42",
+                                        "Blue-45",
+                                        "Red-48",
+                                        "Blue-51",
+                                        "Red-54",
+                                        "Red-57",
+                                        "Red-60",
+                                        "Blue-63"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Order item 6",
+                                            "Order item 9",
+                                            "Order item 12",
+                                            "Order item 15",
+                                            "Order item 18",
+                                            "Order item 21",
+                                            "Order item 24",
+                                            "Order item 27",
+                                            "Order item 30",
+                                            "Order item 33",
+                                            "Order item 36",
+                                            "Order item 39",
+                                            "Order item 42",
+                                            "Order item 45",
+                                            "Order item 48",
+                                            "Order item 51",
+                                            "Order item 54",
+                                            "Order item 57",
+                                            "Order item 60",
+                                            "Order item 63"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "discussedWithSMEs": {
+                                "type": "boolean",
+                                "title": "Has this been discussed with SMEs?",
+                                "format": "checkbox",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "isPreadjudicated": {
+                                "type": "boolean",
+                                "title": "Is this pre-adjudicated?",
+                                "format": "checkbox",
+                                "propertyOrder": 201,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "standaloneActivity": {
+                                "type": "boolean",
+                                "title": "Stand-Alone Activity?",
+                                "format": "checkbox",
+                                "propertyOrder": 202,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "requiresAS": {
+                                "type": "boolean",
+                                "title": "Does this require AS Discussion?",
+                                "format": "checkbox",
+                                "propertyOrder": 203,
+                                "options": {
+                                    "grid_columns": 3
+                                }
+                            },
+                            "supportsOther": {
+                                "type": "array",
+                                "propertyOrder": 204,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Supports another activity",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "o-a",
+                                        "o-b",
+                                        "o-c",
+                                        "o-d"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Orders A",
+                                            "Orders B",
+                                            "Orders C",
+                                            "Orders D"
+                                        ]
+                                    }
+                                }
+                            },
+                            "activityDesc": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 205,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "effectDesc": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Effect Description",
+                                "propertyOrder": 206,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "activityType": {
+                                "enum": [
+                                    "Raid",
+                                    "Capture/Kill",
+                                    "Gather Int",
+                                    "Deliver Effect"
+                                ],
+                                "title": "Activity Type",
+                                "type": "string",
+                                "propertyOrder": 314,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "intendedEffect": {
+                                "type": "string",
+                                "format": "textarea",
+                                "title": "Intended Effect",
+                                "propertyOrder": 315,
                                 "options": {
                                     "grid_columns": 4
                                 }
                             },
                             "location": {
-                                "format": "textarea",
+                                "format": "location",
                                 "title": "Location",
                                 "id": "locationArea",
                                 "type": "string",
@@ -14926,12 +21913,12 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "Other--Cyber",
+                        "title": "Other--SOFAttack",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "Other--Cyber",
-                    "_rev": "2022-11-13T17:53:07.472Z"
+                    "_id": "Other--SOFAttack",
+                    "_rev": "2022-12-23T14:54:40.890Z"
                 }
             ]
         }
