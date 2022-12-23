@@ -54,7 +54,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
         })
       })
     }
-    
+
     const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',
