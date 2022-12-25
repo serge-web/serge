@@ -251,6 +251,22 @@ export const JsonEditor: React.FC<Props> = ({
           //   btn.classList.add('btn-hide')
           // }
         })
+
+        /**
+         * heading option should have pattern: ###<heading>
+         */
+        const selectElms = Array.from(document.querySelectorAll('select'))
+        for (const select of selectElms) {
+          const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
+            return /^###/.test(option.value);
+          });
+          options.forEach((option: any) => {
+            const oGroup = document.createElement('optgroup');
+            oGroup.label = option.value.replace(/^###/g, "");
+            option.parentNode.insertBefore(oGroup, option.nextSibling);
+            option.style.display = "none";
+          });
+        }
       }
     }, 50)
   }, [editor, beingEdited])
