@@ -264,6 +264,7 @@ export const JsonEditor: React.FC<Props> = ({
             const oGroup = document.createElement('optgroup');
             oGroup.label = option.value.replace(/^###/g, "");
             option.parentNode.insertBefore(oGroup, option.nextSibling);
+            option.parentNode.removeChild(option);
             option.style.display = "none";
           });
         }
