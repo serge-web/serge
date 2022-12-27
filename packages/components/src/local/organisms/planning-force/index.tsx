@@ -25,6 +25,14 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     )
   }
 
+  const markersLimit = {
+    fillColor: '#ffffff',
+    color: '#007bff',
+    weight: 5,
+    opacity: 1,
+    fillOpacity: 0.8
+  }
+
   const handleAssetClick = (assetId: string): void => {
     const idx = selectedAssets.indexOf(assetId)
     if (idx !== -1) {
@@ -64,8 +72,8 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
         <MarkerClusterGroup
           showCoverageOnHover={true}
           spiderfyOnMaxZoom={true}
-          maxClusterRadius={150}
-          zoom={6}
+          maxClusterRadius={100}
+          polygonOptions={markersLimit}
         >
           {
             interactive &&
