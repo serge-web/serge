@@ -3,7 +3,7 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningForce from './index'
 
-jest.mock('react-leaflet-v4', () => ({
+jest.mock('react-leaflet-v3', () => ({
   useMap: (): jest.Mock => jest.fn()
 }))
 

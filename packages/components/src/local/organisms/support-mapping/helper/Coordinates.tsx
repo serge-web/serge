@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/styles'
 import { LeafletMouseEvent } from 'leaflet'
 import React, { useEffect, useState } from 'react'
-import { useMap } from 'react-leaflet-v4'
+import { useMap } from 'react-leaflet-v3'
 
 const useStyles = makeStyles({
   root: {

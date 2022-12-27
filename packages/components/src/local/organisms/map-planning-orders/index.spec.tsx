@@ -8,7 +8,7 @@ import MapPlanningOrders from './index'
 const forces = P9Mock.data.forces.forces
 const forceCols = forceColors(forces, true)
 
-jest.mock('react-leaflet-v4', () => ({
+jest.mock('react-leaflet-v3', () => ({
   LayerGroup: (): React.ReactElement => <></>,
   GeoJSON: (): React.ReactElement => <></>
 }))
@@ -20,7 +20,7 @@ jest.mock('leaflet', () => ({
   }
 }))
 
-jest.mock('react-leaflet-v4', () => ({
+jest.mock('react-leaflet-v3', () => ({
   useMap: (): jest.Mock => jest.fn()
 }))
 

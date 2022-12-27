@@ -5,7 +5,7 @@ import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet
 import _ from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
-import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
+import { GeoJSON, LayerGroup, Marker, Tooltip } from 'react-leaflet-v3'
 import {
   findPlannedGeometries, GeomWithOrders, injectTimes, invertMessages, overlapsInTime,
   PlanningContact, putInBin, SpatialBin, spatialBinning, touches

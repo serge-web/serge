@@ -2,7 +2,7 @@
 import 'leaflet-polylinedecorator'
 import 'leaflet/dist/leaflet.css'
 import React, { useEffect } from 'react'
-import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
+import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v3'
 import MapControl from '../../map-control'
 import MapCoordinates from './helper/Coordinates'
 import PropTypes from './types/props'

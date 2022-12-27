@@ -2,9 +2,11 @@ import cx from 'classnames'
 import L, { LatLng, latLng } from 'leaflet'
 import React, { useCallback } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
+import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v3'
 import AssetIcon from '../../asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
+import MarkerClusterGroup from 'react-leaflet-cluster'
+import 'leaflet/dist/leaflet.css'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
@@ -59,32 +61,39 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     {
       assets.length > 0 &&
       <LayerGroup key={'first-forces-layer'}>
-        {
-          interactive &&
-          assets.map((asset: AssetRow, index: number) => {
-            const markerOption = getMarkerOption(asset, index)
+        <MarkerClusterGroup
+          showCoverageOnHover={true}
+          spiderfyOnMaxZoom={true}
+          maxClusterRadius={150}
+          zoom={6}
+        >
+          {
+            interactive &&
+              assets.map((asset: AssetRow, index: number) => {
+                const markerOption = getMarkerOption(asset, index)
 
-            return <Marker
-              {...markerOption}
-            >
-              <Tooltip>{asset.name}</Tooltip>
-            </Marker>
-          })
-        }
-        {
-          !interactive &&
-          assets.map((asset: AssetRow, index: number) => {
-            const markerOption = getMarkerOption(asset, index)
+                return <Marker
+                  {...markerOption}
+                >
+                  <Tooltip>{asset.name}</Tooltip>
+                </Marker>
+              })
+          }
+          {
+            !interactive &&
+            assets.map((asset: AssetRow, index: number) => {
+              const markerOption = getMarkerOption(asset, index)
 
-            return <Marker
-              pmIgnore
-              interactive={false}
-              {...markerOption}
-            >
-              <Tooltip>{asset.name}</Tooltip>
-            </Marker>
-          })
-        }
+              return <Marker
+                pmIgnore
+                interactive={false}
+                {...markerOption}
+              >
+                <Tooltip>{asset.name}</Tooltip>
+              </Marker>
+            })
+          }
+        </MarkerClusterGroup>
       </LayerGroup >
     }
   </>

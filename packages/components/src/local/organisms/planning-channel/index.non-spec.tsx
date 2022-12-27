@@ -19,7 +19,7 @@ jest.mock('leaflet', () => ({
   }
 }))
 jest.mock('leaflet-polylinedecorator', () => jest.fn())
-jest.mock('react-leaflet-v4', () => ({
+jest.mock('react-leaflet-v3', () => ({
   useMap: (): jest.Mock => jest.fn(),
   MapContainer: (): React.ReactElement => <></>
 }))

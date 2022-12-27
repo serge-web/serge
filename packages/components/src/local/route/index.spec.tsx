@@ -20,7 +20,7 @@ jest.mock('leaflet', () => ({
   }
 }))
 
-jest.mock('react-leaflet-v4', () => ({
+jest.mock('react-leaflet-v3', () => ({
   useMap: (): jest.Mock => jest.fn()
 }))
 

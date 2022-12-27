@@ -96,7 +96,7 @@
     "react-leaflet": "^2.6.1",
     "react-leaflet-cluster": "1.0.3",
     "react-leaflet-geoman-v2": "^0.2.0",
-    "react-leaflet-v4": "npm:react-leaflet@4.1.0",
+    "react-leaflet-v3": "npm:react-leaflet@3.1.0",
     "react-leaflet-vectorgrid": "^2.2.1",
     "react-maskedinput": "^4.0.1",
     "react-modal": "^3.13.1",

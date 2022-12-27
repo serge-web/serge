@@ -14,7 +14,7 @@ jest.mock('leaflet', () => ({
 }))
 
 jest.mock('leaflet-polylinedecorator', () => jest.fn())
-jest.mock('react-leaflet-v4', () => ({
+jest.mock('react-leaflet-v3', () => ({
   useMap: (): any => ({
     invalidateSize: jest.fn(),
     flyTo: jest.fn(),

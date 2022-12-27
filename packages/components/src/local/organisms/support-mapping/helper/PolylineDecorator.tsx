@@ -1,7 +1,7 @@
 import L, { LatLng, Layer } from 'leaflet'
 import 'leaflet-textpath'
 import React, { useEffect } from 'react'
-import { useMap } from 'react-leaflet-v4'
+import { useMap } from 'react-leaflet-v3'
 import { ArrowHeadPattern, LeafletTextOption } from './MapConstants'
 
 type PolylineDecoratorProps = {
