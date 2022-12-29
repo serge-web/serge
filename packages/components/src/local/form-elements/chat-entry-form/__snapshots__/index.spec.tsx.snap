@@ -37,7 +37,7 @@ exports[`ChatEntryForm component: renders correctly 1`] = `
                 "overflow": "hidden",
               }
             }
-            value="chat"
+            value=""
           />
           <textarea
             aria-hidden={true}
@@ -200,7 +200,7 @@ exports[`ChatEntryForm component: renders correctly 1`] = `
                   "overflow": "hidden",
                 }
               }
-              value="private"
+              value=""
             />
             <textarea
               aria-hidden={true}

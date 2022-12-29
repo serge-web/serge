@@ -11,8 +11,8 @@ class SchemaEditor extends Component {
   constructor (props, content) {
     super(props, content)
 
-    JSONEditor.JSONEditor.defaults.options.iconlib = 'fontawesome5'
-    JSONEditor.JSONEditor.defaults.options.theme = 'bootstrap4'
+    JSONEditor.defaults.options.iconlib = 'fontawesome5'
+    JSONEditor.defaults.options.theme = 'bootstrap4'
     this.updateMetaSchema = this.updateMetaSchema.bind(this)
     this.updatePreviewSchema = this.updatePreviewSchema.bind(this)
     this.updateOptions = this.updateOptions.bind(this)
