@@ -4,12 +4,14 @@ import { RefObject } from 'react'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: { (): void }): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: () => void, onLocationEditorLoaded: (editorElm: HTMLDivElement) => void): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
   }
 
+  console.log(editCallback, onLocationEditorLoaded)
+  // initLocationEditor(editCallback, onLocationEditorLoaded)
   configDateTimeCustomValidation()
 
   const disableCollapse = 'disable_collapse'

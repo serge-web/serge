@@ -5,9 +5,9 @@ import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-import { toRow, toColumn } from './helpers/genData'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
+import { toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 export const PlanningMessagesList: React.FC<PropTypes> = ({
@@ -126,8 +126,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const localEditLocation = (): void => {
           if (message.message.location) {
-            const localCallback = (newValue: unknown): void => {
-              pendingLocationData.push(newValue as PlannedActivityGeometry[])
+            const localCallback = (newValue: PlannedActivityGeometry[]): void => {
+              pendingLocationData.push(newValue)
             }
             // pass the location data object
             canEdit && editLocation && editLocation(message.message.location, localCallback)

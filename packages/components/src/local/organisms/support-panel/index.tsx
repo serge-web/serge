@@ -20,6 +20,7 @@ import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseDate } from './helpers/customise-date'
+import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
@@ -193,14 +194,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+    const liveOrders: MessagePlanning[] = planningMessages
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
+      (document, template) => customiseLiveOrders(document, template, liveOrders),
       (document, template) => customiseDate(document, template, moment(gameDate).valueOf(), gameTurnTime)
     ]
 
-    let current: Record<string, any> = schema
+    let current: Record<string, any> = { ...schema }
     customisers.forEach((fn) => {
       current = fn(document, current)
     })
@@ -294,6 +297,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return 'none'
   }
 
+  const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
+    console.log('editorElm: ', editorElm)
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -383,7 +390,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />}
               </div>
             }
-
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
                 <PlanningAssets
@@ -427,6 +433,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                       onDetailPanelClose={onDetailPanelClose}
                       handleAdjudication={handleAdjudication}
                       postBack={postBack}
+                      onLocationEditorLoaded={onLocationEditorLoaded}
                     />
                   </div>
                 }
