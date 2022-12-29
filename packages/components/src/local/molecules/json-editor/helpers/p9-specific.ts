@@ -53,11 +53,14 @@ export const tmplMissileStrike = {
           title: 'Missile Type',
           type: 'string',
           enum: [
+            '###Ballistic',
             'SRBM',
             'MRBM',
             'IRBM',
+            '###Cruise',
             'Standard Cruise',
             'Low Obs Cruise',
+            '###UAV',
             'Propellor OWA UAV',
             'Jet OWA UAV'
           ],
