@@ -12,13 +12,11 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   return null
 }
 
-const chatvalue = (value: string): any => window.alert(`message value: "${value}"`)
-
 describe('ChatInputText component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <ChatInputText chatInputvalue={chatvalue} placeholder={'Input text here'} />,
+        <ChatInputText placeholder={'Input text here'} />,
         { createNodeMock }
       )
       .toJSON()

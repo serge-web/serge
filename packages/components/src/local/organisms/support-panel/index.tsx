@@ -25,7 +25,6 @@ import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
-
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
@@ -83,7 +82,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-
   const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
@@ -292,6 +290,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
+  const checkDisplay = (tab: string): string => {
+    if (typeof tab === 'string' && tab === activeTab) {
+      return 'block'
+    }
+    return 'none'
+  }
+
   const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
     console.log('editorElm: ', editorElm)
   }
@@ -328,67 +333,63 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               }
             </TabPanel>
-            <TabPanel className={styles['tab-panel']} value={TAB_MY_ORDERS} active={activeTab === TAB_MY_ORDERS} >
-              {activeTab === TAB_MY_ORDERS &&
-                <div className={styles['order-group']}>
-                  <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
-                  <PlanningMessagesList
-                    messages={filteredPlanningMessages}
-                    gameDate={gameDate}
-                    playerForceId={selectedForce.uniqid}
-                    playerRoleId={selectedRoleId}
-                    isUmpire={!!selectedForce.umpire}
-                    turnPresentation={turnPresentation}
-                    selectedForce={selectedForce}
-                    selectedRoleName={selectedRoleName}
-                    currentTurn={currentTurn}
-                    hideForcesInChannel={false}
-                    onRead={onRead}
-                    onUnread={onUnread}
-                    onMarkAllAsRead={onReadAll}
-                    channel={channel}
-                    allTemplates={allTemplates}
-                    confirmCancel={true}
-                    customiseTemplate={localCustomiseTemplate}
-                    selectedOrders={selectedOrders}
-                    setSelectedOrders={setSelectedOrders}
-                    postBack={postBack}
-                    turnFilter={turnFilter}
-                    editLocation={editLocation}
-                    forcePlanningActivities={forcePlanningActivities}
-                    onDetailPanelOpen={onDetailPanelOpen}
-                    onDetailPanelClose={onDetailPanelClose}
-                    editThisMessage={editThisMessage}
-                    onLocationEditorLoaded={onLocationEditorLoaded}
-                  />
-                  {localDraftMessage && <NewMessage
-                    orderableChannel={true}
-                    privateMessage={!!selectedForce.umpire}
-                    templates={allTemplates}
-                    title={'New Orders'}
-                    hideTemplateSelector={true}
-                    saveCachedNewMessageValue={saveCachedNewMessageValue}
-                    getCachedNewMessagevalue={getCachedNewMessagevalue}
-                    clearCachedNewMessage={clearCachedNewMessage}
-                    selectedRole={selectedRoleId}
-                    selectedForce={selectedForce}
-                    selectedRoleName={selectedRoleName}
-                    confirmCancel={true}
-                    onCancel={cancelNewOrders}
-                    channel={channel}
-                    currentTurn={currentTurn}
-                    gameDate={gameDate}
-                    postBack={postBack}
-                    customiseTemplate={localCustomiseTemplate}
-                    modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-                    modifyForSave={expandLocation}
-                    draftMessage={localDraftMessage}
-                    editCallback={localEditLocation}
-                  />}
-                </div>
-              }
-            </TabPanel>
-
+            {
+              <div style={{ display: checkDisplay(TAB_MY_ORDERS) }} className={styles['order-group']}>
+                <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <PlanningMessagesList
+                  messages={filteredPlanningMessages}
+                  gameDate={gameDate}
+                  playerForceId={selectedForce.uniqid}
+                  playerRoleId={selectedRoleId}
+                  isUmpire={!!selectedForce.umpire}
+                  turnPresentation={turnPresentation}
+                  selectedForce={selectedForce}
+                  selectedRoleName={selectedRoleName}
+                  currentTurn={currentTurn}
+                  hideForcesInChannel={false}
+                  onRead={onRead}
+                  onUnread={onUnread}
+                  onMarkAllAsRead={onReadAll}
+                  channel={channel}
+                  allTemplates={allTemplates}
+                  confirmCancel={true}
+                  customiseTemplate={localCustomiseTemplate}
+                  selectedOrders={selectedOrders}
+                  setSelectedOrders={setSelectedOrders}
+                  postBack={postBack}
+                  turnFilter={turnFilter}
+                  editLocation={editLocation}
+                  forcePlanningActivities={forcePlanningActivities}
+                  onDetailPanelOpen={onDetailPanelOpen}
+                  onDetailPanelClose={onDetailPanelClose}
+                  editThisMessage={editThisMessage}
+                />
+                {localDraftMessage && <NewMessage
+                  orderableChannel={true}
+                  privateMessage={!!selectedForce.umpire}
+                  templates={allTemplates}
+                  title={'New Orders'}
+                  hideTemplateSelector={true}
+                  saveCachedNewMessageValue={saveCachedNewMessageValue}
+                  getCachedNewMessagevalue={getCachedNewMessagevalue}
+                  clearCachedNewMessage={clearCachedNewMessage}
+                  selectedRole={selectedRoleId}
+                  selectedForce={selectedForce}
+                  selectedRoleName={selectedRoleName}
+                  confirmCancel={true}
+                  onCancel={cancelNewOrders}
+                  channel={channel}
+                  currentTurn={currentTurn}
+                  gameDate={gameDate}
+                  postBack={postBack}
+                  customiseTemplate={localCustomiseTemplate}
+                  modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
+                  modifyForSave={expandLocation}
+                  draftMessage={localDraftMessage}
+                  editCallback={localEditLocation}
+                />}
+              </div>
+            }
             <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
               {activeTab === TABS[2] &&
                 <PlanningAssets
