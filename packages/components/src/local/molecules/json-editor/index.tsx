@@ -204,7 +204,12 @@ export const JsonEditor: React.FC<Props> = ({
         } else if (disabled && !viewSaveButton) {
           editor.disable()
         } else {
-          editor.enable()
+          try {
+            editor.enable()
+          } catch(err) {
+            console.warn('JSON Editor error', err)
+          }
+
         }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
