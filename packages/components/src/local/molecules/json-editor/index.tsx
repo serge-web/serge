@@ -140,18 +140,20 @@ export const JsonEditor: React.FC<Props> = ({
     // add keydown listener to be able to track input changes
     document.addEventListener('keydown', handleKeyDown)
 
-    if (nextEditor) {
-      // only retrieve from expired content if we haven't been provided with message content
-      if (messageContent) {
-        nextEditor.setValue(messageContent)
-        nextEditor.on('change', changeListenter)
-      } else {
-        nextEditor.on('change', changeListenter)
+    setTimeout(() => {
+      if (nextEditor) {
+        // only retrieve from expired content if we haven't been provided with message content
+        if (messageContent) {
+          nextEditor.setValue(messageContent)
+          nextEditor.on('change', changeListenter)
+        } else {
+          nextEditor.on('change', changeListenter)
+        }
       }
-    }
-    // update time input for flatpickr
-    const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
-    Array.from(flatPickrElm).forEach(elm => elm.classList.add('showTimeInput'))
+      // update time input for flatpickr
+      const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
+      Array.from(flatPickrElm).forEach(elm => elm.classList.add('showTimeInput'))
+    })
 
     setEditor(nextEditor)
 
@@ -192,27 +194,21 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
-    // NOTE: commented out next line, since we were getting two editor instances
-    //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
     if (editor) {
-      if (viewSaveButton && !beingEdited) {
-        editor.disable()
-      } else if (disabled && !viewSaveButton) {
-        editor.disable()
-      } else {
-        editor.enable()
-      }
       setTimeout(() => {
+        if (viewSaveButton && !beingEdited) {
+          editor.disable()
+        } else if (disabled && !viewSaveButton) {
+          editor.disable()
+        } else {
+          editor.enable()
+        }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
-          // if (beingEdited) {
           btn.classList.remove('btn-hide')
-          // } else {
-          //   btn.classList.add('btn-hide')
-          // }
         })
 
         /**
@@ -231,7 +227,7 @@ export const JsonEditor: React.FC<Props> = ({
             option.style.display = 'none'
           })
         }
-      }, 10)
+      }, 50)
     }
   }, [editor, beingEdited])
 

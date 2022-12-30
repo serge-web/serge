@@ -1885,10 +1885,12 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@json-editor/json-editor@^1.3.5":
-  version "1.3.5"
-  resolved "https://registry.yarnpkg.com/@json-editor/json-editor/-/json-editor-1.3.5.tgz#b8ec91b2ad53d65a031c90941e3c3bbd084bc321"
-  integrity sha512-maU/05CzSvW5waIqWXhhiekLhDKwu8cOkGESIVyV2UrONedRzO/qk+WBFKkBbLmm5TeyRnkwVL6CkKNyaa2d4w==
+"@json-editor/json-editor@^2.8.0":
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/@json-editor/json-editor/-/json-editor-2.8.0.tgz#8ad85b7b73f25fff47e0a978df4439b26f2e4121"
+  integrity sha512-7KbpWNWBa7Bz93e3KlDvrJxOdjMQSl19ka7OGB6Xvy2GeOgGgTfS6k3q5qtDvAcjp6qft/GLVuPjCDmMlbJDAg==
+  dependencies:
+    core-js "^3.12.1"
 
 "@lerna/add@5.6.2":
   version "5.6.2"
@@ -9490,6 +9492,11 @@ core-js@^3.0.1, core-js@^3.0.4, core-js@^3.6.5, core-js@^3.8.2:
   version "3.25.5"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.25.5.tgz#e86f651a2ca8a0237a5f064c2fe56cef89646e27"
   integrity sha512-nbm6eZSjm+ZuBQxCUPQKQCoUEfFOXjUZ8dTTyikyKaWrTYmAVbykQfwsKE5dBK88u3QCkCrzsx/PPlKfhsvgpw==
+
+core-js@^3.12.1:
+  version "3.27.1"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.27.1.tgz#23cc909b315a6bb4e418bf40a52758af2103ba46"
+  integrity sha512-GutwJLBChfGCpwwhbYoqfv03LAfmiz7e7D/BNxzeMxwQf10GRSzqiOjx7AmtEk+heiD/JWmBuyBPgFtx0Sg1ww==
 
 core-util-is@1.0.2:
   version "1.0.2"
