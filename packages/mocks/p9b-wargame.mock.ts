@@ -9522,11 +9522,6 @@ const game: Wargame = {
                                         "location": {
                                             "title": "Location",
                                             "type": "string",
-                                            "enum": [
-                                                "Point A",
-                                                "Point B",
-                                                "Point C"
-                                            ],
                                             "options": {
                                                 "grid_columns": 3
                                             }
