@@ -186,11 +186,6 @@ const ChatChannel: React.FC<{ channelId: string, isCustomChannel?: boolean }> = 
                   postBack={messageHandler}
                 />
                 : <ChatEntryForm
-                  onChangePrivateStorage={cacheMessage}
-                  privatMessageValue={getCachedMessage}
-                  clearCachedMessage={clearCachedMessage}
-                  chatEntryFormValue={getCachedMessage}
-                  onchangeChatInputMessage={cacheMessage}
                   turnNumber={state.currentTurn}
                   from={selectedForce}
                   isUmpire={!!isUmpire}

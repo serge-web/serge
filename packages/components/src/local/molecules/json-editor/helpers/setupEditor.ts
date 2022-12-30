@@ -4,12 +4,14 @@ import { RefObject } from 'react'
 import { configDateTimeCustomValidation } from './jsonValidation'
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: { (): void }): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: () => void, onLocationEditorLoaded: (editorElm: HTMLDivElement) => void): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
   }
 
+  console.log(editCallback, onLocationEditorLoaded)
+  // initLocationEditor(editCallback, onLocationEditorLoaded)
   configDateTimeCustomValidation()
 
   const disableCollapse = 'disable_collapse'
@@ -20,6 +22,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   const disableArrayDelete = 'disable_array_delete'
   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'
   const promptBeforeDelete = 'prompt_before_delete'
+  const removeButtonLabel = 'remove_button_labels'
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       setTimeout(() => {
@@ -56,6 +59,8 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
     const newEditor = new JSONEditor(ref.current, {
       schema: schema,
       theme: 'bootstrap4',
+      iconlib: 'fontawesome5',
+      [removeButtonLabel]: true,
       [disableCollapse]: true,
       [disableEditJson]: true,
       [disableProperties]: true,

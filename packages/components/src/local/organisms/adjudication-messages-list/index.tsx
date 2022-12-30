@@ -22,7 +22,8 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
@@ -316,6 +317,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               gameDate={gameDate}
               saveMessage={localSubmitAdjudication}
               storeNewValue={localStoreNewValue}
+              onLocationEditorLoaded={onLocationEditorLoaded}
             />
             {!isComplete &&
               <div className='button-wrap' >

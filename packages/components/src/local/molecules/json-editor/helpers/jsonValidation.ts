@@ -1,4 +1,4 @@
-import JSONEditor from '@json-editor/json-editor'
+import * as JSONEditor from '@json-editor/json-editor'
 import _ from 'lodash'
 
 const configCommonValidation = (
@@ -54,7 +54,6 @@ const configCommonValidation = (
 
 export const configDateTimeCustomValidation = (): any => {
   // multiple message type will repeat custom validators, reinitialize it for every instance
-
   JSONEditor.defaults.custom_validators = []
   JSONEditor.defaults.custom_validators.push(function (
     schema: { format: string },

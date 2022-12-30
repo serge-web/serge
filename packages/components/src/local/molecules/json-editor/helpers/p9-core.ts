@@ -58,7 +58,7 @@ export const coreTemplate = {
     title: 'Intent',
     propertyOrder: 60,
     options: {
-      grid_columns: 8
+      grid_columns: 6
     },
     type: 'string'
   },
@@ -69,7 +69,8 @@ export const coreTemplate = {
     propertyOrder: 70,
     title: 'Own Assets',
     options: {
-      grid_columns: 6
+      grid_columns: 5,
+      disable_array_reorder: true
     },
     items: {
       type: 'object',
@@ -90,7 +91,7 @@ export const coreTemplate = {
             'pa'
           ],
           options: {
-            grid_columns: 3,
+            grid_columns: 2,
             enum_titles: [
               'Tank A',
               'Tank B',
@@ -117,7 +118,8 @@ export const coreTemplate = {
     minItems: 0,
     title: 'Subject(s) of orders',
     options: {
-      grid_columns: 6
+      grid_columns: 5,
+      disable_array_reorder: true
     },
     items: {
       title: 'Asset',
@@ -148,13 +150,32 @@ export const coreTemplate = {
     type: 'string'
   },
   synchronisedWith: {
-    format: 'text',
-    title: 'Sync with',
-    propertyOrder: 68,
+    type: 'array',
+    propertyOrder: 100,
+    format: 'table',
+    minItems: 0,
+    title: 'Synchronised with',
     options: {
       grid_columns: 6
     },
-    type: 'string'
+    items: {
+      title: 'Order',
+      type: 'string',
+      enum: [
+        'o-a',
+        'o-b',
+        'o-c',
+        'o-d'
+      ],
+      options: {
+        enum_titles: [
+          'Orders A',
+          'Orders B',
+          'Orders C',
+          'Orders D'
+        ]
+      }
+    }
   },
   supports: {
     format: 'textarea',

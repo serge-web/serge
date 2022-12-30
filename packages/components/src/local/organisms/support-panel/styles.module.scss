@@ -95,8 +95,10 @@
 
 .order-group {
   display: flex;
+  width: 100%;
   justify-content: flex-start;
   flex-direction: column;
+  overflow: hidden;
   height: calc(100% - 20px);
   overflow-y: auto;
 }
