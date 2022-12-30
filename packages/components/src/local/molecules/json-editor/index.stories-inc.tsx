@@ -22,14 +22,12 @@ import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
-import { customiseDate } from '../../organisms/support-panel/helpers/customise-date'
 import { customiseLiveOrders } from '../../organisms/support-panel/helpers/customise-live-orders'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
 import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
-import moment from 'moment-timezone'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -148,14 +146,11 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   })
   // const overview = P9BMock.data.overview
 
-  const overview = P9BMock.data.overview
-
   const liveOrders: MessagePlanning[] = planningMessages
 
   const customisers: Array<{ (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
     (document, template) => customiseActivities(document, template, []),
-    (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
     (document, template) => customiseLiveOrders(document, template, liveOrders),
     (document, template) => customiseLocation(document, template)
   ]
