@@ -206,10 +206,9 @@ export const JsonEditor: React.FC<Props> = ({
         } else {
           try {
             editor.enable()
-          } catch(err) {
+          } catch (err) {
             console.warn('JSON Editor error', err)
           }
-
         }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {

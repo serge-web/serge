@@ -17,35 +17,35 @@ export const coreTemplate = {
     }
   },
   startDate: {
-    format: "datetime-local",
-    type: "string",
+    format: 'datetime-local',
+    type: 'string',
     propertyOrder: 40,
-    title: "Start Date",
+    title: 'Start Date',
     options: {
       grid_columns: 3,
       inputAttributes: {
-        placeholder: "Enter date"
+        placeholder: 'Enter date'
       },
       flatpickr: {
         time_24hr: true,
-        dateFormat: "Z",
+        dateFormat: 'Z',
         enableTime: true
       }
     }
   },
   endDate: {
-    format: "datetime-local",
-    type: "string",
+    format: 'datetime-local',
+    type: 'string',
     propertyOrder: 40,
-    title: "End Date",
+    title: 'End Date',
     options: {
       grid_columns: 3,
       inputAttributes: {
-        placeholder: "Enter date"
+        placeholder: 'Enter date'
       },
       flatpickr: {
         time_24hr: true,
-        dateFormat: "Z",
+        dateFormat: 'Z',
         enableTime: true
       }
     }
