@@ -2,6 +2,7 @@ import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKN
 import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
+import sortBy from 'lodash/sortBy'
 import { Column } from 'material-table'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
@@ -139,7 +140,8 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
 export const arrToDict = (arr: string[]): any => {
   if (arr && arr.length > 0) {
     const res = {}
-    arr.forEach((item: string) => {
+    const sorted =  sortBy(arr, function (name) {return name})
+    sorted.forEach((item: string) => {
       res[item] = item
     })
     return res
