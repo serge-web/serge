@@ -9289,6 +9289,12 @@ const game: Wargame = {
                                 "readonly": true,
                                 "type": "string"
                             },
+                            "messageType": {
+                                "options": {
+                                    "hidden": true
+                                },
+                                "type": "string"
+                            },
                             "narrative": {
                                 "title": "General Feedback",
                                 "propertyOrder": 20,
