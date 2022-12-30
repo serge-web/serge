@@ -2,7 +2,7 @@ import JSONEditor from '@json-editor/json-editor'
 // -------- Editor class ---------------------------------------------------
 
 // create a JSON Editor, elementId is the id in which to render the editor
-function Editor (elementId) {
+function Editor(elementId) {
   this.jsonEditor = null
   this.renderZone = typeof elementId === 'string' ? document.getElementById(elementId) : elementId.current
 }
@@ -19,7 +19,7 @@ Editor.prototype.destroy = function () {
 // If schema is undefined, the editor is not recreated, but only destroyed
 Editor.prototype.updateSchema = function (schema) {
   this.destroy()
-  this.jsonEditor = new JSONEditor(this.renderZone, { schema: schema })
+  this.jsonEditor = new JSONEditor.JSONEditor(this.renderZone, { schema: schema })
 }
 
 // Validate JSON
@@ -37,7 +37,7 @@ Editor.prototype.getJSON = function () {
 // create a JSON Editor that doesn't allow specifying additional properties,
 // but only those specified in the schema can be set.
 // elementId is the id in which to render the editor,
-export function PreviewEditor (elementId) {
+export function PreviewEditor(elementId) {
   Editor.call(this, elementId)
 }
 
@@ -70,7 +70,7 @@ PreviewEditor.prototype.updateSchema = function (schema) {
 // makes the 'Properties' buttons distinguishable to avoid confusion between
 // schema properties and object properties.
 // elementId is the id in which to render the editor,
-export function SchemaEditor (elementId) {
+export function SchemaEditor(elementId) {
   Editor.call(this, elementId)
 
   // Check whether the node is a properties button for an object,
