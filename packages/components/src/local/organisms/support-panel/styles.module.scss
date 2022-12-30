@@ -100,6 +100,7 @@
   flex-direction: column;
   overflow: hidden;
   height: calc(100% - 20px);
+  overflow-y: auto;
 }
 
 .new-order-input {
