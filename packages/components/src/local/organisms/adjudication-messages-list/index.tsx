@@ -282,7 +282,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }, [])
       return <></>
     }
-    
+
     // retrieve the message & template
     const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {

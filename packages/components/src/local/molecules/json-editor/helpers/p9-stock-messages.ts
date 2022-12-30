@@ -25,7 +25,7 @@ const p9StockTemplates: TemplateBody[] = [
           options: {
             hidden: true
           },
-          type: "string"
+          type: 'string'
         },
         narrative: {
           title: 'General Feedback',
