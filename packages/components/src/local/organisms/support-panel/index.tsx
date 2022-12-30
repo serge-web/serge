@@ -5,7 +5,6 @@ import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInterac
 import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
-import moment from 'moment'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
@@ -19,7 +18,6 @@ import { OrderRow } from '../planning-messages-list/types/props'
 import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS, TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
-import { customiseDate } from './helpers/customise-date'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
@@ -199,8 +197,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
       (document, template) => customiseLocation(document, template),
-      (document, template) => customiseLiveOrders(document, template, liveOrders),
-      (document, template) => customiseDate(document, template, moment(gameDate).valueOf(), gameTurnTime)
+      (document, template) => customiseLiveOrders(document, template, liveOrders)
     ]
 
     let current: Record<string, any> = { ...schema }
