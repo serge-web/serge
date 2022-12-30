@@ -1,13 +1,11 @@
-import { expiredStorage } from '@serge/config'
 import { Editor, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, usePrevious } from '@serge/helpers'
 import { Confirm } from '../../atoms/confirm'
 import Props from './types/props'
 
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
-import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
-import Props from './types/props'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']

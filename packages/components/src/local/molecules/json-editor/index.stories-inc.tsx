@@ -29,6 +29,7 @@ import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-te
 import { coreTemplate } from './helpers/p9-core'
 import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
+import moment from 'moment-timezone'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -151,9 +152,9 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
 
   const liveOrders: MessagePlanning[] = planningMessages
 
-  const customisers: Array<{(_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any>}> = [
+  const customisers: Array<{ (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
     (document, template) => customiseAssets(document, template, blueRows, redRows),
-    (document, template) => customiseActivities(document, template, filledInPerForcePlanningActivities),
+    (document, template) => customiseActivities(document, template, []),
     (document, template) => customiseDate(document, template, moment(overview.gameDate).valueOf(), overview.gameTurnTime),
     (document, template) => customiseLiveOrders(document, template, liveOrders),
     (document, template) => customiseLocation(document, template)
