@@ -88,9 +88,13 @@ export interface PlannedProps {
  */
 export interface PlanningActivity {
   /**
-   * id for this activity
+   * id for this activity (unique to force and domain)
    */
   uniqid: string
+  /**
+   *  id for this type of activity (used for interaction checking)
+   */
+  actId: string
   /** 
    * human readable name for this activity
    */
@@ -107,6 +111,14 @@ export interface PlanningActivity {
    * color for the activity
    */
   color?: ForceData['color']
+  /**
+   * for interaction, return all OpFor assets contained within Geometries for this activity
+   */
+  provideSpatialAssets?: boolean
+  /** 
+   * list of activity types that this activity interacts with
+   */
+  interactsWith?: Array<PlanningActivity['actId']>
 }
 
 export interface CoreOutcome {
