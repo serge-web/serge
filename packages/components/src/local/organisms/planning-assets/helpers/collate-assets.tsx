@@ -202,7 +202,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'Domain', type: 'string', field: 'domain', lookup:  arrToDict(['Land', 'Maritime', 'Air']) },
+    { title: 'Domain', type: 'string', field: 'domain', lookup: arrToDict(['Land', 'Maritime', 'Air']) },
     { title: 'Health', type: 'numeric', field: 'health' },
     { title: 'Attributes', field: 'attributes', render: renderAttributes }
   ]
@@ -286,15 +286,15 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
 
   const domainFor = (travelMode?: string): string => {
     if (travelMode) {
-      switch(travelMode) {
+      switch (travelMode) {
         case 'sea':
           return 'Maritime'
         case 'air':
           return 'Air'
         case 'land':
           return 'Land'
-        default: 
-          console.warn('Unexpected travel mode encountered:', travelMode)              
+        default:
+          console.warn('Unexpected travel mode encountered:', travelMode)
           return 'ERR'
       }
     }
