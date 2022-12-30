@@ -140,7 +140,7 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
 export const arrToDict = (arr: string[]): any => {
   if (arr && arr.length > 0) {
     const res = {}
-    const sorted =  sortBy(arr, function (name) {return name})
+    const sorted = sortBy(arr, function (name) { return name })
     sorted.forEach((item: string) => {
       res[item] = item
     })
