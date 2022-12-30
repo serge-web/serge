@@ -1,7 +1,7 @@
 /* global it expect */
+import { messageDataCollaborativeEditing, MessageTemplatesMockByKey, WargameMock } from '@serge/mocks'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { MessageTemplatesMockByKey, messageDataCollaborativeEditing, WargameMock } from '@serge/mocks'
 import JsonEditor from './index'
 
 const message = messageDataCollaborativeEditing[2]

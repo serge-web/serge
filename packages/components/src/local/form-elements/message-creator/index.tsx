@@ -100,8 +100,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setFormValue(undefined)
     postBack && postBack(details, formMessage)
     setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
-    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, mainMessageOption])
     onMessageSend && onMessageSend(e)
   }
 

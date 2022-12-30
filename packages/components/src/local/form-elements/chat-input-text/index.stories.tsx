@@ -16,7 +16,6 @@ export default {
   }
 }
 
-const showMessage = (message: string): void => window.alert(`Your message was: "${message}"`)
-const chatvalue = (value: string): any => window.alert(`message value: "${value}"`)
+const showMessage = (): void => window.alert('Your message was: ""')
 
-export const Default: React.FC = () => <ChatInputText chatInputvalue={chatvalue} placeholder={'input text here'} postBack={showMessage} />
+export const Default: React.FC = () => <ChatInputText placeholder={'input text here'} postBack={showMessage} />

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Card, CardHeader, CardBody, CardFooter } from 'reactstrap'
 import { SchemaEditor } from './json-schema-editor/editor'
 import PropTypes from 'prop-types'
-import JSONEditor from '@json-editor/json-editor'
+import * as JSONEditor from '@json-editor/json-editor'
 
 class JsonSchemaEditor extends Component {
   constructor (props, content) {
@@ -44,7 +44,7 @@ class JsonSchemaEditor extends Component {
       if (newJson !== this.save || options.counter !== this.props.options.counter) {
         JSONEditor.JSONEditor.defaults.options.object_layout = options.layout
         JSONEditor.JSONEditor.defaults.options = {
-          ...JSONEditor.defaults.options,
+          ...JSONEditor.JSONEditor.defaults.options,
           ...options.booleanOptions
         }
 
