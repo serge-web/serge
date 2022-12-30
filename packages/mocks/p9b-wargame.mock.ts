@@ -9574,7 +9574,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -9620,13 +9620,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -9634,13 +9637,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -9847,10 +9853,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -9897,13 +9903,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -9911,13 +9920,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -10137,10 +10149,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10186,13 +10198,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -10200,13 +10215,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -10467,10 +10485,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10517,13 +10535,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -10531,13 +10552,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -10811,10 +10835,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -10861,13 +10885,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -10875,13 +10902,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11096,10 +11126,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11147,13 +11177,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -11161,13 +11194,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11395,10 +11431,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11447,13 +11483,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -11461,13 +11500,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -11700,10 +11742,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11752,13 +11794,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -11766,13 +11811,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12013,10 +12061,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12066,13 +12114,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -12080,13 +12131,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12340,10 +12394,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12394,13 +12448,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -12408,13 +12465,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12673,10 +12733,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -12723,13 +12783,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -12737,13 +12800,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -12958,10 +13024,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -13009,13 +13075,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -13023,13 +13092,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -13257,10 +13329,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.242Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -13309,13 +13381,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -13323,13 +13398,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -13562,10 +13640,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2022-12-30T11:36:42.242Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -13613,13 +13691,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -13627,13 +13708,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -13858,10 +13942,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -13910,13 +13994,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -13924,13 +14011,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -14166,10 +14256,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -14219,13 +14309,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -14233,13 +14326,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -14488,10 +14584,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -14542,13 +14638,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -14556,13 +14655,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -14816,10 +14918,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.579Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -14867,13 +14969,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -14881,13 +14986,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -15116,10 +15224,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.579Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.580Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -15168,13 +15276,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -15182,13 +15293,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -15425,10 +15539,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.580Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.580Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -15477,13 +15591,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -15491,13 +15608,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -15787,10 +15907,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.580Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.580Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -15839,13 +15959,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -15853,13 +15976,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -16093,10 +16219,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.580Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.580Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -16148,13 +16274,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -16162,13 +16291,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -16445,10 +16577,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.580Z"
                 },
                 {
-                    "lastUpdated": "2022-12-30T11:36:42.243Z",
+                    "lastUpdated": "2022-12-30T14:06:04.580Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -16501,13 +16633,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "endDate": {
                                 "format": "datetime-local",
@@ -16515,13 +16650,16 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "End Date",
                                 "options": {
+                                    "grid_columns": 3,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
                                     "flatpickr": {
-                                        "wrap": false,
                                         "time_24hr": true,
-                                        "dateFormat": "d/m/Y H:i"
+                                        "dateFormat": "Z",
+                                        "enableTime": true
                                     }
-                                },
-                                "default": "21/02/2020 12:41"
+                                }
                             },
                             "activity": {
                                 "title": "Activity",
@@ -16815,7 +16953,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2022-12-30T11:36:42.243Z"
+                    "_rev": "2022-12-30T14:06:04.580Z"
                 }
             ]
         }
