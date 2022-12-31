@@ -2,6 +2,7 @@ import { HeartbeatChecker } from '@serge/components'
 import { ActivityLogsInterface, Wargame } from '@serge/custom-types'
 import preval from 'preval.macro'
 import React, { useEffect, useState } from 'react'
+import { expiredStorage } from '@serge/config'
 import { useDispatch, useSelector } from 'react-redux'
 import { addNotification, hideNotification } from '../ActionsAndReducers/Notification/Notification_ActionCreators'
 import { pingServer2 as pingServerApi } from '../api/wargames_api'
@@ -68,6 +69,8 @@ const Version: React.FC<VersionProps> = () => {
 
   useEffect(() => {
     const timerId = setInterval(() => {
+      // remove all expired items from localStorage
+      expiredStorage.clearExpired()
       pingServer() 
     }, SERVER_PING_INTERVAL)
 

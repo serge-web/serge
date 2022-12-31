@@ -8,7 +8,7 @@ import { setPreviewSchema } from '../../ActionsAndReducers/UmpireMenu/umpireMenu
 import { connect } from 'react-redux'
 
 class SchemaEditor extends Component {
-  constructor (props, content) {
+  constructor(props, content) {
     super(props, content)
 
     JSONEditor.JSONEditor.defaults.options.iconlib = 'fontawesome5'
@@ -61,21 +61,21 @@ class SchemaEditor extends Component {
     }
   }
 
-  updatePreviewSchema (schema) {
+  updatePreviewSchema(schema) {
     this.setState({ previewSchema: schema })
 
     this.props.dispatch(setPreviewSchema(schema))
   }
 
-  updateOptions (options) {
+  updateOptions(options) {
     this.setState({ options: options })
   }
 
-  updateMetaSchema (schema) {
+  updateMetaSchema(schema) {
     this.setState({ metaschema: schema })
   }
 
-  render () {
+  render() {
     return (
       <>
         <div className='flex-content flex-content--left50'>
@@ -87,7 +87,7 @@ class SchemaEditor extends Component {
           />
         </div>
         <div className='flex-content flex-content--right50'>
-          <Preview schema={this.state.previewSchema}/>
+          <Preview schema={this.state.previewSchema} />
         </div>
       </>
     )

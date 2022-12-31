@@ -32,6 +32,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [dialogMessage, setDialogMessage] = useState<string>('')
 
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
+  const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
+
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
@@ -50,6 +52,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
     setFilteredInteractions(messages)
+    if (filteredInteractionsRow.length === 0) {
+      setFilteredInteractionsRow(messages)
+    } else {
+      const newMessage = messages[0]
+      if (newMessage) {
+        const row = toRow(newMessage)
+        const filterSaveMessage = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+
+        setRows([...filterSaveMessage, row])
+      }
+    }
   }, [interactionMessages])
 
   useEffect(() => {
@@ -132,27 +145,33 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>Title: {plan.message.title}</span>
   }
 
+  const toRow = (message: MessageInteraction): AdjudicationRow => {
+    const interaction = message.details.interaction
+    if (!interaction) {
+      throw Error('Interaction details missing')
+    }
+    const myMessage = message.details.from.roleId === playerRoleId
+    const incompleteMessageFromMe = (myMessage && !interaction.complete)
+
+    const row = {
+      id: message._id,
+      order1: interaction.orders1,
+      order2: interaction.orders2 || 'n/a',
+      turn: message.details.turnNumber,
+      complete: !!interaction.complete,
+      activity: message.message.Reference,
+      period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
+      // if the item is incomplete
+      tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
+    }
+    return row
+  }
+
   useEffect(() => {
     // check we have our planning messages
-    if (filteredPlans.length > 0 && filteredInteractions.length > 0) {
-      const dataTable = filteredInteractions.map((message: MessageInteraction): AdjudicationRow => {
-        const interaction = message.details.interaction
-        if (!interaction) {
-          throw Error('Interaction details missing')
-        }
-        const myMessage = message.details.from.roleId === playerRoleId
-        const incompleteMessageFromMe = (myMessage && !interaction.complete)
-        return {
-          id: message._id,
-          order1: interaction.orders1,
-          order2: interaction.orders2 || 'n/a',
-          turn: message.details.turnNumber,
-          complete: !!interaction.complete,
-          activity: message.message.Reference,
-          period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
-          // if the item is incomplete
-          tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
-        }
+    if (filteredPlans.length > 0 && filteredInteractionsRow.length > 0) {
+      const dataTable = filteredInteractionsRow.map((message: MessageInteraction): AdjudicationRow => {
+        return toRow(message)
       })
       setRows(dataTable)
 
@@ -174,7 +193,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setColumns(columnsData)
       }
     }
-  }, [filteredInteractions, filteredPlans])
+  }, [filteredInteractionsRow])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
@@ -265,7 +284,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
 
     // retrieve the message & template
-    const message: MessageInteraction | undefined = filteredInteractions.find((value: MessageInteraction) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', filteredInteractions)
     } else {
@@ -275,7 +294,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const msg = message.message
         const isComplete = message.details.interaction?.complete
-        const data = collateInteraction(message._id, filteredInteractions, filteredPlans, forces, forceStyles, forcePlanningActivities)
+        const data = collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {

@@ -21,6 +21,12 @@ const p9StockTemplates: TemplateBody[] = [
           readonly: true,
           type: 'string'
         },
+        messageType: {
+          options: {
+            hidden: true
+          },
+          type: 'string'
+        },
         narrative: {
           title: 'General Feedback',
           propertyOrder: 20,

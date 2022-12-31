@@ -16,9 +16,7 @@ import {
 import React, { createRef, MouseEvent, useEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 
-import flatpickr from 'flatpickr'
 import PropTypes from './types/props'
-flatpickr('.calendar')
 
 const MessageCreator: React.FC<PropTypes> = ({
   schema,
@@ -102,8 +100,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setFormValue(undefined)
     postBack && postBack(details, formMessage)
     setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption])
-    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, mainMessageOption])
     onMessageSend && onMessageSend(e)
   }
 

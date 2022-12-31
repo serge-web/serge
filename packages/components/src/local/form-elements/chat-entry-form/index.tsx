@@ -1,5 +1,5 @@
 import { Box } from '@material-ui/core'
-import { PLANNING_MESSAGE, UNSENT_CHAT_MESSAGE_TYPE, UNSENT_PRIVATE_MESSAGE_TYPE } from '@serge/config'
+import { PLANNING_MESSAGE, UNSENT_CHAT_MESSAGE_TYPE } from '@serge/config'
 import { MessageDetails, MessagePlanning } from '@serge/custom-types'
 import React, { useRef, useState } from 'react'
 import { dummyMessages } from '../../organisms/support-panel/helpers/dummy_messages'
@@ -16,12 +16,7 @@ export const ChatEntryForm: React.FC<Props> = ({
   role,
   roleName,
   postBack,
-  turnNumber,
-  clearCachedMessage,
-  onchangeChatInputMessage,
-  onChangePrivateStorage,
-  privatMessageValue,
-  chatEntryFormValue
+  turnNumber
 }: Props) => {
   const [message, setMessage] = useState('')
   const [privateMessage, setPrivateMessage] = useState('')
@@ -62,7 +57,6 @@ export const ChatEntryForm: React.FC<Props> = ({
     }
 
     postBack && postBack(details, contents)
-    clearCachedMessage && clearCachedMessage([UNSENT_PRIVATE_MESSAGE_TYPE, UNSENT_CHAT_MESSAGE_TYPE])
     setMessage('')
     setPrivateMessage('')
     messageEle.current.clear()
@@ -72,19 +66,14 @@ export const ChatEntryForm: React.FC<Props> = ({
   const onCancel = (): void => {
     messageEle.current.clear()
     privateMessageEle.current.clear()
-    onchangeChatInputMessage('', UNSENT_CHAT_MESSAGE_TYPE)
-    onChangePrivateStorage('', UNSENT_PRIVATE_MESSAGE_TYPE)
-    clearCachedMessage && clearCachedMessage([UNSENT_PRIVATE_MESSAGE_TYPE, UNSENT_CHAT_MESSAGE_TYPE])
   }
 
   return (
     <Box className={styles['chat-container']}>
       <ChatInputText
-        chatInputvalue={chatEntryFormValue}
         ref={messageEle}
         placeholder="type the text"
-        onMessageChange={(message, messageType): void => {
-          onchangeChatInputMessage(message, messageType)
+        onMessageChange={(message): void => {
           setMessage(message)
         }}
         postBack={submitForm}
@@ -93,9 +82,7 @@ export const ChatEntryForm: React.FC<Props> = ({
       {isUmpire &&
         <Box mt={1}>
           <PrivateChatInputToggle
-            privatValue={privatMessageValue}
-            postBack={(message, messageType): void => {
-              onChangePrivateStorage(message, messageType)
+            postBack={(message): void => {
               setPrivateMessage(message)
             }}
             sendMessage={submitForm}
