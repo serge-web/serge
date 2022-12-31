@@ -199,16 +199,16 @@ export const JsonEditor: React.FC<Props> = ({
   useLayoutEffect(() => {
     if (editor) {
       setTimeout(() => {
-        if (viewSaveButton && !beingEdited) {
-          editor.disable()
-        } else if (disabled && !viewSaveButton) {
-          editor.disable()
-        } else {
-          try {
+        try {
+          if (viewSaveButton && !beingEdited) {
+            editor.disable()
+          } else if (disabled && !viewSaveButton) {
+            editor.disable()
+          } else {
             editor.enable()
-          } catch (err) {
-            console.warn('JSON Editor error', err)
           }
+        } catch (err) {
+          console.warn('JSON Editor error', err)
         }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
