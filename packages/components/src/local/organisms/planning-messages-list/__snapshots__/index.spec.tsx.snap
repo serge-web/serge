@@ -10,7 +10,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
   }
 >
   <div
-    className="MuiPaper-root-155 MuiPaper-elevation2-159 MuiPaper-rounded-156"
+    className="MuiPaper-root-196 MuiPaper-elevation2-200 MuiPaper-rounded-197"
     style={
       Object {
         "position": "relative",
@@ -18,31 +18,31 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
     }
   >
     <div
-      className="MuiToolbar-root-188 MuiToolbar-regular-190 MuiToolbar-gutters-189 MTableToolbar-root-182"
+      className="MuiToolbar-root-229 MuiToolbar-regular-231 MuiToolbar-gutters-230 MTableToolbar-root-223"
     >
       <div
-        className="MTableToolbar-title-186"
+        className="MTableToolbar-title-227"
       >
         <h6
-          className="MuiTypography-root-192 MuiTypography-h6-209"
+          className="MuiTypography-root-233 MuiTypography-h6-250"
         >
           Orders
         </h6>
       </div>
       <div
-        className="MTableToolbar-spacer-184"
+        className="MTableToolbar-spacer-225"
       />
       <div
-        className="MuiFormControl-root-228 MTableToolbar-searchField-187"
+        className="MuiFormControl-root-269 MTableToolbar-searchField-228"
         color="inherit"
       >
         <div
-          className="MuiInputBase-root-245 MuiInput-root-232 MuiInput-underline-236 MuiInputBase-formControl-246 MuiInput-formControl-233 MuiInputBase-adornedStart-249 MuiInputBase-adornedEnd-250"
+          className="MuiInputBase-root-286 MuiInput-root-273 MuiInput-underline-277 MuiInputBase-formControl-287 MuiInput-formControl-274 MuiInputBase-adornedStart-290 MuiInputBase-adornedEnd-291"
           onClick={[Function]}
           style={Object {}}
         >
           <div
-            className="MuiInputAdornment-root-262 MuiInputAdornment-positionStart-264"
+            className="MuiInputAdornment-root-303 MuiInputAdornment-positionStart-305"
           >
             <svg
               className="svg-inline--fa fa-magnifying-glass"
@@ -50,7 +50,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
           </div>
           <input
             aria-invalid={false}
-            className="MuiInputBase-input-255 MuiInput-input-240 MuiInputBase-inputAdornedStart-260 MuiInputBase-inputAdornedEnd-261"
+            className="MuiInputBase-input-296 MuiInput-input-281 MuiInputBase-inputAdornedStart-301 MuiInputBase-inputAdornedEnd-302"
             disabled={false}
             onBlur={[Function]}
             onChange={[Function]}
@@ -60,10 +60,10 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
             value=""
           />
           <div
-            className="MuiInputAdornment-root-262 MuiInputAdornment-positionEnd-265"
+            className="MuiInputAdornment-root-303 MuiInputAdornment-positionEnd-306"
           >
             <button
-              className="MuiButtonBase-root-281 MuiButtonBase-disabled-282 MuiIconButton-root-275 MuiIconButton-disabled-279"
+              className="MuiButtonBase-root-322 MuiButtonBase-disabled-323 MuiIconButton-root-316 MuiIconButton-disabled-320"
               disabled={true}
               onBlur={[Function]}
               onClick={[Function]}
@@ -81,7 +81,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               type="button"
             >
               <span
-                className="MuiIconButton-label-280"
+                className="MuiIconButton-label-321"
               >
                 <svg
                   className="svg-inline--fa fa-xmark"
@@ -92,7 +92,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
         </div>
       </div>
       <div
-        className="MTableToolbar-actions-185"
+        className="MTableToolbar-actions-226"
       >
         <div>
           <div />
@@ -116,21 +116,21 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
           }
         >
           <table
-            className="MuiTable-root-284"
+            className="MuiTable-root-325"
           >
             <thead
-              className="MuiTableHead-root-286"
+              className="MuiTableHead-root-327"
             >
               <tr
-                className="MuiTableRow-root-287 MuiTableRow-head-290"
+                className="MuiTableRow-root-328 MuiTableRow-head-331"
               />
             </thead>
             <tbody
-              className="MuiTableBody-root-292"
+              className="MuiTableBody-root-333"
             >
               <tr
                 actions={Array []}
-                className="MuiTableRow-root-287"
+                className="MuiTableRow-root-328"
                 index={0}
                 level={0}
                 localization={
@@ -152,11 +152,464 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                   }
                 }
               />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 49,
+                  }
+                }
+              />
+              <tr
+                className="MuiTableRow-root-328"
+                style={
+                  Object {
+                    "height": 1,
+                  }
+                }
+              />
             </tbody>
           </table>
         </div>
       </div>
     </div>
+    <table
+      className="MuiTable-root-325"
+    >
+      <tfoot
+        className="MuiTableFooter-root-334"
+        style={
+          Object {
+            "display": "grid",
+          }
+        }
+      >
+        <tr
+          className="MuiTableRow-root-328 MuiTableRow-footer-332"
+        >
+          <td
+            aria-sort={null}
+            className="MuiTableCell-root-345 MuiTableCell-footer-348 MuiTablePagination-root-335 Component-paginationRoot-1"
+            colSpan={3}
+            icons={
+              Object {
+                "Add": [Function],
+                "Check": [Function],
+                "Clear": [Function],
+                "Delete": [Function],
+                "DetailPanel": [Function],
+                "Edit": [Function],
+                "Export": [Function],
+                "Filter": [Function],
+                "FirstPage": [Function],
+                "LastPage": [Function],
+                "NextPage": [Function],
+                "PreviousPage": [Function],
+                "ResetSearch": [Function],
+                "Search": [Function],
+                "SortArrow": [Function],
+                "ThirdStateCheck": [Function],
+                "ViewColumn": [Function],
+              }
+            }
+            style={
+              Object {
+                "float": "right",
+                "overflowX": "auto",
+              }
+            }
+          >
+            <div
+              className="MuiToolbar-root-229 MuiToolbar-regular-231 MuiToolbar-gutters-230 MuiTablePagination-toolbar-336 Component-paginationToolbar-2"
+            >
+              <div
+                className="MuiTablePagination-spacer-337"
+              />
+              <span
+                className="MuiTypography-root-233 MuiTypography-caption-243 MuiTypography-colorInherit-262 MuiTablePagination-caption-338 Component-paginationCaption-3"
+              >
+                Rows per page:
+              </span>
+              <div
+                className="MuiInputBase-root-286 MuiTablePagination-input-342"
+                onClick={[Function]}
+              >
+                <div
+                  className="MuiSelect-root-357 MuiTablePagination-selectRoot-339 Component-paginationSelectRoot-4"
+                >
+                  <div
+                    aria-haspopup="true"
+                    aria-pressed="false"
+                    className="MuiSelect-select-358 MuiTablePagination-select-340 MuiSelect-selectMenu-361 MuiInputBase-input-296"
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    role="button"
+                    tabIndex={0}
+                  >
+                    <div
+                      style={
+                        Object {
+                          "padding": "0px 5px",
+                        }
+                      }
+                    >
+                      20 rows 
+                    </div>
+                  </div>
+                  <input
+                    type="hidden"
+                    value={20}
+                  />
+                  <svg
+                    aria-hidden="true"
+                    className="MuiSvgIcon-root-364 MuiSelect-icon-363 MuiTablePagination-selectIcon-341"
+                    focusable="false"
+                    role="presentation"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M7 10l5 5 5-5z"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <span
+                className="MuiTypography-root-233 MuiTypography-caption-243 MuiTypography-colorInherit-262 MuiTablePagination-caption-338 Component-paginationCaption-3"
+              >
+                1-1 of 1
+              </span>
+              <div
+                className="MTablePaginationInner-root-377"
+              >
+                <span
+                  aria-describedby={null}
+                  className=""
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  title="First Page"
+                >
+                  <button
+                    className="MuiButtonBase-root-322 MuiButtonBase-disabled-323 MuiIconButton-root-316 MuiIconButton-disabled-320"
+                    disabled={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onContextMenu={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                  >
+                    <span
+                      className="MuiIconButton-label-321"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="material-icons MuiIcon-root-378"
+                      >
+                        first_page
+                      </span>
+                    </span>
+                  </button>
+                </span>
+                <span
+                  aria-describedby={null}
+                  className=""
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  title="Previous Page"
+                >
+                  <button
+                    className="MuiButtonBase-root-322 MuiButtonBase-disabled-323 MuiIconButton-root-316 MuiIconButton-disabled-320"
+                    disabled={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onContextMenu={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                  >
+                    <span
+                      className="MuiIconButton-label-321"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="material-icons MuiIcon-root-378"
+                      >
+                        chevron_left
+                      </span>
+                    </span>
+                  </button>
+                </span>
+                <span
+                  className="MuiTypography-root-233 MuiTypography-caption-243"
+                  style={
+                    Object {
+                      "alignSelf": "center",
+                      "flex": 1,
+                      "flexBasis": "inherit",
+                      "textAlign": "center",
+                    }
+                  }
+                >
+                  1-1 of 1
+                </span>
+                <span
+                  aria-describedby={null}
+                  className=""
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  title="Next Page"
+                >
+                  <button
+                    className="MuiButtonBase-root-322 MuiButtonBase-disabled-323 MuiIconButton-root-316 MuiIconButton-disabled-320"
+                    disabled={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onContextMenu={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                  >
+                    <span
+                      className="MuiIconButton-label-321"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="material-icons MuiIcon-root-378"
+                      >
+                        chevron_right
+                      </span>
+                    </span>
+                  </button>
+                </span>
+                <span
+                  aria-describedby={null}
+                  className=""
+                  onBlur={[Function]}
+                  onFocus={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseOver={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchStart={[Function]}
+                  title="Last Page"
+                >
+                  <button
+                    className="MuiButtonBase-root-322 MuiButtonBase-disabled-323 MuiIconButton-root-316 MuiIconButton-disabled-320"
+                    disabled={true}
+                    onBlur={[Function]}
+                    onClick={[Function]}
+                    onContextMenu={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    onKeyUp={[Function]}
+                    onMouseDown={[Function]}
+                    onMouseLeave={[Function]}
+                    onMouseUp={[Function]}
+                    onTouchEnd={[Function]}
+                    onTouchMove={[Function]}
+                    onTouchStart={[Function]}
+                    tabIndex="-1"
+                    type="button"
+                  >
+                    <span
+                      className="MuiIconButton-label-321"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="material-icons MuiIcon-root-378"
+                      >
+                        last_page
+                      </span>
+                    </span>
+                  </button>
+                </span>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </div>
 </div>
 `;
