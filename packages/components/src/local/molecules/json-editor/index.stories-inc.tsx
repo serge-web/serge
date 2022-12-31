@@ -123,6 +123,7 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       name: asset.name,
       platformType: asset.platformTypeId,
       health: 100,
+      domain: 'Land',
       attributes: { word: 'text', number: 123 }
     }
     return row

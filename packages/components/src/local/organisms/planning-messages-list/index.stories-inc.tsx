@@ -84,6 +84,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
           name: asset.name,
           platformType: asset.platformTypeId,
           health: 100,
+          domain: 'Air',
           attributes: { word: 'text', number: 123 }
         }
         return row
