@@ -1,5 +1,6 @@
 import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
 import { MouseEvent } from 'react'
+import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {
   schema: any
@@ -49,5 +50,5 @@ export default interface PropTypes {
   /**
    *  user has clicked on custom edit button
    */
-  editCallback?: { (docId: string, geoms: PlannedActivityGeometry[]): void }
+  editCallback?: EditCallback
 }
