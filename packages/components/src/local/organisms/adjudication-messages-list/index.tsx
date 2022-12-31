@@ -232,7 +232,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const details = document.details
         const interaction = details.interaction
         if (interaction) {
-        // mark as adjudicatead
+          // mark as adjudicatead
           interaction.complete = true
         }
 
@@ -374,7 +374,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           }
         ]}
         options={{
-          paging: false,
+          paging: true,
+          pageSize: 20,
+          pageSizeOptions: [5, 10, 15, 20],
           sorting: false,
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
