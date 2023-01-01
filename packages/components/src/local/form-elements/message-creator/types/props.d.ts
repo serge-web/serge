@@ -1,4 +1,4 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure } from '@serge/custom-types'
 import { MouseEvent } from 'react'
 import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 

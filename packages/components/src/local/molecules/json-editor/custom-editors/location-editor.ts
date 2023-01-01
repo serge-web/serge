@@ -4,7 +4,7 @@ import { EditCallback, OnLocationEditorLoaded } from '../helpers/setupEditor'
 
 export const initLocationEditor = (editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded): void => {
   class LocationEditor extends JSONEditor.AbstractEditor {
-    build() {
+    build () {
       this.locations = []
       this.group = document.createElement('div')
       this.group.classList.add('form-group')
@@ -26,7 +26,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
       onLocationEditorLoaded(this.group)
     }
 
-    enable() {
+    enable () {
       if (!this.always_disabled) {
         this.textArea.setAttribute('contenteditable', 'true')
         this.textArea.addEventListener('input', () => {
@@ -45,7 +45,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
       }
     }
 
-    disable(alwaysDisabled: boolean) {
+    disable (alwaysDisabled: boolean) {
       if (alwaysDisabled) {
         this.always_disabled = true
       }
@@ -54,7 +54,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
       super.disable()
     }
 
-    addEditButton() {
+    addEditButton () {
       if (this.groupTextArea.childNodes.length < 2) {
         this.editButton = document.createElement('button')
         this.editButton.innerText = 'Edit'
@@ -64,13 +64,13 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
       }
     }
 
-    removeEditButton() {
+    removeEditButton () {
       if (this.groupTextArea.childNodes.length >= 2) {
         this.groupTextArea.removeChild(this.editButton)
       }
     }
 
-    setValue(locations: PlannedActivityGeometry[] | string) {
+    setValue (locations: PlannedActivityGeometry[] | string) {
       if (!locations) {
         return
       }
@@ -96,7 +96,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
       onLocationEditorLoaded(this.group)
     }
 
-    getValue() {
+    getValue () {
       // note: the text area may not have been initialised yet.
       if (this.textArea) {
         return this.textArea.innerText

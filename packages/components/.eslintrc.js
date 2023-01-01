@@ -14,7 +14,6 @@ module.exports = {
     'react'],
   "ignorePatterns": ["*.scss.d.ts", '*.snap'],
   'rules': {
-    "space-before-function-paren": [2, "never"],
     "semi": [2, "never"],
     "@typescript-eslint/ban-ts-ignore": "off",
     '@typescript-eslint/no-use-before-define': 'off',
