@@ -252,7 +252,7 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               location: {
-                title: 'Location',
+                title: 'Location [2.4, 4.2]',
                 type: 'string',
                 options: {
                   grid_columns: 3
