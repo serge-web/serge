@@ -5,6 +5,7 @@ import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInterac
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
+import moment from 'moment'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
@@ -203,7 +204,23 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
-    const liveOrders: MessagePlanning[] = planningMessages
+    // sort out which orders are currently "live"
+    const turnStart = moment(gameDate)
+    const turnEnd = moment(gameTurnEndDate)
+    const liveOrders: MessagePlanning[] = planningMessages.filter((plan: MessagePlanning) => {
+      const startDate = plan.message.startDate
+      const endDate = plan.message.endDate
+      if (startDate && endDate) {
+        const startD = moment(startDate)
+        const endD = moment(endDate)
+        return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
+      } else {
+        console.warn('Support panel. Orders start/end missing for', plan)
+        return false
+      }
+    })
+
+    // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
