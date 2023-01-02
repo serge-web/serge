@@ -1,11 +1,11 @@
-import { Editor, TemplateBody } from '@serge/custom-types'
+import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, usePrevious } from '@serge/helpers'
-import { Confirm } from '../../atoms/confirm'
-import Props from './types/props'
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
+import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
+import Props from './types/props'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
@@ -81,11 +81,11 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
-  const localEditCallback = (): void => {
+  const localEditCallback = (locations: PlannedActivityGeometry[]): void => {
     // TODO: we should only call the `editCallback` if this document
     // is being edited.  The `beingEdited` flag should specify this,
     // but it is always false
-    editCallback && editCallback()
+    editCallback && editCallback(locations)
   }
 
   const onEditorLoaded = (editorElm: HTMLDivElement) => {
@@ -199,16 +199,16 @@ export const JsonEditor: React.FC<Props> = ({
   useLayoutEffect(() => {
     if (editor) {
       setTimeout(() => {
-        if (viewSaveButton && !beingEdited) {
-          editor.disable()
-        } else if (disabled && !viewSaveButton) {
-          editor.disable()
-        } else {
-          try {
+        try {
+          if (viewSaveButton && !beingEdited) {
+            editor.disable()
+          } else if (disabled && !viewSaveButton) {
+            editor.disable()
+          } else {
             editor.enable()
-          } catch (err) {
-            console.warn('JSON Editor error', err)
           }
+        } catch (err) {
+          console.warn('JSON Editor error', err)
         }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {

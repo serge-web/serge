@@ -14,6 +14,7 @@ export type AssetRow = {
   tableData?: { checked: boolean }
   health?: number
   attributes: Record<string, any>
+  domain: string
 }
 
 export default interface PropTypes {

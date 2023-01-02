@@ -10,6 +10,7 @@ import { collapseLocation, expandLocation } from './helpers/collapse-location'
 import { toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
+
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
@@ -116,7 +117,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               // clear the array
               while (pendingLocationData.length) { pendingLocationData.pop() }
             }
-
             postBack && postBack(details, messageValue.current)
             messageValue.current = ''
           }
@@ -214,8 +214,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }
         ]}
         options={{
-          search: false,
-          paging: false,
+          search: true,
+          paging: true,
+          pageSize: 20,
+          pageSizeOptions: [5, 10, 15, 20],
           sorting: true,
           // defaultExpanded: true,
           filtering: filter,
