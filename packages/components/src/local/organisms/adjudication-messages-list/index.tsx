@@ -241,7 +241,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         outAsAny.messageType = ADJUDICATION_OUTCOMES
 
         // (temporarily) fix the locations. While we're waiting for the outcomes table
-        // to support the location editor, we're allowing locations to be entered as 
+        // to support the location editor, we're allowing locations to be entered as
         // lat-long pairs
         outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
           const loc = value.location
