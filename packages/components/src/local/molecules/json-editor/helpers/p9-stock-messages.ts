@@ -33,11 +33,6 @@ const p9StockTemplates: TemplateBody[] = [
           type: 'string',
           format: 'textarea'
         },
-        location: {
-          title: 'Location',
-          propertyOrder: 30,
-          type: 'string'
-        },
         perceptionOutcomes: {
           type: 'array',
           title: 'Perception Outcomes',
