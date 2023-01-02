@@ -536,7 +536,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           const val = geom.coordinates as [number, number]
           const pos = L.latLng(val[1], val[0])
           localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
-            break
+          break
         }
         case 'LineString': {
           const coords = geom.coordinates as [number, number][]
@@ -544,7 +544,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             const pos = L.latLng(val[1], val[0])
             localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
           })
-            break
+          break
         }
         case 'Polygon': {
           const coords = geom.coordinates[0] as [number, number][]
@@ -552,7 +552,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             const pos = L.latLng(val[1], val[0])
             localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
           })
-            break
+          break
         }
       }
     })
