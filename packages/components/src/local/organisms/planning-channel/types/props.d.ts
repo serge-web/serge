@@ -24,7 +24,7 @@ export default interface PropTypes {
   allForces: ForceData[]
   gameDate: string
   currentTurn: number
-  gameTurnTime: TurnLengthType
+  gameTurnLength: TurnLengthType
   dispatch: React.Dispatch<PlayerUiActionTypes>
   reduxDispatch: Dispatch<any>
   getAllWargameMessages: (dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void

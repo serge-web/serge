@@ -2,7 +2,7 @@ import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
-import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
+import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
@@ -47,6 +47,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleName,
   allForces,
   gameDate,
+  gameTurnLength: gameTurnTime,
   currentTurn,
   phase,
   currentWargame,
@@ -71,6 +72,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
 
+  const [gameTurnEndDate, setGameTurnEndDate] = useState<string>('')
+
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
@@ -89,6 +92,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     setLocalDraftMessage(draftMessage)
   }, [draftMessage])
+
+  useEffect(() => {
+    if(gameDate !== '' && gameTurnTime) {
+      const endDate = incrementGameTime(gameDate, gameTurnTime)
+      console.log('calc end date', gameDate, gameTurnTime, endDate)
+      setGameTurnEndDate(endDate)
+    }
+    setLocalDraftMessage(draftMessage)
+  }, [gameDate, gameTurnTime])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -335,6 +347,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
+                  gameTurnEndDate={gameTurnEndDate}
                   playerForceId={selectedForce.uniqid}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
