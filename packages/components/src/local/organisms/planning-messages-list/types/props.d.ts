@@ -28,6 +28,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   gameDate: string
   /**
+   *  current date for turn-end (may be used for finding other orders to sync iwth)
+   */
+  gameTurnEndDate: string
+  /**
    *  definition of planning channel
    */
   channel: ChannelPlanning

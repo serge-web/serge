@@ -21,8 +21,8 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         "message": {
             "Reference": "Blue-6",
             "title": "Order item 6",
-            "startDate": "2022-11-15T00:05:00.000Z",
-            "endDate": "2022-11-15T14:00:00.000Z",
+            "startDate": "2022-11-10T00:05:00.000Z",
+            "endDate": "2022-11-12T14:00:00.000Z",
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -349,8 +349,8 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         "message": {
             "Reference": "Blue-12",
             "title": "Order item 12",
-            "startDate": "2022-11-15T00:05:00.000Z",
-            "endDate": "2022-11-15T03:15:00.000Z",
+            "startDate": "2022-11-10T00:05:00.000Z",
+            "endDate": "2022-11-25T03:15:00.000Z",
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -2675,8 +2675,8 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
         "message": {
             "Reference": "Blue-63",
             "title": "Order item 63",
-            "startDate": "2022-11-15T01:50:00.000Z",
-            "endDate": "2022-11-15T06:50:00.000Z",
+            "startDate": "2022-11-19T01:50:00.000Z",
+            "endDate": "2022-11-21T06:50:00.000Z",
             "location": [
                 {
                     "uniqid": "SOF Activity-0",

@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
-import { mostRecentPlanningOnly } from '@serge/helpers'
+import { incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
@@ -58,6 +58,9 @@ const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometr
   console.log('edit location', plans, !!callback)
 }
 
+const overview = P9BMock.data.overview
+const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+
 const Template: Story<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
@@ -109,6 +112,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     channel={planningChannel}
     customiseTemplate={localCustomiseTemplate}
     gameDate={P9BMock.data.overview.gameDate}
+    gameTurnEndDate={turnEndDate}
     allTemplates={planningMessageTemplatesMock}
     playerForceId={playerForceId}
     playerRoleId={playerRoleId}
