@@ -172,7 +172,9 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
     endDate: timeFinish,
     force: ownForce,
     startTime: moment(timeStart).valueOf(),
-    endTime: moment(timeFinish).valueOf()
+    endTime: moment(timeFinish).valueOf(),
+    geomId: geometry.uniqid,
+    name: ownForce + '//' + seedIn + '//' + geometry.name
   }
   switch (geometry.aType) {
     case GeometryType.point: {
@@ -394,7 +396,7 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
     return !!findGeometryInGroup(id, val)
   })
   if (!group) {
-    console.log('Failed to find group in force', forceId, 'id:', id)
+    console.log('Failed to find group in force 1', forceId, 'id:', id)
     force.groupedActivities.forEach((group) => {
       console.table(group.activities)
     })

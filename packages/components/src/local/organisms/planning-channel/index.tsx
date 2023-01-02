@@ -1,10 +1,10 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLngBounds, latLngBounds, LatLngExpression } from 'leaflet'
+import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
 import { faCalculator, faHistory } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,9 +30,11 @@ import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
+import Ruler from './helpers/Ruler'
+import { boundsForGeometry } from './helpers/spatial-helpers'
+import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import Ruler from './helpers/Ruler'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -116,7 +118,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
-  const [, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+  const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
+
+  // the currently active assets and orders. i.e. if an order or adjudication is expanded,
+  // show the child elements, regardless of what is selected
+  const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
+  const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -143,9 +150,48 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [selectedForce, phase])
 
   useEffect(() => {
+    // find bounds of assets & orders
+    let workingBounds: L.LatLngBounds | undefined
+    currentAssetIds.forEach((id) => {
+      const asset = findAsset(allForces, id)
+      if (asset) {
+        const loc = asset.location
+        if (loc) {
+          const coords = L.latLng(loc[0], loc[1])
+          if (!workingBounds) {
+            workingBounds = L.latLngBounds(coords, coords)
+          } else {
+            workingBounds = workingBounds.extend(coords)
+          }
+        }
+      }
+    })
+    currentOrders.forEach((id) => {
+      const plan = planningMessages.find((msg) => id === msg._id)
+      if (plan) {
+        const activities = plan.message.location
+        if (activities) {
+          activities.forEach((act) => {
+            workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
+          })
+        }
+      }
+    })
+    if (workingBounds) {
+      setBounds(workingBounds)
+    } else {
+      setBounds(undefined)
+    }
+
+    // update map bounds
+  }, [currentAssetIds, currentOrders])
+
+  useEffect(() => {
     if (showTimeControl) {
+      const isUmpire = selectedForce.umpire
+      const myOrders = isUmpire ? planningMessages : planningMessages.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
       const features: Feature[] = []
-      planningMessages.forEach((plan) => {
+      myOrders.forEach((plan) => {
         if (plan.message.location) {
           // until we have times in features, we get it from the message
           const startTime = plan.message.startDate
@@ -167,11 +213,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         features: features
       }
       setTimeControlEvents(collection)
-      console.log('time features', collection)
     } else {
       setTimeControlEvents(undefined)
     }
-  }, [showTimeControl, planningMessages])
+  }, [showTimeControl, planningMessages, selectedForce])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -285,13 +330,17 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveNewActivityTimeMessage(roleId, newMessage, currentWargame)(reduxDispatch)
   }
 
-  const onPanelWidthChange = (width: number): void => setMapWidth(`calc(100% - ${width}px)`)
+  const onPanelWidthChange = (width: number): void => {
+    setMapWidth(`calc(100% - ${width}px)`)
+  }
 
   const mapActionCallback = (force: string, category: string, actionId: string): void => {
     console.log('action clicked', force, category, actionId)
   }
 
-  const supportPanelContext = useMemo(() => ({ selectedAssets }), [selectedAssets])
+  const supportPanelContext = useMemo(() => (
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders }
+  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders])
 
   const genData = (): void => {
     const doGenny = 7
@@ -474,9 +523,43 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const editOrderGeometries: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void => {
-    console.log('processing new geometries', plans)
     // if we just store `callback` then it will get called.  So we need to indirectly store it
     setActivityBeingEditedCallback(() => callback)
+
+    // get bounds of geometries
+    let localBounds: L.LatLngBounds | undefined
+    plans.forEach((plan) => {
+      const geom = plan.geometry.geometry as any
+      const geomType: string = geom.type
+      switch (geomType) {
+        case 'Point': {
+          const val = geom.coordinates as [number, number]
+          const pos = L.latLng(val[1], val[0])
+          localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+          break
+        }
+        case 'LineString': {
+          const coords = geom.coordinates as [number, number][]
+          coords.forEach((val: [number, number]) => {
+            const pos = L.latLng(val[1], val[0])
+            localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+          })
+          break
+        }
+        case 'Polygon': {
+          const coords = geom.coordinates[0] as [number, number][]
+          coords.forEach((val: [number, number]) => {
+            const pos = L.latLng(val[1], val[0])
+            localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+          })
+          break
+        }
+      }
+    })
+    if (localBounds) {
+      setBounds(localBounds)
+    }
+
     setActivityBeingEdited(plans)
   }
 
@@ -484,34 +567,100 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (activity) {
       activityBeingEditedCallback && activityBeingEditedCallback(activity)
       setActivityBeingEditedCallback(undefined)
+    } else {
+      if (activityBeingEdited) {
+        // user has cancelled edit. Push the original values back into the callback
+        activityBeingEditedCallback && activityBeingEditedCallback(activityBeingEdited)
+        setActivityBeingEditedCallback(undefined)
+      } else {
+        console.warn('Warning - planning channel expected there to be activity being edited')
+      }
     }
     // finally, close
     setActivityBeingEdited(undefined)
+  }
+
+  const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const forceName = thisForce ? thisForce.name : 'Force not found'
+    const label = forceName + ' - ' + props.id
+    layer.bindPopup(label)
+  }
+
+  const timelineStyle = (data: Feature): PathOptions => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const color = thisForce ? thisForce.color : '#ff0'
+    return {
+      color: color
+    }
+  }
+
+  const timelinePointToLayer = (data: Feature<any>, latlng: LatLngExpression): Layer => {
+    const props = data.properties as PlannedProps
+    const forceId = props.force
+    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const thisCol = thisForce ? thisForce.color : '#f00'
+    const geojsonMarkerOptions = {
+      radius: 10,
+      fillColor: thisCol,
+      color: thisCol,
+      weight: 2,
+      opacity: 1,
+      fillOpacity: 0.8
+    }
+    return circleMarker(latlng, geojsonMarkerOptions)
   }
 
   const mapChildren = useMemo(() => {
     return (
       <>
         <Ruler showControl={true} />
-        {playerInPlanning && <PlanningActitivityMenu showControl={!showInteractionGenerator && !activityBeingPlanned} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />}
+        <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
+        <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
-          : <>
-            <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-            <LayerGroup pmIgnore={true} key={'own-forces'}>
-              <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-            </LayerGroup>
-            <LayerGroup key={'opp-forces'}>
-              <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-            </LayerGroup>
+          : <Fragment>
+            <Fragment key='selectedObjects'>
+              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
+                {allOwnAssets.length !== ownAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+                {allOwnAssets.length === ownAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+              </LayerGroup>
+              <LayerGroup key={'sel-opp-forces'}>
+                {allOppAssets.length !== opAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+                {allOppAssets.length === opAssetsFiltered.length &&
+                  <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                }
+              </LayerGroup>
+            </Fragment>
+            <Fragment key='currentObjects'>
+              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <LayerGroup pmIgnore={true} key={'cur-own-forces'}>
+                <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
+              </LayerGroup>
+              <LayerGroup key={'cur-opp-forces'}>
+                <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
+              </LayerGroup>
+            </Fragment>
             {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
-          </>
+          </Fragment>
         }
       </>
     )
   }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning])
+    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+    currentAssetIds, currentOrders])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -623,7 +772,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                         }
                         <div className={cx('leaflet-control')}>
                           <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
-                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} />asd</Item>
+                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
                         </div>
                       </>
                     }

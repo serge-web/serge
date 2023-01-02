@@ -1,15 +1,13 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
+import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import MaterialTable, { Column } from 'material-table'
-import moment from 'moment'
-import React, { useEffect, useRef, useState } from 'react'
-import { Button } from '../../atoms/button'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
-import { arrToDict, collateActivities } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation, expandLocation } from './helpers/collapse-location'
+import { toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
 
@@ -17,90 +15,49 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  editThisMessage
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-  const messageValue = useRef<any>(null)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
-
+  const messageValue = useRef<any>(null)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
+    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
+    if (myMessages.length === 0) {
+      setMyMessages(myForceMessages)
+    } else {
+      const newMessage = myForceMessages[0]
+      if (newMessage) {
+        // remove the previous object of the save message
+        const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
+        const row = toRow(newMessage, playerForceId)
+        // push a new row
+        setRows([...filterSaveMessage, row])
+      }
+    }
+  }, [messages, playerForceId, playerRoleId])
+
+  useEffect(() => {
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     setMyMessages(myRoleMessages)
-  }, [messages, playerForceId, onlyShowMyOrders, playerRoleId])
+  }, [onlyShowMyOrders])
 
-  /** custom date formatter, for compact date/time display */
-  const shortDate = (value?: string): string => {
-    return value ? moment(value).format('DDHHmm[Z]') : ''
-  }
-
-  const trimActivity = (forceId: string, activity?: string): string => {
-    if (!activity) {
-      return 'N/A'
-    } else {
-      const len = forceId.length
-      return activity.slice(len + 1)
-    }
-  }
-
-  useEffect(() => {
-    const roles: string[] = []
-    const dataTable: OrderRow[] = myMessages.map(message => {
-      const author = message.details.from.roleName
-      if (!roles.includes(author)) {
-        roles.push(author)
-      }
-      const plan = message.message as PlanningMessageStructureCore
-
-      const row: OrderRow = {
-        id: message._id,
-        reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
-        title: plan.title,
-        role: author,
-        activity: trimActivity(playerForceId, plan.activity),
-        startDate: shortDate(plan.startDate),
-        endDate: shortDate(plan.endDate)
-      }
-      return row
+  // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
+  useLayoutEffect(() => {
+    const dataTable: OrderRow[] = myMessages.map((message) => {
+      return toRow(message, playerForceId)
     })
     setRows(dataTable)
 
-    // fix unit-test for MaterialTable
-    const jestWorkerId = process.env.JEST_WORKER_ID
-    // end
-
-    const activities = collateActivities(myMessages)
-    const trimmedActivities = activities.map((item) => trimActivity(playerForceId, item))
-
-    const smallPadding: React.CSSProperties = {
-      paddingLeft: '10px',
-      paddingRight: '10px'
-    }
-
-    const narrowCell: React.CSSProperties = {
-      ...smallPadding, width: '80px'
-    }
-    const mediumCell: React.CSSProperties = {
-      ...smallPadding, width: '120px'
-    }
-
-    const columnData: Column[] = jestWorkerId ? [] : [
-      { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell },
-      { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
-      { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
-      { title: 'Activity', field: 'activity', lookup: arrToDict(trimmedActivities), cellStyle: smallPadding, headerStyle: smallPadding },
-      { title: 'Start Date', field: 'startDate', cellStyle: narrowCell, headerStyle: narrowCell },
-      { title: 'Finish Date', field: 'endDate', cellStyle: narrowCell, headerStyle: narrowCell }
-    ]
+    const columnData = toColumn(myMessages, playerForceId)
 
     if (columns.length === 0) {
       setColumns(columnData)
@@ -111,9 +68,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     messageValue.current = val
   }
 
-  const editDocument = (docId: string): void => {
-    editThisMessage && editThisMessage(docId)
-  }
+  // const editDocument = (docId: string): void => {
+  //   editThisMessage && editThisMessage(docId)
+  // }
 
   const detailPanel = (rowData: OrderRow): any => {
     // retrieve the message & template
@@ -160,7 +117,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               // clear the array
               while (pendingLocationData.length) { pendingLocationData.pop() }
             }
-
             postBack && postBack(details, messageValue.current)
             messageValue.current = ''
           }
@@ -170,8 +126,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
         const localEditLocation = (): void => {
           if (message.message.location) {
-            const localCallback = (newValue: unknown): void => {
-              pendingLocationData.push(newValue as PlannedActivityGeometry[])
+            const localCallback = (newValue: PlannedActivityGeometry[]): void => {
+              pendingLocationData.push(newValue)
             }
             // pass the location data object
             canEdit && editLocation && editLocation(message.message.location, localCallback)
@@ -189,22 +145,26 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }, [])
           return <></>
         }
+        const editorRightValue = message.message ? message.message : undefined
 
         return <>
+
           <DetailPanelStateListener />
-          { canEdit &&
-            <Button color='secondary' onClick={() => { editDocument(rowData.id) }} icon='edit'>Edit</Button>
-          }
+          {/* { canEdit &&
+            <Button color='secondary' onClick={() => {
+              editDocument(rowData.id)
+            }} icon='edit'>Edit</Button>
+          } */}
           <JsonEditor
-            messageContent={message.message}
-            viewSaveButton={false}
+            messageContent={editorRightValue}
+            viewSaveButton={true}
             saveMessage={saveMessage}
             customiseTemplate={customiseTemplate}
             storeNewValue={editorValue}
             messageId={rowData.id}
             confirmCancel={confirmCancel}
             template={template}
-            disabled={true}
+            disabled={!canEdit}
             gameDate={gameDate}
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
             modifyForSave={expandLocation}
@@ -254,9 +214,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }
         ]}
         options={{
-          search: false,
-          paging: false,
+          search: true,
+          paging: true,
+          pageSize: 20,
+          pageSizeOptions: [5, 10, 15, 20],
           sorting: true,
+          // defaultExpanded: true,
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
         }}

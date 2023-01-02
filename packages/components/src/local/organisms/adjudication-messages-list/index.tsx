@@ -9,6 +9,7 @@ import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
+import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -21,13 +22,18 @@ import PropTypes, { AdjudicationRow } from './types/props'
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
+  const [dialogMessage, setDialogMessage] = useState<string>('')
+
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
+  const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
+
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
@@ -46,6 +52,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
     setFilteredInteractions(messages)
+    if (filteredInteractionsRow.length === 0) {
+      setFilteredInteractionsRow(messages)
+    } else {
+      const newMessage = messages[0]
+      if (newMessage) {
+        const row = toRow(newMessage)
+        const filterSaveMessage = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+
+        setRows([...filterSaveMessage, row])
+      }
+    }
   }, [interactionMessages])
 
   useEffect(() => {
@@ -128,27 +145,33 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>Title: {plan.message.title}</span>
   }
 
+  const toRow = (message: MessageInteraction): AdjudicationRow => {
+    const interaction = message.details.interaction
+    if (!interaction) {
+      throw Error('Interaction details missing')
+    }
+    const myMessage = message.details.from.roleId === playerRoleId
+    const incompleteMessageFromMe = (myMessage && !interaction.complete)
+
+    const row = {
+      id: message._id,
+      order1: interaction.orders1,
+      order2: interaction.orders2 || 'n/a',
+      turn: message.details.turnNumber,
+      complete: !!interaction.complete,
+      activity: message.message.Reference,
+      period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
+      // if the item is incomplete
+      tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
+    }
+    return row
+  }
+
   useEffect(() => {
     // check we have our planning messages
-    if (filteredPlans.length > 0 && filteredInteractions.length > 0) {
-      const dataTable = filteredInteractions.map((message: MessageInteraction): AdjudicationRow => {
-        const interaction = message.details.interaction
-        if (!interaction) {
-          throw Error('Interaction details missing')
-        }
-        const myMessage = message.details.from.roleId === playerRoleId
-        const incompleteMessageFromMe = (myMessage && !interaction.complete)
-        return {
-          id: message._id,
-          order1: interaction.orders1,
-          order2: interaction.orders2 || 'n/a',
-          turn: message.details.turnNumber,
-          complete: !!interaction.complete,
-          activity: message.message.Reference,
-          period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
-          // if the item is incomplete
-          tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
-        }
+    if (filteredPlans.length > 0 && filteredInteractionsRow.length > 0) {
+      const dataTable = filteredInteractionsRow.map((message: MessageInteraction): AdjudicationRow => {
+        return toRow(message)
       })
       setRows(dataTable)
 
@@ -170,7 +193,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setColumns(columnsData)
       }
     }
-  }, [filteredInteractions, filteredPlans])
+  }, [filteredInteractionsRow])
 
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
@@ -209,7 +232,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const details = document.details
         const interaction = details.interaction
         if (interaction) {
-        // mark as adjudicatead
+          // mark as adjudicatead
           interaction.complete = true
         }
 
@@ -229,13 +252,21 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
+  const countRemainingInteractions = (): void => {
+    console.log('count remaining')
+    const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
+    console.log('contacts', contacts)
+    const message = '' + contacts.length + ' interactions remaining'
+    setDialogMessage(message)
+  }
+
   const getInteraction = (): void => {
     console.log('get interaction', forcePlanningActivities)
-    const interaction = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
-    console.log('interaction', interaction)
-    if (interaction) {
+    const interactions = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
+    console.log('interaction', interactions)
+    if (interactions.length > 0) {
       // send up to parent
-      handleAdjudication && handleAdjudication(interaction)
+      handleAdjudication && handleAdjudication(interactions[0])
     } else {
       window.alert('Interaction not found')
     }
@@ -253,7 +284,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
 
     // retrieve the message & template
-    const message: MessageInteraction | undefined = filteredInteractions.find((value: MessageInteraction) => value._id === rowData.id)
+    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', filteredInteractions)
     } else {
@@ -263,7 +294,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const msg = message.message
         const isComplete = message.details.interaction?.complete
-        const data = collateInteraction(message._id, filteredInteractions, filteredPlans, forces, forceStyles, forcePlanningActivities)
+        const data = collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
@@ -286,6 +317,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               gameDate={gameDate}
               saveMessage={localSubmitAdjudication}
               storeNewValue={localStoreNewValue}
+              onLocationEditorLoaded={onLocationEditorLoaded}
             />
             {!isComplete &&
               <div className='button-wrap' >
@@ -304,10 +336,27 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     detailPanel: detailPanel
   }
 
+  const closeDialog = (): void => {
+    if (dialogMessage !== '') {
+      setDialogMessage('')
+    }
+  }
+
   return (
     <div className={styles['messages-list']}>
+      <CustomDialog
+        isOpen={dialogMessage.length > 0}
+        header={'Generate interactions'}
+        cancelBtnText={'OK'}
+        // TODO: fix issue on next line
+        // deepscan-disable-next-line
+        onClose={(): void => closeDialog()}
+        content={dialogMessage}
+      />
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
+        &nbsp;
+        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
       </div>
 
       <MaterialTable
@@ -325,7 +374,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           }
         ]}
         options={{
-          paging: false,
+          paging: true,
+          pageSize: 20,
+          pageSizeOptions: [5, 10, 15, 20],
           sorting: false,
           filtering: filter,
           selection: !jestWorkerId // fix unit-test for material table
@@ -334,12 +385,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       />
     </div>
   )
-
-  // return (
-  //   <div className={styles['messages-list']}>
-  //     <Orders title='Adjudication' detailPanelFnc={detailPanel} columns={columns} rows={rows} />
-  //   </div>
-  // )
 }
 
 export default AdjudicationMessagesList

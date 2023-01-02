@@ -190,7 +190,8 @@ export const trimLineToPeriod = (line: LineString, lineTime: TimePeriod, otherTi
       const lengthToCut = proportion * totalLength
       const splitPoint = turf.along(line, lengthToCut, { units: 'kilometers' })
       const splitLine = turf.lineSplit(tLine, splitPoint)
-      tLine = splitLine.features[1]
+      // if the split is very near to the start, we still just have one line segment
+      tLine = splitLine.features.length === 2 ? splitLine.features[1] : splitLine.features[0]
     }
     if (lineEnd > otherEnd) {
       // have to trim some off the end

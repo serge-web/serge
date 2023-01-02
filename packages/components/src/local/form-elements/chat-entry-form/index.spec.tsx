@@ -20,17 +20,6 @@ const createNodeMock = (el: any): HTMLTextAreaElement | null => {
   return null
 }
 
-const onChangePrivateStorage = (message: string): void => console.log('message', message)
-
-const onchangeChatInputMessage = (value: string, messageType: string): void => console.log({ value, messageType })
-
-const privatMessageValue = (privat: string): string => privat
-
-const chatEntryFormValue = (chat: string): string => {
-  console.log('chat message:', chat)
-  return chat
-}
-
 const postBack = (details: MessageDetails, message: any): void => {
   console.log('send message', details, message)
 }
@@ -40,10 +29,6 @@ describe('ChatEntryForm component:', () => {
     const tree = renderer
       .create(
         <ChatEntryForm
-          chatEntryFormValue={chatEntryFormValue}
-          privatMessageValue={privatMessageValue}
-          onChangePrivateStorage={onChangePrivateStorage}
-          onchangeChatInputMessage={onchangeChatInputMessage}
           turnNumber={1}
           isUmpire={true}
           from={force}

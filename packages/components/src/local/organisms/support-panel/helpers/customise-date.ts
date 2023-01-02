@@ -47,18 +47,22 @@ export const getDateSlots = (gameTime: number, gameTurnTime: TurnLengthType): Ar
   return res
 }
 
+/** note - this was used as a workaround while we waited to update to JSON-Editor
+ * release that correctly supported the FlatPickr editor
+ */
 export const customiseDate = (_document: MessageStructure | undefined, schema: Record<string, any>,
   gameTime: number, gameTurnTime: TurnLengthType): Record<string, any> => {
+  const res = { ...schema }
   if (schema) {
     const slots = getDateSlots(gameTime, gameTurnTime)
-    const keys = Object.keys(schema.properties)
+    const keys = Object.keys(res.properties)
     keys.forEach((key: string) => {
       if (key.endsWith('Date') && key !== 'Date') {
         // ok, update it
-        schema.properties[key].enum = slots.map((asset: TimeSlot) => asset.value)
-        schema.properties[key].options.enum_titles = slots.map((asset: TimeSlot) => asset.label)
+        res.properties[key].enum = slots.map((asset: TimeSlot) => asset.value)
+        res.properties[key].options.enum_titles = slots.map((asset: TimeSlot) => asset.label)
       }
     })
   }
-  return schema
+  return res
 }

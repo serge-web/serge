@@ -6,15 +6,18 @@ import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
+import ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
+import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
+import styles from '../styles.module.scss'
 
 interface OrderEditingProps {
   /** user has finished. Undefined value
    * means user has cancelled
    */
-  saved: { (activity: PlannedActivityGeometry[] | undefined): void}
+  saved: { (activity: PlannedActivityGeometry[] | undefined): void }
   /** the activity to edit */
   activityBeingEdited: PlannedActivityGeometry[] | undefined
 }
@@ -101,14 +104,25 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
   }
 
   useEffect(() => {
-    // map.pm.disableDraw()
     if (activityBeingEdited && activityBeingEdited.length && map) {
+      map.pm.disableDraw()
       const items = activityBeingEdited.map((plan) => plan.geometry)
       // create a layer for the activites
       const layerToEdit = L.geoJSON(items)
       layerToEdit.addTo(map)
-      // // cancel drawing
-      // map.pm.disableDraw()
+
+      const getAssetIcon = (imageSrc: string): string => {
+        return (
+          ReactDOMServer.renderToString(<AssetIcon imageSrc={imageSrc} />)
+        )
+      }
+
+      const icon = L.divIcon({
+        iconSize: [30, 30],
+        html: getAssetIcon('/images/marker-icon-2x.png'),
+        className: styles['marker-icon']
+      })
+      map.pm.setGlobalOptions({ markerStyle: { icon } })
 
       // // note: we may have empty planning geometries for non-spatial
       // if (activity && currentGeometry >= 0 && planningGeometries.length > 0) {
@@ -121,6 +135,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
         allowCutting: false,
         allowRemoval: false,
         allowRotation: false,
+        markerStyle: { icon },
         allowSelfIntersectionEdit: false
       }
       setGlobalOptions(globalOpts)

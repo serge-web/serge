@@ -1,21 +1,14 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-
-/* Import Stylesheet */
-import 'bootstrap/dist/css/bootstrap.min.css'
-
-/* Import Types */
-import { Editor, TemplateBody } from '@serge/custom-types'
+import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 import { configDateTimeLocal, usePrevious } from '@serge/helpers'
-import { Confirm } from '../../atoms/confirm'
-import Props from './types/props'
-
-import { expiredStorage } from '@serge/config'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
+import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
+import Props from './types/props'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
-
 /* Render component */
 export const JsonEditor: React.FC<Props> = ({
   messageId,
@@ -33,11 +26,11 @@ export const JsonEditor: React.FC<Props> = ({
   cachedName,
   clearCachedName,
   saveMessage,
-  modifyForEdit,
   modifyForSave,
   confirmCancel = false,
   viewSaveButton = false,
-  editCallback
+  editCallback,
+  onLocationEditorLoaded
 }) => {
   const jsonEditorRef = useRef<HTMLDivElement>(null)
   const [editor, setEditor] = useState<Editor | null>(null)
@@ -55,8 +48,6 @@ export const JsonEditor: React.FC<Props> = ({
     return <span style={styles} >Schema not found for {template}</span>
   }
 
-  const memoryName = `${messageId}-${template._id}`
-
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
@@ -66,27 +57,20 @@ export const JsonEditor: React.FC<Props> = ({
     storeNewValue && storeNewValue(newDoc)
   }
 
-  const genLocalStorageId = (): string => {
-    if (!template._id) {
-      console.warn('Warning - the unique id for the cached JSON editor relies on having both message and template ids')
-    }
-
-    return memoryName
-  }
-
   const OnSave = () => {
     saveMessage && saveMessage()
-    expiredStorage.removeItem(genLocalStorageId())
+    setBeingEdited(false)
   }
 
   const onPopupCancel = (): void => {
-    expiredStorage.removeItem(genLocalStorageId())
+    // removePlanning
     setConfirmIsOpen(false)
   }
 
   const onPopupConfirm = (): void => {
-    expiredStorage.removeItem(genLocalStorageId())
-    initEditor()
+    if (!viewSaveButton) {
+      initEditor()
+    }
     setConfirmIsOpen(false)
     setBeingEdited(false)
   }
@@ -97,11 +81,15 @@ export const JsonEditor: React.FC<Props> = ({
     }
   }
 
-  const localEditCallback = (): void => {
+  const localEditCallback = (locations: PlannedActivityGeometry[]): void => {
     // TODO: we should only call the `editCallback` if this document
     // is being edited.  The `beingEdited` flag should specify this,
     // but it is always false
-    editCallback && editCallback()
+    editCallback && editCallback(locations)
+  }
+
+  const onEditorLoaded = (editorElm: HTMLDivElement) => {
+    onLocationEditorLoaded && onLocationEditorLoaded(editorElm)
   }
 
   const initEditor = (): () => void => {
@@ -118,13 +106,12 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
 
     const changeListenter = (): void => {
       if (nextEditor) {
         const nexValue = nextEditor.getValue()
         handleChange(nexValue)
-        expiredStorage.setItem(genLocalStorageId(), JSON.stringify(nexValue))
       }
     }
 
@@ -150,39 +137,23 @@ export const JsonEditor: React.FC<Props> = ({
       }
     }
 
-    const handleClick = ({ target }: any): void => {
-      const storageData = expiredStorage.getItem(genLocalStorageId()) ? JSON.parse(expiredStorage.getItem(genLocalStorageId()) || '{}') : null
-      const targetId = target.getAttribute('id')
-      if (target.attributes['data-tag'] && storageData !== null && targetId !== null) {
-        if (messageId.indexOf(storageData.Reference) && targetId.indexOf(storageData.Reference)) {
-          expiredStorage.removeItem(genLocalStorageId())
-          // remove click listener for unmounted component
-          document.removeEventListener('click', handleClick)
-        }
-      }
-    }
-
-    // add click listener for remove item in local storage
-    document.addEventListener('click', handleClick)
-
     // add keydown listener to be able to track input changes
     document.addEventListener('keydown', handleKeyDown)
 
-    if (nextEditor) {
-      // only retrieve from expired content if we haven't been provided with message content
-      const messageJson = messageContent ? undefined : expiredStorage.getItem(genLocalStorageId())
-      if (messageJson && !messageContent) {
-        nextEditor.setValue(JSON.parse(messageJson))
-        nextEditor.on('change', changeListenter)
-      } else if (messageContent) {
-        const contentAsJSON = typeof messageJson === 'string' ? JSON.parse(messageJson) : messageContent
-        const modified = modifyForEdit ? modifyForEdit(contentAsJSON) : contentAsJSON
-        nextEditor.setValue(modified)
-        nextEditor.on('change', changeListenter)
-      } else {
-        nextEditor.on('change', changeListenter)
+    setTimeout(() => {
+      if (nextEditor) {
+        // only retrieve from expired content if we haven't been provided with message content
+        if (messageContent) {
+          nextEditor.setValue(messageContent)
+          nextEditor.on('change', changeListenter)
+        } else {
+          nextEditor.on('change', changeListenter)
+        }
       }
-    }
+      // update time input for flatpickr
+      const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
+      Array.from(flatPickrElm).forEach(elm => elm.classList.add('showTimeInput'))
+    })
 
     setEditor(nextEditor)
 
@@ -207,10 +178,8 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    //    if (!messageContent && template.details && template.details.type) {
     if (template.details && template.details.type) {
       if (cachedName === messageId) {
-        expiredStorage.removeItem(genLocalStorageId())
         clearCachedName('')
         initEditor()
         setBeingEdited(false)
@@ -225,29 +194,44 @@ export const JsonEditor: React.FC<Props> = ({
 
   useLayoutEffect(() => {
     if (editor) editor.destroy()
-    // NOTE: commented out next line, since we were getting two editor instances
-    //    return initEditor()
   }, [disableArrayToolsWithEditor && disabled])
 
   useLayoutEffect(() => {
     if (editor) {
-      if (viewSaveButton && !beingEdited) {
-        editor.disable()
-      } else if (disabled && !viewSaveButton) {
-        editor.disable()
-      } else {
-        editor.enable()
-      }
       setTimeout(() => {
+        try {
+          if (viewSaveButton && !beingEdited) {
+            editor.disable()
+          } else if (disabled && !viewSaveButton) {
+            editor.disable()
+          } else {
+            editor.enable()
+          }
+        } catch (err) {
+          console.warn('JSON Editor error', err)
+        }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
-          // if (beingEdited) {
           btn.classList.remove('btn-hide')
-          // } else {
-          //   btn.classList.add('btn-hide')
-          // }
         })
-      }, 10)
+
+        /**
+         * heading option should have pattern: ###<heading>
+         */
+        const selectElms = Array.from(document.querySelectorAll('select'))
+        for (const select of selectElms) {
+          const options = Array.from(select.querySelectorAll('option')).filter((option: any) => {
+            return /^###/.test(option.value)
+          })
+          options.forEach((option: any) => {
+            const oGroup = document.createElement('optgroup')
+            oGroup.label = option.value.replace(/^###/g, '')
+            option.parentNode.insertBefore(oGroup, option.nextSibling)
+            option.parentNode.removeChild(option)
+            option.style.display = 'none'
+          })
+        }
+      }, 50)
     }
   }, [editor, beingEdited])
 
@@ -263,7 +247,9 @@ export const JsonEditor: React.FC<Props> = ({
                 : null
             }
           </>
-          : !disabled ? <Button color='secondary' onClick={() => { setBeingEdited(true) }} icon='edit'>Edit</Button>
+          : !disabled ? <Button color='secondary' onClick={() => {
+            setBeingEdited(true)
+          }} icon='edit'>Edit</Button>
             : null
         }
       </div>

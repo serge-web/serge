@@ -172,7 +172,9 @@ const geometryFor = (own: Asset, ownForce: ForceData['uniqid'], target: Asset, g
     endDate: timeFinish,
     force: ownForce,
     startTime: moment(timeStart).valueOf(),
-    endTime: moment(timeFinish).valueOf()
+    endTime: moment(timeFinish).valueOf(),
+    geomId: geometry.uniqid,
+    name: ownForce + '//' + seedIn + '//' + geometry.name
   }
   switch (geometry.aType) {
     case GeometryType.point: {
@@ -394,7 +396,7 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
     return !!findGeometryInGroup(id, val)
   })
   if (!group) {
-    console.log('Failed to find group in force', forceId, 'id:', id)
+    console.log('Failed to find group in force 2', forceId, 'id:', id)
     force.groupedActivities.forEach((group) => {
       console.table(group.activities)
     })
@@ -476,9 +478,21 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
-        newItem.geometry.properties.name = message.details.from.force + '//' + message.message.title + '//' + activity
-        newItem.geometry.properties.geomId = plan.uniqid
-        newItem.geometry.properties.force = forceId
+        const props = newItem.geometry.properties as PlannedProps
+        props.name = message.details.from.force + '//' + message.message.title + '//' + activity
+        props.geomId = plan.uniqid
+        props.force = forceId
+        // fill in date/time, if not present
+        if (!props.startDate) {
+          if (message.message.startDate) {
+            props.startDate = message.message.startDate
+            props.startTime = moment(props.startDate).valueOf()
+          }
+          if (message.message.endDate) {
+            props.endDate = message.message.endDate
+            props.endTime = moment(props.endDate).valueOf()
+          }
+        }
         res.push(newItem)
       })
     }
@@ -615,7 +629,9 @@ export const findPlannedGeometries = (orders: GeomWithOrders[], time: number, wi
   const timeEnd = moment(time).add(windowMins, 'm')
   const inWindow = orders.filter((value: GeomWithOrders) => {
     const props = value.geometry.properties as PlannedProps
-    return moment(props.startDate).isSameOrBefore(timeEnd) && moment(props.endDate).isSameOrAfter(timeStart)
+    const geomStart = props.startDate ? moment(props.startDate) : moment(props.startTime)
+    const geomEnd = props.endDate ? moment(props.endDate) : moment(props.startTime)
+    return geomStart.isSameOrBefore(timeEnd) && geomEnd.isSameOrAfter(timeStart)
   })
   return deepCopy(inWindow)
 }
@@ -715,7 +731,9 @@ export const putInBin = (orders: GeomWithOrders[], bins: turf.Feature[]): Spatia
         case 'Polygon': {
           const coords2 = fixPoly(coords)
           const thisPoly = turf.polygon(coords2 as any)
-          if (turf.booleanOverlap(poly, thisPoly)) {
+          // note: overlap return false if one contains the other, so also
+          // note: check for one containing the other
+          if (turf.booleanOverlap(poly, thisPoly) || turf.booleanContains(poly, thisPoly) || turf.booleanContains(thisPoly, poly)) {
             thisBin.orders.push(order)
           }
           break
@@ -743,7 +761,6 @@ export const createContactReference = (me: string, other: string): string => {
 export const findTouching = (geometries: GeomWithOrders[], interactionsConsidered: string[],
   interactionsProcessed: string[], interactionsTested: Record<string, PlanningContact | null>,
   sensorRangeKm: number): PlanningContact[] => {
-  let dummyContact: PlanningContact | undefined
   const res: PlanningContact[] = []
   geometries.forEach((me: GeomWithOrders, myIndex: number) => {
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
@@ -763,16 +780,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
             if (!interactionsProcessed.includes(id)) {
               interactionsConsidered.push(id)
               if (differentForces(me, other) && overlapsInTime(me, other)) {
-                // give us a dummy interaction
-                dummyContact = {
-                  first: first,
-                  second: second,
-                  id: id,
-                  intersection: undefined,
-                  timeStart: moment(first.activity.message.startDate).valueOf(),
-                  timeEnd: moment(second.activity.message.endDate).valueOf()
-                }
-
                 // see if we have a cached contact
                 const cachedResult = interactionsTested[id]
                 if (cachedResult !== undefined) {
@@ -793,14 +800,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
       }
     })
   })
-
-  if (res.length === 0) {
-    console.log('gen interaction returning dummy:', dummyContact)
-  } else {
-    console.log('gen interaction returning genuine data:', res)
-  }
-  const safeDummy = dummyContact ? [dummyContact] : []
-  return res.length ? res : safeDummy
+  return res
 }
 
 export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _randomizer: { (): number }, lineSensorRangeKm: number): PlanningContact | null => {
@@ -931,9 +931,22 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
         }
         case 'Polygon': {
           const turfPoly = turf.polygon(otherCoords)
-          res = (turf.booleanOverlap(mePoly, turfPoly))
+          // if one contains the other, overlap doesn't work
+          const overlaps = turf.booleanOverlap(mePoly, turfPoly)
+          const aContainsB = turf.booleanContains(mePoly, turfPoly)
+          const bContainsA = turf.booleanContains(turfPoly, mePoly)
+          res = overlaps || aContainsB || bContainsA
           if (res) {
-            const intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+            let intersects
+            // if they overlap, then intersect returns intersecting region
+            // but, if one contains the other, the `other` represents the intersection
+            if (overlaps) {
+              intersects = turf.intersect(mePoly, turfPoly) as Feature<Polygon>
+            } else if (aContainsB) {
+              intersects = turfPoly
+            } else {
+              intersects = mePoly
+            }
             if (!intersects) {
               throw Error('One method reported overlap, the other didn\'t')
             }

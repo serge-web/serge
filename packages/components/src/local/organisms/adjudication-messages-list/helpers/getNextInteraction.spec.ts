@@ -1,6 +1,7 @@
 import { PLANNING_MESSAGE } from '@serge/config'
 import { ForceData, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
+import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
 import { getNextInteraction, interactionFor } from './getNextInteraction'
 
@@ -22,12 +23,14 @@ const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_ME
 
 it('process successive interactions', () => {
   const interactions: MessageInteraction[] = []
-  let contact: any = 5
-  for (let ctr = 0; ctr < 20 && contact; ctr++) {
-    contact = getNextInteraction(planningMessages2, activities, interactions, ctr, 30)
-    if (contact) {
-      const msgInter2: MessageInteraction = interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-      interactions.push(msgInter2)
+  let contacts: PlanningContact[] = []
+  for (let ctr = 0; ctr < 20 && contacts.length > 0; ctr++) {
+    contacts = getNextInteraction(planningMessages2, activities, interactions, ctr, 30)
+    if (contacts) {
+      const newInteractions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
+        return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
+      })
+      interactions.push(...newInteractions)
     }
   }
   !7 && console.table(interactions.map((inter) => {
@@ -39,3 +42,15 @@ it('process successive interactions', () => {
     }
   }))
 })
+
+it('gets all interactions', () => {
+  const interactions: MessageInteraction[] = []
+  const contacts: PlanningContact[] = getNextInteraction(planningMessages2, activities, interactions, 0, 30, true)
+  if (contacts) {
+    const interactions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
+      return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
+    })
+    expect(interactions.length).toEqual(201)
+  }
+}
+)
