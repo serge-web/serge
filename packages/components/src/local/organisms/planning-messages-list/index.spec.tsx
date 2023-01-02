@@ -6,12 +6,17 @@ import React from 'react'
 import renderer from 'react-test-renderer'
 import PlanningMessagesList from './index'
 
+import { incrementGameTime } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
 import { noop } from 'lodash'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const blueForce = P9Mock.data.forces.forces[1]
 const blueRole = blueForce.roles[0]
+
+const overview = P9Mock.data.overview
+
+const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 
 describe('ChannelMessagesList component: ', () => {
   it('renders component correctly', () => {
@@ -48,7 +53,9 @@ describe('ChannelMessagesList component: ', () => {
     console.log('blueRole.name', blueRole)
 
     const tree = renderer
-      .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name} currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
+      .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name} 
+        currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate} 
+        gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
         playerForceId={blueForce.uniqid} editLocation={noop} onMarkAllAsRead={markAllAsRead} />)
