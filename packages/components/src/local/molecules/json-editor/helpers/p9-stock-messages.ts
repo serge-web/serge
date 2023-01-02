@@ -33,11 +33,6 @@ const p9StockTemplates: TemplateBody[] = [
           type: 'string',
           format: 'textarea'
         },
-        location: {
-          title: 'Location',
-          propertyOrder: 30,
-          type: 'string'
-        },
         perceptionOutcomes: {
           type: 'array',
           title: 'Perception Outcomes',
@@ -252,13 +247,8 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               location: {
-                title: 'Location',
+                title: 'Location [2.4, 4.2]',
                 type: 'string',
-                enum: [
-                  'Point A',
-                  'Point B',
-                  'Point C'
-                ],
                 options: {
                   grid_columns: 3
                 }

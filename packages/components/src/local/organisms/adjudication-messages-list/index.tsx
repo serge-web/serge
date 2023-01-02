@@ -2,7 +2,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
@@ -239,6 +239,29 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // for the map handler to work, the message type needs to be int he emssage
         const outAsAny = outcomes as any
         outAsAny.messageType = ADJUDICATION_OUTCOMES
+
+        // (temporarily) fix the locations. While we're waiting for the outcomes table
+        // to support the location editor, we're allowing locations to be entered as
+        // lat-long pairs
+        outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
+          const loc = value.location
+          if (typeof loc === 'string') {
+            // ok, convert string to JSON array
+            const json = JSON.parse(loc)
+            // extract the coords
+            const lat = parseFloat(json[0])
+            const lng = parseFloat(json[1])
+            // create new location array
+            const latLng: [number, number] = [lat, lng]
+            // store the value
+            value.location = latLng
+          } else if (Array.isArray(loc)) {
+            // value is valid, leave
+            value.location = loc
+          } else {
+            console.error('Unexpected location outcome format:', value.location)
+          }
+        })
 
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
