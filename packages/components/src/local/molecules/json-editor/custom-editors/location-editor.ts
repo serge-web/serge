@@ -1,9 +1,11 @@
 import { JSONEditor } from '@json-editor/json-editor'
 import { PlannedActivityGeometry, PlanningActivityGeometry } from '@serge/custom-types'
+import { EditCallback, OnLocationEditorLoaded } from '../helpers/setupEditor'
 
-export const initLocationEditor = (editCallback: () => void, onLocationEditorLoaded: (editorElm: HTMLDivElement) => void): void => {
+export const initLocationEditor = (editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded): void => {
   class LocationEditor extends JSONEditor.AbstractEditor {
     build () {
+      this.locations = []
       this.group = document.createElement('div')
       this.group.classList.add('form-group')
       this.container.appendChild(this.group)
@@ -27,6 +29,18 @@ export const initLocationEditor = (editCallback: () => void, onLocationEditorLoa
     enable () {
       if (!this.always_disabled) {
         this.textArea.setAttribute('contenteditable', 'true')
+        this.textArea.addEventListener('input', () => {
+          this.onChange(this.textArea.innerText)
+          if (this.textArea.innerText) {
+            const allNames = this.textArea.innerText.split('\n')
+            this.locations.forEach((_: any, idx: number) => {
+              this.locations[idx].uniqid = allNames[idx]
+              this.locations[idx].geometry.properties.uniqid = allNames[idx]
+            })
+            this.onChange(this.textArea.innerText)
+          }
+        }, false)
+        this.addEditButton()
         super.enable()
       }
     }
@@ -36,6 +50,7 @@ export const initLocationEditor = (editCallback: () => void, onLocationEditorLoa
         this.always_disabled = true
       }
       this.textArea.setAttribute('contenteditable', 'false')
+      this.removeEditButton()
       super.disable()
     }
 
@@ -44,7 +59,7 @@ export const initLocationEditor = (editCallback: () => void, onLocationEditorLoa
         this.editButton = document.createElement('button')
         this.editButton.innerText = 'Edit'
         this.editButton.classList.add('btn', 'btn-secondary', 'json-editor-btn-add', 'json-editor-btntype-add')
-        this.editButton.addEventListener('click', editCallback)
+        this.editButton.addEventListener('click', () => editCallback(this.locations))
         this.groupTextArea.appendChild(this.editButton)
       }
     }
@@ -59,6 +74,7 @@ export const initLocationEditor = (editCallback: () => void, onLocationEditorLoa
       if (!locations) {
         return
       }
+      this.locations = locations
       this.textArea.innerText = ''
       const flatGeoms: PlanningActivityGeometry[] = []
       if (locations instanceof Array) {
@@ -72,13 +88,10 @@ export const initLocationEditor = (editCallback: () => void, onLocationEditorLoa
               console.warn('failed to find activity for', name)
             }
           }
-          this.textArea.innerText += '* ' + name + '\n'
+          this.textArea.innerHTML += `<li>${name}</li>` + '\n'
         })
       } else {
-        this.textArea.innerText += '* ' + locations + '\n'
-      }
-      if (this.textArea.innerText) {
-        this.addEditButton()
+        this.textArea.innerHTML += locations + '\n'
       }
       onLocationEditorLoaded(this.group)
     }

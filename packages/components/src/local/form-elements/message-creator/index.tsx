@@ -149,17 +149,6 @@ const MessageCreator: React.FC<PropTypes> = ({
     createCachedCreatorMessage && createCachedCreatorMessage(val, mainMessageOption)
   }
 
-  const localEditCallback = (): void => {
-    const current = messageBeingEdited.current
-    if (typeof (current) === 'string') {
-      console.warn('message edits contains string, not form contents')
-    } else {
-      const records = current as Record<string, any>
-      const ref = records.Reference
-      editCallback && editCallback(ref, records.location)
-    }
-  }
-
   useEffect(() => {
     if (draftMessage) {
       const anyDraft = draftMessage as any
@@ -197,7 +186,7 @@ const MessageCreator: React.FC<PropTypes> = ({
         messageContent={messageContent}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
-        editCallback={localEditCallback}
+        editCallback={editCallback}
       />
       {privateMessage && (
         <div className="flex-content form-group">

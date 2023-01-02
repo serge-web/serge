@@ -170,7 +170,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // do we have any pending geometry
     if (pendingLocationData.length > 0) {
       const plan = message as MessagePlanning
-      console.log('injecting geometry', plan.message.locationm, pendingLocationData)
+      console.log('injecting geometry', plan.message.location, pendingLocationData)
     }
 
     const activity: MessageSentInteraction = {
@@ -216,7 +216,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const plan = planningMessages.find((msg) => msg._id === id)
     if (plan) {
       const mine = plan.message.ownAssets || []
-      const myIds = mine.map((val: {asset: string, number: number}):string => val.asset)
+      const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
       const others = plan.message.otherAssets || []
       res = myIds.concat(others)
     }
@@ -232,7 +232,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const plan = planningMessages.find((msg) => msg._id === order.id)
         if (plan) {
           const mine = plan.message.ownAssets || []
-          const myIds = mine.map((val: {asset: string, number: number}):string => val.asset)
+          const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
           const others = plan.message.otherAssets || []
           const allIds = myIds.concat(others)
           setCurrentAssets(allIds)
@@ -272,8 +272,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setPendingLocationData(geoms)
   }
 
-  const localEditLocation = (doc: string, geoms: PlannedActivityGeometry[]): void => {
-    console.log('local edit location', doc, geoms)
+  const localEditLocation = (geoms: PlannedActivityGeometry[]): void => {
+    console.log('local edit location', geoms)
     setPendingLocationData(geoms)
     editLocation && editLocation(geoms, storeNewLocation)
 
@@ -404,32 +404,32 @@ export const SupportPanel: React.FC<PropTypes> = ({
               }
             </TabPanel>
             {activeTab === TABS[3] &&
-                  <div className={styles['order-group']}>
-                    <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
-                    <AdjudicationMessagesList
-                      interactionMessages={filteredInteractionMessages}
-                      planningMessages={filteredPlanningMessages}
-                      forces={allForces}
-                      gameDate={gameDate}
-                      playerRoleId={selectedRoleId}
-                      forceColors={forceCols}
-                      onRead={onRead}
-                      onUnread={onUnread}
-                      onMarkAllAsRead={onReadAll}
-                      mapPostBack={mapPostBack}
-                      channel={channel}
-                      template={adjudicationTemplate}
-                      customiseTemplate={localCustomiseTemplate}
-                      forcePlanningActivities={forcePlanningActivities}
-                      turnFilter={turnFilter}
-                      platformTypes={platformTypes}
-                      onDetailPanelOpen={onDetailPanelOpen}
-                      onDetailPanelClose={onDetailPanelClose}
-                      handleAdjudication={handleAdjudication}
-                      postBack={postBack}
-                      onLocationEditorLoaded={onLocationEditorLoaded}
-                    />
-                  </div>
+              <div className={styles['order-group']}>
+                <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <AdjudicationMessagesList
+                  interactionMessages={filteredInteractionMessages}
+                  planningMessages={filteredPlanningMessages}
+                  forces={allForces}
+                  gameDate={gameDate}
+                  playerRoleId={selectedRoleId}
+                  forceColors={forceCols}
+                  onRead={onRead}
+                  onUnread={onUnread}
+                  onMarkAllAsRead={onReadAll}
+                  mapPostBack={mapPostBack}
+                  channel={channel}
+                  template={adjudicationTemplate}
+                  customiseTemplate={localCustomiseTemplate}
+                  forcePlanningActivities={forcePlanningActivities}
+                  turnFilter={turnFilter}
+                  platformTypes={platformTypes}
+                  onDetailPanelOpen={onDetailPanelOpen}
+                  onDetailPanelClose={onDetailPanelClose}
+                  handleAdjudication={handleAdjudication}
+                  postBack={postBack}
+                  onLocationEditorLoaded={onLocationEditorLoaded}
+                />
+              </div>
             }
             <div className={styles['resize-indicator-container']} >
               <div className={styles['resize-indicator-icon']} >

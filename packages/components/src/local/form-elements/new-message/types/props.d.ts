@@ -1,4 +1,5 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
+import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {
   orderableChannel: boolean
@@ -47,5 +48,5 @@ export default interface PropTypes {
   /**
    *  user has clicked on custom edit button
    */
-  editCallback?: { (doc: string, geoms: PlannedActivityGeometry[]): void }
+  editCallback?: EditCallback
 }
