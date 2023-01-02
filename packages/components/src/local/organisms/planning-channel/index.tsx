@@ -567,6 +567,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (activity) {
       activityBeingEditedCallback && activityBeingEditedCallback(activity)
       setActivityBeingEditedCallback(undefined)
+    } else {
+      if (activityBeingEdited) {
+        // user has cancelled edit. Push the original values back into the callback
+        activityBeingEditedCallback && activityBeingEditedCallback(activityBeingEdited)
+        setActivityBeingEditedCallback(undefined)
+      } else {
+        console.warn('Warning - planning channel expected there to be activity being edited')
+      }
     }
     // finally, close
     setActivityBeingEdited(undefined)
