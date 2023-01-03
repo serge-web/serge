@@ -53,8 +53,8 @@ describe('ChannelMessagesList component: ', () => {
     console.log('blueRole.name', blueRole)
 
     const tree = renderer
-      .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name} 
-        currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate} 
+      .create(<PlanningMessagesList selectedForce={blueForce} selectedRoleName={blueRole.name}
+        currentTurn={P9Mock.gameTurn} gameDate={P9Mock.data.overview.gameDate}
         gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}

@@ -6,8 +6,10 @@ import { Story } from '@storybook/react/types-6-0'
 import TurnProgression from './index'
 import TurnPropTypes from './types/props'
 
-import docs from './README.md'
+import { GameTurnLength } from '@serge/custom-types'
+import { incrementGameTime } from '@serge/helpers'
 import moment from 'moment-timezone'
+import docs from './README.md'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
@@ -80,14 +82,17 @@ const Template: Story<TurnPropTypes> = (args) => {
     phase: props.phase,
     currentTurn: args.currentTurn,
     adjudicationStartTime: args.adjudicationStartTime,
-    turnEndTime: args.turnEndTime
+    turnEndTime: args.turnEndTime,
+    gameDate: args.gameDate
   })
   const updateState = (): void => {
+    const newTime = state.phase === Phase.Planning ? state.gameDate : incrementGameTime(state.gameDate, args.gameTurnLength)
     setState({
       phase: state.phase === Phase.Planning ? Phase.Adjudication : Phase.Planning,
       currentTurn: state.phase === Phase.Planning ? state.currentTurn : ++state.currentTurn,
       adjudicationStartTime: moment().toString(),
-      turnEndTime: moment().add(stepTime).toString()
+      turnEndTime: moment().add(stepTime).toString(),
+      gameDate: newTime
     })
   }
   return <TurnProgression
@@ -99,12 +104,16 @@ const Template: Story<TurnPropTypes> = (args) => {
     turnEndTime={state.turnEndTime}
     adjudicationStartTime={state.adjudicationStartTime}
     currentTurn={state.currentTurn}
+    gameDate={state.gameDate}
     timeWarning={10000}
     phase={state.phase} />
 }
 
-export const WithPhases = Template
-WithPhases.args = {
+const turnMillis: GameTurnLength = { unit: 'millis', millis: 172800000 }
+const turnMonths: GameTurnLength = { unit: 'months', months: 1 }
+
+export const DaySteps = Template.bind({})
+DaySteps.args = {
   adjudicationStartTime: moment().toISOString(),
   turnEndTime: moment().add(stepTime).toISOString(),
   currentTurn: 0,
@@ -112,6 +121,21 @@ WithPhases.args = {
   timeWarning: 60000,
   isGameControl: true,
   wargameInitiated: true,
-  gameDate: '2019-10-01T02:02',
+  gameDate: '2019-10-01T00:00',
+  gameTurnLength: turnMillis,
+  turnPresentation: TurnFormats.Natural
+}
+
+export const MonthsSteps = Template.bind({})
+MonthsSteps.args = {
+  adjudicationStartTime: moment().toISOString(),
+  turnEndTime: moment().add(stepTime).toISOString(),
+  currentTurn: 0,
+  phase: Phase.Planning,
+  timeWarning: 60000,
+  isGameControl: true,
+  wargameInitiated: true,
+  gameDate: '2019-10-01T00:00',
+  gameTurnLength: turnMonths,
   turnPresentation: TurnFormats.Natural
 }
