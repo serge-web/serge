@@ -7,7 +7,7 @@ import renderer from 'react-test-renderer'
 import { GameTurnLength } from '@serge/custom-types'
 import TurnProgression from './index'
 
-const turnMillis: GameTurnLength = {unit: 'millis', millis: 172800000 }
+const turnMillis: GameTurnLength = { unit: 'millis', millis: 172800000 }
 
 describe('TurnProgression component:', () => {
   it('renders correctly', () => {

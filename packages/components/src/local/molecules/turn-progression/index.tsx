@@ -62,7 +62,6 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
   const [progressionState, setProgressionState] = useState<TimeState>(initialState)
   const [gameTurnEnd, setGameTurnEnd] = useState<string>('')
 
-
   useEffect(() => {
     if (gameDate && gameTurnLength) {
       const endTime = incrementGameTime(gameDate, gameTurnLength)

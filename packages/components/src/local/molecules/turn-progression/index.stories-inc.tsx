@@ -76,7 +76,6 @@ export default {
 
 const stepTime = 20000
 
-
 const Template: Story<TurnPropTypes> = (args) => {
   const { ...props } = args
   const [state, setState] = useState({
@@ -110,8 +109,8 @@ const Template: Story<TurnPropTypes> = (args) => {
     phase={state.phase} />
 }
 
-const turnMillis: GameTurnLength = {unit: 'millis', millis: 172800000 }
-const turnMonths: GameTurnLength = {unit: 'months', months: 1 }
+const turnMillis: GameTurnLength = { unit: 'millis', millis: 172800000 }
+const turnMonths: GameTurnLength = { unit: 'months', months: 1 }
 
 export const DaySteps = Template.bind({})
 DaySteps.args = {
