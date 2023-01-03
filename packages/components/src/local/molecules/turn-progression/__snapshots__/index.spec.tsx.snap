@@ -40,9 +40,9 @@ exports[`TurnProgression component: renders correctly 1`] = `
     </div>
     <time
       className="time"
-      dateTime="2019-09-30 23:00"
+      dateTime="2019-09-29 23:00"
     >
-      2019-09-30 23:00
+      2019-09-29 23:00
        - 
       Invalid date
     </time>
