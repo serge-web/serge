@@ -1,4 +1,5 @@
 import { TurnFormats } from '@serge/config'
+import { GameTurnLength } from '@serge/custom-types'
 import React from 'react'
 
 export default interface Props {
