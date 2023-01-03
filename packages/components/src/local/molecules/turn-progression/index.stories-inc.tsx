@@ -113,8 +113,8 @@ const Template: Story<TurnPropTypes> = (args) => {
 const turnMillis: GameTurnLength = {unit: 'millis', millis: 172800000 }
 const turnMonths: GameTurnLength = {unit: 'months', months: 1 }
 
-export const WithPhases = Template
-WithPhases.args = {
+export const DaySteps = Template.bind({})
+DaySteps.args = {
   adjudicationStartTime: moment().toISOString(),
   turnEndTime: moment().add(stepTime).toISOString(),
   currentTurn: 0,
@@ -127,7 +127,7 @@ WithPhases.args = {
   turnPresentation: TurnFormats.Natural
 }
 
-export const MonthsSteps = Template
+export const MonthsSteps = Template.bind({})
 MonthsSteps.args = {
   adjudicationStartTime: moment().toISOString(),
   turnEndTime: moment().add(stepTime).toISOString(),
