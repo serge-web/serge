@@ -189,7 +189,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             <GameControl onClick={(e): void => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
           </Box>
         }
-        <time dateTime={formatFullDate(gameDate)} className={styles.time}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')}</time>
+        <time dateTime={formatFullDate(gameDate)} className={styles.time}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')} - {momenttz(gameTurnEnd).utc().format('YYYY-MM-DD HH:mm')}</time>
       </div>
     </div>
   )
