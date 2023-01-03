@@ -1,10 +1,13 @@
 /* global it expect */
 
+import { TurnFormats } from '@serge/config'
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { TurnFormats } from '@serge/config'
 
+import { GameTurnLength } from '@serge/custom-types'
 import TurnProgression from './index'
+
+const turnMillis: GameTurnLength = {unit: 'millis', millis: 172800000 }
 
 describe('TurnProgression component:', () => {
   it('renders correctly', () => {
@@ -17,7 +20,8 @@ describe('TurnProgression component:', () => {
           currentTurn={1}
           turnPresentation={TurnFormats.Natural}
           phase="adjudication"
-          gameDate="2019-10-01T02:02+01:00"
+          gameDate="2019-10-01T00:00:00"
+          gameTurnLength={turnMillis}
           isGameControl={false}
           showTimeRemaining={false}
           wargameInitiated={false}
