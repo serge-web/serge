@@ -9,6 +9,8 @@ export default interface Props {
   turnPresentation: TurnFormats
   phase: string
   gameDate: string
+  /** the current turn length */
+  gameTurnLength: GameTurnLength
   /** is current player acting as game control (with ability to step forward) */
   isGameControl: boolean
   onNextTurn?: React.ReactEventHandler<any>

@@ -1,6 +1,6 @@
 import { Box, Button, styled } from '@material-ui/core'
 import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
-import { formatFullDate, formatTurn } from '@serge/helpers'
+import { formatFullDate, formatTurn, incrementGameTime } from '@serge/helpers'
 import classNames from 'classnames'
 import { capitalize } from 'lodash'
 import momenttz from 'moment-timezone'
@@ -41,6 +41,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     turnPresentation,
     phase,
     gameDate,
+    gameTurnLength,
     wargameInitiated,
     onNextTurn,
     isGameControl,
@@ -59,6 +60,15 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
     phase
   }
   const [progressionState, setProgressionState] = useState<TimeState>(initialState)
+  const [gameTurnEnd, setGameTurnEnd] = useState<string>('')
+
+
+  useEffect(() => {
+    if (gameDate && gameTurnLength) {
+      const endTime = incrementGameTime(gameDate, gameTurnLength)
+      setGameTurnEnd(endTime)
+    }
+  }, [gameDate, gameTurnLength])
 
   const timer = (): any => {
     const now = Math.floor(new Date().getTime() / 1000)
