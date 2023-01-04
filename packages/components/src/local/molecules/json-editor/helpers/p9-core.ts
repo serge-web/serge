@@ -142,8 +142,7 @@ export const coreTemplate = {
       format: 'grid',
       title: 'Asset',
       required: [
-        'asset',
-        'number'
+        'asset'
       ],
       properties: {
         asset: {

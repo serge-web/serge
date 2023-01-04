@@ -9726,21 +9726,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -10009,21 +10020,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -10366,10 +10388,10 @@ const game: Wargame = {
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
+                                                    "Battery A",
+                                                    "Battery B",
+                                                    "Battery C",
+                                                    "Battery D"
                                                 ]
                                             }
                                         },
@@ -10435,10 +10457,10 @@ const game: Wargame = {
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
+                                                    "Opp Site A",
+                                                    "Opp Site B",
+                                                    "Opp Site C",
+                                                    "Opp Site D"
                                                 ]
                                             }
                                         },
