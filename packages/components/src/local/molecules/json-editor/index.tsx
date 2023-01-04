@@ -53,7 +53,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
 
-  const fixDate = (value: { [property: string]: any } ): { [property: string]: any } => {
+  const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
         // convert to ISO
