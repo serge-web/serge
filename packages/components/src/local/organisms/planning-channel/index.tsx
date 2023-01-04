@@ -453,7 +453,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         plans.ownAssets = ownAssets.map((asset: string) => { return { asset: asset, number: 0 } })
       }
       if (otherAssets.length) {
-        plans.otherAssets = otherAssets
+        plans.otherAssets = otherAssets.map((asset: string) => { return { asset: asset } })
       }
       const newPlan: MessagePlanning = {
         messageType: PLANNING_MESSAGE,

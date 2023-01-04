@@ -246,7 +246,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     if (plan) {
       const mine = plan.message.ownAssets || []
       const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
-      const others = plan.message.otherAssets || []
+      const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
       res = myIds.concat(others)
     }
     return res
@@ -262,7 +262,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         if (plan) {
           const mine = plan.message.ownAssets || []
           const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
-          const others = plan.message.otherAssets || []
+          const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
           const allIds = myIds.concat(others)
           setCurrentAssets(allIds)
           setCurrentOrders([plan._id])

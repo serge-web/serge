@@ -25,17 +25,19 @@ export const OrderDetail: React.FC<PropTypes> = ({
     setProps(res)
   }, [plan])
 
-  const tidyAssList = (title: string, assIds: string[] | undefined | Array<{asset: string, number: number}>, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
+  const tidyAssList = (title: string, assIds: undefined | Array<{asset: string, number?: number}>, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
     let assetStrings: string[] = []
     if (assIds && assIds.length) {
-      assetStrings = assIds.map((id: string | {asset: string, number: number}): string => {
+      assetStrings = assIds.map((id: string | {asset: string, number?: number}): string => {
         let assetId
         let res = ''
         if (typeof (id) === 'string') {
           assetId = id
         } else {
           assetId = id.asset
-          res = ' (' + id.number + ')'
+          if (id.number) {
+            res = ' (' + id.number + ')'
+          }
         }
         const asset = findAsset(forces, assetId)
         if (asset) {

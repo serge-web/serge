@@ -80,7 +80,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number }, forces: ForceData[], index: number): React.ReactElement => {
+  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number }, forces: ForceData[], index: number): React.ReactElement => {
     let asset: Asset | undefined
     const isString = typeof (assetId) === 'string'
     let numStr = ''
@@ -92,7 +92,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       try {
         asset = findAsset(forces, assetId.asset)
-        numStr = ' (' + assetId.number + ')'
+        if (assetId.number) {
+          numStr = ' (' + assetId.number + ')'
+        }
       } catch (e) {
       }
     }
