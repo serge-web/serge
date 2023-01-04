@@ -9564,7 +9564,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.095Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -9854,10 +9854,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2023-01-03T17:08:26.095Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.095Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -10161,10 +10161,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2023-01-03T17:08:26.095Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10497,10 +10497,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -10738,10 +10738,10 @@ const game: Wargame = {
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
+                                                    "Battery A",
+                                                    "Battery B",
+                                                    "Battery C",
+                                                    "Battery D"
                                                 ]
                                             }
                                         },
@@ -10807,10 +10807,10 @@ const game: Wargame = {
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
+                                                    "Opp Site A",
+                                                    "Opp Site B",
+                                                    "Opp Site C",
+                                                    "Opp Site D"
                                                 ]
                                             }
                                         },
@@ -10847,10 +10847,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11013,21 +11013,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -11138,10 +11149,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11305,21 +11316,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -11443,10 +11465,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -11611,21 +11633,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -11754,10 +11787,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -11922,21 +11955,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -12073,10 +12117,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12242,21 +12286,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -12406,10 +12461,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.496Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -12576,21 +12631,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -12745,10 +12811,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.496Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -12911,21 +12977,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -13036,10 +13113,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -13203,21 +13280,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -13341,10 +13429,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -13509,21 +13597,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -13652,10 +13751,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -13819,21 +13918,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -13954,10 +14064,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -14122,21 +14232,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -14268,10 +14389,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -14437,21 +14558,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -14596,10 +14728,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.096Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -14766,21 +14898,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -14930,10 +15073,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-01-03T17:08:26.096Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.097Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -15097,21 +15240,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -15236,10 +15390,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2023-01-03T17:08:26.097Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.097Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -15404,21 +15558,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -15551,10 +15716,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2023-01-03T17:08:26.097Z"
+                    "_rev": "2023-01-04T17:49:42.497Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.097Z",
+                    "lastUpdated": "2023-01-04T17:49:42.497Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -15799,10 +15964,10 @@ const game: Wargame = {
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
+                                                    "Battery A",
+                                                    "Battery B",
+                                                    "Battery C",
+                                                    "Battery D"
                                                 ]
                                             }
                                         },
@@ -15868,10 +16033,10 @@ const game: Wargame = {
                                             "options": {
                                                 "grid_columns": 2,
                                                 "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
+                                                    "Opp Site A",
+                                                    "Opp Site B",
+                                                    "Opp Site C",
+                                                    "Opp Site D"
                                                 ]
                                             }
                                         },
@@ -15919,10 +16084,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-01-03T17:08:26.097Z"
+                    "_rev": "2023-01-04T17:49:42.498Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.097Z",
+                    "lastUpdated": "2023-01-04T17:49:42.498Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -16087,21 +16252,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -16231,10 +16407,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-01-03T17:08:26.098Z"
+                    "_rev": "2023-01-04T17:49:42.498Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.098Z",
+                    "lastUpdated": "2023-01-04T17:49:42.498Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -16402,21 +16578,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -16589,10 +16776,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2023-01-03T17:08:26.098Z"
+                    "_rev": "2023-01-04T17:49:42.498Z"
                 },
                 {
-                    "lastUpdated": "2023-01-03T17:08:26.098Z",
+                    "lastUpdated": "2023-01-04T17:49:42.498Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -16761,21 +16948,32 @@ const game: Wargame = {
                                     "disable_array_reorder": true
                                 },
                                 "items": {
+                                    "type": "object",
+                                    "format": "grid",
                                     "title": "Asset",
-                                    "type": "string",
-                                    "enum": [
-                                        "ra",
-                                        "rb",
-                                        "rc",
-                                        "da"
+                                    "required": [
+                                        "asset"
                                     ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Boat A",
-                                            "Bike B",
-                                            "Band C",
-                                            "Plane A"
-                                        ]
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
                                     }
                                 }
                             },
@@ -16965,7 +17163,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2023-01-03T17:08:26.098Z"
+                    "_rev": "2023-01-04T17:49:42.498Z"
                 }
             ]
         }
