@@ -295,9 +295,9 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     while (targets.find((asset: Asset) => asset.uniqid === possTarget.uniqid)) {
       possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
-    targets.push( possTarget )
+    targets.push(possTarget)
   }
-  const targetsAarr = targets.map((asset: Asset) => { return {asset: asset.uniqid}})
+  const targetsAarr = targets.map((asset: Asset) => { return { asset: asset.uniqid } })
 
   // get activities for this force
   const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
