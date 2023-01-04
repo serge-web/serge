@@ -1,6 +1,7 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
-import { configDateTimeLocal, usePrevious } from '@serge/helpers'
+import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
@@ -52,9 +53,33 @@ export const JsonEditor: React.FC<Props> = ({
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
 
+  const fixDate = (value: { [property: string]: any } ): { [property: string]: any } => {
+    const cleanDate = (date: string): string => {
+      if (!date.includes('Z')) {
+        // convert to ISO
+        return moment(date, 'dd/mm/YYYY HH:ii').toISOString()
+      } else {
+        return date
+      }
+    }
+
+    const res = deepCopy(value) as { [property: string]: any }
+    if (res.startDate) {
+      res.startDate = cleanDate(res.startDate)
+    }
+    if (res.endDate) {
+      res.endDate = cleanDate(res.endDate)
+    }
+    return res
+  }
+
   const handleChange = (value: { [property: string]: any }): void => {
     const newDoc = modifyForSave ? modifyForSave(value) : value
-    storeNewValue && storeNewValue(newDoc)
+    /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
+     * convert them
+     */
+    const fixedDate = fixDate(newDoc)
+    storeNewValue && storeNewValue(fixedDate)
   }
 
   const OnSave = () => {
