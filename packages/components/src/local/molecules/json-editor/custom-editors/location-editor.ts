@@ -1,5 +1,6 @@
 import { JSONEditor } from '@json-editor/json-editor'
-import { PlannedActivityGeometry, PlanningActivityGeometry } from '@serge/custom-types'
+import { PlannedActivityGeometry, PlannedProps, PlanningActivityGeometry } from '@serge/custom-types'
+import moment from 'moment-timezone'
 import { EditCallback, OnLocationEditorLoaded } from '../helpers/setupEditor'
 
 export const initLocationEditor = (editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded): void => {
