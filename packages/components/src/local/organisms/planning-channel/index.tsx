@@ -421,6 +421,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     saveMessage(currentWargame, details, message)()
   }
 
+  const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {
+    const firstGeom = plans[0].geometry
+    const lastGeom = plans[plans.length - 1].geometry
+    if (firstGeom.properties && lastGeom.properties) {
+      const firstProps: PlannedProps = firstGeom.properties as PlannedProps
+      const lastProps: PlannedProps = lastGeom.properties as PlannedProps
+      return [firstProps.startDate, lastProps.endDate]
+    } else {
+      return undefined
+    }
+  }
+
   useEffect(() => {
     if (activityBeingPlanned && activityPlanned) {
       // collate the new draft message
@@ -441,10 +453,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         timestamp: moment().toISOString(),
         turnNumber: currentTurn
       }
+      const timeBounds = activityBounds(activityPlanned)
       const plans: PlanningMessageStructureCore = {
         Reference: '',
         title: 'Pending',
-        activity: activityBeingPlanned.uniqid
+        activity: activityBeingPlanned.uniqid,
+        startDate: timeBounds ? timeBounds[0] : '',
+        endDate: timeBounds ? timeBounds[1] : ''
       }
       if (activityPlanned.length) {
         plans.location = activityPlanned

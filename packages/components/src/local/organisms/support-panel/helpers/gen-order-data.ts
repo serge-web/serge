@@ -18,7 +18,9 @@ const msgContents: PlanningMessageStructureCore = {
   activity: 'point-recce',
   title: 'Operation Bravo-12',
   ownAssets: [],
-  otherAssets: []
+  otherAssets: [],
+  startDate: moment().toISOString(),
+  endDate: moment().toISOString()
 }
 
 const sample: MessagePlanning = {
@@ -330,11 +332,17 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
 
   if (!startDate) {
     const timeStart = timeNow
+    startDate = timeStart
+  }
+
+  if (!endDate) {
+    const timeStart = timeNow
     const minsOffset = Math.floor(psora(2 * ctr) * 20) * 10
     const timeEnd = timeStart.clone().add(minsOffset, 'm')
-    startDate = timeStart
     endDate = timeEnd
   }
+
+  // sort out the start/stop time for the geometries
 
   const details: MessageDetails = {
     channel: channelId,
