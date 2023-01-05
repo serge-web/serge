@@ -99,7 +99,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
     getValue () {
       // note: the text area may not have been initialised yet.
       if (this.textArea) {
-        return this.textArea.innerText
+        return this.locations
       } else {
         return ''
       }
