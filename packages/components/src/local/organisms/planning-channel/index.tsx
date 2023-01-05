@@ -409,7 +409,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: MessageAdjudicationOutcomes = {
+    const message: MessageAdjudicationOutcomes = contact.outcomes || {
       messageType: 'AdjudicationOutcomes',
       Reference: '',
       narrative: '',
