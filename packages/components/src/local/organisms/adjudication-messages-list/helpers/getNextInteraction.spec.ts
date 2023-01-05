@@ -153,7 +153,7 @@ it('fixes geometry timings', () => {
         expect(leg1Before.startDate).toEqual(leg1After.startDate)
         expect(leg1Before.endDate).not.toEqual(leg1After.startDate)
         expect(lastLegBefore.startDate).not.toEqual(lastLegAfter.startDate)
-        expect(lastLegBefore.endDate).toEqual(lastLegAfter.startDate)
+        expect(lastLegBefore.endDate).toEqual(lastLegAfter.endDate)
       }
     }
   } else {
