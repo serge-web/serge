@@ -1,7 +1,7 @@
 
 import { MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 
-export const planningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> =  [
+export const planningMessages: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> =   [
     {
         "messageType": "PlanningMessage",
         "details": {
@@ -22,7 +22,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "Blue-6",
             "title": "Order item 6",
             "startDate": "2022-11-14T00:05:00.000Z",
-            "endDate": "2022-11-14T04:35:00.000Z",
+            "endDate": "2022-11-16T17:35:00.000Z",
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -42,20 +42,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    73.7335,
-                                    43.5688
+                                    54.4242,
+                                    48.416
                                 ],
                                 [
-                                    48.58,
-                                    35.27
+                                    63.04,
+                                    30.22
                                 ],
                                 [
-                                    23.8,
-                                    26.34
+                                    72.03,
+                                    11.38
                                 ],
                                 [
-                                    23.5101,
-                                    26.6663
+                                    71.7477,
+                                    11.7095
                                 ]
                             ]
                         }
@@ -80,24 +80,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        22.78906268214402,
-                                        27.30518334623726
+                                        71.09183072813025,
+                                        12.349448445502064
                                     ],
                                     [
-                                        22.78906268214402,
-                                        26.02381814069331
+                                        71.09183072813025,
+                                        11.06806647339419
                                     ],
                                     [
-                                        24.22308411185446,
-                                        26.02381814069331
+                                        72.40053609149913,
+                                        11.06806647339419
                                     ],
                                     [
-                                        24.22308411185446,
-                                        27.30518334623726
+                                        72.40053609149913,
+                                        12.349448445502064
                                     ],
                                     [
-                                        22.78906268214402,
-                                        27.30518334623726
+                                        71.09183072813025,
+                                        12.349448445502064
                                     ]
                                 ]
                             ]
@@ -122,24 +122,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    23.5101,
-                                    26.6663
+                                    71.7477,
+                                    11.7095
                                 ],
                                 [
-                                    39.99,
-                                    31.92
+                                    65.71,
+                                    23.57
                                 ],
                                 [
-                                    56.71,
-                                    38.42
+                                    59.92,
+                                    36.67
                                 ],
                                 [
-                                    73.72,
-                                    43.21
+                                    54.41,
+                                    48.06
                                 ],
                                 [
-                                    73.7335,
-                                    43.5688
+                                    54.4242,
+                                    48.416
                                 ]
                             ]
                         }
@@ -149,19 +149,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Land-Patrol",
             "ownAssets": [
                 {
-                    "asset": "a49",
-                    "number": 4
+                    "asset": "a249",
+                    "number": 1
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 },
                 {
-                    "asset": "a107"
+                    "asset": "a310"
                 }
             ]
         },
@@ -209,28 +209,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    27.75,
-                                    23.6603
+                                    74.3056,
+                                    17.3425
                                 ],
                                 [
-                                    39.25,
-                                    30.11
+                                    76.01,
+                                    23.15
                                 ],
                                 [
-                                    49.65,
-                                    37.47
+                                    76.62,
+                                    29.87
                                 ],
                                 [
-                                    61.34,
-                                    44.12
+                                    78.52,
+                                    35.87
                                 ],
                                 [
-                                    72.31,
-                                    50.04
+                                    79.69,
+                                    41.15
                                 ],
                                 [
-                                    72.5266,
-                                    50.5454
+                                    79.9049,
+                                    41.6475
                                 ]
                             ]
                         }
@@ -255,24 +255,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        67.27548585052453,
-                                        53.55177613180756
+                                        75.51894396253766,
+                                        44.68494635665078
                                     ],
                                     [
-                                        67.27548585052453,
-                                        47.33177205640518
+                                        75.51894396253766,
+                                        38.458590813743044
                                     ],
                                     [
-                                        77.12806529699637,
-                                        47.33177205640518
+                                        83.88648299819339,
+                                        38.458590813743044
                                     ],
                                     [
-                                        77.12806529699637,
-                                        53.55177613180756
+                                        83.88648299819339,
+                                        44.68494635665078
                                     ],
                                     [
-                                        67.27548585052453,
-                                        53.55177613180756
+                                        75.51894396253766,
+                                        44.68494635665078
                                     ]
                                 ]
                             ]
@@ -297,24 +297,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    72.5266,
-                                    50.5454
+                                    79.9049,
+                                    41.6475
                                 ],
                                 [
-                                    57.61,
-                                    41.22
+                                    78.05,
+                                    33.18
                                 ],
                                 [
-                                    42.79,
-                                    33
+                                    76.29,
+                                    25.82
                                 ],
                                 [
-                                    27.26,
-                                    24.06
+                                    73.82,
+                                    17.74
                                 ],
                                 [
-                                    27.75,
-                                    23.6603
+                                    74.3056,
+                                    17.3425
                                 ]
                             ]
                         }
@@ -324,25 +324,25 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Maritime-Patrol",
             "ownAssets": [
                 {
-                    "asset": "a141",
+                    "asset": "a341",
                     "number": 2
                 },
                 {
-                    "asset": "a194",
+                    "asset": "a394",
+                    "number": 4
+                },
+                {
+                    "asset": "a376",
                     "number": 3
                 },
                 {
-                    "asset": "a176",
-                    "number": 2
-                },
-                {
-                    "asset": "a187",
-                    "number": 0
+                    "asset": "a387",
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 }
             ]
         },
@@ -390,24 +390,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    73.7335,
-                                    43.5688
+                                    54.4242,
+                                    48.416
                                 ],
                                 [
-                                    57.99,
-                                    35.04
+                                    49.69,
+                                    38.56
                                 ],
                                 [
-                                    41.33,
-                                    25.6
+                                    44.03,
+                                    27.78
                                 ],
                                 [
-                                    24.95,
-                                    17.44
+                                    38.67,
+                                    18.3
                                 ],
                                 [
-                                    25.4577,
-                                    16.9954
+                                    39.1691,
+                                    17.8523
                                 ]
                             ]
                         }
@@ -432,24 +432,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        25.19838068598645,
-                                        17.242900747382723
+                                        38.90854212700095,
+                                        18.09979192924226
                                     ],
                                     [
-                                        25.19838068598645,
-                                        16.747572041961114
+                                        38.90854212700095,
+                                        17.604463271544265
                                     ],
                                     [
-                                        25.716335011928884,
-                                        16.747572041961114
+                                        39.428933395155205,
+                                        17.604463271544265
                                     ],
                                     [
-                                        25.716335011928884,
-                                        17.242900747382723
+                                        39.428933395155205,
+                                        18.09979192924226
                                     ],
                                     [
-                                        25.19838068598645,
-                                        17.242900747382723
+                                        38.90854212700095,
+                                        18.09979192924226
                                     ]
                                 ]
                             ]
@@ -475,24 +475,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        23.61337108593522,
-                                        18.73376744444559
+                                        37.315162604139196,
+                                        19.590221239428185
                                     ],
                                     [
-                                        23.61337108593522,
-                                        15.240744446564971
+                                        37.315162604139196,
+                                        16.09721499589373
                                     ],
                                     [
-                                        27.267975208020083,
-                                        15.240744446564971
+                                        40.9869843781478,
+                                        16.09721499589373
                                     ],
                                     [
-                                        27.267975208020083,
-                                        18.73376744444559
+                                        40.9869843781478,
+                                        19.590221239428185
                                     ],
                                     [
-                                        23.61337108593522,
-                                        18.73376744444559
+                                        37.315162604139196,
+                                        19.590221239428185
                                     ]
                                 ]
                             ]
@@ -517,24 +517,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    25.4577,
-                                    16.9954
+                                    39.1691,
+                                    17.8523
                                 ],
                                 [
-                                    41.69,
-                                    26.3
+                                    44.4,
+                                    28.49
                                 ],
                                 [
-                                    58.06,
-                                    34.74
+                                    49.75,
+                                    38.25
                                 ],
                                 [
-                                    73.7,
-                                    43.46
+                                    54.39,
+                                    48.3
                                 ],
                                 [
-                                    73.7335,
-                                    43.5688
+                                    54.4242,
+                                    48.416
                                 ]
                             ]
                         }
@@ -544,16 +544,16 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Maritime-ISTAR",
             "ownAssets": [
                 {
-                    "asset": "a87",
-                    "number": 3
+                    "asset": "a287",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 }
             ]
         },
@@ -601,20 +601,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    34.5795,
-                                    38.5097
+                                    72.87,
+                                    29.0025
                                 ],
                                 [
-                                    54.39,
-                                    21.44
+                                    72.03,
+                                    18.07
                                 ],
                                 [
-                                    74.51,
-                                    3.68
+                                    71.48,
+                                    6.43
                                 ],
                                 [
-                                    74.3035,
-                                    3.7946
+                                    71.2767,
+                                    6.5512
                                 ]
                             ]
                         }
@@ -639,24 +639,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        70.58881724690697,
-                                        7.469799355662781
+                                        67.53411548420856,
+                                        10.220566630076041
                                     ],
                                     [
-                                        70.58881724690697,
-                                        0.10363757236208751
+                                        67.53411548420856,
+                                        2.8545391738053145
                                     ],
                                     [
-                                        77.98662053971228,
-                                        0.10363757236208751
+                                        74.96439657123284,
+                                        2.8545391738053145
                                     ],
                                     [
-                                        77.98662053971228,
-                                        7.469799355662781
+                                        74.96439657123284,
+                                        10.220566630076041
                                     ],
                                     [
-                                        70.58881724690697,
-                                        7.469799355662781
+                                        67.53411548420856,
+                                        10.220566630076041
                                     ]
                                 ]
                             ]
@@ -681,24 +681,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    74.3035,
-                                    3.7946
+                                    71.2767,
+                                    6.5512
                                 ],
                                 [
-                                    61.54,
-                                    15.66
+                                    72.29,
+                                    14.32
                                 ],
                                 [
-                                    47.82,
-                                    26.56
+                                    72.34,
+                                    21.14
                                 ],
                                 [
-                                    34.38,
-                                    38.74
+                                    72.67,
+                                    29.23
                                 ],
                                 [
-                                    34.5795,
-                                    38.5097
+                                    72.87,
+                                    29.0025
                                 ]
                             ]
                         }
@@ -708,16 +708,16 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
             "ownAssets": [
                 {
-                    "asset": "a88",
-                    "number": 2
+                    "asset": "a288",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 }
             ]
         },
@@ -765,20 +765,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    51.9965,
-                                    45.7005
+                                    38.7688,
+                                    43.8085
                                 ],
                                 [
-                                    39.99,
-                                    34.35
+                                    42.22,
+                                    33.94
                                 ],
                                 [
-                                    27.33,
-                                    23.35
+                                    45.03,
+                                    24.41
                                 ],
                                 [
-                                    27.581,
-                                    23.1017
+                                    45.2817,
+                                    24.1591
                                 ]
                             ]
                         }
@@ -803,24 +803,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        25.402830519628,
-                                        25.06001860913663
+                                        43.084199485381966,
+                                        26.116647870184842
                                     ],
                                     [
-                                        25.402830519628,
-                                        21.114362297187355
+                                        43.084199485381966,
+                                        22.17103664025578
                                     ],
                                     [
-                                        29.696100406314063,
-                                        21.114362297187355
+                                        47.41234267563968,
+                                        22.17103664025578
                                     ],
                                     [
-                                        29.696100406314063,
-                                        25.06001860913663
+                                        47.41234267563968,
+                                        26.116647870184842
                                     ],
                                     [
-                                        25.402830519628,
-                                        25.06001860913663
+                                        43.084199485381966,
+                                        26.116647870184842
                                     ]
                                 ]
                             ]
@@ -845,20 +845,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    27.581,
-                                    23.1017
+                                    45.2817,
+                                    24.1591
                                 ],
                                 [
-                                    39.96,
-                                    34.38
+                                    42.2,
+                                    33.96
                                 ],
                                 [
-                                    51.69,
-                                    46.01
+                                    38.46,
+                                    44.11
                                 ],
                                 [
-                                    51.9965,
-                                    45.7005
+                                    38.7688,
+                                    43.8085
                                 ]
                             ]
                         }
@@ -868,24 +868,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
             "ownAssets": [
                 {
-                    "asset": "a46",
-                    "number": 4
+                    "asset": "a246",
+                    "number": 3
                 },
                 {
-                    "asset": "a55",
-                    "number": 5
+                    "asset": "a255",
+                    "number": 0
                 },
                 {
-                    "asset": "a91",
-                    "number": 4
+                    "asset": "a291",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 }
             ]
         },
@@ -933,24 +933,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    48.344,
-                                    31.3463
+                                    53.8751,
+                                    40.1277
                                 ],
                                 [
-                                    55.19,
-                                    27.59
+                                    52.4,
+                                    30.47
                                 ],
                                 [
-                                    62.1,
-                                    23.89
+                                    50.99,
+                                    20.88
                                 ],
                                 [
-                                    69.3,
-                                    20.48
+                                    49.85,
+                                    11.57
                                 ],
                                 [
-                                    69.5602,
-                                    20.2184
+                                    50.1179,
+                                    11.3073
                                 ]
                             ]
                         }
@@ -975,24 +975,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        68.6757545623389,
-                                        21.041663960394256
+                                        49.273576876903775,
+                                        12.131573388980442
                                     ],
                                     [
-                                        68.6757545623389,
-                                        19.39075516256376
+                                        49.273576876903775,
+                                        10.480648197652034
                                     ],
                                     [
-                                        70.43530903362823,
-                                        19.39075516256376
+                                        50.95737241916903,
+                                        10.480648197652034
                                     ],
                                     [
-                                        70.43530903362823,
-                                        21.041663960394256
+                                        50.95737241916903,
+                                        12.131573388980442
                                     ],
                                     [
-                                        68.6757545623389,
-                                        21.041663960394256
+                                        49.273576876903775,
+                                        12.131573388980442
                                     ]
                                 ]
                             ]
@@ -1017,16 +1017,16 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    69.5602,
-                                    20.2184
+                                    50.1179,
+                                    11.3073
                                 ],
                                 [
-                                    47.99,
-                                    31.38
+                                    53.52,
+                                    40.16
                                 ],
                                 [
-                                    48.344,
-                                    31.3463
+                                    53.8751,
+                                    40.1277
                                 ]
                             ]
                         }
@@ -1036,17 +1036,17 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Maritime-Mine Laying",
             "ownAssets": [
                 {
-                    "asset": "a58",
-                    "number": 3
+                    "asset": "a258",
+                    "number": 2
                 },
                 {
-                    "asset": "a52",
-                    "number": 3
+                    "asset": "a252",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 }
             ]
         },
@@ -1093,8 +1093,8 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
-                                67.6098,
-                                24.7249
+                                70.6389,
+                                19.2766
                             ]
                         }
                     }
@@ -1103,19 +1103,19 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Maritime-SAM MEZ",
             "ownAssets": [
                 {
-                    "asset": "a25",
-                    "number": 3
+                    "asset": "a225",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 },
                 {
-                    "asset": "a107"
+                    "asset": "a310"
                 }
             ]
         },
@@ -1163,16 +1163,16 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    70.7274,
-                                    25.5667
+                                    62.7691,
+                                    24.5421
                                 ],
                                 [
-                                    34.53,
-                                    40.69
+                                    68.62,
+                                    54.56
                                 ],
                                 [
-                                    34.4164,
-                                    41.0459
+                                    68.5053,
+                                    54.9247
                                 ]
                             ]
                         }
@@ -1182,16 +1182,16 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Land-Transit",
             "ownAssets": [
                 {
-                    "asset": "a146",
-                    "number": 0
+                    "asset": "a346",
+                    "number": 4
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 }
             ]
         },
@@ -1239,24 +1239,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    80.6025,
-                                    15.0499
+                                    71.7477,
+                                    11.7095
                                 ],
                                 [
-                                    63.77,
-                                    28.33
+                                    73.88,
+                                    26.06
                                 ],
                                 [
-                                    47.22,
-                                    40.89
+                                    76.3,
+                                    39.68
                                 ],
                                 [
-                                    29.96,
-                                    53.73
+                                    78,
+                                    53.59
                                 ],
                                 [
-                                    30.0136,
-                                    54.109
+                                    78.055,
+                                    53.9679
                                 ]
                             ]
                         }
@@ -1281,24 +1281,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        25.737349478660413,
-                                        56.402214288214
+                                        73.79451528067729,
+                                        56.261505644764995
                                     ],
                                     [
-                                        25.737349478660413,
-                                        51.68036960902181
+                                        73.79451528067729,
+                                        51.53958140344706
                                     ],
                                     [
-                                        33.82920108746788,
-                                        51.68036960902181
+                                        81.85876848684634,
+                                        51.53958140344706
                                     ],
                                     [
-                                        33.82920108746788,
-                                        56.402214288214
+                                        81.85876848684634,
+                                        56.261505644764995
                                     ],
                                     [
-                                        25.737349478660413,
-                                        56.402214288214
+                                        73.79451528067729,
+                                        56.261505644764995
                                     ]
                                 ]
                             ]
@@ -1323,28 +1323,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    30.0136,
-                                    54.109
+                                    78.055,
+                                    53.9679
                                 ],
                                 [
-                                    43.03,
-                                    44.25
+                                    76.84,
+                                    43.31
                                 ],
                                 [
-                                    54.83,
-                                    34.18
+                                    74.42,
+                                    32.44
                                 ],
                                 [
-                                    67.92,
-                                    24.39
+                                    73.29,
+                                    21.85
                                 ],
                                 [
-                                    80.29,
-                                    14.88
+                                    71.43,
+                                    11.54
                                 ],
                                 [
-                                    80.6025,
-                                    15.0499
+                                    71.7477,
+                                    11.7095
                                 ]
                             ]
                         }
@@ -1354,24 +1354,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Maritime-Mine Laying",
             "ownAssets": [
                 {
-                    "asset": "a122",
-                    "number": 5
-                },
-                {
-                    "asset": "a170",
+                    "asset": "a322",
                     "number": 1
                 },
                 {
-                    "asset": "a147",
-                    "number": 5
+                    "asset": "a370",
+                    "number": 3
+                },
+                {
+                    "asset": "a347",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 }
             ]
         },
@@ -1404,31 +1404,31 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Land-Strike",
             "ownAssets": [
                 {
-                    "asset": "a152",
-                    "number": 3
-                },
-                {
-                    "asset": "a185",
-                    "number": 3
-                },
-                {
-                    "asset": "a148",
+                    "asset": "a352",
                     "number": 1
                 },
                 {
-                    "asset": "a139",
-                    "number": 3
+                    "asset": "a385",
+                    "number": 2
+                },
+                {
+                    "asset": "a348",
+                    "number": 4
+                },
+                {
+                    "asset": "a339",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 },
                 {
-                    "asset": "a8"
+                    "asset": "a210"
                 }
             ]
         },
@@ -1476,28 +1476,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    65.7332,
-                                    36.4001
+                                    42.8743,
+                                    44.6479
                                 ],
                                 [
-                                    67.96,
-                                    28.43
+                                    45.83,
+                                    37.36
                                 ],
                                 [
-                                    71.03,
-                                    19.31
+                                    49.65,
+                                    28.92
                                 ],
                                 [
-                                    73.39,
-                                    11.47
+                                    52.74,
+                                    21.76
                                 ],
                                 [
-                                    76.03,
-                                    2.91
+                                    56.12,
+                                    13.89
                                 ],
                                 [
-                                    75.673,
-                                    2.8865
+                                    55.758,
+                                    13.8633
                                 ]
                             ]
                         }
@@ -1522,24 +1522,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        72.81925408663112,
-                                        5.722448169563038
+                                        52.793570441190184,
+                                        16.685193877481172
                                     ],
                                     [
-                                        72.81925408663112,
-                                        0.043440309434564055
+                                        52.793570441190184,
+                                        11.006594080291876
                                     ],
                                     [
-                                        78.51251363389763,
-                                        0.043440309434564055
+                                        58.65076868600005,
+                                        11.006594080291876
                                     ],
                                     [
-                                        78.51251363389763,
-                                        5.722448169563038
+                                        58.65076868600005,
+                                        16.685193877481172
                                     ],
                                     [
-                                        72.81925408663112,
-                                        5.722448169563038
+                                        52.793570441190184,
+                                        16.685193877481172
                                     ]
                                 ]
                             ]
@@ -1564,24 +1564,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    75.673,
-                                    2.8865
+                                    55.758,
+                                    13.8633
                                 ],
                                 [
-                                    72.14,
-                                    13.61
+                                    51.24,
+                                    23.68
                                 ],
                                 [
-                                    68.86,
-                                    25.59
+                                    46.98,
+                                    34.75
                                 ],
                                 [
-                                    65.87,
-                                    36.86
+                                    43.01,
+                                    45.11
                                 ],
                                 [
-                                    65.7332,
-                                    36.4001
+                                    42.8743,
+                                    44.6479
                                 ]
                             ]
                         }
@@ -1591,24 +1591,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Maritime-Resupply",
             "ownAssets": [
                 {
-                    "asset": "a39",
+                    "asset": "a239",
                     "number": 2
                 },
                 {
-                    "asset": "a57",
-                    "number": 1
+                    "asset": "a257",
+                    "number": 0
                 },
                 {
-                    "asset": "a5",
-                    "number": 5
+                    "asset": "a205",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 }
             ]
         },
@@ -1656,24 +1656,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    71.2747,
-                                    14.6686
+                                    68.5771,
+                                    8.6761
                                 ],
                                 [
-                                    70.17,
-                                    23.74
+                                    72.58,
+                                    21.17
                                 ],
                                 [
-                                    68.29,
-                                    33.03
+                                    75.81,
+                                    33.89
                                 ],
                                 [
-                                    66.69,
-                                    41.61
+                                    79.32,
+                                    45.9
                                 ],
                                 [
-                                    66.5401,
-                                    42.0968
+                                    79.1648,
+                                    46.3882
                                 ]
                             ]
                         }
@@ -1698,24 +1698,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        65.82549410874967,
-                                        42.6204420383667
+                                        78.3950330825318,
+                                        46.91148283743098
                                     ],
                                     [
-                                        65.82549410874967,
-                                        41.56879728374625
+                                        78.3950330825318,
+                                        45.8598507318903
                                     ],
                                     [
-                                        67.24295310658444,
-                                        41.56879728374625
+                                        79.9198780181247,
+                                        45.8598507318903
                                     ],
                                     [
-                                        67.24295310658444,
-                                        42.6204420383667
+                                        79.9198780181247,
+                                        46.91148283743098
                                     ],
                                     [
-                                        65.82549410874967,
-                                        42.6204420383667
+                                        78.3950330825318,
+                                        46.91148283743098
                                     ]
                                 ]
                             ]
@@ -1740,28 +1740,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    66.5401,
-                                    42.0968
+                                    79.1648,
+                                    46.3882
                                 ],
                                 [
-                                    67.33,
-                                    34.74
+                                    76.13,
+                                    36.46
                                 ],
                                 [
-                                    68.99,
-                                    28.26
+                                    73.96,
+                                    27.41
                                 ],
                                 [
-                                    69.94,
-                                    21.06
+                                    71.07,
+                                    17.64
                                 ],
                                 [
-                                    71.16,
-                                    15.14
+                                    68.47,
+                                    9.15
                                 ],
                                 [
-                                    71.2747,
-                                    14.6686
+                                    68.5771,
+                                    8.6761
                                 ]
                             ]
                         }
@@ -1771,28 +1771,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Maritime-FIAC EZ",
             "ownAssets": [
                 {
-                    "asset": "a178",
-                    "number": 1
+                    "asset": "a378",
+                    "number": 3
                 },
                 {
-                    "asset": "a182",
-                    "number": 1
+                    "asset": "a382",
+                    "number": 2
                 },
                 {
-                    "asset": "a115",
+                    "asset": "a315",
                     "number": 4
                 },
                 {
-                    "asset": "a174",
-                    "number": 2
+                    "asset": "a374",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 }
             ]
         },
@@ -1840,24 +1840,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    66.8179,
-                                    13.6797
+                                    63.0744,
+                                    14.3908
                                 ],
                                 [
-                                    68.3,
-                                    25.73
+                                    54.56,
+                                    23.96
                                 ],
                                 [
-                                    71.04,
-                                    38.03
+                                    47.29,
+                                    33.78
                                 ],
                                 [
-                                    72.07,
-                                    50.62
+                                    38.31,
+                                    43.88
                                 ],
                                 [
-                                    72.5266,
-                                    50.5454
+                                    38.7688,
+                                    43.8085
                                 ]
                             ]
                         }
@@ -1882,24 +1882,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        67.85637764726746,
-                                        53.24975172108632
+                                        34.708060231987524,
+                                        46.53225726059471
                                     ],
                                     [
-                                        67.85637764726746,
-                                        47.674900680143864
+                                        34.708060231987524,
+                                        40.95370345976926
                                     ],
                                     [
-                                        76.67559980865279,
-                                        47.674900680143864
+                                        42.46719153308521,
+                                        40.95370345976926
                                     ],
                                     [
-                                        76.67559980865279,
-                                        53.24975172108632
+                                        42.46719153308521,
+                                        46.53225726059471
                                     ],
                                     [
-                                        67.85637764726746,
-                                        53.24975172108632
+                                        34.708060231987524,
+                                        46.53225726059471
                                     ]
                                 ]
                             ]
@@ -1924,20 +1924,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    72.5266,
-                                    50.5454
+                                    38.7688,
+                                    43.8085
                                 ],
                                 [
-                                    69.67,
-                                    31.98
+                                    50.91,
+                                    28.97
                                 ],
                                 [
-                                    67.3,
-                                    13.91
+                                    63.56,
+                                    14.62
                                 ],
                                 [
-                                    66.8179,
-                                    13.6797
+                                    63.0744,
+                                    14.3908
                                 ]
                             ]
                         }
@@ -1947,21 +1947,21 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Air-Patrol",
             "ownAssets": [
                 {
-                    "asset": "a174",
+                    "asset": "a374",
+                    "number": 1
+                },
+                {
+                    "asset": "a363",
                     "number": 2
                 },
                 {
-                    "asset": "a163",
-                    "number": 2
-                },
-                {
-                    "asset": "a179",
-                    "number": 2
+                    "asset": "a379",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 }
             ]
         },
@@ -2009,16 +2009,16 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    49.9002,
-                                    49.3109
+                                    51.6178,
+                                    32.4726
                                 ],
                                 [
-                                    49.99,
-                                    21.04
+                                    82.32,
+                                    21.44
                                 ],
                                 [
-                                    49.9528,
-                                    21.3991
+                                    82.2802,
+                                    21.7946
                                 ]
                             ]
                         }
@@ -2043,24 +2043,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        48.94448682229479,
-                                        22.32880694375131
+                                        81.26899605326578,
+                                        22.724245526448843
                                     ],
                                     [
-                                        48.94448682229479,
-                                        20.463441478454907
+                                        81.26899605326578,
+                                        20.858881624084045
                                     ],
                                     [
-                                        50.94832991602052,
-                                        20.463441478454907
+                                        83.2783245330032,
+                                        20.858881624084045
                                     ],
                                     [
-                                        50.94832991602052,
-                                        22.32880694375131
+                                        83.2783245330032,
+                                        22.724245526448843
                                     ],
                                     [
-                                        48.94448682229479,
-                                        22.32880694375131
+                                        81.26899605326578,
+                                        22.724245526448843
                                     ]
                                 ]
                             ]
@@ -2085,20 +2085,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    49.9528,
-                                    21.3991
+                                    82.2802,
+                                    21.7946
                                 ],
                                 [
-                                    50.1,
-                                    35.33
+                                    67.12,
+                                    27.11
                                 ],
                                 [
-                                    49.59,
-                                    49.61
+                                    51.31,
+                                    32.78
                                 ],
                                 [
-                                    49.9002,
-                                    49.3109
+                                    51.6178,
+                                    32.4726
                                 ]
                             ]
                         }
@@ -2108,28 +2108,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Air-Offensive Counter Air",
             "ownAssets": [
                 {
-                    "asset": "a26",
-                    "number": 1
+                    "asset": "a226",
+                    "number": 0
                 },
                 {
-                    "asset": "a97",
+                    "asset": "a297",
                     "number": 3
                 },
                 {
-                    "asset": "a99",
-                    "number": 1
+                    "asset": "a299",
+                    "number": 4
                 },
                 {
-                    "asset": "a31",
+                    "asset": "a231",
                     "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 }
             ]
         },
@@ -2177,28 +2177,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    60.7398,
-                                    5.7535
+                                    84.2466,
+                                    25.0515
                                 ],
                                 [
-                                    62.85,
-                                    13.9
+                                    79.32,
+                                    27.31
                                 ],
                                 [
-                                    64.82,
-                                    22.92
+                                    74.25,
+                                    30.43
                                 ],
                                 [
-                                    66.07,
-                                    31.21
+                                    68.47,
+                                    32.83
                                 ],
                                 [
-                                    67.61,
-                                    38.79
+                                    62.97,
+                                    34.51
                                 ],
                                 [
-                                    67.9125,
-                                    39.108
+                                    63.2723,
+                                    34.8329
                                 ]
                             ]
                         }
@@ -2208,31 +2208,31 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Land-Transit",
             "ownAssets": [
                 {
-                    "asset": "a131",
-                    "number": 1
+                    "asset": "a331",
+                    "number": 4
                 },
                 {
-                    "asset": "a188",
+                    "asset": "a388",
                     "number": 2
                 },
                 {
-                    "asset": "a175",
+                    "asset": "a375",
                     "number": 1
                 },
                 {
-                    "asset": "a189",
-                    "number": 5
+                    "asset": "a389",
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 },
                 {
-                    "asset": "a8"
+                    "asset": "a210"
                 }
             ]
         },
@@ -2279,8 +2279,8 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "geometry": {
                             "type": "Point",
                             "coordinates": [
-                                27.2049,
-                                21.4301
+                                81.12,
+                                7.3026
                             ]
                         }
                     }
@@ -2289,23 +2289,23 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Maritime-BMD MEZ",
             "ownAssets": [
                 {
-                    "asset": "a89",
-                    "number": 0
+                    "asset": "a289",
+                    "number": 3
                 },
                 {
-                    "asset": "a34",
-                    "number": 3
+                    "asset": "a234",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 },
                 {
-                    "asset": "a107"
+                    "asset": "a310"
                 }
             ]
         },
@@ -2353,24 +2353,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    85.8061,
-                                    11.1361
+                                    82.6818,
+                                    9.1257
                                 ],
                                 [
-                                    76.94,
-                                    20.38
+                                    74.52,
+                                    20.88
                                 ],
                                 [
-                                    69.33,
-                                    29.88
+                                    67.62,
+                                    32.89
                                 ],
                                 [
-                                    60,
-                                    39.66
+                                    59,
+                                    45.19
                                 ],
                                 [
-                                    60.4596,
-                                    39.5973
+                                    59.4655,
+                                    45.1256
                                 ]
                             ]
                         }
@@ -2395,24 +2395,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        56.17797956454215,
-                                        42.669092517241396
+                                        54.743116545187206,
+                                        48.18040249251479
                                     ],
                                     [
-                                        56.17797956454215,
-                                        36.38192309149725
+                                        54.743116545187206,
+                                        41.896327100025374
                                     ],
                                     [
-                                        64.3693983260808,
-                                        36.38192309149725
+                                        63.69482979716489,
+                                        41.896327100025374
                                     ],
                                     [
-                                        64.3693983260808,
-                                        42.669092517241396
+                                        63.69482979716489,
+                                        48.18040249251479
                                     ],
                                     [
-                                        56.17797956454215,
-                                        42.669092517241396
+                                        54.743116545187206,
+                                        48.18040249251479
                                     ]
                                 ]
                             ]
@@ -2437,20 +2437,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    60.4596,
-                                    39.5973
+                                    59.4655,
+                                    45.1256
                                 ],
                                 [
-                                    72.91,
-                                    25.55
+                                    70.85,
+                                    27.31
                                 ],
                                 [
-                                    85.81,
-                                    10.95
+                                    82.68,
+                                    8.94
                                 ],
                                 [
-                                    85.8061,
-                                    11.1361
+                                    82.6818,
+                                    9.1257
                                 ]
                             ]
                         }
@@ -2460,23 +2460,23 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Air-Time Sensitive Targeting (TST)",
             "ownAssets": [
                 {
-                    "asset": "a107",
-                    "number": 5
+                    "asset": "a307",
+                    "number": 2
                 },
                 {
-                    "asset": "a134",
+                    "asset": "a334",
                     "number": 4
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 },
                 {
-                    "asset": "a8"
+                    "asset": "a210"
                 }
             ]
         },
@@ -2524,24 +2524,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    85.8061,
-                                    11.1361
+                                    82.6818,
+                                    9.1257
                                 ],
                                 [
-                                    66.77,
-                                    17.38
+                                    63.59,
+                                    17.42
                                 ],
                                 [
-                                    46.94,
-                                    23.82
+                                    43.69,
+                                    25.92
                                 ],
                                 [
-                                    27.39,
-                                    29.55
+                                    24.08,
+                                    33.7
                                 ],
                                 [
-                                    27.2352,
-                                    29.9904
+                                    23.9214,
+                                    34.1455
                                 ]
                             ]
                         }
@@ -2566,24 +2566,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        23.938017228233633,
-                                        32.72389366451755
+                                        20.45377242333538,
+                                        36.87176636233192
                                     ],
                                     [
-                                        23.938017228233633,
-                                        27.179215678482983
+                                        20.45377242333538,
+                                        31.32791528524836
                                     ],
                                     [
-                                        30.353191888351674,
-                                        27.179215678482983
+                                        27.16865770775435,
+                                        31.32791528524836
                                     ],
                                     [
-                                        30.353191888351674,
-                                        32.72389366451755
+                                        27.16865770775435,
+                                        36.87176636233192
                                     ],
                                     [
-                                        23.938017228233633,
-                                        32.72389366451755
+                                        20.45377242333538,
+                                        36.87176636233192
                                     ]
                                 ]
                             ]
@@ -2608,20 +2608,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    27.2352,
-                                    29.9904
+                                    23.9214,
+                                    34.1455
                                 ],
                                 [
-                                    56.62,
-                                    20.32
+                                    53.4,
+                                    21.39
                                 ],
                                 [
-                                    85.5,
-                                    11.14
+                                    82.37,
+                                    9.13
                                 ],
                                 [
-                                    85.8061,
-                                    11.1361
+                                    82.6818,
+                                    9.1257
                                 ]
                             ]
                         }
@@ -2631,28 +2631,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Land-EW Attack",
             "ownAssets": [
                 {
-                    "asset": "a175",
-                    "number": 5
-                },
-                {
-                    "asset": "a188",
+                    "asset": "a375",
                     "number": 0
                 },
                 {
-                    "asset": "a131",
-                    "number": 1
+                    "asset": "a388",
+                    "number": 2
                 },
                 {
-                    "asset": "a199",
-                    "number": 5
+                    "asset": "a331",
+                    "number": 2
+                },
+                {
+                    "asset": "a399",
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 },
                 {
-                    "asset": "a96"
+                    "asset": "a294"
                 }
             ]
         },
@@ -2700,20 +2700,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    74.3035,
-                                    3.7946
+                                    64.5956,
+                                    4.2191
                                 ],
                                 [
-                                    54.63,
-                                    21.17
+                                    69.69,
+                                    19.12
                                 ],
                                 [
-                                    34.28,
-                                    38.86
+                                    74.11,
+                                    34.34
                                 ],
                                 [
-                                    34.5795,
-                                    38.5097
+                                    74.4096,
+                                    33.9891
                                 ]
                             ]
                         }
@@ -2738,24 +2738,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        30.508209615214312,
-                                        41.490697568077884
+                                        70.59237247618373,
+                                        36.98078273311974
                                     ],
                                     [
-                                        30.508209615214312,
-                                        35.39912652834502
+                                        70.59237247618373,
+                                        30.8876650501574
                                     ],
                                     [
-                                        38.32028924693916,
-                                        35.39912652834502
+                                        77.96253569373934,
+                                        30.8876650501574
                                     ],
                                     [
-                                        38.32028924693916,
-                                        41.490697568077884
+                                        77.96253569373934,
+                                        36.98078273311974
                                     ],
                                     [
-                                        30.508209615214312,
-                                        41.490697568077884
+                                        70.59237247618373,
+                                        36.98078273311974
                                     ]
                                 ]
                             ]
@@ -2780,28 +2780,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    34.5795,
-                                    38.5097
+                                    74.4096,
+                                    33.9891
                                 ],
                                 [
-                                    44.32,
-                                    30.03
+                                    71.76,
+                                    26.74
                                 ],
                                 [
-                                    53.98,
-                                    21.47
+                                    69.04,
+                                    19.42
                                 ],
                                 [
-                                    63.92,
-                                    12.19
+                                    66.6,
+                                    11.38
                                 ],
                                 [
-                                    74.15,
-                                    4.19
+                                    64.44,
+                                    4.62
                                 ],
                                 [
-                                    74.3035,
-                                    3.7946
+                                    64.5956,
+                                    4.2191
                                 ]
                             ]
                         }
@@ -2811,25 +2811,25 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Air-Offensive Counter Air",
             "ownAssets": [
                 {
-                    "asset": "a199",
-                    "number": 5
-                },
-                {
-                    "asset": "a197",
-                    "number": 5
-                },
-                {
-                    "asset": "a126",
+                    "asset": "a399",
                     "number": 4
                 },
                 {
-                    "asset": "a179",
-                    "number": 4
+                    "asset": "a397",
+                    "number": 3
+                },
+                {
+                    "asset": "a326",
+                    "number": 3
+                },
+                {
+                    "asset": "a379",
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a10"
+                    "asset": "a213"
                 }
             ]
         },
@@ -2877,20 +2877,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    52.2775,
-                                    43.778
+                                    49.105,
+                                    39.5153
                                 ],
                                 [
-                                    44.78,
-                                    31.41
+                                    41.19,
+                                    28.78
                                 ],
                                 [
-                                    36.63,
-                                    19.39
+                                    32.63,
+                                    18.4
                                 ],
                                 [
-                                    36.9805,
-                                    19.0458
+                                    32.985,
+                                    18.0596
                                 ]
                             ]
                         }
@@ -2915,24 +2915,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        32.834909204057595,
-                                        22.821181754393546
+                                        28.86858932421263,
+                                        21.83754379124862
                                     ],
                                     [
-                                        32.834909204057595,
-                                        15.182073993649173
+                                        28.86858932421263,
+                                        14.198216597562162
                                     ],
                                     [
-                                        40.939453201270105,
-                                        15.182073993649173
+                                        36.92614254642442,
+                                        14.198216597562162
                                     ],
                                     [
-                                        40.939453201270105,
-                                        22.821181754393546
+                                        36.92614254642442,
+                                        21.83754379124862
                                     ],
                                     [
-                                        32.834909204057595,
-                                        22.821181754393546
+                                        28.86858932421263,
+                                        21.83754379124862
                                     ]
                                 ]
                             ]
@@ -2958,24 +2958,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        34.935149686400194,
-                                        20.94482108728698
+                                        30.95273445258612,
+                                        19.959245354671996
                                     ],
                                     [
-                                        34.935149686400194,
-                                        17.12477005124668
+                                        30.95273445258612,
+                                        16.139166991670958
                                     ],
                                     [
-                                        38.979301012401045,
-                                        17.12477005124668
+                                        34.97355192282534,
+                                        16.139166991670958
                                     ],
                                     [
-                                        38.979301012401045,
-                                        20.94482108728698
+                                        34.97355192282534,
+                                        19.959245354671996
                                     ],
                                     [
-                                        34.935149686400194,
-                                        20.94482108728698
+                                        30.95273445258612,
+                                        19.959245354671996
                                     ]
                                 ]
                             ]
@@ -3000,20 +3000,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    36.9805,
-                                    19.0458
+                                    32.985,
+                                    18.0596
                                 ],
                                 [
-                                    44.31,
-                                    30.95
+                                    40.73,
+                                    28.32
                                 ],
                                 [
-                                    51.96,
-                                    44.16
+                                    48.79,
+                                    39.9
                                 ],
                                 [
-                                    52.2775,
-                                    43.778
+                                    49.105,
+                                    39.5153
                                 ]
                             ]
                         }
@@ -3023,32 +3023,31 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Other-SOF Activity",
             "ownAssets": [
                 {
-                    "asset": "a79",
-                    "number": 1
-                },
-                {
-                    "asset": "a63",
+                    "asset": "a279",
                     "number": 5
                 },
                 {
-                    "asset": "a74",
-                    "number": 5
+                    "asset": "a263",
+                    "number": 3
+                },
+                {
+                    "asset": "a274",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a109"
+                    "asset": "a313"
                 },
                 {
-                    "asset": "a189"
+                    "asset": "a394"
                 },
                 {
-                    "asset": "a107"
+                    "asset": "a310"
                 }
             ]
         },
         "hasBeenRead": false,
         "_id": "m_f-blue_63",
         "_rev": "2"
-    }
-]
+    }]
