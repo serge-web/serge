@@ -1,11 +1,8 @@
 import { PLANNING_MESSAGE } from '@serge/config'
 import { ForceData, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, Role } from '@serge/custom-types'
-import { deepCopy, findAsset, incrementGameTime } from '@serge/helpers'
+import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
-import * as turf from '@turf/turf'
-import { Feature, LineString } from 'geojson'
 import { sum } from 'lodash'
-import moment from 'moment'
 import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 import { getNextInteraction2 } from './getNextInteraction'
 
@@ -83,89 +80,15 @@ it('gets interactions (2)', () => {
 // }
 // )
 
-const updateLeg = (leg: PlannedActivityGeometry, startT: number, endT: number, speedKts: number,
-  millisRemaining: number, outwardLeg: boolean): [PlannedActivityGeometry, number] => {
-  // ok, sort times
-  if (leg.geometry.geometry.type === 'LineString') {
-    const fLine: Feature<LineString> = turf.lineString(leg.geometry.geometry.coordinates)
-    const len = turf.length(fLine, { units: 'meters' })
-    const speedMs = speedKts * 0.514444
-    const millis = (len / speedMs) * 1000
-    console.log('leg', outwardLeg, Math.floor(millis), Math.floor(len), Math.floor(speedMs), moment(millis).format('h:mm:ss') )
-
-    // mangle the millis, to make things work, if necessary
-    const safeMillis = millis < millisRemaining ? millis : millisRemaining / 2
-    if (millis < millisRemaining) {
-      console.warn('had to trim millis to fit in time period')
-    }
-
-    if (safeMillis < millisRemaining) {
-      const props = leg.geometry.properties as PlannedProps
-      if (outwardLeg) {
-        // ok, update
-        const finish = moment.utc(startT).add(safeMillis, 'milliseconds').toISOString()
-        props.startDate = moment.utc(startT).toISOString()
-        props.endDate = finish
-      } else {
-        // ok, update
-        const start = moment.utc(endT).subtract(safeMillis, 'milliseconds').toISOString()
-        props.startDate = start
-        props.endDate = moment.utc(endT).toISOString()
-      }
-      // consume time
-      const remaining = millisRemaining - safeMillis
-      return [leg, remaining]
-    }
-  }
-  return [leg, 0]
-}
-
-const updateGeometryTimings2 = (geometries: PlannedActivityGeometry[], startTime: string, endTime: string, speedKts: number): PlannedActivityGeometry[] => {
-  const res = deepCopy(geometries) as PlannedActivityGeometry[]
-  let startVal = moment.utc(startTime).valueOf()
-  let endVal = moment.utc(endTime).valueOf()
-  let remaining = endVal - startVal
-  const legOut = updateLeg(res[0], startVal, endVal, speedKts, remaining, true)
-  console.log('leg out 1', legOut)
-  if (legOut[1]) {
-    res[0] = legOut[0]
-    remaining = legOut[1]
-    const legOutProps = legOut[0].geometry.properties as PlannedProps
-    console.log('leg out', legOutProps)
-    startVal = moment.utc(legOutProps.endDate).valueOf()
-  }
-
-  const legBack = updateLeg(res[geometries.length-1], startVal, endVal, speedKts, remaining, false)
-  if (legBack[1]) {
-    res[geometries.length-1] = legBack[0]
-    remaining = legBack[1]
-    const legOutProps = legBack[0].geometry.properties as PlannedProps
-    endVal = moment.utc(legOutProps.startDate).valueOf()
-  }
-
-  // give all the remaining non-string goemetries this time period
-  res.forEach((plan: PlannedActivityGeometry) => {
-    if (plan.geometry.geometry.type !== 'LineString') {
-      const props = plan.geometry.properties as PlannedProps
-      props.startDate = moment.utc(startVal).toISOString()
-      props.endDate = moment.utc(endVal).toISOString()
-    }
-  })
-
-  !7 && console.log(startTime, endTime, speedKts)
-  return res
-}
-
 it('fixes geometry timings', () => {
   const msgWithLocation = planningMessages2.find((msg: MessagePlanning) => {
-    if (msg.message.location) {
+    if (msg.message.location && msg.message.location.length === 4) {
       if (msg.message.ownAssets) {
         const hasSpeed = msg.message.ownAssets.find((item: { asset: string }) => {
           const asset = findAsset(forces, item.asset)
           let speedAttr
           if (asset.attributes) {
             for (const [key, value] of Object.entries(asset.attributes)) {
-              console.log('attr', key, value)
               if (key === 'a_Speed') {
                 speedAttr = value
               }
@@ -179,7 +102,6 @@ it('fixes geometry timings', () => {
     return false
   })
   if (msgWithLocation) {
-    console.log('message', msgWithLocation.message)
     const loc = msgWithLocation.message.location
     expect(loc).toBeTruthy()
     const safeLoc = deepCopy(loc) as PlannedActivityGeometry[]
@@ -200,19 +122,38 @@ it('fixes geometry timings', () => {
         }
       })
       if (speeds.length > 0) {
+        // console.table(safeLoc.map((plan: PlannedActivityGeometry) => {
+        //   const props = plan.geometry.properties as PlannedProps
+        //   return {
+        //   id: plan.uniqid,
+        //   start: props.startDate,
+        //   end: props.endDate
+        //   }
+        // }))
+
         const total = sum(speeds)
         const mean = total / speeds.length
-        const fixed = updateGeometryTimings2(safeLoc, msgWithLocation.message.startDate, msgWithLocation.message.endDate, mean)
+        const fixed = updateGeometryTimings(safeLoc, msgWithLocation.message.startDate, msgWithLocation.message.endDate, mean)
         expect(fixed).toBeTruthy()
-        console.table(fixed.map((plan: PlannedActivityGeometry) => {
-          const props = plan.geometry.properties as PlannedProps
-          return {
-          id: plan.uniqid,
-          start: props.startDate,
-          end: props.endDate
-          }
-        }))
-//        console.log('fixed', fixed)
+        expect(fixed.length).toEqual(safeLoc.length)
+        // console.table(fixed.map((plan: PlannedActivityGeometry) => {
+        //   const props = plan.geometry.properties as PlannedProps
+        //   return {
+        //   id: plan.uniqid,
+        //   start: props.startDate,
+        //   end: props.endDate
+        //   }
+        // }))
+
+        // check the timings still line up
+        const leg1Before = safeLoc[0].geometry.properties as PlannedProps
+        const leg1After = fixed[0].geometry.properties as PlannedProps
+        const lastLegBefore = safeLoc[safeLoc.length-1].geometry.properties as PlannedProps
+        const lastLegAfter = fixed[safeLoc.length-1].geometry.properties as PlannedProps
+        expect(leg1Before.startDate).toEqual(leg1After.startDate)
+        expect(leg1Before.endDate).not.toEqual(leg1After.startDate)
+        expect(lastLegBefore.startDate).not.toEqual(lastLegAfter.startDate)
+        expect(lastLegBefore.endDate).toEqual(lastLegAfter.startDate)
       }
     }
   } else {
