@@ -1,5 +1,4 @@
-import { INTERACTION_MESSAGE } from '@serge/config'
-import { ForceData, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
@@ -11,50 +10,6 @@ const useDate = (msg: MessageInteraction): string => {
     throw Error('Interaction missing for message:' + msg.message.Reference)
   }
   return inter.startTime
-}
-
-export const interactionFor = (contact: PlanningContact, selectedForce: ForceData, selectedRoleId: string, selectedRoleName: string, turnNumber: number, channelId: string, adjudicateTemplateId: string): MessageInteraction => {
-  const interDetails: InteractionDetails = {
-    id: contact.id,
-    orders1: contact.first.activity._id,
-    orders2: contact.second.activity._id,
-    startTime: moment(contact.timeStart).toISOString(),
-    endTime: moment(contact.timeEnd).toISOString(),
-    geometry: contact.intersection,
-    complete: false
-  }
-  const from: MessageDetailsFrom = {
-    force: selectedForce.uniqid,
-    forceId: selectedForce.uniqid,
-    forceColor: selectedForce.color,
-    iconURL: selectedForce.iconURL,
-    roleId: selectedRoleId,
-    roleName: selectedRoleName
-  }
-  const details: MessageDetails = {
-    channel: channelId,
-    from: from,
-    interaction: interDetails,
-    messageType: adjudicateTemplateId,
-    timestamp: moment().toISOString(),
-    turnNumber: turnNumber
-  }
-  const message: MessageAdjudicationOutcomes = {
-    Reference: '',
-    perceptionOutcomes: [],
-    locationOutcomes: [],
-    healthOutcomes: [],
-    narrative: '',
-    messageType: 'AdjudicationOutcomes'
-  }
-  const msgInter: MessageInteraction = {
-    details: details,
-    message: message,
-    _id: '',
-    _rev: '',
-    messageType: INTERACTION_MESSAGE
-  }
-  return msgInter
 }
 
 export const timeOfLatestInteraction = (interactions: MessageInteraction[]): number => {
@@ -123,7 +78,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 }
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
-  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll?: boolean): PlanningContact[] => {
+  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
@@ -142,7 +97,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     const fullOrders = specialOrders.length > 0 ? orders.concat(specialOrders) : orders
     
     const fullTurnLength = gameTurnEndVal - gameTimeVal
-    let currentWindow = fullTurnLength / 20
+    let currentWindow = getAll ? fullTurnLength : fullTurnLength / 20
 
     const contacts: PlanningContact[] = []
 
@@ -150,13 +105,18 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const windowEnd = gameTimeVal + currentWindow
       const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
       console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
-      console.table(liveOrders.map((plan: MessagePlanning) => {
-        return {
-          id: plan._id,
-          start: plan.message.startDate,
-          end: plan.message.endDate
-        }
-      }))
+
+      const newGeometries = invertMessages(liveOrders, activities)
+      const withTimes = injectTimes(newGeometries)
+    
+
+      // console.table(liveOrders.map((plan: MessagePlanning) => {
+      //   return {
+      //     id: plan._id,
+      //     start: plan.message.startDate,
+      //     end: plan.message.endDate
+      //   }
+      // }))
 
       currentWindow *= 2
     }

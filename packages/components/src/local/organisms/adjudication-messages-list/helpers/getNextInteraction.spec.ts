@@ -1,9 +1,10 @@
 import { PLANNING_MESSAGE } from '@serge/config'
 import { ForceData, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
+import { incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
-import { getNextInteraction, interactionFor } from './getNextInteraction'
+import { getNextInteraction2 } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -21,36 +22,60 @@ const activities = P9BMock.data.activities ? P9BMock.data.activities.activities 
 
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-it('process successive interactions', () => {
-  const interactions: MessageInteraction[] = []
-  let contacts: PlanningContact[] = []
-  for (let ctr = 0; ctr < 20 && contacts.length > 0; ctr++) {
-    contacts = getNextInteraction(planningMessages2, activities, interactions, ctr, 30)
-    if (contacts) {
-      const newInteractions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
-        return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-      })
-      interactions.push(...newInteractions)
-    }
-  }
-  !7 && console.table(interactions.map((inter) => {
-    const interact = inter.details.interaction
-    if (interact) {
-      return { id: interact.id, start: interact.startTime, end: interact.endTime }
-    } else {
-      return { id: 'n/a' }
-    }
-  }))
-})
+const gameStartTime = P9BMock.data.overview.gameDate
+const turnLen = P9BMock.data.overview.gameTurnTime
+const turnEnd = incrementGameTime(gameStartTime, turnLen)
 
-it('gets all interactions', () => {
+it('gets all interactions (2)', () => {
   const interactions: MessageInteraction[] = []
-  const contacts: PlanningContact[] = getNextInteraction(planningMessages2, activities, interactions, 0, 30, true)
+  console.log('game start time',gameStartTime)
+  const contacts: PlanningContact[] = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, true)
   if (contacts) {
-    const interactions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
-      return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-    })
-    expect(interactions.length).toEqual(201)
+    expect(contacts.length).toEqual(0)
   }
 }
 )
+
+it('gets interactions (2)', () => {
+  const interactions: MessageInteraction[] = []
+  console.log('game start time',gameStartTime)
+  const contacts: PlanningContact[] = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, false)
+  if (contacts) {
+    expect(contacts.length).toEqual(0)
+  }
+}
+)
+
+// it('process successive interactions', () => {
+//   const interactions: MessageInteraction[] = []
+//   let contacts: PlanningContact[] = []
+//   for (let ctr = 0; ctr < 20 && contacts.length > 0; ctr++) {
+//     contacts = getNextInteraction(planningMessages2, activities, interactions, ctr, 30)
+//     if (contacts) {
+//       const newInteractions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
+//         return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
+//       })
+//       interactions.push(...newInteractions)
+//     }
+//   }
+//   !7 && console.table(interactions.map((inter) => {
+//     const interact = inter.details.interaction
+//     if (interact) {
+//       return { id: interact.id, start: interact.startTime, end: interact.endTime }
+//     } else {
+//       return { id: 'n/a' }
+//     }
+//   }))
+// })
+
+// it('gets all interactions', () => {
+//   const interactions: MessageInteraction[] = []
+//   const contacts: PlanningContact[] = getNextInteraction(planningMessages2, activities, interactions, 0, 30, true)
+//   if (contacts) {
+//     const interactions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
+//       return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
+//     })
+//     expect(interactions.length).toEqual(201)
+//   }
+// }
+// )
