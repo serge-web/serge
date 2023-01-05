@@ -79,6 +79,9 @@ export interface PlanningContact {
   intersection?: Geometry
   timeStart: number // unix millis
   timeEnd: number // unix millis
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
 }
 
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
@@ -532,7 +535,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
   adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
   const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
-  let startTime = moment('2022-11-15T00:00:00.000Z')
+  let startTime = moment('2022-11-14T00:00:00.000Z')
   for (let i = 0; i < count; i++) {
     const willIncrement = psora(2 + i) > 0.5
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
