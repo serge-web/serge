@@ -46,20 +46,23 @@ export const updateGeometryTimings = (geometries: PlannedActivityGeometry[], sta
   let startVal = moment.utc(startTime).valueOf()
   let endVal = moment.utc(endTime).valueOf()
   let remaining = endVal - startVal
-  const legOut = updateLeg(res[0], startVal, endVal, speedKts, remaining, true)
-  if (legOut[1]) {
-    res[0] = legOut[0]
-    remaining = legOut[1]
-    const legOutProps = legOut[0].geometry.properties as PlannedProps
-    startVal = moment.utc(legOutProps.endDate).valueOf()
-  }
-
-  const legBack = updateLeg(res[geometries.length - 1], startVal, endVal, speedKts, remaining, false)
-  if (legBack[1]) {
-    res[geometries.length - 1] = legBack[0]
-    remaining = legBack[1]
-    const legOutProps = legBack[0].geometry.properties as PlannedProps
-    endVal = moment.utc(legOutProps.startDate).valueOf()
+  // note: we only update timings if there is more than one leg.  With a single leg
+  // we give it all of the time allowed
+  if (geometries.length > 1) {
+    const legOut = updateLeg(res[0], startVal, endVal, speedKts, remaining, true)
+    if (legOut[1]) {
+      res[0] = legOut[0]
+      remaining = legOut[1]
+      const legOutProps = legOut[0].geometry.properties as PlannedProps
+      startVal = moment.utc(legOutProps.endDate).valueOf()
+    }
+    const legBack = updateLeg(res[geometries.length - 1], startVal, endVal, speedKts, remaining, false)
+    if (legBack[1]) {
+      res[geometries.length - 1] = legBack[0]
+      remaining = legBack[1]
+      const legOutProps = legBack[0].geometry.properties as PlannedProps
+      endVal = moment.utc(legOutProps.startDate).valueOf()
+    }
   }
 
   // give all the remaining non-string goemetries this time period
