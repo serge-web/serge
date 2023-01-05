@@ -74,12 +74,13 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   const handleChange = (value: { [property: string]: any }): void => {
-    const newDoc = modifyForSave ? modifyForSave(value) : value
     /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
      * convert them
      */
-    const fixedDate = fixDate(newDoc)
-    storeNewValue && storeNewValue(fixedDate)
+    const fixedDate = fixDate(value)
+    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
+    console.log('storing', newDoc)
+    storeNewValue && storeNewValue(newDoc)
   }
 
   const OnSave = () => {
