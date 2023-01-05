@@ -65,7 +65,7 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
   return undefined
 }
 
-const formatDuration = (millis: number): string => {
+export const formatDuration = (millis: number): string => {
   return parseInt(moment.utc(millis).format("DDD")) - 1 + " " + moment.utc(millis).format("HH:mm:ss.SSS")
 }
 
@@ -104,7 +104,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     while (contacts.length === 0 && currentWindow <= fullTurnLength) {
       const windowEnd = gameTimeVal + currentWindow
       const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
-      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
+//      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
 
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
