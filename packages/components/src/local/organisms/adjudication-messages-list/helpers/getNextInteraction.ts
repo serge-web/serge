@@ -100,6 +100,81 @@ const tEnd = (geom: Feature<Geometry>): string => {
   return 'End:' + props.endDate
 }
 
+export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[]): MessagePlanning[] => {
+  !7 && console.log(gameTime, orders, interactions)
+  return []
+}
+
+export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[]): PlanningContact | undefined => {
+  !7 && console.log(gameTime, orders, interactions)
+  return undefined
+}
+
+const formatDuration = (millis: number): string => {
+  return parseInt(moment.utc(millis).format("DDD")) - 1 + " " + moment.utc(millis).format("HH:mm:ss.SSS")
+}
+
+const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEndVal: number): MessagePlanning[] => {
+  return orders.filter((plan: MessagePlanning) => {
+    const startD = moment.utc(plan.message.startDate).valueOf()
+    const endD = moment.utc(plan.message.endDate).valueOf()
+    return startD < gameTurnEndVal && endD > gameTimeVal
+  })
+}
+
+export const getNextInteraction2 = (orders: MessagePlanning[],
+  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll?: boolean): PlanningContact[] => {
+  const gameTimeVal = moment(gameTime).valueOf()
+  const gameTurnEndVal = moment(gameTurnEnd).valueOf()
+  const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
+
+  console.log('earliest time', moment(earliestTime).toISOString())  
+  !7 && console.log(orders, activities, sensorRangeKm,getAll, earliestTime)  
+
+  const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions)
+  if (shortCircuit) {
+    // return the short-circuit interaction
+    return [shortCircuit]
+  } else {
+    // generate any special orders
+    const specialOrders = createSpecialOrders(gameTimeVal, orders, interactions)
+
+    const fullOrders = specialOrders.length > 0 ? orders.concat(specialOrders) : orders
+    
+    const fullTurnLength = gameTurnEndVal - gameTimeVal
+    let currentWindow = fullTurnLength / 20
+
+    const contacts: PlanningContact[] = []
+
+    while (contacts.length === 0 && currentWindow <= fullTurnLength) {
+      const windowEnd = gameTimeVal + currentWindow
+      const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
+      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
+      console.table(liveOrders.map((plan: MessagePlanning) => {
+        return {
+          id: plan._id,
+          start: plan.message.startDate,
+          end: plan.message.endDate
+        }
+      }))
+
+      currentWindow *= 2
+    }
+
+    if (currentWindow > fullTurnLength) {
+      console.log('Gen next interaction: no contacts in turn')
+    }
+
+
+    // find the next interaction
+    !7 && console.log(fullOrders)
+
+    return contacts
+  }
+
+}
+
+
 export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, getAll?: boolean): PlanningContact[] => {
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
@@ -192,3 +267,5 @@ export const getNextInteraction = (orders: MessagePlanning[],
     return []
   }
 }
+
+
