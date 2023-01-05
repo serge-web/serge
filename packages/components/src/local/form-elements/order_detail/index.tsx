@@ -28,16 +28,11 @@ export const OrderDetail: React.FC<PropTypes> = ({
   const tidyAssList = (title: string, assIds: undefined | Array<{asset: string, number?: number}>, reference: string, onEdit: { (reference: string): void }): React.ReactElement => {
     let assetStrings: string[] = []
     if (assIds && assIds.length) {
-      assetStrings = assIds.map((id: string | {asset: string, number?: number}): string => {
-        let assetId
+      assetStrings = assIds.map((id: {asset: string, number?: number}): string => {
         let res = ''
-        if (typeof (id) === 'string') {
-          assetId = id
-        } else {
-          assetId = id.asset
-          if (id.number) {
-            res = ' (' + id.number + ')'
-          }
+        const assetId = id.asset
+        if (id.number) {
+          res = ' (' + id.number + ')'
         }
         const asset = findAsset(forces, assetId)
         if (asset) {
