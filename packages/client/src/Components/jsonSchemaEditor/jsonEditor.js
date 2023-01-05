@@ -33,7 +33,7 @@ class JsonSchemaEditor extends Component {
     this.schemaEditor = new SchemaEditor(this.editorBox)
     this.updateEditor(this.props.schema, this.props.options)
   }
-
+  
   componentWillReceiveProps ({ schema, options }) {
     this.updateEditor(schema, options)
   }
