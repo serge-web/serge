@@ -5620,9 +5620,10 @@ const game: Wargame = {
                     "name": "Fast Jet Squadron (blue)",
                     "icon": "n_blue_air_fighter.svg",
                     "conditions": [],
-                    "states": [],
+                    "states": [],                    
                     "uniqid": "blue_air_fighter",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment"
                     ],
@@ -5632,6 +5633,7 @@ const game: Wargame = {
                     "name": "Bomber Squadron (blue)",
                     "icon": "n_blue_air_bomber.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment"
                     ],
@@ -5658,6 +5660,7 @@ const game: Wargame = {
                     "name": "MTG (blue)",
                     "icon": "n_blue_maritime_task_force.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -5669,6 +5672,7 @@ const game: Wargame = {
                     "name": "Ship (blue)",
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -5680,6 +5684,7 @@ const game: Wargame = {
                     "name": "Submarine (blue)",
                     "icon": "n_blue_maritime_submarine.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -5691,6 +5696,7 @@ const game: Wargame = {
                     "name": "Land Unit (blue)",
                     "icon": "n_blue_land_armed_inf.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Size",
                         "a_Equipment"
                     ],
@@ -5715,6 +5721,7 @@ const game: Wargame = {
                     "name": "SSM (blue)",
                     "icon": "n_blue_land_ssm.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment",
                         "a_Range",
@@ -5729,6 +5736,7 @@ const game: Wargame = {
                     "name": "ISTAR (blue)",
                     "icon": "n_blue_air_recce.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment",
                         "a_Detection Range"
@@ -5742,6 +5750,7 @@ const game: Wargame = {
                     "name": "Air LOGS (blue)",
                     "icon": "n_blue_air_utility.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment"
                     ],
@@ -5766,6 +5775,7 @@ const game: Wargame = {
                     "name": "FIAC (blue)",
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number"
                     ],
                     "conditions": [],
@@ -5785,17 +5795,6 @@ const game: Wargame = {
                     "travelMode": "sea"
                 },
                 {
-                    "name": "Land Minefield (blue)",
-                    "icon": "n_blue_maritime_minefield.svg",
-                    "attributeTypeIds": [
-                        "a_Density"
-                    ],
-                    "conditions": [],
-                    "states": [],
-                    "uniqid": "blue_land_mine",
-                    "travelMode": "land"
-                },
-                {
                     "name": "Fast Jet Squadron (red)",
                     "icon": "n_red_air_fighter.svg",
                     "conditions": [],
@@ -5803,6 +5802,7 @@ const game: Wargame = {
                     "uniqid": "red_air_fighter",
                     "travelMode": "air",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment"
                     ]
@@ -5829,6 +5829,7 @@ const game: Wargame = {
                     "uniqid": "red_maritime_mtg",
                     "travelMode": "sea",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Equipment"
                     ]
                 },
@@ -5840,6 +5841,7 @@ const game: Wargame = {
                     "uniqid": "red_maritime_submarine",
                     "travelMode": "sea",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Equipment"
                     ]
                 },
@@ -5889,6 +5891,7 @@ const game: Wargame = {
                     "uniqid": "red_air_istar",
                     "travelMode": "air",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment",
                         "a_Detection Range"
@@ -5902,6 +5905,7 @@ const game: Wargame = {
                     "uniqid": "red_air_logs",
                     "travelMode": "air",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number",
                         "a_Equipment"
                     ]
@@ -5926,6 +5930,7 @@ const game: Wargame = {
                     "uniqid": "red_maritime_fiac",
                     "travelMode": "sea",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number"
                     ]
                 },
@@ -5936,17 +5941,6 @@ const game: Wargame = {
                     "states": [],
                     "uniqid": "red_maritime_mine",
                     "travelMode": "sea",
-                    "attributeTypeIds": [
-                        "a_Density"
-                    ]
-                },
-                {
-                    "name": "Land Minefield (red)",
-                    "icon": "n_red_maritime_minefield.svg",
-                    "conditions": [],
-                    "states": [],
-                    "uniqid": "red_land_mine",
-                    "travelMode": "land",
                     "attributeTypeIds": [
                         "a_Density"
                     ]
@@ -5967,9 +5961,16 @@ const game: Wargame = {
                     "attrId": "a_Mez_Range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
-                    "description": "MEZ Range",
+                    "description": "MEZ Range (km)",
                     "editableByPlayer": false,
                     "name": "MEZ Range"
+                }, {
+                    "attrId": "a_Speed",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 10,
+                    "description": "Default Speed (kts)",
+                    "editableByPlayer": false,
+                    "name": "Speed (kts)"
                 },
                 {
                     "attrId": "a_Size",
@@ -5987,16 +5988,8 @@ const game: Wargame = {
                     "values": ["None", "Degraded", "Operational"],
                     "editableByPlayer": false,
                     "name": "C2 Status"
-                },
+                },                
                 {
-                    "attrId": "a_C2_Status",
-                    "attrType": "AttributeTypeEnum",
-                    "defaultValue": "Operational",
-                    "description": "C2 Status",
-                    "values": ["None", "Degraded", "Operational"],
-                    "editableByPlayer": false,
-                    "name": "C2 Status"
-                },                {
                     "attrId": "a_Building_Type",
                     "attrType": "AttributeTypeEnum",
                     "description": "Type of fixed land asset",
@@ -6008,7 +6001,7 @@ const game: Wargame = {
                     "attrId": "a_Range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
-                    "description": "Range of weapon",
+                    "description": "Range of weapon (km)",
                     "editableByPlayer": false,
                     "name": "Range",
                     "units": "km"
@@ -6017,7 +6010,7 @@ const game: Wargame = {
                     "attrId": "a_Detection Range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 50,
-                    "description": "Detection Range of asset",
+                    "description": "Detection Range of asset (km)",
                     "editableByPlayer": false,
                     "name": "Detection Range",
                     "units": "km"
