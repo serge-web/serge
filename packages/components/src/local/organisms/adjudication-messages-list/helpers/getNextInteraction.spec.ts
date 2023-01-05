@@ -1,6 +1,6 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { ForceData, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
-import { incrementGameTime } from '@serge/helpers'
+import { ForceData, MessageInteraction, MessagePlanning, PlanningActivityGeometry, Role } from '@serge/custom-types'
+import { deepCopy, incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
@@ -79,3 +79,25 @@ it('gets interactions (2)', () => {
 //   }
 // }
 // )
+
+
+const updateGeometryTimings2 = (geometries: PlanningActivityGeometry[], startTime: string, endTime: string): PlanningActivityGeometry[] => {
+  console.log('geoms', geometries, geometries)
+  !7 && console.log(startTime, endTime)
+  return geometries
+}
+
+it('fixes geometry timings', () => {
+  const msgWithLocation = planningMessages2.find((msg: MessagePlanning ) => msg.message.location )
+  if (msgWithLocation) {
+    const loc = msgWithLocation.message.location
+    expect(loc).toBeTruthy()
+    const safeLoc = deepCopy(loc)
+    const fixed = updateGeometryTimings2(safeLoc, msgWithLocation.message.startDate, msgWithLocation.message.endDate)
+    expect(fixed).toBeTruthy()
+  } else {
+    expect('failed to find location').toBeFalsy()
+  }
+
+}
+)

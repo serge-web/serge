@@ -108,7 +108,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
-    
+      !7 && console.log(withTimes)
 
       // console.table(liveOrders.map((plan: MessagePlanning) => {
       //   return {
