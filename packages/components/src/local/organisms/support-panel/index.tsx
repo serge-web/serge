@@ -1,7 +1,7 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
@@ -22,6 +22,7 @@ import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
+import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
@@ -189,7 +190,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const activity: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
+
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
+
+    // fix the location bits, if necessary
+    const updatedDoc = localModifyForSave(message)
+    console.log(message, updatedDoc)
+
     saveMessage(currentWargame, details, message)()
     // also clear local one
     setLocalDraftMessage(undefined)
@@ -326,6 +333,33 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('editorElm: ', editorElm)
   }
 
+  const summariseLocations = (title: string, plans: PlannedActivityGeometry[]): void => {
+    console.log('== ' + title + ' ==')
+    console.table(plans.map((plan: PlannedActivityGeometry) => {
+      const props = plan.geometry.properties as PlannedProps
+      return {
+        id: plan.uniqid,
+        start: props.startDate,
+        end: props.endDate
+      }
+    }))
+  }
+
+  const localModifyForSave = (document: Record<string, any>): Record<string, any>  => {
+    const fixedLocation = expandLocation(document)
+    const planDoc = fixedLocation as PlanningMessageStructureCore
+    if (planDoc.location && planDoc.ownAssets) {
+      const generalDoc = planDoc as any
+      console.log('mod for save', planDoc, generalDoc.hiddenStore)
+      const ownAssets = planDoc.ownAssets.map((item: {asset: string}) => item.asset)
+      const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
+      summariseLocations('before', planDoc.location)
+      summariseLocations('after', updatedLocations)
+      planDoc.location = updatedLocations
+    }
+    return planDoc
+  }
+
   const SlideComponent = useMemo(() => (
     <Slide direction="right" in={isShowPanel}>
       <div className={styles.panel}>
@@ -385,6 +419,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   postBack={postBack}
                   turnFilter={turnFilter}
                   editLocation={editLocation}
+                  modifyForSave={localModifyForSave}
                   forcePlanningActivities={forcePlanningActivities}
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
@@ -410,7 +445,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   postBack={postBack}
                   customiseTemplate={localCustomiseTemplate}
                   modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-                  modifyForSave={expandLocation}
+                  modifyForSave={localModifyForSave}
                   draftMessage={localDraftMessage}
                   editCallback={localEditLocation}
                 />}
