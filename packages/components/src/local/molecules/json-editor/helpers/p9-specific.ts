@@ -42,10 +42,10 @@ export const tmplMissileStrike = {
           options: {
             grid_columns: 2,
             enum_titles: [
-              'Tank A',
-              'Tank B',
-              'Tank C',
-              'Plane A'
+              'Battery A',
+              'Battery B',
+              'Battery C',
+              'Battery D'
             ]
           }
         },
@@ -111,10 +111,10 @@ export const tmplMissileStrike = {
           options: {
             grid_columns: 2,
             enum_titles: [
-              'Tank A',
-              'Tank B',
-              'Tank C',
-              'Plane A'
+              'Opp Site A',
+              'Opp Site B',
+              'Opp Site C',
+              'Opp Site D'
             ]
           }
         },

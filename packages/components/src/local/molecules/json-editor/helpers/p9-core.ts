@@ -138,21 +138,32 @@ export const coreTemplate = {
       disable_array_reorder: true
     },
     items: {
+      type: 'object',
+      format: 'grid',
       title: 'Asset',
-      type: 'string',
-      enum: [
-        'ra',
-        'rb',
-        'rc',
-        'da'
+      required: [
+        'asset'
       ],
-      options: {
-        enum_titles: [
-          'Boat A',
-          'Bike B',
-          'Band C',
-          'Plane A'
-        ]
+      properties: {
+        asset: {
+          title: 'Target',
+          type: 'string',
+          enum: [
+            'ta',
+            'tb',
+            'tc',
+            'pa'
+          ],
+          options: {
+            grid_columns: 2,
+            enum_titles: [
+              'Opp Tank A',
+              'Opp Tank B',
+              'Opp Tank C',
+              'Opp Plane A'
+            ]
+          }
+        }
       }
     }
   },

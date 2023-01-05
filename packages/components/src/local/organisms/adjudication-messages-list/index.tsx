@@ -80,21 +80,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number }, forces: ForceData[], index: number): React.ReactElement => {
+  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number }, forces: ForceData[], index: number): React.ReactElement => {
     let asset: Asset | undefined
-    const isString = typeof (assetId) === 'string'
     let numStr = ''
-    if (isString) {
-      try {
-        asset = findAsset(forces, assetId)
-      } catch (e) {
-      }
-    } else {
-      try {
-        asset = findAsset(forces, assetId.asset)
+    try {
+      asset = findAsset(forces, assetId.asset)
+      if (assetId.number) {
         numStr = ' (' + assetId.number + ')'
-      } catch (e) {
       }
+    } catch (e) {
     }
     if (!asset) {
       console.warn('Failed to find asset:' + assetId)

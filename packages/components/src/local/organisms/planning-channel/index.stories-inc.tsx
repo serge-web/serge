@@ -231,7 +231,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   }
   if (otherForces) {
     const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])
-    newMsg.message.otherAssets = otherAssetIds
+    newMsg.message.otherAssets = otherAssetIds.map((asset: string) => { return { asset: asset } })
   }
   return newMsg
 })
