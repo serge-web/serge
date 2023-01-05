@@ -79,6 +79,9 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
       const flatGeoms: PlanningActivityGeometry[] = []
       if (locations instanceof Array) {
         locations.forEach((geom) => {
+          const props = geom.geometry.properties as PlannedProps
+          const formatStr = 'DDHHmm[Z]'
+          const dateStr = moment.utc(props.startDate).format(formatStr) + '-' + moment.utc(props.endDate).format(formatStr)
           let name = geom.uniqid
           if (flatGeoms.length) {
             const theAct = flatGeoms.find((act) => act.uniqid === geom.uniqid)
@@ -88,7 +91,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
               console.warn('failed to find activity for', name)
             }
           }
-          this.textArea.innerHTML += `<li>${name}</li>` + '\n'
+          this.textArea.innerHTML += `<li>${name} ${dateStr}</li>` + '\n'
         })
       } else {
         this.textArea.innerHTML += locations + '\n'
