@@ -28,7 +28,6 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
         const forceCol = forceCols.find((style: ForceStyle) => style.force === asset.force)
         const centre = asset.position ? asset.position : latLng([0, 0])
         const rad = rangeKm * 1000
-        console.log('range', asset.name, rangeKm, range, index, typeof range, rad, parseFloat(range), forceCol, centre, attrs)
         rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceCol?.color }} />)
       }
     })
