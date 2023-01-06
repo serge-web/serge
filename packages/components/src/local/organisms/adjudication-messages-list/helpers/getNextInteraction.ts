@@ -88,20 +88,20 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     },
     _id: ';abbf'
   }
-  const geom: GeoJSON.Feature = {
-    type: "Feature",
+  const geom: Feature = {
+    type: 'Feature',
     properties: {
-      id: "SOF Activity//Effect Location",
-      startDate: "2022-11-14T03:00:00.000Z",
-      endDate: "2022-11-14T04:50:00.000Z",
-      force: "f-blue",
+      id: 'SOF Activity//Effect Location',
+      startDate: '2022-11-14T03:00:00.000Z',
+      endDate: '2022-11-14T04:50:00.000Z',
+      force: 'f-blue',
       startTime: 1668394800000,
       endTime: 1668401400000,
-      geomId: "SOF Activity-2",
-      name: "f-blue//6.9344951444654725//Effect Location"
+      geomId: 'SOF Activity-2',
+      name: 'f-blue//6.9344951444654725//Effect Location'
     },
     geometry: {
-      type: "Polygon",
+      type: 'Polygon',
       coordinates: [
         [
           [
@@ -130,7 +130,8 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     timeStart: 1200,
     timeEnd: 1400
   }
-  return !7 ? undefined : dummyContact
+  const sendUndefined = 7
+  return sendUndefined ? undefined : dummyContact
 }
 
 export const formatDuration = (millis: number): string => {
