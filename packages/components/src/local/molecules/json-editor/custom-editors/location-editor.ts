@@ -83,7 +83,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
           const props = geom.geometry.properties as PlannedProps
           const formatStr = 'DDHHmm[Z]'
           const dateStr = props.startDate ? moment.utc(props.startDate).format(formatStr) + '-' + moment.utc(props.endDate).format(formatStr) : ' ...'
-          let name = geom.uniqid
+          let name = (props && props.name) ? props.name : geom.uniqid
           if (flatGeoms.length) {
             const theAct = flatGeoms.find((act) => act.uniqid === geom.uniqid)
             if (theAct) {
