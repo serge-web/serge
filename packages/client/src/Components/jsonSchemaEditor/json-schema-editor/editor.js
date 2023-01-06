@@ -19,7 +19,7 @@ Editor.prototype.destroy = function () {
 // If schema is undefined, the editor is not recreated, but only destroyed
 Editor.prototype.updateSchema = function (schema) {
   this.destroy()
-  this.jsonEditor = new JSONEditor(this.renderZone, { schema: schema })
+  this.jsonEditor = new JSONEditor.JSONEditor(this.renderZone, { schema: schema })
 }
 
 // Validate JSON

@@ -8,7 +8,7 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   // NOTE: so, I copied the implementation into here.  If updates are necessary
   // NOTE: I suggest fixing the helper, covering it with the helper test 
   // NOTE: and then copying the code here
-  console.log('handling', payload)
+  console.log('handling adj outcome', payload)
   payload.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
     asset.health = health.health
@@ -17,10 +17,10 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   payload.locationOutcomes.forEach((movement) => {
     const asset = findAsset(allForces, movement.asset)
     // double-check we're not using a dummy value
-    if (Array.isArray(movement)) {
+    if (Array.isArray(movement.location)) {
       asset.location = movement.location
     } else {
-      console.warn('received non-array movement destination')
+      console.warn('received non-array movement destination', movement.location)
     }
   })
 

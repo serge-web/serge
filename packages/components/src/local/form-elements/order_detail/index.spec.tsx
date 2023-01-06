@@ -75,8 +75,8 @@ const planningMessage: MessagePlanning =
         { asset: 'a429', number: 2 }
       ],
       otherAssets: [
-        'a410',
-        'a411'
+        { asset: 'a410' },
+        { asset: 'a411' }
       ]
     },
     hasBeenRead: false,
@@ -91,7 +91,7 @@ const plan = planningMessage
 const force = MockPerForceActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
 
 planningMessage.message.ownAssets = allForces[1].assets ? [{ asset: allForces[1].assets[0].uniqid, number: 1 }] : []
-planningMessage.message.otherAssets = allForces[2].assets ? [allForces[2].assets[0].uniqid] : []
+planningMessage.message.otherAssets = allForces[2].assets ? [{ asset: allForces[2].assets[0].uniqid }] : []
 
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
 const flatActivities = _.flatten(activities)

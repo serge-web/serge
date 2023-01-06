@@ -21,16 +21,17 @@ const p9StockTemplates: TemplateBody[] = [
           readonly: true,
           type: 'string'
         },
+        messageType: {
+          options: {
+            hidden: true
+          },
+          type: 'string'
+        },
         narrative: {
           title: 'General Feedback',
           propertyOrder: 20,
           type: 'string',
           format: 'textarea'
-        },
-        location: {
-          title: 'Location',
-          propertyOrder: 30,
-          type: 'string'
         },
         perceptionOutcomes: {
           type: 'array',
@@ -246,13 +247,8 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               location: {
-                title: 'Location',
+                title: 'Location [2.4, 4.2]',
                 type: 'string',
-                enum: [
-                  'Point A',
-                  'Point B',
-                  'Point C'
-                ],
                 options: {
                   grid_columns: 3
                 }

@@ -29,6 +29,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   const {
     currentWargame,
     gameDate,
+    gameTurnTime,
     currentTurn,
     turnPresentation,
     wargameTitle,
@@ -116,6 +117,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         currentTurn={currentTurn}
         turnPresentation={turnPresentation}
         gameDate={gameDate}
+        gameTurnLength={gameTurnTime}
         phase={phase}
         timeWarning={timeWarning}
         isGameControl={isGameControl}

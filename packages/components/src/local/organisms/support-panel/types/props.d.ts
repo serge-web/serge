@@ -1,7 +1,6 @@
 import { TurnFormats } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ForceData, MessageDetails, MessagePlanning,
-  PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody, TurnLengthType
+  AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
@@ -43,7 +42,7 @@ export default interface PropTypes {
   gameDate: string
   phase: Phase
   currentTurn: number
-  gameTurnTime: TurnLengthType
+  gameTurnLength: GameTurnLength
   currentWargame: string
   selectedAssets: string[]
   setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>

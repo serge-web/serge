@@ -28,6 +28,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   gameDate: string
   /**
+   *  current date for turn-end (may be used for finding other orders to sync iwth)
+   */
+  gameTurnEndDate: string
+  /**
    *  definition of planning channel
    */
   channel: ChannelPlanning
@@ -61,6 +65,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   postBack?: { (details: MessageDetails, message: any): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
+
   selectedForce?: ForceData
   selectedRoleName: string
   currentTurn: number
@@ -82,7 +87,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** callback for the location of a document being edited */
   editLocation?: LocationEditCallbackHandler
-
   /**
    *  the range of planning activities for each force
    */

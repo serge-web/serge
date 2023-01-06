@@ -61,7 +61,7 @@ Array [
                 "overflow": "hidden",
               }
             }
-            value="private"
+            value=""
           />
           <textarea
             aria-hidden={true}

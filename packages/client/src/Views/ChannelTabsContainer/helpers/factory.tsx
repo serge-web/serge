@@ -95,7 +95,7 @@ const factory = (state: PlayerUi): Factory => {
         // lose that content.  Note: there _Shouldn't_ be a performance
         // hit, since the content in those channels won't be changing
         const cType = channelData.cData.channelType
-        if (cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING) {
+        if (cType === CHANNEL_COLLAB || cType === CHANNEL_MAPPING || cType === CHANNEL_CUSTOM || cType === CHANNEL_CHAT || cType === CHANNEL_PLANNING) {
           return true
         }
       }

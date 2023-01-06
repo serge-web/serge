@@ -42,10 +42,10 @@ export const tmplMissileStrike = {
           options: {
             grid_columns: 2,
             enum_titles: [
-              'Tank A',
-              'Tank B',
-              'Tank C',
-              'Plane A'
+              'Battery A',
+              'Battery B',
+              'Battery C',
+              'Battery D'
             ]
           }
         },
@@ -53,11 +53,14 @@ export const tmplMissileStrike = {
           title: 'Missile Type',
           type: 'string',
           enum: [
+            '###Ballistic',
             'SRBM',
             'MRBM',
             'IRBM',
+            '###Cruise',
             'Standard Cruise',
             'Low Obs Cruise',
+            '###UAV',
             'Propellor OWA UAV',
             'Jet OWA UAV'
           ],
@@ -108,10 +111,10 @@ export const tmplMissileStrike = {
           options: {
             grid_columns: 2,
             enum_titles: [
-              'Tank A',
-              'Tank B',
-              'Tank C',
-              'Plane A'
+              'Opp Site A',
+              'Opp Site B',
+              'Opp Site C',
+              'Opp Site D'
             ]
           }
         },

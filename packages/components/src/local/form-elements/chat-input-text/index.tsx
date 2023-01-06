@@ -1,28 +1,21 @@
 import { Divider, IconButton, InputAdornment } from '@material-ui/core'
 import { Delete, SendOutlined } from '@material-ui/icons'
-import { UNSENT_CHAT_MESSAGE_TYPE } from '@serge/config'
-import React, { useEffect, useImperativeHandle, useState } from 'react'
+import React, { useImperativeHandle, useState } from 'react'
 import TextInput from './../../atoms/text-input'
 import styles from './styles.module.scss'
 import Props from './types/props'
 
 /* Render component */
-export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange, chatInputvalue, onCancel }: Props, ref) => {
+export const ChatInputText: React.FC<Props> = React.forwardRef(({ placeholder, postBack, onMessageChange, onCancel }: Props, ref) => {
   const [formState, setFormState] = useState('')
 
   const changeHandler = (e: any): void => {
     setFormState(e.value)
-    onMessageChange && onMessageChange(e.value, UNSENT_CHAT_MESSAGE_TYPE)
+    onMessageChange && onMessageChange(e.value)
   }
 
-  useEffect(() => {
-    const value = chatInputvalue(UNSENT_CHAT_MESSAGE_TYPE)
-    onMessageChange && onMessageChange(value, UNSENT_CHAT_MESSAGE_TYPE)
-    setFormState(value)
-  }, [])
-
   const submitForm = (): void => {
-    postBack && postBack(UNSENT_CHAT_MESSAGE_TYPE)
+    postBack && postBack()
     setFormState('')
   }
 

@@ -87,7 +87,7 @@ class SchemaEditor extends Component {
           />
         </div>
         <div className='flex-content flex-content--right50'>
-          <Preview schema={this.state.previewSchema}/>
+          <Preview schema={this.state.previewSchema} />
         </div>
       </>
     )

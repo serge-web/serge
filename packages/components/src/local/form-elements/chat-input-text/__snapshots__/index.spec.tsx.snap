@@ -34,6 +34,7 @@ exports[`ChatInputText component: renders correctly 1`] = `
               "overflow": "hidden",
             }
           }
+          value=""
         />
         <textarea
           aria-hidden={true}

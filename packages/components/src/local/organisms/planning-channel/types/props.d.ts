@@ -1,5 +1,8 @@
 import { Phase } from '@serge/config'
-import { AttributeTypes, ChannelPlanning, ChatMessage, ForceData, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnLengthType } from '@serge/custom-types'
+import {
+  AttributeTypes, ChannelPlanning, ChatMessage, ForceData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
+  MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody
+} from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
 /** fire an adjudication message */
@@ -24,7 +27,7 @@ export default interface PropTypes {
   allForces: ForceData[]
   gameDate: string
   currentTurn: number
-  gameTurnTime: TurnLengthType
+  gameTurnLength: GameTurnLength
   dispatch: React.Dispatch<PlayerUiActionTypes>
   reduxDispatch: Dispatch<any>
   getAllWargameMessages: (dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
@@ -33,6 +36,7 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
+
   /**
    * The method for posting messages out of the mapping components. They have
    * special handlers since the message may involve making changes to the forces

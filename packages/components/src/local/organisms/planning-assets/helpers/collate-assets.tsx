@@ -2,6 +2,7 @@ import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKN
 import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
+import sortBy from 'lodash/sortBy'
 import { Column } from 'material-table'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
@@ -139,7 +140,8 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
 export const arrToDict = (arr: string[]): any => {
   if (arr && arr.length > 0) {
     const res = {}
-    arr.forEach((item: string) => {
+    const sorted = sortBy(arr, function (name) { return name })
+    sorted.forEach((item: string) => {
       res[item] = item
     })
     return res
@@ -198,11 +200,11 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
  */
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
-
   const columns: Column[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
+    { title: 'Domain', type: 'string', field: 'domain', lookup: arrToDict(['Land', 'Maritime', 'Air']) },
     { title: 'Health', type: 'numeric', field: 'health' },
     { title: 'Attributes', field: 'attributes', render: renderAttributes }
   ]
@@ -215,7 +217,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   // don't show health or attributes for OpFor assets
   if (opFor) {
-    columns.splice(3, 2)
+    columns.splice(4, 2)
   }
 
   return columns
@@ -282,6 +284,25 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   }
 
   const isUmpire = playerForce.umpire
+  const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
+
+  const domainFor = (travelMode?: string): string => {
+    if (travelMode) {
+      switch (travelMode) {
+        case 'sea':
+          return 'Maritime'
+        case 'air':
+          return 'Air'
+        case 'land':
+          return 'Land'
+        default:
+          console.warn('Unexpected travel mode encountered:', travelMode)
+          return 'ERR'
+      }
+    }
+    return 'Unk'
+  }
+  const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
 
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
@@ -301,6 +322,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
+          domain: domain,
           attributes: {}
         }
         itemRows.push(res)
@@ -310,7 +332,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
     const myForce = assetForce.uniqid === playerForce.uniqid
     const umpireInOwnFor = (isUmpire && !opFor)
-    const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
     if (umpireInOwnFor || myForce || visibleToThisForce) {
@@ -324,6 +345,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
         health: health,
+        domain: domain,
         attributes: modernAttrDict
       }
       // if we're handling the child of an asset, we need to specify the parent
