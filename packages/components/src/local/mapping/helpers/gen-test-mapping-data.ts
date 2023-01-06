@@ -51,7 +51,8 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
   const perceptions: Perception[] = []
   const seesAll = (): boolean => { return true }
-  const tester = seesAll || localTest || doesIt
+  const letAllSeeAll = true
+  const tester = letAllSeeAll ? seesAll : (localTest || doesIt)
   forces.forEach((force: ForceData) => {
     if (force.uniqid !== assetForce && !force.umpire) {
       if (tester()) {

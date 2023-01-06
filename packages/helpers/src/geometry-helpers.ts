@@ -63,7 +63,6 @@ export const updateGeometryTimings = (geometries: PlannedActivityGeometry[], sta
     const legBack = updateLeg(res[geometries.length - 1], startVal, endVal, speedKts, remaining, false)
     if (legBack[1]) {
       res[geometries.length - 1] = legBack[0]
-      remaining = legBack[1]
       const legOutProps = legBack[0].geometry.properties as PlannedProps
       endVal = moment.utc(legOutProps.startDate).valueOf()
     }
