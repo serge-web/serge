@@ -350,8 +350,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     if (planDoc.location && planDoc.ownAssets) {
       const ownAssets = planDoc.ownAssets.map((item: {asset: string}) => item.asset)
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
-      summariseLocations('before', planDoc.location)
-      summariseLocations('after', updatedLocations)
+      !7 && summariseLocations('before', planDoc.location)
+      !7 && summariseLocations('after', updatedLocations)
       planDoc.location = updatedLocations
     }
     return planDoc
