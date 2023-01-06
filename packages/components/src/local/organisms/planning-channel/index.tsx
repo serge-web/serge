@@ -30,6 +30,7 @@ import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
+import RangeRingPlotter from './helpers/RangeRingPlotter'
 import Ruler from './helpers/Ruler'
 import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
@@ -641,6 +642,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           : <Fragment>
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <RangeRingPlotter title={'Own range rings'} assets={ownAssetsFiltered} forceCols={forceColors} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {allOwnAssets.length !== ownAssetsFiltered.length &&
                   <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
@@ -649,6 +651,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                   <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                 }
               </LayerGroup>
+              <RangeRingPlotter title={'Opp range rings'} assets={opAssetsFiltered} forceCols={forceColors} />
               <LayerGroup key={'sel-opp-forces'}>
                 {allOppAssets.length !== opAssetsFiltered.length &&
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />

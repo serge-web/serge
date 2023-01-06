@@ -63,7 +63,6 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
           interactive &&
           assets.map((asset: AssetRow, index: number) => {
             const markerOption = getMarkerOption(asset, index)
-
             return <Marker
               {...markerOption}
             >
@@ -75,7 +74,6 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
           !interactive &&
           assets.map((asset: AssetRow, index: number) => {
             const markerOption = getMarkerOption(asset, index)
-
             return <Marker
               pmIgnore
               interactive={false}
