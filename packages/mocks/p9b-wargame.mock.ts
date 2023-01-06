@@ -5969,7 +5969,8 @@ const game: Wargame = {
                     "defaultValue": 100,
                     "description": "MEZ Range",
                     "editableByPlayer": false,
-                    "name": "MEZ Range"
+                    "name": "MEZ Range",
+                    "units": "km"
                 },
                 {
                     "attrId": "a_Size",
