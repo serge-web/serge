@@ -20,7 +20,7 @@ import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
-import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
+import { collapseLocation } from '../planning-messages-list/helpers/collapse-location'
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
@@ -496,7 +496,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [activityPlanned])
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
-    const unmangledMessage = expandLocation(message)
+    const unmangledMessage = message // note: we no longer rely on hiddenText expandLocation(message)
     // if this is a draft plans, clear the draft plan
     if (!details.interaction) {
       setDraftMessage(undefined)
