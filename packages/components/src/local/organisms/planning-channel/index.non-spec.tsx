@@ -78,7 +78,7 @@ describe('Planning Channel component: ', () => {
       phase={Phase.Planning}
       allForces={forces}
       gameDate={P9Mock.data.overview.gameDate}
-      gameTurnTime={wargame.overview.gameTurnTime}
+      gameTurnLength={wargame.overview.gameTurnTime}
       currentTurn={P9Mock.gameTurn}
       forcePlanningActivities={filledInPerForcePlanningActivities}
     />)

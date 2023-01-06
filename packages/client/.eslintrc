@@ -5,14 +5,19 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      },
-      "ecmaVersion": 2018,
-      "sourceType": "module"
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
   },
-  "extends": ["standard", "plugin:react/recommended"],
-  "plugins": ["prettier"],
+  "extends": [
+    "standard",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "prettier"
+  ],
   "rules": {
     "react/prop-types": 0,
     "no-trailing-spaces": "off",

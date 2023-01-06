@@ -17,7 +17,7 @@ interface OrderEditingProps {
   /** user has finished. Undefined value
    * means user has cancelled
    */
-  saved: { (activity: PlannedActivityGeometry[] | undefined): void}
+  saved: { (activity: PlannedActivityGeometry[] | undefined): void }
   /** the activity to edit */
   activityBeingEdited: PlannedActivityGeometry[] | undefined
 }

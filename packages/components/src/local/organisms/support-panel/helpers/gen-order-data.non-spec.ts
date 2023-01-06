@@ -285,18 +285,19 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     }
     assets.push(possAsset)
   }
-  const assetObj = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
+  const assetArr = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
 
   const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
-  const targets: Asset['uniqid'][] = []
+  const targets: Asset[] = []
   for (let m = 0; m < numTargets; m++) {
     let possTarget = randomArrayItem(force.otherAssets, m + 3)
     let ctr2 = ctr
-    while (targets.includes(possTarget.uniqid)) {
+    while (targets.find((asset: Asset) => asset.uniqid === possTarget.uniqid)) {
       possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
-    targets.push(possTarget.uniqid)
+    targets.push(possTarget)
   }
+  const targetArr = targets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
 
   // get activities for this force
   const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
@@ -348,8 +349,8 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     endDate: endDate && endDate.toISOString(),
     location: geometries,
     activity: activity.uniqid,
-    ownAssets: assetObj,
-    otherAssets: targets
+    ownAssets: assetArr,
+    otherAssets: targetArr
   }
 
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }

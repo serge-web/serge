@@ -61,7 +61,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   allForces,
   platformTypes,
   gameDate,
-  gameTurnTime,
+  gameTurnLength,
   currentTurn,
   forcePlanningActivities,
   attributeTypes
@@ -453,7 +453,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         plans.ownAssets = ownAssets.map((asset: string) => { return { asset: asset, number: 0 } })
       }
       if (otherAssets.length) {
-        plans.otherAssets = otherAssets
+        plans.otherAssets = otherAssets.map((asset: string) => { return { asset: asset } })
       }
       const newPlan: MessagePlanning = {
         messageType: PLANNING_MESSAGE,
@@ -523,7 +523,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const editOrderGeometries: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void => {
-    console.log('processing new geometries', plans)
     // if we just store `callback` then it will get called.  So we need to indirectly store it
     setActivityBeingEditedCallback(() => callback)
 
@@ -531,16 +530,30 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     let localBounds: L.LatLngBounds | undefined
     plans.forEach((plan) => {
       const geom = plan.geometry.geometry as any
-      if (geom.coordinates) {
-        const coords = geom.coordinates as Array<[number, number]>
-        coords.forEach((val: [number, number]) => {
-          const pos = L.latLng(val[0], val[1])
+      const geomType: string = geom.type
+      switch (geomType) {
+        case 'Point': {
+          const val = geom.coordinates as [number, number]
+          const pos = L.latLng(val[1], val[0])
           localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
-        })
-      } else if (geom.coordinate) {
-        const val = geom.coordinate as [number, number]
-        const pos = L.latLng(val[0], val[1])
-        localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+          break
+        }
+        case 'LineString': {
+          const coords = geom.coordinates as [number, number][]
+          coords.forEach((val: [number, number]) => {
+            const pos = L.latLng(val[1], val[0])
+            localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+          })
+          break
+        }
+        case 'Polygon': {
+          const coords = geom.coordinates[0] as [number, number][]
+          coords.forEach((val: [number, number]) => {
+            const pos = L.latLng(val[1], val[0])
+            localBounds = localBounds === undefined ? L.latLngBounds(pos, pos) : localBounds.extend(pos)
+          })
+          break
+        }
       }
     })
     if (localBounds) {
@@ -554,6 +567,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (activity) {
       activityBeingEditedCallback && activityBeingEditedCallback(activity)
       setActivityBeingEditedCallback(undefined)
+    } else {
+      if (activityBeingEdited) {
+        // user has cancelled edit. Push the original values back into the callback
+        activityBeingEditedCallback && activityBeingEditedCallback(activityBeingEdited)
+        setActivityBeingEditedCallback(undefined)
+      } else {
+        console.warn('Warning - planning channel expected there to be activity being edited')
+      }
     }
     // finally, close
     setActivityBeingEdited(undefined)
@@ -683,7 +704,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             selectedForce={currentForce}
             allForces={allForces}
             gameDate={gameDate}
-            gameTurnTime={gameTurnTime}
+            gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
             selectedAssets={selectedAssets}

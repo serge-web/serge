@@ -187,7 +187,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     allForces={forces}
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
-    gameTurnTime={P9BMock.data.overview.gameTurnTime}
+    gameTurnLength={P9BMock.data.overview.gameTurnTime}
     forcePlanningActivities={activities}
   />
 }
@@ -231,7 +231,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   }
   if (otherForces) {
     const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])
-    newMsg.message.otherAssets = otherAssetIds
+    newMsg.message.otherAssets = otherAssetIds.map((asset: string) => { return { asset: asset } })
   }
   return newMsg
 })

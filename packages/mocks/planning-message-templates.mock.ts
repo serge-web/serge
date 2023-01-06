@@ -22,10 +22,6 @@ const planningMessageTemplatesMock: TemplateBody[] = [
           "type": "string",
           "format": "textarea"
         },
-        "location": {
-          "title": "Location",
-          "type": "string"
-        },
         "perceptionOutcomes": {
           "type": "array",
           "title": "Perception Outcomes",
@@ -229,13 +225,8 @@ const planningMessageTemplatesMock: TemplateBody[] = [
                 }
               },
               "location": {
-                "title": "Location",
+                "title": "Location [4.2, 2.4]",
                 "type": "string",
-                "enum": [
-                  "Point A",
-                  "Point B",
-                  "Point C"
-                ],
                 "options": {
                   "grid_columns": 3
                 }
