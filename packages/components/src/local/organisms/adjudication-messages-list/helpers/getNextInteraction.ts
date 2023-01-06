@@ -130,8 +130,8 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     timeStart: 1200,
     timeEnd: 1400
   }
-  const sendUndefined = 7
-  return sendUndefined ? undefined : dummyContact
+  const sendUndefined = !7
+  return sendUndefined ? dummyContact : undefined
 }
 
 export const formatDuration = (millis: number): string => {
