@@ -2,7 +2,7 @@ import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import MaterialTable, { Column } from 'material-table'
+import MaterialTable, { Column } from '@material-table/core'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -18,7 +18,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column<OrderRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const messageValue = useRef<any>(null)
@@ -72,7 +72,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   //   editThisMessage && editThisMessage(docId)
   // }
 
-  const detailPanel = (rowData: OrderRow): any => {
+  const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
     if (!message) {
@@ -196,7 +196,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         title={'Orders'}
         columns={columns}
         data={rows}
-        icons={materialIcons}
+        icons={materialIcons as any}
         actions={jestWorkerId ? [] : [
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,

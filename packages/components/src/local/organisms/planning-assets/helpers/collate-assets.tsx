@@ -3,7 +3,7 @@ import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType,
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
-import { Column } from 'material-table'
+import { Column } from '@material-table/core'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
 import styles from '../styles.module.scss'
@@ -192,18 +192,25 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
   }
 }
 
+// type ColumnType = {
+//   title: string
+//   field: string
+//   render: any
+//   lookup: any
+// }
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
  * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column[] => {
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
-  const columns: Column[] = [
+  const columns: Column<any>[] = [
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
-    { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
+    { title: 'Type', field: 'platformType', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'Domain', type: 'string', field: 'domain', lookup: arrToDict(['Land', 'Maritime', 'Air']) },
     { title: 'Health', type: 'numeric', field: 'health' },
     { title: 'Attributes', field: 'attributes', render: renderAttributes }

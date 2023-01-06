@@ -5,7 +5,7 @@ import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
 import _ from 'lodash'
-import MaterialTable, { Column } from 'material-table'
+import MaterialTable, { Column } from '@material-table/core'
 import moment from 'moment'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
@@ -26,7 +26,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
 
   const [dialogMessage, setDialogMessage] = useState<string>('')
@@ -171,16 +171,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
       const umpireForce = forces.find((force: ForceData) => force.umpire)
       const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-      const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
+      const columnsData: Column<AdjudicationRow>[] = jestWorkerId ? [] : !summaryData ? [] : [
         { title: 'ID', field: 'id' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
-        { title: 'Order 1', field: 'order1', render: (row) => renderOrderTitle(true, row) },
-        { title: 'Order 2', field: 'order2', render: (row) => renderOrderTitle(false, row) },
+        { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+        { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
         { title: 'Activity', field: 'Reference' },
         { title: 'Duration', field: 'period' }
       ]
       if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
-        const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
+        const turnColumn: Column<AdjudicationRow> = { title: 'Turn', field: 'turn', type: 'numeric' }
         columnsData.splice(1, 0, turnColumn)
       }
       if (columns.length === 0) {
@@ -289,7 +289,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const detailPanel = (rowData: AdjudicationRow): any => {
+  const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
         localDetailPanelOpen(rowData)
@@ -380,7 +380,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         title={'Adjudication'}
         columns={columns}
         data={rows}
-        icons={materialIcons}
+        icons={materialIcons as any}
         actions={jestWorkerId ? [] : [
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
