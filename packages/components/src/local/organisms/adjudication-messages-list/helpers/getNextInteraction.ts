@@ -130,8 +130,7 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     timeStart: 1200,
     timeEnd: 1400
   }
-  const sendUndefined = !7
-  return sendUndefined ? dummyContact : undefined
+  return interactions.length === 0 ? undefined : dummyContact
 }
 
 export const formatDuration = (millis: number): string => {
@@ -156,7 +155,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions)
-  if (shortCircuit !== undefined) {
+  if (shortCircuit) {
     // return the short-circuit interaction
     return [shortCircuit]
   } else {
