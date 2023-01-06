@@ -24,7 +24,7 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
       const range: string = attrs['MEZ Range'] || attrs.Range
       if (range) {
         const index = range.indexOf('km')
-        const rangeKm = index ? parseFloat(range.substring(0, index)) :parseFloat(range)
+        const rangeKm = index ? parseFloat(range.substring(0, index)) : parseFloat(range)
         const forceCol = forceCols.find((style: ForceStyle) => style.force === asset.force)
         const centre = asset.position ? asset.position : latLng([0, 0])
         const rad = rangeKm * 1000
