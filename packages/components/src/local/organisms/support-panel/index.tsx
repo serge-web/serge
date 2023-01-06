@@ -195,9 +195,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
     // fix the location bits, if necessary
     const updatedDoc = localModifyForSave(message)
-    console.log(message, updatedDoc)
 
-    saveMessage(currentWargame, details, message)()
+    saveMessage(currentWargame, details, updatedDoc)()
     // also clear local one
     setLocalDraftMessage(undefined)
   }
