@@ -1,5 +1,5 @@
-import { createPerceptions } from './gen-test-mapping-data'
 import { P9Mock } from '@serge/mocks'
+import { createPerceptions } from './gen-test-mapping-data'
 
 const forces = P9Mock.data.forces.forces
 const blueForce = forces[1]
@@ -24,25 +24,25 @@ it('checks if can produce ij index for large bounds', () => {
     expect(perceptions.length).toEqual(2)
     const pOne = perceptions[0]
     expect(pOne.by).toEqual(redForce.uniqid)
-    expect(pOne.name).toEqual(asset.contactId)
+    expect(pOne.name).toEqual(asset.name)
     expect(pOne.typeId).toEqual(asset.platformTypeId)
     expect(pOne.force).toEqual(blueForce.uniqid)
 
     const perceptions2 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions2).toBeTruthy()
-    expect(perceptions2.length).toEqual(0)
+    expect(perceptions2.length).toEqual(2)
 
     const perceptions3 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions3).toBeTruthy()
-    expect(perceptions3.length).toEqual(0)
+    expect(perceptions3.length).toEqual(2)
 
     const perceptions4 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions4).toBeTruthy()
-    expect(perceptions4.length).toEqual(0)
+    expect(perceptions4.length).toEqual(2)
 
     const perceptions5 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions5).toBeTruthy()
-    expect(perceptions5.length).toEqual(1)
+    expect(perceptions5.length).toEqual(2)
 
     const perceptions6 = createPerceptions(asset, blueForce.uniqid, forces, localDoesIt)
     expect(perceptions6).toBeTruthy()

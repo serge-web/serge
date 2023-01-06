@@ -98,9 +98,9 @@ export interface PlanningMessageStructureCore {
   /** title for this plan */
   title: string
   /** start-time of this plan */
-  startDate?: string
+  startDate: string
   /** end-time of this plan */
-  endDate?: string
+  endDate: string
   /** any location-related data */
   location?: PlannedActivityGeometry[]
   /** own assets involved in plan */

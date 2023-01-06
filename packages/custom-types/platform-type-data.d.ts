@@ -33,7 +33,8 @@ export default interface PlatformTypeData {
    */
   speedKts?: Array<number>,
   states: Array<State>,
-  travelMode: string,
+  /** what this platform type can travel on */
+  travelMode: 'sea' | 'air' | 'land',
   /** list of attribute types for this platform type */
   attributeTypes?: AttributeTypes
   /** list of attribute ids for this platofrm type - allows
