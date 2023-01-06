@@ -23,19 +23,12 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
       // try for the two range attributes
       const range: string = attrs['MEZ Range'] || attrs.Range
       if (range) {
-        let rangeKm = 0
-        const index = range && range.indexOf('km')
-        if (index) {
-          rangeKm = parseFloat(range.substring(0, index))
-        } else {
-          rangeKm = parseFloat(range)
-        }
-        if (rangeKm) {
-          const forceCol = forceCols.find((style: ForceStyle) => style.force === asset.force)
-          const centre = asset.position ? asset.position : latLng([0, 0])
-          const rad = rangeKm * 1000
-          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceCol?.color }} />)
-        }
+        const index = range.indexOf('km')
+        const rangeKm = index ? parseFloat(range.substring(0, index)) :parseFloat(range)
+        const forceCol = forceCols.find((style: ForceStyle) => style.force === asset.force)
+        const centre = asset.position ? asset.position : latLng([0, 0])
+        const rad = rangeKm * 1000
+        rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceCol?.color }} />)
       }
     })
     setRangeRings(rings)
