@@ -21,7 +21,7 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
     assets.forEach((asset: AssetRow) => {
       const attrs = asset.attributes
       // try for the two range attributes
-      const range: string = attrs['MEZ Range'] || attrs['Range']
+      const range: string = attrs['MEZ Range'] || attrs.Range
       if (range) {
         let rangeKm = 0
         const index = range && range.indexOf('km')
@@ -34,7 +34,7 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
           const forceCol = forceCols.find((style: ForceStyle) => style.force === asset.force)
           const centre = asset.position ? asset.position : latLng([0, 0])
           const rad = rangeKm * 1000
-          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{color: forceCol?.color}} />)
+          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceCol?.color }} />)
         }
       }
     })
