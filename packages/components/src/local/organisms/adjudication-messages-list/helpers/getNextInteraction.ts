@@ -156,7 +156,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions)
-  if (shortCircuit) {
+  if (shortCircuit !== undefined) {
     // return the short-circuit interaction
     return [shortCircuit]
   } else {
