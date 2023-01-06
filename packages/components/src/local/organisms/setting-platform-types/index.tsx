@@ -1,5 +1,5 @@
 /* Import Components */
-import { faAtom, faCogs, faList, faFileAlt, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
+import { faAtom, faCogs, faFileAlt, faList, faRuler, faUserCog } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MenuItem } from '@material-ui/core'
 import FormControl from '@material-ui/core/FormControl'
@@ -237,7 +237,7 @@ export const SettingPlatformTypes: React.FC<PropTypes> = ({ platformType, onChan
       handleChangePlatformTypeData({ ...data, name }, selectedItem)
     }
     const handleChangeTravelMode = (e: React.ChangeEvent<HTMLInputElement>): void => {
-      handleChangePlatformTypeData({ ...data, travelMode: e.target.value }, selectedItem)
+      handleChangePlatformTypeData({ ...data, travelMode: e.target.value as any }, selectedItem)
     }
     const handleChangeTurningCircle = (event: ChangeEvent<HTMLInputElement>): void => {
       handleChangePlatformTypeData({ ...data, turningCircle: parseInt(event.target.value) }, selectedItem)

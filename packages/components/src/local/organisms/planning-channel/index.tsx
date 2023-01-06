@@ -20,7 +20,7 @@ import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
-import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
+import { collapseLocation } from '../planning-messages-list/helpers/collapse-location'
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
@@ -410,7 +410,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: MessageAdjudicationOutcomes = {
+    const message: MessageAdjudicationOutcomes = contact.outcomes || {
       messageType: 'AdjudicationOutcomes',
       Reference: '',
       narrative: '',
@@ -420,6 +420,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
     // store the new adjudication
     saveMessage(currentWargame, details, message)()
+  }
+
+  const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {
+    const firstGeom = plans[0].geometry
+    const lastGeom = plans[plans.length - 1].geometry
+    if (firstGeom.properties && lastGeom.properties) {
+      const firstProps: PlannedProps = firstGeom.properties as PlannedProps
+      const lastProps: PlannedProps = lastGeom.properties as PlannedProps
+      return [firstProps.startDate, lastProps.endDate]
+    } else {
+      return undefined
+    }
   }
 
   useEffect(() => {
@@ -442,10 +454,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         timestamp: moment().toISOString(),
         turnNumber: currentTurn
       }
+      const timeBounds = activityBounds(activityPlanned)
       const plans: PlanningMessageStructureCore = {
         Reference: '',
         title: 'Pending',
-        activity: activityBeingPlanned.uniqid
+        activity: activityBeingPlanned.uniqid,
+        startDate: timeBounds ? timeBounds[0] : '',
+        endDate: timeBounds ? timeBounds[1] : ''
       }
       if (activityPlanned.length) {
         plans.location = activityPlanned
@@ -482,7 +497,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [activityPlanned])
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
-    const unmangledMessage = expandLocation(message)
+    const unmangledMessage = message // note: we no longer rely on hiddenText expandLocation(message)
     // if this is a draft plans, clear the draft plan
     if (!details.interaction) {
       setDraftMessage(undefined)
