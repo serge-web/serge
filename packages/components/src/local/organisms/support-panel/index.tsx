@@ -345,7 +345,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     }))
   }
 
-  const localModifyForSave = (document: Record<string, any>): Record<string, any>  => {
+  const localModifyForSave = (document: Record<string, any>): Record<string, any> => {
     const fixedLocation = expandLocation(document)
     const planDoc = fixedLocation as PlanningMessageStructureCore
     if (planDoc.location && planDoc.ownAssets) {

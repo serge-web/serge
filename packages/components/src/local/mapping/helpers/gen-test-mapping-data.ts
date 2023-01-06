@@ -108,10 +108,10 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
         case 'air':
           attributes[id] = 200 + multiplier * 20
           break
-        case 'sea': 
+        case 'sea':
           attributes[id] = 10 + multiplier * 5
           break
-        case 'land':    
+        case 'land':
           attributes[id] = 10 + multiplier * 12
           break
       }
@@ -135,7 +135,7 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
         default: {
           console.warn('Haven\'t handled attribute', attr)
         }
-      }  
+      }
     }
   })
   return attributes

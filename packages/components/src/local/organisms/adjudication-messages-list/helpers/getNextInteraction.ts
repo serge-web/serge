@@ -66,7 +66,7 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
 }
 
 export const formatDuration = (millis: number): string => {
-  return parseInt(moment.utc(millis).format("DDD")) - 1 + " " + moment.utc(millis).format("HH:mm:ss.SSS")
+  return parseInt(moment.utc(millis).format('DDD')) - 1 + ' ' + moment.utc(millis).format('HH:mm:ss.SSS')
 }
 
 const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEndVal: number): MessagePlanning[] => {
@@ -83,8 +83,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
 
-  console.log('earliest time', moment(earliestTime).toISOString())  
-  !7 && console.log(orders, activities, sensorRangeKm,getAll, earliestTime)  
+  console.log('earliest time', moment(earliestTime).toISOString())
+  !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions)
   if (shortCircuit) {
@@ -95,7 +95,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     const specialOrders = createSpecialOrders(gameTimeVal, orders, interactions)
 
     const fullOrders = specialOrders.length > 0 ? orders.concat(specialOrders) : orders
-    
+
     const fullTurnLength = gameTurnEndVal - gameTimeVal
     let currentWindow = getAll ? fullTurnLength : fullTurnLength / 20
 
@@ -104,7 +104,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     while (contacts.length === 0 && currentWindow <= fullTurnLength) {
       const windowEnd = gameTimeVal + currentWindow
       const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
-//      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
+      //      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
 
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
@@ -125,15 +125,12 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       console.log('Gen next interaction: no contacts in turn')
     }
 
-
     // find the next interaction
     !7 && console.log(fullOrders)
 
     return contacts
   }
-
 }
-
 
 export const getNextInteraction = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, getAll?: boolean): PlanningContact[] => {
@@ -227,5 +224,3 @@ export const getNextInteraction = (orders: MessagePlanning[],
     return []
   }
 }
-
-

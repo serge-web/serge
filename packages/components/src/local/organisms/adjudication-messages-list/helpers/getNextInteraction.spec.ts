@@ -148,8 +148,8 @@ it('fixes geometry timings', () => {
         // check the timings still line up
         const leg1Before = safeLoc[0].geometry.properties as PlannedProps
         const leg1After = fixed[0].geometry.properties as PlannedProps
-        const lastLegBefore = safeLoc[safeLoc.length-1].geometry.properties as PlannedProps
-        const lastLegAfter = fixed[safeLoc.length-1].geometry.properties as PlannedProps
+        const lastLegBefore = safeLoc[safeLoc.length - 1].geometry.properties as PlannedProps
+        const lastLegAfter = fixed[safeLoc.length - 1].geometry.properties as PlannedProps
         expect(leg1Before.startDate).toEqual(leg1After.startDate)
         expect(leg1Before.endDate).not.toEqual(leg1After.startDate)
         expect(lastLegBefore.startDate).not.toEqual(lastLegAfter.startDate)
