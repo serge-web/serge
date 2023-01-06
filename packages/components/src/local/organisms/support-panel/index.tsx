@@ -348,8 +348,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const fixedLocation = expandLocation(document)
     const planDoc = fixedLocation as PlanningMessageStructureCore
     if (planDoc.location && planDoc.ownAssets) {
-      const generalDoc = planDoc as any
-      console.log('mod for save', planDoc, generalDoc.hiddenStore)
       const ownAssets = planDoc.ownAssets.map((item: {asset: string}) => item.asset)
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
       summariseLocations('before', planDoc.location)
