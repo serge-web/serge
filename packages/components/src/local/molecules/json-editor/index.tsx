@@ -79,7 +79,6 @@ export const JsonEditor: React.FC<Props> = ({
      */
     const fixedDate = fixDate(value)
     const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
-    console.log('storing', newDoc)
     storeNewValue && storeNewValue(newDoc)
   }
 
@@ -167,14 +166,18 @@ export const JsonEditor: React.FC<Props> = ({
     document.addEventListener('keydown', handleKeyDown)
 
     setTimeout(() => {
-      if (nextEditor) {
-        // only retrieve from expired content if we haven't been provided with message content
-        if (messageContent) {
-          nextEditor.setValue(messageContent)
-          nextEditor.on('change', changeListenter)
-        } else {
-          nextEditor.on('change', changeListenter)
+      try {
+        if (nextEditor) {
+          // only retrieve from expired content if we haven't been provided with message content
+          if (messageContent) {
+            nextEditor.setValue(messageContent)
+            nextEditor.on('change', changeListenter)
+          } else {
+            nextEditor.on('change', changeListenter)
+          }
         }
+      } catch (err) {
+        console.warn('JSONEditor error 2:', err)
       }
       // update time input for flatpickr
       const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
@@ -234,7 +237,7 @@ export const JsonEditor: React.FC<Props> = ({
             editor.enable()
           }
         } catch (err) {
-          console.warn('JSON Editor error', err)
+          console.warn('JSONEditor error 1', err)
         }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
