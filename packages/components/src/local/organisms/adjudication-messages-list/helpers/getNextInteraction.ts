@@ -2,7 +2,7 @@ import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, Plann
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
-import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -62,7 +62,75 @@ export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[],
 
 export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[]): PlanningContact | undefined => {
   !7 && console.log(gameTime, orders, interactions)
-  return undefined
+  const msg: MessagePlanning = {
+    messageType: 'PlanningMessage',
+    message: {
+      Reference: 'aa',
+      title: 'bb',
+      activity: 'bbb',
+      startDate: 'bb',
+      endDate: 'gg'
+    },
+    details: {
+      channel: 'cc',
+      from: {
+        force: 'add',
+        forceColor: '#ff',
+        iconURL: 'aa',
+        roleId: 'asdf',
+        roleName: 'sdf',
+        forceId: 'fr-r',
+        name: 'sadf'
+      },
+      timestamp: 'ds',
+      turnNumber: 123,
+      messageType: 'turn'
+    },
+    _id: ';abbf'
+  }
+  const geom: GeoJSON.Feature = {
+    type: "Feature",
+    properties: {
+      id: "SOF Activity//Effect Location",
+      startDate: "2022-11-14T03:00:00.000Z",
+      endDate: "2022-11-14T04:50:00.000Z",
+      force: "f-blue",
+      startTime: 1668394800000,
+      endTime: 1668401400000,
+      geomId: "SOF Activity-2",
+      name: "f-blue//6.9344951444654725//Effect Location"
+    },
+    geometry: {
+      type: "Polygon",
+      coordinates: [
+        [
+          [
+            30.95273445258612,
+            19.959245354671996
+          ],
+          [
+            30.95273445258612,
+            16.139166991670958
+          ]
+        ]
+      ]
+    }
+  }
+  const geomWOrders: GeomWithOrders = {
+    activity: msg,
+    force: 'f-red',
+    id: 'id',
+    uniqid: 'abbb',
+    geometry: geom
+  }
+  const dummyContact: PlanningContact = {
+    id: 'aa',
+    first: geomWOrders,
+    second: geomWOrders,
+    timeStart: 1200,
+    timeEnd: 1400
+  }
+  return !7 ? undefined : dummyContact
 }
 
 export const formatDuration = (millis: number): string => {
