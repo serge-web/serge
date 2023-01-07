@@ -100,7 +100,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
       saved(res)
     }
     // clean up
-    cancelDrawing()
+    cleanUp()
   }
 
   useEffect(() => {
@@ -162,7 +162,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
     }
   }, [activityBeingEdited])
 
-  const cancelDrawing = (): void => {
+  const cleanUp = (): void => {
     if (map) {
       if (editLayer) {
         editLayer.remove()
@@ -175,6 +175,10 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
         layers.forEach((layer: Layer) => layer.remove())
       }
     }
+  }
+
+  const cancelDrawing = (): void => {
+    cleanUp()
     saved(undefined)
   }
 

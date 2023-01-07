@@ -50,11 +50,13 @@ export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): 
 export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
   forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
   const perceptions: Perception[] = []
-  const tester = localTest || doesIt
+  const seesAll = (): boolean => { return true }
+  const letAllSeeAll = true
+  const tester = letAllSeeAll ? seesAll : (localTest || doesIt)
   forces.forEach((force: ForceData) => {
     if (force.uniqid !== assetForce && !force.umpire) {
       if (tester()) {
-        const knowsContact = tester()
+        const knowsContact = !tester()
         const correctForce = tester()
         const newP: Perception = {
           by: force.uniqid,
@@ -97,26 +99,43 @@ const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: Att
 const createModernAttributesFor = (platformType: PlatformTypeData, attributeTypes: AttributeTypes): AttributeValues2 => {
   const attrTypes = modernAttributeTypesFor(platformType, attributeTypes)
   const attributes = {}
+  const domain = platformType.travelMode
   attrTypes.forEach((attr: AttributeType) => {
     const id = attr.attrId
-    switch (attr.attrType) {
-      case ATTRIBUTE_TYPE_NUMBER: {
-        const nType = attr as NumberAttributeType
-        attributes[id] = nType.defaultValue || Math.floor(Math.random() * 50)
-        break
+    // check for special case
+    if (attr.attrId === 'a_Speed') {
+      const multiplier = Math.floor(Math.random() * 5)
+      switch (domain) {
+        case 'air':
+          attributes[id] = 200 + multiplier * 20
+          break
+        case 'sea':
+          attributes[id] = 10 + multiplier * 5
+          break
+        case 'land':
+          attributes[id] = 10 + multiplier * 12
+          break
       }
-      case ATTRIBUTE_TYPE_STRING: {
-        const nType = attr as StringAttributeType
-        attributes[id] = nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
-        break
-      }
-      case ATTRIBUTE_TYPE_ENUM: {
-        const nType = attr as EnumAttributeType
-        attributes[id] = nType.values[Math.floor(Math.random() * nType.values.length)]
-        break
-      }
-      default: {
-        console.warn('Haven\'t handled attribute', attr)
+    } else {
+      switch (attr.attrType) {
+        case ATTRIBUTE_TYPE_NUMBER: {
+          const nType = attr as NumberAttributeType
+          attributes[id] = nType.defaultValue || Math.floor(Math.random() * 50)
+          break
+        }
+        case ATTRIBUTE_TYPE_STRING: {
+          const nType = attr as StringAttributeType
+          attributes[id] = nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
+          break
+        }
+        case ATTRIBUTE_TYPE_ENUM: {
+          const nType = attr as EnumAttributeType
+          attributes[id] = nType.values[Math.floor(Math.random() * nType.values.length)]
+          break
+        }
+        default: {
+          console.warn('Haven\'t handled attribute', attr)
+        }
       }
     }
   })

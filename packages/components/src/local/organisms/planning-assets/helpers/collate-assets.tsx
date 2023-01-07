@@ -317,6 +317,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
       if (perception) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
@@ -330,7 +331,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           domain: domain,
-          attributes: {}
+          attributes: modernAttrDict
         }
         itemRows.push(res)
       }

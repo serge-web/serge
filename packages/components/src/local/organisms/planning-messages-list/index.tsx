@@ -6,7 +6,7 @@ import MaterialTable, { Column } from '@material-table/core'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
-import { collapseLocation, expandLocation } from './helpers/collapse-location'
+import { collapseLocation } from './helpers/collapse-location'
 import { toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
@@ -15,7 +15,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
+  modifyForSave
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
@@ -167,7 +168,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             disabled={!canEdit}
             gameDate={gameDate}
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-            modifyForSave={expandLocation}
+            modifyForSave={modifyForSave}
             editCallback={localEditLocation}
           />
         </>
