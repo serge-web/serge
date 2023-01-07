@@ -183,14 +183,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setSelectedOrders(indices)
   }
 
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
-
-  const extendProps = jestWorkerId ? {} : {
-    detailPanel: detailPanel
-  }
-
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
@@ -198,7 +190,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         columns={columns}
         data={rows}
         icons={materialIcons as any}
-        actions={jestWorkerId ? [] : [
+        actions={[
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
@@ -220,12 +212,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           pageSize: 20,
           pageSizeOptions: [5, 10, 15, 20],
           sorting: true,
-          // defaultExpanded: true,
           filtering: filter,
-          selection: !jestWorkerId // fix unit-test for material table
+          selection: true
         }}
         onSelectionChange={onSelectionChange}
-        {...extendProps}
+        detailPanel={detailPanel}
       />
     </div>
   )

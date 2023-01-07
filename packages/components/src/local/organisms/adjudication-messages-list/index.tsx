@@ -171,7 +171,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
       const umpireForce = forces.find((force: ForceData) => force.umpire)
       const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-      const columnsData: Column<AdjudicationRow>[] = jestWorkerId ? [] : !summaryData ? [] : [
+      const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
         { title: 'ID', field: 'id' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
         { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
@@ -179,7 +179,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         { title: 'Activity', field: 'Reference' },
         { title: 'Duration', field: 'period' }
       ]
-      if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
+      if (turnFilter === SHOW_ALL_TURNS) {
         const turnColumn: Column<AdjudicationRow> = { title: 'Turn', field: 'turn', type: 'numeric' }
         columnsData.splice(1, 0, turnColumn)
       }
@@ -188,10 +188,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
     }
   }, [filteredInteractionsRow])
-
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
@@ -349,10 +345,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const extendProps = jestWorkerId ? {} : {
-    detailPanel: detailPanel
-  }
-
   const closeDialog = (): void => {
     if (dialogMessage !== '') {
       setDialogMessage('')
@@ -381,7 +373,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         columns={columns}
         data={rows}
         icons={materialIcons as any}
-        actions={jestWorkerId ? [] : [
+        actions={[
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
             iconProps: filter ? { color: 'action' } : { color: 'disabled' },
@@ -396,9 +388,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           pageSizeOptions: [5, 10, 15, 20],
           sorting: false,
           filtering: filter,
-          selection: !jestWorkerId // fix unit-test for material table
+          selection: true
         }}
-        {...extendProps}
+        detailPanel={detailPanel}
       />
     </div>
   )
