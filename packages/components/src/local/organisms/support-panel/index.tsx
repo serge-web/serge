@@ -472,6 +472,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   planningMessages={filteredPlanningMessages}
                   forces={allForces}
                   gameDate={gameDate}
+                  gameTurnLength={gameTurnTime}
                   playerRoleId={selectedRoleId}
                   forceColors={forceCols}
                   onRead={onRead}
