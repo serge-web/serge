@@ -81,21 +81,27 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number }, forces: ForceData[], index: number): React.ReactElement => {
+  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[], index: number): React.ReactElement => {
     let asset: Asset | undefined
     let numStr = ''
+    let typeStr = ''
     try {
       asset = findAsset(forces, assetId.asset)
-      if (assetId.number) {
+    } catch (e) {
+      console.warn('can\'t find asset for render asset', e)
+    }
+    if (assetId.number) {
+      if (assetId.missileType) {
+        numStr = ' (' + assetId.number + ' x ' + assetId.missileType + ')'
+      } else {
         numStr = ' (' + assetId.number + ')'
       }
-    } catch (e) {
     }
     if (!asset) {
       console.warn('Failed to find asset:' + assetId)
       return <li key={index}>Asset not found</li>
     } else {
-      return <li key={index}>{asset.name}{numStr}</li>
+      return <li key={index}>{asset.name}{numStr}{typeStr}</li>
     }
   }
 
@@ -103,7 +109,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
-      console.warn('Failed to find message:', id)
+      console.warn('Failed to find message 1:', id)
       return <span>Order not found</span>
     }
     const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
@@ -134,7 +140,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const id = order1 ? row.order1 : row.order2
     const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
     if (!plan) {
-      console.warn('Failed to find message:', id)
+      console.warn('Failed to find message 2:', id)
       return <span>Order not found</span>
     }
     return <span>Title: {plan.message.title}</span>
@@ -281,13 +287,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const getInteraction = (): void => {
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const results: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
-    if (results === undefined ) {
+    if (results === undefined) {
       // fine, ignore it
     } else if (typeof results === 'object') {
       const outcomes = results as {details: InteractionDetails, outcomes: MessageAdjudicationOutcomes}
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
     } else if (typeof results === 'number') {
-     console.warn('not expecting number return from get next interaction')
+      console.warn('not expecting number return from get next interaction')
     }
   }
 
