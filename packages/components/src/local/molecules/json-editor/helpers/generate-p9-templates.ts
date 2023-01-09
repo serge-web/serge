@@ -214,7 +214,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const acts: Activity[] = []
   acts.push({ uniqid: 'BMD-MEZ', title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ uniqid: 'SAM-MEZ', title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
-  acts.push({ uniqid: 'STRIKE', title: 'Strike', shortCircuits:[endd], forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
+  acts.push({ uniqid: 'STRIKE', title: 'Strike', shortCircuits: [endd], forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', provideSpatialAssets: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', provideSpatialAssets: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
