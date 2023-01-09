@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
-import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
+import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import _ from 'lodash'
 import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
@@ -12,10 +12,11 @@ import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
+import { ShortCircuitEvent } from '../support-panel/helpers/gen-order-data'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateAssets, updateForces, updatePlatformTypes } from './helpers/collate-interaction'
-import { getNextInteraction } from './helpers/getNextInteraction'
+import { getNextInteraction2 } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
@@ -23,6 +24,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  gameTurnLength,
   onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
@@ -270,22 +272,32 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (): void => {
-    console.log('count remaining')
-    const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
-    console.log('contacts', contacts)
-    const message = '' + contacts.length + ' interactions remaining'
-    setDialogMessage(message)
+    // console.log('count remaining')
+    // const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
+    // console.log('contacts', contacts)
+    // const message = '' + contacts.length + ' interactions remaining'
+    // setDialogMessage(message)
   }
 
   const getInteraction = (): void => {
     console.log('get interaction', forcePlanningActivities)
-    const interactions = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
-    console.log('interaction', interactions)
-    if (interactions.length > 0) {
-      // send up to parent
-      handleAdjudication && handleAdjudication(interactions[0])
+    const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
+    const interactions = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
+    if (Array.isArray(interactions)) {
+      // ok, sort the first one
+      console.log('interaction', interactions)
+      if (interactions.length > 0) {
+        // send up to parent
+        handleAdjudication && handleAdjudication(interactions[0])
+      } else {
+        window.alert('Interaction not found')
+      }
     } else {
-      window.alert('Interaction not found')
+      if (typeof interactions === 'object') {
+        // ok, interaction
+        const event = interactions as ShortCircuitEvent
+        console.log('handle event')
+      }
     }
   }
 

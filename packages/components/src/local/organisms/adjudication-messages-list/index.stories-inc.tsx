@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
-import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { P9BMock, planningMessagesBulk as planningChannelMessages } from '@serge/mocks'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -71,6 +71,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const planningMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
   const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
 
+  console.log('adj story', planningMessages)
+  const gameStartTime = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
+
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
     forces={forces}
@@ -79,7 +82,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     planningMessages={planningMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
-    gameDate={P9BMock.data.overview.gameDate}
+    gameDate={gameStartTime}
+    gameTurnLength={P9BMock.data.overview.gameTurnTime}
     template={templates[0]}
     playerRoleId={playerRoleId}
     onMarkAllAsRead={markAllAsRead}
