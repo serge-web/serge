@@ -98,7 +98,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     if (gameDate !== '' && gameTurnTime) {
       const endDate = incrementGameTime(gameDate, gameTurnTime)
-      console.log('calc end date', gameDate, gameTurnTime, endDate)
       setGameTurnEndDate(endDate)
     }
     setLocalDraftMessage(draftMessage)
