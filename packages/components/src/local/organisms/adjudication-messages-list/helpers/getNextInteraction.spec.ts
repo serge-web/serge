@@ -39,7 +39,7 @@ const turnEnd = incrementGameTime(gameStartTime, turnLen)
 it('gets interactions (2)', () => {
   const interactions: MessageInteraction[] = []
   console.log('game start time', gameStartTime)
-  const contacts: PlanningContact[] | ShortCircuitEvent | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, false)
+  const contacts: PlanningContact[] | ShortCircuitEvent | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, forces, false)
   if (contacts && Array.isArray(contacts)) {
     expect(contacts.length).toEqual(0)
   }

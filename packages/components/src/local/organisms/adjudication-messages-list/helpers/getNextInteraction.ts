@@ -1,5 +1,6 @@
 import { INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import * as turf from '@turf/turf'
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
@@ -102,12 +103,98 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
   return -1
 }
 
+/** record of how a target site is protected */
+interface ProtectedTarget {
+  // the force that this target belongs to
+  force: ForceData['uniqid']
+  // the specific target
+  target: Asset
+  // SAM sites that protect this target 
+  protectedBy: Asset[]
+}
+
+const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes | undefined => {
+  const protectedTargets: Array<ProtectedTarget> = []
+  // loop through targets
+  if (plan.message.otherAssets) {
+    const ownForce = plan.details.from.forceId
+    plan.message.otherAssets.forEach((target: {asset:string}) => {
+      let tgtForce: ForceData | undefined
+      let tgtAsset: Asset | undefined
+      forces.find((force: ForceData) => {
+        if (force.uniqid === ownForce) {
+          return false
+        } else {
+          force.assets && force.assets.some((assetVal: Asset) => {
+            if(assetVal.uniqid === target.asset) {
+              tgtForce = force
+              tgtAsset = assetVal
+            }
+            return tgtForce
+          })
+          return tgtForce
+        }
+      })
+      if (tgtForce && tgtAsset) {
+        if (tgtAsset.location !== undefined) {
+          const tgtPoint = turf.point([tgtAsset.location[1], tgtAsset.location[0]])
+          // loop through other assets of that force
+          tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
+            // see if this has MEZ range
+            const attrs = oppAsset.attributes
+            if(attrs && attrs.a_Mez_Range && oppAsset.location) {
+              // ok, it has a MEZ range
+              const mezAsset = oppAsset
+              // generate
+              const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
+              const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
+              console.log('distance', distanceApart)
+              if (distanceApart < attrs.a_Mez_Range && tgtForce && tgtAsset) {
+                // ok, it's covered.
+                let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
+                if (!protTarget) {
+                  protTarget = {
+                    force: tgtForce.uniqid,
+                    target: tgtAsset,
+                    protectedBy: []
+                  }
+                }
+                protTarget.protectedBy.push(mezAsset)
+              }
+            }
+          })  
+        } else {
+          console.warn("Asset missing location")
+        }
+      }
+      })
+    !7 && console.log(plan, activity, forces, gameTime)  
+  }
+  console.log('protected', protectedTargets)
+  return undefined
+}
+
+const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes | undefined => {
+  switch(activity.actId) {
+    case 'STRIKE' : {
+      return strikeOutcomesFor(plan, activity, forces, gameTime)
+    }
+    default: {
+      console.warn('outcomes not generated for activity', activity.actId)
+    }
+
+  }
+  return undefined
+}
+
 export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[],
-  activities: PerForcePlanningActivitySet[]): ShortCircuitEvent | undefined => {
+  activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
 
   interface TimedIntervention {
     time: number
+    timeStr: string
     message: MessagePlanning
+    activity: PlanningActivity
   }
 
   // loop through plans
@@ -123,14 +210,12 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
         shorts.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
           const thisTime = timeFor(plan, activity, short)
           if (thisTime) {
-            events.push({time: thisTime, message: plan})
+            events.push({time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity})
           }
         })
       }  
     }
   })
-
-  console.log('events', events.length)
 
   if (events.length) {
     // sort in ascending
@@ -140,14 +225,17 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     if (eventTime <= gameTime) {
       const contact = sorted[0].message
       !7 && console.log(gameTime, orders, interactions)
+
+      // sort out the outcomes
+      const outcomes = outcomesFor(contact, sorted[0].activity, forces, gameTime )
   
       const res: ShortCircuitEvent = {
-        id: 'aa',
+        id: contact._id,
         message: contact,
         timeStart: eventTime,
         timeEnd: eventTime,
         intersection: undefined,
-        outcomes: undefined
+        outcomes: outcomes
       }
       return res
     } else {
@@ -171,7 +259,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
-  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] | ShortCircuitEvent | number => {
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, forces: ForceData[], getAll: boolean): PlanningContact[] | ShortCircuitEvent | number => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
@@ -180,7 +268,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // if we're doing get-all, don't bother with shortcircuits
-  const shortCircuit = !getAll && getShortCircuit(gameTimeVal, orders, interactions, activities)
+  const shortCircuit = !getAll && getShortCircuit(gameTimeVal, orders, interactions, activities, forces)
   
   if (shortCircuit && shortCircuit.timeStart <= gameTimeVal) {
     // return the short-circuit interaction

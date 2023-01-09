@@ -26,7 +26,7 @@ import { customiseAssets } from '../../organisms/support-panel/helpers/customise
 import { customiseLiveOrders } from '../../organisms/support-panel/helpers/customise-live-orders'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
 import { PlanningContact, ShortCircuitEvent } from '../../organisms/support-panel/helpers/gen-order-data'
-import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
+import { generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
 import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
@@ -54,20 +54,19 @@ export default {
   }
 }
 const storeNewValue = (_value: { [property: string]: any }): void => {
-  console.log('store test', _value)
-  generateAllTemplates()
+  // console.log('store test', _value)
+  // generateAllTemplates()
 
   // dev get next interaction
-  const gameStartTime = P9BMock.data.overview.gameDate
+  const gameStartTime = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen = P9BMock.data.overview.gameTurnTime
   const turnEnd = incrementGameTime(gameStartTime, turnLen)
   const planningMessages2 = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
   const interactions: MessageInteraction[] = []
+  const forces = P9BMock.data.forces.forces
   console.log('game start time', gameStartTime)
-  const contacts: PlanningContact[] | ShortCircuitEvent | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, false)
-  if (contacts && Array.isArray(contacts)) {
-    expect(contacts.length).toEqual(0)
-  }
+  const contacts: PlanningContact[] | ShortCircuitEvent | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, forces, false)
+  console.log('contacts', contacts)
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
