@@ -1,5 +1,5 @@
 import { INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
@@ -115,9 +115,19 @@ interface ProtectedTarget {
 
 const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes | undefined => {
   const protectedTargets: Array<ProtectedTarget> = []
+  const res: MessageAdjudicationOutcomes = {
+    messageType: 'AdjudicationOutcomes',
+    Reference: plan.message.Reference,
+    narrative: 'Generated strike outcomes',
+    healthOutcomes: [],
+    perceptionOutcomes: [],
+    locationOutcomes: []
+  }
+
   // loop through targets
   if (plan.message.otherAssets) {
     const ownForce = plan.details.from.forceId
+    console.table(plan.message.otherAssets)
     plan.message.otherAssets.forEach((target: {asset:string}) => {
       let tgtForce: ForceData | undefined
       let tgtAsset: Asset | undefined
@@ -148,7 +158,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
               // generate
               const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
               const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
-              console.log('distance', distanceApart)
+              console.log('distance', distanceApart, distanceApart < attrs.a_Mez_Range)
               if (distanceApart < attrs.a_Mez_Range && tgtForce && tgtAsset) {
                 // ok, it's covered.
                 let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
@@ -158,6 +168,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
                     target: tgtAsset,
                     protectedBy: []
                   }
+                  protectedTargets.push(protTarget)
                 }
                 protTarget.protectedBy.push(mezAsset)
               }
@@ -167,11 +178,18 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
           console.warn("Asset missing location")
         }
       }
+      // create damage outcome for this asset
+      const health: HealthOutcome = {
+        asset: target.asset, 
+        health: 50
+      }
+      res.healthOutcomes.push(health)
       })
     !7 && console.log(plan, activity, forces, gameTime)  
   }
   console.log('protected', protectedTargets)
-  return undefined
+  console.log('strike outcomes', res)
+  return res
 }
 
 const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes | undefined => {
