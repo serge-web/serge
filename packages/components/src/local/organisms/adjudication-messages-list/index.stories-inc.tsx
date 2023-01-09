@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
-import { P9BMock, planningMessagesBulk as planningChannelMessages } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -15,6 +15,8 @@ const wargame = P9BMock.data
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 const forces = P9BMock.data.forces.forces
+
+console.clear()
 
 export default {
   title: 'local/organisms/AdjudicationMessagesList',
@@ -88,6 +90,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     playerRoleId={playerRoleId}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
+    turnFilter={-1}
     forcePlanningActivities={planningActivities}
     handleAdjudication={handler}
   />

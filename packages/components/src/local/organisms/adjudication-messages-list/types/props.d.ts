@@ -1,9 +1,11 @@
-import { ChannelPlanning, ForceData, GameTurnLength, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import {
+  ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
+  PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody
+} from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { AdjudicationPostBack } from '../../planning-channel/types/props'
-import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
 export type AdjudicationRow = {
   id: string
@@ -76,7 +78,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * there is a new interaction to adjudicate
    */
-  handleAdjudication: { (contact: PlanningContact): void }
+  handleAdjudication: { (details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
   /**
    * current turn filter (or -1 to show all turns)
    */

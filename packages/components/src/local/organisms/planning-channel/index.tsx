@@ -24,7 +24,7 @@ import { collapseLocation } from '../planning-messages-list/helpers/collapse-loc
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
@@ -383,17 +383,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setDebugStep(1 + debugStep)
   }
 
-  const handleAdjudication = (contact: PlanningContact): void => {
-    console.log('Apply some adjudication for', contact.id, contact)
-    const interDetails: InteractionDetails = {
-      id: contact.id,
-      orders1: contact.first.activity._id,
-      orders2: contact.second ? contact.second.activity._id : undefined,
-      startTime: moment(contact.timeStart).toISOString(),
-      endTime: moment(contact.timeEnd).toISOString(),
-      geometry: contact.intersection,
-      complete: false
-    }
+  const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
+    console.log('Apply some adjudication for', outcomes.Reference, outcomes)
     const from: MessageDetailsFrom = {
       force: selectedForce.uniqid,
       forceId: selectedForce.uniqid,
@@ -410,16 +401,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: MessageAdjudicationOutcomes = contact.outcomes || {
-      messageType: 'AdjudicationOutcomes',
-      Reference: '',
-      narrative: '',
-      perceptionOutcomes: [],
-      locationOutcomes: [],
-      healthOutcomes: []
-    }
     // store the new adjudication
-    saveMessage(currentWargame, details, message)()
+    saveMessage(currentWargame, details, outcomes)()
   }
 
   const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {

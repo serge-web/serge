@@ -77,6 +77,7 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
 export interface ShortCircuitEvent {
   id: string
   message: MessagePlanning
+  activity: PlanningActivity
   timeStart: number // unix millis
   timeEnd: number // unix millis
   intersection?: Geometry

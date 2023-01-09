@@ -1,5 +1,5 @@
 import { INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
@@ -113,7 +113,7 @@ interface ProtectedTarget {
   protectedBy: Asset[]
 }
 
-const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes | undefined => {
+const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   const res: MessageAdjudicationOutcomes = {
     messageType: 'AdjudicationOutcomes',
@@ -192,7 +192,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   return res
 }
 
-const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes | undefined => {
+const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
   switch(activity.actId) {
     case 'STRIKE' : {
       return strikeOutcomesFor(plan, activity, forces, gameTime)
@@ -200,9 +200,15 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
     }
-
   }
-  return undefined
+  return {
+    healthOutcomes: [],
+    locationOutcomes: [],
+    perceptionOutcomes: [],
+    narrative: 'Pending',
+    messageType: 'AdjudicationOutcomes',
+    Reference: plan.message.Reference 
+  }
 }
 
 export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[],
@@ -214,6 +220,8 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     message: MessagePlanning
     activity: PlanningActivity
   }
+
+  console.log('get short circuit', orders.length)
 
   // loop through plans
   const events: TimedIntervention[] = [] 
@@ -253,7 +261,8 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
         timeStart: eventTime,
         timeEnd: eventTime,
         intersection: undefined,
-        outcomes: outcomes
+        outcomes: outcomes,
+        activity: sorted[0].activity
       }
       return res
     } else {
@@ -275,9 +284,11 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
   })
 }
 
+export type InteractionResults =  {details: InteractionDetails, outcomes: MessageAdjudicationOutcomes} | number | undefined
+
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
-  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, forces: ForceData[], getAll: boolean): PlanningContact[] | ShortCircuitEvent | number => {
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, forces: ForceData[], getAll: boolean): InteractionResults => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
@@ -290,7 +301,15 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   
   if (shortCircuit && shortCircuit.timeStart <= gameTimeVal) {
     // return the short-circuit interaction
-    return shortCircuit
+    const details: InteractionDetails = {
+      id: shortCircuit.id,
+      orders1: shortCircuit.id,
+      startTime: moment.utc(shortCircuit.timeStart).toISOString(),
+      endTime: moment.utc(shortCircuit.timeEnd).toISOString(),
+      complete: false,
+    }
+    const outcomes = outcomesFor(shortCircuit.message, shortCircuit.activity, forces, gameTimeVal)
+    return {details: details, outcomes: outcomes}
   } else {
     // generate any special orders
     const specialOrders = createSpecialOrders(gameTimeVal, orders, interactions)
@@ -340,21 +359,60 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         const shortStart = shortCircuit.timeStart
         const contStart = firstC.timeStart
         if (shortStart < contStart) {
-          return shortCircuit
+        // return the short-circuit interaction
+        const details: InteractionDetails = {
+          id: shortCircuit.id,
+          orders1: shortCircuit.id,
+          startTime: moment.utc(shortCircuit.timeStart).toISOString(),
+          endTime: moment.utc(shortCircuit.timeEnd).toISOString(),
+          complete: false,
+        }
+        const outcomes = outcomesFor(shortCircuit.message, shortCircuit.activity, forces, gameTimeVal)
+        return {details: details, outcomes: outcomes}
+
         } else {
-          return [firstC]
+          const details = contactDetails(firstC)
+          const outcomes = contactOutcomes(firstC)
+          return { details: details, outcomes: outcomes}
         }
       } else {
         if (getAll) {
           return contacts.length
         } else {
-          return [firstC]
+          const details = contactDetails(firstC)
+          const outcomes = contactOutcomes(firstC)
+          return { details: details, outcomes: outcomes}
         }
       }
     } else {
-      return []
+      return undefined
     }
   }
+}
+
+const contactDetails = (contact: PlanningContact): InteractionDetails => {
+  const res: InteractionDetails = {
+    id: contact.id,
+    orders1: contact.first.activity._id,
+    orders2: contact.second ? contact.second.activity._id : undefined,
+    startTime: moment(contact.timeStart).toISOString(),
+    endTime: moment(contact.timeEnd).toISOString(),
+    geometry: contact.intersection,
+    complete: false
+  }
+  return res
+}
+
+const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes => {
+  const res: MessageAdjudicationOutcomes = contact.outcomes || {
+    messageType: 'AdjudicationOutcomes',
+    Reference: 'Pending contact details',
+    narrative: '',
+    perceptionOutcomes: [],
+    locationOutcomes: [],
+    healthOutcomes: []
+  }
+  return res
 }
 
 export const getNextInteraction = (orders: MessagePlanning[],

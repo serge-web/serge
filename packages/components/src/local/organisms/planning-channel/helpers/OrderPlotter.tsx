@@ -1,4 +1,4 @@
-import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy, ForceStyle } from '@serge/helpers'
 import { Feature, GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
@@ -15,7 +15,7 @@ import { shapeFor, shapeForGeomWithOrders } from './SharedOrderRenderer'
 export interface OrderPlotterProps {
   orders: MessagePlanning[]
   step: number
-  handleAdjudication: { (contact: PlanningContact): void }
+  handleAdjudication?: { (details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
   activities: PerForcePlanningActivitySet[]
   forceCols: Array<ForceStyle>
 }
@@ -191,8 +191,10 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       // sort by start time
       const sorted = _.sortBy(withTime, ['timeStart'])
       if (sorted.length > 0) {
-        const nextToProcess = sorted[0]
-        handleAdjudication(nextToProcess)
+        const nextToProcess = sorted[0] as any
+        // note this next line will fail, we need generate outcomes from the 
+        // planning contact
+        handleAdjudication && (nextToProcess as MessageDetails, nextToProcess as MessageAdjudicationOutcomes)
         // reset
         setContacts([])
         setInteractionsProcessed([])
