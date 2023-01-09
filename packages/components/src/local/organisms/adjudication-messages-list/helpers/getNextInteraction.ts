@@ -163,7 +163,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
-  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] | ShortCircuitInteraction => {
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] | ShortCircuitInteraction | number => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
@@ -171,8 +171,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   console.log('earliest time', moment(earliestTime).toISOString())
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
-  const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions, activities)
-  if (shortCircuit) {
+  // if we're doing get-all, don't bother with shortcircuits
+  const shortCircuit = !getAll && getShortCircuit(gameTimeVal, orders, interactions, activities)
+  
+  if (shortCircuit && shortCircuit.timeStart <= gameTimeVal) {
     // return the short-circuit interaction
     return shortCircuit
   } else {
@@ -213,7 +215,31 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     // find the next interaction
     !7 && console.log(fullOrders)
 
-    return contacts
+    // do we have any contacts?
+    if (contacts.length !== 0) {
+      // sort ascending
+      const sortedContacts = _.sortBy(contacts, function(contact){return moment.utc(contact.timeStart).valueOf()})
+      const firstC = sortedContacts[0]
+
+      // just check there isn't a short-circuit before this
+      if (shortCircuit) {
+        const shortStart = shortCircuit.timeStart
+        const contStart = firstC.timeStart
+        if (shortStart < contStart) {
+          return shortCircuit
+        } else {
+          return [firstC]
+        }
+      } else {
+        if (getAll) {
+          return contacts.length
+        } else {
+          return [firstC]
+        }
+      }
+    } else {
+      return []
+    }
   }
 }
 
