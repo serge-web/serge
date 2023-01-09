@@ -73,6 +73,18 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
+/** in interaction created from just one set of plans */
+export interface ShortCircuitInteraction {
+  id: string
+  message: MessagePlanning
+  timeStart: number // unix millis
+  timeEnd: number // unix millis
+  intersection?: Geometry
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
+}
+
 /** an instance of one geometry interacting with another */
 export interface PlanningContact {
   id: string
