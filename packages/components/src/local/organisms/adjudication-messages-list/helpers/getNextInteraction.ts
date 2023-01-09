@@ -1,8 +1,9 @@
-import { MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
-import { findPlannedGeometries, findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitInteraction, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -60,77 +61,92 @@ export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[],
   return []
 }
 
-export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[]): PlanningContact | undefined => {
-  !7 && console.log(gameTime, orders, interactions)
-  const msg: MessagePlanning = {
-    messageType: 'PlanningMessage',
-    message: {
-      Reference: 'aa',
-      title: 'bb',
-      activity: 'bbb',
-      startDate: 'bb',
-      endDate: 'gg'
-    },
-    details: {
-      channel: 'cc',
-      from: {
-        force: 'add',
-        forceColor: '#ff',
-        iconURL: 'aa',
-        roleId: 'asdf',
-        roleName: 'sdf',
-        forceId: 'fr-r',
-        name: 'sadf'
-      },
-      timestamp: 'ds',
-      turnNumber: 123,
-      messageType: 'turn'
-    },
-    _id: ';abbf'
+export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity => {
+  let res: PlanningActivity | undefined
+  activities.groupedActivities.find((group: GroupedActivitySet) => {
+    group.activities.find((plan: PlanningActivity) => {
+      if(plan.name === name) {
+        res = plan
+      }
+      return res
+    })
+    return res
+  })
+  if (!res) {
+    throw Error('Failed to find group activities for this activity:' + name)
   }
-  const geom: Feature = {
-    type: 'Feature',
-    properties: {
-      id: 'SOF Activity//Effect Location',
-      startDate: '2022-11-14T03:00:00.000Z',
-      endDate: '2022-11-14T04:50:00.000Z',
-      force: 'f-blue',
-      startTime: 1668394800000,
-      endTime: 1668401400000,
-      geomId: 'SOF Activity-2',
-      name: 'f-blue//6.9344951444654725//Effect Location'
-    },
-    geometry: {
-      type: 'Polygon',
-      coordinates: [
-        [
-          [
-            30.95273445258612,
-            19.959245354671996
-          ],
-          [
-            30.95273445258612,
-            16.139166991670958
-          ]
-        ]
-      ]
+  return res
+}
+
+const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
+  // do we have routing?
+  if(activity.geometries && activity.geometries.length) {
+    console.warn('NOT IMPLEMENTED - GETTING TIME FROM GEOMETRIES')
+  } else {
+    // just use overall message timing
+    const tStart = moment.utc(plan.message.startDate).valueOf()
+    const tEnd = moment.utc(plan.message.endDate).valueOf()
+    switch (iType) {
+      case INTER_AT_END: 
+        return tEnd
+      case INTER_AT_START: 
+        return tStart
+      case INTER_AT_RANDOM:
+      default: {
+        const delta = tEnd - tStart
+        return tStart + (Math.random() * delta)
+      }  
     }
   }
-  const geomWOrders: GeomWithOrders = {
-    activity: msg,
-    force: 'f-red',
-    id: 'id',
-    uniqid: 'abbb',
-    geometry: geom
+  return -1
+}
+
+export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[],
+  activities: PerForcePlanningActivitySet[]): ShortCircuitInteraction | undefined => {
+
+  interface TimedIntervention {
+    time: number
+    message: MessagePlanning
   }
-  const dummyContact: PlanningContact = {
-    id: 'aa',
-    first: geomWOrders,
-    second: geomWOrders,
-    timeStart: 1200,
-    timeEnd: 1400
+
+  // loop through plans
+  const inters: TimedIntervention[] = [] 
+  orders.forEach((plan: MessagePlanning) => {
+    const force = plan.details.from.forceId
+    const forceActivities = activities.find((act: PerForcePlanningActivitySet) => act.force === force)
+    if (forceActivities) {
+      const actName = plan.message.activity
+      const activity = findActivity(actName, forceActivities)
+      const shorts = activity.shortCircuits
+      if (shorts) {
+        shorts.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
+          const thisTime = timeFor(plan, activity, short)
+          if (thisTime) {
+            inters.push({time: thisTime, message: plan})
+          }
+        })
+      }  
+    }
+  })
+
+  if (inters.length) {
+    // sort in ascending
+    const sorted = _.sortBy(inters, function(inter){ return inter.time })
+    const eventTime = sorted[0].time
+    const contact = sorted[0].message
+    !7 && console.log(gameTime, orders, interactions)
+
+    const res: ShortCircuitInteraction = {
+      id: 'aa',
+      message: contact,
+      timeStart: eventTime,
+      timeEnd: eventTime,
+      intersection: undefined,
+      outcomes: undefined
+    }
+    return res
   }
-  return interactions.length === 0 ? undefined : dummyContact
+  return undefined 
 }
 
 export const formatDuration = (millis: number): string => {
@@ -146,7 +162,8 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 }
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
-  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] => {
+  activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] | ShortCircuitInteraction => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
@@ -154,10 +171,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   console.log('earliest time', moment(earliestTime).toISOString())
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
-  const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions)
+  const shortCircuit = getShortCircuit(gameTimeVal, orders, interactions, activities)
   if (shortCircuit) {
     // return the short-circuit interaction
-    return [shortCircuit]
+    return shortCircuit
   } else {
     // generate any special orders
     const specialOrders = createSpecialOrders(gameTimeVal, orders, interactions)
