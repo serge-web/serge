@@ -285,7 +285,7 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
   const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
   const activity = randomArrayItem(flatActivities, ctr++)
 
-  const needsMissiles = (activity.template && activity.template.includes('Strike'))  
+  const needsMissiles = (activity.template && activity.template.includes('Strike'))
 
   const missileTypes = [
     'SRBM',
@@ -295,7 +295,6 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     'Low Obs Cruise',
     'Propellor OWA UAV',
     'Jet OWA UAV']
-
 
   // assets
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
@@ -308,8 +307,8 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     }
     assets.push(possAsset)
   }
-  const assetsArr = assets.map((asset: Asset) => { 
-    const res =  { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+  const assetsArr = assets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
     if (needsMissiles) {
       res.missileType = randomArrayItem(missileTypes, ++ctr)
     }
@@ -326,8 +325,8 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     }
     targets.push(possTarget)
   }
-  const targetsAarr = targets.map((asset: Asset) => { 
-    const res =  { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+  const targetsAarr = targets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
     if (needsMissiles) {
       res.missileType = randomArrayItem(missileTypes, ++ctr)
     }
