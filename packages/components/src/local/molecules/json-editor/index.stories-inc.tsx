@@ -17,13 +17,15 @@ import {
   Asset, GroupedActivitySet, MessageInfoTypeClipped, MessageInteraction,
   MessagePlanning, MessageStructure, PlanningActivity
 } from '@serge/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy, incrementGameTime } from '@serge/helpers'
+import { getNextInteraction2 } from '../../organisms/adjudication-messages-list/helpers/getNextInteraction'
 import { AssetRow } from '../../organisms/planning-assets/types/props'
 import { collapseLocation } from '../../organisms/planning-messages-list/helpers/collapse-location'
 import { customiseActivities } from '../../organisms/support-panel/helpers/customise-activities'
 import { customiseAssets } from '../../organisms/support-panel/helpers/customise-assets'
 import { customiseLiveOrders } from '../../organisms/support-panel/helpers/customise-live-orders'
 import { customiseLocation } from '../../organisms/support-panel/helpers/customise-location'
+import { PlanningContact, ShortCircuitEvent } from '../../organisms/support-panel/helpers/gen-order-data'
 import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-templates'
 import { coreTemplate } from './helpers/p9-core'
 import { otherTemplate } from './helpers/p9-other'
@@ -54,6 +56,18 @@ export default {
 const storeNewValue = (_value: { [property: string]: any }): void => {
   console.log('store test', _value)
   generateAllTemplates()
+
+  // dev get next interaction
+  const gameStartTime = P9BMock.data.overview.gameDate
+  const turnLen = P9BMock.data.overview.gameTurnTime
+  const turnEnd = incrementGameTime(gameStartTime, turnLen)
+  const planningMessages2 = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+  const interactions: MessageInteraction[] = []
+  console.log('game start time', gameStartTime)
+  const contacts: PlanningContact[] | ShortCircuitEvent | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, false)
+  if (contacts && Array.isArray(contacts)) {
+    expect(contacts.length).toEqual(0)
+  }
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
