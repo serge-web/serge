@@ -1,4 +1,4 @@
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, GameTurnLength, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
@@ -36,6 +36,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *  current game-date (may be used in JSON Editor for date-picker)
    */
   gameDate: string
+  /**
+   *  the turn length
+   */
+  gameTurnLength: GameTurnLength
   /**
    *  definition of planning channel
    */
