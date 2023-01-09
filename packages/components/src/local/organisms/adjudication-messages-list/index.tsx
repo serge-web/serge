@@ -84,7 +84,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[], index: number): React.ReactElement => {
     let asset: Asset | undefined
     let numStr = ''
-    let typeStr = ''
     try {
       asset = findAsset(forces, assetId.asset)
     } catch (e) {
@@ -101,7 +100,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       console.warn('Failed to find asset:' + assetId)
       return <li key={index}>Asset not found</li>
     } else {
-      return <li key={index}>{asset.name}{numStr}{typeStr}</li>
+      return <li key={index}>{asset.name}{numStr}</li>
     }
   }
 
