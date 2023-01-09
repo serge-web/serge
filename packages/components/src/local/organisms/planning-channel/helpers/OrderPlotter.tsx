@@ -1,4 +1,4 @@
-import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy, ForceStyle } from '@serge/helpers'
 import { Feature, GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
@@ -192,9 +192,9 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       const sorted = _.sortBy(withTime, ['timeStart'])
       if (sorted.length > 0) {
         const nextToProcess = sorted[0] as any
-        // note this next line will fail, we need generate outcomes from the 
+        // note this next line will fail, we need generate outcomes from the
         // planning contact
-        handleAdjudication && (nextToProcess as MessageDetails, nextToProcess as MessageAdjudicationOutcomes)
+        handleAdjudication && handleAdjudication(nextToProcess as InteractionDetails, nextToProcess as MessageAdjudicationOutcomes)
         // reset
         setContacts([])
         setInteractionsProcessed([])
