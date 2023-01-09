@@ -388,7 +388,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const interDetails: InteractionDetails = {
       id: contact.id,
       orders1: contact.first.activity._id,
-      orders2: contact.second.activity._id,
+      orders2: contact.second ? contact.second.activity._id : undefined,
       startTime: moment(contact.timeStart).toISOString(),
       endTime: moment(contact.timeEnd).toISOString(),
       geometry: contact.intersection,

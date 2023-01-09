@@ -159,7 +159,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
           delete props.newContact
         }
         if (!props.inContact) {
-          const isNewContact = newContacts.find((val: PlanningContact) => val.first.id === newItem.id || val.second.id === newItem.id)
+          const isNewContact = newContacts.find((val: PlanningContact) => val.first.id === newItem.id || (val.second && val.second.id === newItem.id))
           if (isNewContact) {
             props.inContact = true
             props.newContact = true
@@ -181,7 +181,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     return {
       val: moment(val.timeStart).toISOString(),
       a: val.first.activity.message.title + ' ' + val.first.id,
-      b: val.second.activity.message.title + ' ' + val.second.id
+      b: val.second ? val.second.activity.message.title + ' ' + val.second.id : ''
     }
   }
   useEffect(() => {
@@ -317,7 +317,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     }
     return <>
       {shapeForGeomWithOrders(contact.first, forceCols, activities, storeRef, 1)}
-      {shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef, 2)}
+      {contact.second && shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef, 2)}
       {interFeature && shapeFor(interFeature as Feature, hightlightColor, '', storeRef, 3)}
     </>
   }
