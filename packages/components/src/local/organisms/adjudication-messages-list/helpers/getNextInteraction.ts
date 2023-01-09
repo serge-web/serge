@@ -118,12 +118,11 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   const res: MessageAdjudicationOutcomes = {
     messageType: 'AdjudicationOutcomes',
     Reference: plan.message.Reference,
-    narrative: 'Generated strike outcomes',
+    narrative: '',
     healthOutcomes: [],
     perceptionOutcomes: [],
     locationOutcomes: []
   }
-
   // loop through targets
   if (plan.message.otherAssets) {
     const ownForce = plan.details.from.forceId
@@ -187,7 +186,14 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
       })
     !7 && console.log(plan, activity, forces, gameTime)  
   }
-  console.log('protected', protectedTargets)
+
+  if (protectedTargets.length) {
+    const message = protectedTargets.map((prot: ProtectedTarget) => {
+      return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
+    })
+    res.narrative += message
+  }
+
   console.log('strike outcomes', res)
   return res
 }
