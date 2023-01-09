@@ -1,12 +1,13 @@
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
+import { ChannelPlanning, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import moment from 'moment-timezone'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -32,13 +33,13 @@ export default {
     playerForceId: {
       name: 'Player force',
       defaultValue: 'Blue',
+      options: [
+        'White',
+        'Blue',
+        'Red'
+      ],
       control: {
-        type: 'radio',
-        options: [
-          'White',
-          'Blue',
-          'Red'
-        ]
+        type: 'radio'
       }
     }
   }
@@ -46,8 +47,10 @@ export default {
 
 const planningActivities = wargame.activities ? wargame.activities.activities : []
 
+const copyMessages = JSON.parse(JSON.stringify(planningChannelMessages)) as Array<MessagePlanning | MessageInteraction | MessageInfoTypeClipped>
+
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { interactionMessages: messages, playerRoleId } = args
+  const { playerRoleId } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -63,18 +66,53 @@ const Template: Story<MessageListPropTypes> = (args) => {
     setIsRead(newState)
   }
 
-  const handler = (contact: any): void => {
-    console.log('handling', contact)
+  const handler = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
+    const selectedForce = forces[1]
+    const role = forces[1].roles[0]
+    const from: MessageDetailsFrom = {
+      force: selectedForce.uniqid,
+      forceId: selectedForce.uniqid,
+      forceColor: selectedForce.color,
+      iconURL: selectedForce.iconURL,
+      roleId: role.roleId,
+      roleName: role.name
+    }
+    const details: MessageDetails = {
+      channel: 'any',
+      from: from,
+      interaction: interDetails,
+      messageType: 'any',
+      timestamp: moment().toISOString(),
+      turnNumber: 3
+    }
+    const newMessage: MessageInteraction = {
+      _id: moment().toISOString(),
+      // defined constat for messages, it's not same as message.details.messageType,
+      // ex for all template based messages will be used CUSTOM_MESSAGE Type
+      messageType: 'InteractionMessage',
+      details,
+      message: outcomes,
+      hasBeenRead: false
+    }
+    setMessages([...messages, newMessage])
   }
 
-  // remove later versions
-  const nonInfoMessages = planningChannelMessages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
-  const interactionMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
-  const planningMessages = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
-  const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
+  const [messages, setMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(copyMessages)
+  const [planningMessages, setPlanningMessages] = useState<Array<MessagePlanning>>([])
+  const [interactionMessages, setInteractionMessages] = useState<Array<MessageInteraction>>([])
 
-  console.log('adj story', planningMessages)
+  useEffect(() => {
+    console.log('messages effect')
+    const nonInfoMessages = messages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+    setInteractionMessages(nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>)
+    setPlanningMessages(nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>)
+  }, [messages])
+
+  // remove later versions
+  const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
   const gameStartTime = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
+
+  console.log('handler', messages.length, messages.length, interactionMessages.length, planningMessages.length)
 
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
@@ -101,6 +139,5 @@ const blueRole = blueForce.roles[0]
 
 export const Default = Template.bind({})
 Default.args = {
-  interactionMessages: [],
   playerRoleId: blueRole.roleId
 }

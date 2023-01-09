@@ -221,7 +221,7 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     activity: PlanningActivity
   }
 
-  console.log('get short circuit', orders.length)
+  console.log('calc short circuit with these orders', orders.length)
 
   // loop through plans
   const events: TimedIntervention[] = [] 

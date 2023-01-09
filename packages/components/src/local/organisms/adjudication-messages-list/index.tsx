@@ -279,7 +279,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const getInteraction = (): void => {
-    console.log('get interaction', forcePlanningActivities)
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const results: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
     if (results === undefined ) {
