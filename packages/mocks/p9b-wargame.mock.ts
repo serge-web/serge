@@ -8137,7 +8137,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Land-Strike",
-                                    "template": "Land--MissileStrike"
+                                    "template": "Land--MissileStrike",
+                                    "shortCircuits": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -8524,7 +8527,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike"
+                                    "template": "Maritime--MissileStrike",
+                                    "shortCircuits": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -9200,7 +9206,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Land-Strike",
-                                    "template": "Land--MissileStrike"
+                                    "template": "Land--MissileStrike",
+                                    "shortCircuits": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -9604,7 +9613,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike"
+                                    "template": "Maritime--MissileStrike",
+                                    "shortCircuits": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -10280,7 +10292,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Land-Strike",
-                                    "template": "Land--MissileStrike"
+                                    "template": "Land--MissileStrike",
+                                    "shortCircuits": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -10667,7 +10682,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike"
+                                    "template": "Maritime--MissileStrike",
+                                    "shortCircuits": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
