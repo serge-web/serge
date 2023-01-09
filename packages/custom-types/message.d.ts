@@ -104,9 +104,9 @@ export interface PlanningMessageStructureCore {
   /** any location-related data */
   location?: PlannedActivityGeometry[]
   /** own assets involved in plan */
-  ownAssets?: Array<{ asset: Asset['uniqid'], number: number }>
+  ownAssets?: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }>
   /** other assets involved in plan */
-  otherAssets?: Array<{ asset: Asset['uniqid'] }>
+  otherAssets?: Array<{ asset: Asset['uniqid'], number?: number, missileType?: string }>
   /** id of the activity being conducted */
   activity: PlanningActivity['uniqid']
 }

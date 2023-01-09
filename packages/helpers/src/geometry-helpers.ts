@@ -19,15 +19,15 @@ const updateLeg = (leg: PlannedActivityGeometry, startT: number, endT: number, s
     }
     const safeMillis = millis < millisRemaining ? millis : millisRemaining / 2
 
-    console.log('calc legs 0', moment(startT).toISOString(), moment(endT).toISOString())
-    console.log('calc legs 1', Math.floor(len), Math.floor(speedKts), Math.floor(millis), moment(millis).format('DD HH:mm:ss'))
+    // console.log('calc legs 0', moment(startT).toISOString(), moment(endT).toISOString())
+    // console.log('calc legs 1', Math.floor(len), Math.floor(speedKts), Math.floor(millis), moment(millis).format('DD HH:mm:ss'))
 
     if (safeMillis < millisRemaining) {
       const props = leg.geometry.properties as PlannedProps
       if (outwardLeg) {
         // ok, update
         const finish = moment.utc(startT).add(safeMillis, 'milliseconds').toISOString()
-        console.log('calc legs 2', moment(startT).toISOString(), Math.floor(safeMillis), finish)
+        // console.log('calc legs 2', moment(startT).toISOString(), Math.floor(safeMillis), finish)
         props.startDate = moment.utc(startT).toISOString()
         props.endDate = finish
       } else {
