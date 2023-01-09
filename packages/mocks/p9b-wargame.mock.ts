@@ -5197,8 +5197,8 @@ const game: Wargame = {
                             "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                12.7839,
-                                27.7223
+                                23.746,
+                                74.412
                             ],
                             "attributes": {
                                 "a_Number_Missiles": 100,
