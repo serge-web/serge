@@ -7481,7 +7481,7 @@ const game: Wargame = {
                     "uniqid": "blue_air_fighter",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment"
                     ],
                     "travelMode": "air"
@@ -7491,7 +7491,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_bomber.svg",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -7503,7 +7503,7 @@ const game: Wargame = {
                     "name": "SAM (blue)",
                     "icon": "n_blue_land_sam.svg",
                     "attributeTypeIds": [
-                        "a_Number",
+                        "a_Number_Missiles",
                         "a_Equipment",
                         "a_Mez_Range",
                         "a_C2_Status"
@@ -7579,7 +7579,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_ssm.svg",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Missiles",
                         "a_Equipment",
                         "a_Range",
                         "a_C2_Status"
@@ -7594,7 +7594,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_recce.svg",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment",
                         "a_Detection Range"
                     ],
@@ -7608,7 +7608,7 @@ const game: Wargame = {
                     "icon": "n_blue_air_utility.svg",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -7633,7 +7633,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number"
+                        "a_Number_FIACs"
                     ],
                     "conditions": [],
                     "states": [],
@@ -7644,7 +7644,8 @@ const game: Wargame = {
                     "name": "Maritime Minefield (blue)",
                     "icon": "n_blue_maritime_minefield.svg",
                     "attributeTypeIds": [
-                        "a_Density"
+                        "a_Density",
+                        "a_Minefield_Passable"
                     ],
                     "conditions": [],
                     "states": [],
@@ -7660,7 +7661,7 @@ const game: Wargame = {
                     "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment"
                     ]
                 },
@@ -7672,7 +7673,7 @@ const game: Wargame = {
                     "uniqid": "red_land_sam",
                     "travelMode": "air",
                     "attributeTypeIds": [
-                        "a_Number",
+                        "a_Number_Missiles",
                         "a_Equipment",
                         "a_Mez_Range",
                         "a_C2_Status"
@@ -7734,7 +7735,7 @@ const game: Wargame = {
                     "uniqid": "red_land_ssm",
                     "travelMode": "land",
                     "attributeTypeIds": [
-                        "a_Number",
+                        "a_Number_Missiles",
                         "a_Equipment",
                         "a_Range",
                         "a_C2_Status"
@@ -7749,7 +7750,7 @@ const game: Wargame = {
                     "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment",
                         "a_Detection Range"
                     ]
@@ -7763,7 +7764,7 @@ const game: Wargame = {
                     "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number",
+                        "a_Number_Aircraft",
                         "a_Equipment"
                     ]
                 },
@@ -7788,7 +7789,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Number"
+                        "a_Number_FIACs"
                     ]
                 },
                 {
@@ -7799,7 +7800,8 @@ const game: Wargame = {
                     "uniqid": "red_maritime_mine",
                     "travelMode": "sea",
                     "attributeTypeIds": [
-                        "a_Density"
+                        "a_Density",
+                        "a_Minefield_Passable"
                     ]
                 }
             ],
@@ -7808,10 +7810,24 @@ const game: Wargame = {
         "attributeTypes": {
             "attributes": [
                 {
-                    "attrId": "a_Number",
+                    "attrId": "a_Number_Aircraft",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 10,
+                    "description": "Number of aircraftt",
+                    "editableByPlayer": false,
+                    "name": "Number"
+                }, {
+                    "attrId": "a_Number_Missiles",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
-                    "description": "Number of units",
+                    "description": "Number of missiles",
+                    "editableByPlayer": false,
+                    "name": "Number"
+                }, {
+                    "attrId": "a_Number_FIACs",
+                    "attrType": "AttributeTypeNumber",
+                    "defaultValue": 100,
+                    "description": "Number of FIAC assets",
                     "editableByPlayer": false,
                     "name": "Number"
                 }, {
@@ -7837,13 +7853,20 @@ const game: Wargame = {
                     "description": "Equipment carried on asset",
                     "editableByPlayer": false,
                     "name": "Size"
-                },
-                {
+                }, {
                     "attrId": "a_C2_Status",
                     "attrType": "AttributeTypeEnum",
                     "defaultValue": "Operational",
                     "description": "C2 Status",
                     "values": ["None", "Degraded", "Operational"],
+                    "editableByPlayer": false,
+                    "name": "C2 Status"
+                }, {
+                    "attrId": "a_Minefield_Passable",
+                    "attrType": "AttributeTypeEnum",
+                    "defaultValue": "Operational",
+                    "description": "If minefield is passable",
+                    "values": ["No", "Limited", "Yes"],
                     "editableByPlayer": false,
                     "name": "C2 Status"
                 },                
