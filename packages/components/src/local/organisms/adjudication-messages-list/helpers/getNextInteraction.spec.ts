@@ -3,7 +3,7 @@ import { ForceData, MessageInteraction, MessagePlanning, PlannedActivityGeometry
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { sum } from 'lodash'
-import { PlanningContact, ShortCircuitInteraction } from '../../support-panel/helpers/gen-order-data'
+import { PlanningContact, ShortCircuitEvent } from '../../support-panel/helpers/gen-order-data'
 import { getNextInteraction2 } from './getNextInteraction'
 
 const wargame = P9BMock.data
@@ -39,7 +39,7 @@ const turnEnd = incrementGameTime(gameStartTime, turnLen)
 it('gets interactions (2)', () => {
   const interactions: MessageInteraction[] = []
   console.log('game start time', gameStartTime)
-  const contacts: PlanningContact[] | ShortCircuitInteraction | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, false)
+  const contacts: PlanningContact[] | ShortCircuitEvent | number = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, false)
   if (contacts && Array.isArray(contacts)) {
     expect(contacts.length).toEqual(0)
   }

@@ -73,8 +73,8 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
-/** in interaction created from just one set of plans */
-export interface ShortCircuitInteraction {
+/** an event created from just one set of plans */
+export interface ShortCircuitEvent {
   id: string
   message: MessagePlanning
   timeStart: number // unix millis

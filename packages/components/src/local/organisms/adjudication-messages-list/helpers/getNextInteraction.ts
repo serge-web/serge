@@ -3,7 +3,7 @@ import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageInteraction, Mess
 import { Feature, Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
-import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitInteraction, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { findPlannedGeometries, findTouching, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -65,7 +65,7 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
   let res: PlanningActivity | undefined
   activities.groupedActivities.find((group: GroupedActivitySet) => {
     group.activities.find((plan: PlanningActivity) => {
-      if(plan.name === name) {
+      if(name.endsWith(plan.name)) {
         res = plan
       }
       return res
@@ -73,6 +73,7 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
     return res
   })
   if (!res) {
+    console.log('act', activities.force, activities.groupedActivities[0].activities[0].actId)
     throw Error('Failed to find group activities for this activity:' + name)
   }
   return res
@@ -102,7 +103,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
 }
 
 export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[],
-  activities: PerForcePlanningActivitySet[]): ShortCircuitInteraction | undefined => {
+  activities: PerForcePlanningActivitySet[]): ShortCircuitEvent | undefined => {
 
   interface TimedIntervention {
     time: number
@@ -110,7 +111,7 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
   }
 
   // loop through plans
-  const inters: TimedIntervention[] = [] 
+  const events: TimedIntervention[] = [] 
   orders.forEach((plan: MessagePlanning) => {
     const force = plan.details.from.forceId
     const forceActivities = activities.find((act: PerForcePlanningActivitySet) => act.force === force)
@@ -122,29 +123,36 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
         shorts.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
           const thisTime = timeFor(plan, activity, short)
           if (thisTime) {
-            inters.push({time: thisTime, message: plan})
+            events.push({time: thisTime, message: plan})
           }
         })
       }  
     }
   })
 
-  if (inters.length) {
-    // sort in ascending
-    const sorted = _.sortBy(inters, function(inter){ return inter.time })
-    const eventTime = sorted[0].time
-    const contact = sorted[0].message
-    !7 && console.log(gameTime, orders, interactions)
+  console.log('events', events.length)
 
-    const res: ShortCircuitInteraction = {
-      id: 'aa',
-      message: contact,
-      timeStart: eventTime,
-      timeEnd: eventTime,
-      intersection: undefined,
-      outcomes: undefined
+  if (events.length) {
+    // sort in ascending
+    const sorted = _.sortBy(events, function(inter){ return inter.time })
+    const eventTime = sorted[0].time
+
+    if (eventTime <= gameTime) {
+      const contact = sorted[0].message
+      !7 && console.log(gameTime, orders, interactions)
+  
+      const res: ShortCircuitEvent = {
+        id: 'aa',
+        message: contact,
+        timeStart: eventTime,
+        timeEnd: eventTime,
+        intersection: undefined,
+        outcomes: undefined
+      }
+      return res
+    } else {
+      // events found, but not before start time
     }
-    return res
   }
   return undefined 
 }
@@ -163,7 +171,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
-  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] | ShortCircuitInteraction | number => {
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, getAll: boolean): PlanningContact[] | ShortCircuitEvent | number => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : moment(gameTime).valueOf()
