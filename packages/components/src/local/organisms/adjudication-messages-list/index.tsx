@@ -1,11 +1,11 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MaterialTable, { Column } from '@material-table/core'
 import { Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import _ from 'lodash'
-import MaterialTable, { Column } from '@material-table/core'
 import moment from 'moment'
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
@@ -391,9 +391,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         ]}
         options={{
           paging: true,
+          detailPanelType: 'single',
           pageSize: 20,
           pageSizeOptions: [5, 10, 15, 20],
-          sorting: false,
           filtering: filter,
           selection: true
         }}

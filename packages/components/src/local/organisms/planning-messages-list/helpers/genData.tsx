@@ -1,8 +1,8 @@
+import { Column } from '@material-table/core'
 import { MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
 import moment from 'moment'
 import React from 'react'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'
-import { Column } from '@material-table/core'
 
 import { OrderRow } from '../types/props'
 export const roles: string[] = []
@@ -18,11 +18,11 @@ const trimActivity = (forceId: string, activity?: string): string => {
     return 'N/A'
   } else {
     const len = forceId.length
-    return activity.slice(len + 1)
+    return activity.slice((len+1))
   }
 }
 
-export const toRow = (message: MessagePlanning, playerForceId: string): OrderRow => {
+export const toRow = (message: MessagePlanning): OrderRow => {
   const author = message.details.from.roleName
   if (!roles.includes(author)) {
     roles.push(author)
@@ -34,19 +34,19 @@ export const toRow = (message: MessagePlanning, playerForceId: string): OrderRow
     reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
     title: plan.title,
     role: author,
-    activity: trimActivity(playerForceId, plan.activity),
+    activity: trimActivity(message.details.from.forceId || '', plan.activity),
     startDate: shortDate(plan.startDate),
     endDate: shortDate(plan.endDate)
   }
   return row
 }
 
-export const toColumn = (message: MessagePlanning[], playerForceId: string): Column<any>[] => {
+export const toColumn = (message: MessagePlanning[]): Column<any>[] => {
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
-  const activities = collateActivities(message)
-  const trimmedActivities = activities.map((item) => trimActivity(playerForceId, item))
+  const trimmedActivities = collateActivities(message)
+  const activityDict = arrToDict(trimmedActivities)
 
   const smallPadding: React.CSSProperties = {
     paddingLeft: '10px',
@@ -63,7 +63,7 @@ export const toColumn = (message: MessagePlanning[], playerForceId: string): Col
     { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell },
     { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
     { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
-    { title: 'Activity', field: 'activity', lookup: arrToDict(trimmedActivities), cellStyle: smallPadding, headerStyle: smallPadding },
+    { title: 'Activity', field: 'activity', lookup: activityDict, cellStyle: smallPadding, headerStyle: smallPadding },
     { title: 'Start Date', field: 'startDate', cellStyle: narrowCell, headerStyle: narrowCell },
     { title: 'Finish Date', field: 'endDate', cellStyle: narrowCell, headerStyle: narrowCell }
   ]
