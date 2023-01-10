@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import _ from 'lodash'
 import moment from 'moment'
@@ -41,6 +41,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
 
+  const [currentTime, setCurrentTime] = useState<string>('pending')
+
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
   }
@@ -62,6 +64,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const filterSaveMessage = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
 
         setRows([...filterSaveMessage, row])
+      }
+    }
+    if (interactionMessages.length > 0) {
+      const lastMessage = interactionMessages[interactionMessages.length-1]
+      if (lastMessage.details.interaction) {
+        setCurrentTime(lastMessage.details.interaction.startTime)
       }
     }
   }, [interactionMessages])
@@ -106,43 +114,51 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
-    const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
-    if (!plan) {
-      console.warn('Failed to find message 1:', id)
-      return <span>Order not found</span>
-    }
-    const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
-    const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
-      if (done.includes(item)) {
-        return <Fragment key={index} />
-      } else {
-        const name = _.kebabCase(item)
-        return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
+    if (id === 'n/a') {
+      return <span>n/a</span>
+    } else {
+      const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
+      if (!plan) {
+        console.warn('Failed to find message 1:', id)
+        return <span>Order not found</span>
       }
-    })
-    return <div>
-      <span><b>Title: </b> {plan.message.title} </span>
-      <span><b>Activity: </b> {activity || 'n/a'} </span><br />
-      <span><b>Own: </b> {plan.message.ownAssets &&
-        <ul> {
-          plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
-        </ul>}</span>
-      <span><b>Other: </b> {plan.message.otherAssets &&
-        <ul> {
-          plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
-        </ul>}</span>
-      {items}
-    </div>
+      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
+      const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
+        if (done.includes(item)) {
+          return <Fragment key={index} />
+        } else {
+          const name = _.kebabCase(item)
+          return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
+        }
+      })
+      return <div>
+        <span><b>Title: </b> {plan.message.title} </span>
+        <span><b>Activity: </b> {activity || 'n/a'} </span><br />
+        <span><b>Own: </b> {plan.message.ownAssets &&
+          <ul> {
+            plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
+          </ul>}</span>
+        <span><b>Other: </b> {plan.message.otherAssets &&
+          <ul> {
+            plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
+          </ul>}</span>
+        {items}
+      </div>
+    }
   }
 
   const renderOrderTitle = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
-    const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
-    if (!plan) {
-      console.warn('Failed to find message 2:', id)
-      return <span>Order not found</span>
+    if (id === 'n/a') {
+      return <span>n/a</span>
+    } else {
+      const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
+      if (!plan) {
+        console.warn('Failed to find message 2:', id)
+        return <span>Order not found</span>
+      }
+      return <span>Title: {plan.message.title}</span>
     }
-    return <span>Title: {plan.message.title}</span>
   }
 
   const toRow = (message: MessageInteraction): AdjudicationRow => {
@@ -153,6 +169,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const myMessage = message.details.from.roleId === playerRoleId
     const incompleteMessageFromMe = (myMessage && !interaction.complete)
 
+    console.log('owner', playerRoleId, message.details.from.roleId, interaction.complete)
+
     const row = {
       id: message._id,
       order1: interaction.orders1,
@@ -162,7 +180,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       activity: message.message.Reference,
       period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
       // if the item is incomplete
-      tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
+      tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined },
+      owner: message.details.from.roleName
     }
     return row
   }
@@ -180,6 +199,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
         { title: 'ID', field: 'id' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
+        { title: 'Owner', field: 'owner'},
         { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
         { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
         { title: 'Activity', field: 'Reference' },
@@ -219,18 +239,29 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return firstUpdate
   }
 
+  console.table(interactionMessages.map((msg: MessageInteraction) => {
+    return {
+      id: msg._id,
+      complete: msg.details.interaction && msg.details.interaction.complete,
+      reference: msg.message.Reference
+    }
+  }))
+
   const localSubmitAdjudication = (): void => {
     if (currentAdjudication.current) {
       // get current message
       const outcomes = currentAdjudication.current as any as MessageAdjudicationOutcomes
       const document = filteredInteractions.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
-        const details = document.details
-        const interaction = details.interaction
+        const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
+        console.log('before', document.details.interaction)
+        const interaction = details.interaction 
         if (interaction) {
           // mark as adjudicatead
           interaction.complete = true
         }
+
+        console.log('after', document.details.interaction, interaction)
 
         // for the map handler to work, the message type needs to be int he emssage
         const outAsAny = outcomes as any
@@ -283,9 +314,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const results: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
     if (results === undefined) {
+      setDialogMessage('No interactions found')
       // fine, ignore it
     } else if (typeof results === 'object') {
-      const outcomes = results as {details: InteractionDetails, outcomes: MessageAdjudicationOutcomes}
+      const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
     } else if (typeof results === 'number') {
       console.warn('not expecting number return from get next interaction')
@@ -373,6 +405,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
+        <span>Current time:{currentTime}</span>
       </div>
 
       <MaterialTable
