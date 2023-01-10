@@ -69,6 +69,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     {
       assets.length > 0 &&
       <LayerGroup key={'first-forces-layer'}>
+<<<<<<< HEAD
         <MarkerClusterGroup
           showCoverageOnHover={true}
           spiderfyOnMaxZoom={true}
@@ -102,6 +103,32 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
             })
           }
         </MarkerClusterGroup>
+=======
+        {
+          interactive &&
+          assets.map((asset: AssetRow, index: number) => {
+            const markerOption = getMarkerOption(asset, index)
+            return <Marker
+              {...markerOption}
+            >
+              <Tooltip>{asset.name}</Tooltip>
+            </Marker>
+          })
+        }
+        {
+          !interactive &&
+          assets.map((asset: AssetRow, index: number) => {
+            const markerOption = getMarkerOption(asset, index)
+            return <Marker
+              pmIgnore
+              interactive={false}
+              {...markerOption}
+            >
+              <Tooltip>{asset.name}</Tooltip>
+            </Marker>
+          })
+        }
+>>>>>>> ae595edc3f439eeadd10ceb2716defa9762fa5fb
       </LayerGroup >
     }
   </>

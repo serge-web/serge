@@ -98,15 +98,15 @@ export interface PlanningMessageStructureCore {
   /** title for this plan */
   title: string
   /** start-time of this plan */
-  startDate?: string
+  startDate: string
   /** end-time of this plan */
-  endDate?: string
+  endDate: string
   /** any location-related data */
   location?: PlannedActivityGeometry[]
   /** own assets involved in plan */
-  ownAssets?: Array<{ asset: Asset['uniqid'], number: number }>
+  ownAssets?: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }>
   /** other assets involved in plan */
-  otherAssets?: Array<{ asset: Asset['uniqid'] }>
+  otherAssets?: Array<{ asset: Asset['uniqid'], number?: number, missileType?: string }>
   /** id of the activity being conducted */
   activity: PlanningActivity['uniqid']
 }

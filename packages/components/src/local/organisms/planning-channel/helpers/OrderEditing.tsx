@@ -2,9 +2,9 @@ import { faPlaneSlash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { PlannedActivityGeometry } from '@serge/custom-types'
 import { Feature } from 'geojson'
-import L, { LatLng, Layer, PM } from 'leaflet'
+import L, { LatLng, Layer, PM, Point } from 'leaflet'
 import 'leaflet-notifications'
-import _ from 'lodash'
+import _, { get } from 'lodash'
 import React, { useEffect, useState } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
@@ -72,7 +72,6 @@ const layerToGeoJSON = (layer: GLayerObject): Feature | undefined => {
 export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeingEdited }) => {
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
-
   const [editLayer, setEditLayer] = useState<Layer | undefined>(undefined)
 
   const map = useMap()
@@ -100,7 +99,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
       saved(res)
     }
     // clean up
-    cancelDrawing()
+    cleanUp()
   }
 
   useEffect(() => {
@@ -110,6 +109,21 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
       // create a layer for the activites
       const layerToEdit = L.geoJSON(items)
       layerToEdit.addTo(map)
+
+      layerToEdit.on('pm:edit', e => {
+        const pointsOnLine = get(e, 'layer._rings[0]') as Point[]
+        const preventRemove = !!(
+          (e.shape.toLowerCase() === 'line' && pointsOnLine.length <= 2) ||
+          (e.shape.toLowerCase() === 'polygon' && pointsOnLine.length <= 3)
+        )
+        const options = get(e, 'layer.pm.options')
+        const newOptions = {
+          ...options,
+          preventMarkerRemoval: preventRemove
+        };
+        (e.layer as any).pm.disable();
+        (e.layer as any).pm.enable(newOptions)
+      })
 
       const getAssetIcon = (imageSrc: string): string => {
         return (
@@ -162,7 +176,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
     }
   }, [activityBeingEdited])
 
-  const cancelDrawing = (): void => {
+  const cleanUp = (): void => {
     if (map) {
       if (editLayer) {
         editLayer.remove()
@@ -175,6 +189,10 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
         layers.forEach((layer: Layer) => layer.remove())
       }
     }
+  }
+
+  const cancelDrawing = (): void => {
+    cleanUp()
     saved(undefined)
   }
 
