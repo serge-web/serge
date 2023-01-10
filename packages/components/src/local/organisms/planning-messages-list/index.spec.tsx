@@ -58,7 +58,11 @@ describe('ChannelMessagesList component: ', () => {
         gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        playerForceId={blueForce.uniqid} editLocation={noop} onMarkAllAsRead={markAllAsRead} />)
+        playerForceId={blueForce.uniqid} editLocation={noop} onMarkAllAsRead={markAllAsRead} />, {
+        createNodeMock: node => {
+          return document.createElement(node.type as string)
+        }
+      })
       .toJSON()
     expect(tree).toMatchSnapshot()
   })

@@ -2,7 +2,7 @@ import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import MaterialTable, { Column } from 'material-table'
+import MaterialTable, { Column } from '@material-table/core'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -19,7 +19,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   modifyForSave
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column<OrderRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const messageValue = useRef<any>(null)
@@ -73,7 +73,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   //   editThisMessage && editThisMessage(docId)
   // }
 
-  const detailPanel = (rowData: OrderRow): any => {
+  const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
     if (!message) {
@@ -183,22 +183,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setSelectedOrders(indices)
   }
 
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
-
-  const extendProps = jestWorkerId ? {} : {
-    detailPanel: detailPanel
-  }
-
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
         columns={columns}
         data={rows}
-        icons={materialIcons}
-        actions={jestWorkerId ? [] : [
+        icons={materialIcons as any}
+        actions={[
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
@@ -220,12 +212,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           pageSize: 20,
           pageSizeOptions: [5, 10, 15, 20],
           sorting: true,
-          // defaultExpanded: true,
           filtering: filter,
-          selection: !jestWorkerId // fix unit-test for material table
+          selection: true
         }}
         onSelectionChange={onSelectionChange}
-        {...extendProps}
+        detailPanel={detailPanel}
       />
     </div>
   )

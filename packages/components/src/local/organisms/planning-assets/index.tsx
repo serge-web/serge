@@ -1,7 +1,7 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MaterialTable, { Column, MTableBody, MTableBodyRow } from '@material-table/core'
 import cx from 'classnames'
-import MaterialTable, { Column, MTableBody, MTableBodyRow } from 'material-table'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -14,7 +14,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   onSelectionChange, onVisibleRowsChange, platformTypes, attributeTypes
 }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column<any>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const preventScroll = useRef<boolean>(false)
   const { selectedAssets } = useContext(SupportPanelContext)
@@ -60,7 +60,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         onClick: (): void => setFilter(!filter)
       }
     ]}
-    icons={materialIcons}
+    icons={materialIcons as any}
     options={{
       paging: true,
       pageSize: 20,
