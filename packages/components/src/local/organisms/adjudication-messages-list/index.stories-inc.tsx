@@ -5,11 +5,10 @@ import React, { useEffect, useState } from 'react'
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
-import { forceColors, incrementGameTime } from '@serge/helpers'
+import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
 import moment from 'moment-timezone'
-import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -117,7 +116,6 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const [interactionMessages, setInteractionMessages] = useState<Array<MessageInteraction>>([])
 
   useEffect(() => {
-    console.log('messages effect')
     const nonInfoMessages = messages.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
     const interactions = nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === INTERACTION_MESSAGE) as Array<MessageInteraction>
     // reverse list, so we only show the latest instance
@@ -125,22 +123,22 @@ const Template: Story<MessageListPropTypes> = (args) => {
     const deDupeInteractions = uniqBy(reverseInter, function (inter: MessageInteraction) {
       return inter.message.Reference
     })
-    setInteractionMessages(deDupeInteractions)
+    const correctOrder = deDupeInteractions.reverse() as Array<MessageInteraction>
+    setInteractionMessages(correctOrder)
     setPlanningMessages(nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>)
   }, [messages])
 
   // remove later versions
   const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
-  const gameStartTime = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
+  // const gameStartTime = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
 
   // run through an adjudication
-  const interactions: MessageInteraction[] = []
+  // const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = P9BMock.data.overview.gameDate
-  const turnLength = P9BMock.data.overview.gameTurnTime
-  const turnEnd = incrementGameTime(gameStartTimeLocal, turnLength)
-  console.log('game start time', gameStartTimeLocal)
-  const results: InteractionResults | false = !7 && planningMessages.length && getNextInteraction2(planningMessages, planningActivities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
-  console.log('next interaction', results)
+  // const turnLength = P9BMock.data.overview.gameTurnTime
+  // const turnEnd = incrementGameTime(gameStartTimeLocal, turnLength)
+  // const results: InteractionResults | false = !7 && planningMessages.length && getNextInteraction2(planningMessages, planningActivities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  // console.log('next interaction', results)
 
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
@@ -150,7 +148,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     planningMessages={planningMessages}
     forceColors={forceColors(forces)}
     channel={planningChannel}
-    gameDate={gameStartTime}
+    gameDate={gameStartTimeLocal}
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
     template={templates[0]}
     playerRoleId={playerRoleId}
