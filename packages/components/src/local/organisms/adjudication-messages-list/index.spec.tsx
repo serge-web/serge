@@ -28,7 +28,7 @@ describe('AdjudicationMessagesList component: ', () => {
     const tree = renderer
       .create(<AdjudicationMessagesList handleAdjudication={handler} planningMessages={planningMessages} forces={forces}
         template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
-        interactionMessages={messages} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
+        interactionMessages={messages} gameTurnLength={P9Mock.data.overview.gameTurnTime} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
         platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />, {
         createNodeMock: node => {
           return document.createElement(node.type as string)
