@@ -83,7 +83,10 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
 const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
   // do we have routing?
   if (activity.geometries && activity.geometries.length) {
-    console.warn('NOT IMPLEMENTED - GETTING TIME FROM GEOMETRIES')
+    // for `first`, use end-time of route-out (first line geometry)
+    // for `last`, use start-time of route-back (last line geometry)
+    // for `random` create period between `first` and `last`
+    console.warn('NOT YET IMPLEMENTED - GETTING TIME FROM GEOMETRIES')
   } else {
     // just use overall message timing
     const tStart = moment.utc(plan.message.startDate).valueOf()
@@ -230,16 +233,16 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
   console.log('calc short circuit before', moment.utc(gameTime).toISOString())
 
   // loop through plans
-  const events: TimedIntervention[] = []
+  const eventList: TimedIntervention[] = []
   orders.forEach((plan: MessagePlanning) => {
     const force = plan.details.from.forceId
     const forceActivities = activities.find((act: PerForcePlanningActivitySet) => act.force === force)
     if (forceActivities) {
       const actName = plan.message.activity
       const activity = findActivity(actName, forceActivities)
-      const shorts = activity.events
-      if (shorts) {
-        shorts.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
+      const activityEvents = activity.events
+      if (activityEvents) {
+        activityEvents.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
           const thisTime = timeFor(plan, activity, short)
           if (thisTime) {
             const interactionId = plan._id + ' ' + short
@@ -247,7 +250,7 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
             if (interactions.find((msg: MessageInteraction) => msg.message.Reference === interactionId)) {
               console.warn('Skipping this event, already processed', interactionId)
             } else {
-              events.push({ time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity, id: interactionId })
+              eventList.push({ time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity, id: interactionId })
             }
           }
         })
@@ -255,9 +258,9 @@ export const getShortCircuit = (gameTime: number, orders: MessagePlanning[], int
     }
   })
 
-  if (events.length) {
+  if (eventList.length) {
     // sort in ascending
-    const sorted = _.sortBy(events, function (inter) { return inter.time })
+    const sorted = _.sortBy(eventList, function (inter) { return inter.time })
     const firstEvent = sorted[0]
     const eventTime = firstEvent.time
 
