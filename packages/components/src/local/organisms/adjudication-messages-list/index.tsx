@@ -169,8 +169,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const myMessage = message.details.from.roleId === playerRoleId
     const incompleteMessageFromMe = (myMessage && !interaction.complete)
 
-    console.log('owner', playerRoleId, message.details.from.roleId, interaction.complete)
-
     const row = {
       id: message._id,
       order1: interaction.orders1,
@@ -239,13 +237,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return firstUpdate
   }
 
-  console.table(interactionMessages.map((msg: MessageInteraction) => {
-    return {
-      id: msg._id,
-      complete: msg.details.interaction && msg.details.interaction.complete,
-      reference: msg.message.Reference
-    }
-  }))
+  // console.table(interactionMessages.map((msg: MessageInteraction) => {
+  //   return {
+  //     id: msg._id,
+  //     complete: msg.details.interaction && msg.details.interaction.complete,
+  //     reference: msg.message.Reference
+  //   }
+  // }))
 
   const localSubmitAdjudication = (): void => {
     if (currentAdjudication.current) {
