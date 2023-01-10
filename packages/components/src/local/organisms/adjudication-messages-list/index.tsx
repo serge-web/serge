@@ -254,14 +254,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const document = filteredInteractions.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
-        console.log('before', document.details.interaction)
         const interaction = details.interaction
         if (interaction) {
           // mark as adjudicatead
           interaction.complete = true
         }
-
-        console.log('after', document.details.interaction, interaction)
 
         // for the map handler to work, the message type needs to be int he emssage
         const outAsAny = outcomes as any
