@@ -18,7 +18,7 @@ const trimActivity = (forceId: string, activity?: string): string => {
     return 'N/A'
   } else {
     const len = forceId.length
-    return activity.slice((len+1))
+    return activity.slice((len + 1))
   }
 }
 
