@@ -365,11 +365,11 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const timeEnd = moment(earliestTime).add(currentWindow, 'm')
       console.log('geoms in this window:', moment(earliestTime).toISOString(), timeEnd.toISOString(), ' windows size (mins):', currentWindow, 'matching geoms:', geometriesInTimeWindow.length)
       //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
-  
+
       // now do spatial binning
       const bins = spatialBinning(geometriesInTimeWindow, 4)
       const binnedOrders = putInBin(geometriesInTimeWindow, bins)
-  
+
       const interactionsProcessed = interactions.map((val) => {
         const inter = val.details.interaction
         if (!inter) {
@@ -379,7 +379,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       })
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
-  
+
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
         // console.log('process bin', _index, bin.orders.length, contacts.length)
         const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
@@ -388,9 +388,13 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       })
 
       console.log('binning complete, contacts:', contacts.length)
+
       // drop contacts
-      while(contacts.length) {
-        contacts.pop()
+      const dropContacts = false
+      if (dropContacts) {
+        while (contacts.length) {
+          contacts.pop()
+        }
       }
 
       currentWindow *= 2
