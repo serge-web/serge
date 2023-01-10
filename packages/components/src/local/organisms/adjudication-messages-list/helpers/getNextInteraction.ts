@@ -127,7 +127,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   if (plan.message.otherAssets) {
     const ownForce = plan.details.from.forceId
     console.table(plan.message.otherAssets)
-    plan.message.otherAssets.forEach((target: {asset:string}) => {
+    plan.message.otherAssets.forEach((target: { asset: string }) => {
       let tgtForce: ForceData | undefined
       let tgtAsset: Asset | undefined
       forces.find((force: ForceData) => {
@@ -157,7 +157,6 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
               // generate
               const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
               const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
-              console.log('distance', distanceApart, distanceApart < attrs.a_Mez_Range)
               if (distanceApart < attrs.a_Mez_Range && tgtForce && tgtAsset) {
                 // ok, it's covered.
                 let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
@@ -200,7 +199,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
 
 const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number, id: string): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
-    case 'STRIKE' : {
+    case 'STRIKE': {
       return strikeOutcomesFor(plan, activity, forces, gameTime, id)
     }
     default: {
@@ -297,7 +296,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
   })
 }
 
-export type InteractionResults = {details: InteractionDetails, outcomes: MessageAdjudicationOutcomes} | number | undefined
+export type InteractionResults = { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes } | number | undefined
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
@@ -311,6 +310,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
   // see if a short-circuit is overdue
   const shortCircuit = !getAll && getShortCircuit(gameTimeVal, orders, interactions, activities, forces)
+  console.log('event should have been processed', shortCircuit)
 
   if (shortCircuit && shortCircuit.timeStart <= gameTimeVal) {
     // return the short-circuit interaction
@@ -333,13 +333,16 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     let currentWindow = getAll ? fullTurnLength : fullTurnLength / 20
 
     const contacts: PlanningContact[] = []
+    let shortCircuit: ShortCircuitEvent | undefined
 
-    while (contacts.length === 0 && currentWindow <= fullTurnLength) {
+    while (contacts.length === 0 && currentWindow <= fullTurnLength && shortCircuit === undefined) {
       const windowEnd = gameTimeVal + currentWindow
 
       // if we're doing get-all, don't bother with shortcircuits
-      const shortCircuit = !getAll && getShortCircuit(windowEnd, orders, interactions, activities, forces)
-      console.log('loop', shortCircuit)
+      if (!getAll) {
+        shortCircuit = getShortCircuit(windowEnd, orders, interactions, activities, forces)
+        console.log('loop', shortCircuit)
+      }
 
       const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
 
@@ -364,9 +367,6 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       console.log('Gen next interaction: no contacts in turn')
     }
 
-    // find the next interaction
-    !7 && console.log(fullOrders)
-
     // do we have any contacts?
     if (contacts.length !== 0) {
       // sort ascending
@@ -374,14 +374,15 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const firstC = sortedContacts[0]
 
       // just check there isn't a short-circuit before this
-      if (shortCircuit) {
+      if (shortCircuit !== undefined) {
         const shortStart = shortCircuit.timeStart
         const contStart = firstC.timeStart
         if (shortStart < contStart) {
-        // return the short-circuit interaction
+          // ok, return it
+          // return the short-circuit interaction
           const details: InteractionDetails = {
             id: shortCircuit.id,
-            orders1: shortCircuit.id,
+            orders1: shortCircuit.message._id,
             startTime: moment.utc(shortCircuit.timeStart).toISOString(),
             endTime: moment.utc(shortCircuit.timeEnd).toISOString(),
             complete: false
@@ -402,6 +403,16 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           return { details: details, outcomes: outcomes }
         }
       }
+    } else if (shortCircuit) {
+      const details: InteractionDetails = {
+        id: shortCircuit.id,
+        orders1: shortCircuit.message._id,
+        startTime: moment.utc(shortCircuit.timeStart).toISOString(),
+        endTime: moment.utc(shortCircuit.timeEnd).toISOString(),
+        complete: false
+      }
+      const outcomes = outcomesFor(shortCircuit.message, shortCircuit.activity, forces, gameTimeVal, shortCircuit.id)
+      return { details: details, outcomes: outcomes }
     } else {
       return undefined
     }
