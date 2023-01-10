@@ -341,7 +341,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       // if we're doing get-all, don't bother with shortcircuits
       if (!getAll) {
         shortCircuit = getShortCircuit(windowEnd, orders, interactions, activities, forces)
-        console.log('loop', shortCircuit)
+        console.log('first event in window:', shortCircuit)
       }
 
       const liveOrders = ordersLiveIn(fullOrders, gameTimeVal, windowEnd)
@@ -350,7 +350,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
-      !7 && console.log(withTimes)
+      const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
 
       // console.table(liveOrders.map((plan: MessagePlanning) => {
       //   return {
@@ -359,6 +359,39 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       //     end: plan.message.endDate
       //   }
       // }))
+
+      const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, currentWindow)
+
+      const timeEnd = moment(earliestTime).add(currentWindow, 'm')
+      console.log('geoms in this window:', moment(earliestTime).toISOString(), timeEnd.toISOString(), ' windows size (mins):', currentWindow, 'matching geoms:', geometriesInTimeWindow.length)
+      //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
+  
+      // now do spatial binning
+      const bins = spatialBinning(geometriesInTimeWindow, 4)
+      const binnedOrders = putInBin(geometriesInTimeWindow, bins)
+  
+      const interactionsProcessed = interactions.map((val) => {
+        const inter = val.details.interaction
+        if (!inter) {
+          throw Error('Interaction missing')
+        }
+        return inter.id
+      })
+      const interactionsConsidered: string[] = []
+      const interactionsTested: Record<string, PlanningContact | null> = {}
+  
+      binnedOrders.forEach((bin: SpatialBin, _index: number) => {
+        // console.log('process bin', _index, bin.orders.length, contacts.length)
+        const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
+          interactionsTested, sensorRangeKm)
+        contacts.push(...newContacts)
+      })
+
+      console.log('binning complete, contacts:', contacts.length)
+      // drop contacts
+      while(contacts.length) {
+        contacts.pop()
+      }
 
       currentWindow *= 2
     }
@@ -435,7 +468,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
 const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes => {
   const res: MessageAdjudicationOutcomes = contact.outcomes || {
     messageType: 'AdjudicationOutcomes',
-    Reference: 'Pending contact details',
+    Reference: contact.first.id + '-' + contact.second.id,
     narrative: '',
     perceptionOutcomes: [],
     locationOutcomes: [],
