@@ -12,6 +12,7 @@ export type AdjudicationRow = {
   complete: boolean
   /** turn when adjudication generated */
   turn: number
+  owner: string
   order1: string
   order2: string
   activity: string
