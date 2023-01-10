@@ -5,7 +5,7 @@ import { Feature } from 'geojson'
 import { Layer } from 'leaflet'
 import _ from 'lodash'
 import React, { useEffect, useState } from 'react'
-import { LayerGroup } from 'react-leaflet-v3'
+import { LayerGroup } from 'react-leaflet-v4'
 import { shapeFor } from '../planning-channel/helpers/SharedOrderRenderer'
 import PropTypes from './types/props'
 

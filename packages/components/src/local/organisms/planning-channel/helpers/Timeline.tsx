@@ -2,7 +2,7 @@ import { Feature, FeatureCollection, GeoJsonProperties, Geometry } from 'geojson
 import L, { Layer, PathOptions } from 'leaflet'
 import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
-import { useMap } from 'react-leaflet-v3'
+import { useMap } from 'react-leaflet-v4'
 import { Timeline as TimelineType, TimelineData } from '../typings'
 
 type TimelineProps = {

@@ -5,6 +5,7 @@ interface CssExports {
   'map-icon': string;
   'pulse': string;
   'selected': string;
+  'cluster': string
 }
 export const cssExports: CssExports;
 export default cssExports;

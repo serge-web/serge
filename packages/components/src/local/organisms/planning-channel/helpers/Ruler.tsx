@@ -1,6 +1,6 @@
 import L from 'leaflet'
 import React, { useEffect, useState } from 'react'
-import { useMap } from 'react-leaflet-v3'
+import { useMap } from 'react-leaflet-v4'
 import { Ruler as RulerType, RulerOption } from '../typings'
 
 type RulerProps = {

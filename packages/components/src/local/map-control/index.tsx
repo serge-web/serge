@@ -8,7 +8,7 @@ import { DomEvent, LatLngBounds } from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import PropTypes from './types/props'
 
-import { useMap } from 'react-leaflet-v3'
+import { useMap } from 'react-leaflet-v4'
 import Item from './helpers/item'
 
 export const MapControl: React.FC<PropTypes> = ({
