@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react'
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning } from '@serge/custom-types'
-import { forceColors } from '@serge/helpers'
+import { forceColors, incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import moment from 'moment-timezone'
+import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import AdjudicationMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
@@ -113,6 +114,15 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const gameStartTime = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
 
   console.log('handler', messages.length, messages.length, interactionMessages.length, planningMessages.length)
+
+  // run through an adjudication
+  const interactions: MessageInteraction[] = []
+  const gameStartTimeLocal = P9BMock.data.overview.gameDate
+  const turnLength = P9BMock.data.overview.gameTurnTime
+  const turnEnd = incrementGameTime(gameStartTimeLocal, turnLength)
+  console.log('game start time', gameStartTimeLocal)
+  const results: InteractionResults = planningMessages.length && getNextInteraction2(planningMessages, planningActivities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  console.log('next interaction', results)
 
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
