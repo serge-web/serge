@@ -123,9 +123,9 @@ export interface PlanningActivity {
    */
   interactsWith?: Array<PlanningActivity['actId']>
   /** 
-   * any short-circuits that this activity generates
+   * any events that this activity generates (separate to interactions with other activities)
    */
-  shortCircuits?: Array<INTERACTION_SHORT_CIRCUIT>
+  events?: Array<INTERACTION_SHORT_CIRCUIT>
 }
 
 export interface CoreOutcome {

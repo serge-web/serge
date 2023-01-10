@@ -8138,7 +8138,7 @@ const game: Wargame = {
                                     ],
                                     "uniqid": "f-blue-Land-Strike",
                                     "template": "Land--MissileStrike",
-                                    "shortCircuits": [
+                                    "events": [
                                         "inter-at-end"
                                     ]
                                 },
@@ -8528,7 +8528,7 @@ const game: Wargame = {
                                     ],
                                     "uniqid": "f-blue-Maritime-Strike",
                                     "template": "Maritime--MissileStrike",
-                                    "shortCircuits": [
+                                    "events": [
                                         "inter-at-end"
                                     ]
                                 },
@@ -9207,7 +9207,7 @@ const game: Wargame = {
                                     ],
                                     "uniqid": "f-red-Land-Strike",
                                     "template": "Land--MissileStrike",
-                                    "shortCircuits": [
+                                    "events": [
                                         "inter-at-end"
                                     ]
                                 },
@@ -9614,7 +9614,7 @@ const game: Wargame = {
                                     ],
                                     "uniqid": "f-red-Maritime-Strike",
                                     "template": "Maritime--MissileStrike",
-                                    "shortCircuits": [
+                                    "events": [
                                         "inter-at-end"
                                     ]
                                 },
@@ -10293,7 +10293,7 @@ const game: Wargame = {
                                     ],
                                     "uniqid": "f-green-Land-Strike",
                                     "template": "Land--MissileStrike",
-                                    "shortCircuits": [
+                                    "events": [
                                         "inter-at-end"
                                     ]
                                 },
@@ -10683,7 +10683,7 @@ const game: Wargame = {
                                     ],
                                     "uniqid": "f-green-Maritime-Strike",
                                     "template": "Maritime--MissileStrike",
-                                    "shortCircuits": [
+                                    "events": [
                                         "inter-at-end"
                                     ]
                                 },

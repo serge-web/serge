@@ -301,7 +301,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           template: templateName
         }
         if (act.shortCircuits) {
-          activity.shortCircuits = act.shortCircuits
+          activity.events = act.shortCircuits
         }
         if (act.acts) {
           activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc || [])
