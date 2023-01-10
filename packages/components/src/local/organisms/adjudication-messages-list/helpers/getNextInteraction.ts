@@ -390,7 +390,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       console.log('binning complete, contacts:', contacts.length)
 
       // drop contacts
-      const dropContacts = false
+      const dropContacts = true
       if (dropContacts) {
         while (contacts.length) {
           contacts.pop()
