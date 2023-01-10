@@ -342,8 +342,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       console.log('loop', shortCircuit)
 
       const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
-      
-      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length )
+
+      console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length)
 
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)

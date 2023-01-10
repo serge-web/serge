@@ -124,7 +124,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     const reverseInter = interactions.reverse() as Array<MessageInteraction>
     const deDupeInteractions = uniqBy(reverseInter, function (inter: MessageInteraction) {
       return inter.message.Reference
-    }) 
+    })
     setInteractionMessages(deDupeInteractions)
     setPlanningMessages(nonInfoMessages.filter((msg: MessageInteraction | MessagePlanning) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>)
   }, [messages])

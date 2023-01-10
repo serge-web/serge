@@ -67,7 +67,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
     }
     if (interactionMessages.length > 0) {
-      const lastMessage = interactionMessages[interactionMessages.length-1]
+      const lastMessage = interactionMessages[interactionMessages.length - 1]
       if (lastMessage.details.interaction) {
         setCurrentTime(lastMessage.details.interaction.startTime)
       }
@@ -199,7 +199,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
         { title: 'ID', field: 'id' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
-        { title: 'Owner', field: 'owner'},
+        { title: 'Owner', field: 'owner' },
         { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
         { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
         { title: 'Activity', field: 'Reference' },
@@ -255,7 +255,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (document) {
         const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
         console.log('before', document.details.interaction)
-        const interaction = details.interaction 
+        const interaction = details.interaction
         if (interaction) {
           // mark as adjudicatead
           interaction.complete = true
