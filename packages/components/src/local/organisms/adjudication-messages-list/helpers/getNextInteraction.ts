@@ -151,7 +151,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
           tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
             // see if this has MEZ range
             const attrs = oppAsset.attributes
-            if (attrs && attrs.a_Mez_Range && oppAsset.location) {
+            if (attrs && attrs.a_Mez_Range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
               // ok, it has a MEZ range
               const mezAsset = oppAsset
               // generate
