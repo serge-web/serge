@@ -7074,12 +7074,12 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 0,
+                            "health": 100,
                             "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                5.6868,
-                                54.3911
+                                4.868,
+                                56.311
                             ],
                             "attributes": {
                                 "a_Number_Missiles": 100,
