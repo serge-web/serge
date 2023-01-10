@@ -162,25 +162,25 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
     console.warn('SAVE MESSAGE 1')
     return async (): Promise<void> => {
-        const newMessage: MessageInteraction = {
-          _id: moment().toISOString(),
-          // defined constat for messages, it's not same as message.details.messageType,
-          // ex for all template based messages will be used CUSTOM_MESSAGE Type
-          messageType: 'InteractionMessage',
-          details,
-          message: message,
-          hasBeenRead: false
-        }
-        const newMessagesList = [...stateMessages, newMessage]
-        const nonInfoMessages = newMessagesList.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
-        const reverseMes = nonInfoMessages.reverse()
-        const deDupeInteractions = uniqBy(reverseMes, function (inter: MessageInteraction | MessagePlanning) {
-          return inter.message.Reference
-        })
-        const restoreOrder = deDupeInteractions.reverse()
-        setStateMessages(restoreOrder)
+      const newMessage: MessageInteraction = {
+        _id: moment().toISOString(),
+        // defined constat for messages, it's not same as message.details.messageType,
+        // ex for all template based messages will be used CUSTOM_MESSAGE Type
+        messageType: 'InteractionMessage',
+        details,
+        message: message,
+        hasBeenRead: false
       }
+      const newMessagesList = [...stateMessages, newMessage]
+      const nonInfoMessages = newMessagesList.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+      const reverseMes = nonInfoMessages.reverse()
+      const deDupeInteractions = uniqBy(reverseMes, function (inter: MessageInteraction | MessagePlanning) {
+        return inter.message.Reference
+      })
+      const restoreOrder = deDupeInteractions.reverse()
+      setStateMessages(restoreOrder)
     }
+  }
 
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)

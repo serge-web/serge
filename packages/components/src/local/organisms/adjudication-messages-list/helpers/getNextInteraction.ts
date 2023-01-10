@@ -344,7 +344,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         console.log('loop', shortCircuit)
       }
 
-      const liveOrders = ordersLiveIn(orders, gameTimeVal, windowEnd)
+      const liveOrders = ordersLiveIn(fullOrders, gameTimeVal, windowEnd)
 
       console.log('window size', gameTime, moment(windowEnd).toISOString(), formatDuration(currentWindow), liveOrders.length)
 
