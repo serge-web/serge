@@ -2,7 +2,7 @@ import { MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-typ
 import moment from 'moment'
 import React from 'react'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'
-import { Column } from 'material-table'
+import { Column } from '@material-table/core'
 
 import { OrderRow } from '../types/props'
 export const roles: string[] = []
@@ -41,7 +41,7 @@ export const toRow = (message: MessagePlanning, playerForceId: string): OrderRow
   return row
 }
 
-export const toColumn = (message: MessagePlanning[], playerForceId: string): Column[] => {
+export const toColumn = (message: MessagePlanning[], playerForceId: string): Column<any>[] => {
   // fix unit-test for MaterialTable
   const jestWorkerId = process.env.JEST_WORKER_ID
   // end
@@ -59,7 +59,7 @@ export const toColumn = (message: MessagePlanning[], playerForceId: string): Col
     ...smallPadding, width: '120px'
   }
 
-  const columnData: Column[] = jestWorkerId ? [] : [
+  const columnData: Column<any>[] = jestWorkerId ? [] : [
     { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell },
     { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
     { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
