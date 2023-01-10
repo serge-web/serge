@@ -279,6 +279,23 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     forceId: force.forceId
   }
 
+  // get activities for this force
+  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
+  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
+  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
+  const activity = randomArrayItem(flatActivities, ctr++)
+
+  const needsMissiles = (activity.template && activity.template.includes('Strike'))
+
+  const missileTypes = [
+    'SRBM',
+    'MRBM',
+    'IRBM',
+    'Standard Cruise',
+    'Low Obs Cruise',
+    'Propellor OWA UAV',
+    'Jet OWA UAV']
+
   // assets
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
@@ -290,7 +307,13 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     }
     assets.push(possAsset)
   }
-  const assetsArr = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
+  const assetsArr = assets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+    if (needsMissiles) {
+      res.missileType = randomArrayItem(missileTypes, ++ctr)
+    }
+    return res
+  })
 
   const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
   const targets: Asset[] = []
@@ -302,13 +325,13 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     }
     targets.push(possTarget)
   }
-  const targetsAarr = targets.map((asset: Asset) => { return { asset: asset.uniqid } })
-
-  // get activities for this force
-  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
-  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
-  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
-  const activity = randomArrayItem(flatActivities, ctr++)
+  const targetsAarr = targets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+    if (needsMissiles) {
+      res.missileType = randomArrayItem(missileTypes, ++ctr)
+    }
+    return res
+  })
 
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
     activity, 5 * psora(4 * ctr), timeNow)

@@ -16,7 +16,6 @@ export interface OrderPlotterProps {
 export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, forceCols }) => {
   const [rangeRings, setRangeRings] = useState<React.ReactElement[]>([])
   useEffect(() => {
-    console.log('update range rings')
     const rings: React.ReactElement[] = []
     assets.forEach((asset: AssetRow) => {
       const attrs = asset.attributes
