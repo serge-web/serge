@@ -32,11 +32,16 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
   }
 
   const icons = {}
-  const fetchIcon = (count: number) => {
+  const fetchIcon = (count: number, size: number, background: string) => {
+    const style = {
+      width: size,
+      height: size,
+      backgroundColor: background
+    }
     if (!icons[count]) {
       icons[count] = L.divIcon({
-        html: ReactDOMServer.renderToString(<div className={cx({ [styles.cluster]: true })} >
-          {count}
+        html: ReactDOMServer.renderToString(<div className={cx({ [styles.cluster]: true })} style={style} >
+         {count}
         </div>)
       })
     }
@@ -127,11 +132,15 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
   }, [selectedAssets])
 
   const getIconCount = useCallback((count: number, loc: LatLng, id: number) => {
-    // const size = 10 + (count / geoJSONPlaces.length) * 40
+    const size = 10 + (count / geoJSONPlaces.length) * 50
+    const background = count >= 10 ? 'rgba(240, 194, 12, 0.6)' : 'rgb(110 204 57 / 60%)'
+  
     return {
+      size: size,
+      riseOnHover: true,
       key: `cluster-${id}`,
       position: loc,
-      icon: fetchIcon(count)
+      icon: fetchIcon(count, size, background)
     }
   }, [selectedAssets])
 
