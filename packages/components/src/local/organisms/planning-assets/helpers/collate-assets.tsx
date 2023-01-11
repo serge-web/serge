@@ -130,9 +130,24 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   // sort sub-types
   const sortedSubTypes = subTypes.slice().sort()
 
+  // sort the platform dictionary, using this algorithm:
+  // https://stackoverflow.com/a/1069840/92441
+  let sortedDict = [];
+  for (var pType in platformTypesDict) {
+    sortedDict.push([pType, platformTypesDict[pType]]);
+  }
+  sortedDict.sort(function (a, b) {
+    return a[1].localeCompare(b[1])
+  });
+  let objSorted = {}
+  sortedDict.forEach(function (item) {
+    objSorted[item[0]] = item[1]
+  })
+
+
   const res: SummaryData = {
     roles: roleDict,
-    platformTypes: platformTypesDict,
+    platformTypes: objSorted,
     subTypes: sortedSubTypes,
     conditions: conditions,
     statuses: statuses,
@@ -197,7 +212,7 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
   const keys = Object.keys(row.attributes)
   if (keys.length) {
     return <ul>
-      { keys.map((key: string, index: number) => {
+      {keys.map((key: string, index: number) => {
         return <li key={index}>{key}: {row.attributes[key]}</li>
       })}
     </ul>
