@@ -18,6 +18,26 @@ type SummaryData = {
   forces: string[]
 }
 
+// sort the platform dictionary, using this algorithm:
+// https://stackoverflow.com/a/1069840/92441
+const sortDictionaryByValue = ( dict: Record<string, string>):  Record<string, string> => {
+  // convert dictionary to array
+  let sortedDict = [];
+  for (var pType in dict) {
+    sortedDict.push([pType, dict[pType]]);
+  }
+  // sort array
+  sortedDict.sort(function (a, b) {
+    return a[1].localeCompare(b[1])
+  });
+  // revert to dictionary
+  let objSorted = {}
+  sortedDict.forEach(function (item) {
+    objSorted[item[0]] = item[1]
+  })
+  return objSorted
+}
+
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
   platformTypesDict: Record<PlatformStyle['uniqid'], PlatformStyle['name']>): void => {
   if (!platformTypesDict[pType] && platformStyles.length) {
@@ -130,24 +150,13 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   // sort sub-types
   const sortedSubTypes = subTypes.slice().sort()
 
-  // sort the platform dictionary, using this algorithm:
-  // https://stackoverflow.com/a/1069840/92441
-  let sortedDict = [];
-  for (var pType in platformTypesDict) {
-    sortedDict.push([pType, platformTypesDict[pType]]);
-  }
-  sortedDict.sort(function (a, b) {
-    return a[1].localeCompare(b[1])
-  });
-  let objSorted = {}
-  sortedDict.forEach(function (item) {
-    objSorted[item[0]] = item[1]
-  })
+  const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+
 
 
   const res: SummaryData = {
     roles: roleDict,
-    platformTypes: objSorted,
+    platformTypes: sortedPlatforms,
     subTypes: sortedSubTypes,
     conditions: conditions,
     statuses: statuses,
