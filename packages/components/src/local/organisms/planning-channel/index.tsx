@@ -126,6 +126,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
+  const genData = (): void => {
+    const doGenny = 7
+    if (!doGenny) {
+      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+      setActivityBeingPlanned(newPlan)
+    } else {
+      const createAssets = false
+      if (createAssets) {
+        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
+        console.log('forces', forces)
+      } else {
+        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
+        console.log(newOrders)
+      }
+    }
+  }
+
   useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want
@@ -342,23 +359,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const supportPanelContext = useMemo(() => (
     { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders])
-
-  const genData = (): void => {
-    const doGenny = 7
-    if (!doGenny) {
-      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-      setActivityBeingPlanned(newPlan)
-    } else {
-      const createAssets = false
-      if (createAssets) {
-        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
-        console.log('forces', forces)
-      } else {
-        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
-        console.log(newOrders)
-      }
-    }
-  }
 
   const incrementDebugStep = (): void => {
     // do something

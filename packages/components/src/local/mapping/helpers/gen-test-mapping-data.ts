@@ -88,7 +88,7 @@ const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: Att
       if (aType) {
         return aType
       } else {
-        throw Error('Attribute type not found for:' + id)
+        throw Error('Attribute type not found for:' + id + '-' + platformType.name)
       }
     })
     return res
@@ -116,6 +116,9 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
           attributes[id] = 10 + multiplier * 12
           break
       }
+    } else if (id === 'a_Type') {
+      const multiplier = Math.floor(Math.random() * 6) + 1
+      attributes[id] = platformType.name + '_' + multiplier
     } else {
       switch (attr.attrType) {
         case ATTRIBUTE_TYPE_NUMBER: {
