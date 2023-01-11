@@ -9,6 +9,7 @@ export type InteractionData = {
   order2: MessagePlanning | undefined
   allAssets: Asset[]
   allAssetNames: string[]
+  otherAssets: Asset[]
   order1Activity: string | undefined
   order2Activity: string | undefined
 }
@@ -132,12 +133,20 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   const act1 = forcePlanningActivities && getActivity(forcePlanningActivities, order1.message.activity, order1.details.from.forceId)
   const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order2.message.activity, order2.details.from.forceId)
 
+  let otherAssets: Array<Asset> | undefined
+  if (interaction.otherAssets && interaction.otherAssets.length) {
+    otherAssets = interaction.otherAssets.map((id: string) => {
+      return findAsset(forces, id)
+    })
+  }
+
   return {
     interaction: intMsg,
     order1: order1,
     order2: order2,
     allAssets: sortedAllAssets,
     allAssetNames: sortedAllAssetNames,
+    otherAssets: otherAssets || [],
     order1Activity: act1,
     order2Activity: act2
   }

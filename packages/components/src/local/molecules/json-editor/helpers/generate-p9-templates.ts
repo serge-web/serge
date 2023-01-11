@@ -1,5 +1,5 @@
-import { GeometryType } from '@serge/config'
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { GeometryType, INTER_AT_END } from '@serge/config'
+import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import _ from 'lodash'
 import moment from 'moment'
 import { airTemplate } from './p9-air'
@@ -108,6 +108,8 @@ interface Activity {
   interactsWith?: Array<Activity['uniqid']>
   // if activity interaction includes oppFor assets under geometries
   provideSpatialAssets?: boolean
+  // any short-circuit this activity generates
+  shortCircuits?: Array<INTERACTION_SHORT_CIRCUIT>
 }
 
 /** collated data on what this activity interacts with  */
@@ -205,10 +207,14 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'SOF', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW'] })
 
+  // const strt = INTER_AT_START
+  // const rnd = INTER_AT_RANDOM
+  const endd = INTER_AT_END
+
   const acts: Activity[] = []
   acts.push({ uniqid: 'BMD-MEZ', title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
   acts.push({ uniqid: 'SAM-MEZ', title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
-  acts.push({ uniqid: 'STRIKE', title: 'Strike', forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
+  acts.push({ uniqid: 'STRIKE', title: 'Strike', shortCircuits: [endd], forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', provideSpatialAssets: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', provideSpatialAssets: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
@@ -293,6 +299,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           interactsWith: act.interactsWith,
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
+        }
+        if (act.shortCircuits) {
+          activity.events = act.shortCircuits
         }
         if (act.acts) {
           activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc || [])

@@ -57,787 +57,794 @@ const game: Wargame = {
                 {
                     "assets": [
                         {
-                            "uniqid": "a1",
-                            "contactId": "CA913",
+                            "uniqid": "a604",
+                            "contactId": "CA1922",
                             "name": "Blue:0",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:0",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:0",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:0",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 25,
-                            "platformTypeId": "blue_air_fighter",
+                            "health": 80,
+                            "platformTypeId": "blue_air_istar",
                             "condition": "working",
                             "location": [
-                                43.2322,
-                                48.8223
+                                35.0305,
+                                22.0027
                             ],
                             "attributes": {
-                                "a_Speed": 260,
+                                "a_Speed": 220,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_49"
+                                "a_Type": "ISTAR (blue)_5",
+                                "a_Equipment": "_8",
+                                "a_Detection Range": 50
                             },
                             "comprising": []
                         },
                         {
-                            "uniqid": "a5",
-                            "contactId": "CA3143",
+                            "uniqid": "a608",
+                            "contactId": "CA1892",
                             "name": "Blue:4",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:4",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:4",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:4",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "blue_land_ssm",
+                            "health": 70,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                48.4452,
-                                25.2375
+                                46.8213,
+                                75.5828
                             ],
                             "attributes": {
-                                "a_Speed": 58,
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_16",
-                                "a_Range": 100,
-                                "a_C2_Status": "Operational"
+                                "a_Speed": 25,
+                                "a_Type": "Submarine (blue)_1",
+                                "a_Equipment": "_0"
                             }
                         },
                         {
-                            "uniqid": "a6",
-                            "contactId": "CA1555",
+                            "uniqid": "a609",
+                            "contactId": "CA13",
                             "name": "Blue:5",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:5",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:5",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:5",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 10,
-                            "platformTypeId": "blue_maritime_mtg",
+                            "health": 65,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                29.9917,
-                                44.645
+                                42.8685,
+                                39.6815
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_6"
+                                "a_Type": "Bomber Squadron (blue)_2",
+                                "a_Speed": 240,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_23"
                             }
                         },
                         {
-                            "uniqid": "a7",
-                            "contactId": "CA513",
+                            "uniqid": "a610",
+                            "contactId": "CA1695",
                             "name": "Blue:6",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:6",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:6",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:6",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 10,
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                37.8153,
-                                53.4219
+                                34.3402,
+                                43.3649
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_16"
+                                "a_Units": "_3",
+                                "a_Type": "Fixed Asset (blue)_6",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a8",
-                            "contactId": "CA1891",
+                            "uniqid": "a611",
+                            "contactId": "CA2176",
                             "name": "Blue:7",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:7",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:7",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:7",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "blue_air_fighter",
+                            "health": 25,
+                            "platformTypeId": "blue_maritime_mine",
                             "condition": "working",
                             "location": [
-                                44.4351,
-                                53.2611
+                                37.5647,
+                                31.3669
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_11"
+                                "a_Density": 100,
+                                "a_Type": "Maritime Minefield (blue)_4",
+                                "a_Minefield_Passable": "No"
                             }
                         },
                         {
-                            "uniqid": "a9",
-                            "contactId": "CA212",
+                            "uniqid": "a612",
+                            "contactId": "CA120",
                             "name": "Blue:8",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:8",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:8",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:8",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 95,
-                            "platformTypeId": "blue_land_ssm",
+                            "health": 20,
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                28.764,
-                                22.1556
+                                32.2711,
+                                25.3746
                             ],
                             "attributes": {
-                                "a_Speed": 34,
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_15",
-                                "a_Range": 100,
-                                "a_C2_Status": "Degraded"
+                                "a_Speed": 30,
+                                "a_Type": "MTG (blue)_4",
+                                "a_Equipment": "_15"
                             }
                         },
                         {
-                            "uniqid": "a10",
-                            "contactId": "CA2909",
+                            "uniqid": "a613",
+                            "contactId": "CA1918",
                             "name": "Blue:9",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:9",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:9",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:9",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 60,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 30,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                30.0125,
-                                80.5363
+                                45.8972,
+                                65.9684
                             ],
                             "attributes": {
-                                "a_Speed": 260,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_36"
+                                "a_Speed": 20,
+                                "a_Type": "Ship (blue)_3",
+                                "a_Equipment": "_41"
                             }
                         },
                         {
-                            "uniqid": "a11",
-                            "contactId": "CA518",
+                            "uniqid": "a614",
+                            "contactId": "CA2531",
                             "name": "Blue:10",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:10",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:10",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:10",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 95,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                29.2456,
-                                75.1631
+                                43.2649,
+                                73.1431
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_19"
+                                "a_Speed": 30,
+                                "a_Type": "Submarine (blue)_5",
+                                "a_Equipment": "_2"
                             }
                         },
                         {
-                            "uniqid": "a12",
-                            "contactId": "CA2135",
+                            "uniqid": "a615",
+                            "contactId": "CA3290",
                             "name": "Blue:11",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:11",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:11",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:11",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "blue_maritime_mine",
+                            "health": 75,
+                            "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                31.9085,
-                                50.1571
+                                51.8209,
+                                51.3338
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Limited"
+                                "a_Type": "Air LOGS (blue)_1",
+                                "a_Speed": 260,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_39"
                             }
                         },
                         {
-                            "uniqid": "a13",
-                            "contactId": "CA787",
+                            "uniqid": "a616",
+                            "contactId": "CA2644",
                             "name": "Blue:12",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:12",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:12",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:12",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "blue_maritime_mine",
+                            "health": 35,
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                52.8233,
-                                83.2344
+                                54.9414,
+                                28.8238
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Limited"
+                                "a_Units": "_5",
+                                "a_Type": "Fixed Asset (blue)_5",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a14",
-                            "contactId": "CA2043",
+                            "uniqid": "a617",
+                            "contactId": "CA1212",
                             "name": "Blue:13",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:13",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:13",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:13",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 }
                             ],
                             "health": 40,
-                            "platformTypeId": "blue_air_logs",
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                46.5838,
-                                34.9494
+                                41.323,
+                                85.7435
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_43"
+                                "a_Type": "C2 Node (blue)_6",
+                                "a_Connections": "_46",
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a15",
-                            "contactId": "CA3102",
+                            "uniqid": "a618",
+                            "contactId": "CA3027",
                             "name": "Blue:14",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:14",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:14",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:14",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 50,
-                            "platformTypeId": "blue_air_logs",
+                            "health": 95,
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                38.8471,
-                                24.8511
+                                36.4885,
+                                33.5426
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_26"
+                                "a_Speed": 10,
+                                "a_Type": "MTG (blue)_5",
+                                "a_Equipment": "_15"
                             }
                         },
                         {
-                            "uniqid": "a16",
-                            "contactId": "CA3181",
+                            "uniqid": "a619",
+                            "contactId": "CA2169",
                             "name": "Blue:15",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:15",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:15",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:15",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 60,
-                            "platformTypeId": "blue_air_logs",
+                            "health": 95,
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                48.4589,
-                                44.9572
+                                52.2145,
+                                64.3273
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_21"
+                                "a_Speed": 10,
+                                "a_Type": "MTG (blue)_5",
+                                "a_Equipment": "_15"
                             }
                         },
                         {
-                            "uniqid": "a17",
-                            "contactId": "CA1550",
+                            "uniqid": "a620",
+                            "contactId": "CA2582",
                             "name": "Blue:16",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:16",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:16",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:16",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 90,
+                            "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                39.1761,
-                                42.2225
+                                34.0994,
+                                24.1392
                             ],
                             "attributes": {
-                                "a_Speed": 260,
+                                "a_Type": "Air LOGS (blue)_5",
+                                "a_Speed": 200,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_10"
+                                "a_Equipment": "_30"
                             }
                         },
                         {
-                            "uniqid": "a18",
-                            "contactId": "CA2248",
+                            "uniqid": "a621",
+                            "contactId": "CA1523",
                             "name": "Blue:17",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:17",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:17",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:17",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "blue_land_ssm",
+                            "health": 50,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                29.7162,
-                                51.6084
+                                38.0541,
+                                45.1034
                             ],
                             "attributes": {
-                                "a_Speed": 34,
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_46",
-                                "a_Range": 100,
-                                "a_C2_Status": "Operational"
+                                "a_Type": "Bomber Squadron (blue)_3",
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_7"
                             }
                         },
                         {
-                            "uniqid": "a19",
-                            "contactId": "CA1840",
+                            "uniqid": "a622",
+                            "contactId": "CA1131",
                             "name": "Blue:18",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:18",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:18",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:18",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "blue_land_ssm",
+                            "health": 5,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                47.039,
-                                74.5841
+                                31.6995,
+                                59.5373
                             ],
                             "attributes": {
                                 "a_Speed": 10,
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_39",
-                                "a_Range": 100,
-                                "a_C2_Status": "Degraded"
+                                "a_Type": "Land Unit (blue)_6",
+                                "a_Size": "size_49",
+                                "a_Equipment": "_36"
                             }
                         },
                         {
-                            "uniqid": "a20",
-                            "contactId": "CA3293",
+                            "uniqid": "a623",
+                            "contactId": "CA1236",
                             "name": "Blue:19",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:19",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:19",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:19",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "blue_maritime_ship",
+                            "health": 5,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                44.0536,
-                                62.7729
+                                36.2458,
+                                53.083
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_3"
+                                "a_Speed": 15,
+                                "a_Type": "Submarine (blue)_5",
+                                "a_Equipment": "_25"
                             }
                         },
                         {
-                            "uniqid": "a21",
-                            "contactId": "CA356",
+                            "uniqid": "a624",
+                            "contactId": "CA1799",
                             "name": "Blue:20",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:20",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:20",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:20",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 35,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "health": 85,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                44.6023,
-                                43.7369
+                                41.3831,
+                                25.6699
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Number_FIACs": 100
+                                "a_Speed": 20,
+                                "a_Type": "Ship (blue)_2",
+                                "a_Equipment": "_13"
                             }
                         },
                         {
-                            "uniqid": "a22",
-                            "contactId": "CA462",
+                            "uniqid": "a625",
+                            "contactId": "CA2137",
                             "name": "Blue:21",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:21",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:21",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:21",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "blue_maritime_mtg",
+                            "health": 50,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                40.1827,
-                                45.5865
+                                46.2657,
+                                69.7579
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_41"
+                                "a_Speed": 34,
+                                "a_Type": "Land Unit (blue)_3",
+                                "a_Size": "size_21",
+                                "a_Equipment": "_11"
                             }
                         },
                         {
-                            "uniqid": "a23",
-                            "contactId": "CA2712",
+                            "uniqid": "a626",
+                            "contactId": "CA1691",
                             "name": "Blue:22",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:22",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:22",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:22",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "blue_maritime_mtg",
+                            "health": 50,
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                39.2237,
-                                49.1607
+                                34.8314,
+                                24.4953
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Equipment": "_2"
+                                "a_Units": "_22",
+                                "a_Type": "Fixed Asset (blue)_5",
+                                "a_Building_Type": "B-Type-A"
                             }
                         },
                         {
-                            "uniqid": "a24",
-                            "contactId": "CA1730",
+                            "uniqid": "a627",
+                            "contactId": "CA1036",
                             "name": "Blue:23",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:23",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:23",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:23",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 45,
+                            "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                30.1768,
-                                43.3613
+                                50.781,
+                                47.9502
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_14"
+                                "a_Type": "FIAC (blue)_4",
+                                "a_Speed": 30,
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a25",
-                            "contactId": "CA2727",
+                            "uniqid": "a628",
+                            "contactId": "CA1574",
                             "name": "Blue:24",
                             "perceptions": [
                                 {
@@ -859,777 +866,271 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 45,
+                            "health": 95,
                             "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                47.9796,
-                                59.9782
+                                46.8123,
+                                36.9159
                             ],
                             "attributes": {
-                                "a_Speed": 240,
+                                "a_Type": "Air LOGS (blue)_1",
+                                "a_Speed": 200,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_38"
+                                "a_Equipment": "_17"
                             }
                         },
                         {
-                            "uniqid": "a26",
-                            "contactId": "CA964",
+                            "uniqid": "a629",
+                            "contactId": "CA1929",
                             "name": "Blue:25",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:25",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:25",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:25",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 }
                             ],
                             "health": 40,
-                            "platformTypeId": "blue_air_fighter",
+                            "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                49.8316,
-                                61.6938
+                                40.4872,
+                                24.2742
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_29"
+                                "a_Speed": 22,
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SSM (blue)_2",
+                                "a_Equipment": "_25",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a27",
-                            "contactId": "CA2166",
+                            "uniqid": "a630",
+                            "contactId": "CA426",
                             "name": "Blue:26",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:26",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:26",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:26",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 50,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                49.1608,
-                                72.5424
+                                35.9453,
+                                48.9533
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_36"
+                                "a_Speed": 34,
+                                "a_Type": "Land Unit (blue)_3",
+                                "a_Size": "size_21",
+                                "a_Equipment": "_5"
                             }
                         },
                         {
-                            "uniqid": "a28",
-                            "contactId": "CA1028",
+                            "uniqid": "a631",
+                            "contactId": "CA1611",
                             "name": "Blue:27",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:27",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:27",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:27",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 60,
+                            "platformTypeId": "blue_air_istar",
                             "condition": "working",
                             "location": [
-                                46.6821,
-                                62.8572
+                                30.402,
+                                61.9421
                             ],
                             "attributes": {
-                                "a_Speed": 260,
+                                "a_Speed": 240,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_13"
+                                "a_Type": "ISTAR (blue)_6",
+                                "a_Equipment": "_4",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a29",
-                            "contactId": "CA776",
+                            "uniqid": "a632",
+                            "contactId": "CA2958",
                             "name": "Blue:28",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:28",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:28",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:28",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 10,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 15,
+                            "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                52.724,
-                                30.0967
+                                31.0579,
+                                77.7536
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_1"
+                                "a_Type": "FIAC (blue)_4",
+                                "a_Speed": 25,
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a30",
-                            "contactId": "CA450",
+                            "uniqid": "a633",
+                            "contactId": "CA1450",
                             "name": "Blue:29",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:29",
-                                    "typeId": "blue_land_sam",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:29",
-                                    "typeId": "blue_land_sam",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:29",
-                                    "typeId": "blue_land_sam",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 25,
-                            "platformTypeId": "blue_land_sam",
+                            "health": 50,
+                            "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                33.6611,
-                                36.4944
+                                44.8111,
+                                69.7206
                             ],
                             "attributes": {
+                                "a_Speed": 10,
                                 "a_Number_Missiles": 100,
-                                "a_Equipment": "_20",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "None"
+                                "a_Type": "SSM (blue)_3",
+                                "a_Equipment": "_45",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a31",
-                            "contactId": "CA3301",
+                            "uniqid": "a634",
+                            "contactId": "CA3221",
                             "name": "Blue:30",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:30",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:30",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:30",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
                             ],
                             "health": 0,
-                            "platformTypeId": "blue_maritime_ship",
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                45.5999,
-                                55.8244
+                                35.7917,
+                                74.9508
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_15"
+                                "a_Units": "_4",
+                                "a_Type": "Fixed Asset (blue)_2",
+                                "a_Building_Type": "B-Type-A"
                             }
                         },
                         {
-                            "uniqid": "a32",
-                            "contactId": "CA662",
+                            "uniqid": "a635",
+                            "contactId": "CA705",
                             "name": "Blue:31",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:31",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:31",
-                                    "typeId": "blue_land_ssm",
+                                    "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:31",
-                                    "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 80,
-                            "platformTypeId": "blue_land_ssm",
-                            "condition": "working",
-                            "location": [
-                                42.8271,
-                                63.9769
-                            ],
-                            "attributes": {
-                                "a_Speed": 22,
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_6",
-                                "a_Range": 100,
-                                "a_C2_Status": "Degraded"
-                            }
-                        },
-                        {
-                            "uniqid": "a33",
-                            "contactId": "CA466",
-                            "name": "Blue:32",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:32",
-                                    "typeId": "blue_air_logs",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:32",
-                                    "typeId": "blue_air_logs",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:32",
-                                    "typeId": "blue_air_logs",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 30,
-                            "platformTypeId": "blue_air_logs",
-                            "condition": "working",
-                            "location": [
-                                45.7655,
-                                41.3132
-                            ],
-                            "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_18"
-                            }
-                        },
-                        {
-                            "uniqid": "a34",
-                            "contactId": "CA137",
-                            "name": "Blue:33",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:33",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:33",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:33",
-                                    "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 65,
-                            "platformTypeId": "blue_maritime_fiac",
-                            "condition": "working",
-                            "location": [
-                                52.9185,
-                                35.9982
-                            ],
-                            "attributes": {
-                                "a_Speed": 15,
-                                "a_Number_FIACs": 100
-                            }
-                        },
-                        {
-                            "uniqid": "a35",
-                            "contactId": "CA1316",
-                            "name": "Blue:34",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:34",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:34",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:34",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 30,
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                36.8923,
-                                32.3083
-                            ],
-                            "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_10"
-                            }
-                        },
-                        {
-                            "uniqid": "a36",
-                            "contactId": "CA2200",
-                            "name": "Blue:35",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:35",
-                                    "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:35",
-                                    "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:35",
-                                    "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 20,
-                            "platformTypeId": "blue_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                32.4012,
-                                35.1576
-                            ],
-                            "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_29"
-                            }
-                        },
-                        {
-                            "uniqid": "a37",
-                            "contactId": "CA491",
-                            "name": "Blue:36",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:36",
-                                    "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:36",
-                                    "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:36",
-                                    "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 30,
-                            "platformTypeId": "blue_air_fighter",
-                            "condition": "working",
-                            "location": [
-                                51.7056,
-                                22.0543
-                            ],
-                            "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_21"
-                            }
-                        },
-                        {
-                            "uniqid": "a38",
-                            "contactId": "CA1976",
-                            "name": "Blue:37",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:37",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:37",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:37",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 95,
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                31.0283,
-                                75.1808
-                            ],
-                            "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_33",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "Operational"
-                            }
-                        },
-                        {
-                            "uniqid": "a39",
-                            "contactId": "CA380",
-                            "name": "Blue:38",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:38",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:38",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:38",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 35,
-                            "platformTypeId": "blue_air_istar",
-                            "condition": "working",
-                            "location": [
-                                38.8699,
-                                80.7048
-                            ],
-                            "attributes": {
-                                "a_Speed": 260,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_15",
-                                "a_Detection Range": 50
-                            }
-                        },
-                        {
-                            "uniqid": "a40",
-                            "contactId": "CA2959",
-                            "name": "Blue:39",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:39",
-                                    "typeId": "blue_land_unit",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:39",
-                                    "typeId": "blue_land_unit",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:39",
-                                    "typeId": "blue_land_unit",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 80,
-                            "platformTypeId": "blue_land_unit",
-                            "condition": "working",
-                            "location": [
-                                46.9404,
-                                60.3062
-                            ],
-                            "attributes": {
-                                "a_Speed": 34,
-                                "a_Size": "Size of military unit18",
-                                "a_Equipment": "_14"
-                            }
-                        },
-                        {
-                            "uniqid": "a41",
-                            "contactId": "CA3390",
-                            "name": "Blue:40",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:40",
-                                    "typeId": "blue_land_asset",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:40",
-                                    "typeId": "blue_land_asset",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:40",
-                                    "typeId": "blue_land_asset",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 5,
-                            "platformTypeId": "blue_land_asset",
-                            "condition": "working",
-                            "location": [
-                                44.9461,
-                                45.558
-                            ],
-                            "attributes": {
-                                "a_Units": "_11",
-                                "a_Building_Type": "B-Type-C"
-                            }
-                        },
-                        {
-                            "uniqid": "a42",
-                            "contactId": "CA1264",
-                            "name": "Blue:41",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:41",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:41",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:41",
-                                    "typeId": "blue_land_c2",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 75,
-                            "platformTypeId": "blue_land_c2",
-                            "condition": "working",
-                            "location": [
-                                39.4662,
-                                59.5249
-                            ],
-                            "attributes": {
-                                "a_Connections": "_7",
-                                "a_C2_Status": "Degraded"
-                            }
-                        },
-                        {
-                            "uniqid": "a43",
-                            "contactId": "CA835",
-                            "name": "Blue:42",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:42",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:42",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:42",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 75,
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                32.0945,
-                                42.8583
-                            ],
-                            "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
-                            }
-                        },
-                        {
-                            "uniqid": "a44",
-                            "contactId": "CA335",
-                            "name": "Blue:43",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:43",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:43",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:43",
-                                    "typeId": "blue_land_sam",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 80,
-                            "platformTypeId": "blue_land_sam",
-                            "condition": "working",
-                            "location": [
-                                47.2282,
-                                34.0339
-                            ],
-                            "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_0",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "Degraded"
-                            }
-                        },
-                        {
-                            "uniqid": "a45",
-                            "contactId": "CA2369",
-                            "name": "Blue:44",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:44",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:44",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:44",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 50,
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                42.6802,
-                                75.3836
-                            ],
-                            "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_21"
-                            }
-                        },
-                        {
-                            "uniqid": "a46",
-                            "contactId": "CA1074",
-                            "name": "Blue:45",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:45",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:45",
-                                    "typeId": "blue_air_istar",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:45",
                                     "typeId": "blue_air_istar",
                                     "force": "f-blue"
                                 }
@@ -1638,163 +1139,702 @@ const game: Wargame = {
                             "platformTypeId": "blue_air_istar",
                             "condition": "working",
                             "location": [
-                                32.4075,
-                                61.5624
+                                36.7471,
+                                64.3856
                             ],
                             "attributes": {
-                                "a_Speed": 220,
+                                "a_Speed": 200,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_26",
+                                "a_Type": "ISTAR (blue)_2",
+                                "a_Equipment": "_18",
                                 "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a47",
-                            "contactId": "CA3198",
+                            "uniqid": "a636",
+                            "contactId": "CA1441",
+                            "name": "Blue:32",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:32",
+                                    "typeId": "blue_air_bomber",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:32",
+                                    "typeId": "blue_air_bomber",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:32",
+                                    "typeId": "blue_air_bomber",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 95,
+                            "platformTypeId": "blue_air_bomber",
+                            "condition": "working",
+                            "location": [
+                                48.5379,
+                                29.238
+                            ],
+                            "attributes": {
+                                "a_Type": "Bomber Squadron (blue)_5",
+                                "a_Speed": 260,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_0"
+                            }
+                        },
+                        {
+                            "uniqid": "a637",
+                            "contactId": "CA2213",
+                            "name": "Blue:33",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:33",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:33",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:33",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 35,
+                            "platformTypeId": "blue_land_unit",
+                            "condition": "working",
+                            "location": [
+                                42.2003,
+                                32.6787
+                            ],
+                            "attributes": {
+                                "a_Speed": 46,
+                                "a_Type": "Land Unit (blue)_3",
+                                "a_Size": "size_1",
+                                "a_Equipment": "_46"
+                            }
+                        },
+                        {
+                            "uniqid": "a638",
+                            "contactId": "CA569",
+                            "name": "Blue:34",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:34",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:34",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:34",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 35,
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                35.436,
+                                27.5225
+                            ],
+                            "attributes": {
+                                "a_Type": "FIAC (blue)_1",
+                                "a_Speed": 30,
+                                "a_Number_FIACs": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a639",
+                            "contactId": "CA124",
+                            "name": "Blue:35",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:35",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:35",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:35",
+                                    "typeId": "blue_maritime_ship",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 95,
+                            "platformTypeId": "blue_maritime_ship",
+                            "condition": "working",
+                            "location": [
+                                31.5277,
+                                63.1601
+                            ],
+                            "attributes": {
+                                "a_Speed": 25,
+                                "a_Type": "Ship (blue)_5",
+                                "a_Equipment": "_43"
+                            }
+                        },
+                        {
+                            "uniqid": "a640",
+                            "contactId": "CA2483",
+                            "name": "Blue:36",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:36",
+                                    "typeId": "blue_land_ssm",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:36",
+                                    "typeId": "blue_land_ssm",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:36",
+                                    "typeId": "blue_land_ssm",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 30,
+                            "platformTypeId": "blue_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                43.3347,
+                                69.2893
+                            ],
+                            "attributes": {
+                                "a_Speed": 22,
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SSM (blue)_4",
+                                "a_Equipment": "_25",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Degraded"
+                            }
+                        },
+                        {
+                            "uniqid": "a641",
+                            "contactId": "CA190",
+                            "name": "Blue:37",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:37",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:37",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:37",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 25,
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                40.1777,
+                                59.3446
+                            ],
+                            "attributes": {
+                                "a_Type": "FIAC (blue)_1",
+                                "a_Speed": 10,
+                                "a_Number_FIACs": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a642",
+                            "contactId": "CA2698",
+                            "name": "Blue:38",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:38",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:38",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:38",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 50,
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                40.9981,
+                                35.0716
+                            ],
+                            "attributes": {
+                                "a_Speed": 200,
+                                "a_Type": "Fast Jet Squadron (blue)_1",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_9"
+                            }
+                        },
+                        {
+                            "uniqid": "a643",
+                            "contactId": "CA2742",
+                            "name": "Blue:39",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:39",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:39",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:39",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 20,
+                            "platformTypeId": "blue_land_sam",
+                            "condition": "working",
+                            "location": [
+                                54.6033,
+                                50.8894
+                            ],
+                            "attributes": {
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SAM (blue)_4",
+                                "a_Equipment": "_2",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "None"
+                            }
+                        },
+                        {
+                            "uniqid": "a644",
+                            "contactId": "CA2695",
+                            "name": "Blue:40",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:40",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:40",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:40",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 55,
+                            "platformTypeId": "blue_land_sam",
+                            "condition": "working",
+                            "location": [
+                                49.2306,
+                                48.8364
+                            ],
+                            "attributes": {
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SAM (blue)_1",
+                                "a_Equipment": "_39",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Operational"
+                            }
+                        },
+                        {
+                            "uniqid": "a645",
+                            "contactId": "CA823",
+                            "name": "Blue:41",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:41",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:41",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:41",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 40,
+                            "platformTypeId": "blue_land_unit",
+                            "condition": "working",
+                            "location": [
+                                40.8735,
+                                54.7437
+                            ],
+                            "attributes": {
+                                "a_Speed": 34,
+                                "a_Type": "Land Unit (blue)_4",
+                                "a_Size": "size_10",
+                                "a_Equipment": "_42"
+                            }
+                        },
+                        {
+                            "uniqid": "a646",
+                            "contactId": "CA3369",
+                            "name": "Blue:42",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:42",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:42",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:42",
+                                    "typeId": "blue_maritime_fiac",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 40,
+                            "platformTypeId": "blue_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                35.7693,
+                                52.1473
+                            ],
+                            "attributes": {
+                                "a_Type": "FIAC (blue)_5",
+                                "a_Speed": 25,
+                                "a_Number_FIACs": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a647",
+                            "contactId": "CA2110",
+                            "name": "Blue:43",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:43",
+                                    "typeId": "blue_land_asset",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:43",
+                                    "typeId": "blue_land_asset",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:43",
+                                    "typeId": "blue_land_asset",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 55,
+                            "platformTypeId": "blue_land_asset",
+                            "condition": "working",
+                            "location": [
+                                41.2136,
+                                76.3793
+                            ],
+                            "attributes": {
+                                "a_Units": "_30",
+                                "a_Type": "Fixed Asset (blue)_3",
+                                "a_Building_Type": "B-Type-B"
+                            }
+                        },
+                        {
+                            "uniqid": "a648",
+                            "contactId": "CA1127",
+                            "name": "Blue:44",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:44",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:44",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:44",
+                                    "typeId": "blue_air_fighter",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 90,
+                            "platformTypeId": "blue_air_fighter",
+                            "condition": "working",
+                            "location": [
+                                39.3609,
+                                66.2121
+                            ],
+                            "attributes": {
+                                "a_Speed": 220,
+                                "a_Type": "Fast Jet Squadron (blue)_5",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_27"
+                            }
+                        },
+                        {
+                            "uniqid": "a649",
+                            "contactId": "CA2801",
+                            "name": "Blue:45",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:45",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:45",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:45",
+                                    "typeId": "blue_land_sam",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 55,
+                            "platformTypeId": "blue_land_sam",
+                            "condition": "working",
+                            "location": [
+                                50.2918,
+                                38.2786
+                            ],
+                            "attributes": {
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SAM (blue)_4",
+                                "a_Equipment": "_18",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Degraded"
+                            }
+                        },
+                        {
+                            "uniqid": "a650",
+                            "contactId": "CA3307",
                             "name": "Blue:46",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:46",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:46",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:46",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 90,
-                            "platformTypeId": "blue_land_c2",
+                            "health": 15,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                36.8923,
-                                71.8966
+                                30.4486,
+                                28.3848
                             ],
                             "attributes": {
-                                "a_Connections": "_32",
-                                "a_C2_Status": "Degraded"
+                                "a_Type": "Bomber Squadron (blue)_4",
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_44"
                             }
                         },
                         {
-                            "uniqid": "a48",
-                            "contactId": "CA423",
+                            "uniqid": "a651",
+                            "contactId": "CA305",
                             "name": "Blue:47",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:47",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:47",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:47",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_air_logs",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "blue_maritime_submarine",
+                            "health": 0,
+                            "platformTypeId": "blue_air_logs",
                             "condition": "working",
                             "location": [
-                                46.6572,
-                                46.4957
+                                30.7285,
+                                37.126
                             ],
                             "attributes": {
-                                "a_Speed": 25,
+                                "a_Type": "Air LOGS (blue)_2",
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
                                 "a_Equipment": "_34"
                             }
                         },
                         {
-                            "uniqid": "a49",
-                            "contactId": "CA1276",
+                            "uniqid": "a652",
+                            "contactId": "CA1346",
                             "name": "Blue:48",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:48",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:48",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:48",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 60,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "health": 75,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                30.1276,
-                                52.2249
+                                53.2468,
+                                46.9049
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Number_FIACs": 100
+                                "a_Speed": 25,
+                                "a_Type": "Ship (blue)_2",
+                                "a_Equipment": "_47"
                             }
                         },
                         {
-                            "uniqid": "a50",
-                            "contactId": "CA1409",
+                            "uniqid": "a653",
+                            "contactId": "CA1087",
                             "name": "Blue:49",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:49",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:49",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:49",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 }
                             ],
                             "health": 45,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                32.9425,
-                                53.8105
+                                28.6566,
+                                70.3476
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Number_FIACs": 100
+                                "a_Type": "C2 Node (blue)_2",
+                                "a_Connections": "_1",
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a51",
-                            "contactId": "CA1488",
+                            "uniqid": "a654",
+                            "contactId": "CA1306",
                             "name": "Blue:50",
                             "perceptions": [
                                 {
@@ -1816,207 +1856,214 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 50,
+                            "health": 20,
                             "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                41.9922,
-                                37.4866
+                                46.1869,
+                                28.1654
                             ],
                             "attributes": {
-                                "a_Speed": 46,
+                                "a_Speed": 58,
                                 "a_Number_Missiles": 100,
-                                "a_Equipment": "_8",
-                                "a_Range": 100,
-                                "a_C2_Status": "Degraded"
+                                "a_Type": "SSM (blue)_1",
+                                "a_Equipment": "_5",
+                                "a_Range": 2000,
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a52",
-                            "contactId": "CA2002",
+                            "uniqid": "a655",
+                            "contactId": "CA2842",
                             "name": "Blue:51",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:51",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:51",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:51",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "blue_air_logs",
+                            "health": 70,
+                            "platformTypeId": "blue_land_sam",
                             "condition": "working",
                             "location": [
-                                47.2388,
-                                35.3611
+                                53.9447,
+                                56.3626
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_46"
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SAM (blue)_5",
+                                "a_Equipment": "_49",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a53",
-                            "contactId": "CA639",
+                            "uniqid": "a656",
+                            "contactId": "CA2942",
                             "name": "Blue:52",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:52",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:52",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:52",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "blue_land_unit",
+                            "health": 85,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                35.1437,
-                                40.8463
+                                30.6534,
+                                30.4827
                             ],
                             "attributes": {
-                                "a_Speed": 46,
-                                "a_Size": "Size of military unit45",
-                                "a_Equipment": "_33"
+                                "a_Speed": 30,
+                                "a_Type": "Ship (blue)_2",
+                                "a_Equipment": "_17"
                             }
                         },
                         {
-                            "uniqid": "a54",
-                            "contactId": "CA3072",
+                            "uniqid": "a657",
+                            "contactId": "CA1212",
                             "name": "Blue:53",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:53",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:53",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:53",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "blue_land_c2",
+                            "health": 25,
+                            "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                33.0055,
-                                39.3788
+                                31.1357,
+                                32.8966
                             ],
                             "attributes": {
-                                "a_Connections": "_13",
-                                "a_C2_Status": "Operational"
+                                "a_Type": "FIAC (blue)_1",
+                                "a_Speed": 15,
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a55",
-                            "contactId": "CA413",
+                            "uniqid": "a658",
+                            "contactId": "CA3252",
                             "name": "Blue:54",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:54",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:54",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:54",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "blue_land_unit",
+                            "health": 50,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                35.2189,
-                                77.3652
+                                48.3519,
+                                65.7562
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Size": "Size of military unit9",
-                                "a_Equipment": "_29"
+                                "a_Type": "Bomber Squadron (blue)_2",
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_24"
                             }
                         },
                         {
-                            "uniqid": "a56",
-                            "contactId": "CA2557",
+                            "uniqid": "a659",
+                            "contactId": "CA960",
                             "name": "Blue:55",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:55",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:55",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:55",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "blue_maritime_mtg",
+                            "health": 35,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                44.1285,
-                                61.383
+                                54.2467,
+                                60.114
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_7"
+                                "a_Speed": 22,
+                                "a_Type": "Land Unit (blue)_6",
+                                "a_Size": "size_11",
+                                "a_Equipment": "_9"
                             }
                         },
                         {
-                            "uniqid": "a57",
-                            "contactId": "CA433",
+                            "uniqid": "a660",
+                            "contactId": "CA3248",
                             "name": "Blue:56",
                             "perceptions": [
                                 {
@@ -2038,129 +2085,137 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 5,
+                            "health": 75,
                             "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                52.3468,
-                                58.8611
+                                33.814,
+                                68.5769
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_6"
+                                "a_Speed": 25,
+                                "a_Type": "MTG (blue)_2",
+                                "a_Equipment": "_35"
                             }
                         },
                         {
-                            "uniqid": "a58",
-                            "contactId": "CA1580",
+                            "uniqid": "a661",
+                            "contactId": "CA1247",
                             "name": "Blue:57",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:57",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:57",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:57",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_maritime_fiac",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "blue_land_asset",
+                            "health": 90,
+                            "platformTypeId": "blue_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                30.6425,
-                                41.3393
+                                46.89,
+                                69.944
                             ],
                             "attributes": {
-                                "a_Units": "_11",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Type": "FIAC (blue)_1",
+                                "a_Speed": 15,
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a59",
-                            "contactId": "CA799",
+                            "uniqid": "a662",
+                            "contactId": "CA551",
                             "name": "Blue:58",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:58",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:58",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:58",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "blue_maritime_mine",
+                            "health": 55,
+                            "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                42.218,
-                                68.5311
+                                30.451,
+                                28.246
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Limited"
+                                "a_Speed": 22,
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SSM (blue)_1",
+                                "a_Equipment": "_28",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a60",
-                            "contactId": "CA514",
+                            "uniqid": "a663",
+                            "contactId": "CA848",
                             "name": "Blue:59",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:59",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:59",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:59",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "blue_land_asset",
+                            "health": 95,
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                51.3309,
-                                48.6568
+                                30.4157,
+                                33.2266
                             ],
                             "attributes": {
-                                "a_Units": "_8",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 220,
+                                "a_Type": "Fast Jet Squadron (blue)_1",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_11"
                             }
                         },
                         {
-                            "uniqid": "a61",
-                            "contactId": "CA1959",
+                            "uniqid": "a664",
+                            "contactId": "CA1196",
                             "name": "Blue:60",
                             "perceptions": [
                                 {
@@ -2182,293 +2237,228 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
+                            "health": 45,
                             "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                35.8624,
-                                58.1214
+                                54.7627,
+                                51.2583
                             ],
                             "attributes": {
-                                "a_Speed": 200,
+                                "a_Speed": 280,
+                                "a_Type": "Fast Jet Squadron (blue)_2",
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_13"
+                                "a_Equipment": "_22"
                             }
                         },
                         {
-                            "uniqid": "a62",
-                            "contactId": "CA136",
+                            "uniqid": "a665",
+                            "contactId": "CA3263",
                             "name": "Blue:61",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:61",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:61",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:61",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "blue_land_asset",
+                            "health": 10,
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                48.867,
-                                34.4607
+                                42.6032,
+                                56.1167
                             ],
                             "attributes": {
-                                "a_Units": "_34",
-                                "a_Building_Type": "B-Type-A"
+                                "a_Type": "C2 Node (blue)_1",
+                                "a_Connections": "_30",
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a63",
-                            "contactId": "CA2995",
+                            "uniqid": "a666",
+                            "contactId": "CA111",
                             "name": "Blue:62",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:62",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:62",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:62",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 50,
-                            "platformTypeId": "blue_air_logs",
+                            "health": 85,
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                52.555,
-                                77.7227
+                                53.5685,
+                                72.822
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_16"
+                                "a_Speed": 15,
+                                "a_Type": "MTG (blue)_6",
+                                "a_Equipment": "_2"
                             }
                         },
                         {
-                            "uniqid": "a64",
-                            "contactId": "CA424",
+                            "uniqid": "a667",
+                            "contactId": "CA3119",
                             "name": "Blue:63",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:63",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:63",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:63",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "blue_land_asset",
+                            "health": 70,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                48.0495,
-                                43.1878
+                                47.7091,
+                                78.315
                             ],
                             "attributes": {
-                                "a_Units": "_46",
-                                "a_Building_Type": "B-Type-A"
+                                "a_Speed": 22,
+                                "a_Type": "Land Unit (blue)_5",
+                                "a_Size": "size_37",
+                                "a_Equipment": "_16"
                             }
                         },
                         {
-                            "uniqid": "a65",
-                            "contactId": "CA3039",
+                            "uniqid": "a668",
+                            "contactId": "CA2198",
                             "name": "Blue:64",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:64",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:64",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:64",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 50,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "health": 95,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                36.5875,
-                                51.1599
+                                46.4207,
+                                51.7453
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Number_FIACs": 100
+                                "a_Type": "Bomber Squadron (blue)_3",
+                                "a_Speed": 280,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_0"
                             }
                         },
                         {
-                            "uniqid": "a66",
-                            "contactId": "CA464",
+                            "uniqid": "a669",
+                            "contactId": "CA1467",
                             "name": "Blue:65",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:65",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:65",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:65",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 15,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                44.3011,
-                                56.1378
+                                44.3574,
+                                56.4223
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_43"
+                                "a_Speed": 22,
+                                "a_Type": "Land Unit (blue)_6",
+                                "a_Size": "size_24",
+                                "a_Equipment": "_48"
                             }
                         },
                         {
-                            "uniqid": "a67",
-                            "contactId": "CA1725",
+                            "uniqid": "a670",
+                            "contactId": "CA3158",
                             "name": "Blue:66",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:66",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:66",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:66",
-                                    "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 25,
-                            "platformTypeId": "blue_maritime_ship",
-                            "condition": "working",
-                            "location": [
-                                29.7416,
-                                78.4772
-                            ],
-                            "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_46"
-                            }
-                        },
-                        {
-                            "uniqid": "a68",
-                            "contactId": "CA1742",
-                            "name": "Blue:67",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:67",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Blue:67",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Blue:67",
-                                    "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
-                                }
-                            ],
-                            "health": 95,
-                            "platformTypeId": "blue_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                53.6888,
-                                76.0781
-                            ],
-                            "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
-                            }
-                        },
-                        {
-                            "uniqid": "a69",
-                            "contactId": "CA3104",
-                            "name": "Blue:68",
-                            "perceptions": [
-                                {
-                                    "by": "f-red",
-                                    "name": "Blue:68",
                                     "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Blue:68",
+                                    "name": "Blue:66",
                                     "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Blue:68",
+                                    "name": "Blue:66",
                                     "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
@@ -2477,164 +2467,243 @@ const game: Wargame = {
                             "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                34.322,
-                                68.6616
+                                31.3034,
+                                42.9301
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_37"
+                                "a_Speed": 10,
+                                "a_Type": "MTG (blue)_2",
+                                "a_Equipment": "_7"
                             }
                         },
                         {
-                            "uniqid": "a70",
-                            "contactId": "CA2129",
+                            "uniqid": "a671",
+                            "contactId": "CA862",
+                            "name": "Blue:67",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:67",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:67",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:67",
+                                    "typeId": "blue_land_unit",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 5,
+                            "platformTypeId": "blue_land_unit",
+                            "condition": "working",
+                            "location": [
+                                38.1314,
+                                65.1047
+                            ],
+                            "attributes": {
+                                "a_Speed": 22,
+                                "a_Type": "Land Unit (blue)_4",
+                                "a_Size": "size_5",
+                                "a_Equipment": "_6"
+                            }
+                        },
+                        {
+                            "uniqid": "a672",
+                            "contactId": "CA513",
+                            "name": "Blue:68",
+                            "perceptions": [
+                                {
+                                    "by": "f-red",
+                                    "name": "Blue:68",
+                                    "typeId": "blue_maritime_mine",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Blue:68",
+                                    "typeId": "blue_maritime_mine",
+                                    "force": "f-blue"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Blue:68",
+                                    "typeId": "blue_maritime_mine",
+                                    "force": "f-blue"
+                                }
+                            ],
+                            "health": 60,
+                            "platformTypeId": "blue_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                42.0618,
+                                71.4492
+                            ],
+                            "attributes": {
+                                "a_Density": 100,
+                                "a_Type": "Maritime Minefield (blue)_6",
+                                "a_Minefield_Passable": "Yes"
+                            }
+                        },
+                        {
+                            "uniqid": "a673",
+                            "contactId": "CA2384",
                             "name": "Blue:69",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:69",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:69",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:69",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "blue_maritime_ship",
+                            "health": 15,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                28.8899,
-                                39.5444
+                                33.6505,
+                                82.1962
                             ],
                             "attributes": {
                                 "a_Speed": 10,
-                                "a_Equipment": "_38"
+                                "a_Type": "Submarine (blue)_4",
+                                "a_Equipment": "_5"
                             }
                         },
                         {
-                            "uniqid": "a71",
-                            "contactId": "CA1290",
+                            "uniqid": "a674",
+                            "contactId": "CA1351",
                             "name": "Blue:70",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:70",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:70",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:70",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "blue_maritime_submarine",
+                            "health": 35,
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                43.5747,
-                                38.0234
+                                50.4689,
+                                82.1197
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_11"
+                                "a_Speed": 200,
+                                "a_Type": "Fast Jet Squadron (blue)_2",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_33"
                             }
                         },
                         {
-                            "uniqid": "a72",
-                            "contactId": "CA1824",
+                            "uniqid": "a675",
+                            "contactId": "CA3109",
                             "name": "Blue:71",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:71",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:71",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:71",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "blue_air_logs",
+                            "health": 65,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                51.6559,
-                                28.2397
+                                46.4758,
+                                22.8924
                             ],
                             "attributes": {
-                                "a_Speed": 220,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_43"
+                                "a_Speed": 34,
+                                "a_Type": "Land Unit (blue)_4",
+                                "a_Size": "size_38",
+                                "a_Equipment": "_47"
                             }
                         },
                         {
-                            "uniqid": "a73",
-                            "contactId": "CA279",
+                            "uniqid": "a676",
+                            "contactId": "CA3280",
                             "name": "Blue:72",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:72",
-                                    "typeId": "blue_land_sam",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:72",
-                                    "typeId": "blue_land_sam",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:72",
-                                    "typeId": "blue_land_sam",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "blue_land_sam",
+                            "health": 90,
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                38.5205,
-                                30.1401
+                                51.5331,
+                                25.3796
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_18",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "Operational"
+                                "a_Type": "C2 Node (blue)_4",
+                                "a_Connections": "_3",
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a74",
-                            "contactId": "CA916",
+                            "uniqid": "a677",
+                            "contactId": "CA76",
                             "name": "Blue:73",
                             "perceptions": [
                                 {
@@ -2656,166 +2725,170 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 85,
+                            "health": 70,
                             "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                33.1019,
-                                25.9212
+                                37.7863,
+                                44.9983
                             ],
                             "attributes": {
-                                "a_Connections": "_29",
-                                "a_C2_Status": "Degraded"
+                                "a_Type": "C2 Node (blue)_3",
+                                "a_Connections": "_35",
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a75",
-                            "contactId": "CA1962",
+                            "uniqid": "a678",
+                            "contactId": "CA200",
                             "name": "Blue:74",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:74",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:74",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:74",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 65,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                35.9252,
-                                64.9164
+                                32.1795,
+                                60.6663
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_43"
+                                "a_Speed": 10,
+                                "a_Type": "Submarine (blue)_5",
+                                "a_Equipment": "_21"
                             }
                         },
                         {
-                            "uniqid": "a76",
-                            "contactId": "CA1313",
+                            "uniqid": "a679",
+                            "contactId": "CA1241",
                             "name": "Blue:75",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:75",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:75",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:75",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "blue_land_c2",
+                            "health": 10,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                37.6154,
-                                49.0604
+                                29.6032,
+                                83.6778
                             ],
                             "attributes": {
-                                "a_Connections": "_15",
-                                "a_C2_Status": "Degraded"
+                                "a_Speed": 25,
+                                "a_Type": "Submarine (blue)_2",
+                                "a_Equipment": "_13"
                             }
                         },
                         {
-                            "uniqid": "a77",
-                            "contactId": "CA2620",
+                            "uniqid": "a680",
+                            "contactId": "CA1873",
                             "name": "Blue:76",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:76",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:76",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:76",
-                                    "typeId": "blue_maritime_ship",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "blue_maritime_ship",
+                            "health": 0,
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                51.9713,
-                                24.1641
+                                30.7266,
+                                78.736
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Equipment": "_33"
+                                "a_Type": "C2 Node (blue)_2",
+                                "a_Connections": "_17",
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a78",
-                            "contactId": "CA1469",
+                            "uniqid": "a681",
+                            "contactId": "CA634",
                             "name": "Blue:77",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:77",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:77",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:77",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "blue_maritime_mine",
+                            "health": 90,
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                34.6334,
-                                51.8959
+                                33.9196,
+                                45.2369
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
+                                "a_Units": "_31",
+                                "a_Type": "Fixed Asset (blue)_2",
+                                "a_Building_Type": "B-Type-A"
                             }
                         },
                         {
-                            "uniqid": "a79",
-                            "contactId": "CA2925",
+                            "uniqid": "a682",
+                            "contactId": "CA2854",
                             "name": "Blue:78",
                             "perceptions": [
                                 {
@@ -2837,203 +2910,214 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 10,
+                            "health": 40,
                             "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                30.2567,
-                                35.6912
+                                39.862,
+                                37.1621
                             ],
                             "attributes": {
-                                "a_Units": "_21",
-                                "a_Building_Type": "B-Type-C"
+                                "a_Units": "_31",
+                                "a_Type": "Fixed Asset (blue)_6",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a80",
-                            "contactId": "CA2433",
+                            "uniqid": "a683",
+                            "contactId": "CA719",
                             "name": "Blue:79",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:79",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:79",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:79",
-                                    "typeId": "blue_land_asset",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 95,
-                            "platformTypeId": "blue_land_asset",
+                            "health": 20,
+                            "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                34.747,
-                                63.3062
+                                37.3557,
+                                70.8625
                             ],
                             "attributes": {
-                                "a_Units": "_11",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 58,
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SSM (blue)_2",
+                                "a_Equipment": "_35",
+                                "a_Range": 2000,
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a81",
-                            "contactId": "CA2983",
+                            "uniqid": "a684",
+                            "contactId": "CA1713",
                             "name": "Blue:80",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:80",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:80",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:80",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 35,
-                            "platformTypeId": "blue_air_fighter",
+                            "health": 95,
+                            "platformTypeId": "blue_maritime_mine",
                             "condition": "working",
                             "location": [
-                                29.0889,
-                                25.1226
+                                53.8503,
+                                31.4995
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_15"
+                                "a_Density": 100,
+                                "a_Type": "Maritime Minefield (blue)_1",
+                                "a_Minefield_Passable": "Yes"
                             }
                         },
                         {
-                            "uniqid": "a82",
-                            "contactId": "CA144",
+                            "uniqid": "a685",
+                            "contactId": "CA1388",
                             "name": "Blue:81",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:81",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:81",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:81",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 90,
-                            "platformTypeId": "blue_maritime_mtg",
+                            "health": 60,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                53.6636,
-                                43.6702
+                                45.1208,
+                                54.1632
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_7"
+                                "a_Speed": 46,
+                                "a_Type": "Land Unit (blue)_6",
+                                "a_Size": "size_10",
+                                "a_Equipment": "_1"
                             }
                         },
                         {
-                            "uniqid": "a83",
-                            "contactId": "CA2567",
+                            "uniqid": "a686",
+                            "contactId": "CA2668",
                             "name": "Blue:82",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:82",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:82",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:82",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "health": 90,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                49.1411,
-                                60.077
+                                44.7242,
+                                81.3856
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Number_FIACs": 100
+                                "a_Type": "Bomber Squadron (blue)_3",
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_47"
                             }
                         },
                         {
-                            "uniqid": "a84",
-                            "contactId": "CA2135",
+                            "uniqid": "a687",
+                            "contactId": "CA61",
                             "name": "Blue:83",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:83",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:83",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:83",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_land_sam",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "blue_land_unit",
+                            "health": 75,
+                            "platformTypeId": "blue_land_sam",
                             "condition": "working",
                             "location": [
-                                54.3258,
-                                83.8345
+                                43.8032,
+                                32.6989
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Size": "Size of military unit44",
-                                "a_Equipment": "_47"
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SAM (blue)_4",
+                                "a_Equipment": "_30",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a85",
-                            "contactId": "CA2064",
+                            "uniqid": "a688",
+                            "contactId": "CA2166",
                             "name": "Blue:84",
                             "perceptions": [
                                 {
@@ -3055,95 +3139,96 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
+                            "health": 80,
                             "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                46.9834,
-                                55.7994
+                                47.056,
+                                25.0783
                             ],
                             "attributes": {
-                                "a_Speed": 10,
+                                "a_Speed": 30,
+                                "a_Type": "Submarine (blue)_6",
                                 "a_Equipment": "_2"
                             }
                         },
                         {
-                            "uniqid": "a86",
-                            "contactId": "CA379",
+                            "uniqid": "a689",
+                            "contactId": "CA3394",
                             "name": "Blue:85",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:85",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:85",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:85",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_land_c2",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "blue_land_unit",
+                            "health": 25,
+                            "platformTypeId": "blue_land_c2",
                             "condition": "working",
                             "location": [
-                                50.1652,
-                                34.7858
+                                31.4444,
+                                70.4904
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Size": "Size of military unit2",
-                                "a_Equipment": "_27"
+                                "a_Type": "C2 Node (blue)_3",
+                                "a_Connections": "_3",
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a87",
-                            "contactId": "CA158",
+                            "uniqid": "a690",
+                            "contactId": "CA730",
                             "name": "Blue:86",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:86",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:86",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:86",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_land_asset",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "blue_air_fighter",
+                            "health": 85,
+                            "platformTypeId": "blue_land_asset",
                             "condition": "working",
                             "location": [
-                                48.7648,
-                                45.9136
+                                35.7068,
+                                32.9985
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_45"
+                                "a_Units": "_25",
+                                "a_Type": "Fixed Asset (blue)_1",
+                                "a_Building_Type": "B-Type-C"
                             }
                         },
                         {
-                            "uniqid": "a88",
-                            "contactId": "CA1899",
+                            "uniqid": "a691",
+                            "contactId": "CA2844",
                             "name": "Blue:87",
                             "perceptions": [
                                 {
@@ -3165,456 +3250,471 @@ const game: Wargame = {
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 65,
+                            "health": 0,
                             "platformTypeId": "blue_air_istar",
                             "condition": "working",
                             "location": [
-                                35.0988,
-                                75.9346
+                                54.63,
+                                30.7256
                             ],
                             "attributes": {
-                                "a_Speed": 220,
+                                "a_Speed": 280,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_13",
+                                "a_Type": "ISTAR (blue)_1",
+                                "a_Equipment": "_6",
                                 "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a89",
-                            "contactId": "CA1351",
+                            "uniqid": "a692",
+                            "contactId": "CA102",
                             "name": "Blue:88",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:88",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:88",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:88",
-                                    "typeId": "blue_land_unit",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 95,
-                            "platformTypeId": "blue_land_unit",
+                            "health": 60,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                44.6736,
-                                61.7725
+                                43.1724,
+                                71.5775
                             ],
                             "attributes": {
-                                "a_Speed": 34,
-                                "a_Size": "Size of military unit3",
-                                "a_Equipment": "_39"
+                                "a_Speed": 15,
+                                "a_Type": "Ship (blue)_3",
+                                "a_Equipment": "_38"
                             }
                         },
                         {
-                            "uniqid": "a90",
-                            "contactId": "CA1837",
+                            "uniqid": "a693",
+                            "contactId": "CA1762",
                             "name": "Blue:89",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:89",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:89",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:89",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "health": 25,
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                49.8275,
-                                35.5143
+                                49.9365,
+                                67.1138
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Number_FIACs": 100
+                                "a_Speed": 25,
+                                "a_Type": "MTG (blue)_6",
+                                "a_Equipment": "_13"
                             }
                         },
                         {
-                            "uniqid": "a91",
-                            "contactId": "CA683",
+                            "uniqid": "a694",
+                            "contactId": "CA1349",
                             "name": "Blue:90",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:90",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:90",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:90",
-                                    "typeId": "blue_maritime_mtg",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "blue_maritime_mtg",
+                            "health": 65,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                32.6561,
-                                65.8297
+                                29.2743,
+                                76.7793
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_24"
+                                "a_Type": "Bomber Squadron (blue)_3",
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_43"
                             }
                         },
                         {
-                            "uniqid": "a92",
-                            "contactId": "CA20",
+                            "uniqid": "a695",
+                            "contactId": "CA1801",
                             "name": "Blue:91",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:91",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:91",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:91",
-                                    "typeId": "blue_air_fighter",
+                                    "typeId": "blue_maritime_mtg",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 90,
-                            "platformTypeId": "blue_air_fighter",
+                            "health": 30,
+                            "platformTypeId": "blue_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                53.6317,
-                                69.0894
+                                38.8071,
+                                23.8607
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_26"
+                                "a_Speed": 20,
+                                "a_Type": "MTG (blue)_1",
+                                "a_Equipment": "_9"
                             }
                         },
                         {
-                            "uniqid": "a93",
-                            "contactId": "CA2300",
+                            "uniqid": "a696",
+                            "contactId": "CA638",
                             "name": "Blue:92",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:92",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:92",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:92",
-                                    "typeId": "blue_maritime_mine",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "blue_maritime_mine",
+                            "health": 85,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                53.9423,
-                                83.7984
+                                31.4111,
+                                24.7477
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Limited"
+                                "a_Speed": 30,
+                                "a_Type": "Ship (blue)_5",
+                                "a_Equipment": "_27"
                             }
                         },
                         {
-                            "uniqid": "a94",
-                            "contactId": "CA1678",
+                            "uniqid": "a697",
+                            "contactId": "CA2824",
                             "name": "Blue:93",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:93",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:93",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:93",
-                                    "typeId": "blue_land_c2",
+                                    "typeId": "blue_maritime_ship",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "blue_land_c2",
+                            "health": 75,
+                            "platformTypeId": "blue_maritime_ship",
                             "condition": "working",
                             "location": [
-                                41.6003,
-                                75.9685
+                                42.9467,
+                                29.3478
                             ],
                             "attributes": {
-                                "a_Connections": "_31",
-                                "a_C2_Status": "Operational"
+                                "a_Speed": 15,
+                                "a_Type": "Ship (blue)_3",
+                                "a_Equipment": "_29"
                             }
                         },
                         {
-                            "uniqid": "a95",
-                            "contactId": "CA3328",
+                            "uniqid": "a698",
+                            "contactId": "CA563",
                             "name": "Blue:94",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:94",
-                                    "typeId": "blue_air_istar",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:94",
-                                    "typeId": "blue_air_istar",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:94",
-                                    "typeId": "blue_air_istar",
+                                    "typeId": "blue_air_fighter",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "blue_air_istar",
+                            "health": 85,
+                            "platformTypeId": "blue_air_fighter",
                             "condition": "working",
                             "location": [
-                                34.7189,
-                                53.7992
+                                35.7466,
+                                59.2635
                             ],
                             "attributes": {
                                 "a_Speed": 280,
+                                "a_Type": "Fast Jet Squadron (blue)_5",
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_36",
-                                "a_Detection Range": 50
+                                "a_Equipment": "_38"
                             }
                         },
                         {
-                            "uniqid": "a96",
-                            "contactId": "CA2142",
+                            "uniqid": "a699",
+                            "contactId": "CA2203",
                             "name": "Blue:95",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:95",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:95",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:95",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_land_ssm",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "blue_maritime_submarine",
+                            "health": 20,
+                            "platformTypeId": "blue_land_ssm",
                             "condition": "working",
                             "location": [
-                                40.0086,
-                                72.6809
+                                51.0332,
+                                67.6956
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_22"
+                                "a_Speed": 58,
+                                "a_Number_Missiles": 100,
+                                "a_Type": "SSM (blue)_4",
+                                "a_Equipment": "_17",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a97",
-                            "contactId": "CA1810",
+                            "uniqid": "a700",
+                            "contactId": "CA2789",
                             "name": "Blue:96",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:96",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:96",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:96",
-                                    "typeId": "blue_air_logs",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "blue_air_logs",
+                            "health": 40,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                45.3138,
-                                43.6759
+                                46.5883,
+                                67.3803
                             ],
                             "attributes": {
-                                "a_Speed": 220,
+                                "a_Type": "Bomber Squadron (blue)_4",
+                                "a_Speed": 240,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_0"
+                                "a_Equipment": "_15"
                             }
                         },
                         {
-                            "uniqid": "a98",
-                            "contactId": "CA1747",
+                            "uniqid": "a701",
+                            "contactId": "CA2079",
                             "name": "Blue:97",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:97",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:97",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:97",
-                                    "typeId": "blue_maritime_submarine",
+                                    "typeId": "blue_land_unit",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "blue_maritime_submarine",
+                            "health": 20,
+                            "platformTypeId": "blue_land_unit",
                             "condition": "working",
                             "location": [
-                                37.9422,
-                                39.6615
+                                33.9665,
+                                22.023
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Equipment": "_45"
+                                "a_Speed": 10,
+                                "a_Type": "Land Unit (blue)_5",
+                                "a_Size": "size_13",
+                                "a_Equipment": "_42"
                             }
                         },
                         {
-                            "uniqid": "a99",
-                            "contactId": "CA1397",
+                            "uniqid": "a702",
+                            "contactId": "CA1507",
                             "name": "Blue:98",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:98",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:98",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:98",
-                                    "typeId": "blue_air_bomber",
+                                    "typeId": "blue_maritime_submarine",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 50,
-                            "platformTypeId": "blue_air_bomber",
+                            "health": 30,
+                            "platformTypeId": "blue_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                52.5939,
-                                33.2221
+                                30.1145,
+                                77.4286
                             ],
                             "attributes": {
-                                "a_Speed": 260,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_45"
+                                "a_Speed": 10,
+                                "a_Type": "Submarine (blue)_1",
+                                "a_Equipment": "_6"
                             }
                         },
                         {
-                            "uniqid": "a100",
-                            "contactId": "CA3363",
+                            "uniqid": "a703",
+                            "contactId": "CA1551",
                             "name": "Blue:99",
                             "perceptions": [
                                 {
                                     "by": "f-red",
                                     "name": "Blue:99",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:99",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:99",
-                                    "typeId": "blue_maritime_fiac",
+                                    "typeId": "blue_air_bomber",
                                     "force": "f-blue"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "blue_maritime_fiac",
+                            "health": 35,
+                            "platformTypeId": "blue_air_bomber",
                             "condition": "working",
                             "location": [
-                                48.2226,
-                                72.0848
+                                29.7263,
+                                58.9773
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Number_FIACs": 100
+                                "a_Type": "Bomber Squadron (blue)_6",
+                                "a_Speed": 260,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_28"
                             }
                         }
                     ],
@@ -3678,427 +3778,325 @@ const game: Wargame = {
                 {
                     "assets": [
                         {
-                            "uniqid": "a101",
-                            "contactId": "CA2533",
+                            "uniqid": "a704",
+                            "contactId": "CA693",
                             "name": "Red:0",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:0",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:0",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:0",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 20,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                23.7277,
-                                30.2644
+                                7.4595,
+                                32.9516
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Yes"
+                                "a_Speed": 280,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_38",
+                                "a_Type": "ISTAR (red)_3",
+                                "a_Detection Range": 50
                             },
                             "comprising": []
                         },
                         {
-                            "uniqid": "a105",
-                            "contactId": "CA71",
+                            "uniqid": "a708",
+                            "contactId": "CA3296",
                             "name": "Red:4",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:4",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:4",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:4",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 10,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 70,
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                27.6253,
-                                50.9175
+                                6.6565,
+                                43.1464
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_44"
+                                "a_Speed": 20,
+                                "a_Type": "FIAC (red)_5",
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a106",
-                            "contactId": "CA998",
+                            "uniqid": "a709",
+                            "contactId": "CA333",
                             "name": "Red:5",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:5",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:5",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:5",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "red_land_asset",
+                            "health": 10,
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                8.6014,
-                                42.261
+                                14.4454,
+                                80.825
                             ],
                             "attributes": {
-                                "a_Units": "_12",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 25,
+                                "a_Type": "FIAC (red)_4",
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a107",
-                            "contactId": "CA3365",
+                            "uniqid": "a710",
+                            "contactId": "CA2951",
                             "name": "Red:6",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:6",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:6",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:6",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_air_istar",
+                            "health": 65,
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                23.8229,
-                                82.0294
+                                2.4621,
+                                50.5106
                             ],
                             "attributes": {
-                                "a_Speed": 220,
+                                "a_Speed": 260,
+                                "a_Type": "Fast Jet Squadron (red)_2",
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_45",
-                                "a_Detection Range": 50
+                                "a_Equipment": "_14"
                             }
                         },
                         {
-                            "uniqid": "a108",
-                            "contactId": "CA510",
+                            "uniqid": "a711",
+                            "contactId": "CA1577",
                             "name": "Red:7",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:7",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:7",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:7",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "red_land_ssm",
+                            "health": 85,
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                12.03,
-                                79.3119
+                                2.0211,
+                                22.1242
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_7",
-                                "a_Range": 100,
-                                "a_C2_Status": "Degraded"
+                                "a_Speed": 10,
+                                "a_Type": "MTG (red)_3",
+                                "a_Equipment": "_16"
                             }
                         },
                         {
-                            "uniqid": "a109",
-                            "contactId": "CA847",
+                            "uniqid": "a712",
+                            "contactId": "CA1178",
                             "name": "Red:8",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:8",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:8",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:8",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 60,
-                            "platformTypeId": "red_land_c2",
+                            "health": 85,
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                5.2767,
-                                47.797
+                                14.8698,
+                                35.3211
                             ],
                             "attributes": {
-                                "a_Connections": "_34",
-                                "a_C2_Status": "None"
+                                "a_Speed": 30,
+                                "a_Type": "MTG (red)_2",
+                                "a_Equipment": "_5"
                             }
                         },
                         {
-                            "uniqid": "a110",
-                            "contactId": "CA1196",
+                            "uniqid": "a713",
+                            "contactId": "CA290",
                             "name": "Red:9",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:9",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:9",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:9",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "red_land_asset",
+                            "health": 85,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                5.7845,
-                                38.1271
+                                20.1209,
+                                72.1931
                             ],
                             "attributes": {
-                                "a_Units": "_13",
-                                "a_Building_Type": "B-Type-A"
+                                "a_Speed": 30,
+                                "a_Type": "Submarine (red)_4",
+                                "a_Equipment": "_39"
                             }
                         },
                         {
-                            "uniqid": "a111",
-                            "contactId": "CA1160",
+                            "uniqid": "a714",
+                            "contactId": "CA619",
                             "name": "Red:10",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:10",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:10",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:10",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "red_air_fighter",
+                            "health": 25,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                8.1381,
-                                76.0073
+                                16.1465,
+                                78.8431
                             ],
                             "attributes": {
-                                "a_Speed": 220,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_30"
+                                "a_Type": "C2 Node (red)_4",
+                                "a_Connections": "_20",
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a112",
-                            "contactId": "CA1009",
+                            "uniqid": "a715",
+                            "contactId": "CA430",
                             "name": "Red:11",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:11",
-                                    "typeId": "red_maritime_mine",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:11",
-                                    "typeId": "red_maritime_mine",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:11",
-                                    "typeId": "red_maritime_mine",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "health": 85,
-                            "platformTypeId": "red_maritime_mine",
-                            "condition": "working",
-                            "location": [
-                                10.1519,
-                                84.1248
-                            ],
-                            "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
-                            }
-                        },
-                        {
-                            "uniqid": "a113",
-                            "contactId": "CA1671",
-                            "name": "Red:12",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:12",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:12",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:12",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "health": 10,
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                23.7472,
-                                74.4119
-                            ],
-                            "attributes": {
-                                "a_Size": "Size of military unit3",
-                                "a_Equipment": "_6"
-                            }
-                        },
-                        {
-                            "uniqid": "a114",
-                            "contactId": "CA2256",
-                            "name": "Red:13",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:13",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:13",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:13",
-                                    "typeId": "red_land_unit",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "health": 25,
-                            "platformTypeId": "red_land_unit",
-                            "condition": "working",
-                            "location": [
-                                4.9598,
-                                72.6169
-                            ],
-                            "attributes": {
-                                "a_Size": "Size of military unit28",
-                                "a_Equipment": "_34"
-                            }
-                        },
-                        {
-                            "uniqid": "a115",
-                            "contactId": "CA192",
-                            "name": "Red:14",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:14",
                                     "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Red:14",
+                                    "name": "Red:11",
                                     "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:14",
+                                    "name": "Red:11",
                                     "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
@@ -4107,54 +4105,171 @@ const game: Wargame = {
                             "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                24.1759,
-                                46.5539
+                                5.628,
+                                69.6952
                             ],
                             "attributes": {
-                                "a_Speed": 240,
+                                "a_Speed": 220,
+                                "a_Type": "Fast Jet Squadron (red)_3",
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_4"
+                                "a_Equipment": "_8"
                             }
                         },
                         {
-                            "uniqid": "a116",
-                            "contactId": "CA1723",
+                            "uniqid": "a716",
+                            "contactId": "CA2670",
+                            "name": "Red:12",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:12",
+                                    "typeId": "red_land_sam",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:12",
+                                    "typeId": "red_land_sam",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:12",
+                                    "typeId": "red_land_sam",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "health": 95,
+                            "platformTypeId": "red_land_sam",
+                            "condition": "working",
+                            "location": [
+                                9.2011,
+                                73.9341
+                            ],
+                            "attributes": {
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_8",
+                                "a_Type": "SAM (red)_3",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "None"
+                            }
+                        },
+                        {
+                            "uniqid": "a717",
+                            "contactId": "CA2560",
+                            "name": "Red:13",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:13",
+                                    "typeId": "red_land_ssm",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:13",
+                                    "typeId": "red_land_ssm",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:13",
+                                    "typeId": "red_land_ssm",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "health": 25,
+                            "platformTypeId": "red_land_ssm",
+                            "condition": "working",
+                            "location": [
+                                9.0785,
+                                51.445
+                            ],
+                            "attributes": {
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_46",
+                                "a_Type": "SSM (red)_3",
+                                "a_Range": 2000,
+                                "a_C2_Status": "None"
+                            }
+                        },
+                        {
+                            "uniqid": "a718",
+                            "contactId": "CA222",
+                            "name": "Red:14",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:14",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:14",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:14",
+                                    "typeId": "red_maritime_mine",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "health": 15,
+                            "platformTypeId": "red_maritime_mine",
+                            "condition": "working",
+                            "location": [
+                                19.3926,
+                                46.062
+                            ],
+                            "attributes": {
+                                "a_Density": 100,
+                                "a_Type": "Maritime Minefield (red)_2",
+                                "a_Minefield_Passable": "No"
+                            }
+                        },
+                        {
+                            "uniqid": "a719",
+                            "contactId": "CA2865",
                             "name": "Red:15",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:15",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:15",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:15",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 5,
+                            "platformTypeId": "red_maritime_mine",
                             "condition": "working",
                             "location": [
-                                11.2872,
-                                34.6672
+                                9.5473,
+                                31.9216
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_28"
+                                "a_Density": 100,
+                                "a_Type": "Maritime Minefield (red)_6",
+                                "a_Minefield_Passable": "Yes"
                             }
                         },
                         {
-                            "uniqid": "a117",
-                            "contactId": "CA2500",
+                            "uniqid": "a720",
+                            "contactId": "CA2442",
                             "name": "Red:16",
                             "perceptions": [
                                 {
@@ -4176,313 +4291,326 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 25,
+                            "health": 55,
                             "platformTypeId": "red_maritime_mine",
                             "condition": "working",
                             "location": [
-                                11.9663,
-                                78.6349
+                                28.2332,
+                                42.9886
                             ],
                             "attributes": {
                                 "a_Density": 100,
+                                "a_Type": "Maritime Minefield (red)_5",
                                 "a_Minefield_Passable": "No"
                             }
                         },
                         {
-                            "uniqid": "a118",
-                            "contactId": "CA3185",
+                            "uniqid": "a721",
+                            "contactId": "CA94",
                             "name": "Red:17",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:17",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:17",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:17",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_air_istar",
+                            "health": 40,
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                23.6333,
-                                85.8099
+                                3.425,
+                                55.1292
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_49",
-                                "a_Detection Range": 50
+                                "a_Speed": 10,
+                                "a_Type": "FIAC (red)_4",
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a119",
-                            "contactId": "CA3105",
+                            "uniqid": "a722",
+                            "contactId": "CA63",
                             "name": "Red:18",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:18",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:18",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:18",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 25,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 35,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                20.8267,
-                                62.422
+                                26.8846,
+                                78.4515
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_28"
+                                "a_Speed": 200,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_24",
+                                "a_Type": "ISTAR (red)_4",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a120",
-                            "contactId": "CA1063",
+                            "uniqid": "a723",
+                            "contactId": "CA957",
                             "name": "Red:19",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:19",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:19",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:19",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 25,
-                            "platformTypeId": "red_land_unit",
+                            "health": 35,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                7.5562,
-                                68.76
+                                14.0112,
+                                63.9606
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit16",
-                                "a_Equipment": "_33"
+                                "a_Speed": 10,
+                                "a_Type": "Submarine (red)_3",
+                                "a_Equipment": "_38"
                             }
                         },
                         {
-                            "uniqid": "a121",
-                            "contactId": "CA573",
+                            "uniqid": "a724",
+                            "contactId": "CA3048",
                             "name": "Red:20",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:20",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:20",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:20",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "red_air_logs",
+                            "health": 55,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                21.5557,
-                                38.7858
+                                20.9566,
+                                76.4426
                             ],
                             "attributes": {
-                                "a_Speed": 220,
+                                "a_Speed": 240,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_14"
+                                "a_Equipment": "_25",
+                                "a_Type": "ISTAR (red)_2",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a122",
-                            "contactId": "CA2572",
+                            "uniqid": "a725",
+                            "contactId": "CA2577",
                             "name": "Red:21",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:21",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:21",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:21",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 70,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 35,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                26.2476,
-                                36.3493
+                                26.4767,
+                                67.4342
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Limited"
+                                "a_Speed": 240,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_10",
+                                "a_Type": "ISTAR (red)_2",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a123",
-                            "contactId": "CA2280",
+                            "uniqid": "a726",
+                            "contactId": "CA2541",
                             "name": "Red:22",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:22",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:22",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:22",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "red_air_fighter",
+                            "health": 70,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                12.0777,
-                                33.0211
+                                11.6538,
+                                78.8906
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_7"
+                                "a_Type": "Fixed Asset (red)_2",
+                                "a_Units": "_32",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a124",
-                            "contactId": "CA2562",
+                            "uniqid": "a727",
+                            "contactId": "CA2465",
                             "name": "Red:23",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:23",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:23",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:23",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 90,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                10.309,
-                                78.9187
+                                2.3595,
+                                83.0702
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_28"
+                                "a_Type": "Fixed Asset (red)_6",
+                                "a_Units": "_25",
+                                "a_Building_Type": "B-Type-A"
                             }
                         },
                         {
-                            "uniqid": "a125",
-                            "contactId": "CA2150",
+                            "uniqid": "a728",
+                            "contactId": "CA1685",
                             "name": "Red:24",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:24",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:24",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:24",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 5,
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                11.1449,
-                                53.4637
+                                26.7307,
+                                55.4695
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_7",
+                                "a_Type": "SSM (red)_5",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a126",
-                            "contactId": "CA469",
+                            "uniqid": "a729",
+                            "contactId": "CA3026",
                             "name": "Red:25",
                             "perceptions": [
                                 {
@@ -4504,276 +4632,283 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 90,
+                            "health": 30,
                             "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                24.4289,
-                                25.9255
+                                3.6449,
+                                58.5837
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Equipment": "_38"
+                                "a_Speed": 15,
+                                "a_Type": "MTG (red)_1",
+                                "a_Equipment": "_48"
                             }
                         },
                         {
-                            "uniqid": "a127",
-                            "contactId": "CA646",
+                            "uniqid": "a730",
+                            "contactId": "CA1118",
                             "name": "Red:26",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:26",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:26",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:26",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 50,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                15.8118,
-                                37.4333
+                                13.5969,
+                                38.0112
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Limited"
+                                "a_Speed": 20,
+                                "a_Type": "Submarine (red)_5",
+                                "a_Equipment": "_35"
                             }
                         },
                         {
-                            "uniqid": "a128",
-                            "contactId": "CA2546",
+                            "uniqid": "a731",
+                            "contactId": "CA2941",
                             "name": "Red:27",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:27",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:27",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:27",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 90,
-                            "platformTypeId": "red_air_logs",
+                            "health": 75,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                10.2765,
-                                42.779
+                                5.3339,
+                                25.7311
                             ],
                             "attributes": {
-                                "a_Speed": 200,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_4"
+                                "a_Type": "C2 Node (red)_4",
+                                "a_Connections": "_25",
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a129",
-                            "contactId": "CA551",
+                            "uniqid": "a732",
+                            "contactId": "CA2078",
                             "name": "Red:28",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:28",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:28",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:28",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "red_land_asset",
+                            "health": 95,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                2.5754,
-                                53.1024
+                                27.7525,
+                                33.2345
                             ],
                             "attributes": {
-                                "a_Units": "_7",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 260,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_22",
+                                "a_Type": "ISTAR (red)_5",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a130",
-                            "contactId": "CA102",
+                            "uniqid": "a733",
+                            "contactId": "CA2660",
                             "name": "Red:29",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:29",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:29",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:29",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 0,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                5.4289,
-                                62.9004
+                                16.436,
+                                37.6521
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
+                                "a_Type": "C2 Node (red)_3",
+                                "a_Connections": "_13",
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a131",
-                            "contactId": "CA2966",
+                            "uniqid": "a734",
+                            "contactId": "CA1543",
                             "name": "Red:30",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:30",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:30",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:30",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 20,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                10.222,
-                                61.871
+                                4.2333,
+                                41.7206
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_10"
+                                "a_Size": "size_34",
+                                "a_Type": "Land Unit (red)_1",
+                                "a_Equipment": "_16"
                             }
                         },
                         {
-                            "uniqid": "a132",
-                            "contactId": "CA536",
+                            "uniqid": "a735",
+                            "contactId": "CA1583",
                             "name": "Red:31",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:31",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:31",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:31",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "red_air_istar",
+                            "health": 5,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                3.7402,
-                                49.7944
+                                4.0375,
+                                39.443
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_7",
-                                "a_Detection Range": 50
+                                "a_Type": "Fixed Asset (red)_4",
+                                "a_Units": "_18",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a133",
-                            "contactId": "CA92",
+                            "uniqid": "a736",
+                            "contactId": "CA1355",
                             "name": "Red:32",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:32",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:32",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:32",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 10,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 60,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                6.4508,
-                                82.0093
+                                16.6563,
+                                25.3545
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_5"
+                                "a_Size": "size_30",
+                                "a_Type": "Land Unit (red)_1",
+                                "a_Equipment": "_4"
                             }
                         },
                         {
-                            "uniqid": "a134",
-                            "contactId": "CA2061",
+                            "uniqid": "a737",
+                            "contactId": "CA2579",
                             "name": "Red:33",
                             "perceptions": [
                                 {
@@ -4795,110 +4930,152 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
+                            "health": 40,
                             "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                22.7423,
-                                57.4557
+                                6.9187,
+                                65.8471
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_33"
+                                "a_Speed": 10,
+                                "a_Type": "MTG (red)_5",
+                                "a_Equipment": "_44"
                             }
                         },
                         {
-                            "uniqid": "a135",
-                            "contactId": "CA2276",
+                            "uniqid": "a738",
+                            "contactId": "CA40",
                             "name": "Red:34",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:34",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:34",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:34",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 80,
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                21.6743,
-                                78.5697
+                                2.3649,
+                                25.5167
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_11"
+                                "a_Speed": 30,
+                                "a_Type": "MTG (red)_4",
+                                "a_Equipment": "_34"
                             }
                         },
                         {
-                            "uniqid": "a136",
-                            "contactId": "CA3131",
+                            "uniqid": "a739",
+                            "contactId": "CA2870",
                             "name": "Red:35",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:35",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:35",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:35",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 25,
-                            "platformTypeId": "red_land_c2",
+                            "health": 85,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                20.6161,
-                                68.9623
+                                15.7378,
+                                42.554
                             ],
                             "attributes": {
-                                "a_Connections": "_5",
-                                "a_C2_Status": "Degraded"
+                                "a_Speed": 280,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_25",
+                                "a_Type": "ISTAR (red)_1",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a137",
-                            "contactId": "CA671",
+                            "uniqid": "a740",
+                            "contactId": "CA2045",
                             "name": "Red:36",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:36",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:36",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:36",
+                                    "typeId": "red_land_c2",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "health": 30,
+                            "platformTypeId": "red_land_c2",
+                            "condition": "working",
+                            "location": [
+                                26.9138,
+                                30.8731
+                            ],
+                            "attributes": {
+                                "a_Type": "C2 Node (red)_6",
+                                "a_Connections": "_18",
+                                "a_C2_Status": "Operational"
+                            }
+                        },
+                        {
+                            "uniqid": "a741",
+                            "contactId": "CA400",
+                            "name": "Red:37",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:37",
+                                    "typeId": "red_air_istar",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:37",
+                                    "typeId": "red_air_istar",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:37",
                                     "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
@@ -4907,491 +5084,475 @@ const game: Wargame = {
                             "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                3.9846,
-                                53.4007
+                                5.9644,
+                                54.6707
                             ],
                             "attributes": {
-                                "a_Speed": 200,
+                                "a_Speed": 220,
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_12",
+                                "a_Equipment": "_33",
+                                "a_Type": "ISTAR (red)_5",
                                 "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a138",
-                            "contactId": "CA877",
-                            "name": "Red:37",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:37",
-                                    "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:37",
-                                    "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:37",
-                                    "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "health": 20,
-                            "platformTypeId": "red_maritime_mtg",
-                            "condition": "working",
-                            "location": [
-                                15.3666,
-                                23.9731
-                            ],
-                            "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_29"
-                            }
-                        },
-                        {
-                            "uniqid": "a139",
-                            "contactId": "CA3078",
+                            "uniqid": "a742",
+                            "contactId": "CA2566",
                             "name": "Red:38",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:38",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:38",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:38",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 70,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 25,
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                10.755,
-                                29.6036
+                                8.4843,
+                                75.973
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_41"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_29",
+                                "a_Type": "SSM (red)_2",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a140",
-                            "contactId": "CA2987",
+                            "uniqid": "a743",
+                            "contactId": "CA2056",
                             "name": "Red:39",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:39",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:39",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:39",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_land_asset",
+                            "health": 30,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                9.8906,
-                                48.4964
+                                21.8741,
+                                39.4189
                             ],
                             "attributes": {
-                                "a_Units": "_37",
-                                "a_Building_Type": "B-Type-A"
+                                "a_Size": "size_15",
+                                "a_Type": "Land Unit (red)_6",
+                                "a_Equipment": "_26"
                             }
                         },
                         {
-                            "uniqid": "a141",
-                            "contactId": "CA1569",
+                            "uniqid": "a744",
+                            "contactId": "CA712",
                             "name": "Red:40",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:40",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:40",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:40",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
                             "health": 15,
-                            "platformTypeId": "red_maritime_fiac",
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                17.2056,
-                                74.2572
+                                28.2883,
+                                67.3
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Number_FIACs": 100
+                                "a_Speed": 10,
+                                "a_Type": "MTG (red)_5",
+                                "a_Equipment": "_26"
                             }
                         },
                         {
-                            "uniqid": "a142",
-                            "contactId": "CA397",
+                            "uniqid": "a745",
+                            "contactId": "CA3291",
                             "name": "Red:41",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:41",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:41",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:41",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 5,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 30,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                16.8565,
-                                73.1123
+                                11.6363,
+                                40.1096
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
+                                "a_Speed": 200,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_25",
+                                "a_Type": "ISTAR (red)_2",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a143",
-                            "contactId": "CA2397",
+                            "uniqid": "a746",
+                            "contactId": "CA3295",
                             "name": "Red:42",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:42",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:42",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:42",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 80,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                20.4321,
-                                33.6663
+                                26.0988,
+                                24.5668
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Equipment": "_35"
+                                "a_Type": "Fixed Asset (red)_1",
+                                "a_Units": "_5",
+                                "a_Building_Type": "B-Type-C"
                             }
                         },
                         {
-                            "uniqid": "a144",
-                            "contactId": "CA2180",
+                            "uniqid": "a747",
+                            "contactId": "CA2236",
                             "name": "Red:43",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:43",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:43",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:43",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 70,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 65,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                17.5814,
-                                64.6111
+                                22.0276,
+                                38.9421
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_35"
+                                "a_Size": "size_31",
+                                "a_Type": "Land Unit (red)_3",
+                                "a_Equipment": "_37"
                             }
                         },
                         {
-                            "uniqid": "a145",
-                            "contactId": "CA203",
+                            "uniqid": "a748",
+                            "contactId": "CA3263",
                             "name": "Red:44",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:44",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:44",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:44",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "red_land_sam",
+                            "health": 45,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                12.7839,
-                                27.7223
+                                27.8958,
+                                55.4455
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_37",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "None"
+                                "a_Speed": 280,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_7",
+                                "a_Type": "ISTAR (red)_2",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a146",
-                            "contactId": "CA2173",
+                            "uniqid": "a749",
+                            "contactId": "CA3373",
                             "name": "Red:45",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:45",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:45",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:45",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "red_land_sam",
+                            "health": 25,
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                4.6663,
-                                32.2743
+                                11.8916,
+                                36.7528
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_42",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "Degraded"
+                                "a_Speed": 200,
+                                "a_Type": "Fast Jet Squadron (red)_3",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_46"
                             }
                         },
                         {
-                            "uniqid": "a147",
-                            "contactId": "CA512",
+                            "uniqid": "a750",
+                            "contactId": "CA1203",
                             "name": "Red:46",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:46",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:46",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:46",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "red_maritime_fiac",
+                            "health": 25,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                9.193,
-                                24.9431
+                                25.0067,
+                                51.3102
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Number_FIACs": 100
+                                "a_Speed": 280,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_3",
+                                "a_Type": "ISTAR (red)_6",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a148",
-                            "contactId": "CA20",
+                            "uniqid": "a751",
+                            "contactId": "CA1908",
                             "name": "Red:47",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:47",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:47",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:47",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_land_unit",
+                            "health": 95,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                8.9579,
-                                73.7921
+                                17.2211,
+                                44.0046
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit41",
-                                "a_Equipment": "_26"
+                                "a_Type": "C2 Node (red)_2",
+                                "a_Connections": "_35",
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a149",
-                            "contactId": "CA2842",
+                            "uniqid": "a752",
+                            "contactId": "CA2863",
                             "name": "Red:48",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:48",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:48",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:48",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "red_land_asset",
+                            "health": 75,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                6.8957,
-                                80.1217
+                                26.6252,
+                                72.667
                             ],
                             "attributes": {
-                                "a_Units": "_22",
-                                "a_Building_Type": "B-Type-C"
+                                "a_Size": "size_2",
+                                "a_Type": "Land Unit (red)_6",
+                                "a_Equipment": "_11"
                             }
                         },
                         {
-                            "uniqid": "a150",
-                            "contactId": "CA3106",
+                            "uniqid": "a753",
+                            "contactId": "CA1666",
                             "name": "Red:49",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:49",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:49",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:49",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
                             "health": 65,
-                            "platformTypeId": "red_maritime_mine",
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                20.9729,
-                                85.548
+                                27.1637,
+                                22.9839
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Yes"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_37",
+                                "a_Type": "SSM (red)_1",
+                                "a_Range": 2000,
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a151",
-                            "contactId": "CA464",
+                            "uniqid": "a754",
+                            "contactId": "CA1820",
                             "name": "Red:50",
                             "perceptions": [
                                 {
@@ -5417,416 +5578,433 @@ const game: Wargame = {
                             "platformTypeId": "red_maritime_mine",
                             "condition": "working",
                             "location": [
-                                16.2453,
-                                76.5279
+                                3.1376,
+                                39.8283
                             ],
                             "attributes": {
                                 "a_Density": 100,
+                                "a_Type": "Maritime Minefield (red)_5",
                                 "a_Minefield_Passable": "Yes"
                             }
                         },
                         {
-                            "uniqid": "a152",
-                            "contactId": "CA1614",
+                            "uniqid": "a755",
+                            "contactId": "CA2741",
                             "name": "Red:51",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:51",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:51",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:51",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 95,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 50,
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                24.8222,
-                                74.4443
+                                2.3726,
+                                33.4582
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Yes"
+                                "a_Speed": 200,
+                                "a_Type": "Fast Jet Squadron (red)_3",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_43"
                             }
                         },
                         {
-                            "uniqid": "a153",
-                            "contactId": "CA989",
+                            "uniqid": "a756",
+                            "contactId": "CA1135",
                             "name": "Red:52",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:52",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:52",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:52",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
                             "health": 60,
-                            "platformTypeId": "red_maritime_fiac",
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                9.6361,
-                                84.8789
+                                13.4796,
+                                37.0539
                             ],
                             "attributes": {
-                                "a_Speed": 25,
-                                "a_Number_FIACs": 100
+                                "a_Type": "C2 Node (red)_3",
+                                "a_Connections": "_7",
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a154",
-                            "contactId": "CA236",
+                            "uniqid": "a757",
+                            "contactId": "CA1626",
                             "name": "Red:53",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:53",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:53",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:53",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 35,
-                            "platformTypeId": "red_air_fighter",
+                            "health": 95,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                7.4991,
-                                22.5968
+                                26.8356,
+                                85.6535
                             ],
                             "attributes": {
-                                "a_Speed": 280,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_32"
+                                "a_Type": "C2 Node (red)_3",
+                                "a_Connections": "_34",
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a155",
-                            "contactId": "CA2905",
+                            "uniqid": "a758",
+                            "contactId": "CA344",
                             "name": "Red:54",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:54",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:54",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:54",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_land_c2",
+                            "health": 65,
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                18.2556,
-                                53.0148
+                                23.4891,
+                                63.676
                             ],
                             "attributes": {
-                                "a_Connections": "_22",
-                                "a_C2_Status": "Operational"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_12",
+                                "a_Type": "SSM (red)_2",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a156",
-                            "contactId": "CA2865",
+                            "uniqid": "a759",
+                            "contactId": "CA1449",
                             "name": "Red:55",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:55",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:55",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:55",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_land_unit",
+                            "health": 75,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                27.6014,
-                                63.5445
+                                10.959,
+                                62.5151
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit27",
-                                "a_Equipment": "_13"
+                                "a_Speed": 220,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_24",
+                                "a_Type": "ISTAR (red)_2",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a157",
-                            "contactId": "CA2450",
+                            "uniqid": "a760",
+                            "contactId": "CA458",
                             "name": "Red:56",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:56",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:56",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:56",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 70,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                18.0587,
-                                33.887
+                                24.6527,
+                                67.8533
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_17"
+                                "a_Type": "C2 Node (red)_3",
+                                "a_Connections": "_27",
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a158",
-                            "contactId": "CA3371",
+                            "uniqid": "a761",
+                            "contactId": "CA2076",
                             "name": "Red:57",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:57",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:57",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:57",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "red_land_unit",
+                            "health": 50,
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                28.4689,
-                                34.6763
+                                9.5477,
+                                24.9693
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit45",
-                                "a_Equipment": "_11"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_15",
+                                "a_Type": "SSM (red)_1",
+                                "a_Range": 2000,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a159",
-                            "contactId": "CA1379",
+                            "uniqid": "a762",
+                            "contactId": "CA739",
                             "name": "Red:58",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:58",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:58",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:58",
-                                    "typeId": "red_air_logs",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 25,
-                            "platformTypeId": "red_air_logs",
+                            "health": 60,
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                24.3104,
-                                48.8343
+                                16.6886,
+                                69.3927
                             ],
                             "attributes": {
                                 "a_Speed": 200,
+                                "a_Type": "Fast Jet Squadron (red)_3",
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_44"
+                                "a_Equipment": "_4"
                             }
                         },
                         {
-                            "uniqid": "a160",
-                            "contactId": "CA184",
+                            "uniqid": "a763",
+                            "contactId": "CA974",
                             "name": "Red:59",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:59",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:59",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:59",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 35,
-                            "platformTypeId": "red_land_c2",
+                            "health": 15,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                11.4869,
-                                75.265
+                                13.1549,
+                                85.0122
                             ],
                             "attributes": {
-                                "a_Connections": "_46",
-                                "a_C2_Status": "None"
+                                "a_Speed": 30,
+                                "a_Type": "Submarine (red)_6",
+                                "a_Equipment": "_14"
                             }
                         },
                         {
-                            "uniqid": "a161",
-                            "contactId": "CA2026",
+                            "uniqid": "a764",
+                            "contactId": "CA3109",
                             "name": "Red:60",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:60",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:60",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:60",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 90,
-                            "platformTypeId": "red_air_fighter",
+                            "health": 0,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                26.811,
-                                23.6248
+                                13.2334,
+                                23.5842
                             ],
                             "attributes": {
-                                "a_Speed": 260,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_49"
+                                "a_Type": "Fixed Asset (red)_5",
+                                "a_Units": "_13",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a162",
-                            "contactId": "CA1035",
+                            "uniqid": "a765",
+                            "contactId": "CA2725",
                             "name": "Red:61",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:61",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:61",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:61",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
                             "health": 20,
-                            "platformTypeId": "red_land_asset",
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                26.4325,
-                                65.5802
+                                19.1722,
+                                57.394
                             ],
                             "attributes": {
-                                "a_Units": "_10",
-                                "a_Building_Type": "B-Type-C"
+                                "a_Type": "C2 Node (red)_6",
+                                "a_Connections": "_39",
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a163",
-                            "contactId": "CA930",
+                            "uniqid": "a766",
+                            "contactId": "CA2563",
                             "name": "Red:62",
                             "perceptions": [
                                 {
@@ -5848,1114 +6026,1151 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 95,
+                            "health": 45,
                             "platformTypeId": "red_air_logs",
                             "condition": "working",
                             "location": [
-                                2.3264,
-                                61.6238
+                                23.0955,
+                                49.2129
                             ],
                             "attributes": {
                                 "a_Speed": 200,
+                                "a_Type": "Air LOGS (red)_5",
                                 "a_Number_Aircraft": 10,
-                                "a_Equipment": "_40"
+                                "a_Equipment": "_33"
                             }
                         },
                         {
-                            "uniqid": "a164",
-                            "contactId": "CA2686",
+                            "uniqid": "a767",
+                            "contactId": "CA1382",
                             "name": "Red:63",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:63",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:63",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:63",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "red_maritime_fiac",
+                            "health": 30,
+                            "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                9.5227,
-                                65.8734
+                                7.0818,
+                                81.0788
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Number_FIACs": 100
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_46",
+                                "a_Type": "SAM (red)_4",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a165",
-                            "contactId": "CA25",
+                            "uniqid": "a768",
+                            "contactId": "CA2758",
                             "name": "Red:64",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:64",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:64",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:64",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "red_land_asset",
+                            "health": 15,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                20.2279,
-                                73.1358
+                                10.1962,
+                                77.6508
                             ],
                             "attributes": {
-                                "a_Units": "_2",
-                                "a_Building_Type": "B-Type-C"
+                                "a_Speed": 30,
+                                "a_Type": "Submarine (red)_4",
+                                "a_Equipment": "_1"
                             }
                         },
                         {
-                            "uniqid": "a166",
-                            "contactId": "CA3280",
+                            "uniqid": "a769",
+                            "contactId": "CA2610",
                             "name": "Red:65",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:65",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:65",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:65",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_land_c2",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "red_land_ssm",
+                            "health": 90,
+                            "platformTypeId": "red_land_c2",
                             "condition": "working",
                             "location": [
-                                28.0434,
-                                27.7392
+                                19.3083,
+                                46.2058
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_2",
-                                "a_Range": 100,
+                                "a_Type": "C2 Node (red)_5",
+                                "a_Connections": "_31",
                                 "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a167",
-                            "contactId": "CA2511",
+                            "uniqid": "a770",
+                            "contactId": "CA1801",
                             "name": "Red:66",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:66",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:66",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:66",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 50,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                25.6097,
-                                84.921
+                                7.0237,
+                                62.6686
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Yes"
+                                "a_Speed": 240,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_28",
+                                "a_Type": "ISTAR (red)_4",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a168",
-                            "contactId": "CA1889",
+                            "uniqid": "a771",
+                            "contactId": "CA3319",
                             "name": "Red:67",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:67",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:67",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:67",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 20,
-                            "platformTypeId": "red_land_unit",
+                            "health": 0,
+                            "platformTypeId": "red_air_logs",
                             "condition": "working",
                             "location": [
-                                20.955,
-                                75.4147
+                                2.6178,
+                                23.8212
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit42",
-                                "a_Equipment": "_36"
+                                "a_Speed": 220,
+                                "a_Type": "Air LOGS (red)_4",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_24"
                             }
                         },
                         {
-                            "uniqid": "a169",
-                            "contactId": "CA292",
+                            "uniqid": "a772",
+                            "contactId": "CA3345",
                             "name": "Red:68",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:68",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:68",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:68",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_land_asset",
+                            "health": 80,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                8.817,
-                                62.5734
+                                16.0134,
+                                62.153
                             ],
                             "attributes": {
-                                "a_Units": "_9",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 10,
+                                "a_Type": "Submarine (red)_6",
+                                "a_Equipment": "_28"
                             }
                         },
                         {
-                            "uniqid": "a170",
-                            "contactId": "CA153",
+                            "uniqid": "a773",
+                            "contactId": "CA958",
                             "name": "Red:69",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:69",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:69",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:69",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "red_air_istar",
+                            "health": 95,
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                15.7441,
-                                43.744
+                                13.4045,
+                                66.5351
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_20",
-                                "a_Detection Range": 50
+                                "a_Speed": 25,
+                                "a_Type": "MTG (red)_1",
+                                "a_Equipment": "_22"
                             }
                         },
                         {
-                            "uniqid": "a171",
-                            "contactId": "CA371",
+                            "uniqid": "a774",
+                            "contactId": "CA1147",
                             "name": "Red:70",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:70",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:70",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:70",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_maritime_mine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 70,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 20,
+                            "platformTypeId": "red_maritime_mine",
                             "condition": "working",
                             "location": [
-                                8.776,
-                                84.0781
+                                18.9651,
+                                23.713
                             ],
                             "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_47"
+                                "a_Density": 100,
+                                "a_Type": "Maritime Minefield (red)_1",
+                                "a_Minefield_Passable": "Limited"
                             }
                         },
                         {
-                            "uniqid": "a172",
-                            "contactId": "CA2526",
+                            "uniqid": "a775",
+                            "contactId": "CA1612",
                             "name": "Red:71",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:71",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:71",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:71",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 10,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 20,
+                            "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                28.405,
-                                78.6768
+                                13.8997,
+                                67.4315
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "Yes"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_29",
+                                "a_Type": "SAM (red)_4",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a173",
-                            "contactId": "CA1114",
+                            "uniqid": "a776",
+                            "contactId": "CA333",
                             "name": "Red:72",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:72",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:72",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:72",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 40,
-                            "platformTypeId": "red_land_sam",
+                            "health": 55,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                12.8262,
-                                54.4894
+                                12.7208,
+                                64.4162
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_4",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "None"
+                                "a_Size": "size_26",
+                                "a_Type": "Land Unit (red)_6",
+                                "a_Equipment": "_10"
                             }
                         },
                         {
-                            "uniqid": "a174",
-                            "contactId": "CA3192",
+                            "uniqid": "a777",
+                            "contactId": "CA1804",
                             "name": "Red:73",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:73",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:73",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:73",
-                                    "typeId": "red_land_unit",
+                                    "typeId": "red_maritime_submarine",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_land_unit",
+                            "health": 10,
+                            "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                18.8761,
-                                66.8628
+                                13.9676,
+                                83.0153
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit37",
-                                "a_Equipment": "_25"
+                                "a_Speed": 15,
+                                "a_Type": "Submarine (red)_6",
+                                "a_Equipment": "_13"
                             }
                         },
                         {
-                            "uniqid": "a175",
-                            "contactId": "CA2748",
+                            "uniqid": "a778",
+                            "contactId": "CA776",
                             "name": "Red:74",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:74",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:74",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:74",
-                                    "typeId": "red_air_fighter",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 5,
-                            "platformTypeId": "red_air_fighter",
+                            "health": 60,
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                23.3077,
-                                74.8654
+                                18.7495,
+                                74.8124
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_1"
+                                "a_Speed": 20,
+                                "a_Type": "FIAC (red)_6",
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a176",
-                            "contactId": "CA2593",
+                            "uniqid": "a779",
+                            "contactId": "CA130",
                             "name": "Red:75",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:75",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:75",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:75",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "red_land_asset",
+                            "health": 65,
+                            "platformTypeId": "red_air_logs",
                             "condition": "working",
                             "location": [
-                                18.8227,
-                                46.3894
+                                24.8049,
+                                66.9267
                             ],
                             "attributes": {
-                                "a_Units": "_2",
-                                "a_Building_Type": "B-Type-C"
+                                "a_Speed": 260,
+                                "a_Type": "Air LOGS (red)_6",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_15"
                             }
                         },
                         {
-                            "uniqid": "a177",
-                            "contactId": "CA2843",
+                            "uniqid": "a780",
+                            "contactId": "CA1576",
                             "name": "Red:76",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:76",
-                                    "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-green",
-                                    "name": "Red:76",
-                                    "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
-                                },
-                                {
-                                    "by": "f-white",
-                                    "name": "Red:76",
-                                    "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
-                                }
-                            ],
-                            "health": 20,
-                            "platformTypeId": "red_maritime_submarine",
-                            "condition": "working",
-                            "location": [
-                                27.6038,
-                                82.0479
-                            ],
-                            "attributes": {
-                                "a_Speed": 20,
-                                "a_Equipment": "_3"
-                            }
-                        },
-                        {
-                            "uniqid": "a178",
-                            "contactId": "CA985",
-                            "name": "Red:77",
-                            "perceptions": [
-                                {
-                                    "by": "f-blue",
-                                    "name": "Red:77",
                                     "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
-                                    "name": "Red:77",
+                                    "name": "Red:76",
                                     "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
-                                    "name": "Red:77",
+                                    "name": "Red:76",
                                     "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 10,
+                            "health": 5,
                             "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                8.7577,
-                                30.7051
+                                16.1395,
+                                25.0326
                             ],
                             "attributes": {
-                                "a_Speed": 240,
+                                "a_Speed": 220,
+                                "a_Type": "Fast Jet Squadron (red)_3",
                                 "a_Number_Aircraft": 10,
                                 "a_Equipment": "_11"
                             }
                         },
                         {
-                            "uniqid": "a179",
-                            "contactId": "CA1435",
+                            "uniqid": "a781",
+                            "contactId": "CA3032",
+                            "name": "Red:77",
+                            "perceptions": [
+                                {
+                                    "by": "f-blue",
+                                    "name": "Red:77",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-green",
+                                    "name": "Red:77",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-red"
+                                },
+                                {
+                                    "by": "f-white",
+                                    "name": "Red:77",
+                                    "typeId": "red_maritime_fiac",
+                                    "force": "f-red"
+                                }
+                            ],
+                            "health": 80,
+                            "platformTypeId": "red_maritime_fiac",
+                            "condition": "working",
+                            "location": [
+                                12.7474,
+                                55.0009
+                            ],
+                            "attributes": {
+                                "a_Speed": 20,
+                                "a_Type": "FIAC (red)_1",
+                                "a_Number_FIACs": 100
+                            }
+                        },
+                        {
+                            "uniqid": "a782",
+                            "contactId": "CA1776",
                             "name": "Red:78",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:78",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:78",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:78",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_logs",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_land_asset",
+                            "health": 20,
+                            "platformTypeId": "red_air_logs",
                             "condition": "working",
                             "location": [
-                                18.7797,
-                                83.6369
+                                13.3059,
+                                38.8499
                             ],
                             "attributes": {
-                                "a_Units": "_20",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 220,
+                                "a_Type": "Air LOGS (red)_5",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_36"
                             }
                         },
                         {
-                            "uniqid": "a180",
-                            "contactId": "CA269",
+                            "uniqid": "a783",
+                            "contactId": "CA1106",
                             "name": "Red:79",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:79",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:79",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:79",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
                             "health": 55,
-                            "platformTypeId": "red_maritime_submarine",
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                10.8558,
-                                50.73
+                                20.2305,
+                                32.0602
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_23"
+                                "a_Size": "size_41",
+                                "a_Type": "Land Unit (red)_5",
+                                "a_Equipment": "_9"
                             }
                         },
                         {
-                            "uniqid": "a181",
-                            "contactId": "CA2066",
+                            "uniqid": "a784",
+                            "contactId": "CA1993",
                             "name": "Red:80",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:80",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:80",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:80",
-                                    "typeId": "red_land_sam",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 10,
-                            "platformTypeId": "red_land_sam",
+                            "health": 5,
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                26.4279,
-                                23.7424
+                                24.8069,
+                                83.0187
                             ],
                             "attributes": {
-                                "a_Number_Missiles": 100,
-                                "a_Equipment": "_28",
-                                "a_Mez_Range": 100,
-                                "a_C2_Status": "Operational"
+                                "a_Speed": 220,
+                                "a_Type": "Fast Jet Squadron (red)_3",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_2"
                             }
                         },
                         {
-                            "uniqid": "a182",
-                            "contactId": "CA2357",
+                            "uniqid": "a785",
+                            "contactId": "CA324",
                             "name": "Red:81",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:81",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:81",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:81",
-                                    "typeId": "red_maritime_mine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "red_maritime_mine",
+                            "health": 50,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                25.4633,
-                                54.9734
+                                6.9874,
+                                55.5165
                             ],
                             "attributes": {
-                                "a_Density": 100,
-                                "a_Minefield_Passable": "No"
+                                "a_Type": "Fixed Asset (red)_2",
+                                "a_Units": "_37",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a183",
-                            "contactId": "CA1458",
+                            "uniqid": "a786",
+                            "contactId": "CA3141",
                             "name": "Red:82",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:82",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:82",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:82",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 0,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 35,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                10.4511,
-                                72.6218
+                                9.2557,
+                                47.1658
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_14"
+                                "a_Type": "Fixed Asset (red)_3",
+                                "a_Units": "_44",
+                                "a_Building_Type": "B-Type-B"
                             }
                         },
                         {
-                            "uniqid": "a184",
-                            "contactId": "CA40",
+                            "uniqid": "a787",
+                            "contactId": "CA2634",
                             "name": "Red:83",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:83",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:83",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:83",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 65,
-                            "platformTypeId": "red_land_c2",
+                            "health": 10,
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                26.9469,
-                                51.6081
+                                6.2072,
+                                69.0366
                             ],
                             "attributes": {
-                                "a_Connections": "_5",
-                                "a_C2_Status": "Operational"
+                                "a_Speed": 10,
+                                "a_Type": "MTG (red)_2",
+                                "a_Equipment": "_33"
                             }
                         },
                         {
-                            "uniqid": "a185",
-                            "contactId": "CA2810",
+                            "uniqid": "a788",
+                            "contactId": "CA3010",
                             "name": "Red:84",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:84",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:84",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:84",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 5,
-                            "platformTypeId": "red_land_asset",
+                            "health": 15,
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                20.9699,
-                                38.3702
+                                8.9377,
+                                22.4035
                             ],
                             "attributes": {
-                                "a_Units": "_5",
-                                "a_Building_Type": "B-Type-A"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_34",
+                                "a_Type": "SSM (red)_3",
+                                "a_Range": 2000,
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a186",
-                            "contactId": "CA1532",
+                            "uniqid": "a789",
+                            "contactId": "CA2333",
                             "name": "Red:85",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:85",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:85",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:85",
-                                    "typeId": "red_maritime_submarine",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 95,
-                            "platformTypeId": "red_maritime_submarine",
+                            "health": 0,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                23.8524,
-                                30.2117
+                                12.3439,
+                                69.911
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_40"
+                                "a_Size": "size_12",
+                                "a_Type": "Land Unit (red)_2",
+                                "a_Equipment": "_27"
                             }
                         },
                         {
-                            "uniqid": "a187",
-                            "contactId": "CA2557",
+                            "uniqid": "a790",
+                            "contactId": "CA2717",
                             "name": "Red:86",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:86",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:86",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:86",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_land_unit",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 85,
-                            "platformTypeId": "red_land_asset",
+                            "health": 20,
+                            "platformTypeId": "red_land_unit",
                             "condition": "working",
                             "location": [
-                                26.7711,
-                                48.8742
+                                21.3684,
+                                25.3649
                             ],
                             "attributes": {
-                                "a_Units": "_3",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Size": "size_2",
+                                "a_Type": "Land Unit (red)_2",
+                                "a_Equipment": "_18"
                             }
                         },
                         {
-                            "uniqid": "a188",
-                            "contactId": "CA342",
+                            "uniqid": "a791",
+                            "contactId": "CA3309",
                             "name": "Red:87",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:87",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:87",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:87",
-                                    "typeId": "red_maritime_fiac",
+                                    "typeId": "red_land_asset",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 90,
-                            "platformTypeId": "red_maritime_fiac",
+                            "health": 30,
+                            "platformTypeId": "red_land_asset",
                             "condition": "working",
                             "location": [
-                                5.7717,
-                                77.2612
+                                14.7763,
+                                23.0043
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Number_FIACs": 100
+                                "a_Type": "Fixed Asset (red)_1",
+                                "a_Units": "_6",
+                                "a_Building_Type": "B-Type-A"
                             }
                         },
                         {
-                            "uniqid": "a189",
-                            "contactId": "CA2089",
+                            "uniqid": "a792",
+                            "contactId": "CA1935",
                             "name": "Red:88",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:88",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:88",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:88",
-                                    "typeId": "red_air_istar",
+                                    "typeId": "red_maritime_mtg",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "red_air_istar",
+                            "health": 30,
+                            "platformTypeId": "red_maritime_mtg",
                             "condition": "working",
                             "location": [
-                                14.8693,
-                                74.9739
+                                20.393,
+                                30.7272
                             ],
                             "attributes": {
-                                "a_Speed": 240,
-                                "a_Number_Aircraft": 10,
-                                "a_Equipment": "_49",
-                                "a_Detection Range": 50
+                                "a_Speed": 30,
+                                "a_Type": "MTG (red)_2",
+                                "a_Equipment": "_2"
                             }
                         },
                         {
-                            "uniqid": "a190",
-                            "contactId": "CA3112",
+                            "uniqid": "a793",
+                            "contactId": "CA1802",
                             "name": "Red:89",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:89",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:89",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:89",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_air_fighter",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 80,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 75,
+                            "platformTypeId": "red_air_fighter",
                             "condition": "working",
                             "location": [
-                                22.648,
-                                39.3907
+                                13.2479,
+                                42.0904
                             ],
                             "attributes": {
-                                "a_Speed": 10,
-                                "a_Equipment": "_42"
+                                "a_Speed": 200,
+                                "a_Type": "Fast Jet Squadron (red)_5",
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_40"
                             }
                         },
                         {
-                            "uniqid": "a191",
-                            "contactId": "CA3210",
+                            "uniqid": "a794",
+                            "contactId": "CA609",
                             "name": "Red:90",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:90",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:90",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:90",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 45,
-                            "platformTypeId": "red_land_asset",
+                            "health": 70,
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                24.2877,
-                                64.0048
+                                19.1206,
+                                31.9486
                             ],
                             "attributes": {
-                                "a_Units": "_31",
-                                "a_Building_Type": "B-Type-A"
+                                "a_Speed": 25,
+                                "a_Type": "FIAC (red)_4",
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a192",
-                            "contactId": "CA2755",
+                            "uniqid": "a795",
+                            "contactId": "CA2052",
                             "name": "Red:91",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:91",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:91",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:91",
-                                    "typeId": "red_maritime_mtg",
+                                    "typeId": "red_land_ssm",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 75,
-                            "platformTypeId": "red_maritime_mtg",
+                            "health": 20,
+                            "platformTypeId": "red_land_ssm",
                             "condition": "working",
                             "location": [
-                                22.1183,
-                                40.2478
+                                8.2204,
+                                61.5672
                             ],
                             "attributes": {
-                                "a_Speed": 30,
-                                "a_Equipment": "_23"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_46",
+                                "a_Type": "SSM (red)_4",
+                                "a_Range": 2000,
+                                "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a193",
-                            "contactId": "CA798",
+                            "uniqid": "a796",
+                            "contactId": "CA1290",
                             "name": "Red:92",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:92",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:92",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:92",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 50,
-                            "platformTypeId": "red_land_c2",
+                            "health": 15,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                16.8769,
-                                78.6289
+                                3.5438,
+                                59.7778
                             ],
                             "attributes": {
-                                "a_Connections": "_7",
-                                "a_C2_Status": "Operational"
+                                "a_Speed": 200,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_41",
+                                "a_Type": "ISTAR (red)_3",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a194",
-                            "contactId": "CA1940",
+                            "uniqid": "a797",
+                            "contactId": "CA3105",
                             "name": "Red:93",
                             "perceptions": [
                                 {
@@ -6977,203 +7192,215 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 80,
+                            "health": 20,
                             "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                25.2486,
-                                58.2358
+                                9.3226,
+                                46.1653
                             ],
                             "attributes": {
-                                "a_Speed": 30,
+                                "a_Speed": 10,
+                                "a_Type": "FIAC (red)_5",
                                 "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a195",
-                            "contactId": "CA616",
+                            "uniqid": "a798",
+                            "contactId": "CA3115",
                             "name": "Red:94",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:94",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:94",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:94",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 55,
-                            "platformTypeId": "red_land_c2",
+                            "health": 65,
+                            "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                17.69,
-                                81.3482
+                                17.4633,
+                                34.3142
                             ],
                             "attributes": {
-                                "a_Connections": "_28",
-                                "a_C2_Status": "None"
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_7",
+                                "a_Type": "SAM (red)_5",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Degraded"
                             }
                         },
                         {
-                            "uniqid": "a196",
-                            "contactId": "CA2073",
+                            "uniqid": "a799",
+                            "contactId": "CA963",
                             "name": "Red:95",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:95",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:95",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:95",
-                                    "typeId": "red_land_ssm",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 15,
-                            "platformTypeId": "red_land_ssm",
+                            "health": 90,
+                            "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                2.883,
-                                47.9358
+                                12.0375,
+                                74.6548
                             ],
                             "attributes": {
                                 "a_Number_Missiles": 100,
-                                "a_Equipment": "_15",
-                                "a_Range": 100,
-                                "a_C2_Status": "None"
+                                "a_Equipment": "_27",
+                                "a_Type": "SAM (red)_6",
+                                "a_Mez_Range": 300,
+                                "a_C2_Status": "Operational"
                             }
                         },
                         {
-                            "uniqid": "a197",
-                            "contactId": "CA823",
+                            "uniqid": "a800",
+                            "contactId": "CA3009",
                             "name": "Red:96",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:96",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:96",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:96",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_air_istar",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 30,
-                            "platformTypeId": "red_land_asset",
+                            "health": 15,
+                            "platformTypeId": "red_air_istar",
                             "condition": "working",
                             "location": [
-                                10.4371,
-                                38.1299
+                                5.0323,
+                                33.5469
                             ],
                             "attributes": {
-                                "a_Units": "_4",
-                                "a_Building_Type": "B-Type-C"
+                                "a_Speed": 280,
+                                "a_Number_Aircraft": 10,
+                                "a_Equipment": "_29",
+                                "a_Type": "ISTAR (red)_2",
+                                "a_Detection Range": 50
                             }
                         },
                         {
-                            "uniqid": "a198",
-                            "contactId": "CA338",
+                            "uniqid": "a801",
+                            "contactId": "CA559",
                             "name": "Red:97",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:97",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:97",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:97",
-                                    "typeId": "red_land_c2",
+                                    "typeId": "red_land_sam",
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 60,
-                            "platformTypeId": "red_land_c2",
+                            "health": 85,
+                            "platformTypeId": "red_land_sam",
                             "condition": "working",
                             "location": [
-                                23.7644,
-                                67.9297
+                                20.6595,
+                                24.4564
                             ],
                             "attributes": {
-                                "a_Connections": "_18",
+                                "a_Number_Missiles": 100,
+                                "a_Equipment": "_5",
+                                "a_Type": "SAM (red)_3",
+                                "a_Mez_Range": 300,
                                 "a_C2_Status": "None"
                             }
                         },
                         {
-                            "uniqid": "a199",
-                            "contactId": "CA1658",
+                            "uniqid": "a802",
+                            "contactId": "CA654",
                             "name": "Red:98",
                             "perceptions": [
                                 {
                                     "by": "f-blue",
                                     "name": "Red:98",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:98",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:98",
-                                    "typeId": "red_land_asset",
+                                    "typeId": "red_maritime_fiac",
                                     "force": "f-red"
                                 }
                             ],
                             "health": 40,
-                            "platformTypeId": "red_land_asset",
+                            "platformTypeId": "red_maritime_fiac",
                             "condition": "working",
                             "location": [
-                                28.4737,
-                                52.4463
+                                19.215,
+                                85.8641
                             ],
                             "attributes": {
-                                "a_Units": "_4",
-                                "a_Building_Type": "B-Type-B"
+                                "a_Speed": 30,
+                                "a_Type": "FIAC (red)_5",
+                                "a_Number_FIACs": 100
                             }
                         },
                         {
-                            "uniqid": "a200",
-                            "contactId": "CA2935",
+                            "uniqid": "a803",
+                            "contactId": "CA659",
                             "name": "Red:99",
                             "perceptions": [
                                 {
@@ -7195,16 +7422,17 @@ const game: Wargame = {
                                     "force": "f-red"
                                 }
                             ],
-                            "health": 35,
+                            "health": 40,
                             "platformTypeId": "red_maritime_submarine",
                             "condition": "working",
                             "location": [
-                                16.6616,
-                                45.4264
+                                28.3629,
+                                35.6649
                             ],
                             "attributes": {
-                                "a_Speed": 15,
-                                "a_Equipment": "_33"
+                                "a_Speed": 10,
+                                "a_Type": "Submarine (red)_2",
+                                "a_Equipment": "_17"
                             }
                         }
                     ],
@@ -7458,6 +7686,7 @@ const game: Wargame = {
                     "uniqid": "blue_air_fighter",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Number_Aircraft",
                         "a_Equipment"
                     ],
@@ -7467,6 +7696,7 @@ const game: Wargame = {
                     "name": "Bomber Squadron (blue)",
                     "icon": "n_blue_air_bomber.svg",
                     "attributeTypeIds": [
+                        "a_Type",
                         "a_Speed",
                         "a_Number_Aircraft",
                         "a_Equipment"
@@ -7481,6 +7711,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_sam.svg",
                     "attributeTypeIds": [
                         "a_Number_Missiles",
+                        "a_Type",
                         "a_Equipment",
                         "a_Mez_Range",
                         "a_C2_Status"
@@ -7495,6 +7726,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_task_force.svg",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -7507,6 +7739,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -7519,6 +7752,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_submarine.svg",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -7531,6 +7765,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_armed_inf.svg",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Size",
                         "a_Equipment"
                     ],
@@ -7544,6 +7779,7 @@ const game: Wargame = {
                     "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": [
                         "a_Units",
+                        "a_Type",
                         "a_Building_Type"
                     ],
                     "conditions": [],
@@ -7557,6 +7793,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Number_Missiles",
+                        "a_Type",
                         "a_Equipment",
                         "a_Range",
                         "a_C2_Status"
@@ -7572,6 +7809,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Number_Aircraft",
+                        "a_Type",
                         "a_Equipment",
                         "a_Detection Range"
                     ],
@@ -7584,6 +7822,7 @@ const game: Wargame = {
                     "name": "Air LOGS (blue)",
                     "icon": "n_blue_air_utility.svg",
                     "attributeTypeIds": [
+                        "a_Type",
                         "a_Speed",
                         "a_Number_Aircraft",
                         "a_Equipment"
@@ -7597,6 +7836,7 @@ const game: Wargame = {
                     "name": "C2 Node (blue)",
                     "icon": "n_blue_hq.svg",
                     "attributeTypeIds": [
+                        "a_Type",
                         "a_Connections",
                         "a_C2_Status"
                     ],
@@ -7609,6 +7849,7 @@ const game: Wargame = {
                     "name": "FIAC (blue)",
                     "icon": "n_blue_maritime_destroyer.svg",
                     "attributeTypeIds": [
+                        "a_Type",
                         "a_Speed",
                         "a_Number_FIACs"
                     ],
@@ -7622,6 +7863,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_minefield.svg",
                     "attributeTypeIds": [
                         "a_Density",
+                        "a_Type",
                         "a_Minefield_Passable"
                     ],
                     "conditions": [],
@@ -7638,6 +7880,7 @@ const game: Wargame = {
                     "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Number_Aircraft",
                         "a_Equipment"
                     ]
@@ -7652,6 +7895,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number_Missiles",
                         "a_Equipment",
+                        "a_Type",
                         "a_Mez_Range",
                         "a_C2_Status"
                     ]
@@ -7665,6 +7909,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Equipment"
                     ]
                 },
@@ -7677,6 +7922,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Equipment"
                     ]
                 },
@@ -7689,6 +7935,7 @@ const game: Wargame = {
                     "travelMode": "land",
                     "attributeTypeIds": [
                         "a_Size",
+                        "a_Type",
                         "a_Equipment"
                     ]
                 },
@@ -7700,6 +7947,7 @@ const game: Wargame = {
                     "uniqid": "red_land_asset",
                     "travelMode": "land",
                     "attributeTypeIds": [
+                        "a_Type",
                         "a_Units",
                         "a_Building_Type"
                     ]
@@ -7714,6 +7962,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number_Missiles",
                         "a_Equipment",
+                        "a_Type",
                         "a_Range",
                         "a_C2_Status"
                     ]
@@ -7729,6 +7978,7 @@ const game: Wargame = {
                         "a_Speed",
                         "a_Number_Aircraft",
                         "a_Equipment",
+                        "a_Type",
                         "a_Detection Range"
                     ]
                 },
@@ -7741,6 +7991,7 @@ const game: Wargame = {
                     "travelMode": "air",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Number_Aircraft",
                         "a_Equipment"
                     ]
@@ -7753,6 +8004,7 @@ const game: Wargame = {
                     "uniqid": "red_land_c2",
                     "travelMode": "land",
                     "attributeTypeIds": [
+                        "a_Type",
                         "a_Connections",
                         "a_C2_Status"
                     ]
@@ -7766,6 +8018,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_Type",
                         "a_Number_FIACs"
                     ]
                 },
@@ -7778,6 +8031,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Density",
+                        "a_Type",
                         "a_Minefield_Passable"
                     ]
                 }
@@ -7792,25 +8046,31 @@ const game: Wargame = {
                     "defaultValue": 10,
                     "description": "Number of aircraftt",
                     "editableByPlayer": false,
-                    "name": "Number"
+                    "name": "Number aircraft"
+                }, {
+                    "attrId": "a_Type",
+                    "attrType": "AttributeTypeString",
+                    "description": "Sub-type of this platform",
+                    "editableByPlayer": false,
+                    "name": "Sub-type"
                 }, {
                     "attrId": "a_Number_Missiles",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
                     "description": "Number of missiles",
                     "editableByPlayer": false,
-                    "name": "Number"
+                    "name": "Number missiles"
                 }, {
                     "attrId": "a_Number_FIACs",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
                     "description": "Number of FIAC assets",
                     "editableByPlayer": false,
-                    "name": "Number"
+                    "name": "Number FIACs"
                 }, {
                     "attrId": "a_Mez_Range",
                     "attrType": "AttributeTypeNumber",
-                    "defaultValue": 100,
+                    "defaultValue": 300,
                     "description": "MEZ Range (km)",
                     "editableByPlayer": false,
                     "name": "MEZ Range",
@@ -7826,8 +8086,8 @@ const game: Wargame = {
                 {
                     "attrId": "a_Size",
                     "attrType": "AttributeTypeString",
-                    "defaultValue": "Size of military unit",
-                    "description": "Equipment carried on asset",
+                    "defaultValue": "Unit size_",
+                    "description": "Size of military unit",
                     "editableByPlayer": false,
                     "name": "Size"
                 }, {
@@ -7858,7 +8118,7 @@ const game: Wargame = {
                 {
                     "attrId": "a_Range",
                     "attrType": "AttributeTypeNumber",
-                    "defaultValue": 100,
+                    "defaultValue": 2000,
                     "description": "Range of weapon (km)",
                     "editableByPlayer": false,
                     "name": "Range",
@@ -8137,7 +8397,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Land-Strike",
-                                    "template": "Land--MissileStrike"
+                                    "template": "Land--MissileStrike",
+                                    "events": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -8524,7 +8787,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike"
+                                    "template": "Maritime--MissileStrike",
+                                    "events": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -9200,7 +9466,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Land-Strike",
-                                    "template": "Land--MissileStrike"
+                                    "template": "Land--MissileStrike",
+                                    "events": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -9604,7 +9873,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike"
+                                    "template": "Maritime--MissileStrike",
+                                    "events": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -10280,7 +10552,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Land-Strike",
-                                    "template": "Land--MissileStrike"
+                                    "template": "Land--MissileStrike",
+                                    "events": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -10667,7 +10942,10 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Maritime-Strike",
-                                    "template": "Maritime--MissileStrike"
+                                    "template": "Maritime--MissileStrike",
+                                    "events": [
+                                        "inter-at-end"
+                                    ]
                                 },
                                 {
                                     "name": "Transit",
@@ -11316,7 +11594,20 @@ const game: Wargame = {
                                                 "0"
                                             ],
                                             "options": {
-                                                "grid_columns": 3
+                                                "grid_columns": 2
+                                            }
+                                        },
+                                        "repairComplete": {
+                                            "title": "Repair time (days)",
+                                            "type": "string",
+                                            "enum": [
+                                                "n/a",
+                                                "1",
+                                                "2",
+                                                "3"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2
                                             }
                                         },
                                         "narrative": {
@@ -11415,7 +11706,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.630Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -11705,10 +11996,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.630Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.630Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -12012,10 +12303,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.630Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.630Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12319,11 +12610,14 @@ const game: Wargame = {
                                             "title": "Missile Type",
                                             "type": "string",
                                             "enum": [
+                                                "###Ballistic",
                                                 "SRBM",
                                                 "MRBM",
                                                 "IRBM",
+                                                "###Cruise",
                                                 "Standard Cruise",
                                                 "Low Obs Cruise",
+                                                "###UAV",
                                                 "Propellor OWA UAV",
                                                 "Jet OWA UAV"
                                             ],
@@ -12348,10 +12642,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.630Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.630Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12669,11 +12963,14 @@ const game: Wargame = {
                                             "title": "Missile Type",
                                             "type": "string",
                                             "enum": [
+                                                "###Ballistic",
                                                 "SRBM",
                                                 "MRBM",
                                                 "IRBM",
+                                                "###Cruise",
                                                 "Standard Cruise",
                                                 "Low Obs Cruise",
+                                                "###UAV",
                                                 "Propellor OWA UAV",
                                                 "Jet OWA UAV"
                                             ],
@@ -12698,10 +12995,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.630Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.630Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13000,10 +13297,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.630Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13316,10 +13613,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13638,10 +13935,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -13968,10 +14265,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14312,10 +14609,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.496Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14662,10 +14959,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-01-04T17:49:42.496Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -14964,10 +15261,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -15280,10 +15577,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -15602,10 +15899,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -15915,10 +16212,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -16240,10 +16537,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -16579,10 +16876,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -16924,10 +17221,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -17241,10 +17538,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -17567,10 +17864,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2023-01-04T17:49:42.497Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.497Z",
+                    "lastUpdated": "2023-01-10T10:10:22.631Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -17895,11 +18192,14 @@ const game: Wargame = {
                                             "title": "Missile Type",
                                             "type": "string",
                                             "enum": [
+                                                "###Ballistic",
                                                 "SRBM",
                                                 "MRBM",
                                                 "IRBM",
+                                                "###Cruise",
                                                 "Standard Cruise",
                                                 "Low Obs Cruise",
+                                                "###UAV",
                                                 "Propellor OWA UAV",
                                                 "Jet OWA UAV"
                                             ],
@@ -17935,10 +18235,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-01-04T17:49:42.498Z"
+                    "_rev": "2023-01-10T10:10:22.631Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.498Z",
+                    "lastUpdated": "2023-01-10T10:10:22.632Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -18258,10 +18558,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-01-04T17:49:42.498Z"
+                    "_rev": "2023-01-10T10:10:22.632Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.498Z",
+                    "lastUpdated": "2023-01-10T10:10:22.632Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -18627,10 +18927,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2023-01-04T17:49:42.498Z"
+                    "_rev": "2023-01-10T10:10:22.632Z"
                 },
                 {
-                    "lastUpdated": "2023-01-04T17:49:42.498Z",
+                    "lastUpdated": "2023-01-10T10:10:22.632Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -19014,7 +19314,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2023-01-04T17:49:42.498Z"
+                    "_rev": "2023-01-10T10:10:22.632Z"
                 }
             ]
         }

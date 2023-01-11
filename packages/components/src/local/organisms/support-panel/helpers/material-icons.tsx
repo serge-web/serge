@@ -7,10 +7,10 @@ import React from 'react'
  *
  */
 export const materialIcons = {
-  Search: () => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
-  ResetSearch: () => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
-  Check: () => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
-  DetailPanel: () => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
-  SortArrow: () => <FontAwesomeIcon title='Sort' icon={faSortUp} />,
-  Filter: () => <FontAwesomeIcon title='Sort' icon={faSearch} />
+  Search: (): any => <FontAwesomeIcon title='Free text search' icon={faSearch} />,
+  ResetSearch: (): any => <FontAwesomeIcon title='Reset search' icon={faTimes} />,
+  Check: (): any => <FontAwesomeIcon title='Reset search' icon={faSquare} />,
+  DetailPanel: (): any => <FontAwesomeIcon title='Reset search' icon={faChevronRight} />,
+  SortArrow: (): any => <FontAwesomeIcon title='Sort' icon={faSortUp} />,
+  Filter: (): any => <FontAwesomeIcon title='Sort' icon={faSearch} />
 }

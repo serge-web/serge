@@ -1,9 +1,9 @@
+import { Column } from '@material-table/core'
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from '@serge/config'
 import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
-import { Column } from '@material-table/core'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
 import styles from '../styles.module.scss'
@@ -12,9 +12,30 @@ import { AssetRow } from '../types/props'
 type SummaryData = {
   roles: Record<Role['roleId'], Role['name']>
   platformTypes: Record<PlatformStyle['uniqid'], PlatformStyle['name']>
+  subTypes: string[]
   statuses: string[]
   conditions: string[]
   forces: string[]
+}
+
+// sort the platform dictionary, using this algorithm:
+// https://stackoverflow.com/a/1069840/92441
+const sortDictionaryByValue = (dict: Record<string, string>): Record<string, string> => {
+  // convert dictionary to array
+  const sortedDict = []
+  for (const pType in dict) {
+    sortedDict.push([pType, dict[pType]])
+  }
+  // sort array
+  sortedDict.sort(function (a, b) {
+    return a[1].localeCompare(b[1])
+  })
+  // revert to dictionary
+  const objSorted = {}
+  sortedDict.forEach(function (item) {
+    objSorted[item[0]] = item[1]
+  })
+  return objSorted
 }
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
@@ -66,6 +87,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   const statuses: string[] = []
   const conditions: string[] = []
   const forcesNames: string[] = []
+  const subTypes: string[] = []
   const isUmpireForce = forces.find((force: ForceData) => force.uniqid === playerForce && force.umpire)
   forces.forEach((force: ForceData) => {
     if (opFor) {
@@ -113,14 +135,27 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               conditions.push(asset.condition)
             }
           }
+          if (asset.attributes) {
+            const subType = asset.attributes.a_Type as string
+            if (!subTypes.includes(subType)) {
+              subTypes.push(subType)
+            }
+          }
           storePlatformType(asset.platformTypeId, platformStyles, platformTypesDict)
         })
       }
     }
   })
+
+  // sort sub-types
+  const sortedSubTypes = subTypes.slice().sort()
+
+  const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+
   const res: SummaryData = {
     roles: roleDict,
-    platformTypes: platformTypesDict,
+    platformTypes: sortedPlatforms,
+    subTypes: sortedSubTypes,
     conditions: conditions,
     statuses: statuses,
     forces: forcesNames
@@ -171,7 +206,8 @@ export const renderOwner = (row: AssetRow, roles: Record<string, string>): React
 export const collateActivities = (rows: MessagePlanning[]): string[] => {
   const activities: string[] = []
   rows.forEach((row: MessagePlanning) => {
-    const activity = row.message.activity
+    const force = row.details.from.forceId || ''
+    const activity = row.message.activity.slice(force.length + 1)
     if (!activities.includes(activity)) {
       activities.push(activity)
     }
@@ -183,7 +219,7 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
   const keys = Object.keys(row.attributes)
   if (keys.length) {
     return <ul>
-      { keys.map((key: string, index: number) => {
+      {keys.map((key: string, index: number) => {
         return <li key={index}>{key}: {row.attributes[key]}</li>
       })}
     </ul>
@@ -207,13 +243,16 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
  */
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
+  const fixedColWidth = 100
+
   const columns: Column<any>[] = [
-    { title: 'Icon', field: 'icon', render: renderIcon },
-    { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
-    { title: 'Type', field: 'platformType', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'Domain', type: 'string', field: 'domain', lookup: arrToDict(['Land', 'Maritime', 'Air']) },
-    { title: 'Health', type: 'numeric', field: 'health' },
-    { title: 'Attributes', field: 'attributes', render: renderAttributes }
+    { title: 'Icon', field: 'icon', render: renderIcon, width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Force', field: 'force', width: 'auto', lookup: arrToDict(summaryData.forces) },
+    { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
+    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
+    { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
+    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes }
   ]
 
   // don't need to show Force if we're just showing
@@ -310,7 +349,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     return 'Unk'
   }
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
-
+  const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
@@ -319,6 +358,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
       const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
+
       if (perception) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
         const res: AssetRow = {
@@ -327,6 +367,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
           name: perception.name,
           platformType: perception.typeId,
+          subType: subType,
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
@@ -349,6 +390,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         force: assetForce.name,
         name: asset.name,
         platformType: asset.platformTypeId || '',
+        subType: subType,
         owner: asset.owner ? asset.owner : '',
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
