@@ -13,7 +13,7 @@ export type AdjudicationRow = {
   /** turn when adjudication generated */
   turn: number
   /** whether outcome is flagged as important */
-  important: boolean
+  important: string
   owner: string
   order1: string
   order2: string

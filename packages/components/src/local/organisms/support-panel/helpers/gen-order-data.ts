@@ -639,7 +639,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
         messageType: INTERACTION_MESSAGE,
         details: details,
         message: msgBody,
-        _id: moment().toISOString()
+        _id: moment().toISOString() + '//' + interactions.length
       }
       // check it's not already present
       if (!interactions.find((inter) => inter.message.Reference === msgInt.message.Reference)) {
