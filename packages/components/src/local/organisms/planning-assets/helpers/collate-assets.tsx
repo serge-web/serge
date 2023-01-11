@@ -20,18 +20,18 @@ type SummaryData = {
 
 // sort the platform dictionary, using this algorithm:
 // https://stackoverflow.com/a/1069840/92441
-const sortDictionaryByValue = ( dict: Record<string, string>):  Record<string, string> => {
+const sortDictionaryByValue = (dict: Record<string, string>): Record<string, string> => {
   // convert dictionary to array
-  let sortedDict = [];
-  for (var pType in dict) {
-    sortedDict.push([pType, dict[pType]]);
+  const sortedDict = []
+  for (const pType in dict) {
+    sortedDict.push([pType, dict[pType]])
   }
   // sort array
   sortedDict.sort(function (a, b) {
     return a[1].localeCompare(b[1])
-  });
+  })
   // revert to dictionary
-  let objSorted = {}
+  const objSorted = {}
   sortedDict.forEach(function (item) {
     objSorted[item[0]] = item[1]
   })
@@ -151,8 +151,6 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   const sortedSubTypes = subTypes.slice().sort()
 
   const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
-
-
 
   const res: SummaryData = {
     roles: roleDict,
