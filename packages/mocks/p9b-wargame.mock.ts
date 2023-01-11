@@ -11390,6 +11390,12 @@ const game: Wargame = {
                                 },
                                 "type": "string"
                             },
+                            "important": {
+                                "type": "boolean",
+                                "propertyOrder": 15,
+                                "title": "Important",
+                                "format": "checkbox"
+                            },
                             "narrative": {
                                 "title": "General Feedback",
                                 "propertyOrder": 20,
@@ -11564,7 +11570,7 @@ const game: Wargame = {
                                             }
                                         },
                                         "repairComplete": {
-                                            "title": "Repair time (days)",
+                                            "title": "Repair in (days)",
                                             "type": "string",
                                             "enum": [
                                                 "n/a",
@@ -11672,7 +11678,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.630Z",
+                    "lastUpdated": "2023-01-11T16:52:06.686Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -11962,10 +11968,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2023-01-10T10:10:22.630Z"
+                    "_rev": "2023-01-11T16:52:06.686Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.630Z",
+                    "lastUpdated": "2023-01-11T16:52:06.686Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -12269,10 +12275,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2023-01-10T10:10:22.630Z"
+                    "_rev": "2023-01-11T16:52:06.686Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.630Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12608,10 +12614,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-01-10T10:10:22.630Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.630Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12961,10 +12967,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-01-10T10:10:22.630Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.630Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13263,10 +13269,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-01-10T10:10:22.630Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13579,10 +13585,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13901,10 +13907,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14231,10 +14237,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14575,10 +14581,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14925,10 +14931,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -15227,10 +15233,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -15543,10 +15549,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -15865,10 +15871,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -16178,10 +16184,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -16503,10 +16509,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -16842,10 +16848,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -17187,10 +17193,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -17504,10 +17510,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -17830,10 +17836,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.631Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -18201,10 +18207,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-01-10T10:10:22.631Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.632Z",
+                    "lastUpdated": "2023-01-11T16:52:06.687Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -18524,10 +18530,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-01-10T10:10:22.632Z"
+                    "_rev": "2023-01-11T16:52:06.687Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.632Z",
+                    "lastUpdated": "2023-01-11T16:52:06.688Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -18893,10 +18899,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2023-01-10T10:10:22.632Z"
+                    "_rev": "2023-01-11T16:52:06.688Z"
                 },
                 {
-                    "lastUpdated": "2023-01-10T10:10:22.632Z",
+                    "lastUpdated": "2023-01-11T16:52:06.688Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -19280,7 +19286,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2023-01-10T10:10:22.632Z"
+                    "_rev": "2023-01-11T16:52:06.688Z"
                 }
             ]
         }
