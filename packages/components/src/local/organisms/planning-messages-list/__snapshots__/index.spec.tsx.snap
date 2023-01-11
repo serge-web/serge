@@ -551,8 +551,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     style={
                       Object {
                         "boxSizing": "border-box",
-                        "minWidth": 150,
-                        "width": "150px",
+                        "minWidth": 140,
+                        "width": "140px",
                       }
                     }
                   >
@@ -619,8 +619,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                     style={
                       Object {
                         "boxSizing": "border-box",
-                        "minWidth": 150,
-                        "width": "150px",
+                        "minWidth": 140,
+                        "width": "140px",
                       }
                     }
                   >
@@ -885,8 +885,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "fontSize": "inherit",
                         "fontWeight": "inherit",
                         "maxWidth": undefined,
-                        "minWidth": 150,
-                        "width": "150px",
+                        "minWidth": 140,
+                        "width": "140px",
                       }
                     }
                     value="130852Z"
@@ -905,8 +905,8 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "fontSize": "inherit",
                         "fontWeight": "inherit",
                         "maxWidth": undefined,
-                        "minWidth": 150,
-                        "width": "150px",
+                        "minWidth": 140,
+                        "width": "140px",
                       }
                     }
                     value="150852Z"
