@@ -12,6 +12,8 @@ export type AdjudicationRow = {
   complete: boolean
   /** turn when adjudication generated */
   turn: number
+  /** whether outcome is flagged as important */
+  important: boolean
   owner: string
   order1: string
   order2: string

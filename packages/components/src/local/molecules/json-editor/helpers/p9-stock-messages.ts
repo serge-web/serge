@@ -30,7 +30,7 @@ const p9StockTemplates: TemplateBody[] = [
         important:{
           type: "boolean",
           propertyOrder: 15,
-          title: "Important",
+          title: "Important (high profile adjudication)",
           format: "checkbox"
         },
         narrative: {

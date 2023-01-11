@@ -253,6 +253,8 @@ export interface MessageAdjudicationOutcomes {
   readonly healthOutcomes: HealthOutcomes
   readonly locationOutcomes: LocationOutcomes
   readonly perceptionOutcomes: PerceptionOutcomes
+  /** whether umpire considers this interaction as important */
+  important: boolean
   /** other assets associated with this interaction,
    * stored here temporarily, before being moved
    * to InteractionDetails

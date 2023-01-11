@@ -121,6 +121,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   const res: MessageAdjudicationOutcomes = {
     messageType: 'AdjudicationOutcomes',
     Reference: id,
+    important: false,
     narrative: '',
     healthOutcomes: [],
     perceptionOutcomes: [],
@@ -225,6 +226,7 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
     locationOutcomes: [],
     perceptionOutcomes: [],
     narrative: 'Pending',
+    important: false,
     messageType: 'AdjudicationOutcomes',
     Reference: id
   }
@@ -502,6 +504,7 @@ const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes 
     messageType: 'AdjudicationOutcomes',
     Reference: contact.first.id + '-' + contact.second.id,
     narrative: '',
+    important: false,
     perceptionOutcomes: [],
     locationOutcomes: [],
     healthOutcomes: []
