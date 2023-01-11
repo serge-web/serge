@@ -415,7 +415,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         return [firstProps.startDate, lastProps.endDate]
       } else {
         return undefined
-      }  
+      }
     } else {
       return undefined
     }
