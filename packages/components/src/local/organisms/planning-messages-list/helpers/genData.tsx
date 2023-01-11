@@ -1,7 +1,6 @@
 import { Column } from '@material-table/core'
 import { MessagePlanning, PlanningMessageStructureCore } from '@serge/custom-types'
 import moment from 'moment'
-import React from 'react'
 import { arrToDict, collateActivities } from '../../planning-assets/helpers/collate-assets'
 
 import { OrderRow } from '../types/props'
@@ -42,30 +41,17 @@ export const toRow = (message: MessagePlanning): OrderRow => {
 }
 
 export const toColumn = (message: MessagePlanning[]): Column<any>[] => {
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
   const trimmedActivities = collateActivities(message)
   const activityDict = arrToDict(trimmedActivities)
+  const fixedColWidth = 150
 
-  const smallPadding: React.CSSProperties = {
-    paddingLeft: '10px',
-    paddingRight: '10px'
-  }
-  const narrowCell: React.CSSProperties = {
-    ...smallPadding, width: '80px'
-  }
-  const mediumCell: React.CSSProperties = {
-    ...smallPadding, width: '120px'
-  }
-
-  const columnData: Column<any>[] = jestWorkerId ? [] : [
-    { title: 'Reference', field: 'reference', cellStyle: mediumCell, headerStyle: mediumCell },
-    { title: 'Author', field: 'role', lookup: arrToDict(roles), cellStyle: narrowCell, headerStyle: narrowCell },
-    { title: 'Title', field: 'title', cellStyle: smallPadding, headerStyle: smallPadding },
-    { title: 'Activity', field: 'activity', lookup: activityDict, cellStyle: smallPadding, headerStyle: smallPadding },
-    { title: 'Start Date', field: 'startDate', cellStyle: narrowCell, headerStyle: narrowCell },
-    { title: 'Finish Date', field: 'endDate', cellStyle: narrowCell, headerStyle: narrowCell }
+  const columnData: Column<any>[] = [
+    { title: 'Reference', field: 'reference', width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Author', field: 'role', width: 'auto', lookup: arrToDict(roles) },
+    { title: 'Title', field: 'title', width: 'auto' },
+    { title: 'Activity', field: 'activity', width: 'auto', lookup: activityDict },
+    { title: 'Start Date', field: 'startDate', width: fixedColWidth - 10, minWidth: fixedColWidth - 10 },
+    { title: 'Finish Date', field: 'endDate', width: fixedColWidth - 10, minWidth: fixedColWidth - 10 }
   ]
 
   return columnData
