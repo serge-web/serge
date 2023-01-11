@@ -12,6 +12,7 @@ import { AssetRow } from '../types/props'
 type SummaryData = {
   roles: Record<Role['roleId'], Role['name']>
   platformTypes: Record<PlatformStyle['uniqid'], PlatformStyle['name']>
+  subTypes: string[]
   statuses: string[]
   conditions: string[]
   forces: string[]
@@ -66,6 +67,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   const statuses: string[] = []
   const conditions: string[] = []
   const forcesNames: string[] = []
+  const subTypes: string[] = []
   const isUmpireForce = forces.find((force: ForceData) => force.uniqid === playerForce && force.umpire)
   forces.forEach((force: ForceData) => {
     if (opFor) {
@@ -113,14 +115,25 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               conditions.push(asset.condition)
             }
           }
+          if (asset.attributes) {
+            const subType = asset.attributes.a_Type as string
+            if (!subTypes.includes(subType)) {
+              subTypes.push(subType)
+            }
+          }
           storePlatformType(asset.platformTypeId, platformStyles, platformTypesDict)
         })
       }
     }
   })
+
+  // sort sub-types
+  const sortedSubTypes = subTypes.slice().sort()
+
   const res: SummaryData = {
     roles: roleDict,
     platformTypes: platformTypesDict,
+    subTypes: sortedSubTypes,
     conditions: conditions,
     statuses: statuses,
     forces: forcesNames
@@ -212,6 +225,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     { title: 'Icon', field: 'icon', render: renderIcon },
     { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
+    { title: 'SubType', type: 'string', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
     { title: 'Domain', type: 'string', field: 'domain', lookup: arrToDict(['Land', 'Maritime', 'Air']) },
     { title: 'Health', type: 'numeric', field: 'health' },
     { title: 'Attributes', field: 'attributes', render: renderAttributes }
@@ -311,7 +325,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     return 'Unk'
   }
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
-
+  const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
@@ -320,6 +334,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
       const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
+      
       if (perception) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
         const res: AssetRow = {
@@ -328,6 +343,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
           name: perception.name,
           platformType: perception.typeId,
+          subType: 'n/a',
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
@@ -350,6 +366,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         force: assetForce.name,
         name: asset.name,
         platformType: asset.platformTypeId || '',
+        subType: subType,
         owner: asset.owner ? asset.owner : '',
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
