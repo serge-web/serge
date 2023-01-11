@@ -243,14 +243,16 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
  */
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
+  const fixedColWidth = 100
+
   const columns: Column<any>[] = [
-    { title: 'Icon', field: 'icon', render: renderIcon },
-    { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
-    { title: 'Type', field: 'platformType', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'SubType', type: 'string', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
-    { title: 'Domain', type: 'string', field: 'domain', lookup: arrToDict(['Land', 'Maritime', 'Air']) },
-    { title: 'Health', type: 'numeric', field: 'health' },
-    { title: 'Attributes', field: 'attributes', render: renderAttributes }
+    { title: 'Icon', field: 'icon', render: renderIcon, width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Force', field: 'force', width: 'auto', lookup: arrToDict(summaryData.forces) },
+    { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
+    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
+    { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
+    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes }
   ]
 
   // don't need to show Force if we're just showing

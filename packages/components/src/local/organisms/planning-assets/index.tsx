@@ -20,7 +20,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const { selectedAssets } = useContext(SupportPanelContext)
 
   useEffect(() => {
-    if (columns.length === 0) {
+    if (!columns.length) {
       setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
     }
     // TODO - swap next line for
@@ -42,16 +42,12 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     onSelectionChange && onSelectionChange(rows)
   }
 
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
-
   return <MaterialTable
     title={opFor ? 'Other force assets' : 'Own force Assets'}
-    columns={jestWorkerId ? [] : columns}
-    data={jestWorkerId ? [] : rows}
+    columns={columns}
+    data={rows}
     parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
-    actions={jestWorkerId ? [] : [
+    actions={[
       {
         icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
         iconProps: filter ? { color: 'action' } : { color: 'disabled' },
@@ -66,7 +62,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       pageSize: 20,
       pageSizeOptions: [5, 10, 15, 20],
       filtering: filter,
-      selection: !jestWorkerId // fix unit-test for material table,
+      selection: true
     }}
     onSelectionChange={onSelectionChangeLocal}
     components={{
