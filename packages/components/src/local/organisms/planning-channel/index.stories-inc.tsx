@@ -104,22 +104,22 @@ export default {
   argTypes: {
     selectedRoleId: {
       name: 'View as',
+      options: allRoles,
       defaultValue: allRoles[1],
       control: {
-        type: 'select',
-        options: allRoles
+        type: 'select'
       }
     }
   },
   phase: {
     name: 'Game phase',
+    options: [
+      Phase.Planning,
+      Phase.Adjudication
+    ],
     defaultValue: Phase.Adjudication,
     control: {
-      type: 'radio',
-      options: [
-        Phase.Planning,
-        Phase.Adjudication
-      ]
+      type: 'radio'
     }
   },
   wargameInitiated: {

@@ -629,7 +629,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       const msgBody: MessageAdjudicationOutcomes = {
         Reference: reference,
         healthOutcomes: [],
-        important:   psora(3 + i) > 0.7 ? true : false,
+        important: psora(3 + i) > 0.7,
         locationOutcomes: [],
         perceptionOutcomes: [],
         narrative: '',

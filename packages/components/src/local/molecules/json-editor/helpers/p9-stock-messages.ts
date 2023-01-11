@@ -27,11 +27,11 @@ const p9StockTemplates: TemplateBody[] = [
           },
           type: 'string'
         },
-        important:{
-          type: "boolean",
+        important: {
+          type: 'boolean',
           propertyOrder: 15,
-          title: "Important (high profile adjudication)",
-          format: "checkbox"
+          title: 'Important (high profile adjudication)',
+          format: 'checkbox'
         },
         narrative: {
           title: 'General Feedback',

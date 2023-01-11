@@ -200,7 +200,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
         { title: 'ID', field: 'id' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
-        { title: 'Important', field: 'important', lookup: {'Y': 'Y', 'N': 'N'} },
+        { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
         { title: 'Owner', field: 'owner' },
         { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
         { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
