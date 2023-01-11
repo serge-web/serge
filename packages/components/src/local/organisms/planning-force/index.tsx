@@ -13,12 +13,7 @@ import { PointFeature } from 'supercluster'
 import PropTypes from './types/props'
 
 export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
-  const [bounds, setBounds] = useState([
-    -52.13013780765266,
-    -33.853076010021674,
-    -57.12647659234733,
-    -32.851013577053855
-  ] as BBox)
+  const [bounds, setBounds] = useState<BBox>()
   const [zoom, setZoom] = useState(12)
   const map = useMap()
 
