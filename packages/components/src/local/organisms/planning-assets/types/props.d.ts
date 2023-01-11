@@ -7,6 +7,7 @@ export type AssetRow = {
   icon: string
   name: string
   platformType: string
+  subType: string
   parentId?: string
   force?: string
   owner?: string
