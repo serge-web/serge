@@ -126,7 +126,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
-
   const genData = (): void => {
     const doGenny = 7
     if (!doGenny) {

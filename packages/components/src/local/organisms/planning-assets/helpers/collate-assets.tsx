@@ -334,7 +334,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
       const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
-      
+
       if (perception) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
         const res: AssetRow = {
