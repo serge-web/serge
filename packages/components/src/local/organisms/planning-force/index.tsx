@@ -152,7 +152,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
           const properties = cluster.properties || {}
           // every cluster point has coordinates
           const [longitude, latitude] = cluster.geometry.coordinates
-          const loc: LatLng = [longitude, latitude] as any 
+          const loc: LatLng = [ latitude, longitude ] as any 
           const id = cluster.id as number
 
           // we have a cluster to render
