@@ -1450,7 +1450,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SAM (blue)_4",
                                 "a_Equipment": "_2",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "None"
                             }
                         },
@@ -1489,7 +1489,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SAM (blue)_1",
                                 "a_Equipment": "_39",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Operational"
                             }
                         },
@@ -1678,7 +1678,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SAM (blue)_4",
                                 "a_Equipment": "_18",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Degraded"
                             }
                         },
@@ -1907,7 +1907,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SAM (blue)_5",
                                 "a_Equipment": "_49",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Degraded"
                             }
                         },
@@ -3111,7 +3111,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SAM (blue)_4",
                                 "a_Equipment": "_30",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Degraded"
                             }
                         },
@@ -4150,7 +4150,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Equipment": "_8",
                                 "a_Type": "SAM (red)_3",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "None"
                             }
                         },
@@ -6075,7 +6075,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Equipment": "_46",
                                 "a_Type": "SAM (red)_4",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Degraded"
                             }
                         },
@@ -6376,7 +6376,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Equipment": "_29",
                                 "a_Type": "SAM (red)_4",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "None"
                             }
                         },
@@ -7240,7 +7240,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Equipment": "_7",
                                 "a_Type": "SAM (red)_5",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Degraded"
                             }
                         },
@@ -7279,7 +7279,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Equipment": "_27",
                                 "a_Type": "SAM (red)_6",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "Operational"
                             }
                         },
@@ -7357,7 +7357,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Equipment": "_5",
                                 "a_Type": "SAM (red)_3",
-                                "a_Mez_Range": 300,
+                                "a_MEZ_range": 300,
                                 "a_C2_Status": "None"
                             }
                         },
@@ -7713,7 +7713,7 @@ const game: Wargame = {
                         "a_Number_Missiles",
                         "a_Type",
                         "a_Equipment",
-                        "a_Mez_Range",
+                        "a_MEZ_range",
                         "a_C2_Status"
                     ],
                     "conditions": [],
@@ -7726,8 +7726,8 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_task_force.svg",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Type",
-                        "a_Equipment"
+                        "a_MEZ_range",
+                        "a_Type"
                     ],
                     "conditions": [],
                     "states": [],
@@ -7778,9 +7778,7 @@ const game: Wargame = {
                     "name": "Fixed Asset (blue)",
                     "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": [
-                        "a_Units",
-                        "a_Type",
-                        "a_Building_Type"
+                        "a_Type"
                     ],
                     "conditions": [],
                     "states": [],
@@ -7795,7 +7793,6 @@ const game: Wargame = {
                         "a_Number_Missiles",
                         "a_Type",
                         "a_Equipment",
-                        "a_Range",
                         "a_C2_Status"
                     ],
                     "conditions": [],
@@ -7896,7 +7893,7 @@ const game: Wargame = {
                         "a_Number_Missiles",
                         "a_Equipment",
                         "a_Type",
-                        "a_Mez_Range",
+                        "a_MEZ_range",
                         "a_C2_Status"
                     ]
                 },
@@ -7909,8 +7906,8 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
-                        "a_Type",
-                        "a_Equipment"
+                        "a_MEZ_range",
+                        "a_Type"
                     ]
                 },
                 {
@@ -7947,9 +7944,7 @@ const game: Wargame = {
                     "uniqid": "red_land_asset",
                     "travelMode": "land",
                     "attributeTypeIds": [
-                        "a_Type",
-                        "a_Units",
-                        "a_Building_Type"
+                        "a_Type"
                     ]
                 },
                 {
@@ -7960,10 +7955,10 @@ const game: Wargame = {
                     "uniqid": "red_land_ssm",
                     "travelMode": "land",
                     "attributeTypeIds": [
+                        "a_Speed",
                         "a_Number_Missiles",
-                        "a_Equipment",
                         "a_Type",
-                        "a_Range",
+                        "a_Equipment",
                         "a_C2_Status"
                     ]
                 },
@@ -8068,7 +8063,7 @@ const game: Wargame = {
                     "editableByPlayer": false,
                     "name": "Number FIACs"
                 }, {
-                    "attrId": "a_Mez_Range",
+                    "attrId": "a_MEZ_range",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 300,
                     "description": "MEZ Range (km)",

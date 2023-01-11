@@ -154,13 +154,13 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
           tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
             // see if this has MEZ range
             const attrs = oppAsset.attributes
-            if (attrs && attrs.a_Mez_Range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
+            if (attrs && attrs.a_MEZ_range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
               // ok, it has a MEZ range
               const mezAsset = oppAsset
               // generate
               const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
               const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
-              if (distanceApart < attrs.a_Mez_Range && tgtForce && tgtAsset) {
+              if (distanceApart < attrs.a_MEZ_range && tgtForce && tgtAsset) {
                 // ok, it's covered.
                 let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
                 if (!protTarget) {
