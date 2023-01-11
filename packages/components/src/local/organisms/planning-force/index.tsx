@@ -11,6 +11,7 @@ import styles from './styles.module.scss'
 import useSupercluster from 'use-supercluster'
 import { PointFeature } from 'supercluster'
 import PropTypes from './types/props'
+import './leaflet.css'
 
 export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const [bounds, setBounds] = useState<BBox>()
