@@ -194,6 +194,17 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
       return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
     })
     res.narrative += message
+
+    // store the other assets
+    const otherAssets: Array<Asset['uniqid']> = []
+    protectedTargets.forEach((tgt: ProtectedTarget) => {
+      tgt.protectedBy.forEach((asset: Asset) => {
+        if (!otherAssets.includes(asset.uniqid)) {
+          otherAssets.push(asset.uniqid)
+        }
+      })
+    })
+    res.otherAssets = otherAssets
   }
 
   console.log('strike outcomes', res)
@@ -325,6 +336,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       complete: false
     }
     const outcomes = outcomesFor(shortCircuit.message, shortCircuit.activity, forces, gameTimeVal, shortCircuit.id)
+    if (outcomes.otherAssets) {
+      details.otherAssets = outcomes.otherAssets
+      delete outcomes.otherAssets
+    }
     return { details: details, outcomes: outcomes }
   } else {
     // generate any special orders
@@ -428,6 +443,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
             complete: false
           }
           const outcomes = outcomesFor(shortCircuit.message, shortCircuit.activity, forces, gameTimeVal, shortCircuit.id)
+          if (outcomes.otherAssets) {
+            details.otherAssets = outcomes.otherAssets
+            delete outcomes.otherAssets
+          }
           return { details: details, outcomes: outcomes }
         } else {
           const details = contactDetails(firstC)
@@ -449,9 +468,14 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         orders1: shortCircuit.message._id,
         startTime: moment.utc(shortCircuit.timeStart).toISOString(),
         endTime: moment.utc(shortCircuit.timeEnd).toISOString(),
+        otherAssets: [],
         complete: false
       }
       const outcomes = outcomesFor(shortCircuit.message, shortCircuit.activity, forces, gameTimeVal, shortCircuit.id)
+      if (outcomes.otherAssets) {
+        details.otherAssets = outcomes.otherAssets
+        delete outcomes.otherAssets
+      }
       return { details: details, outcomes: outcomes }
     } else {
       return undefined
@@ -467,6 +491,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
     startTime: moment(contact.timeStart).toISOString(),
     endTime: moment(contact.timeEnd).toISOString(),
     geometry: contact.intersection,
+    otherAssets: [],
     complete: false
   }
   return res

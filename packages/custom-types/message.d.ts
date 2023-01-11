@@ -182,6 +182,8 @@ export interface InteractionDetails {
   readonly orders1: string
   /** second (optional) set of orders this relates to */
   readonly orders2?: string
+  /** other assets associated with this interaction */
+  otherAssets?: Array<Asset['uniqid']>
   /** interaction start time */
   readonly startTime: string
   /** interaction end time */
@@ -251,6 +253,11 @@ export interface MessageAdjudicationOutcomes {
   readonly healthOutcomes: HealthOutcomes
   readonly locationOutcomes: LocationOutcomes
   readonly perceptionOutcomes: PerceptionOutcomes
+  /** other assets associated with this interaction,
+   * stored here temporarily, before being moved
+   * to InteractionDetails
+   */
+  otherAssets?: Array<Asset['uniqid']>
   narrative: string
 }
 
