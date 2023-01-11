@@ -283,7 +283,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
             // get the assets
             const assets1 = assetsForOrders(inter.orders1)
             const assets2 = assetsForOrders(inter.orders2)
-            const allAssets = assets1.concat(assets2)
+            const assets3 = inter.otherAssets || []
+            const allAssets = assets1.concat(assets2).concat(assets3)
             setCurrentAssets(allAssets)
             if (inter.orders2) {
               setCurrentOrders([inter.orders1, inter.orders2])
