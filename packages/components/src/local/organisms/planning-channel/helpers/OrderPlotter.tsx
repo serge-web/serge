@@ -1,4 +1,4 @@
-import { MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
+import { InteractionDetails, MessageAdjudicationOutcomes, MessagePlanning, PerForcePlanningActivitySet, PlannedProps } from '@serge/custom-types'
 import { deepCopy, ForceStyle } from '@serge/helpers'
 import { Feature, GeoJsonObject } from 'geojson'
 import { circleMarker, LatLng, Layer, PathOptions, StyleFunction } from 'leaflet'
@@ -15,7 +15,7 @@ import { shapeFor, shapeForGeomWithOrders } from './SharedOrderRenderer'
 export interface OrderPlotterProps {
   orders: MessagePlanning[]
   step: number
-  handleAdjudication: { (contact: PlanningContact): void }
+  handleAdjudication?: { (details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
   activities: PerForcePlanningActivitySet[]
   forceCols: Array<ForceStyle>
 }
@@ -159,7 +159,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
           delete props.newContact
         }
         if (!props.inContact) {
-          const isNewContact = newContacts.find((val: PlanningContact) => val.first.id === newItem.id || val.second.id === newItem.id)
+          const isNewContact = newContacts.find((val: PlanningContact) => val.first.id === newItem.id || (val.second && val.second.id === newItem.id))
           if (isNewContact) {
             props.inContact = true
             props.newContact = true
@@ -181,7 +181,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     return {
       val: moment(val.timeStart).toISOString(),
       a: val.first.activity.message.title + ' ' + val.first.id,
-      b: val.second.activity.message.title + ' ' + val.second.id
+      b: val.second ? val.second.activity.message.title + ' ' + val.second.id : ''
     }
   }
   useEffect(() => {
@@ -191,8 +191,10 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
       // sort by start time
       const sorted = _.sortBy(withTime, ['timeStart'])
       if (sorted.length > 0) {
-        const nextToProcess = sorted[0]
-        handleAdjudication(nextToProcess)
+        const nextToProcess = sorted[0] as any
+        // note this next line will fail, we need generate outcomes from the
+        // planning contact
+        handleAdjudication && handleAdjudication(nextToProcess as InteractionDetails, nextToProcess as MessageAdjudicationOutcomes)
         // reset
         setContacts([])
         setInteractionsProcessed([])
@@ -317,7 +319,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
     }
     return <>
       {shapeForGeomWithOrders(contact.first, forceCols, activities, storeRef, 1)}
-      {shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef, 2)}
+      {contact.second && shapeForGeomWithOrders(contact.second, forceCols, activities, storeRef, 2)}
       {interFeature && shapeFor(interFeature as Feature, hightlightColor, '', storeRef, 3)}
     </>
   }

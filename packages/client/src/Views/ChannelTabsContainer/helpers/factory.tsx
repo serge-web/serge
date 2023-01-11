@@ -197,7 +197,7 @@ const factory = (state: PlayerUi): Factory => {
             platformTypes={state.allPlatformTypes}
             gameDate={state.gameDate}
             currentTurn={state.currentTurn}
-            gameTurnTime={state.gameTurnTime}
+            gameTurnLength={state.gameTurnTime}
             dispatch={dispatch}
             mapPostBack={adjudicatePostBack}
             getAllWargameMessages={getAllWargameMessages}

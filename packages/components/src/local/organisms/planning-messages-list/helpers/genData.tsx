@@ -17,11 +17,11 @@ const trimActivity = (forceId: string, activity?: string): string => {
     return 'N/A'
   } else {
     const len = forceId.length
-    return activity.slice(len + 1)
+    return activity.slice((len + 1))
   }
 }
 
-export const toRow = (message: MessagePlanning, playerForceId: string): OrderRow => {
+export const toRow = (message: MessagePlanning): OrderRow => {
   const author = message.details.from.roleName
   if (!roles.includes(author)) {
     roles.push(author)
@@ -33,7 +33,7 @@ export const toRow = (message: MessagePlanning, playerForceId: string): OrderRow
     reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
     title: plan.title,
     role: author,
-    activity: trimActivity(playerForceId, plan.activity),
+    activity: trimActivity(message.details.from.forceId || '', plan.activity),
     startDate: shortDate(plan.startDate),
     endDate: shortDate(plan.endDate)
   }

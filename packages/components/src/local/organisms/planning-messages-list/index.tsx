@@ -1,8 +1,8 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MaterialTable, { Column } from '@material-table/core'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import MaterialTable, { Column } from '@material-table/core'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -37,7 +37,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       if (newMessage) {
         // remove the previous object of the save message
         const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-        const row = toRow(newMessage, playerForceId)
+        const row = toRow(newMessage)
         // push a new row
         setRows([...filterSaveMessage, row])
       }
@@ -54,11 +54,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
     const dataTable: OrderRow[] = myMessages.map((message) => {
-      return toRow(message, playerForceId)
+      return toRow(message)
     })
     setRows(dataTable)
 
-    const columnData = toColumn(myMessages, playerForceId)
+    const columnData = toColumn(myMessages)
 
     if (columns.length === 0) {
       setColumns(columnData)
@@ -210,8 +210,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           search: true,
           paging: true,
           pageSize: 20,
+          detailPanelType: 'single',
           pageSizeOptions: [5, 10, 15, 20],
-          sorting: true,
           filtering: filter,
           selection: true
         }}

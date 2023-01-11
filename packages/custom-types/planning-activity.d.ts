@@ -1,4 +1,4 @@
-import { GeometryType } from "@serge/config"
+import { GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from "@serge/config"
 import { Asset, PlatformTypeData } from "."
 import ForceData from "./force-data"
 import { TemplateBody } from "./template"
@@ -83,6 +83,9 @@ export interface PlannedProps {
   toBeConsidered?: boolean
 }
 
+
+export type INTERACTION_SHORT_CIRCUIT = typeof INTER_AT_START | typeof INTER_AT_END | typeof INTER_AT_RANDOM
+
 /** object that describes the structure of
  * an activity that can be planned in the PlanningChannel
  */
@@ -119,6 +122,10 @@ export interface PlanningActivity {
    * list of activity types that this activity interacts with
    */
   interactsWith?: Array<PlanningActivity['actId']>
+  /** 
+   * any events that this activity generates (separate to interactions with other activities)
+   */
+  events?: Array<INTERACTION_SHORT_CIRCUIT>
 }
 
 export interface CoreOutcome {

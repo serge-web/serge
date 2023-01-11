@@ -61,7 +61,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       paging: true,
       pageSize: 20,
       pageSizeOptions: [5, 10, 15, 20],
-      sorting: false,
       filtering: filter,
       selection: true
     }}
