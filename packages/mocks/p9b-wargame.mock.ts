@@ -8046,7 +8046,7 @@ const game: Wargame = {
                     "defaultValue": 10,
                     "description": "Number of aircraftt",
                     "editableByPlayer": false,
-                    "name": "Number"
+                    "name": "Number aircraft"
                 }, {
                     "attrId": "a_Type",
                     "attrType": "AttributeTypeString",
@@ -8059,14 +8059,14 @@ const game: Wargame = {
                     "defaultValue": 100,
                     "description": "Number of missiles",
                     "editableByPlayer": false,
-                    "name": "Number"
+                    "name": "Number missiles"
                 }, {
                     "attrId": "a_Number_FIACs",
                     "attrType": "AttributeTypeNumber",
                     "defaultValue": 100,
                     "description": "Number of FIAC assets",
                     "editableByPlayer": false,
-                    "name": "Number"
+                    "name": "Number FIACs"
                 }, {
                     "attrId": "a_Mez_Range",
                     "attrType": "AttributeTypeNumber",
