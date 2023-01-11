@@ -1,11 +1,12 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { noop } from 'lodash'
+import { noop, uniqBy } from 'lodash'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import PlanningChannel from './index'
 import docs from './README.md'
@@ -112,7 +113,7 @@ export default {
   },
   phase: {
     name: 'Game phase',
-    defaultValue: Phase.Planning,
+    defaultValue: Phase.Adjudication,
     control: {
       type: 'radio',
       options: [
@@ -154,9 +155,30 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const force = forces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
-  const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
+  const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
+
+  console.warn('state messages', stateMessages.length)
+
+  const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
+    console.warn('SAVE MESSAGE 1')
     return async (): Promise<void> => {
-      console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
+      const newMessage: MessageInteraction = {
+        _id: moment().toISOString(),
+        // defined constat for messages, it's not same as message.details.messageType,
+        // ex for all template based messages will be used CUSTOM_MESSAGE Type
+        messageType: 'InteractionMessage',
+        details,
+        message: message,
+        hasBeenRead: false
+      }
+      const newMessagesList = [...stateMessages, newMessage]
+      const nonInfoMessages = newMessagesList.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+      const reverseMes = nonInfoMessages.reverse()
+      const deDupeInteractions = uniqBy(reverseMes, function (inter: MessageInteraction | MessagePlanning) {
+        return inter.message.Reference
+      })
+      const restoreOrder = deDupeInteractions.reverse()
+      setStateMessages(restoreOrder)
     }
   }
 
@@ -165,13 +187,14 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   return <PlanningChannel
     channel={planningChannel}
-    messages={messages}
+    messages={stateMessages}
     allTemplates={templates}
     channelId={channels[0].uniqid}
     adjudicationTemplate={adjudicationTemplate}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
+    mapPostBack={(details, outcomes) => saveMessage('a', details, outcomes)()}
     markAllAsRead={mockFn}
     markUnread={mockFn}
     openMessage={mockFn}
@@ -241,8 +264,8 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
 export const Default = Template.bind({})
 Default.args = {
   messages: channelMessages,
-  selectedRoleId: allRoles[5],
-  phase: Phase.Planning
+  selectedRoleId: allRoles[2],
+  phase: Phase.Adjudication
 }
 
 export const BulkData = Template.bind({})

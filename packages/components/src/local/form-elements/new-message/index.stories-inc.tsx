@@ -1,10 +1,11 @@
 import { MessageDetails, TemplateBody } from '@serge/custom-types'
-import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
-import p9MessageTemplatesMock from '@serge/mocks/p9-message-templates.mock'
+import { P9BMock, planningMessageTemplatesMock } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import NewMessage from './index'
 import docs from './README.md'
+
+const p9templates = P9BMock.data.templates ? P9BMock.data.templates.templates : []
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
 
@@ -60,15 +61,15 @@ const Template: Story<StoryPropTypes> = (args) => {
   }
 
   return (<NewMessage
-    gameDate={P9Mock.data.overview.gameDate}
+    gameDate={P9BMock.data.overview.gameDate}
     privateMessage={privateMessage}
     orderableChannel={orderableChannel}
-    channel={P9Mock.data.channels.channels[0]}
+    channel={P9BMock.data.channels.channels[0]}
     confirmCancel={confirmCancel}
     currentTurn={0}
-    selectedForce={P9Mock.data.forces.forces[0]}
-    selectedRole={P9Mock.data.forces.forces[0].roles[0].roleId}
-    selectedRoleName={P9Mock.data.forces.forces[0].roles[0].name}
+    selectedForce={P9BMock.data.forces.forces[1]}
+    selectedRole={P9BMock.data.forces.forces[1].roles[0].roleId}
+    selectedRoleName={P9BMock.data.forces.forces[1].roles[0].name}
     postBack={postBack}
     {...props}
   />)
@@ -92,5 +93,5 @@ JustLandActivity.args = {
 
 export const P9Templates = Template.bind({})
 P9Templates.args = {
-  templates: p9MessageTemplatesMock
+  templates: p9templates
 }
