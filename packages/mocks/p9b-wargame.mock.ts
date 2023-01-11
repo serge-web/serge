@@ -652,7 +652,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 10,
                                 "a_Type": "Land Unit (blue)_6",
-                                "a_Size": "Size of military unit49",
+                                "a_Size": "size_49",
                                 "a_Equipment": "_36"
                             }
                         },
@@ -764,7 +764,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 34,
                                 "a_Type": "Land Unit (blue)_3",
-                                "a_Size": "Size of military unit21",
+                                "a_Size": "size_21",
                                 "a_Equipment": "_11"
                             }
                         },
@@ -954,7 +954,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 34,
                                 "a_Type": "Land Unit (blue)_3",
-                                "a_Size": "Size of military unit21",
+                                "a_Size": "size_21",
                                 "a_Equipment": "_5"
                             }
                         },
@@ -1222,7 +1222,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 46,
                                 "a_Type": "Land Unit (blue)_3",
-                                "a_Size": "Size of military unit1",
+                                "a_Size": "size_1",
                                 "a_Equipment": "_46"
                             }
                         },
@@ -1527,7 +1527,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 34,
                                 "a_Type": "Land Unit (blue)_4",
-                                "a_Size": "Size of military unit10",
+                                "a_Size": "size_10",
                                 "a_Equipment": "_42"
                             }
                         },
@@ -2057,7 +2057,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 22,
                                 "a_Type": "Land Unit (blue)_6",
-                                "a_Size": "Size of military unit11",
+                                "a_Size": "size_11",
                                 "a_Equipment": "_9"
                             }
                         },
@@ -2359,7 +2359,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 22,
                                 "a_Type": "Land Unit (blue)_5",
-                                "a_Size": "Size of military unit37",
+                                "a_Size": "size_37",
                                 "a_Equipment": "_16"
                             }
                         },
@@ -2435,7 +2435,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 22,
                                 "a_Type": "Land Unit (blue)_6",
-                                "a_Size": "Size of military unit24",
+                                "a_Size": "size_24",
                                 "a_Equipment": "_48"
                             }
                         },
@@ -2510,7 +2510,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 22,
                                 "a_Type": "Land Unit (blue)_4",
-                                "a_Size": "Size of military unit5",
+                                "a_Size": "size_5",
                                 "a_Equipment": "_6"
                             }
                         },
@@ -2660,7 +2660,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 34,
                                 "a_Type": "Land Unit (blue)_4",
-                                "a_Size": "Size of military unit38",
+                                "a_Size": "size_38",
                                 "a_Equipment": "_47"
                             }
                         },
@@ -3034,7 +3034,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 46,
                                 "a_Type": "Land Unit (blue)_6",
-                                "a_Size": "Size of military unit10",
+                                "a_Size": "size_10",
                                 "a_Equipment": "_1"
                             }
                         },
@@ -3638,7 +3638,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 10,
                                 "a_Type": "Land Unit (blue)_5",
-                                "a_Size": "Size of military unit13",
+                                "a_Size": "size_13",
                                 "a_Equipment": "_42"
                             }
                         },
@@ -4827,7 +4827,7 @@ const game: Wargame = {
                                 41.7206
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit34",
+                                "a_Size": "size_34",
                                 "a_Type": "Land Unit (red)_1",
                                 "a_Equipment": "_16"
                             }
@@ -4901,7 +4901,7 @@ const game: Wargame = {
                                 25.3545
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit30",
+                                "a_Size": "size_30",
                                 "a_Type": "Land Unit (red)_1",
                                 "a_Equipment": "_4"
                             }
@@ -5166,7 +5166,7 @@ const game: Wargame = {
                                 39.4189
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit15",
+                                "a_Size": "size_15",
                                 "a_Type": "Land Unit (red)_6",
                                 "a_Equipment": "_26"
                             }
@@ -5316,7 +5316,7 @@ const game: Wargame = {
                                 38.9421
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit31",
+                                "a_Size": "size_31",
                                 "a_Type": "Land Unit (red)_3",
                                 "a_Equipment": "_37"
                             }
@@ -5506,7 +5506,7 @@ const game: Wargame = {
                                 72.667
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit2",
+                                "a_Size": "size_2",
                                 "a_Type": "Land Unit (red)_6",
                                 "a_Equipment": "_11"
                             }
@@ -6412,7 +6412,7 @@ const game: Wargame = {
                                 64.4162
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit26",
+                                "a_Size": "size_26",
                                 "a_Type": "Land Unit (red)_6",
                                 "a_Equipment": "_10"
                             }
@@ -6674,7 +6674,7 @@ const game: Wargame = {
                                 32.0602
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit41",
+                                "a_Size": "size_41",
                                 "a_Type": "Land Unit (red)_5",
                                 "a_Equipment": "_9"
                             }
@@ -6899,7 +6899,7 @@ const game: Wargame = {
                                 69.911
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit12",
+                                "a_Size": "size_12",
                                 "a_Type": "Land Unit (red)_2",
                                 "a_Equipment": "_27"
                             }
@@ -6936,7 +6936,7 @@ const game: Wargame = {
                                 25.3649
                             ],
                             "attributes": {
-                                "a_Size": "Size of military unit2",
+                                "a_Size": "size_2",
                                 "a_Type": "Land Unit (red)_2",
                                 "a_Equipment": "_18"
                             }
@@ -8086,8 +8086,8 @@ const game: Wargame = {
                 {
                     "attrId": "a_Size",
                     "attrType": "AttributeTypeString",
-                    "defaultValue": "Size of military unit",
-                    "description": "Equipment carried on asset",
+                    "defaultValue": "Unit size_",
+                    "description": "Size of military unit",
                     "editableByPlayer": false,
                     "name": "Size"
                 }, {
