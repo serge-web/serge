@@ -343,7 +343,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
           name: perception.name,
           platformType: perception.typeId,
-          subType: 'n/a',
+          subType: subType,
           position: asset.location && latLng(asset.location[0], asset.location[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
