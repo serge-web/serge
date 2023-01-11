@@ -40,16 +40,16 @@ export const toRow = (message: MessagePlanning): OrderRow => {
   return row
 }
 
-export const toColumn = (message: MessagePlanning[], playerForceId: string): Column<any>[] => {
-  const activities = collateActivities(message)
-  const trimmedActivities = activities.map((item) => trimActivity(playerForceId, item))
+export const toColumn = (message: MessagePlanning[]): Column<any>[] => {
+  const trimmedActivities = collateActivities(message)
+  const activityDict = arrToDict(trimmedActivities)
   const fixedColWidth = 150
 
   const columnData: Column<any>[] = [
     { title: 'Reference', field: 'reference', width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'Author', field: 'role', width: 'auto', lookup: arrToDict(roles) },
     { title: 'Title', field: 'title', width: 'auto' },
-    { title: 'Activity', field: 'activity', width: 'auto', lookup: arrToDict(trimmedActivities) },
+    { title: 'Activity', field: 'activity', width: 'auto', lookup: activityDict },
     { title: 'Start Date', field: 'startDate', width: fixedColWidth - 10, minWidth: fixedColWidth - 10 },
     { title: 'Finish Date', field: 'endDate', width: fixedColWidth - 10, minWidth: fixedColWidth - 10 }
   ]
