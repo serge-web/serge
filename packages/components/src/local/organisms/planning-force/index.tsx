@@ -14,7 +14,7 @@ import PropTypes from './types/props'
 
 export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const [bounds, setBounds] = useState<BBox>()
-  const [zoom, setZoom] = useState(12)
+  const [zoom, setZoom] = useState(7)
   const map = useMap()
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
@@ -106,7 +106,7 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     points: geoJSONPlaces,
     bounds: bounds,
     zoom: zoom,
-    options: { radius: 150, maxZoom: 14 }
+    options: { radius: 75, maxZoom: 17 }
   })
 
   const getMarkerOption = useCallback((asset: AssetRow, index: number) => {
@@ -151,7 +151,8 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
         {clusters.map((cluster, index) => {
           const properties = cluster.properties || {}
           // every cluster point has coordinates
-          const loc: LatLng = cluster.geometry.coordinates as any || latLng([0, 0])
+          const [longitude, latitude] = cluster.geometry.coordinates
+          const loc: LatLng = [latitude, longitude] as any || latLng([0, 0])
           const id = cluster.id as number
 
           // we have a cluster to render
