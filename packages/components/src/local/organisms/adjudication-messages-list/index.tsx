@@ -1,7 +1,7 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
-import { Table } from '@material-ui/core'
+import { Box, Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
@@ -131,7 +131,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
         }
       })
-      return <div>
+      const title = order1 ? 'Orders 1' : ' Orders 2'
+      return <Box>
+        <div><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />
         <span><b>Own: </b> {plan.message.ownAssets &&
@@ -143,7 +145,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
           </ul>}</span>
         {items}
-      </div>
+      </Box>
     }
   }
 
@@ -308,6 +310,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const getInteraction = (): void => {
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const results: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
+    console.log('get next inter recieved:', results)
     if (results === undefined) {
       setDialogMessage('No interactions found')
       // fine, ignore it
@@ -345,8 +348,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
+          const assetNames: string[] = data.otherAssets.map((asset: Asset) => asset.name)
+          const time = message.details.interaction && message.details.interaction.startTime
           return <>
             <DetailPanelStateListener />
+            <Box><b>Interaction details:</b><br/>
+              <ul>
+                <li><b>Other assets:</b>{ assetNames.length > 0 ? assetNames.join(', ') : 'None' }</li>
+                <li><b>Date/time:</b>{ time }</li>
+              </ul>
+            </Box>
             <Table>
               <tbody>
                 <tr>
