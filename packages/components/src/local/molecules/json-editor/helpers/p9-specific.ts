@@ -157,7 +157,8 @@ export const tmplPatrol = {
 export const tmplISTAR = {
   domain: multiSelectDropDownObject('Target Domain', ['Maritime', 'Air', 'Land'], 2, order++),
   covert: booleanObject('Covert', 1, order++),
-  method: textObject('Observation Method', 4, order++)
+  method: textObject('Observation Method', 4, order++),
+  searchRate: textObject('Search Rate (km2/hr)', 2, order++)
 }
 
 /** note: used for offensive and defensive operations */
