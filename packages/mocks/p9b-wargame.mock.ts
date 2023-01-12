@@ -7843,6 +7843,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Type",
+                        "a_MEZ_range",
                         "a_Equipment"
                     ],
                     "conditions": [],
