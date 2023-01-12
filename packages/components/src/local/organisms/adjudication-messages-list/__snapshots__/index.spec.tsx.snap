@@ -90,10 +90,17 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
         className="MuiTouchRipple-root"
       />
     </button>
-    <span>
-      Current time:
-      pending
-    </span>
+    <div
+      className="MuiChip-root"
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+    >
+      <span
+        className="MuiChip-label"
+      >
+        pending
+      </span>
+    </div>
   </div>
   <div
     className="MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation2 css-1mbunh-MuiPaper-root"
