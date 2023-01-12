@@ -849,7 +849,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 15,
                                 "a_Type": "Ship (blue)_4",
-                                "a_MEZ_range": 300,
+                                "a_MEZ_range": 1300,
                                 "a_Equipment": "_21"
                             }
                         },
@@ -2410,7 +2410,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Speed": 15,
                                 "a_Type": "Ship (blue)_2",
-                                "a_MEZ_range": 300,
+                                "a_MEZ_range": 0,
                                 "a_Equipment": "_19"
                             }
                         },
