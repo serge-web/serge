@@ -22,6 +22,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 6",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T00:55:00.000Z",
+            "activity": "f-blue-Maritime-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a19",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -45,23 +62,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Maritime-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a19",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
                 }
             ]
         },
@@ -90,6 +90,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 9",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T06:45:00.000Z",
+            "activity": "f-red-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a194",
+                    "number": 4
+                },
+                {
+                    "asset": "a176",
+                    "number": 5
+                },
+                {
+                    "asset": "a187",
+                    "number": 0
+                },
+                {
+                    "asset": "a128",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -263,39 +296,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a194",
-                    "number": 4
-                },
-                {
-                    "asset": "a176",
-                    "number": 3
-                },
-                {
-                    "asset": "a187",
-                    "number": 5
-                },
-                {
-                    "asset": "a128",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -323,6 +323,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 12",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T03:15:00.000Z",
+            "activity": "f-blue-Land-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a28",
+                    "number": 2
+                },
+                {
+                    "asset": "a93",
+                    "number": 0
+                },
+                {
+                    "asset": "a88",
+                    "number": 4
+                },
+                {
+                    "asset": "a15",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                },
+                {
+                    "asset": "a110",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -445,39 +478,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a28",
-                    "number": 4
-                },
-                {
-                    "asset": "a93",
-                    "number": 0
-                },
-                {
-                    "asset": "a88",
-                    "number": 1
-                },
-                {
-                    "asset": "a15",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                },
-                {
-                    "asset": "a110",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -505,6 +505,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 15",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T05:35:00.000Z",
+            "activity": "f-blue-Air-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a15",
+                    "number": 1
+                },
+                {
+                    "asset": "a65",
+                    "number": 0
+                },
+                {
+                    "asset": "a46",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 3
+                },
+                {
+                    "asset": "a110",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -627,35 +656,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a15",
-                    "number": 4
-                },
-                {
-                    "asset": "a65",
-                    "number": 1
-                },
-                {
-                    "asset": "a46",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                },
-                {
-                    "asset": "a110",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -683,6 +683,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 18",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T00:55:00.000Z",
+            "activity": "f-blue-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a55",
+                    "number": 1
+                },
+                {
+                    "asset": "a91",
+                    "number": 1
+                },
+                {
+                    "asset": "a58",
+                    "number": 1
+                },
+                {
+                    "asset": "a52",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                },
+                {
+                    "asset": "a110",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -721,39 +754,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a55",
-                    "number": 0
-                },
-                {
-                    "asset": "a91",
-                    "number": 1
-                },
-                {
-                    "asset": "a58",
-                    "number": 0
-                },
-                {
-                    "asset": "a52",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -781,6 +781,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 21",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T06:55:00.000Z",
+            "activity": "f-blue-Air-Defensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a52",
+                    "number": 0
+                },
+                {
+                    "asset": "a73",
+                    "number": 3
+                },
+                {
+                    "asset": "a25",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Defensive Counter Air-0",
@@ -899,31 +924,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Defensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a52",
-                    "number": 0
-                },
-                {
-                    "asset": "a73",
-                    "number": 5
-                },
-                {
-                    "asset": "a25",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -951,6 +951,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 24",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T03:45:00.000Z",
+            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
+            "ownAssets": [
+                {
+                    "asset": "a1",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Time Sensitive Targeting (TST)-0",
@@ -1069,19 +1082,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a1",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -1109,6 +1109,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 27",
             "startDate": "2022-11-14T00:05:00.000Z",
             "endDate": "2022-11-14T06:45:00.000Z",
+            "activity": "f-red-Air-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a110",
+                    "number": 1
+                },
+                {
+                    "asset": "a200",
+                    "number": 0
+                },
+                {
+                    "asset": "a122",
+                    "number": 3
+                },
+                {
+                    "asset": "a170",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -1266,35 +1295,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a110",
-                    "number": 1
-                },
-                {
-                    "asset": "a200",
-                    "number": 1
-                },
-                {
-                    "asset": "a122",
-                    "number": 1
-                },
-                {
-                    "asset": "a170",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -1322,6 +1322,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 30",
             "startDate": "2022-11-14T00:10:00.000Z",
             "endDate": "2022-11-14T05:40:00.000Z",
+            "activity": "f-red-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a170",
+                    "number": 1
+                },
+                {
+                    "asset": "a147",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                },
+                {
+                    "asset": "a10",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -1487,31 +1512,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a170",
-                    "number": 4
-                },
-                {
-                    "asset": "a147",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                },
-                {
-                    "asset": "a10",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -1539,6 +1539,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 33",
             "startDate": "2022-11-14T00:30:00.000Z",
             "endDate": "2022-11-14T05:00:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a185",
+                    "number": 4
+                },
+                {
+                    "asset": "a148",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -1704,31 +1729,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a185",
-                    "number": 3
-                },
-                {
-                    "asset": "a148",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -1756,6 +1756,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 36",
             "startDate": "2022-11-14T00:45:00.000Z",
             "endDate": "2022-11-14T02:45:00.000Z",
+            "activity": "f-blue-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a57",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -1886,23 +1903,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a57",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -1930,6 +1930,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 39",
             "startDate": "2022-11-14T00:45:00.000Z",
             "endDate": "2022-11-14T03:55:00.000Z",
+            "activity": "f-red-Maritime-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a182",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -2060,19 +2073,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a182",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -2100,6 +2100,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 42",
             "startDate": "2022-11-14T00:50:00.000Z",
             "endDate": "2022-11-14T01:40:00.000Z",
+            "activity": "f-red-Land-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a163",
+                    "number": 3
+                },
+                {
+                    "asset": "a179",
+                    "number": 1
+                },
+                {
+                    "asset": "a126",
+                    "number": 4
+                },
+                {
+                    "asset": "a197",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                },
+                {
+                    "asset": "a10",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -2123,39 +2156,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a163",
-                    "number": 4
-                },
-                {
-                    "asset": "a179",
-                    "number": 1
-                },
-                {
-                    "asset": "a126",
-                    "number": 0
-                },
-                {
-                    "asset": "a197",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
                 }
             ]
         },
@@ -2184,6 +2184,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 45",
             "startDate": "2022-11-14T01:10:00.000Z",
             "endDate": "2022-11-14T04:00:00.000Z",
+            "activity": "f-blue-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a97",
+                    "number": 4
+                },
+                {
+                    "asset": "a99",
+                    "number": 5
+                },
+                {
+                    "asset": "a31",
+                    "number": 0
+                },
+                {
+                    "asset": "a88",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -2298,31 +2323,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a97",
-                    "number": 0
-                },
-                {
-                    "asset": "a99",
-                    "number": 4
-                },
-                {
-                    "asset": "a31",
-                    "number": 1
-                },
-                {
-                    "asset": "a88",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -2350,6 +2350,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 48",
             "startDate": "2022-11-14T01:10:00.000Z",
             "endDate": "2022-11-14T07:00:00.000Z",
+            "activity": "f-red-Air-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a188",
+                    "number": 0
+                },
+                {
+                    "asset": "a175",
+                    "number": 2
+                },
+                {
+                    "asset": "a189",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -2476,31 +2501,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a188",
-                    "number": 1
-                },
-                {
-                    "asset": "a175",
-                    "number": 2
-                },
-                {
-                    "asset": "a189",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -2528,6 +2528,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 51",
             "startDate": "2022-11-14T01:10:00.000Z",
             "endDate": "2022-11-14T06:30:00.000Z",
+            "activity": "f-blue-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a34",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -2697,23 +2714,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a34",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -2741,6 +2741,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 54",
             "startDate": "2022-11-14T01:10:00.000Z",
             "endDate": "2022-11-14T04:40:00.000Z",
+            "activity": "f-red-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a134",
+                    "number": 3
+                },
+                {
+                    "asset": "a189",
+                    "number": 3
+                },
+                {
+                    "asset": "a175",
+                    "number": 3
+                },
+                {
+                    "asset": "a188",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -2863,35 +2892,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a134",
-                    "number": 1
-                },
-                {
-                    "asset": "a189",
-                    "number": 3
-                },
-                {
-                    "asset": "a175",
-                    "number": 0
-                },
-                {
-                    "asset": "a188",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -2919,6 +2919,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 57",
             "startDate": "2022-11-14T01:20:00.000Z",
             "endDate": "2022-11-14T05:00:00.000Z",
+            "activity": "f-red-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a188",
+                    "number": 0
+                },
+                {
+                    "asset": "a131",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -3041,23 +3058,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a188",
-                    "number": 4
-                },
-                {
-                    "asset": "a131",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -3085,6 +3085,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 60",
             "startDate": "2022-11-14T01:30:00.000Z",
             "endDate": "2022-11-14T07:50:00.000Z",
+            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
+            "ownAssets": [
+                {
+                    "asset": "a197",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                },
+                {
+                    "asset": "a10",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Time Sensitive Targeting (TST)-0",
@@ -3211,27 +3232,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a197",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -3259,6 +3259,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 63",
             "startDate": "2022-11-14T01:50:00.000Z",
             "endDate": "2022-11-14T02:40:00.000Z",
+            "activity": "f-blue-Maritime-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a63",
+                    "number": 4
+                },
+                {
+                    "asset": "a74",
+                    "number": 1
+                },
+                {
+                    "asset": "a15",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -3282,27 +3303,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Maritime-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a63",
-                    "number": 5
-                },
-                {
-                    "asset": "a74",
-                    "number": 0
-                },
-                {
-                    "asset": "a15",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
                 }
             ]
         },
@@ -3331,6 +3331,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 66",
             "startDate": "2022-11-14T01:50:00.000Z",
             "endDate": "2022-11-14T02:40:00.000Z",
+            "activity": "f-red-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a181",
+                    "number": 1
+                },
+                {
+                    "asset": "a178",
+                    "number": 0
+                },
+                {
+                    "asset": "a105",
+                    "number": 1
+                },
+                {
+                    "asset": "a157",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -3369,35 +3398,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a181",
-                    "number": 0
-                },
-                {
-                    "asset": "a178",
-                    "number": 2
-                },
-                {
-                    "asset": "a105",
-                    "number": 4
-                },
-                {
-                    "asset": "a157",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -3425,6 +3425,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 69",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T07:40:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a57",
+                    "number": 0
+                },
+                {
+                    "asset": "a39",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -3539,27 +3560,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a57",
-                    "number": 0
-                },
-                {
-                    "asset": "a39",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -3587,6 +3587,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 72",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T07:30:00.000Z",
+            "activity": "f-blue-Air-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a85",
+                    "number": 2
+                },
+                {
+                    "asset": "a52",
+                    "number": 0
+                },
+                {
+                    "asset": "a47",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -3713,31 +3738,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a85",
-                    "number": 4
-                },
-                {
-                    "asset": "a52",
-                    "number": 0
-                },
-                {
-                    "asset": "a47",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -3765,6 +3765,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 75",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T07:10:00.000Z",
+            "activity": "f-blue-Maritime-FIAC EZ",
+            "ownAssets": [
+                {
+                    "asset": "a69",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "FIAC EZ-0",
@@ -3887,19 +3900,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-FIAC EZ",
-            "ownAssets": [
-                {
-                    "asset": "a69",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -3927,6 +3927,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 78",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T05:40:00.000Z",
+            "activity": "f-blue-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a10",
+                    "number": 3
+                },
+                {
+                    "asset": "a45",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -4045,31 +4070,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a10",
-                    "number": 0
-                },
-                {
-                    "asset": "a45",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -4097,7 +4097,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 84",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T03:00:00.000Z",
-            "location": [],
             "activity": "f-blue-Land-Strike",
             "ownAssets": [
                 {
@@ -4109,12 +4108,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "otherAssets": [
                 {
                     "asset": "a113",
-                    "number": 1,
+                    "number": 0,
                     "missileType": "SRBM"
                 },
                 {
                     "asset": "a194",
-                    "number": 1,
+                    "number": 0,
                     "missileType": "SRBM"
                 }
             ]
@@ -4144,6 +4143,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 84",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T06:20:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a151",
+                    "number": 0
+                },
+                {
+                    "asset": "a157",
+                    "number": 1
+                },
+                {
+                    "asset": "a191",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -4262,31 +4286,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a151",
-                    "number": 2
-                },
-                {
-                    "asset": "a157",
-                    "number": 3
-                },
-                {
-                    "asset": "a191",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -4314,6 +4313,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 87",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T02:50:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a55",
+                    "number": 5
+                },
+                {
+                    "asset": "a46",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -4356,27 +4376,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a55",
-                    "number": 1
-                },
-                {
-                    "asset": "a46",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -4404,6 +4403,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 90",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T02:50:00.000Z",
+            "activity": "f-red-Maritime-Sea Denial",
+            "ownAssets": [
+                {
+                    "asset": "a114",
+                    "number": 2
+                },
+                {
+                    "asset": "a188",
+                    "number": 5
+                },
+                {
+                    "asset": "a193",
+                    "number": 2
+                },
+                {
+                    "asset": "a127",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Sea Denial-0",
@@ -4448,35 +4476,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Sea Denial",
-            "ownAssets": [
-                {
-                    "asset": "a114",
-                    "number": 4
-                },
-                {
-                    "asset": "a188",
-                    "number": 3
-                },
-                {
-                    "asset": "a193",
-                    "number": 1
-                },
-                {
-                    "asset": "a127",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -4504,6 +4503,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 93",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T04:10:00.000Z",
+            "activity": "f-blue-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a27",
+                    "number": 0
+                },
+                {
+                    "asset": "a87",
+                    "number": 4
+                },
+                {
+                    "asset": "a76",
+                    "number": 1
+                },
+                {
+                    "asset": "a93",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -4638,31 +4662,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a27",
-                    "number": 5
-                },
-                {
-                    "asset": "a87",
-                    "number": 5
-                },
-                {
-                    "asset": "a76",
-                    "number": 5
-                },
-                {
-                    "asset": "a93",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -4690,6 +4689,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 96",
             "startDate": "2022-11-14T02:00:00.000Z",
             "endDate": "2022-11-14T08:30:00.000Z",
+            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a193",
+                    "number": 5
+                },
+                {
+                    "asset": "a141",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                },
+                {
+                    "asset": "a10",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -4812,31 +4836,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a193",
-                    "number": 5
-                },
-                {
-                    "asset": "a141",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -4864,6 +4863,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 99",
             "startDate": "2022-11-14T02:10:00.000Z",
             "endDate": "2022-11-14T04:40:00.000Z",
+            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a119",
+                    "number": 0
+                },
+                {
+                    "asset": "a149",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -4986,23 +5002,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a119",
-                    "number": 2
-                },
-                {
-                    "asset": "a149",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -5030,6 +5029,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 102",
             "startDate": "2022-11-14T02:20:00.000Z",
             "endDate": "2022-11-14T07:50:00.000Z",
+            "activity": "f-blue-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -5199,23 +5215,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a94",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -5243,6 +5242,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 105",
             "startDate": "2022-11-14T02:20:00.000Z",
             "endDate": "2022-11-14T05:00:00.000Z",
+            "activity": "f-blue-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a29",
+                    "number": 0
+                },
+                {
+                    "asset": "a30",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -5365,27 +5385,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a29",
-                    "number": 0
-                },
-                {
-                    "asset": "a30",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -5413,6 +5412,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 108",
             "startDate": "2022-11-14T02:20:00.000Z",
             "endDate": "2022-11-14T04:40:00.000Z",
+            "activity": "f-red-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a117",
+                    "number": 2
+                },
+                {
+                    "asset": "a200",
+                    "number": 2
+                },
+                {
+                    "asset": "a129",
+                    "number": 1
+                },
+                {
+                    "asset": "a158",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -5531,35 +5559,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a117",
-                    "number": 5
-                },
-                {
-                    "asset": "a200",
-                    "number": 1
-                },
-                {
-                    "asset": "a129",
-                    "number": 0
-                },
-                {
-                    "asset": "a158",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -5587,6 +5586,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 111",
             "startDate": "2022-11-14T02:25:00.000Z",
             "endDate": "2022-11-14T07:35:00.000Z",
+            "activity": "f-blue-Maritime-ASW Barrier",
+            "ownAssets": [
+                {
+                    "asset": "a58",
+                    "number": 3
+                },
+                {
+                    "asset": "a30",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ASW Barrier-0",
@@ -5713,23 +5729,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-ASW Barrier",
-            "ownAssets": [
-                {
-                    "asset": "a58",
-                    "number": 5
-                },
-                {
-                    "asset": "a30",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -5757,6 +5756,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 114",
             "startDate": "2022-11-14T02:25:00.000Z",
             "endDate": "2022-11-14T09:35:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a156",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -5910,27 +5930,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a156",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -5958,6 +5957,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 117",
             "startDate": "2022-11-14T02:25:00.000Z",
             "endDate": "2022-11-14T06:25:00.000Z",
+            "activity": "f-red-Maritime-ASW Barrier",
+            "ownAssets": [
+                {
+                    "asset": "a109",
+                    "number": 3
+                },
+                {
+                    "asset": "a149",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ASW Barrier-0",
@@ -6076,23 +6092,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ASW Barrier",
-            "ownAssets": [
-                {
-                    "asset": "a109",
-                    "number": 0
-                },
-                {
-                    "asset": "a149",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -6120,6 +6119,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 120",
             "startDate": "2022-11-14T02:40:00.000Z",
             "endDate": "2022-11-14T07:50:00.000Z",
+            "activity": "f-blue-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a16",
+                    "number": 0
+                },
+                {
+                    "asset": "a41",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -6277,27 +6297,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a16",
-                    "number": 1
-                },
-                {
-                    "asset": "a41",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -6325,6 +6324,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 123",
             "startDate": "2022-11-14T02:40:00.000Z",
             "endDate": "2022-11-14T05:20:00.000Z",
+            "activity": "f-red-Maritime-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a176",
+                    "number": 0
+                },
+                {
+                    "asset": "a186",
+                    "number": 0
+                },
+                {
+                    "asset": "a127",
+                    "number": 5
+                },
+                {
+                    "asset": "a192",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -6439,35 +6467,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a176",
-                    "number": 0
-                },
-                {
-                    "asset": "a186",
-                    "number": 4
-                },
-                {
-                    "asset": "a127",
-                    "number": 0
-                },
-                {
-                    "asset": "a192",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -6495,6 +6494,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 126",
             "startDate": "2022-11-14T02:40:00.000Z",
             "endDate": "2022-11-14T08:10:00.000Z",
+            "activity": "f-red-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a192",
+                    "number": 2
+                },
+                {
+                    "asset": "a188",
+                    "number": 1
+                },
+                {
+                    "asset": "a114",
+                    "number": 5
+                },
+                {
+                    "asset": "a165",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -6660,35 +6688,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a192",
-                    "number": 4
-                },
-                {
-                    "asset": "a188",
-                    "number": 4
-                },
-                {
-                    "asset": "a114",
-                    "number": 2
-                },
-                {
-                    "asset": "a165",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -6716,6 +6715,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 129",
             "startDate": "2022-11-14T02:55:00.000Z",
             "endDate": "2022-11-14T05:15:00.000Z",
+            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a165",
+                    "number": 0
+                },
+                {
+                    "asset": "a146",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -6842,27 +6862,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a165",
-                    "number": 3
-                },
-                {
-                    "asset": "a146",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -6890,6 +6889,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 132",
             "startDate": "2022-11-14T03:10:00.000Z",
             "endDate": "2022-11-14T05:20:00.000Z",
+            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a91",
+                    "number": 1
+                },
+                {
+                    "asset": "a57",
+                    "number": 1
+                },
+                {
+                    "asset": "a51",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -7012,27 +7032,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a91",
-                    "number": 3
-                },
-                {
-                    "asset": "a57",
-                    "number": 4
-                },
-                {
-                    "asset": "a51",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -7060,6 +7059,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 135",
             "startDate": "2022-11-14T03:10:00.000Z",
             "endDate": "2022-11-14T07:30:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a173",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -7182,23 +7198,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a173",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -7226,6 +7225,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 138",
             "startDate": "2022-11-14T03:15:00.000Z",
             "endDate": "2022-11-14T04:05:00.000Z",
+            "activity": "f-red-Maritime-Sea Denial",
+            "ownAssets": [
+                {
+                    "asset": "a111",
+                    "number": 4
+                },
+                {
+                    "asset": "a145",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Sea Denial-0",
@@ -7270,31 +7294,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Sea Denial",
-            "ownAssets": [
-                {
-                    "asset": "a111",
-                    "number": 3
-                },
-                {
-                    "asset": "a145",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -7322,19 +7321,18 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 143",
             "startDate": "2022-11-14T03:35:00.000Z",
             "endDate": "2022-11-14T06:45:00.000Z",
-            "location": [],
             "activity": "f-blue-Land-Strike",
             "ownAssets": [
                 {
                     "asset": "a99",
-                    "number": 2,
+                    "number": 5,
                     "missileType": "SRBM"
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a113",
-                    "number": 2,
+                    "number": 3,
                     "missileType": "SRBM"
                 }
             ]
@@ -7364,6 +7362,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 144",
             "startDate": "2022-11-14T03:35:00.000Z",
             "endDate": "2022-11-14T06:45:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a147",
+                    "number": 1
+                },
+                {
+                    "asset": "a152",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -7482,31 +7505,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a147",
-                    "number": 3
-                },
-                {
-                    "asset": "a152",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -7534,17 +7532,16 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 151",
             "startDate": "2022-11-14T03:40:00.000Z",
             "endDate": "2022-11-14T05:50:00.000Z",
-            "location": [],
             "activity": "f-red-Land-Strike",
             "ownAssets": [
                 {
                     "asset": "a148",
-                    "number": 3,
+                    "number": 5,
                     "missileType": "Standard Cruise"
                 },
                 {
                     "asset": "a138",
-                    "number": 4,
+                    "number": 3,
                     "missileType": "Standard Cruise"
                 }
             ],
@@ -7556,7 +7553,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a94",
-                    "number": 5,
+                    "number": 0,
                     "missileType": "IRBM"
                 }
             ]
@@ -7586,6 +7583,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 150",
             "startDate": "2022-11-14T04:00:00.000Z",
             "endDate": "2022-11-14T08:00:00.000Z",
+            "activity": "f-red-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a105",
+                    "number": 1
+                },
+                {
+                    "asset": "a178",
+                    "number": 1
+                },
+                {
+                    "asset": "a181",
+                    "number": 1
+                },
+                {
+                    "asset": "a115",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -7696,31 +7718,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a105",
-                    "number": 3
-                },
-                {
-                    "asset": "a178",
-                    "number": 2
-                },
-                {
-                    "asset": "a181",
-                    "number": 5
-                },
-                {
-                    "asset": "a115",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -7748,6 +7745,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 153",
             "startDate": "2022-11-14T04:15:00.000Z",
             "endDate": "2022-11-14T06:25:00.000Z",
+            "activity": "f-blue-Maritime-FIAC EZ",
+            "ownAssets": [
+                {
+                    "asset": "a15",
+                    "number": 0
+                },
+                {
+                    "asset": "a73",
+                    "number": 4
+                },
+                {
+                    "asset": "a62",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                },
+                {
+                    "asset": "a110",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "FIAC EZ-0",
@@ -7874,35 +7900,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-FIAC EZ",
-            "ownAssets": [
-                {
-                    "asset": "a15",
-                    "number": 3
-                },
-                {
-                    "asset": "a73",
-                    "number": 3
-                },
-                {
-                    "asset": "a62",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -7930,6 +7927,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 156",
             "startDate": "2022-11-14T04:15:00.000Z",
             "endDate": "2022-11-14T07:55:00.000Z",
+            "activity": "f-blue-Air-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a78",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -8048,19 +8058,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a78",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -8088,6 +8085,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 159",
             "startDate": "2022-11-14T04:15:00.000Z",
             "endDate": "2022-11-14T08:05:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a98",
+                    "number": 5
+                },
+                {
+                    "asset": "a30",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -8222,23 +8236,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a98",
-                    "number": 5
-                },
-                {
-                    "asset": "a30",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -8266,6 +8263,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 162",
             "startDate": "2022-11-14T04:15:00.000Z",
             "endDate": "2022-11-14T05:05:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a74",
+                    "number": 1
+                },
+                {
+                    "asset": "a89",
+                    "number": 0
+                },
+                {
+                    "asset": "a34",
+                    "number": 5
+                },
+                {
+                    "asset": "a6",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -8300,31 +8322,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a74",
-                    "number": 5
-                },
-                {
-                    "asset": "a89",
-                    "number": 5
-                },
-                {
-                    "asset": "a34",
-                    "number": 4
-                },
-                {
-                    "asset": "a6",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -8352,6 +8349,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 165",
             "startDate": "2022-11-14T04:15:00.000Z",
             "endDate": "2022-11-14T05:05:00.000Z",
+            "activity": "f-red-Maritime-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a106",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -8375,27 +8393,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Maritime-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a106",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                },
-                {
-                    "asset": "a10",
-                    "number": 2
                 }
             ]
         },
@@ -8424,6 +8421,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 168",
             "startDate": "2022-11-14T04:20:00.000Z",
             "endDate": "2022-11-14T08:00:00.000Z",
+            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a189",
+                    "number": 4
+                },
+                {
+                    "asset": "a174",
+                    "number": 3
+                },
+                {
+                    "asset": "a187",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -8550,31 +8572,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a189",
-                    "number": 3
-                },
-                {
-                    "asset": "a174",
-                    "number": 1
-                },
-                {
-                    "asset": "a187",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -8602,6 +8599,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 171",
             "startDate": "2022-11-14T04:40:00.000Z",
             "endDate": "2022-11-14T05:30:00.000Z",
+            "activity": "f-red-Land-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a130",
+                    "number": 0
+                },
+                {
+                    "asset": "a198",
+                    "number": 2
+                },
+                {
+                    "asset": "a196",
+                    "number": 1
+                },
+                {
+                    "asset": "a125",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -8625,31 +8647,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a130",
-                    "number": 0
-                },
-                {
-                    "asset": "a198",
-                    "number": 5
-                },
-                {
-                    "asset": "a196",
-                    "number": 4
-                },
-                {
-                    "asset": "a125",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
                 }
             ]
         },
@@ -8678,6 +8675,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 174",
             "startDate": "2022-11-14T04:55:00.000Z",
             "endDate": "2022-11-14T09:25:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a25",
+                    "number": 1
+                },
+                {
+                    "asset": "a78",
+                    "number": 2
+                },
+                {
+                    "asset": "a62",
+                    "number": 2
+                },
+                {
+                    "asset": "a73",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -8804,35 +8830,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a25",
-                    "number": 1
-                },
-                {
-                    "asset": "a78",
-                    "number": 0
-                },
-                {
-                    "asset": "a62",
-                    "number": 0
-                },
-                {
-                    "asset": "a73",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -8860,6 +8857,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 177",
             "startDate": "2022-11-14T04:55:00.000Z",
             "endDate": "2022-11-14T08:55:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a173",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -9013,23 +9027,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a173",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -9057,6 +9054,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 180",
             "startDate": "2022-11-14T05:00:00.000Z",
             "endDate": "2022-11-14T09:50:00.000Z",
+            "activity": "f-red-Air-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a177",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -9179,23 +9193,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a177",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -9223,6 +9220,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 183",
             "startDate": "2022-11-14T05:20:00.000Z",
             "endDate": "2022-11-14T09:40:00.000Z",
+            "activity": "f-blue-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a38",
+                    "number": 0
+                },
+                {
+                    "asset": "a47",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -9337,23 +9351,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a38",
-                    "number": 2
-                },
-                {
-                    "asset": "a47",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -9381,6 +9378,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 186",
             "startDate": "2022-11-14T05:20:00.000Z",
             "endDate": "2022-11-14T06:10:00.000Z",
+            "activity": "f-red-Land-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a151",
+                    "number": 2
+                },
+                {
+                    "asset": "a146",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -9404,31 +9426,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a151",
-                    "number": 1
-                },
-                {
-                    "asset": "a146",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 4
                 }
             ]
         },
@@ -9457,6 +9454,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 189",
             "startDate": "2022-11-14T05:25:00.000Z",
             "endDate": "2022-11-14T07:25:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a121",
+                    "number": 4
+                },
+                {
+                    "asset": "a199",
+                    "number": 3
+                },
+                {
+                    "asset": "a109",
+                    "number": 1
+                },
+                {
+                    "asset": "a145",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -9571,35 +9597,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a121",
-                    "number": 3
-                },
-                {
-                    "asset": "a199",
-                    "number": 4
-                },
-                {
-                    "asset": "a109",
-                    "number": 5
-                },
-                {
-                    "asset": "a145",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -9627,6 +9624,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 192",
             "startDate": "2022-11-14T05:40:00.000Z",
             "endDate": "2022-11-14T09:10:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a145",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -9749,27 +9767,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a145",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -9797,6 +9794,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 195",
             "startDate": "2022-11-14T05:55:00.000Z",
             "endDate": "2022-11-14T11:15:00.000Z",
+            "activity": "f-blue-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a24",
+                    "number": 4
+                },
+                {
+                    "asset": "a72",
+                    "number": 2
+                },
+                {
+                    "asset": "a51",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -9966,35 +9992,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a24",
-                    "number": 4
-                },
-                {
-                    "asset": "a72",
-                    "number": 4
-                },
-                {
-                    "asset": "a51",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                },
-                {
-                    "asset": "a110",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10022,6 +10019,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 198",
             "startDate": "2022-11-14T05:55:00.000Z",
             "endDate": "2022-11-14T09:35:00.000Z",
+            "activity": "f-red-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a157",
+                    "number": 0
+                },
+                {
+                    "asset": "a190",
+                    "number": 4
+                },
+                {
+                    "asset": "a154",
+                    "number": 0
+                },
+                {
+                    "asset": "a145",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                },
+                {
+                    "asset": "a10",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -10191,39 +10221,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a157",
-                    "number": 0
-                },
-                {
-                    "asset": "a190",
-                    "number": 5
-                },
-                {
-                    "asset": "a154",
-                    "number": 1
-                },
-                {
-                    "asset": "a145",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10251,6 +10248,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 201",
             "startDate": "2022-11-14T05:55:00.000Z",
             "endDate": "2022-11-14T10:55:00.000Z",
+            "activity": "f-red-Air-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a145",
+                    "number": 4
+                },
+                {
+                    "asset": "a164",
+                    "number": 2
+                },
+                {
+                    "asset": "a114",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                },
+                {
+                    "asset": "a10",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -10416,35 +10442,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a145",
-                    "number": 0
-                },
-                {
-                    "asset": "a164",
-                    "number": 2
-                },
-                {
-                    "asset": "a114",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
-                },
-                {
-                    "asset": "a10",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10472,6 +10469,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 204",
             "startDate": "2022-11-14T06:15:00.000Z",
             "endDate": "2022-11-14T11:05:00.000Z",
+            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
+            "ownAssets": [
+                {
+                    "asset": "a87",
+                    "number": 5
+                },
+                {
+                    "asset": "a92",
+                    "number": 5
+                },
+                {
+                    "asset": "a26",
+                    "number": 1
+                },
+                {
+                    "asset": "a86",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Time Sensitive Targeting (TST)-0",
@@ -10602,35 +10628,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a87",
-                    "number": 5
-                },
-                {
-                    "asset": "a92",
-                    "number": 4
-                },
-                {
-                    "asset": "a26",
-                    "number": 5
-                },
-                {
-                    "asset": "a86",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10658,6 +10655,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 207",
             "startDate": "2022-11-14T06:15:00.000Z",
             "endDate": "2022-11-14T07:05:00.000Z",
+            "activity": "f-red-Maritime-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a186",
+                    "number": 4
+                },
+                {
+                    "asset": "a175",
+                    "number": 0
+                },
+                {
+                    "asset": "a192",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                },
+                {
+                    "asset": "a10",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -10700,35 +10726,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a186",
-                    "number": 1
-                },
-                {
-                    "asset": "a175",
-                    "number": 3
-                },
-                {
-                    "asset": "a192",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10756,6 +10753,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 210",
             "startDate": "2022-11-14T06:15:00.000Z",
             "endDate": "2022-11-14T07:05:00.000Z",
+            "activity": "f-blue-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a40",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -10790,19 +10800,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a40",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10830,6 +10827,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 213",
             "startDate": "2022-11-14T06:15:00.000Z",
             "endDate": "2022-11-14T12:25:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a48",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -10952,23 +10966,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a48",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -10996,6 +10993,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 216",
             "startDate": "2022-11-14T06:15:00.000Z",
             "endDate": "2022-11-14T12:15:00.000Z",
+            "activity": "f-red-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a112",
+                    "number": 3
+                },
+                {
+                    "asset": "a155",
+                    "number": 3
+                },
+                {
+                    "asset": "a128",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -11122,31 +11144,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a112",
-                    "number": 0
-                },
-                {
-                    "asset": "a155",
-                    "number": 0
-                },
-                {
-                    "asset": "a128",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -11174,6 +11171,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 219",
             "startDate": "2022-11-14T06:25:00.000Z",
             "endDate": "2022-11-14T10:45:00.000Z",
+            "activity": "f-red-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a129",
+                    "number": 3
+                },
+                {
+                    "asset": "a157",
+                    "number": 3
+                },
+                {
+                    "asset": "a116",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -11288,27 +11306,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a129",
-                    "number": 5
-                },
-                {
-                    "asset": "a157",
-                    "number": 3
-                },
-                {
-                    "asset": "a116",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -11336,6 +11333,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 222",
             "startDate": "2022-11-14T06:45:00.000Z",
             "endDate": "2022-11-14T11:15:00.000Z",
+            "activity": "f-blue-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a99",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -11446,27 +11464,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a99",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                },
-                {
-                    "asset": "a110",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -11494,6 +11491,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 225",
             "startDate": "2022-11-14T06:45:00.000Z",
             "endDate": "2022-11-14T07:35:00.000Z",
+            "activity": "f-red-Maritime-Sea Denial",
+            "ownAssets": [
+                {
+                    "asset": "a129",
+                    "number": 1
+                },
+                {
+                    "asset": "a128",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Sea Denial-0",
@@ -11538,27 +11556,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Sea Denial",
-            "ownAssets": [
-                {
-                    "asset": "a129",
-                    "number": 5
-                },
-                {
-                    "asset": "a128",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -11586,6 +11583,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 228",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T12:25:00.000Z",
+            "activity": "f-blue-Land-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a12",
+                    "number": 1
+                },
+                {
+                    "asset": "a93",
+                    "number": 2
+                },
+                {
+                    "asset": "a8",
+                    "number": 4
+                },
+                {
+                    "asset": "a48",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                },
+                {
+                    "asset": "a110",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -11708,39 +11738,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a12",
-                    "number": 4
-                },
-                {
-                    "asset": "a93",
-                    "number": 0
-                },
-                {
-                    "asset": "a8",
-                    "number": 4
-                },
-                {
-                    "asset": "a48",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                },
-                {
-                    "asset": "a110",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -11768,6 +11765,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 231",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T09:55:00.000Z",
+            "activity": "f-red-Maritime-ASW Barrier",
+            "ownAssets": [
+                {
+                    "asset": "a148",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ASW Barrier-0",
@@ -11886,19 +11896,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ASW Barrier",
-            "ownAssets": [
-                {
-                    "asset": "a148",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -11926,6 +11923,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 234",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T07:45:00.000Z",
+            "activity": "f-blue-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a40",
+                    "number": 3
+                },
+                {
+                    "asset": "a92",
+                    "number": 3
+                },
+                {
+                    "asset": "a75",
+                    "number": 1
+                },
+                {
+                    "asset": "a85",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -11960,31 +11982,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a40",
-                    "number": 5
-                },
-                {
-                    "asset": "a92",
-                    "number": 5
-                },
-                {
-                    "asset": "a75",
-                    "number": 5
-                },
-                {
-                    "asset": "a85",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12012,6 +12009,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 237",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T08:05:00.000Z",
+            "activity": "f-blue-Land-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a85",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -12134,27 +12152,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a85",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12182,6 +12179,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 240",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T07:45:00.000Z",
+            "activity": "f-blue-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a87",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -12216,23 +12230,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a87",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12260,6 +12257,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 243",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T07:45:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a45",
+                    "number": 5
+                },
+                {
+                    "asset": "a53",
+                    "number": 5
+                },
+                {
+                    "asset": "a89",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -12298,27 +12316,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a45",
-                    "number": 1
-                },
-                {
-                    "asset": "a53",
-                    "number": 4
-                },
-                {
-                    "asset": "a89",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12346,6 +12343,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 246",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T11:15:00.000Z",
+            "activity": "f-blue-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a56",
+                    "number": 1
+                },
+                {
+                    "asset": "a50",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -12468,27 +12486,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a56",
-                    "number": 4
-                },
-                {
-                    "asset": "a50",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12516,6 +12513,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 249",
             "startDate": "2022-11-14T06:55:00.000Z",
             "endDate": "2022-11-14T10:05:00.000Z",
+            "activity": "f-red-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a123",
+                    "number": 1
+                },
+                {
+                    "asset": "a200",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 0
+                },
+                {
+                    "asset": "a144",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -12634,39 +12664,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a123",
-                    "number": 0
-                },
-                {
-                    "asset": "a200",
-                    "number": 3
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
-                },
-                {
-                    "asset": "a144",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12694,6 +12691,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 252",
             "startDate": "2022-11-14T07:00:00.000Z",
             "endDate": "2022-11-14T11:40:00.000Z",
+            "activity": "f-blue-Maritime-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a44",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -12812,27 +12830,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a44",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                },
-                {
-                    "asset": "a110",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -12860,6 +12857,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 255",
             "startDate": "2022-11-14T07:00:00.000Z",
             "endDate": "2022-11-14T14:00:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a121",
+                    "number": 0
+                },
+                {
+                    "asset": "a168",
+                    "number": 5
+                },
+                {
+                    "asset": "a146",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -13017,31 +13039,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a121",
-                    "number": 5
-                },
-                {
-                    "asset": "a168",
-                    "number": 2
-                },
-                {
-                    "asset": "a146",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -13069,6 +13066,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 258",
             "startDate": "2022-11-14T07:10:00.000Z",
             "endDate": "2022-11-14T11:10:00.000Z",
+            "activity": "f-red-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a151",
+                    "number": 0
+                },
+                {
+                    "asset": "a183",
+                    "number": 1
+                },
+                {
+                    "asset": "a146",
+                    "number": 3
+                },
+                {
+                    "asset": "a137",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -13199,31 +13221,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a151",
-                    "number": 0
-                },
-                {
-                    "asset": "a183",
-                    "number": 1
-                },
-                {
-                    "asset": "a146",
-                    "number": 2
-                },
-                {
-                    "asset": "a137",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -13251,6 +13248,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 261",
             "startDate": "2022-11-14T07:20:00.000Z",
             "endDate": "2022-11-14T09:50:00.000Z",
+            "activity": "f-red-Air-Defensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a137",
+                    "number": 3
+                },
+                {
+                    "asset": "a155",
+                    "number": 2
+                },
+                {
+                    "asset": "a200",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Defensive Counter Air-0",
@@ -13377,35 +13403,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Defensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a137",
-                    "number": 4
-                },
-                {
-                    "asset": "a155",
-                    "number": 3
-                },
-                {
-                    "asset": "a200",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -13433,6 +13430,41 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 270",
             "startDate": "2022-11-14T07:40:00.000Z",
             "endDate": "2022-11-14T13:00:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a76",
+                    "number": 3,
+                    "missileType": "IRBM"
+                },
+                {
+                    "asset": "a80",
+                    "number": 0,
+                    "missileType": "Standard Cruise"
+                },
+                {
+                    "asset": "a14",
+                    "number": 1,
+                    "missileType": "Jet OWA UAV"
+                },
+                {
+                    "asset": "a72",
+                    "number": 4,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0,
+                    "missileType": "SRBM"
+                },
+                {
+                    "asset": "a194",
+                    "number": 0,
+                    "missileType": "Low Obs Cruise"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -13559,41 +13591,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a76",
-                    "number": 4,
-                    "missileType": "IRBM"
-                },
-                {
-                    "asset": "a80",
-                    "number": 1,
-                    "missileType": "Standard Cruise"
-                },
-                {
-                    "asset": "a14",
-                    "number": 5,
-                    "missileType": "Jet OWA UAV"
-                },
-                {
-                    "asset": "a72",
-                    "number": 5,
-                    "missileType": "Propellor OWA UAV"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3,
-                    "missileType": "SRBM"
-                },
-                {
-                    "asset": "a194",
-                    "number": 4,
-                    "missileType": "Low Obs Cruise"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -13621,6 +13618,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 267",
             "startDate": "2022-11-14T07:40:00.000Z",
             "endDate": "2022-11-14T08:30:00.000Z",
+            "activity": "f-red-Maritime-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a172",
+                    "number": 0
+                },
+                {
+                    "asset": "a161",
+                    "number": 3
+                },
+                {
+                    "asset": "a177",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -13644,31 +13666,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Maritime-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a172",
-                    "number": 2
-                },
-                {
-                    "asset": "a161",
-                    "number": 1
-                },
-                {
-                    "asset": "a177",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
                 }
             ]
         },
@@ -13697,6 +13694,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 270",
             "startDate": "2022-11-14T07:50:00.000Z",
             "endDate": "2022-11-14T13:10:00.000Z",
+            "activity": "f-blue-Air-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a24",
+                    "number": 1
+                },
+                {
+                    "asset": "a95",
+                    "number": 3
+                },
+                {
+                    "asset": "a97",
+                    "number": 0
+                },
+                {
+                    "asset": "a29",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -13823,35 +13849,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a24",
-                    "number": 0
-                },
-                {
-                    "asset": "a95",
-                    "number": 5
-                },
-                {
-                    "asset": "a97",
-                    "number": 5
-                },
-                {
-                    "asset": "a29",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -13879,12 +13876,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 280",
             "startDate": "2022-11-14T07:50:00.000Z",
             "endDate": "2022-11-14T09:20:00.000Z",
-            "location": [],
             "activity": "f-red-Maritime-Strike",
             "ownAssets": [
                 {
                     "asset": "a129",
-                    "number": 2,
+                    "number": 1,
                     "missileType": "MRBM"
                 },
                 {
@@ -13894,29 +13890,29 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a173",
-                    "number": 5,
+                    "number": 2,
                     "missileType": "Jet OWA UAV"
                 },
                 {
                     "asset": "a187",
-                    "number": 4,
+                    "number": 3,
                     "missileType": "MRBM"
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 2,
+                    "number": 5,
                     "missileType": "Low Obs Cruise"
                 },
                 {
                     "asset": "a94",
-                    "number": 1,
+                    "number": 2,
                     "missileType": "Jet OWA UAV"
                 },
                 {
                     "asset": "a10",
-                    "number": 0,
+                    "number": 5,
                     "missileType": "IRBM"
                 }
             ]
@@ -13946,22 +13942,21 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 276",
             "startDate": "2022-11-14T07:50:00.000Z",
             "endDate": "2022-11-14T08:00:00.000Z",
-            "location": [],
             "activity": "f-red-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a187",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a132",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 1
+                    "number": 2
                 }
             ]
         },
@@ -13990,6 +13985,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 279",
             "startDate": "2022-11-14T08:10:00.000Z",
             "endDate": "2022-11-14T14:40:00.000Z",
+            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a5",
+                    "number": 3
+                },
+                {
+                    "asset": "a32",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -14112,27 +14128,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a5",
-                    "number": 0
-                },
-                {
-                    "asset": "a32",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -14160,6 +14155,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 282",
             "startDate": "2022-11-14T08:10:00.000Z",
             "endDate": "2022-11-14T09:00:00.000Z",
+            "activity": "f-red-Maritime-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a173",
+                    "number": 2
+                },
+                {
+                    "asset": "a185",
+                    "number": 4
+                },
+                {
+                    "asset": "a129",
+                    "number": 3
+                },
+                {
+                    "asset": "a197",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                },
+                {
+                    "asset": "a10",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -14183,39 +14211,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Maritime-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a173",
-                    "number": 5
-                },
-                {
-                    "asset": "a185",
-                    "number": 1
-                },
-                {
-                    "asset": "a129",
-                    "number": 3
-                },
-                {
-                    "asset": "a197",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
                 }
             ]
         },
@@ -14244,6 +14239,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 285",
             "startDate": "2022-11-14T08:15:00.000Z",
             "endDate": "2022-11-14T09:05:00.000Z",
+            "activity": "f-red-Maritime-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a197",
+                    "number": 3
+                },
+                {
+                    "asset": "a195",
+                    "number": 5
+                },
+                {
+                    "asset": "a124",
+                    "number": 1
+                },
+                {
+                    "asset": "a177",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -14267,31 +14287,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Maritime-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a197",
-                    "number": 4
-                },
-                {
-                    "asset": "a195",
-                    "number": 5
-                },
-                {
-                    "asset": "a124",
-                    "number": 0
-                },
-                {
-                    "asset": "a177",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
                 }
             ]
         },
@@ -14320,6 +14315,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 292",
             "startDate": "2022-11-14T08:35:00.000Z",
             "endDate": "2022-11-14T11:25:00.000Z",
+            "activity": "f-red-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a177",
+                    "number": 4,
+                    "missileType": "Jet OWA UAV"
+                },
+                {
+                    "asset": "a161",
+                    "number": 2,
+                    "missileType": "Jet OWA UAV"
+                },
+                {
+                    "asset": "a172",
+                    "number": 5,
+                    "missileType": "MRBM"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4,
+                    "missileType": "Low Obs Cruise"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -14442,31 +14462,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a177",
-                    "number": 2,
-                    "missileType": "Jet OWA UAV"
-                },
-                {
-                    "asset": "a161",
-                    "number": 1,
-                    "missileType": "Jet OWA UAV"
-                },
-                {
-                    "asset": "a172",
-                    "number": 5,
-                    "missileType": "MRBM"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0,
-                    "missileType": "Low Obs Cruise"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -14494,30 +14489,29 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 291",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T10:30:00.000Z",
-            "location": [],
             "activity": "f-blue-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a13",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a79",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a76",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a100",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a113",
-                    "number": 5
+                    "number": 0
                 }
             ]
         },
@@ -14546,17 +14540,16 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 299",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T10:10:00.000Z",
-            "location": [],
             "activity": "f-blue-Maritime-Strike",
             "ownAssets": [
                 {
                     "asset": "a100",
-                    "number": 4,
+                    "number": 0,
                     "missileType": "SRBM"
                 },
                 {
                     "asset": "a54",
-                    "number": 2,
+                    "number": 1,
                     "missileType": "Propellor OWA UAV"
                 },
                 {
@@ -14568,7 +14561,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "otherAssets": [
                 {
                     "asset": "a113",
-                    "number": 4,
+                    "number": 5,
                     "missileType": "Standard Cruise"
                 },
                 {
@@ -14603,6 +14596,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 297",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T12:30:00.000Z",
+            "activity": "f-blue-Air-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a46",
+                    "number": 3
+                },
+                {
+                    "asset": "a83",
+                    "number": 1
+                },
+                {
+                    "asset": "a50",
+                    "number": 2
+                },
+                {
+                    "asset": "a45",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -14725,35 +14747,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a46",
-                    "number": 1
-                },
-                {
-                    "asset": "a83",
-                    "number": 2
-                },
-                {
-                    "asset": "a50",
-                    "number": 3
-                },
-                {
-                    "asset": "a45",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -14781,6 +14774,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 300",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T12:40:00.000Z",
+            "activity": "f-blue-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a45",
+                    "number": 2
+                },
+                {
+                    "asset": "a67",
+                    "number": 3
+                },
+                {
+                    "asset": "a20",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                },
+                {
+                    "asset": "a110",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -14895,35 +14917,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a45",
-                    "number": 3
-                },
-                {
-                    "asset": "a67",
-                    "number": 5
-                },
-                {
-                    "asset": "a20",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                },
-                {
-                    "asset": "a110",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -14951,6 +14944,26 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 306",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T13:20:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a97",
+                    "number": 5,
+                    "missileType": "IRBM"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5,
+                    "missileType": "MRBM"
+                },
+                {
+                    "asset": "a194",
+                    "number": 4,
+                    "missileType": "Jet OWA UAV"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -15077,26 +15090,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a97",
-                    "number": 0,
-                    "missileType": "IRBM"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4,
-                    "missileType": "MRBM"
-                },
-                {
-                    "asset": "a194",
-                    "number": 4,
-                    "missileType": "Jet OWA UAV"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -15124,6 +15117,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 306",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T13:20:00.000Z",
+            "activity": "f-red-Air-Defensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a109",
+                    "number": 2
+                },
+                {
+                    "asset": "a199",
+                    "number": 3
+                },
+                {
+                    "asset": "a122",
+                    "number": 0
+                },
+                {
+                    "asset": "a170",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Defensive Counter Air-0",
@@ -15250,31 +15268,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Defensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a109",
-                    "number": 3
-                },
-                {
-                    "asset": "a199",
-                    "number": 5
-                },
-                {
-                    "asset": "a122",
-                    "number": 1
-                },
-                {
-                    "asset": "a170",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -15302,6 +15295,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 309",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T14:30:00.000Z",
+            "activity": "f-blue-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a70",
+                    "number": 4
+                },
+                {
+                    "asset": "a49",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -15424,23 +15434,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a70",
-                    "number": 3
-                },
-                {
-                    "asset": "a49",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -15468,6 +15461,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 312",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T12:00:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a188",
+                    "number": 4
+                },
+                {
+                    "asset": "a152",
+                    "number": 0
+                },
+                {
+                    "asset": "a144",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                },
+                {
+                    "asset": "a10",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -15633,35 +15655,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a188",
-                    "number": 2
-                },
-                {
-                    "asset": "a152",
-                    "number": 0
-                },
-                {
-                    "asset": "a144",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                },
-                {
-                    "asset": "a10",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -15689,6 +15682,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 315",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T13:00:00.000Z",
+            "activity": "f-blue-Maritime-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a63",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -15799,23 +15809,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a63",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -15843,6 +15836,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 318",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T14:30:00.000Z",
+            "activity": "f-blue-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a90",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -15961,27 +15975,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a90",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                },
-                {
-                    "asset": "a110",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16009,6 +16002,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 321",
             "startDate": "2022-11-14T08:50:00.000Z",
             "endDate": "2022-11-14T12:40:00.000Z",
+            "activity": "f-red-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a174",
+                    "number": 2
+                },
+                {
+                    "asset": "a191",
+                    "number": 1
+                },
+                {
+                    "asset": "a139",
+                    "number": 1
+                },
+                {
+                    "asset": "a114",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -16166,31 +16184,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a174",
-                    "number": 2
-                },
-                {
-                    "asset": "a191",
-                    "number": 4
-                },
-                {
-                    "asset": "a139",
-                    "number": 2
-                },
-                {
-                    "asset": "a114",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16218,6 +16211,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 324",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T09:45:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a14",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -16264,19 +16270,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a14",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16304,6 +16297,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 327",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T12:25:00.000Z",
+            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
+            "ownAssets": [
+                {
+                    "asset": "a107",
+                    "number": 4
+                },
+                {
+                    "asset": "a192",
+                    "number": 4
+                },
+                {
+                    "asset": "a110",
+                    "number": 0
+                },
+                {
+                    "asset": "a153",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Time Sensitive Targeting (TST)-0",
@@ -16430,31 +16448,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a107",
-                    "number": 0
-                },
-                {
-                    "asset": "a192",
-                    "number": 3
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                },
-                {
-                    "asset": "a153",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16482,6 +16475,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 330",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T13:25:00.000Z",
+            "activity": "f-blue-Land-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a53",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -16600,27 +16614,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a53",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16648,6 +16641,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 333",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T15:25:00.000Z",
+            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
+            "ownAssets": [
+                {
+                    "asset": "a155",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Time Sensitive Targeting (TST)-0",
@@ -16774,23 +16784,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a155",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16818,6 +16811,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 336",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T09:45:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a14",
+                    "number": 0
+                },
+                {
+                    "asset": "a55",
+                    "number": 3
+                },
+                {
+                    "asset": "a27",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -16860,35 +16882,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a14",
-                    "number": 0
-                },
-                {
-                    "asset": "a55",
-                    "number": 2
-                },
-                {
-                    "asset": "a27",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -16916,6 +16909,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 339",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T14:05:00.000Z",
+            "activity": "f-blue-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a26",
+                    "number": 0
+                },
+                {
+                    "asset": "a53",
+                    "number": 0
+                },
+                {
+                    "asset": "a10",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -17050,27 +17064,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a26",
-                    "number": 4
-                },
-                {
-                    "asset": "a53",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -17098,6 +17091,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 342",
             "startDate": "2022-11-14T08:55:00.000Z",
             "endDate": "2022-11-14T09:45:00.000Z",
+            "activity": "f-red-Maritime-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a191",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -17121,19 +17127,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Maritime-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a191",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
                 }
             ]
         },
@@ -17162,6 +17155,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 345",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T13:20:00.000Z",
+            "activity": "f-blue-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a16",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -17276,19 +17282,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a16",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -17316,6 +17309,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 348",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T09:50:00.000Z",
+            "activity": "f-red-Land-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a190",
+                    "number": 1
+                },
+                {
+                    "asset": "a173",
+                    "number": 0
+                },
+                {
+                    "asset": "a184",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                },
+                {
+                    "asset": "a10",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -17339,35 +17361,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a190",
-                    "number": 1
-                },
-                {
-                    "asset": "a173",
-                    "number": 0
-                },
-                {
-                    "asset": "a184",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                },
-                {
-                    "asset": "a10",
-                    "number": 5
                 }
             ]
         },
@@ -17396,6 +17389,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 351",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T12:50:00.000Z",
+            "activity": "f-blue-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a24",
+                    "number": 3
+                },
+                {
+                    "asset": "a89",
+                    "number": 2
+                },
+                {
+                    "asset": "a85",
+                    "number": 2
+                },
+                {
+                    "asset": "a11",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -17518,35 +17540,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a24",
-                    "number": 1
-                },
-                {
-                    "asset": "a89",
-                    "number": 3
-                },
-                {
-                    "asset": "a85",
-                    "number": 2
-                },
-                {
-                    "asset": "a11",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -17574,6 +17567,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 354",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T11:50:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a11",
+                    "number": 4
+                },
+                {
+                    "asset": "a62",
+                    "number": 1
+                },
+                {
+                    "asset": "a43",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -17688,35 +17710,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a11",
-                    "number": 4
-                },
-                {
-                    "asset": "a62",
-                    "number": 4
-                },
-                {
-                    "asset": "a43",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                },
-                {
-                    "asset": "a110",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -17744,6 +17737,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 357",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T15:40:00.000Z",
+            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
+            "ownAssets": [
+                {
+                    "asset": "a52",
+                    "number": 4
+                },
+                {
+                    "asset": "a88",
+                    "number": 2
+                },
+                {
+                    "asset": "a54",
+                    "number": 0
+                },
+                {
+                    "asset": "a48",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Time Sensitive Targeting (TST)-0",
@@ -17862,31 +17880,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a52",
-                    "number": 4
-                },
-                {
-                    "asset": "a88",
-                    "number": 2
-                },
-                {
-                    "asset": "a54",
-                    "number": 0
-                },
-                {
-                    "asset": "a48",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -17914,6 +17907,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 360",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T09:50:00.000Z",
+            "activity": "f-blue-Maritime-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a48",
+                    "number": 5
+                },
+                {
+                    "asset": "a70",
+                    "number": 0
+                },
+                {
+                    "asset": "a21",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -17956,27 +17970,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a48",
-                    "number": 1
-                },
-                {
-                    "asset": "a70",
-                    "number": 5
-                },
-                {
-                    "asset": "a21",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -18004,6 +17997,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 363",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T11:20:00.000Z",
+            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a98",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -18126,19 +18132,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a98",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -18166,6 +18159,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 366",
             "startDate": "2022-11-14T09:00:00.000Z",
             "endDate": "2022-11-14T11:50:00.000Z",
+            "activity": "f-red-Air-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a107",
+                    "number": 5
+                },
+                {
+                    "asset": "a196",
+                    "number": 5
+                },
+                {
+                    "asset": "a119",
+                    "number": 5
+                },
+                {
+                    "asset": "a166",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -18284,39 +18310,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a107",
-                    "number": 3
-                },
-                {
-                    "asset": "a196",
-                    "number": 2
-                },
-                {
-                    "asset": "a119",
-                    "number": 5
-                },
-                {
-                    "asset": "a166",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                },
-                {
-                    "asset": "a10",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -18344,6 +18337,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 369",
             "startDate": "2022-11-14T09:05:00.000Z",
             "endDate": "2022-11-14T14:05:00.000Z",
+            "activity": "f-red-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a166",
+                    "number": 1
+                },
+                {
+                    "asset": "a144",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -18466,27 +18480,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a166",
-                    "number": 5
-                },
-                {
-                    "asset": "a144",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -18514,22 +18507,21 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 372",
             "startDate": "2022-11-14T09:25:00.000Z",
             "endDate": "2022-11-14T12:35:00.000Z",
-            "location": [],
             "activity": "f-red-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a144",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 4
+                    "number": 3
                 }
             ]
         },
@@ -18558,6 +18550,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 375",
             "startDate": "2022-11-14T09:40:00.000Z",
             "endDate": "2022-11-14T13:50:00.000Z",
+            "activity": "f-blue-Maritime-Mine Clearance",
+            "ownAssets": [
+                {
+                    "asset": "a53",
+                    "number": 5
+                },
+                {
+                    "asset": "a98",
+                    "number": 4
+                },
+                {
+                    "asset": "a74",
+                    "number": 3
+                },
+                {
+                    "asset": "a78",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Clearance-0",
@@ -18684,35 +18705,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Clearance",
-            "ownAssets": [
-                {
-                    "asset": "a53",
-                    "number": 5
-                },
-                {
-                    "asset": "a98",
-                    "number": 5
-                },
-                {
-                    "asset": "a74",
-                    "number": 5
-                },
-                {
-                    "asset": "a78",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -18740,6 +18732,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 378",
             "startDate": "2022-11-14T09:40:00.000Z",
             "endDate": "2022-11-14T15:30:00.000Z",
+            "activity": "f-red-Maritime-Mine Clearance",
+            "ownAssets": [
+                {
+                    "asset": "a178",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Clearance-0",
@@ -18866,23 +18875,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Clearance",
-            "ownAssets": [
-                {
-                    "asset": "a178",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -18910,6 +18902,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 381",
             "startDate": "2022-11-14T09:45:00.000Z",
             "endDate": "2022-11-14T16:15:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a159",
+                    "number": 0
+                },
+                {
+                    "asset": "a175",
+                    "number": 3
+                },
+                {
+                    "asset": "a122",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -19075,31 +19092,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a159",
-                    "number": 3
-                },
-                {
-                    "asset": "a175",
-                    "number": 4
-                },
-                {
-                    "asset": "a122",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -19127,6 +19119,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 384",
             "startDate": "2022-11-14T10:05:00.000Z",
             "endDate": "2022-11-14T16:45:00.000Z",
+            "activity": "f-blue-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a93",
+                    "number": 2
+                },
+                {
+                    "asset": "a95",
+                    "number": 2
+                },
+                {
+                    "asset": "a27",
+                    "number": 3
+                },
+                {
+                    "asset": "a84",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -19292,31 +19309,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a93",
-                    "number": 2
-                },
-                {
-                    "asset": "a95",
-                    "number": 5
-                },
-                {
-                    "asset": "a27",
-                    "number": 4
-                },
-                {
-                    "asset": "a84",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -19344,6 +19336,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 387",
             "startDate": "2022-11-14T10:05:00.000Z",
             "endDate": "2022-11-14T14:05:00.000Z",
+            "activity": "f-red-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a184",
+                    "number": 0
+                },
+                {
+                    "asset": "a171",
+                    "number": 4
+                },
+                {
+                    "asset": "a185",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -19466,35 +19487,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a184",
-                    "number": 4
-                },
-                {
-                    "asset": "a171",
-                    "number": 0
-                },
-                {
-                    "asset": "a185",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -19522,30 +19514,29 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 390",
             "startDate": "2022-11-14T10:05:00.000Z",
             "endDate": "2022-11-14T12:55:00.000Z",
-            "location": [],
             "activity": "f-blue-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a30",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a100",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a84",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a71",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a113",
-                    "number": 4
+                    "number": 3
                 }
             ]
         },
@@ -19574,6 +19565,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 393",
             "startDate": "2022-11-14T10:05:00.000Z",
             "endDate": "2022-11-14T14:25:00.000Z",
+            "activity": "f-red-Air-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a130",
+                    "number": 4
+                },
+                {
+                    "asset": "a185",
+                    "number": 2
+                },
+                {
+                    "asset": "a171",
+                    "number": 5
+                },
+                {
+                    "asset": "a183",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -19688,35 +19708,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a130",
-                    "number": 5
-                },
-                {
-                    "asset": "a185",
-                    "number": 3
-                },
-                {
-                    "asset": "a171",
-                    "number": 2
-                },
-                {
-                    "asset": "a183",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -19744,6 +19735,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 396",
             "startDate": "2022-11-14T10:15:00.000Z",
             "endDate": "2022-11-14T16:15:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a183",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -19909,27 +19921,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a183",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -19957,6 +19948,21 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 401",
             "startDate": "2022-11-14T10:25:00.000Z",
             "endDate": "2022-11-14T15:15:00.000Z",
+            "activity": "f-red-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a193",
+                    "number": 5,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2,
+                    "missileType": "Jet OWA UAV"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -20079,21 +20085,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a193",
-                    "number": 5,
-                    "missileType": "Propellor OWA UAV"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1,
-                    "missileType": "Jet OWA UAV"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -20121,6 +20112,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 402",
             "startDate": "2022-11-14T10:45:00.000Z",
             "endDate": "2022-11-14T11:35:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a58",
+                    "number": 0
+                },
+                {
+                    "asset": "a70",
+                    "number": 4
+                },
+                {
+                    "asset": "a11",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -20159,31 +20175,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a58",
-                    "number": 4
-                },
-                {
-                    "asset": "a70",
-                    "number": 1
-                },
-                {
-                    "asset": "a11",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -20211,22 +20202,21 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 410",
             "startDate": "2022-11-14T10:45:00.000Z",
             "endDate": "2022-11-14T13:25:00.000Z",
-            "location": [],
             "activity": "f-red-Land-Strike",
             "ownAssets": [
                 {
                     "asset": "a177",
-                    "number": 0,
+                    "number": 5,
                     "missileType": "Standard Cruise"
                 },
                 {
                     "asset": "a174",
-                    "number": 3,
+                    "number": 1,
                     "missileType": "Low Obs Cruise"
                 },
                 {
                     "asset": "a198",
-                    "number": 4,
+                    "number": 5,
                     "missileType": "SRBM"
                 }
             ],
@@ -20268,6 +20258,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 408",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T15:25:00.000Z",
+            "activity": "f-blue-Air-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a52",
+                    "number": 1
+                },
+                {
+                    "asset": "a34",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -20402,27 +20413,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a52",
-                    "number": 5
-                },
-                {
-                    "asset": "a34",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -20450,6 +20440,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 411",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T14:45:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a81",
+                    "number": 1
+                },
+                {
+                    "asset": "a48",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -20564,31 +20579,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a81",
-                    "number": 1
-                },
-                {
-                    "asset": "a48",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                },
-                {
-                    "asset": "a110",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -20616,6 +20606,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 414",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T16:25:00.000Z",
+            "activity": "f-blue-Maritime-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a65",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -20738,19 +20741,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a65",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -20778,6 +20768,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 417",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T12:05:00.000Z",
+            "activity": "f-blue-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a6",
+                    "number": 1
+                },
+                {
+                    "asset": "a41",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -20888,23 +20895,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a6",
-                    "number": 5
-                },
-                {
-                    "asset": "a41",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -20932,6 +20922,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 420",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T14:45:00.000Z",
+            "activity": "f-blue-Land-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a97",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -21058,27 +21069,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a97",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -21106,6 +21096,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 423",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T17:55:00.000Z",
+            "activity": "f-red-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a147",
+                    "number": 4
+                },
+                {
+                    "asset": "a153",
+                    "number": 2
+                },
+                {
+                    "asset": "a186",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -21283,31 +21298,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a147",
-                    "number": 0
-                },
-                {
-                    "asset": "a153",
-                    "number": 2
-                },
-                {
-                    "asset": "a186",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -21335,6 +21325,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 426",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T11:45:00.000Z",
+            "activity": "f-blue-Land-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a50",
+                    "number": 3
+                },
+                {
+                    "asset": "a42",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -21358,31 +21373,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Land-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a50",
-                    "number": 4
-                },
-                {
-                    "asset": "a42",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
                 }
             ]
         },
@@ -21411,6 +21401,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 429",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T15:35:00.000Z",
+            "activity": "f-red-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a110",
+                    "number": 1
+                },
+                {
+                    "asset": "a184",
+                    "number": 4
+                },
+                {
+                    "asset": "a188",
+                    "number": 0
+                },
+                {
+                    "asset": "a123",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -21525,31 +21540,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a110",
-                    "number": 2
-                },
-                {
-                    "asset": "a184",
-                    "number": 3
-                },
-                {
-                    "asset": "a188",
-                    "number": 3
-                },
-                {
-                    "asset": "a123",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -21577,6 +21567,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 432",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T14:25:00.000Z",
+            "activity": "f-blue-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a23",
+                    "number": 3
+                },
+                {
+                    "asset": "a82",
+                    "number": 2
+                },
+                {
+                    "asset": "a72",
+                    "number": 5
+                },
+                {
+                    "asset": "a89",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -21746,35 +21765,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a23",
-                    "number": 5
-                },
-                {
-                    "asset": "a82",
-                    "number": 4
-                },
-                {
-                    "asset": "a72",
-                    "number": 5
-                },
-                {
-                    "asset": "a89",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -21802,6 +21792,36 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 440",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T13:05:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a89",
+                    "number": 3,
+                    "missileType": "MRBM"
+                },
+                {
+                    "asset": "a36",
+                    "number": 2,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0,
+                    "missileType": "Jet OWA UAV"
+                },
+                {
+                    "asset": "a194",
+                    "number": 1,
+                    "missileType": "IRBM"
+                },
+                {
+                    "asset": "a110",
+                    "number": 1,
+                    "missileType": "SRBM"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -21924,36 +21944,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a89",
-                    "number": 0,
-                    "missileType": "MRBM"
-                },
-                {
-                    "asset": "a36",
-                    "number": 0,
-                    "missileType": "Propellor OWA UAV"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5,
-                    "missileType": "Jet OWA UAV"
-                },
-                {
-                    "asset": "a194",
-                    "number": 4,
-                    "missileType": "IRBM"
-                },
-                {
-                    "asset": "a110",
-                    "number": 4,
-                    "missileType": "SRBM"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -21981,6 +21971,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 438",
             "startDate": "2022-11-14T10:55:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
+            "activity": "f-red-Air-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a114",
+                    "number": 5
+                },
+                {
+                    "asset": "a144",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -22095,23 +22102,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a114",
-                    "number": 3
-                },
-                {
-                    "asset": "a144",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -22139,6 +22129,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 441",
             "startDate": "2022-11-14T11:05:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
+            "activity": "f-blue-Maritime-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a89",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                },
+                {
+                    "asset": "a110",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -22261,27 +22272,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a89",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -22309,6 +22299,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 444",
             "startDate": "2022-11-14T11:05:00.000Z",
             "endDate": "2022-11-14T17:05:00.000Z",
+            "activity": "f-blue-Maritime-Mine Clearance",
+            "ownAssets": [
+                {
+                    "asset": "a24",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Clearance-0",
@@ -22443,23 +22450,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Clearance",
-            "ownAssets": [
-                {
-                    "asset": "a24",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -22487,6 +22477,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 447",
             "startDate": "2022-11-14T11:05:00.000Z",
             "endDate": "2022-11-14T16:45:00.000Z",
+            "activity": "f-red-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a112",
+                    "number": 0
+                },
+                {
+                    "asset": "a195",
+                    "number": 2
+                },
+                {
+                    "asset": "a124",
+                    "number": 5
+                },
+                {
+                    "asset": "a153",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                },
+                {
+                    "asset": "a10",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -22613,39 +22636,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a112",
-                    "number": 5
-                },
-                {
-                    "asset": "a195",
-                    "number": 2
-                },
-                {
-                    "asset": "a124",
-                    "number": 5
-                },
-                {
-                    "asset": "a153",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -22673,6 +22663,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 450",
             "startDate": "2022-11-14T11:10:00.000Z",
             "endDate": "2022-11-14T12:00:00.000Z",
+            "activity": "f-blue-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a53",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -22711,27 +22722,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a53",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -22759,26 +22749,25 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 453",
             "startDate": "2022-11-14T11:10:00.000Z",
             "endDate": "2022-11-14T12:10:00.000Z",
-            "location": [],
             "activity": "f-red-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a150",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a94",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a10",
-                    "number": 2
+                    "number": 5
                 }
             ]
         },
@@ -22807,6 +22796,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 456",
             "startDate": "2022-11-14T11:10:00.000Z",
             "endDate": "2022-11-14T12:00:00.000Z",
+            "activity": "f-red-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a101",
+                    "number": 0
+                },
+                {
+                    "asset": "a143",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -22845,31 +22859,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a101",
-                    "number": 5
-                },
-                {
-                    "asset": "a143",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -22897,6 +22886,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 459",
             "startDate": "2022-11-14T11:25:00.000Z",
             "endDate": "2022-11-14T15:05:00.000Z",
+            "activity": "f-blue-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a11",
+                    "number": 3
+                },
+                {
+                    "asset": "a36",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -23015,27 +23025,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a11",
-                    "number": 4
-                },
-                {
-                    "asset": "a36",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -23063,6 +23052,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 462",
             "startDate": "2022-11-14T11:25:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
+            "activity": "f-red-Maritime-Mine Clearance",
+            "ownAssets": [
+                {
+                    "asset": "a171",
+                    "number": 2
+                },
+                {
+                    "asset": "a181",
+                    "number": 5
+                },
+                {
+                    "asset": "a122",
+                    "number": 3
+                },
+                {
+                    "asset": "a187",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Clearance-0",
@@ -23189,39 +23211,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Clearance",
-            "ownAssets": [
-                {
-                    "asset": "a171",
-                    "number": 4
-                },
-                {
-                    "asset": "a181",
-                    "number": 2
-                },
-                {
-                    "asset": "a122",
-                    "number": 5
-                },
-                {
-                    "asset": "a187",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -23249,6 +23238,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 465",
             "startDate": "2022-11-14T11:25:00.000Z",
             "endDate": "2022-11-14T15:55:00.000Z",
+            "activity": "f-red-Maritime-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a187",
+                    "number": 2
+                },
+                {
+                    "asset": "a183",
+                    "number": 3
+                },
+                {
+                    "asset": "a109",
+                    "number": 3
+                },
+                {
+                    "asset": "a160",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -23359,31 +23373,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a187",
-                    "number": 0
-                },
-                {
-                    "asset": "a183",
-                    "number": 3
-                },
-                {
-                    "asset": "a109",
-                    "number": 3
-                },
-                {
-                    "asset": "a160",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -23411,6 +23400,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 468",
             "startDate": "2022-11-14T11:40:00.000Z",
             "endDate": "2022-11-14T15:20:00.000Z",
+            "activity": "f-red-Air-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a160",
+                    "number": 4
+                },
+                {
+                    "asset": "a141",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -23529,27 +23539,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a160",
-                    "number": 2
-                },
-                {
-                    "asset": "a141",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -23577,6 +23566,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 475",
             "startDate": "2022-11-14T11:55:00.000Z",
             "endDate": "2022-11-14T17:05:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a85",
+                    "number": 5,
+                    "missileType": "Low Obs Cruise"
+                },
+                {
+                    "asset": "a52",
+                    "number": 5,
+                    "missileType": "IRBM"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0,
+                    "missileType": "Propellor OWA UAV"
+                },
+                {
+                    "asset": "a194",
+                    "number": 4,
+                    "missileType": "Standard Cruise"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -23695,31 +23709,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a85",
-                    "number": 3,
-                    "missileType": "Low Obs Cruise"
-                },
-                {
-                    "asset": "a52",
-                    "number": 0,
-                    "missileType": "IRBM"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3,
-                    "missileType": "Propellor OWA UAV"
-                },
-                {
-                    "asset": "a194",
-                    "number": 0,
-                    "missileType": "Standard Cruise"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -23747,6 +23736,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 474",
             "startDate": "2022-11-14T11:55:00.000Z",
             "endDate": "2022-11-14T18:25:00.000Z",
+            "activity": "f-red-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a167",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -23912,23 +23918,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a167",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -23956,6 +23945,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 477",
             "startDate": "2022-11-14T12:00:00.000Z",
             "endDate": "2022-11-14T17:50:00.000Z",
+            "activity": "f-red-Maritime-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a105",
+                    "number": 1
+                },
+                {
+                    "asset": "a140",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -24078,23 +24084,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a105",
-                    "number": 4
-                },
-                {
-                    "asset": "a140",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -24122,6 +24111,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 480",
             "startDate": "2022-11-14T12:20:00.000Z",
             "endDate": "2022-11-14T13:10:00.000Z",
+            "activity": "f-blue-Land-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a94",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -24145,23 +24151,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Land-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
                 }
             ]
         },
@@ -24190,6 +24179,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 483",
             "startDate": "2022-11-14T12:20:00.000Z",
             "endDate": "2022-11-14T16:50:00.000Z",
+            "activity": "f-red-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a141",
+                    "number": 2
+                },
+                {
+                    "asset": "a146",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                },
+                {
+                    "asset": "a10",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -24351,31 +24365,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a141",
-                    "number": 4
-                },
-                {
-                    "asset": "a146",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                },
-                {
-                    "asset": "a10",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -24403,6 +24392,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 486",
             "startDate": "2022-11-14T12:25:00.000Z",
             "endDate": "2022-11-14T14:05:00.000Z",
+            "activity": "f-red-Land-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a142",
+                    "number": 1
+                },
+                {
+                    "asset": "a132",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -24521,23 +24527,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a142",
-                    "number": 5
-                },
-                {
-                    "asset": "a132",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -24565,6 +24554,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 489",
             "startDate": "2022-11-14T12:45:00.000Z",
             "endDate": "2022-11-14T15:25:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a196",
+                    "number": 3
+                },
+                {
+                    "asset": "a172",
+                    "number": 4
+                },
+                {
+                    "asset": "a175",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -24695,27 +24705,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a196",
-                    "number": 3
-                },
-                {
-                    "asset": "a172",
-                    "number": 4
-                },
-                {
-                    "asset": "a175",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -24743,6 +24732,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 492",
             "startDate": "2022-11-14T13:00:00.000Z",
             "endDate": "2022-11-14T13:50:00.000Z",
+            "activity": "f-blue-Maritime-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a9",
+                    "number": 1
+                },
+                {
+                    "asset": "a67",
+                    "number": 3
+                },
+                {
+                    "asset": "a56",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -24766,27 +24776,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Maritime-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a9",
-                    "number": 2
-                },
-                {
-                    "asset": "a67",
-                    "number": 2
-                },
-                {
-                    "asset": "a56",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
                 }
             ]
         },
@@ -24815,6 +24804,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 495",
             "startDate": "2022-11-14T13:00:00.000Z",
             "endDate": "2022-11-14T17:30:00.000Z",
+            "activity": "f-blue-Air-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a73",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                },
+                {
+                    "asset": "a110",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -24976,27 +24986,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a73",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                },
-                {
-                    "asset": "a110",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -25024,6 +25013,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 498",
             "startDate": "2022-11-14T13:00:00.000Z",
             "endDate": "2022-11-14T19:50:00.000Z",
+            "activity": "f-blue-Air-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a92",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -25138,19 +25140,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a92",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -25178,6 +25167,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 501",
             "startDate": "2022-11-14T13:00:00.000Z",
             "endDate": "2022-11-14T13:50:00.000Z",
+            "activity": "f-blue-Land-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a68",
+                    "number": 5
+                },
+                {
+                    "asset": "a83",
+                    "number": 5
+                },
+                {
+                    "asset": "a28",
+                    "number": 5
+                },
+                {
+                    "asset": "a97",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -25201,35 +25219,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Land-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a68",
-                    "number": 1
-                },
-                {
-                    "asset": "a83",
-                    "number": 4
-                },
-                {
-                    "asset": "a28",
-                    "number": 4
-                },
-                {
-                    "asset": "a97",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
                 }
             ]
         },
@@ -25258,6 +25247,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 504",
             "startDate": "2022-11-14T13:00:00.000Z",
             "endDate": "2022-11-14T13:50:00.000Z",
+            "activity": "f-red-Land-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a197",
+                    "number": 3
+                },
+                {
+                    "asset": "a168",
+                    "number": 4
+                },
+                {
+                    "asset": "a128",
+                    "number": 4
+                },
+                {
+                    "asset": "a183",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                },
+                {
+                    "asset": "a10",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -25292,39 +25314,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a197",
-                    "number": 2
-                },
-                {
-                    "asset": "a168",
-                    "number": 4
-                },
-                {
-                    "asset": "a128",
-                    "number": 4
-                },
-                {
-                    "asset": "a183",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -25352,6 +25341,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 507",
             "startDate": "2022-11-14T13:05:00.000Z",
             "endDate": "2022-11-14T14:45:00.000Z",
+            "activity": "f-red-Air-Resupply",
+            "ownAssets": [
+                {
+                    "asset": "a183",
+                    "number": 5
+                },
+                {
+                    "asset": "a168",
+                    "number": 5
+                },
+                {
+                    "asset": "a181",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Resupply-0",
@@ -25462,35 +25480,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Resupply",
-            "ownAssets": [
-                {
-                    "asset": "a183",
-                    "number": 3
-                },
-                {
-                    "asset": "a168",
-                    "number": 5
-                },
-                {
-                    "asset": "a181",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -25518,12 +25507,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 510",
             "startDate": "2022-11-14T13:25:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
-            "location": [],
             "activity": "f-red-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a124",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a192",
@@ -25531,25 +25519,25 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a190",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a119",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a94",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a10",
-                    "number": 1
+                    "number": 4
                 }
             ]
         },
@@ -25578,6 +25566,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 513",
             "startDate": "2022-11-14T13:40:00.000Z",
             "endDate": "2022-11-14T16:40:00.000Z",
+            "activity": "f-blue-Air-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a19",
+                    "number": 3
+                },
+                {
+                    "asset": "a72",
+                    "number": 2
+                },
+                {
+                    "asset": "a56",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                },
+                {
+                    "asset": "a194",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -25688,31 +25701,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a19",
-                    "number": 3
-                },
-                {
-                    "asset": "a72",
-                    "number": 1
-                },
-                {
-                    "asset": "a56",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -25740,6 +25728,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 516",
             "startDate": "2022-11-14T13:40:00.000Z",
             "endDate": "2022-11-14T14:30:00.000Z",
+            "activity": "f-red-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a167",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                },
+                {
+                    "asset": "a10",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -25778,27 +25787,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a167",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                },
-                {
-                    "asset": "a10",
-                    "number": 5
-                }
             ]
         },
         "hasBeenRead": false,
@@ -25826,6 +25814,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 519",
             "startDate": "2022-11-14T13:45:00.000Z",
             "endDate": "2022-11-14T22:15:00.000Z",
+            "activity": "f-red-Air-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a171",
+                    "number": 5
+                },
+                {
+                    "asset": "a195",
+                    "number": 3
+                },
+                {
+                    "asset": "a150",
+                    "number": 5
+                },
+                {
+                    "asset": "a132",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -26003,35 +26020,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a171",
-                    "number": 4
-                },
-                {
-                    "asset": "a195",
-                    "number": 4
-                },
-                {
-                    "asset": "a150",
-                    "number": 3
-                },
-                {
-                    "asset": "a132",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -26059,6 +26047,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 522",
             "startDate": "2022-11-14T14:05:00.000Z",
             "endDate": "2022-11-14T15:55:00.000Z",
+            "activity": "f-blue-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a32",
+                    "number": 2
+                },
+                {
+                    "asset": "a41",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -26173,27 +26182,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a32",
-                    "number": 0
-                },
-                {
-                    "asset": "a41",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -26221,22 +26209,21 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 525",
             "startDate": "2022-11-14T14:05:00.000Z",
             "endDate": "2022-11-14T14:45:00.000Z",
-            "location": [],
             "activity": "f-red-Other-Cyber/Space Activity",
             "ownAssets": [
                 {
                     "asset": "a145",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a140",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a94",
@@ -26269,6 +26256,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 528",
             "startDate": "2022-11-14T14:10:00.000Z",
             "endDate": "2022-11-14T16:50:00.000Z",
+            "activity": "f-red-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a115",
+                    "number": 3
+                },
+                {
+                    "asset": "a192",
+                    "number": 5
+                },
+                {
+                    "asset": "a200",
+                    "number": 3
+                },
+                {
+                    "asset": "a138",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -26430,35 +26446,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a115",
-                    "number": 0
-                },
-                {
-                    "asset": "a192",
-                    "number": 5
-                },
-                {
-                    "asset": "a200",
-                    "number": 3
-                },
-                {
-                    "asset": "a138",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -26486,6 +26473,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 531",
             "startDate": "2022-11-14T14:25:00.000Z",
             "endDate": "2022-11-14T21:05:00.000Z",
+            "activity": "f-red-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a138",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -26655,19 +26655,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a138",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -26695,6 +26682,35 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 534",
             "startDate": "2022-11-14T14:40:00.000Z",
             "endDate": "2022-11-14T15:30:00.000Z",
+            "activity": "f-blue-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a17",
+                    "number": 1
+                },
+                {
+                    "asset": "a66",
+                    "number": 3
+                },
+                {
+                    "asset": "a44",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 1
+                },
+                {
+                    "asset": "a110",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -26737,35 +26753,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a17",
-                    "number": 2
-                },
-                {
-                    "asset": "a66",
-                    "number": 2
-                },
-                {
-                    "asset": "a44",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                },
-                {
-                    "asset": "a110",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -26793,6 +26780,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 537",
             "startDate": "2022-11-14T14:40:00.000Z",
             "endDate": "2022-11-14T15:30:00.000Z",
+            "activity": "f-red-Land-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a150",
+                    "number": 1
+                },
+                {
+                    "asset": "a183",
+                    "number": 2
+                },
+                {
+                    "asset": "a147",
+                    "number": 4
+                },
+                {
+                    "asset": "a139",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -26816,31 +26828,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a150",
-                    "number": 5
-                },
-                {
-                    "asset": "a183",
-                    "number": 1
-                },
-                {
-                    "asset": "a147",
-                    "number": 2
-                },
-                {
-                    "asset": "a139",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
                 }
             ]
         },
@@ -26869,6 +26856,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 540",
             "startDate": "2022-11-14T14:40:00.000Z",
             "endDate": "2022-11-14T17:20:00.000Z",
+            "activity": "f-red-Air-Defensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a139",
+                    "number": 5
+                },
+                {
+                    "asset": "a158",
+                    "number": 4
+                },
+                {
+                    "asset": "a107",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Defensive Counter Air-0",
@@ -26983,31 +26995,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Defensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a139",
-                    "number": 1
-                },
-                {
-                    "asset": "a158",
-                    "number": 2
-                },
-                {
-                    "asset": "a107",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -27035,6 +27022,41 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 549",
             "startDate": "2022-11-14T14:55:00.000Z",
             "endDate": "2022-11-14T18:55:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a81",
+                    "number": 4,
+                    "missileType": "IRBM"
+                },
+                {
+                    "asset": "a85",
+                    "number": 4,
+                    "missileType": "Standard Cruise"
+                },
+                {
+                    "asset": "a20",
+                    "number": 4,
+                    "missileType": "SRBM"
+                },
+                {
+                    "asset": "a79",
+                    "number": 4,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0,
+                    "missileType": "MRBM"
+                },
+                {
+                    "asset": "a194",
+                    "number": 5,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -27157,41 +27179,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a81",
-                    "number": 4,
-                    "missileType": "IRBM"
-                },
-                {
-                    "asset": "a85",
-                    "number": 3,
-                    "missileType": "Standard Cruise"
-                },
-                {
-                    "asset": "a20",
-                    "number": 2,
-                    "missileType": "SRBM"
-                },
-                {
-                    "asset": "a79",
-                    "number": 3,
-                    "missileType": "Propellor OWA UAV"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2,
-                    "missileType": "MRBM"
-                },
-                {
-                    "asset": "a194",
-                    "number": 2,
-                    "missileType": "Propellor OWA UAV"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -27219,6 +27206,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 546",
             "startDate": "2022-11-14T14:55:00.000Z",
             "endDate": "2022-11-14T15:45:00.000Z",
+            "activity": "f-red-Maritime-Sea Denial",
+            "ownAssets": [
+                {
+                    "asset": "a179",
+                    "number": 4
+                },
+                {
+                    "asset": "a169",
+                    "number": 5
+                },
+                {
+                    "asset": "a186",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Sea Denial-0",
@@ -27263,31 +27275,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Sea Denial",
-            "ownAssets": [
-                {
-                    "asset": "a179",
-                    "number": 1
-                },
-                {
-                    "asset": "a169",
-                    "number": 5
-                },
-                {
-                    "asset": "a186",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -27315,6 +27302,21 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 551",
             "startDate": "2022-11-14T14:55:00.000Z",
             "endDate": "2022-11-14T19:45:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a33",
+                    "number": 3,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -27437,21 +27439,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a33",
-                    "number": 1,
-                    "missileType": "Propellor OWA UAV"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4,
-                    "missileType": "Propellor OWA UAV"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -27479,6 +27466,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 552",
             "startDate": "2022-11-14T14:55:00.000Z",
             "endDate": "2022-11-14T18:55:00.000Z",
+            "activity": "f-blue-Air-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a41",
+                    "number": 1
+                },
+                {
+                    "asset": "a98",
+                    "number": 3
+                },
+                {
+                    "asset": "a86",
+                    "number": 4
+                },
+                {
+                    "asset": "a5",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                },
+                {
+                    "asset": "a194",
+                    "number": 0
+                },
+                {
+                    "asset": "a110",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -27601,39 +27621,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a41",
-                    "number": 1
-                },
-                {
-                    "asset": "a98",
-                    "number": 4
-                },
-                {
-                    "asset": "a86",
-                    "number": 1
-                },
-                {
-                    "asset": "a5",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                },
-                {
-                    "asset": "a110",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -27661,6 +27648,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 555",
             "startDate": "2022-11-14T14:55:00.000Z",
             "endDate": "2022-11-14T17:05:00.000Z",
+            "activity": "f-red-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a105",
+                    "number": 2
+                },
+                {
+                    "asset": "a148",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -27779,23 +27783,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a105",
-                    "number": 1
-                },
-                {
-                    "asset": "a148",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -27823,6 +27810,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 558",
             "startDate": "2022-11-14T15:05:00.000Z",
             "endDate": "2022-11-14T21:55:00.000Z",
+            "activity": "f-blue-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a22",
+                    "number": 3
+                },
+                {
+                    "asset": "a50",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -27996,27 +28004,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a22",
-                    "number": 3
-                },
-                {
-                    "asset": "a50",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 1
-                },
-                {
-                    "asset": "a194",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -28044,6 +28031,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 561",
             "startDate": "2022-11-14T15:05:00.000Z",
             "endDate": "2022-11-14T18:15:00.000Z",
+            "activity": "f-blue-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a92",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 3
+                },
+                {
+                    "asset": "a194",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -28158,23 +28162,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a92",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -28202,6 +28189,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 564",
             "startDate": "2022-11-14T15:05:00.000Z",
             "endDate": "2022-11-14T20:45:00.000Z",
+            "activity": "f-red-Maritime-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a122",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Patrol-0",
@@ -28320,23 +28324,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a122",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 1
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -28364,6 +28351,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 567",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T20:15:00.000Z",
+            "activity": "f-blue-Land-EW Attack",
+            "ownAssets": [
+                {
+                    "asset": "a5",
+                    "number": 5
+                },
+                {
+                    "asset": "a86",
+                    "number": 2
+                },
+                {
+                    "asset": "a98",
+                    "number": 5
+                },
+                {
+                    "asset": "a40",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "EW Attack-0",
@@ -28474,31 +28486,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a5",
-                    "number": 3
-                },
-                {
-                    "asset": "a86",
-                    "number": 5
-                },
-                {
-                    "asset": "a98",
-                    "number": 5
-                },
-                {
-                    "asset": "a40",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -28526,6 +28513,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 570",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
+            "activity": "f-red-Land-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a140",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 1
+                },
+                {
+                    "asset": "a94",
+                    "number": 2
+                },
+                {
+                    "asset": "a10",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -28549,27 +28557,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a140",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 1
                 }
             ]
         },
@@ -28598,6 +28585,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 573",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T22:25:00.000Z",
+            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
+            "ownAssets": [
+                {
+                    "asset": "a33",
+                    "number": 4
+                },
+                {
+                    "asset": "a85",
+                    "number": 0
+                },
+                {
+                    "asset": "a68",
+                    "number": 2
+                },
+                {
+                    "asset": "a78",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Suppression of Air Defences (SEAD)-0",
@@ -28708,31 +28720,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Suppression of Air Defences (SEAD)",
-            "ownAssets": [
-                {
-                    "asset": "a33",
-                    "number": 3
-                },
-                {
-                    "asset": "a85",
-                    "number": 3
-                },
-                {
-                    "asset": "a68",
-                    "number": 0
-                },
-                {
-                    "asset": "a78",
-                    "number": 1
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -28760,6 +28747,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 576",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T23:55:00.000Z",
+            "activity": "f-blue-Land-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a78",
+                    "number": 5
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4
+                },
+                {
+                    "asset": "a194",
+                    "number": 3
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -28925,23 +28929,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Land-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a78",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
-                },
-                {
-                    "asset": "a194",
-                    "number": 2
-                }
             ]
         },
         "hasBeenRead": false,
@@ -28969,6 +28956,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 583",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T19:35:00.000Z",
+            "activity": "f-blue-Air-Stand Off Strike",
+            "ownAssets": [
+                {
+                    "asset": "a80",
+                    "number": 3,
+                    "missileType": "Propellor OWA UAV"
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 4,
+                    "missileType": "Propellor OWA UAV"
+                },
+                {
+                    "asset": "a194",
+                    "number": 0,
+                    "missileType": "Propellor OWA UAV"
+                },
+                {
+                    "asset": "a110",
+                    "number": 0,
+                    "missileType": "SRBM"
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Stand Off Strike-0",
@@ -29087,31 +29099,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Stand Off Strike",
-            "ownAssets": [
-                {
-                    "asset": "a80",
-                    "number": 0,
-                    "missileType": "Propellor OWA UAV"
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5,
-                    "missileType": "Propellor OWA UAV"
-                },
-                {
-                    "asset": "a194",
-                    "number": 3,
-                    "missileType": "Propellor OWA UAV"
-                },
-                {
-                    "asset": "a110",
-                    "number": 5,
-                    "missileType": "SRBM"
-                }
             ]
         },
         "hasBeenRead": false,
@@ -29139,6 +29126,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 582",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
+            "activity": "f-red-Land-SAM MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a138",
+                    "number": 4
+                },
+                {
+                    "asset": "a146",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SAM MEZ-0",
@@ -29162,27 +29170,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-red-Land-SAM MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a138",
-                    "number": 3
-                },
-                {
-                    "asset": "a146",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                },
-                {
-                    "asset": "a94",
-                    "number": 5
                 }
             ]
         },
@@ -29211,6 +29198,23 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 585",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T16:05:00.000Z",
+            "activity": "f-blue-Land-BMD MEZ",
+            "ownAssets": [
+                {
+                    "asset": "a49",
+                    "number": 4
+                },
+                {
+                    "asset": "a43",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "BMD MEZ-0",
@@ -29234,23 +29238,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                             ]
                         }
                     }
-                }
-            ],
-            "activity": "f-blue-Land-BMD MEZ",
-            "ownAssets": [
-                {
-                    "asset": "a49",
-                    "number": 2
-                },
-                {
-                    "asset": "a43",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
                 }
             ]
         },
@@ -29279,6 +29266,39 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 588",
             "startDate": "2022-11-14T15:15:00.000Z",
             "endDate": "2022-11-14T19:25:00.000Z",
+            "activity": "f-red-Maritime-Mine Laying",
+            "ownAssets": [
+                {
+                    "asset": "a116",
+                    "number": 0
+                },
+                {
+                    "asset": "a192",
+                    "number": 5
+                },
+                {
+                    "asset": "a199",
+                    "number": 2
+                },
+                {
+                    "asset": "a136",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 2
+                },
+                {
+                    "asset": "a94",
+                    "number": 4
+                },
+                {
+                    "asset": "a10",
+                    "number": 2
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Mine Laying-0",
@@ -29405,39 +29425,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Maritime-Mine Laying",
-            "ownAssets": [
-                {
-                    "asset": "a116",
-                    "number": 1
-                },
-                {
-                    "asset": "a192",
-                    "number": 5
-                },
-                {
-                    "asset": "a199",
-                    "number": 1
-                },
-                {
-                    "asset": "a136",
-                    "number": 2
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                },
-                {
-                    "asset": "a94",
-                    "number": 0
-                },
-                {
-                    "asset": "a10",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -29465,6 +29452,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 591",
             "startDate": "2022-11-14T15:20:00.000Z",
             "endDate": "2022-11-14T17:20:00.000Z",
+            "activity": "f-blue-Maritime-ISTAR",
+            "ownAssets": [
+                {
+                    "asset": "a36",
+                    "number": 1
+                },
+                {
+                    "asset": "a98",
+                    "number": 3
+                },
+                {
+                    "asset": "a90",
+                    "number": 5
+                },
+                {
+                    "asset": "a13",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 0
+                }
+            ],
             "location": [
                 {
                     "uniqid": "ISTAR-0",
@@ -29626,31 +29638,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Maritime-ISTAR",
-            "ownAssets": [
-                {
-                    "asset": "a36",
-                    "number": 1
-                },
-                {
-                    "asset": "a98",
-                    "number": 5
-                },
-                {
-                    "asset": "a90",
-                    "number": 0
-                },
-                {
-                    "asset": "a13",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                }
             ]
         },
         "hasBeenRead": false,
@@ -29678,6 +29665,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 594",
             "startDate": "2022-11-14T15:20:00.000Z",
             "endDate": "2022-11-14T16:10:00.000Z",
+            "activity": "f-red-Air-Transit",
+            "ownAssets": [
+                {
+                    "asset": "a113",
+                    "number": 2
+                },
+                {
+                    "asset": "a160",
+                    "number": 0
+                },
+                {
+                    "asset": "a138",
+                    "number": 3
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 3
+                },
+                {
+                    "asset": "a94",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Transit-0",
@@ -29712,31 +29724,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Air-Transit",
-            "ownAssets": [
-                {
-                    "asset": "a113",
-                    "number": 5
-                },
-                {
-                    "asset": "a160",
-                    "number": 3
-                },
-                {
-                    "asset": "a138",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 0
-                },
-                {
-                    "asset": "a94",
-                    "number": 1
-                }
             ]
         },
         "hasBeenRead": false,
@@ -29764,6 +29751,31 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 597",
             "startDate": "2022-11-14T15:30:00.000Z",
             "endDate": "2022-11-14T20:20:00.000Z",
+            "activity": "f-red-Other-SOF Activity",
+            "ownAssets": [
+                {
+                    "asset": "a143",
+                    "number": 5
+                },
+                {
+                    "asset": "a176",
+                    "number": 0
+                },
+                {
+                    "asset": "a139",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a13",
+                    "number": 5
+                },
+                {
+                    "asset": "a94",
+                    "number": 5
+                }
+            ],
             "location": [
                 {
                     "uniqid": "SOF Activity-0",
@@ -29929,31 +29941,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-red-Other-SOF Activity",
-            "ownAssets": [
-                {
-                    "asset": "a143",
-                    "number": 3
-                },
-                {
-                    "asset": "a176",
-                    "number": 5
-                },
-                {
-                    "asset": "a139",
-                    "number": 4
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 4
-                },
-                {
-                    "asset": "a94",
-                    "number": 4
-                }
             ]
         },
         "hasBeenRead": false,
@@ -29981,12 +29968,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 605",
             "startDate": "2022-11-14T15:40:00.000Z",
             "endDate": "2022-11-14T15:40:00.000Z",
-            "location": [],
             "activity": "f-red-Maritime-Strike",
             "ownAssets": [
                 {
                     "asset": "a129",
-                    "number": 2,
+                    "number": 0,
                     "missileType": "IRBM"
                 },
                 {
@@ -29998,17 +29984,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "otherAssets": [
                 {
                     "asset": "a13",
-                    "number": 5,
+                    "number": 4,
                     "missileType": "MRBM"
                 },
                 {
                     "asset": "a94",
-                    "number": 1,
+                    "number": 3,
                     "missileType": "Standard Cruise"
                 },
                 {
                     "asset": "a10",
-                    "number": 1,
+                    "number": 4,
                     "missileType": "Jet OWA UAV"
                 }
             ]
@@ -30038,6 +30024,27 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "title": "Order item 603",
             "startDate": "2022-11-14T16:00:00.000Z",
             "endDate": "2022-11-14T17:10:00.000Z",
+            "activity": "f-blue-Air-Offensive Counter Air",
+            "ownAssets": [
+                {
+                    "asset": "a69",
+                    "number": 5
+                },
+                {
+                    "asset": "a72",
+                    "number": 0
+                },
+                {
+                    "asset": "a6",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a113",
+                    "number": 1
+                }
+            ],
             "location": [
                 {
                     "uniqid": "Offensive Counter Air-0",
@@ -30164,27 +30171,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                         }
                     }
                 }
-            ],
-            "activity": "f-blue-Air-Offensive Counter Air",
-            "ownAssets": [
-                {
-                    "asset": "a69",
-                    "number": 3
-                },
-                {
-                    "asset": "a72",
-                    "number": 3
-                },
-                {
-                    "asset": "a6",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                }
             ]
         },
         "hasBeenRead": false,
@@ -30204,15 +30190,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.205Z",
+            "timestamp": "2023-01-12T10:17:37.958Z",
             "turnNumber": 3,
             "counter": 1,
             "interaction": {
-                "startTime": "2022-11-14T15:15:00.000Z",
-                "endTime": "2022-11-14T01:40:00.000Z",
+                "startTime": "2022-11-14T09:00:00.000Z",
+                "endTime": "2022-11-14T05:50:00.000Z",
                 "id": "umpire-1",
-                "orders1": "m_f-blue_583",
-                "orders2": "m_f-red_42",
+                "orders1": "m_f-blue_354",
+                "orders2": "m_f-red_151",
                 "complete": true
             }
         },
@@ -30225,7 +30211,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.205Z//0"
+        "_id": "2023-01-12T10:17:37.958Z//0"
     },
     {
         "messageType": "InteractionMessage",
@@ -30240,15 +30226,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.205Z",
+            "timestamp": "2023-01-12T10:17:37.958Z",
             "turnNumber": 3,
             "counter": 2,
             "interaction": {
-                "startTime": "2022-11-14T08:55:00.000Z",
-                "endTime": "2022-11-14T08:30:00.000Z",
+                "startTime": "2022-11-14T14:40:00.000Z",
+                "endTime": "2022-11-14T12:50:00.000Z",
                 "id": "umpire-2",
-                "orders1": "m_f-blue_330",
-                "orders2": "m_f-red_96",
+                "orders1": "m_f-blue_351",
+                "orders2": "m_f-red_540",
                 "complete": true
             }
         },
@@ -30261,7 +30247,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.205Z//1"
+        "_id": "2023-01-12T10:17:37.958Z//1"
     },
     {
         "messageType": "InteractionMessage",
@@ -30276,15 +30262,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.205Z",
+            "timestamp": "2023-01-12T10:17:37.958Z",
             "turnNumber": 3,
             "counter": 3,
             "interaction": {
-                "startTime": "2022-11-14T10:05:00.000Z",
-                "endTime": "2022-11-14T11:20:00.000Z",
+                "startTime": "2022-11-14T15:15:00.000Z",
+                "endTime": "2022-11-14T05:20:00.000Z",
                 "id": "umpire-3",
-                "orders1": "m_f-blue_363",
-                "orders2": "m_f-red_387",
+                "orders1": "m_f-blue_583",
+                "orders2": "m_f-red_123",
                 "complete": true
             }
         },
@@ -30297,7 +30283,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.205Z//2"
+        "_id": "2023-01-12T10:17:37.958Z//2"
     },
     {
         "messageType": "InteractionMessage",
@@ -30312,15 +30298,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.958Z",
             "turnNumber": 3,
             "counter": 4,
             "interaction": {
-                "startTime": "2022-11-14T06:45:00.000Z",
-                "endTime": "2022-11-14T03:55:00.000Z",
+                "startTime": "2022-11-14T13:00:00.000Z",
+                "endTime": "2022-11-14T08:00:00.000Z",
                 "id": "umpire-4",
-                "orders1": "m_f-blue_222",
-                "orders2": "m_f-red_39",
+                "orders1": "m_f-blue_498",
+                "orders2": "m_f-red_150",
                 "complete": true
             }
         },
@@ -30333,7 +30319,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//3"
+        "_id": "2023-01-12T10:17:37.958Z//3"
     },
     {
         "messageType": "InteractionMessage",
@@ -30348,15 +30334,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.958Z",
             "turnNumber": 3,
             "counter": 5,
             "interaction": {
-                "startTime": "2022-11-14T11:05:00.000Z",
-                "endTime": "2022-11-14T06:55:00.000Z",
+                "startTime": "2022-11-14T15:40:00.000Z",
+                "endTime": "2022-11-14T13:50:00.000Z",
                 "id": "umpire-5",
-                "orders1": "m_f-blue_21",
-                "orders2": "m_f-red_447",
+                "orders1": "m_f-blue_375",
+                "orders2": "m_f-red_605",
                 "complete": true
             }
         },
@@ -30369,7 +30355,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//4"
+        "_id": "2023-01-12T10:17:37.958Z//4"
     },
     {
         "messageType": "InteractionMessage",
@@ -30384,15 +30370,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.959Z",
             "turnNumber": 3,
             "counter": 6,
             "interaction": {
-                "startTime": "2022-11-14T12:20:00.000Z",
-                "endTime": "2022-11-14T13:10:00.000Z",
+                "startTime": "2022-11-14T08:55:00.000Z",
+                "endTime": "2022-11-14T05:40:00.000Z",
                 "id": "umpire-6",
-                "orders1": "m_f-blue_480",
-                "orders2": "m_f-red_306",
+                "orders1": "m_f-blue_339",
+                "orders2": "m_f-red_30",
                 "complete": true
             }
         },
@@ -30405,7 +30391,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//5"
+        "_id": "2023-01-12T10:17:37.959Z//5"
     },
     {
         "messageType": "InteractionMessage",
@@ -30420,15 +30406,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.959Z",
             "turnNumber": 3,
             "counter": 7,
             "interaction": {
-                "startTime": "2022-11-14T08:55:00.000Z",
-                "endTime": "2022-11-14T13:20:00.000Z",
+                "startTime": "2022-11-14T13:25:00.000Z",
+                "endTime": "2022-11-14T07:50:00.000Z",
                 "id": "umpire-7",
-                "orders1": "m_f-blue_330",
-                "orders2": "m_f-red_306",
+                "orders1": "m_f-blue_102",
+                "orders2": "m_f-red_510",
                 "complete": true
             }
         },
@@ -30441,7 +30427,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//6"
+        "_id": "2023-01-12T10:17:37.959Z//6"
     },
     {
         "messageType": "InteractionMessage",
@@ -30456,15 +30442,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.959Z",
             "turnNumber": 3,
             "counter": 8,
             "interaction": {
-                "startTime": "2022-11-14T06:55:00.000Z",
-                "endTime": "2022-11-14T06:10:00.000Z",
+                "startTime": "2022-11-14T10:45:00.000Z",
+                "endTime": "2022-11-14T05:40:00.000Z",
                 "id": "umpire-8",
-                "orders1": "m_f-blue_240",
-                "orders2": "m_f-red_186",
+                "orders1": "m_f-blue_78",
+                "orders2": "m_f-red_410",
                 "complete": true
             }
         },
@@ -30477,7 +30463,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//7"
+        "_id": "2023-01-12T10:17:37.959Z//7"
     },
     {
         "messageType": "InteractionMessage",
@@ -30492,15 +30478,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.959Z",
             "turnNumber": 3,
             "counter": 9,
             "interaction": {
-                "startTime": "2022-11-14T09:00:00.000Z",
-                "endTime": "2022-11-14T10:45:00.000Z",
+                "startTime": "2022-11-14T15:05:00.000Z",
+                "endTime": "2022-11-14T09:45:00.000Z",
                 "id": "umpire-9",
-                "orders1": "m_f-blue_345",
-                "orders2": "m_f-red_219",
+                "orders1": "m_f-blue_336",
+                "orders2": "m_f-red_564",
                 "complete": true
             }
         },
@@ -30513,7 +30499,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//8"
+        "_id": "2023-01-12T10:17:37.959Z//8"
     },
     {
         "messageType": "InteractionMessage",
@@ -30528,15 +30514,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.959Z",
             "turnNumber": 3,
             "counter": 10,
             "interaction": {
                 "startTime": "2022-11-14T15:15:00.000Z",
-                "endTime": "2022-11-14T06:45:00.000Z",
+                "endTime": "2022-11-14T06:20:00.000Z",
                 "id": "umpire-10",
                 "orders1": "m_f-blue_567",
-                "orders2": "m_f-red_144",
+                "orders2": "m_f-red_84",
                 "complete": true
             }
         },
@@ -30549,7 +30535,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//9"
+        "_id": "2023-01-12T10:17:37.959Z//9"
     },
     {
         "messageType": "InteractionMessage",
@@ -30564,15 +30550,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.960Z",
             "turnNumber": 3,
             "counter": 11,
             "interaction": {
-                "startTime": "2022-11-14T14:40:00.000Z",
-                "endTime": "2022-11-14T14:45:00.000Z",
+                "startTime": "2022-11-14T10:55:00.000Z",
+                "endTime": "2022-11-14T12:25:00.000Z",
                 "id": "umpire-11",
-                "orders1": "m_f-blue_534",
-                "orders2": "m_f-red_507",
+                "orders1": "m_f-blue_420",
+                "orders2": "m_f-red_327",
                 "complete": true
             }
         },
@@ -30585,7 +30571,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//10"
+        "_id": "2023-01-12T10:17:37.960Z//10"
     },
     {
         "messageType": "InteractionMessage",
@@ -30600,15 +30586,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.960Z",
             "turnNumber": 3,
             "counter": 12,
             "interaction": {
-                "startTime": "2022-11-14T15:40:00.000Z",
-                "endTime": "2022-11-14T13:20:00.000Z",
+                "startTime": "2022-11-14T12:20:00.000Z",
+                "endTime": "2022-11-14T13:10:00.000Z",
                 "id": "umpire-12",
-                "orders1": "m_f-blue_306",
-                "orders2": "m_f-red_605",
+                "orders1": "m_f-blue_480",
+                "orders2": "m_f-red_393",
                 "complete": true
             }
         },
@@ -30621,7 +30607,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//11"
+        "_id": "2023-01-12T10:17:37.960Z//11"
     },
     {
         "messageType": "InteractionMessage",
@@ -30636,15 +30622,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.206Z",
+            "timestamp": "2023-01-12T10:17:37.960Z",
             "turnNumber": 3,
             "counter": 13,
             "interaction": {
-                "startTime": "2022-11-14T13:45:00.000Z",
-                "endTime": "2022-11-14T06:45:00.000Z",
+                "startTime": "2022-11-14T08:55:00.000Z",
+                "endTime": "2022-11-14T10:55:00.000Z",
                 "id": "umpire-13",
-                "orders1": "m_f-blue_143",
-                "orders2": "m_f-red_519",
+                "orders1": "m_f-blue_330",
+                "orders2": "m_f-red_201",
                 "complete": true
             }
         },
@@ -30657,7 +30643,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.206Z//12"
+        "_id": "2023-01-12T10:17:37.960Z//12"
     },
     {
         "messageType": "InteractionMessage",
@@ -30672,15 +30658,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.207Z",
+            "timestamp": "2023-01-12T10:17:37.960Z",
             "turnNumber": 3,
             "counter": 14,
             "interaction": {
-                "startTime": "2022-11-14T06:15:00.000Z",
-                "endTime": "2022-11-14T04:05:00.000Z",
+                "startTime": "2022-11-14T15:20:00.000Z",
+                "endTime": "2022-11-14T16:05:00.000Z",
                 "id": "umpire-14",
-                "orders1": "m_f-blue_213",
-                "orders2": "m_f-red_138",
+                "orders1": "m_f-blue_591",
+                "orders2": "m_f-red_438",
                 "complete": true
             }
         },
@@ -30693,7 +30679,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.207Z//13"
+        "_id": "2023-01-12T10:17:37.960Z//13"
     },
     {
         "messageType": "InteractionMessage",
@@ -30708,15 +30694,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-11T17:12:08.207Z",
+            "timestamp": "2023-01-12T10:17:37.960Z",
             "turnNumber": 3,
             "counter": 15,
             "interaction": {
-                "startTime": "2022-11-14T16:00:00.000Z",
-                "endTime": "2022-11-14T14:00:00.000Z",
+                "startTime": "2022-11-14T08:50:00.000Z",
+                "endTime": "2022-11-14T03:55:00.000Z",
                 "id": "umpire-15",
-                "orders1": "m_f-blue_603",
-                "orders2": "m_f-red_255",
+                "orders1": "m_f-blue_318",
+                "orders2": "m_f-red_39",
                 "complete": true
             }
         },
@@ -30729,6 +30715,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-11T17:12:08.207Z//14"
+        "_id": "2023-01-12T10:17:37.960Z//14"
     }
 ]
