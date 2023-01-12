@@ -406,12 +406,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {
-    const firstGeom = plans[0].geometry
-    const lastGeom = plans[plans.length - 1].geometry
-    if (firstGeom.properties && lastGeom.properties) {
-      const firstProps: PlannedProps = firstGeom.properties as PlannedProps
-      const lastProps: PlannedProps = lastGeom.properties as PlannedProps
-      return [firstProps.startDate, lastProps.endDate]
+    if (plans.length) {
+      const firstGeom = plans[0].geometry
+      const lastGeom = plans[plans.length - 1].geometry
+      if (firstGeom.properties && lastGeom.properties) {
+        const firstProps: PlannedProps = firstGeom.properties as PlannedProps
+        const lastProps: PlannedProps = lastGeom.properties as PlannedProps
+        return [firstProps.startDate, lastProps.endDate]
+      } else {
+        return undefined
+      }
     } else {
       return undefined
     }
