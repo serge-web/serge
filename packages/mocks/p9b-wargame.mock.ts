@@ -11173,7 +11173,7 @@ const game: Wargame = {
                         "format": "grid",
                         "required": [
                             "narrative",
-                            "reference",
+                            "Reference",
                             "important"
                         ],
                         "properties": {
