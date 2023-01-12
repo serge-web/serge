@@ -197,7 +197,20 @@ const p9StockTemplates: TemplateBody[] = [
                   '0'
                 ],
                 options: {
-                  grid_columns: 3
+                  grid_columns: 2
+                }
+              },
+              repairComplete: {
+                title: 'Repair in (days)',
+                type: 'string',
+                enum: [
+                  'n/a',
+                  '1',
+                  '2',
+                  '3'
+                ],
+                options: {
+                  grid_columns: 2
                 }
               },
               narrative: {
