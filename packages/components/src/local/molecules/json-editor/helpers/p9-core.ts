@@ -22,7 +22,7 @@ export const coreTemplate = {
     propertyOrder: 40,
     title: 'Start Date',
     options: {
-      grid_columns: 3,
+      grid_columns: 4,
       inputAttributes: {
         placeholder: 'Enter date'
       },
@@ -36,10 +36,10 @@ export const coreTemplate = {
   endDate: {
     format: 'datetime-local',
     type: 'string',
-    propertyOrder: 40,
+    propertyOrder: 45,
     title: 'End Date',
     options: {
-      grid_columns: 3,
+      grid_columns: 4,
       inputAttributes: {
         placeholder: 'Enter date'
       },
@@ -61,7 +61,7 @@ export const coreTemplate = {
       'asymmetric'
     ],
     options: {
-      grid_columns: 6,
+      grid_columns: 4,
       enum_titles: [
         'Transit1',
         'Kinetic1',
