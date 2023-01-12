@@ -122,7 +122,7 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
         attributes[id] = 'Airfield'
       } else {
         const multiplier = Math.floor(Math.random() * 6) + 1
-        attributes[id] = platformType.name + '_' + multiplier  
+        attributes[id] = platformType.name + '_' + multiplier
       }
     } else {
       switch (attr.attrType) {
@@ -258,7 +258,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       const origin = turf.point([airLoc[1], airLoc[0]])
       const newPt = turf.destination(origin, 20, -180 + Math.random() * 360, { units: 'kilometers' })
       const behindCoords = newPt.geometry.coordinates
-      const newLoc: [number, number] = [ behindCoords[1], behindCoords[0] ]
+      const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
       asset.location = newLoc
     } else {
       console.warn('Not found assets for this aircraft')
