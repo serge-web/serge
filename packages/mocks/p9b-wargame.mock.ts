@@ -8143,26 +8143,6 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
-                                    "name": "BMD MEZ",
-                                    "actId": "BMD-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-blue-Land-BMD MEZ",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "BMD MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "BMD MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
@@ -8330,26 +8310,6 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "SAM MEZ",
-                                    "actId": "SAM-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-blue-Land-SAM MEZ",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "SAM MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "SAM MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -8428,26 +8388,6 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "ASW Barrier-2"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "BMD MEZ",
-                                    "actId": "BMD-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-blue-Maritime-BMD MEZ",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "BMD MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "BMD MEZ-0"
                                         }
                                     ]
                                 },
@@ -8720,26 +8660,6 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "SAM MEZ",
-                                    "actId": "SAM-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-blue-Maritime-SAM MEZ",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "SAM MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "SAM MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -8788,8 +8708,8 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Defensive Counter Air",
-                                    "actId": "DCA",
+                                    "name": "Combat Air Patrol",
+                                    "actId": "CAP",
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
@@ -8803,26 +8723,26 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST"
                                     ],
-                                    "uniqid": "f-blue-Air-Defensive Counter Air",
+                                    "uniqid": "f-blue-Air-Combat Air Patrol",
                                     "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-0"
+                                            "uniqid": "Combat Air Patrol-0"
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "DCA Area",
+                                            "name": "CAP Area",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-1"
+                                            "uniqid": "Combat Air Patrol-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-2"
+                                            "uniqid": "Combat Air Patrol-2"
                                         }
                                     ]
                                 },
@@ -8920,45 +8840,6 @@ const game: Wargame = {
                                         }
                                     ],
                                     "provideSpatialAssets": true
-                                },
-                                {
-                                    "name": "Offensive Counter Air",
-                                    "actId": "OCA",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "RESUPP",
-                                        "TRANSIT",
-                                        "DCA",
-                                        "OCA",
-                                        "SoffS",
-                                        "SEAD",
-                                        "TST"
-                                    ],
-                                    "uniqid": "f-blue-Air-Offensive Counter Air",
-                                    "template": "Air--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "OCA Area",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-2"
-                                        }
-                                    ]
                                 },
                                 {
                                     "name": "Patrol",
@@ -9212,26 +9093,6 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
-                                    "name": "BMD MEZ",
-                                    "actId": "BMD-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-red-Land-BMD MEZ",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "BMD MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "BMD MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
@@ -9399,26 +9260,6 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "SAM MEZ",
-                                    "actId": "SAM-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-red-Land-SAM MEZ",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "SAM MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "SAM MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -9497,26 +9338,6 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "ASW Barrier-2"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "BMD MEZ",
-                                    "actId": "BMD-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-red-Maritime-BMD MEZ",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "BMD MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "BMD MEZ-0"
                                         }
                                     ]
                                 },
@@ -9789,26 +9610,6 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "SAM MEZ",
-                                    "actId": "SAM-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-red-Maritime-SAM MEZ",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "SAM MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "SAM MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Sea Denial",
                                     "actId": "Sea Denial",
                                     "interactsWith": [
@@ -9874,8 +9675,8 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Defensive Counter Air",
-                                    "actId": "DCA",
+                                    "name": "Combat Air Patrol",
+                                    "actId": "CAP",
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
@@ -9889,26 +9690,26 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST"
                                     ],
-                                    "uniqid": "f-red-Air-Defensive Counter Air",
+                                    "uniqid": "f-red-Air-Combat Air Patrol",
                                     "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-0"
+                                            "uniqid": "Combat Air Patrol-0"
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "DCA Area",
+                                            "name": "CAP Area",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-1"
+                                            "uniqid": "Combat Air Patrol-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-2"
+                                            "uniqid": "Combat Air Patrol-2"
                                         }
                                     ]
                                 },
@@ -10006,45 +9807,6 @@ const game: Wargame = {
                                         }
                                     ],
                                     "provideSpatialAssets": true
-                                },
-                                {
-                                    "name": "Offensive Counter Air",
-                                    "actId": "OCA",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "RESUPP",
-                                        "TRANSIT",
-                                        "DCA",
-                                        "OCA",
-                                        "SoffS",
-                                        "SEAD",
-                                        "TST"
-                                    ],
-                                    "uniqid": "f-red-Air-Offensive Counter Air",
-                                    "template": "Air--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "OCA Area",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-2"
-                                        }
-                                    ]
                                 },
                                 {
                                     "name": "Patrol",
@@ -10298,26 +10060,6 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
-                                    "name": "BMD MEZ",
-                                    "actId": "BMD-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-green-Land-BMD MEZ",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "BMD MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "BMD MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
@@ -10485,26 +10227,6 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "SAM MEZ",
-                                    "actId": "SAM-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-green-Land-SAM MEZ",
-                                    "template": "Land--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "SAM MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "SAM MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -10583,26 +10305,6 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "ASW Barrier-2"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "name": "BMD MEZ",
-                                    "actId": "BMD-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-green-Maritime-BMD MEZ",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "BMD MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "BMD MEZ-0"
                                         }
                                     ]
                                 },
@@ -10875,26 +10577,6 @@ const game: Wargame = {
                                     ]
                                 },
                                 {
-                                    "name": "SAM MEZ",
-                                    "actId": "SAM-MEZ",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "SEAD"
-                                    ],
-                                    "uniqid": "f-green-Maritime-SAM MEZ",
-                                    "template": "Maritime--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Point",
-                                            "name": "SAM MEZ Location",
-                                            "optional": false,
-                                            "uniqid": "SAM MEZ-0"
-                                        }
-                                    ]
-                                },
-                                {
                                     "name": "Strike",
                                     "actId": "STRIKE",
                                     "interactsWith": [
@@ -10943,8 +10625,8 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Defensive Counter Air",
-                                    "actId": "DCA",
+                                    "name": "Combat Air Patrol",
+                                    "actId": "CAP",
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
@@ -10958,26 +10640,26 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST"
                                     ],
-                                    "uniqid": "f-green-Air-Defensive Counter Air",
+                                    "uniqid": "f-green-Air-Combat Air Patrol",
                                     "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-0"
+                                            "uniqid": "Combat Air Patrol-0"
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "DCA Area",
+                                            "name": "CAP Area",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-1"
+                                            "uniqid": "Combat Air Patrol-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Defensive Counter Air-2"
+                                            "uniqid": "Combat Air Patrol-2"
                                         }
                                     ]
                                 },
@@ -11075,45 +10757,6 @@ const game: Wargame = {
                                         }
                                     ],
                                     "provideSpatialAssets": true
-                                },
-                                {
-                                    "name": "Offensive Counter Air",
-                                    "actId": "OCA",
-                                    "interactsWith": [
-                                        "STRIKE",
-                                        "EW",
-                                        "ISTAR",
-                                        "PATRL",
-                                        "RESUPP",
-                                        "TRANSIT",
-                                        "DCA",
-                                        "OCA",
-                                        "SoffS",
-                                        "SEAD",
-                                        "TST"
-                                    ],
-                                    "uniqid": "f-green-Air-Offensive Counter Air",
-                                    "template": "Air--Standard",
-                                    "geometries": [
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route out",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-0"
-                                        },
-                                        {
-                                            "aType": "Polygon",
-                                            "name": "OCA Area",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-1"
-                                        },
-                                        {
-                                            "aType": "Polyline",
-                                            "name": "Route back",
-                                            "optional": false,
-                                            "uniqid": "Offensive Counter Air-2"
-                                        }
-                                    ]
                                 },
                                 {
                                     "name": "Patrol",

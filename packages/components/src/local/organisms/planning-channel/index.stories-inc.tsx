@@ -264,7 +264,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
 export const Default = Template.bind({})
 Default.args = {
   messages: channelMessages,
-  selectedRoleId: allRoles[2],
+  selectedRoleId: allRoles[5],
   phase: Phase.Adjudication
 }
 
