@@ -394,10 +394,14 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     title: 'Order item ' + ctr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
-    location: geometries,
     activity: activity.uniqid,
     ownAssets: assetsArr,
     otherAssets: targetsAarr
+  }
+
+  // inject location, if necessary
+  if (geometries.length > 0) {
+    message.location = geometries
   }
 
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }

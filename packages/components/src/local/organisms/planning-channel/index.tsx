@@ -132,7 +132,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const createAssets = false
+      const createAssets = true
       if (createAssets) {
         const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
@@ -682,7 +682,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
 
     // constraints actually contains the max
-    const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 2 : 7
+    const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 4 : 7
 
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>

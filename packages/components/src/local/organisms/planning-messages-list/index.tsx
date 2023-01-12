@@ -213,7 +213,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           detailPanelType: 'single',
           pageSizeOptions: [5, 10, 15, 20],
           filtering: filter,
-          selection: true
+          selection: true,
+          rowStyle: { fontSize: '80%' }
         }}
         onSelectionChange={onSelectionChange}
         detailPanel={detailPanel}

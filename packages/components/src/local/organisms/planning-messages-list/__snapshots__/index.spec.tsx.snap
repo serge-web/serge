@@ -692,7 +692,11 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                   level={0}
                   onClick={[Function]}
                   role={null}
-                  style={Object {}}
+                  style={
+                    Object {
+                      "fontSize": "80%",
+                    }
+                  }
                 >
                   <td
                     aria-sort={null}

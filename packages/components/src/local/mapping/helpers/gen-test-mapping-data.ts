@@ -117,8 +117,13 @@ const createModernAttributesFor = (platformType: PlatformTypeData, attributeType
           break
       }
     } else if (id === 'a_Type') {
-      const multiplier = Math.floor(Math.random() * 6) + 1
-      attributes[id] = platformType.name + '_' + multiplier
+      // randomly generate airfield for land assets
+      if ((platformType.uniqid.indexOf('land_asset') > -1) && (Math.floor(Math.random() * 10) > 7)) {
+        attributes[id] = 'Airfield'
+      } else {
+        const multiplier = Math.floor(Math.random() * 6) + 1
+        attributes[id] = platformType.name + '_' + multiplier
+      }
     } else {
       switch (attr.attrType) {
         case ATTRIBUTE_TYPE_NUMBER: {
@@ -189,13 +194,15 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
 }
 
 const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined,
-  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising?:boolean): Asset[] => {
+  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising:boolean): Asset[] => {
   const assets = []
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
     const h3Pos = h3Res ? h3.geoToH3(posit[1], posit[0], h3Res) : undefined
+    const generateLandAssets = Math.random() * 10.0 > 8
+    const landAssetType = platformTypes.find((platform: PlatformTypeData) => platform.uniqid.indexOf('land_asset') >= 0)
     const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
-    const platformType = platformTypes[platformTypeCtr]
+    const platformType = generateLandAssets ? landAssetType : platformTypes[platformTypeCtr]
     if (!platformType) {
       console.warn('failed to find platform type with index', platformTypeCtr, platformTypes.length)
       continue
@@ -234,6 +241,31 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       assets.push(asset)
     }
   }
+
+  // put aircraft onto airfields
+  const airfields = assets.filter((asset: Asset) => {
+    const isAsset = asset.platformTypeId.endsWith('land_asset')
+    const aType = asset.attributes && asset.attributes.a_Type === 'Airfield'
+    return isAsset && aType
+  })
+  const airAsset = assets.filter((asset: Asset) => asset.platformTypeId.indexOf('air') > 0)
+  airAsset.forEach((asset: Asset) => {
+    if (asset.attributes) {
+      const airfield = airfields[Math.floor(Math.random() * airfields.length)]
+      asset.attributes.a_Airfield = airfield.uniqid
+      const airLoc = airfield.location || [0, 0]
+
+      const origin = turf.point([airLoc[1], airLoc[0]])
+      const newPt = turf.destination(origin, 20, -180 + Math.random() * 360, { units: 'kilometers' })
+      const behindCoords = newPt.geometry.coordinates
+      const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
+      asset.location = newLoc
+    } else {
+      console.warn('Not found assets for this aircraft')
+    }
+  })
+  console.log(airfields, airAsset)
+
   return assets
 }
 
@@ -253,8 +285,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes, true)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes, true)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces
@@ -276,10 +308,10 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
   const h3Res = constraints.h3res
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [])
-  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, []))
-  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [])
-  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, []))
+  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
+  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, [], true))
+  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
+  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, [], true))
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   setForcesState(newForces)
