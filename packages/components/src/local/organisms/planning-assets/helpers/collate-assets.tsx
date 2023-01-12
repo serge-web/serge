@@ -169,7 +169,7 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   if (icons.length === 3) {
     return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} color={icons[1]} health={+icons[3]} />{icons[2]}</span>
   }
-  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]}</span>
+  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]} <small>({row.id})</small></span>
 }
 
 export const arrToDict = (arr: string[]): any => {
