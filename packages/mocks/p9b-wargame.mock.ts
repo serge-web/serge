@@ -11680,7 +11680,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.115Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Land--Standard",
                     "details": {
                         "format": "grid",
@@ -11726,7 +11726,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -11740,10 +11740,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -11765,7 +11765,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -11970,10 +11970,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Standard",
-                    "_rev": "2023-01-12T09:59:14.115Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.115Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Maritime--Standard",
                     "details": {
                         "format": "grid",
@@ -12020,7 +12020,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -12034,10 +12034,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -12059,7 +12059,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -12277,10 +12277,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Standard",
-                    "_rev": "2023-01-12T09:59:14.115Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.115Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12326,7 +12326,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -12340,10 +12340,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -12365,7 +12365,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -12616,10 +12616,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-01-12T09:59:14.115Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.115Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12666,7 +12666,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -12680,10 +12680,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -12705,7 +12705,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -12969,10 +12969,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-01-12T09:59:14.115Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13019,7 +13019,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13033,10 +13033,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13058,7 +13058,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -13271,10 +13271,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13322,7 +13322,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13336,10 +13336,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13361,7 +13361,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -13587,10 +13587,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13639,7 +13639,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13653,10 +13653,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13678,7 +13678,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -13909,10 +13909,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -13962,7 +13962,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -13976,10 +13976,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -14001,7 +14001,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -14248,10 +14248,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14302,7 +14302,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -14316,10 +14316,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -14341,7 +14341,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -14601,10 +14601,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14656,7 +14656,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -14670,10 +14670,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -14695,7 +14695,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -14960,10 +14960,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -15010,7 +15010,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15024,10 +15024,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15049,7 +15049,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -15262,10 +15262,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -15313,7 +15313,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15327,10 +15327,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15352,7 +15352,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -15578,10 +15578,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.044Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -15630,7 +15630,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15644,10 +15644,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15669,7 +15669,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -15900,10 +15900,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.044Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -15951,7 +15951,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15965,10 +15965,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -15990,7 +15990,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -16213,10 +16213,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -16265,7 +16265,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -16279,10 +16279,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -16304,7 +16304,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -16538,10 +16538,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -16591,7 +16591,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -16605,10 +16605,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -16630,7 +16630,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -16877,10 +16877,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -16931,7 +16931,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -16945,10 +16945,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -16970,7 +16970,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -17222,10 +17222,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -17273,7 +17273,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -17287,10 +17287,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -17312,7 +17312,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -17539,10 +17539,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -17591,7 +17591,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -17605,10 +17605,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -17630,7 +17630,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -17865,10 +17865,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -17917,7 +17917,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -17931,10 +17931,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -17956,7 +17956,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -18236,10 +18236,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -18288,7 +18288,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -18302,10 +18302,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -18327,7 +18327,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -18559,10 +18559,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -18614,7 +18614,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -18628,10 +18628,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -18653,7 +18653,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -18928,10 +18928,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T09:59:14.116Z",
+                    "lastUpdated": "2023-01-12T10:13:53.045Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -18984,7 +18984,7 @@ const game: Wargame = {
                                 "propertyOrder": 40,
                                 "title": "Start Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -18998,10 +18998,10 @@ const game: Wargame = {
                             "endDate": {
                                 "format": "datetime-local",
                                 "type": "string",
-                                "propertyOrder": 40,
+                                "propertyOrder": 45,
                                 "title": "End Date",
                                 "options": {
-                                    "grid_columns": 3,
+                                    "grid_columns": 4,
                                     "inputAttributes": {
                                         "placeholder": "Enter date"
                                     },
@@ -19023,7 +19023,7 @@ const game: Wargame = {
                                     "asymmetric"
                                 ],
                                 "options": {
-                                    "grid_columns": 6,
+                                    "grid_columns": 4,
                                     "enum_titles": [
                                         "Transit1",
                                         "Kinetic1",
@@ -19315,7 +19315,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2023-01-12T09:59:14.116Z"
+                    "_rev": "2023-01-12T10:13:53.045Z"
                 }
             ]
         }
