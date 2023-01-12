@@ -23,6 +23,4 @@ export default interface PropTypes {
   toolbarChildren?: React.ReactElement
   /** where to get the tile data from */
   tileLayer: TileLayerDefinition
-  /** zoom level to use when we close in on point */
-  maxZoom: number
 }

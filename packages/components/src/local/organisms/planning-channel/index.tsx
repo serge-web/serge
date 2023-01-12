@@ -750,7 +750,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 actionCallback={mapActionCallback}
                 mapWidth={mapWidth}
                 tileLayer={channel.constraints.tileLayer || duffDefinition}
-                maxZoom={maxZoom}
                 toolbarChildren={
                   <>
                     {!activityBeingPlanned &&
