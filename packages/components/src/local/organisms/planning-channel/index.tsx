@@ -24,7 +24,7 @@ import { collapseLocation } from '../planning-messages-list/helpers/collapse-loc
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
@@ -125,6 +125,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // show the child elements, regardless of what is selected
   const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
+
+  const genData = (): void => {
+    const doGenny = 7
+    if (!doGenny) {
+      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+      setActivityBeingPlanned(newPlan)
+    } else {
+      const createAssets = false
+      if (createAssets) {
+        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
+        console.log('forces', forces)
+      } else {
+        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
+        console.log(newOrders)
+      }
+    }
+  }
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -343,23 +360,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders])
 
-  const genData = (): void => {
-    const doGenny = 7
-    if (!doGenny) {
-      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-      setActivityBeingPlanned(newPlan)
-    } else {
-      const createAssets = false
-      if (createAssets) {
-        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
-        console.log('forces', forces)
-      } else {
-        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
-        console.log(newOrders)
-      }
-    }
-  }
-
   const incrementDebugStep = (): void => {
     // do something
     // const msgs = dummyMessages.map((plan: MessagePlanning) => {
@@ -383,17 +383,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setDebugStep(1 + debugStep)
   }
 
-  const handleAdjudication = (contact: PlanningContact): void => {
-    console.log('Apply some adjudication for', contact.id, contact)
-    const interDetails: InteractionDetails = {
-      id: contact.id,
-      orders1: contact.first.activity._id,
-      orders2: contact.second.activity._id,
-      startTime: moment(contact.timeStart).toISOString(),
-      endTime: moment(contact.timeEnd).toISOString(),
-      geometry: contact.intersection,
-      complete: false
-    }
+  const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
+    console.log('Apply some adjudication for', outcomes.Reference, outcomes)
     const from: MessageDetailsFrom = {
       force: selectedForce.uniqid,
       forceId: selectedForce.uniqid,
@@ -410,25 +401,21 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: MessageAdjudicationOutcomes = contact.outcomes || {
-      messageType: 'AdjudicationOutcomes',
-      Reference: '',
-      narrative: '',
-      perceptionOutcomes: [],
-      locationOutcomes: [],
-      healthOutcomes: []
-    }
     // store the new adjudication
-    saveMessage(currentWargame, details, message)()
+    saveMessage(currentWargame, details, outcomes)()
   }
 
   const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {
-    const firstGeom = plans[0].geometry
-    const lastGeom = plans[plans.length - 1].geometry
-    if (firstGeom.properties && lastGeom.properties) {
-      const firstProps: PlannedProps = firstGeom.properties as PlannedProps
-      const lastProps: PlannedProps = lastGeom.properties as PlannedProps
-      return [firstProps.startDate, lastProps.endDate]
+    if (plans.length) {
+      const firstGeom = plans[0].geometry
+      const lastGeom = plans[plans.length - 1].geometry
+      if (firstGeom.properties && lastGeom.properties) {
+        const firstProps: PlannedProps = firstGeom.properties as PlannedProps
+        const lastProps: PlannedProps = lastGeom.properties as PlannedProps
+        return [firstProps.startDate, lastProps.endDate]
+      } else {
+        return undefined
+      }
     } else {
       return undefined
     }

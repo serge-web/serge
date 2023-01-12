@@ -73,6 +73,19 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
+/** an event created from just one set of plans */
+export interface ShortCircuitEvent {
+  id: string
+  message: MessagePlanning
+  activity: PlanningActivity
+  timeStart: number // unix millis
+  timeEnd: number // unix millis
+  intersection?: Geometry
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
+}
+
 /** an instance of one geometry interacting with another */
 export interface PlanningContact {
   id: string
@@ -616,6 +629,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       const msgBody: MessageAdjudicationOutcomes = {
         Reference: reference,
         healthOutcomes: [],
+        important: psora(3 + i) > 0.7,
         locationOutcomes: [],
         perceptionOutcomes: [],
         narrative: '',
@@ -625,7 +639,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
         messageType: INTERACTION_MESSAGE,
         details: details,
         message: msgBody,
-        _id: moment().toISOString()
+        _id: moment().toISOString() + '//' + interactions.length
       }
       // check it's not already present
       if (!interactions.find((inter) => inter.message.Reference === msgInt.message.Reference)) {

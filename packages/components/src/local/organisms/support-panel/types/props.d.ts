@@ -1,6 +1,7 @@
 import { TurnFormats } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, MessageDetails, MessagePlanning, PerForcePlanningActivitySet, Phase, PlainInteraction, PlanningContact, PlatformTypeData, Role, TemplateBody
+  AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
+  PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
@@ -64,7 +65,7 @@ export default interface PropTypes {
   /**
    * there is a new interaction to adjudicate
    */
-  handleAdjudication: { (contact: PlanningContact): void }
+  handleAdjudication: {(details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
   /**
    * The method for posting messages out of the mapping components. They have
    * special handlers since the message may involve making changes to the forces

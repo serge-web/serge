@@ -81,11 +81,13 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
     const makeList = (assets: Asset[]): AssetRow[] => {
       return assets.map((asset: Asset): AssetRow => {
+        const subType: string = asset.attributes ? asset.attributes.a_Type as string : ''
         const row: AssetRow = {
           id: asset.uniqid,
           icon: 'aaa',
           name: asset.name,
           platformType: asset.platformTypeId,
+          subType: subType,
           health: 100,
           domain: 'Air',
           attributes: { word: 'text', number: 123 }

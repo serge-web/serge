@@ -12,7 +12,7 @@ const p9StockTemplates: TemplateBody[] = [
       title: 'Adjudication Outcomes',
       format: 'grid',
       required: [
-        'narrative'
+        'narrative', 'reference', 'important'
       ],
       properties: {
         Reference: {
@@ -26,6 +26,12 @@ const p9StockTemplates: TemplateBody[] = [
             hidden: true
           },
           type: 'string'
+        },
+        important: {
+          type: 'boolean',
+          propertyOrder: 15,
+          title: 'Important (high profile adjudication)',
+          format: 'checkbox'
         },
         narrative: {
           title: 'General Feedback',
@@ -197,7 +203,20 @@ const p9StockTemplates: TemplateBody[] = [
                   '0'
                 ],
                 options: {
-                  grid_columns: 3
+                  grid_columns: 2
+                }
+              },
+              repairComplete: {
+                title: 'Repair in (days)',
+                type: 'string',
+                enum: [
+                  'n/a',
+                  '1',
+                  '2',
+                  '3'
+                ],
+                options: {
+                  grid_columns: 2
                 }
               },
               narrative: {

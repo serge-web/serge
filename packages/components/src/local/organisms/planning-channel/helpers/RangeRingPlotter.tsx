@@ -20,7 +20,7 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
     assets.forEach((asset: AssetRow) => {
       const attrs = asset.attributes
       // try for the two range attributes
-      const range: string = attrs['MEZ Range'] || attrs.Range
+      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
       if (range) {
         const index = range.indexOf(' km')
         const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)

@@ -1,15 +1,20 @@
-import { ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody } from '@serge/custom-types'
+import {
+  ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
+  PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody
+} from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
 import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/props'
 import { AdjudicationPostBack } from '../../planning-channel/types/props'
-import { PlanningContact } from '../../support-panel/helpers/gen-order-data'
 
 export type AdjudicationRow = {
   id: string
   complete: boolean
   /** turn when adjudication generated */
   turn: number
+  /** whether outcome is flagged as important */
+  important: string
+  owner: string
   order1: string
   order2: string
   activity: string
@@ -36,6 +41,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    *  current game-date (may be used in JSON Editor for date-picker)
    */
   gameDate: string
+  /**
+   *  the turn length
+   */
+  gameTurnLength: GameTurnLength
   /**
    *  definition of planning channel
    */
@@ -72,7 +81,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * there is a new interaction to adjudicate
    */
-  handleAdjudication: { (contact: PlanningContact): void }
+  handleAdjudication: { (details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
   /**
    * current turn filter (or -1 to show all turns)
    */
