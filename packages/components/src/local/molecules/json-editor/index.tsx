@@ -57,7 +57,8 @@ export const JsonEditor: React.FC<Props> = ({
     const cleanDate = (date: string): string => {
       if (!date.includes('Z')) {
         // convert to ISO
-        return moment(date, 'dd/mm/YYYY HH:ii').toISOString()
+        const res =  moment(date, 'DD/MM/YYYY HH:mm').toISOString()
+        return res
       } else {
         return date
       }
