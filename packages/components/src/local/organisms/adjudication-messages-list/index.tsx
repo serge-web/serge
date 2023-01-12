@@ -1,7 +1,7 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
-import { Box, Table } from '@material-ui/core'
+import { Box, Chip, Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
@@ -69,7 +69,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (interactionMessages.length > 0) {
       const lastMessage = interactionMessages[interactionMessages.length - 1]
       if (lastMessage.details.interaction) {
-        setCurrentTime(lastMessage.details.interaction.startTime)
+        setCurrentTime('Time now:' + lastMessage.details.interaction.startTime)
       }
     }
   }, [interactionMessages])
@@ -413,7 +413,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
-        <span>Current time:{currentTime}</span>
+        <Chip label={currentTime}/>
       </div>
 
       <MaterialTable
