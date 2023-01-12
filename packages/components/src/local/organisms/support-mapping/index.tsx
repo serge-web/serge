@@ -30,7 +30,9 @@ export const SupportMapping: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (position && map) {
-      map.flyTo(position, maxZoom, { duration: 0.6 })
+      // note: fly-to zoom is left as undefined,
+      // this prevents zooming in too far
+      map.flyTo(position, undefined, { duration: 0.6 })
     }
   }, [position])
 
