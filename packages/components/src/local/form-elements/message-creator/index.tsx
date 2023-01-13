@@ -5,8 +5,6 @@ import {
   CHANNEL_COLLAB,
   CollaborativeMessageStates,
   InitialStates,
-  UNSENT_CHAT_MESSAGE_TYPE,
-  UNSENT_PRIVATE_MESSAGE_TYPE,
   UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
 import {
@@ -33,8 +31,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   postBack,
   customiseTemplate,
   messageOption,
-  createCachedCreatorMessage,
-  getcachedCreatorMessageValue,
   clearCachedCreatorMessage,
   draftMessage,
   modifyForEdit,
@@ -50,8 +46,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
-  const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
-  const mainMessageOption = `${messageOption}-${UNSENT_CHAT_MESSAGE_TYPE}`
 
   const messageBeingEdited = useRef<Record<string, any> | string>('')
 
@@ -100,17 +94,12 @@ const MessageCreator: React.FC<PropTypes> = ({
     setFormValue(undefined)
     postBack && postBack(details, formMessage)
     setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, mainMessageOption])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([ messageOption ])
     onMessageSend && onMessageSend(e)
   }
 
   useEffect(() => {
-    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
-    setPrivateValue(privateValues)
 
-    const mainAny: any = getcachedCreatorMessageValue && getcachedCreatorMessageValue(mainMessageOption)
-    const mainForm = mainAny ? mainAny as Record<string, any> : undefined
-    setFormValue(mainForm)
 
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
@@ -133,20 +122,17 @@ const MessageCreator: React.FC<PropTypes> = ({
     setConfirmIsOpen(false)
     setPrivateValue('')
     setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption, UNSENT_CHAT_MESSAGE_TYPE])
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([ messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
     onCancel && onCancel(event)
   }
 
   const onChangePrivate = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setPrivateValue(e.target.value)
-    createCachedCreatorMessage && createCachedCreatorMessage(e.target.value, privatMessageOption)
   }
 
   const responseHandler = (val: { [property: string]: any }): void => {
     setFormMessage(val)
     messageBeingEdited.current = val
-    createCachedCreatorMessage && createCachedCreatorMessage(val, mainMessageOption)
   }
 
   useEffect(() => {
