@@ -42,7 +42,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
   const [clearName, setClearName] = useState<string>(messageOption)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
-  const [formValue, setFormValue] = useState<Record<string, any> | undefined>(undefined)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -91,7 +90,6 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     // send the data
     setPrivateValue('')
-    setFormValue(undefined)
     postBack && postBack(details, formMessage)
     setClearName(messageOption)
     clearCachedCreatorMessage && clearCachedCreatorMessage([ messageOption ])
@@ -140,12 +138,12 @@ const MessageCreator: React.FC<PropTypes> = ({
       const anyDraft = draftMessage as any
       if (anyDraft.message) {
         // store cached content, if we have any
-        setMessageContent(formValue || anyDraft.message)
+        setMessageContent(anyDraft.message)
       } else {
         setMessageContent(undefined)
       }
     }
-  }, [draftMessage, formValue])
+  }, [draftMessage])
 
   return (
     <>
