@@ -893,9 +893,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "140px",
                       }
                     }
-                    value="130852Z"
+                    value="OCT 130852Z"
                   >
-                    130852Z
+                    OCT 130852Z
                   </td>
                   <td
                     aria-sort={null}
@@ -913,9 +913,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                         "width": "140px",
                       }
                     }
-                    value="150852Z"
+                    value="OCT 150852Z"
                   >
-                    150852Z
+                    OCT 150852Z
                   </td>
                 </tr>
                 <tr
