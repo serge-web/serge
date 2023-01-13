@@ -19,7 +19,7 @@ const configCommonValidation = (
       ) {
         format = 'DD/MM/YYYY HH:MM'
         defaultFieldName = 'Datetime'
-      }  
+      }
       break
     case 'date':
       if (value === '' || !/^(\d{2}\D\d{2}\D\d{4})?$/.test(value)) {
