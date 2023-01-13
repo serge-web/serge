@@ -225,6 +225,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     })
 
+    // set the default dates, if they are empty
+    const plan = document as PlanningMessageStructureCore
+    if (gameDate && plan.startDate === '' || plan.endDate === '') {
+      plan.startDate = gameDate
+      plan.endDate = gameDate
+    }
+
     // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
