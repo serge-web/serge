@@ -107,9 +107,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
             geometry: details.geometry,
             properties: {}
           }
-          const color = '#FF0'
+          const color = '#FF0' // make it yellow
           const shape = shapeFor(feature, color, 'interaction', storeRef, elements.length)
-          console.warn('Generating shape for this interaction', shape)
           elements.push(shape)
         }
 
