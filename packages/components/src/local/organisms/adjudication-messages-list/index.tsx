@@ -19,6 +19,24 @@ import { getNextInteraction2, InteractionResults } from './helpers/getNextIntera
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
 
+type ForceMessages = {
+  forceName: string
+  messages: MessagePlanning[]
+}
+
+type ManualInteractionData = {
+  forceMessages: ForceMessages[]
+  otherAssets: Asset[]
+}
+
+type ManualInteractionResults = {
+  order1: MessagePlanning
+  order2?: MessagePlanning
+  otherAssets: Asset[]
+  startDate: string // isoString
+  endDate: string
+}
+
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
@@ -42,6 +60,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
 
   const [currentTime, setCurrentTime] = useState<string>('pending')
+
+  const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -324,6 +344,48 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+
+  const createManualInteraction = (): void => {
+    // collate the data
+
+    // orders
+    const forceMsgs: ForceMessages[] = []
+    filteredPlans.forEach((msg: MessagePlanning) => {
+      const force = msg.details.from.force
+      let forceData = forceMsgs.find((val: ForceMessages) => val.forceName === force)
+      if (!forceData) {
+        forceData = {forceName: force, messages: []}
+        forceMsgs.push(forceData)
+      }
+      forceData.messages.push(msg)
+    })
+
+    const otherAssets: Asset[] = []
+    forces.forEach((force: ForceData) => {
+      if (force.assets) {
+        otherAssets.push(...force.assets)
+      }
+    })
+
+    const data: ManualInteractionData = {
+      forceMessages: forceMsgs,
+      otherAssets: otherAssets
+    }
+    
+    // popup the form
+    setManualDialog(data)
+  }
+
+  const handleManualInteraction = (results?: ManualInteractionResults): void => {
+    // collate the data
+    console.log('handling', results)
+    // submit the adjudication
+
+    // clear the data
+    setManualDialog(undefined)
+  }
+
+
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
@@ -400,6 +462,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']}>
+      {/* todo - replace this CustomDialog with form matching layout */}
+      <CustomDialog
+        isOpen={manualDialog !== undefined}
+        header={'Manual dialog, #assets:' + (manualDialog && manualDialog?.otherAssets.length)}
+        cancelBtnText={'Cancel'}
+        saveBtnText={'Create'}
+        onClose={(): void => setManualDialog(undefined)}
+        onSave={(): void => handleManualInteraction()}
+        content={'Form to create manual interaction'}
+      />
       <CustomDialog
         isOpen={dialogMessage.length > 0}
         header={'Generate interactions'}
@@ -410,9 +482,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         content={dialogMessage}
       />
       <div className='button-wrap' >
-        <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
+        <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
+        <Button color='secondary' onClick={createManualInteraction} icon='save'>Create manual</Button>
+        &nbsp;
+        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
         <Chip label={currentTime}/>
       </div>
 
