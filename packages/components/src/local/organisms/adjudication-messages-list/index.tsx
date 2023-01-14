@@ -7,7 +7,7 @@ import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicat
 import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import _ from 'lodash'
 import moment from 'moment'
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
@@ -461,6 +461,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setDialogMessage('')
     }
   }
+  
+  const closeDialogCallback = useCallback(onClose , []);
 
   return (
     <div className={styles['messages-list']}>
@@ -478,7 +480,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         isOpen={dialogMessage.length > 0}
         header={'Generate interactions'}
         cancelBtnText={'OK'}
-        onClose={onClose}
+        onClose={closeDialogCallback}
         content={dialogMessage}
       />
       <div className='button-wrap' >
