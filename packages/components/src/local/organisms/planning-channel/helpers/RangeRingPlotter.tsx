@@ -21,13 +21,17 @@ export const RangeRingPlotter: React.FC<OrderPlotterProps> = ({ title, assets, f
       const attrs = asset.attributes
       // try for the two range attributes
       const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
-      if (range) {
+      // only plot range rings for SAM sites
+      const isSAM = asset.platformType.indexOf('sam') >= 0
+      if (range && isSAM) {
         const index = range.indexOf(' km')
         const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
         const forceCol = forceCols.find((style: ForceStyle) => style.force === asset.force)
         const centre = asset.position ? asset.position : latLng([0, 0])
         const rad = rangeKm * 1000
-        rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceCol?.color }} />)
+        if (rad > 0) {
+          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceCol?.color }} />)
+        }
       }
     })
     setRangeRings(rings)
