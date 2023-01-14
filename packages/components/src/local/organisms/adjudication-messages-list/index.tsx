@@ -453,7 +453,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const closeDialogCallback = useCallback(() => dialogMessage !== '' && setDialogMessage(''), [])
-  const closeManualCallback = useCallback(() => (undefined), [])
+  const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
   return (
