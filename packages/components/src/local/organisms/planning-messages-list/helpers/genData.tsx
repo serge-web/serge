@@ -9,7 +9,7 @@ export const roles: string[] = []
 /** custom date formatter, for compact date/time display */
 
 const shortDate = (value?: string): string => {
-  return value ? moment(value).format('DDHHmm[Z]') : ''
+  return value ? moment.utc(value).format('MMM DDHHmm[Z]').toUpperCase() : ''
 }
 
 const trimActivity = (forceId: string, activity?: string): string => {
