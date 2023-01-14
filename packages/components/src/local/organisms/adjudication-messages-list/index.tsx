@@ -71,6 +71,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     onDetailPanelClose && onDetailPanelClose(row)
   }
 
+  const clearManualDialog = (): void => {
+    setManualDialog(undefined)
+  }
+
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
@@ -463,20 +467,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       {/* todo - replace this CustomDialog with form matching layout */}
       <CustomDialog
         isOpen={manualDialog !== undefined}
-        header={'Manual dialog, #assets:' + (manualDialog && manualDialog?.otherAssets.length)}
+        header={'Manual dialog, #assets:' + (manualDialog && manualDialog.otherAssets.length)}
         cancelBtnText={'Cancel'}
         saveBtnText={'Create'}
-        onClose={(): void => setManualDialog(undefined)}
-        onSave={(): void => handleManualInteraction()}
+        onClose={clearManualDialog}
+        onSave={handleManualInteraction}
         content={'Form to create manual interaction'}
       />
       <CustomDialog
         isOpen={dialogMessage.length > 0}
         header={'Generate interactions'}
         cancelBtnText={'OK'}
-        // TODO: fix issue on next line
-        // deepscan-disable-next-line
-        onClose={(): void => closeDialog()}
+        onClose={closeDialog}
         content={dialogMessage}
       />
       <div className='button-wrap' >
