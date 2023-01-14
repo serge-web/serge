@@ -157,8 +157,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
 
-  console.warn('state messages', stateMessages.length)
-
   const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
     console.warn('SAVE MESSAGE 1')
     return async (): Promise<void> => {
