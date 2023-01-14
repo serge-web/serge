@@ -344,7 +344,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-
   const createManualInteraction = (): void => {
     // collate the data
 
@@ -354,7 +353,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const force = msg.details.from.force
       let forceData = forceMsgs.find((val: ForceMessages) => val.forceName === force)
       if (!forceData) {
-        forceData = {forceName: force, messages: []}
+        forceData = { forceName: force, messages: [] }
         forceMsgs.push(forceData)
       }
       forceData.messages.push(msg)
@@ -371,7 +370,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       forceMessages: forceMsgs,
       otherAssets: otherAssets
     }
-    
+
     // popup the form
     setManualDialog(data)
   }
@@ -384,7 +383,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     // clear the data
     setManualDialog(undefined)
   }
-
 
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
