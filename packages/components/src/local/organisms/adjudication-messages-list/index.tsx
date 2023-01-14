@@ -71,10 +71,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     onDetailPanelClose && onDetailPanelClose(row)
   }
 
-  const clearManualDialog = (): void => {
-    setManualDialog(undefined)
-  }
-
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
@@ -456,13 +452,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const onClose = (): void => {
-    if (dialogMessage !== '') {
-      setDialogMessage('')
-    }
-  }
-  
-  const closeDialogCallback = useCallback(onClose , []);
+  const closeDialogCallback = useCallback(() => dialogMessage !== '' && setDialogMessage(''), [])
+  const closeManualCallback = useCallback(() => (undefined), [])
+  const handleManualCallback = useCallback(handleManualInteraction, [])
 
   return (
     <div className={styles['messages-list']}>
@@ -472,8 +464,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         header={'Manual dialog, #assets:' + (manualDialog && manualDialog.otherAssets.length)}
         cancelBtnText={'Cancel'}
         saveBtnText={'Create'}
-        onClose={clearManualDialog}
-        onSave={handleManualInteraction}
+        onClose={closeManualCallback}
+        onSave={handleManualCallback}
         content={'Form to create manual interaction'}
       />
       <CustomDialog
