@@ -13,7 +13,8 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
 
   const onFilterChanged = (columnId: number, filter: string[]) => {
     props.onFilterChanged(columnId, filter)
-    if (columnId !== 1) {
+    const platformTypeColIdx = props.columns.findIndex(col => col.field === 'platformType')
+    if (platformTypeColIdx === -1 || columnId !== platformTypeColIdx) {
       return
     }
     const filterSubTypes = {}
@@ -28,7 +29,7 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
         }
       })
       const subTypeColIdx = props.columns.findIndex(col => col.field === 'subType')
-      if (props.columns[subTypeColIdx].lookup) {
+      if (subTypeColIdx !== -1 && props.columns[subTypeColIdx].lookup) {
         props.columns[subTypeColIdx].lookup = filterSubTypes
       }
       setLocalProps({ ...props })
