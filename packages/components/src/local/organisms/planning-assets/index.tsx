@@ -6,6 +6,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { getColumns, getRows } from './helpers/collate-assets'
+import CustomFilterRow from './helpers/custom-filter-row'
 import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 
@@ -77,7 +78,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           {...props}
         />)
       },
-      Row: props => <MTableBodyRow id={props.data.id} {...props} />
+      Row: props => <MTableBodyRow id={props.data.id} {...props} />,
+      FilterRow: props => <CustomFilterRow {...props} forces={forces} />
     }}
   />
 }
