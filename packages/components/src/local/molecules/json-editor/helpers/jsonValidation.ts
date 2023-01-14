@@ -10,7 +10,10 @@ const configCommonValidation = (
   let defaultFieldName = ''
   switch (schema.format) {
     case 'datetime-local':
-      if (
+      // don't bother with validation if it's na IZO string
+      if (value.endsWith('Z') || value.endsWith('+00:00')) {
+        // not validating ISO strings
+      } else if (
         value === '' ||
         !/^(\d{2}\D\d{2}\D\d{4} \d{2}:\d{2}(?::\d{2})?)?$/.test(value)
       ) {
