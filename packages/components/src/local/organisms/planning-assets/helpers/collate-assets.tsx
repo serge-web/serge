@@ -1,7 +1,7 @@
 import { Column } from '@material-table/core'
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from '@serge/config'
 import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
-import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
+import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
@@ -16,26 +16,6 @@ type SummaryData = {
   statuses: string[]
   conditions: string[]
   forces: string[]
-}
-
-// sort the platform dictionary, using this algorithm:
-// https://stackoverflow.com/a/1069840/92441
-const sortDictionaryByValue = (dict: Record<string, string>): Record<string, string> => {
-  // convert dictionary to array
-  const sortedDict = []
-  for (const pType in dict) {
-    sortedDict.push([pType, dict[pType]])
-  }
-  // sort array
-  sortedDict.sort(function (a, b) {
-    return a[1].localeCompare(b[1])
-  })
-  // revert to dictionary
-  const objSorted = {}
-  sortedDict.forEach(function (item) {
-    objSorted[item[0]] = item[1]
-  })
-  return objSorted
 }
 
 const storePlatformType = (pType: PlatformTypeData['uniqid'], platformStyles: PlatformStyle[],
