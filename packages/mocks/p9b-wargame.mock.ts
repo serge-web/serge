@@ -11,7 +11,7 @@ const game: Wargame = {
             "realtimeTurnTime": 300000,
             "timeWarning": 60000,
             "turnPresentation": "Natural",
-            "gameDate": "2022-11-14T00:00:00+00:00",
+            "gameDate": "2022-05-01T00:00:00+00:00",
             "showAccessCodes": true,
             "logPlayerActivity": false,
             "dirty": false
