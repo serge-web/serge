@@ -1,5 +1,6 @@
 import { Column, MTableFilterRow } from '@material-table/core'
 import { Asset, ForceData } from '@serge/custom-types'
+import { sortDictionaryByValue } from '@serge/helpers'
 import React, { useState } from 'react'
 
 type CustomFilterRowProps = {
@@ -28,9 +29,12 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
           filterSubTypes[subType] = subType
         }
       })
+      // sort the list
+      const sortedDict = sortDictionaryByValue(filterSubTypes)
+
       const subTypeColIdx = props.columns.findIndex(col => col.field === 'subType')
       if (subTypeColIdx !== -1 && props.columns[subTypeColIdx].lookup) {
-        props.columns[subTypeColIdx].lookup = filterSubTypes
+        props.columns[subTypeColIdx].lookup = sortedDict
       }
       setLocalProps({ ...props })
     })
