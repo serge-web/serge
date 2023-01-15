@@ -31604,7 +31604,34 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 "id": "umpire-2",
                 "orders1": "m_f-blue_105",
                 "orders2": "m_f-red_177",
-                "complete": true
+                "complete": true,
+                "geometry": {
+                    "type": "Polygon",
+                    "coordinates": [
+                        [
+                            [
+                                67.573,
+                                52.788
+                            ],
+                            [
+                                68.573,
+                                44.91583
+                            ],
+                            [
+                                79.6922,
+                                44.9158
+                            ],
+                            [
+                                79.692,
+                                52.788
+                            ],
+                            [
+                                67.573,
+                                52.788
+                            ]
+                        ]
+                    ]
+                }
             }
         },
         "message": {
