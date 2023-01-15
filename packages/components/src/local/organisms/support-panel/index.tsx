@@ -6,7 +6,7 @@ import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyl
 import cx from 'classnames'
 import { noop } from 'lodash'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -16,7 +16,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS, TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
+import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
@@ -24,7 +24,8 @@ import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
-import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
+import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
+
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
@@ -69,7 +70,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   handleAdjudication
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
-  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TABS[3] : TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE)
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
@@ -120,28 +121,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setFilteredInteractionMessages(filtered)
   }, [interactionMessages, turnFilter])
 
-  const TabPanel = (props: TabPanelProps): React.ReactElement => {
-    const { children, active, ...other } = props
-    return (
-      <div
-        hidden={!active}
-        {...other}
-      >
-        {children}
-      </div>
-    )
-  }
-
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
-    return (
-      <div className={cx(styles['action-tab'], className)}>
-        <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
-        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>Orders</p>
-        <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
-        {selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
-        }
+    if (selectedForce.umpire) {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>All Forces</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_ADJUDICATE)} className={cx({ [styles.active]: activeTab === TAB_ADJUDICATE })}>Adjudication</p>
       </div>
-    )
+    } else {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>My Force</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_OPP_FOR)} className={cx({ [styles.active]: activeTab === TAB_OPP_FOR })}>Other Forces</p>
+      </div>
+    }
   }
 
   const onRender = (): void => {
@@ -328,13 +321,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
-  const checkDisplay = (tab: string): string => {
-    if (typeof tab === 'string' && tab === activeTab) {
-      return 'block'
-    }
-    return 'none'
-  }
-
   const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
     console.log('editorElm: ', editorElm)
   }
@@ -364,23 +350,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return planDoc
   }
 
-  const SlideComponent = useMemo(() => (
-    <Slide direction="right" in={isShowPanel}>
-      <div className={styles.panel}>
-        <Rnd
-          disableDragging
-          style={PANEL_STYLES}
-          default={DEFAULT_SIZE}
-          minWidth={MIN_PANEL_WIDTH}
-          maxWidth={MAX_PANEL_WIDTH}
-          minHeight={MIN_PANEL_HEIGHT}
-          maxHeight={MAX_PANEL_HEIGHT}
-          onResize={onSizeChange}
-        >
-          <div className={styles.content}>
-            <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-              {
-                activeTab === TABS[0] &&
+  return (
+    <div className={styles.root}>
+      <Slide direction="right" in={isShowPanel}>
+        <div className={styles.panel}>
+          <Rnd
+            disableDragging
+            style={PANEL_STYLES}
+            default={DEFAULT_SIZE}
+            minWidth={MIN_PANEL_WIDTH}
+            maxWidth={MAX_PANEL_WIDTH}
+            minHeight={MIN_PANEL_HEIGHT}
+            maxHeight={MAX_PANEL_HEIGHT}
+            onResize={onSizeChange}
+          >
+            <div className={styles.content}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_FORCE })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   assets={allOwnAssets}
@@ -394,10 +379,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onSelectionChange={setSelectedOwnAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
                 />
-              }
-            </TabPanel>
-            {
-              <div style={{ display: checkDisplay(TAB_MY_ORDERS) }} className={styles['order-group']}>
+              </div>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
@@ -454,9 +437,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   editCallback={localEditLocation}
                 />}
               </div>
-            }
-            <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-              {activeTab === TABS[2] &&
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_OPP_FOR })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   platformStyles={platIcons}
@@ -470,10 +451,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onSelectionChange={setSelectedOpAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
                 />
-              }
-            </TabPanel>
-            {activeTab === TABS[3] &&
-              <div className={styles['order-group']}>
+              </div>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
                 <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
@@ -500,36 +479,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onLocationEditorLoaded={onLocationEditorLoaded}
                 />
               </div>
-            }
-            <div className={styles['resize-indicator-container']} >
-              <div className={styles['resize-indicator-icon']} >
-                <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+              <div className={styles['resize-indicator-container']} >
+                <div className={styles['resize-indicator-icon']} >
+                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+                </div>
               </div>
             </div>
-          </div>
-        </Rnd>
-        <TabPanelActions onChange={onTabChange} />
-      </div>
-    </Slide>
-  ), [
-    isShowPanel,
-    activeTab,
-    allForces,
-    filteredPlanningMessages,
-    filteredInteractionMessages,
-    selectedRoleId,
-    turnFilter,
-    draftMessage,
-    selectedOrders,
-    platformTypes,
-    planningMessages,
-    localDraftMessage
-  ]
-  )
-
-  return (
-    <div className={styles.root}>
-      {SlideComponent}
+          </Rnd>
+          <TabPanelActions onChange={onTabChange} />
+        </div>
+      </Slide>
       <TabPanelActions onChange={onTabChange} className={styles['secondary-action-tab']} />
     </div>
   )
