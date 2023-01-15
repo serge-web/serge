@@ -6,7 +6,7 @@ import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyl
 import cx from 'classnames'
 import { noop } from 'lodash'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -24,7 +24,8 @@ import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
-import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
+import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
+
 export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
@@ -119,18 +120,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const filtered = turnFilter === SHOW_ALL_TURNS ? interactionMessages : interactionMessages.filter((msg) => msg.details.turnNumber === turnFilter)
     setFilteredInteractionMessages(filtered)
   }, [interactionMessages, turnFilter])
-
-  const TabPanel = (props: TabPanelProps): React.ReactElement => {
-    const { children, active, ...other } = props
-    return (
-      <div
-        hidden={!active}
-        {...other}
-      >
-        {children}
-      </div>
-    )
-  }
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
     return (
@@ -328,13 +317,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
-  const checkDisplay = (tab: string): string => {
-    if (typeof tab === 'string' && tab === activeTab) {
-      return 'block'
-    }
-    return 'none'
-  }
-
   const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
     console.log('editorElm: ', editorElm)
   }
@@ -364,23 +346,22 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return planDoc
   }
 
-  const SlideComponent = useMemo(() => (
-    <Slide direction="right" in={isShowPanel}>
-      <div className={styles.panel}>
-        <Rnd
-          disableDragging
-          style={PANEL_STYLES}
-          default={DEFAULT_SIZE}
-          minWidth={MIN_PANEL_WIDTH}
-          maxWidth={MAX_PANEL_WIDTH}
-          minHeight={MIN_PANEL_HEIGHT}
-          maxHeight={MAX_PANEL_HEIGHT}
-          onResize={onSizeChange}
-        >
-          <div className={styles.content}>
-            <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-              {
-                activeTab === TABS[0] &&
+  return (
+    <div className={styles.root}>
+      <Slide direction="right" in={isShowPanel}>
+        <div className={styles.panel}>
+          <Rnd
+            disableDragging
+            style={PANEL_STYLES}
+            default={DEFAULT_SIZE}
+            minWidth={MIN_PANEL_WIDTH}
+            maxWidth={MAX_PANEL_WIDTH}
+            minHeight={MIN_PANEL_HEIGHT}
+            maxHeight={MAX_PANEL_HEIGHT}
+            onResize={onSizeChange}
+          >
+            <div className={styles.content}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[0] })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   assets={allOwnAssets}
@@ -394,10 +375,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onSelectionChange={setSelectedOwnAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
                 />
-              }
-            </TabPanel>
-            {
-              <div style={{ display: checkDisplay(TAB_MY_ORDERS) }} className={styles['order-group']}>
+              </div>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[1] })}>
                 <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
@@ -454,9 +433,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   editCallback={localEditLocation}
                 />}
               </div>
-            }
-            <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-              {activeTab === TABS[2] &&
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[2] })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   platformStyles={platIcons}
@@ -470,10 +447,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onSelectionChange={setSelectedOpAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
                 />
-              }
-            </TabPanel>
-            {activeTab === TABS[3] &&
-              <div className={styles['order-group']}>
+              </div>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[3] })}>
                 <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
@@ -500,36 +475,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onLocationEditorLoaded={onLocationEditorLoaded}
                 />
               </div>
-            }
-            <div className={styles['resize-indicator-container']} >
-              <div className={styles['resize-indicator-icon']} >
-                <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+              <div className={styles['resize-indicator-container']} >
+                <div className={styles['resize-indicator-icon']} >
+                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+                </div>
               </div>
             </div>
-          </div>
-        </Rnd>
-        <TabPanelActions onChange={onTabChange} />
-      </div>
-    </Slide>
-  ), [
-    isShowPanel,
-    activeTab,
-    allForces,
-    filteredPlanningMessages,
-    filteredInteractionMessages,
-    selectedRoleId,
-    turnFilter,
-    draftMessage,
-    selectedOrders,
-    platformTypes,
-    planningMessages,
-    localDraftMessage
-  ]
-  )
-
-  return (
-    <div className={styles.root}>
-      {SlideComponent}
+          </Rnd>
+          <TabPanelActions onChange={onTabChange} />
+        </div>
+      </Slide>
       <TabPanelActions onChange={onTabChange} className={styles['secondary-action-tab']} />
     </div>
   )
