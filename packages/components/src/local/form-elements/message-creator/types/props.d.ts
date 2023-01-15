@@ -16,12 +16,6 @@ export default interface PropTypes {
   messageOption: string
   currentTurn: number
 
-  // way to retrieve cached messages from the browser
-  getcachedCreatorMessageValue?: (value: string) => string
-
-  // the method of saving messages in the browser
-  createCachedCreatorMessage?: (message: any, messageOption: string) => void
-
   // method is way to clear cached messages from the browser
   clearCachedCreatorMessage?: (data: string[]) => void
 

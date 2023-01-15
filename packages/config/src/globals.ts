@@ -190,6 +190,5 @@ export const CONTROL_ALL = 'control-all:'
  * @param role - current role id
  * @param event - name of event that just happened
  */
-export const UNSENT_PRIVATE_MESSAGE_TYPE = 'private'
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
