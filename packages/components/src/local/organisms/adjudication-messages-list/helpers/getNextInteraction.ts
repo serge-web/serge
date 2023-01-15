@@ -81,7 +81,7 @@ interface ProtectedTarget {
   protectedBy: Asset[]
 }
 
-const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number, _id: string): MessageAdjudicationOutcomes => {
+const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   const res: MessageAdjudicationOutcomes = {
     messageType: 'AdjudicationOutcomes',
