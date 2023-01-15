@@ -71,10 +71,10 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   expect(results1).toEqual(267)
 })
 
-!7 && it('gets interactions (2)', () => {
-//  console.clear()
+7 && it('gets interactions (2)', () => {
+  console.clear()
   const interactions: MessageInteraction[] = []
-  const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
+  const gameStartTimeLocal = '2022-05-01T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
@@ -82,16 +82,28 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   if (results1 !== undefined && typeof results1 === 'object') {
     const res1Msg = results1 as CompositeInteractionResults
     const newTime = res1Msg.details.startTime
+    console.log('new time', gameStartTimeLocal, newTime)
     interactions.push(interactionFor(res1Msg))
-    // push the new interaction, so it gets skipped
     const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
-    console.log('next event', res2Msg.details.startTime)
+    interactions.push(interactionFor(res2Msg))
+    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
+    expect(results3).toBeTruthy()
+    const res3Msg = results3 as CompositeInteractionResults
+    interactions.push(interactionFor(res3Msg))
   }
+  console.log('listing interactions')
+  console.table(interactions.map((msg: MessageInteraction) => {
+    const details = msg.details.interaction
+    return details && {
+      id: msg._id,
+      start: details.startTime
+    }
+  }))
 })
 
-it('avoids existing interactions', () => {
+!7 && it('avoids existing interactions', () => {
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }

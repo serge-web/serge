@@ -304,7 +304,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     return inter.id
   })
 
-  console.log('earliest time', moment(earliestTime).toISOString(), ' interactions:', interactions.length)
+  console.log('earliest time', gameTime, gameTurnEnd, moment(earliestTime).toISOString(), ' interactions:', interactions.length)
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // see if a short-circuit is overdue
@@ -325,6 +325,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       details.otherAssets = outcomes.otherAssets
       delete outcomes.otherAssets
     }
+    console.log('Gen 3 - Found event that should have already been processed', details.id, details.startTime)
     return { details: details, outcomes: outcomes }
   } else {
     // generate any special orders
@@ -338,7 +339,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     const contacts: PlanningContact[] = []
     let eventInWindow: ShortCircuitEvent | undefined
 
-    //    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowMillis, moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowMillis).format('d HH:mm'))
+    console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowMillis, moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowMillis).format('d HH:mm'))
 
     while (contacts.length === 0 && currentWindowMillis <= fullTurnLength && eventInWindow === undefined) {
       const windowEnd = gameTimeVal + currentWindowMillis
@@ -346,12 +347,11 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       // if we're doing get-all, don't bother with shortcircuits
       if (!getAll) {
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
-        console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString())
+        console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow?.timeStart).toISOString())
       }
 
       // trim for 'live' orders
       const liveOrders = ordersLiveIn(fullOrders, gameTimeVal, windowEnd)
-
       console.log('window size', moment(gameTimeVal).toISOString(), moment(windowEnd).toISOString(), fullOrders.length, liveOrders.length)
 
       const newGeometries = invertMessages(liveOrders, activities)
@@ -378,7 +378,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
-      console.log('Existing interactions received', existingInteractionIDs.length)
+      // console.log('Existing interactions received', existingInteractionIDs.length)
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
@@ -387,16 +387,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
       })
 
-      console.log('binning complete, contacts:', contacts.length)
+      // console.log('binning complete, contacts:', contacts.length)
 
       currentWindowMillis *= 2
     }
-
-    // return number of contacts found, if user just after total
-    // if (getAll) {
-    //   console.log('User requested count. Returning')
-    //   return contacts.length
-    // }
 
     // do we have any contacts?
     if (contacts.length !== 0) {
@@ -426,7 +420,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           }
           return { details: details, outcomes: outcomes }
         } else {
-          console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id)
+          console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id, firstContact, moment(firstContact.timeStart).toISOString(), moment(firstContact.timeEnd).toISOString())
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(firstContact)
           return { details: details, outcomes: outcomes }
