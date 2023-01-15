@@ -16,7 +16,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS, TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
+import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
@@ -70,7 +70,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   handleAdjudication
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
-  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TABS[3] : TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE)
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
@@ -122,15 +122,19 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [interactionMessages, turnFilter])
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
-    return (
-      <div className={cx(styles['action-tab'], className)}>
-        <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
-        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>Orders</p>
-        <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
-        {selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
-        }
+    if (selectedForce.umpire) {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>All Forces</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_ADJUDICATE)} className={cx({ [styles.active]: activeTab === TAB_ADJUDICATE })}>Adjudication</p>
       </div>
-    )
+    } else {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>My Force</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_OPP_FOR)} className={cx({ [styles.active]: activeTab === TAB_OPP_FOR })}>Other Forces</p>
+      </div>
+    }
   }
 
   const onRender = (): void => {
@@ -361,7 +365,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             onResize={onSizeChange}
           >
             <div className={styles.content}>
-              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[0] })}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_FORCE })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   assets={allOwnAssets}
@@ -376,7 +380,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
                 />
               </div>
-              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[1] })}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
@@ -433,7 +437,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   editCallback={localEditLocation}
                 />}
               </div>
-              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[2] })}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_OPP_FOR })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   platformStyles={platIcons}
@@ -448,7 +452,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
                 />
               </div>
-              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TABS[3] })}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
                 <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}

@@ -61,7 +61,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     options={{
       paging: true,
       pageSize: 20,
-      pageSizeOptions: [5, 10, 15, 20],
+      pageSizeOptions: [5, 10, 15, 20, 50, 100],
       filtering: filter,
       selection: true,
       rowStyle: { fontSize: '80%' }
