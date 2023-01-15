@@ -12,7 +12,7 @@ const p9StockTemplates: TemplateBody[] = [
       title: 'Adjudication Outcomes',
       format: 'grid',
       required: [
-        'narrative', 'reference', 'important'
+        'narrative', 'Reference', 'important'
       ],
       properties: {
         Reference: {
