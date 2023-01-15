@@ -384,6 +384,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
         contacts.push(...newContacts)
+        !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
       })
 
       console.log('binning complete, contacts:', contacts.length)
@@ -392,10 +393,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     }
 
     // return number of contacts found, if user just after total
-    if (getAll) {
-      console.log('User requested count. Returning')
-      return contacts.length
-    }
+    // if (getAll) {
+    //   console.log('User requested count. Returning')
+    //   return contacts.length
+    // }
 
     // do we have any contacts?
     if (contacts.length !== 0) {
