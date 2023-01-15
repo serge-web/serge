@@ -24,8 +24,6 @@ export const JsonEditor: React.FC<Props> = ({
   expandHeight = true,
   gameDate,
   disableArrayToolsWithEditor = true,
-  cachedName,
-  clearCachedName,
   saveMessage,
   modifyForSave,
   confirmCancel = false,
@@ -208,25 +206,6 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    if (template.details && template.details.type) {
-      if (cachedName === messageId) {
-        clearCachedName('')
-        initEditor()
-        setBeingEdited(false)
-      } else {
-        setBeingEdited(false)
-        initEditor()
-      }
-    }
-
-    return (): void => destroyEditor(editor)
-  }, [template.details, messageId, cachedName, messageContent, prevTemplates])
-
-  useLayoutEffect(() => {
-    if (editor) editor.destroy()
-  }, [disableArrayToolsWithEditor && disabled])
-
-  useLayoutEffect(() => {
     if (editor) {
       setTimeout(() => {
         try {
@@ -262,8 +241,21 @@ export const JsonEditor: React.FC<Props> = ({
           })
         }
       }, 50)
+      return
     }
-  }, [editor, beingEdited])
+
+    if (template.details && template.details.type) {
+      setBeingEdited(false)
+      initEditor()
+    }
+
+    return (): void => destroyEditor(editor)
+  }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
+
+  useLayoutEffect(() => {
+    console.log('destoy', editor)
+    if (editor) editor.destroy()
+  }, [disableArrayToolsWithEditor && disabled])
 
   const SaveMessageButton = () => (
     editor && viewSaveButton ? (

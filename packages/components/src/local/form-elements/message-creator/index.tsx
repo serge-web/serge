@@ -40,7 +40,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
-  const [clearName, setClearName] = useState<string>(messageOption)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
@@ -91,14 +90,11 @@ const MessageCreator: React.FC<PropTypes> = ({
     // send the data
     setPrivateValue('')
     postBack && postBack(details, formMessage)
-    setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([ messageOption ])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }
 
   useEffect(() => {
-
-
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
     }
@@ -119,8 +115,7 @@ const MessageCreator: React.FC<PropTypes> = ({
   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
     setPrivateValue('')
-    setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([ messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
     onCancel && onCancel(event)
   }
 
@@ -158,12 +153,10 @@ const MessageCreator: React.FC<PropTypes> = ({
           details: selectedSchema,
           _id: channel.uniqid
         }}
-        clearCachedName={setClearName}
         customiseTemplate={customiseTemplate}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
         title={messageOption}
-        cachedName={clearName}
         storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}
