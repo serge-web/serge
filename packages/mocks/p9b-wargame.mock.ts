@@ -7,11 +7,11 @@ const game: Wargame = {
         "overview": {
             "name": "Overview - settings",
             "gameDescription": "",
-            "gameTurnTime": { "unit": "millis", "millis": 259200000 },
+            "gameTurnTime": { "unit": "months", "months": 1 },
             "realtimeTurnTime": 300000,
             "timeWarning": 60000,
             "turnPresentation": "Natural",
-            "gameDate": "2022-11-14T00:00:00+00:00",
+            "gameDate": "2022-05-01T00:00:00+00:00",
             "showAccessCodes": true,
             "logPlayerActivity": false,
             "dirty": false
@@ -19119,7 +19119,7 @@ const game: Wargame = {
             ]
         }
     },
-    "gameTurn": 6,
+    "gameTurn": 1,
     "infoType": true,
     "messageType": "InfoMessage",
     "name": "wargame-l6nngxlk",

@@ -215,7 +215,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
     // set the default dates, if they are empty
     const plan = document as PlanningMessageStructureCore
-    if (gameDate && (plan.startDate === '' || plan.endDate === '')) {
+    if (gameDate && (!plan.startDate || !plan.endDate)) {
       plan.startDate = gameDate
       plan.endDate = gameDate
     }
