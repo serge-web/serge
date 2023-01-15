@@ -669,24 +669,13 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
     if (order.geometry.properties) {
       const planned = order.geometry.properties as PlannedProps
       if (!planned.startTime) {
+        console.warn('Geometry time missing, injecting times for whole orders')
         planned.startTime = moment(planned.startDate).valueOf()
         planned.endTime = moment(planned.endDate).valueOf()
       }
     }
     return order
   })
-}
-
-export const findPlannedGeometries = (orders: GeomWithOrders[], time: number, windowMins: number): GeomWithOrders[] => {
-  const timeStart = moment(time)
-  const timeEnd = moment(time).add(windowMins, 'm')
-  const inWindow = orders.filter((value: GeomWithOrders) => {
-    const props = value.geometry.properties as PlannedProps
-    const geomStart = props.startDate ? moment(props.startDate) : moment(props.startTime)
-    const geomEnd = props.endDate ? moment(props.endDate) : moment(props.startTime)
-    return geomStart.isSameOrBefore(timeEnd) && geomEnd.isSameOrAfter(timeStart)
-  })
-  return deepCopy(inWindow)
 }
 
 const clean = (val: number): number => {

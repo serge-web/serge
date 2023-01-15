@@ -1,9 +1,10 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { ForceData, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, Role } from '@serge/custom-types'
+import { ForceData, GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, Role } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { sum } from 'lodash'
-import { getNextInteraction2, InteractionResults } from './getNextInteraction'
+import moment from 'moment'
+import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -21,10 +22,6 @@ const messages = planningMessagesBulk
 
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-const gameStartTime = P9BMock.data.overview.gameDate
-const turnLen = P9BMock.data.overview.gameTurnTime
-const turnEnd = incrementGameTime(gameStartTime, turnLen)
-
 // it('gets all interactions (2)', () => {
 //   const interactions: MessageInteraction[] = []
 //   console.log('game start time', gameStartTime)
@@ -35,14 +32,53 @@ const turnEnd = incrementGameTime(gameStartTime, turnLen)
 // }
 // )
 
-it('gets interactions (2)', () => {
-  const interactions: MessageInteraction[] = []
-  const gameStartTimeLocal = '2022-11-14T03:00:00.000Z' // P9BMock.data.overview.gameDate
-  console.log('game start time', gameStartTimeLocal)
-  const results: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
-  expect(results).toBeTruthy()
+const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
+  const selectedForce = P9BMock.data.forces.forces[1]
+  const selectedRole = selectedForce.roles[1]
+  const from: MessageDetailsFrom = {
+    force: '',
+    forceId: selectedForce.uniqid,
+    forceColor: selectedForce.color,
+    iconURL: selectedForce.iconURL,
+    roleId: selectedRole.roleId,
+    roleName: selectedRole.name
+  }
+  const details: MessageDetails = {
+    channel: 'channel-planning',
+    from: from,
+    interaction: data.details,
+    messageType: 'p9adjudicate',
+    timestamp: moment().toISOString(),
+    turnNumber: 2
+  }
+  const msg: MessageInteraction = {
+    _id: data.details.id,
+    details: details,
+    message: data.outcomes,
+    messageType: 'InteractionMessage'
+  }
+  return msg
 }
-)
+
+it('gets interactions (2)', () => {
+  console.clear()
+  const interactions: MessageInteraction[] = []
+  const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
+  const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
+  const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  expect(results1).toBeTruthy()
+  if (results1 !== undefined && typeof results1 === 'object') {
+    const res1Msg = results1 as CompositeInteractionResults
+    const newTime = res1Msg.details.startTime
+    interactions.push(interactionFor(res1Msg))
+    // push the new interaction, so it gets skipped
+    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
+    expect(results2).toBeTruthy()
+    const res2Msg = results2 as CompositeInteractionResults
+    console.log('next event', res2Msg.details.startTime)
+  }
+})
 
 // it('process successive interactions', () => {
 //   const interactions: MessageInteraction[] = []
