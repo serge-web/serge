@@ -73,7 +73,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   // compact date display
   const shortDate = (date: string): string => {
-   return moment.utc(date).format('MMM DDHHmm[Z]').toUpperCase()
+    return moment.utc(date).format('MMM DDHHmm[Z]').toUpperCase()
   }
 
   useEffect(() => {
@@ -416,7 +416,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         } else {
           const assetNames: string[] = data.otherAssets.map((asset: Asset) => asset.name)
 
-          const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime)  : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
+          const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
             <Box><b>Interaction details:</b><br/>

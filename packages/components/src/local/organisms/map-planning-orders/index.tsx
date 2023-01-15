@@ -112,7 +112,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
           const shape = shapeFor(feature, color, 'interaction', storeRef, elements.length)
           elements.push(shape)
         }
-        setInteractionGeometries(elements
+        setInteractionGeometries(elements)
       }
     }
   }, [interactions, selectedInteraction])
