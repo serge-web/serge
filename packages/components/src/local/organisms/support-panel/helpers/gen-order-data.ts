@@ -580,10 +580,10 @@ const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
 }
 
 export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[],
-  adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
+  adjudicationTemplateId: string, startTimeStr: string): Array<MessagePlanning | MessageInteraction> => {
   const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
-  let startTime = moment('2022-11-14T00:00:00.000Z')
+  let startTime = moment(startTimeStr)
   for (let i = 0; i < count; i++) {
     const willIncrement = psora(2 + i) > 0.5
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
