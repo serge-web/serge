@@ -223,7 +223,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
             const interactionId = plan._id + ' ' + short
             // check this hasn't been processed already
             if (interactions.find((msg: MessageInteraction) => msg.message.Reference === interactionId)) {
-              console.warn('Skipping this event, already processed', interactionId)
+              console.log('Skipping this event, already processed', interactionId)
             } else {
               // check the time of this event has passed
               if (thisTime <= gameTime) {
