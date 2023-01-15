@@ -71,6 +71,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     onDetailPanelClose && onDetailPanelClose(row)
   }
 
+  // compact date display
+  const shortDate = (date: string): string => {
+   return moment.utc(date).format('MMM DDHHmm[Z]').toUpperCase()
+  }
+
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
@@ -99,11 +104,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       : planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
     setFilteredPlans(plans)
   }, [planningMessages])
-
-  /** custom date formatter, for compact date/time display */
-  const shortDate = (value?: string): string => {
-    return value ? moment(value).format('DDHHmm[Z]') : ''
-  }
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
@@ -142,7 +142,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.warn('Failed to find message 1:', id)
         return <span>Order not found</span>
       }
-      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
+      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate']
       const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
         if (done.includes(item)) {
           return <Fragment key={index} />
@@ -152,10 +152,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         }
       })
       const title = order1 ? 'Orders 1' : ' Orders 2'
+      const timings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
       return <Box>
         <div><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />
+        <span><b>Time: </b> {timings} </span><br />
         <span><b>Own: </b> {plan.message.ownAssets &&
           <ul> {
             plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
@@ -407,18 +409,21 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const msg = message.message
         const isComplete = message.details.interaction?.complete
-        const data = collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
+        const interaction = message.details.interaction
+        const data = interaction && collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
           const assetNames: string[] = data.otherAssets.map((asset: Asset) => asset.name)
-          const time = message.details.interaction && message.details.interaction.startTime
+
+          const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime)  : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
             <Box><b>Interaction details:</b><br/>
               <ul>
                 <li><b>Other assets:</b>{ assetNames.length > 0 ? assetNames.join(', ') : 'None' }</li>
                 <li><b>Date/time:</b>{ time }</li>
+                <li><b>Geometry provided:</b>{ interaction.geometry ? 'Yes' : 'No' }</li>
               </ul>
             </Box>
             <Table>
