@@ -90,4 +90,5 @@ export type SupportPanelContextInterface = {
   selectedAssets: string[]
   setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
+  setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>
 }
