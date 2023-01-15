@@ -525,7 +525,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         }
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
-        const id = message.message.title + '//' + activity + '//' + message._id
+        const id = message.message.Reference + '//' + message.message.title + '//' + activity
         const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
@@ -580,10 +580,10 @@ const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
 }
 
 export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[],
-  adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
+  adjudicationTemplateId: string, startTimeStr: string): Array<MessagePlanning | MessageInteraction> => {
   const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
-  let startTime = moment('2022-11-14T00:00:00.000Z')
+  let startTime = moment(startTimeStr)
   for (let i = 0; i < count; i++) {
     const willIncrement = psora(2 + i) > 0.5
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
@@ -669,6 +669,7 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
     if (order.geometry.properties) {
       const planned = order.geometry.properties as PlannedProps
       if (!planned.startTime) {
+        console.warn('Geometry time missing, injecting times for whole orders')
         planned.startTime = moment(planned.startDate).valueOf()
         planned.endTime = moment(planned.endDate).valueOf()
       }
@@ -826,7 +827,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const first = meFirst ? me : other
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
-
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {
             // has it already been adjudicated

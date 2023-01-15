@@ -217,11 +217,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     })
 
-    // set the default dates, if they are empty
-    const plan = document as PlanningMessageStructureCore
-    if (gameDate && (!plan.startDate || !plan.endDate)) {
-      plan.startDate = gameDate
-      plan.endDate = gameDate
+    // set the default dates, if this is a planning message
+    const docAsAny = document as any
+    if (docAsAny.ownAssets !== undefined) {
+      const plan = document as PlanningMessageStructureCore
+      if (gameDate && (!plan.startDate || !plan.endDate)) {
+        plan.startDate = gameDate
+        plan.endDate = gameDate
+      }
     }
 
     // now modify the template

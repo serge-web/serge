@@ -22,7 +22,8 @@ const localFindActivity = (activities: PlanningActivity[], uniqid: PlanningActiv
 export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, selectedOrders, forceColors, interactions, selectedInteraction }) => {
   const [interactionGeometries, setInteractionGeometries] = useState<React.ReactElement[]>([])
   const [orderGeometries, setOrderGeometries] = useState<React.ReactElement[]>([])
-  const [layersToDelete] = useState<Layer[]>([])
+  const [orderLayersToDelete] = useState<Layer[]>([])
+  const [interactionLayersToDelete] = useState<Layer[]>([])
 
   /** produce a list of features for the geometries in this message */
   const featuresForPlanningMessage = (msg: MessagePlanning): Feature[] => {
@@ -57,8 +58,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
   useEffect(() => {
     if (interactions) {
       // clear existing data
-      while (layersToDelete.length > 0) {
-        const layer = layersToDelete.shift()
+      while (interactionLayersToDelete.length > 0) {
+        const layer = interactionLayersToDelete.shift()
         layer && layer.remove()
       }
 
@@ -87,7 +88,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
 
         // handler to store layer references
         const storeRef = (polyline: Layer): void => {
-          layersToDelete.push(polyline)
+          interactionLayersToDelete.push(polyline)
         }
 
         const elements = flatGeom.map((feature: Feature, index: number) => {
@@ -111,7 +112,6 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
           const shape = shapeFor(feature, color, 'interaction', storeRef, elements.length)
           elements.push(shape)
         }
-
         setInteractionGeometries(elements)
       }
     }
@@ -120,8 +120,8 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
   useEffect(() => {
     if (orders) {
       // clear existing data
-      while (layersToDelete.length > 0) {
-        const layer = layersToDelete.shift()
+      while (orderLayersToDelete.length > 0) {
+        const layer = orderLayersToDelete.shift()
         layer && layer.remove()
       }
 
@@ -136,7 +136,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
 
       // handler to store layer references
       const storeRef = (polyline: Layer): void => {
-        layersToDelete.push(polyline)
+        orderLayersToDelete.push(polyline)
       }
 
       const elements = flatGeom.map((feature: Feature, index: number) => {

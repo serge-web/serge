@@ -158,7 +158,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
 
   const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
-    console.warn('SAVE MESSAGE 1')
+    console.warn('SAVE MESSAGE', details, message)
     return async (): Promise<void> => {
       const newMessage: MessageInteraction = {
         _id: moment().toISOString(),
@@ -275,7 +275,7 @@ BulkData.args = {
 
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
-  messages: planningMessagesBulk,
+  messages: planningMessages, // planningMessagesBulk,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }
