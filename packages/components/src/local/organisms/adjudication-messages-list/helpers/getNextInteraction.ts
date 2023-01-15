@@ -347,7 +347,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       // if we're doing get-all, don't bother with shortcircuits
       if (!getAll) {
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
-        console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow?.timeStart).toISOString())
+        console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
       }
 
       // trim for 'live' orders
@@ -420,7 +420,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           }
           return { details: details, outcomes: outcomes }
         } else {
-          console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id, firstContact, moment(firstContact.timeStart).toISOString(), moment(firstContact.timeEnd).toISOString())
+          console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id, moment(firstContact.timeStart).toISOString(), moment(firstContact.timeEnd).toISOString())
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(firstContact)
           return { details: details, outcomes: outcomes }
