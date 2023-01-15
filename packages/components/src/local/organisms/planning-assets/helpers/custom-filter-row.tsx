@@ -24,7 +24,7 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
         return
       }
       force.assets.forEach((asset: Asset) => {
-        if (asset.attributes && ((filter.length && filter.includes(asset.platformTypeId)) || !filter.length)) {
+        if (asset.attributes && (!filter.length || filter.includes(asset.platformTypeId))) {
           const subType = asset.attributes.a_Type as string
           filterSubTypes[subType] = subType
         }
