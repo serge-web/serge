@@ -60,8 +60,19 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
+it('gets count of', () => {
+//  console.clear()
+  const interactions: MessageInteraction[] = []
+  const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
+  const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
+  const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
+  expect(results1).toBeTruthy()
+  expect(results1).toEqual(267)
+})
+
 it('gets interactions (2)', () => {
-  console.clear()
+//  console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
@@ -77,6 +88,29 @@ it('gets interactions (2)', () => {
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
     console.log('next event', res2Msg.details.startTime)
+  }
+})
+
+it('avoids existing interactions', () => {
+  const interactions: MessageInteraction[] = []
+  const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
+  const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
+  const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  expect(results1).toBeTruthy()
+  if (results1 !== undefined && typeof results1 === 'object') {
+    const res1Msg = results1 as CompositeInteractionResults
+    const res1Id = res1Msg.details.id
+    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+    expect(results2).toBeTruthy()
+    const res2Msg = results2 as CompositeInteractionResults
+    expect(res2Msg.details.id).toEqual(res1Id)
+    // now push the interaction and try again
+    interactions.push(interactionFor(res1Msg))
+    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+    expect(results3).toBeTruthy()
+    const res3Msg = results3 as CompositeInteractionResults
+    expect(res3Msg.details.id).not.toEqual(res1Id)
   }
 })
 
