@@ -174,7 +174,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   return res
 }
 
-const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number, id: string): MessageAdjudicationOutcomes => {
+const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
     case 'STRIKE': {
       return strikeOutcomesFor(plan, activity, forces, gameTime)
@@ -246,7 +246,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
       const contact = sorted[0].message
 
       // sort out the outcomes
-      const outcomes = outcomesFor(contact, firstEvent.activity, forces, gameTime, firstEvent.id)
+      const outcomes = outcomesFor(contact, firstEvent.activity, forces, gameTime)
       const res: ShortCircuitEvent = {
         id: firstEvent.id,
         message: contact,
@@ -320,7 +320,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       endTime: moment.utc(event.timeEnd).toISOString(),
       complete: false
     }
-    const outcomes = outcomesFor(event.message, event.activity, forces, gameTimeVal, event.id)
+    const outcomes = outcomesFor(event.message, event.activity, forces, gameTimeVal)
     if (outcomes.otherAssets) {
       details.otherAssets = outcomes.otherAssets
       delete outcomes.otherAssets
@@ -413,7 +413,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
             endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
             complete: false
           }
-          const outcomes = outcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal, eventInWindow.id)
+          const outcomes = outcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal)
           if (outcomes.otherAssets) {
             details.otherAssets = outcomes.otherAssets
             delete outcomes.otherAssets
@@ -445,7 +445,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         otherAssets: [],
         complete: false
       }
-      const outcomes = outcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal, eventInWindow.id)
+      const outcomes = outcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal)
       if (outcomes.otherAssets) {
         details.otherAssets = outcomes.otherAssets
         delete outcomes.otherAssets
