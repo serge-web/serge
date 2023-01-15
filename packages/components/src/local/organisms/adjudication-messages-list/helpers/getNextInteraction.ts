@@ -177,7 +177,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
 const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number, id: string): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
     case 'STRIKE': {
-      return strikeOutcomesFor(plan, activity, forces, gameTime, id)
+      return strikeOutcomesFor(plan, activity, forces, gameTime)
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
