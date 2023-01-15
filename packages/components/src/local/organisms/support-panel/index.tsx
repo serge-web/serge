@@ -121,15 +121,19 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [interactionMessages, turnFilter])
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
-    return (
-      <div className={cx(styles['action-tab'], className)}>
+    if (selectedForce.umpire) {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>All Forces</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_ADJUDICATE)} className={cx({ [styles.active]: activeTab === TAB_ADJUDICATE })}>Adjudication</p>
+      </div>
+    } else {
+      return <div className={cx(styles['action-tab'], className)}>
         <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>My Force</p>
         <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
-        <p onClick={(): void => onChange(TAB_OPP_FOR)} className={cx({ [styles.active]: activeTab === TAB_OPP_FOR })}>OPFOR</p>
-        {selectedForce.umpire && <p onClick={(): void => onChange(TAB_ADJUDICATE)} className={cx({ [styles.active]: activeTab === TAB_ADJUDICATE })}>Adjudication</p>
-        }
+        <p onClick={(): void => onChange(TAB_OPP_FOR)} className={cx({ [styles.active]: activeTab === TAB_OPP_FOR })}>Other Forces</p>
       </div>
-    )
+    }
   }
 
   const onRender = (): void => {
