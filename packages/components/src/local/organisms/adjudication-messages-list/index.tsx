@@ -156,6 +156,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return <Box>
         <div><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
+        <span><b>Reference: </b> {plan.message.Reference} </span>
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />
         <span><b>Time: </b> {timings} </span><br />
         <span><b>Own: </b> {plan.message.ownAssets &&
@@ -181,7 +182,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.warn('Failed to find message 2:', id)
         return <span>Order not found</span>
       }
-      return <span>Title: {plan.message.title}</span>
+      return <span>{plan.message.Reference}<br/>{plan.message.title}</span>
     }
   }
 
@@ -195,6 +196,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
     const row: AdjudicationRow = {
       id: message._id,
+      reference: message.message.Reference,
       order1: interaction.orders1,
       order2: interaction.orders2 || 'n/a',
       important: message.message.important ? 'Y' : 'N',
@@ -220,7 +222,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const umpireForce = forces.find((force: ForceData) => force.umpire)
       const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
       const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
-        { title: 'ID', field: 'id' },
+        { title: 'Reference', field: 'reference' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
         { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
         { title: 'Owner', field: 'owner' },
@@ -424,6 +426,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 <li><b>Other assets:</b>{ assetNames.length > 0 ? assetNames.join(', ') : 'None' }</li>
                 <li><b>Date/time:</b>{ time }</li>
                 <li><b>Geometry provided:</b>{ interaction.geometry ? 'Yes' : 'No' }</li>
+                <li><b>ID:</b>{ interaction.id }</li>
               </ul>
             </Box>
             <Table>

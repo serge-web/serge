@@ -9,6 +9,7 @@ import { AdjudicationPostBack } from '../../planning-channel/types/props'
 
 export type AdjudicationRow = {
   id: string
+  reference: string
   complete: boolean
   /** turn when adjudication generated */
   turn: number

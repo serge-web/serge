@@ -525,7 +525,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         }
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
-        const id = message.message.title + '//' + activity + '//' + message._id
+        const id = message.message.Reference + '//' + message.message.title + '//' + activity
         const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}

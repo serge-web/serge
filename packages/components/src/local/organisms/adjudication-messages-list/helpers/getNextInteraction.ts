@@ -85,7 +85,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   const protectedTargets: Array<ProtectedTarget> = []
   const res: MessageAdjudicationOutcomes = {
     messageType: 'AdjudicationOutcomes',
-    Reference: id,
+    Reference: '', // leave blank, so backend creates it
     important: false,
     narrative: '',
     healthOutcomes: [],
@@ -190,7 +190,7 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
     narrative: 'Pending',
     important: false,
     messageType: 'AdjudicationOutcomes',
-    Reference: id
+    Reference: '' // leave blank, so backend creates it
   }
 }
 
@@ -474,7 +474,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
 const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes => {
   const res: MessageAdjudicationOutcomes = contact.outcomes || {
     messageType: 'AdjudicationOutcomes',
-    Reference: contact.first.id + '-' + contact.second.id,
+    Reference: '', // leave blank, so backend creates it
     narrative: '',
     important: false,
     perceptionOutcomes: [],
