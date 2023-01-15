@@ -7,7 +7,7 @@ const game: Wargame = {
         "overview": {
             "name": "Overview - settings",
             "gameDescription": "",
-            "gameTurnTime": { "unit": "months", "months": 1 },
+            "gameTurnTime": { "unit": "millis", "millis": 259200000 },
             "realtimeTurnTime": 300000,
             "timeWarning": 60000,
             "turnPresentation": "Natural",
