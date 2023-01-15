@@ -322,9 +322,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (): void => {
+    console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
     const message = '' + contacts + ' interactions remaining'
+    console.timeLog('count interactions')
     setDialogMessage(message)
   }
 
