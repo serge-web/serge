@@ -25,8 +25,7 @@ import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
-
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -85,7 +84,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext)
+  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -276,6 +275,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
       case TAB_ADJUDICATE: {
         const adj = rowData as AdjudicationRow
+
         const doc = interactionMessages.find((doc) => doc._id === adj.id)
         if (doc) {
           const inter = doc.details.interaction
@@ -286,11 +286,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             const assets3 = inter.otherAssets || []
             const allAssets = assets1.concat(assets2).concat(assets3)
             setCurrentAssets(allAssets)
-            if (inter.orders2) {
-              setCurrentOrders([inter.orders1, inter.orders2])
-            } else {
-              setCurrentOrders([inter.orders1])
-            }
+            setCurrentInteraction(adj.id)
           }
         }
       }
@@ -300,6 +296,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const onDetailPanelClose = () => {
     setCurrentAssets([])
     setCurrentOrders([])
+    if (activeTab === TAB_ADJUDICATE) {
+      setCurrentInteraction(undefined)
+    }
   }
 
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {

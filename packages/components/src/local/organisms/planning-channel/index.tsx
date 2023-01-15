@@ -126,6 +126,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
+  const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
+
   const genData = (): void => {
     const doGenny = 7
     if (!doGenny) {
@@ -357,8 +359,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders }
-  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders])
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction }
+  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction])
 
   const incrementDebugStep = (): void => {
     // do something
@@ -628,7 +630,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <Fragment>
             <Fragment key='selectedObjects'>
-              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <RangeRingPlotter title={'Own range rings'} assets={ownAssetsFiltered} forceCols={forceColors} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {allOwnAssets.length !== ownAssetsFiltered.length &&

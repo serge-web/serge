@@ -89,7 +89,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (interactionMessages.length > 0) {
       const lastMessage = interactionMessages[interactionMessages.length - 1]
       if (lastMessage.details.interaction) {
-        setCurrentTime('Time now:' + lastMessage.details.interaction.startTime)
+        setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
       }
     }
   }, [interactionMessages])
@@ -452,7 +452,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const closeDialogCallback = useCallback(() => dialogMessage !== '' && setDialogMessage(''), [])
+  const closeDialogCallback = useCallback(() => setDialogMessage(''), [])
   const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
@@ -478,7 +478,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color='secondary' onClick={createManualInteraction} icon='save'>Create manual</Button>
+        <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
         <Chip label={currentTime}/>
