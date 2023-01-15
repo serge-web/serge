@@ -4,6 +4,7 @@ interface CssExports {
   'action-tab': string;
   'active': string;
   'content': string;
+  'hide': string;
   'new-order-input': string;
   'order-group': string;
   'panel': string;
