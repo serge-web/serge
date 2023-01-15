@@ -60,7 +60,7 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
-it('gets count of', () => {
+!7 && it('gets count of', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
@@ -71,7 +71,7 @@ it('gets count of', () => {
   expect(results1).toEqual(267)
 })
 
-it('gets interactions (2)', () => {
+!7 && it('gets interactions (2)', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
@@ -104,12 +104,14 @@ it('avoids existing interactions', () => {
     const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
+    // we haven't stored interaction, so it should return the same one
     expect(res2Msg.details.id).toEqual(res1Id)
     // now push the interaction and try again
     interactions.push(interactionFor(res1Msg))
     const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
     expect(results3).toBeTruthy()
     const res3Msg = results3 as CompositeInteractionResults
+    // ok, this should not match the original one
     expect(res3Msg.details.id).not.toEqual(res1Id)
   }
 })

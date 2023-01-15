@@ -815,7 +815,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const first = meFirst ? me : other
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
-
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {
             // has it already been adjudicated

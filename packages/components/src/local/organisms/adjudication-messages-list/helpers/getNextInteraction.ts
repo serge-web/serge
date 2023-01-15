@@ -194,7 +194,7 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
   }
 }
 
-export const checkForEvent = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[],
+export const checkForEvent = (gameTime: number, orders: MessagePlanning[], interactionIDs: string[],
   activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
   interface TimedIntervention {
     // id of the interaction (composite of planning message & event)
@@ -222,7 +222,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
           if (thisTime) {
             const interactionId = plan._id + ' ' + short
             // check this hasn't been processed already
-            if (interactions.find((msg: MessageInteraction) => msg.message.Reference === interactionId)) {
+            if (interactionIDs.find((id: string) => id === interactionId)) {
               console.log('Skipping this event, already processed', interactionId)
             } else {
               // check the time of this event has passed
@@ -296,11 +296,19 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : gameTimeVal
 
+  const existingInteractionIDs = interactions.map((val) => {
+    const inter = val.details.interaction
+    if (!inter) {
+      throw Error('Interaction missing')
+    }
+    return inter.id
+  })
+
   console.log('earliest time', moment(earliestTime).toISOString(), ' interactions:', interactions.length)
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // see if a short-circuit is overdue
-  const event = !getAll && checkForEvent(gameTimeVal, orders, interactions, activities, forces)
+  const event = !getAll && checkForEvent(gameTimeVal, orders, existingInteractionIDs, activities, forces)
   console.log('event found?', !!event)
 
   if (event && event.timeStart <= gameTimeVal) {
@@ -337,7 +345,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
       // if we're doing get-all, don't bother with shortcircuits
       if (!getAll) {
-        eventInWindow = checkForEvent(windowEnd, orders, interactions, activities, forces)
+        eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
         console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString())
       }
 
@@ -349,7 +357,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
       const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
-      console.log('Filtered geoms in wondow from', withTimes.length, 'to', geometriesInTimeWindow.length)
+      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
       // console.table(liveOrders.map((plan: MessagePlanning) => {
       //   return {
       //     id: plan._id,
@@ -368,19 +376,12 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const bins = spatialBinning(geometriesInTimeWindow, 4)
       const binnedOrders = putInBin(geometriesInTimeWindow, bins)
 
-      const interactionsProcessed = interactions.map((val) => {
-        const inter = val.details.interaction
-        if (!inter) {
-          throw Error('Interaction missing')
-        }
-        return inter.id
-      })
       const interactionsConsidered: string[] = []
       const interactionsTested: Record<string, PlanningContact | null> = {}
-      console.log('interactions processed', interactionsProcessed.length)
+      console.log('Existing interactions received', existingInteractionIDs.length)
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
-        const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
+        const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
         contacts.push(...newContacts)
       })
