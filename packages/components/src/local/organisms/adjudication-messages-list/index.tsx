@@ -322,11 +322,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (): void => {
-    // console.log('count remaining')
-    // const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
-    // console.log('contacts', contacts)
-    // const message = '' + contacts.length + ' interactions remaining'
-    // setDialogMessage(message)
+    const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
+    const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
+    const message = '' + contacts + ' interactions remaining'
+    setDialogMessage(message)
   }
 
   const getInteraction = (): void => {
@@ -452,7 +451,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const closeDialogCallback = useCallback(() => dialogMessage !== '' && setDialogMessage(''), [])
+  const closeDialogCallback = useCallback(() => setDialogMessage(''), [])
   const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
