@@ -11308,6 +11308,11 @@ const game: Wargame = {
                                             "propertyOrder": 60,
                                             "type": "string"
                                         },
+                                        "perceivedLocation": {
+                                            "title": "Location ([1,2] or \"lost\")",
+                                            "propertyOrder": 65,
+                                            "type": "string"
+                                        },
                                         "narrative": {
                                             "title": "Comment",
                                             "propertyOrder": 70,
@@ -11479,607 +11484,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
-                    "title": "Land--Standard",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "dateFormat": "Z",
-                                        "enableTime": true
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "dateFormat": "Z",
-                                        "enableTime": true
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 4,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 5,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 5,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Tank A",
-                                                    "Opp Tank B",
-                                                    "Opp Tank C",
-                                                    "Opp Plane A"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "rulesOfEngagement": {
-                                "type": "string",
-                                "title": "Rules of Engagement",
-                                "format": "textarea",
-                                "propertyOrder": 200,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            },
-                            "emconState": {
-                                "type": "string",
-                                "title": "Emcon State",
-                                "format": "textarea",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Land--Standard",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Land--Standard",
-                    "_rev": "2023-01-12T10:13:53.044Z"
-                },
-                {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
-                    "title": "Maritime--Standard",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "activityDescription",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "posture",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "dateFormat": "Z",
-                                        "enableTime": true
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "dateFormat": "Z",
-                                        "enableTime": true
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 4,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 5,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "string",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 5,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Tank A",
-                                                    "Opp Tank B",
-                                                    "Opp Tank C",
-                                                    "Opp Plane A"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "Supports High-Level",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "format": "text",
-                                "title": "Activity Card",
-                                "propertyOrder": 120,
-                                "options": {
-                                    "grid_columns": 4
-                                },
-                                "type": "string"
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 130,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "rulesOfEngagement": {
-                                "type": "string",
-                                "title": "Rules of Engagement",
-                                "format": "textarea",
-                                "propertyOrder": 200,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "emconState": {
-                                "type": "string",
-                                "title": "Emcon State",
-                                "format": "textarea",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "posture": {
-                                "enum": [
-                                    "ASW focus",
-                                    "ASuW focus",
-                                    "AAW focus"
-                                ],
-                                "title": "Posture",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--Standard",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--Standard",
-                    "_rev": "2023-01-12T10:13:53.044Z"
-                },
-                {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12415,10 +11820,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--MissileStrike",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -12768,10 +12173,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MissileStrike",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13070,10 +12475,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13386,10 +12791,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -13708,10 +13113,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14047,10 +13452,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14400,10 +13805,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -14759,10 +14164,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -15061,10 +14466,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -15377,10 +14782,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.044Z",
+                    "lastUpdated": "2023-01-16T08:31:41.762Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -15699,10 +15104,610 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2023-01-12T10:13:53.044Z"
+                    "_rev": "2023-01-16T08:31:41.762Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
+                    "title": "Land--Standard",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "datetime-local",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "Start Date",
+                                "options": {
+                                    "grid_columns": 4,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
+                                    "flatpickr": {
+                                        "time_24hr": true,
+                                        "dateFormat": "Z",
+                                        "enableTime": true
+                                    }
+                                }
+                            },
+                            "endDate": {
+                                "format": "datetime-local",
+                                "type": "string",
+                                "propertyOrder": 45,
+                                "title": "End Date",
+                                "options": {
+                                    "grid_columns": 4,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
+                                    "flatpickr": {
+                                        "time_24hr": true,
+                                        "dateFormat": "Z",
+                                        "enableTime": true
+                                    }
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 4,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "o-a",
+                                        "o-b",
+                                        "o-c",
+                                        "o-d"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Orders A",
+                                            "Orders B",
+                                            "Orders C",
+                                            "Orders D"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Land--Standard",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Land--Standard",
+                    "_rev": "2023-01-16T08:31:41.763Z"
+                },
+                {
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
+                    "title": "Maritime--Standard",
+                    "details": {
+                        "format": "grid",
+                        "required": [
+                            "Reference",
+                            "title",
+                            "startDate",
+                            "endDate",
+                            "activity",
+                            "intent",
+                            "ownAssets",
+                            "otherAssets",
+                            "actionsOn",
+                            "synchronisedWith",
+                            "supports",
+                            "activityCard",
+                            "activityDescription",
+                            "rulesOfEngagement",
+                            "emconState",
+                            "posture",
+                            "location"
+                        ],
+                        "properties": {
+                            "Reference": {
+                                "type": "string",
+                                "title": "Reference (locked)",
+                                "readonly": "readonly",
+                                "propertyOrder": 10,
+                                "options": {
+                                    "grid_columns": 2
+                                }
+                            },
+                            "title": {
+                                "type": "string",
+                                "title": "Title",
+                                "propertyOrder": 20,
+                                "options": {
+                                    "grid_columns": 10
+                                }
+                            },
+                            "startDate": {
+                                "format": "datetime-local",
+                                "type": "string",
+                                "propertyOrder": 40,
+                                "title": "Start Date",
+                                "options": {
+                                    "grid_columns": 4,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
+                                    "flatpickr": {
+                                        "time_24hr": true,
+                                        "dateFormat": "Z",
+                                        "enableTime": true
+                                    }
+                                }
+                            },
+                            "endDate": {
+                                "format": "datetime-local",
+                                "type": "string",
+                                "propertyOrder": 45,
+                                "title": "End Date",
+                                "options": {
+                                    "grid_columns": 4,
+                                    "inputAttributes": {
+                                        "placeholder": "Enter date"
+                                    },
+                                    "flatpickr": {
+                                        "time_24hr": true,
+                                        "dateFormat": "Z",
+                                        "enableTime": true
+                                    }
+                                }
+                            },
+                            "activity": {
+                                "title": "Activity",
+                                "propertyOrder": 50,
+                                "readonly": "readonly",
+                                "type": "string",
+                                "enum": [
+                                    "transit",
+                                    "kinetic",
+                                    "asymmetric"
+                                ],
+                                "options": {
+                                    "grid_columns": 4,
+                                    "enum_titles": [
+                                        "Transit1",
+                                        "Kinetic1",
+                                        "Asymmetric1"
+                                    ]
+                                }
+                            },
+                            "intent": {
+                                "format": "textarea",
+                                "title": "Intent",
+                                "propertyOrder": 60,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "ownAssets": {
+                                "type": "array",
+                                "format": "table",
+                                "minItems": 0,
+                                "propertyOrder": 70,
+                                "title": "Own Assets",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset",
+                                        "number"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Asset",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Tank A",
+                                                    "Tank B",
+                                                    "Tank C",
+                                                    "Plane A"
+                                                ]
+                                            }
+                                        },
+                                        "number": {
+                                            "title": "Quantity",
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 2
+                                            },
+                                            "format": "number"
+                                        }
+                                    }
+                                }
+                            },
+                            "otherAssets": {
+                                "type": "array",
+                                "propertyOrder": 80,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Subject(s) of orders",
+                                "options": {
+                                    "grid_columns": 5,
+                                    "disable_array_reorder": true
+                                },
+                                "items": {
+                                    "type": "object",
+                                    "format": "grid",
+                                    "title": "Asset",
+                                    "required": [
+                                        "asset"
+                                    ],
+                                    "properties": {
+                                        "asset": {
+                                            "title": "Target",
+                                            "type": "string",
+                                            "enum": [
+                                                "ta",
+                                                "tb",
+                                                "tc",
+                                                "pa"
+                                            ],
+                                            "options": {
+                                                "grid_columns": 2,
+                                                "enum_titles": [
+                                                    "Opp Tank A",
+                                                    "Opp Tank B",
+                                                    "Opp Tank C",
+                                                    "Opp Plane A"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "actionsOn": {
+                                "format": "textarea",
+                                "title": "Actions on",
+                                "propertyOrder": 90,
+                                "options": {
+                                    "grid_columns": 12
+                                },
+                                "type": "string"
+                            },
+                            "synchronisedWith": {
+                                "type": "array",
+                                "propertyOrder": 100,
+                                "format": "table",
+                                "minItems": 0,
+                                "title": "Synchronised with",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "items": {
+                                    "title": "Order",
+                                    "type": "string",
+                                    "enum": [
+                                        "o-a",
+                                        "o-b",
+                                        "o-c",
+                                        "o-d"
+                                    ],
+                                    "options": {
+                                        "enum_titles": [
+                                            "Orders A",
+                                            "Orders B",
+                                            "Orders C",
+                                            "Orders D"
+                                        ]
+                                    }
+                                }
+                            },
+                            "supports": {
+                                "format": "textarea",
+                                "title": "Supports High-Level",
+                                "propertyOrder": 110,
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "type": "string"
+                            },
+                            "activityCard": {
+                                "format": "text",
+                                "title": "Activity Card",
+                                "propertyOrder": 120,
+                                "options": {
+                                    "grid_columns": 4
+                                },
+                                "type": "string"
+                            },
+                            "activityDescription": {
+                                "format": "textarea",
+                                "title": "Activity Description",
+                                "propertyOrder": 130,
+                                "options": {
+                                    "grid_columns": 8
+                                },
+                                "type": "string"
+                            },
+                            "rulesOfEngagement": {
+                                "type": "string",
+                                "title": "Rules of Engagement",
+                                "format": "textarea",
+                                "propertyOrder": 200,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "emconState": {
+                                "type": "string",
+                                "title": "Emcon State",
+                                "format": "textarea",
+                                "propertyOrder": 210,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "posture": {
+                                "enum": [
+                                    "ASW focus",
+                                    "ASuW focus",
+                                    "AAW focus"
+                                ],
+                                "title": "Posture",
+                                "type": "string",
+                                "propertyOrder": 220,
+                                "options": {
+                                    "grid_columns": 4
+                                }
+                            },
+                            "location": {
+                                "format": "location",
+                                "title": "Location",
+                                "id": "locationArea",
+                                "type": "string",
+                                "readonly": "readonly",
+                                "propertyOrder": 55,
+                                "options": {
+                                    "grid_columns": 6
+                                }
+                            }
+                        },
+                        "title": "Maritime--Standard",
+                        "type": "object"
+                    },
+                    "completed": true,
+                    "_id": "Maritime--Standard",
+                    "_rev": "2023-01-16T08:31:41.763Z"
+                },
+                {
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Air--Standard",
                     "details": {
                         "format": "grid",
@@ -16012,10 +16017,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Standard",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -16337,10 +16342,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -16676,10 +16681,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -17021,10 +17026,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -17338,10 +17343,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Maritime--MineLaying",
                     "details": {
                         "format": "grid",
@@ -17664,10 +17669,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--MineLaying",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -18035,10 +18040,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--MissileStrike",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -18358,10 +18363,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Other--Cyber",
                     "details": {
                         "format": "grid",
@@ -18727,10 +18732,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--Cyber",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 },
                 {
-                    "lastUpdated": "2023-01-12T10:13:53.045Z",
+                    "lastUpdated": "2023-01-16T08:31:41.763Z",
                     "title": "Other--SOFAttack",
                     "details": {
                         "format": "grid",
@@ -19114,7 +19119,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Other--SOFAttack",
-                    "_rev": "2023-01-12T10:13:53.045Z"
+                    "_rev": "2023-01-16T08:31:41.763Z"
                 }
             ]
         }
