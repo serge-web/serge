@@ -2,12 +2,18 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
+import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
 import moment from 'moment'
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Fragment, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
@@ -30,10 +36,11 @@ type ManualInteractionData = {
 }
 
 type ManualInteractionResults = {
-  order1: MessagePlanning
-  order2?: MessagePlanning
+  blue: MessagePlanning[]
+  red?: MessagePlanning[]
+  green?:MessagePlanning[]
   otherAssets: Asset[]
-  startDate: string // isoString
+  startDate: string
   endDate: string
 }
 
@@ -47,21 +54,19 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-
   const [dialogMessage, setDialogMessage] = useState<string>('')
-
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
-
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
+  const [currentTime, setCurrentTime] = useState<string>('pending')
+  const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
+  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs())
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs())
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
-
-  const [currentTime, setCurrentTime] = useState<string>('pending')
-
-  const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
+  const manuallyData = useRef<ManualInteractionResults>({ blue: [], endDate: '', otherAssets: [], startDate: '' })
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -376,6 +381,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       otherAssets: otherAssets
     }
 
+    console.log('xx> data: ', data)
     // popup the form
     setManualDialog(data)
   }
@@ -384,6 +390,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     // collate the data
     console.log('handling', results)
     // submit the adjudication
+
+    console.log('Manual Interaction Result: ', manuallyData.current)
 
     // clear the data
     setManualDialog(undefined)
@@ -467,16 +475,72 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']}>
-      {/* todo - replace this CustomDialog with form matching layout */}
       <CustomDialog
-        isOpen={manualDialog !== undefined}
+        isOpen={!!manualDialog}
         header={'Manual dialog, #assets:' + (manualDialog && manualDialog.otherAssets.length)}
         cancelBtnText={'Cancel'}
-        saveBtnText={'Create'}
+        saveBtnText={'Submit'}
         onClose={closeManualCallback}
         onSave={handleManualCallback}
-        content={'Form to create manual interaction'}
-      />
+        modalStyle={{ content: { width: '650px' } }}
+      >
+        <div>
+          <div className={styles['autocomplete-dropdown']}>
+            {manualDialog?.forceMessages.map(force => {
+              return <Autocomplete
+                disablePortal
+                multiple
+                options={force.messages.map(message => message.message.Reference)}
+                sx={{ width: `${(100 / manualDialog?.forceMessages.length) - 0.3}%` }}
+                renderInput={(params) => <TextField {...params} size='small' label={force.forceName} />}
+                onChange={(_: SyntheticEvent<Element, Event>, value: string[]) => {
+                  const messages = force.messages.filter(message => value.includes(message.message.Reference))
+                  if (messages.length) {
+                    manuallyData.current[force.forceName.toLowerCase()] = messages
+                  }
+                }}
+              />
+            })}
+          </div>
+          <div className={styles['autocomplete-dropdown']}>
+            <Autocomplete
+              disablePortal
+              multiple
+              options={manualDialog?.otherAssets.map(asset => asset.name) || []}
+              sx={{ width: '33%' }}
+              renderInput={(params) => <TextField {...params} size='small' label='Other assets' />}
+              onChange={(_: SyntheticEvent<Element, Event>, value: string[]) => {
+                const assets = manualDialog?.otherAssets.filter(item => value.includes(item.name))
+                if (assets) {
+                  manuallyData.current.otherAssets = assets
+                }
+              }}
+            />
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }}/>}
+                label='Start Time'
+                value={startTime}
+                onChange={(statTime) => {
+                  manuallyData.current.startDate = statTime?.toISOString() || new Date().toISOString()
+                  setStartTime(statTime)
+                }}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }}/>}
+                label='End Time'
+                value={endTime}
+                onChange={(endTime) => {
+                  manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
+                  setEndTime(endTime)
+                }}
+              />
+            </LocalizationProvider>
+          </div>
+        </div>
+      </CustomDialog>
       <CustomDialog
         isOpen={dialogMessage.length > 0}
         header={'Generate interactions'}

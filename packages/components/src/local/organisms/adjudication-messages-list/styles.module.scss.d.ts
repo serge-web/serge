@@ -3,6 +3,7 @@
 interface CssExports {
   'messages-list': string;
   'selected': string;
+  'autocomplete-dropdown': string;
 }
 export const cssExports: CssExports;
 export default cssExports;

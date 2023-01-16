@@ -10,6 +10,7 @@ export type Props = {
   onSave?: noop
   cancelBtnText?: string
   saveBtnText?: string
+  children?:React.ReactElement
   // custom style
   modalStyle?: ReactModal.Styles
   headerStyle?: React.CSSProperties
