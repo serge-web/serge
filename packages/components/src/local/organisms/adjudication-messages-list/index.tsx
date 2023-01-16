@@ -13,7 +13,7 @@ import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/he
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
 import moment from 'moment'
-import React, { Fragment, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Fragment, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
@@ -473,6 +473,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
+  const modalStyle = useMemo(() => ({ content: { width: '650px' } }), [])
+
   return (
     <div className={styles['messages-list']}>
       <CustomDialog
@@ -482,12 +484,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         saveBtnText={'Submit'}
         onClose={closeManualCallback}
         onSave={handleManualCallback}
-        modalStyle={{ content: { width: '650px' } }}
+        modalStyle={modalStyle}
       >
         <div>
           <div className={styles['autocomplete-dropdown']}>
             {manualDialog?.forceMessages.map(force => {
               return <Autocomplete
+                key={force.forceName}
                 disablePortal
                 multiple
                 options={force.messages.map(message => message.message.Reference)}
