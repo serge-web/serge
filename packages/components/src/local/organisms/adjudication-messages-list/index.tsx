@@ -4,7 +4,7 @@ import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
-import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
+import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
@@ -109,26 +109,30 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[], index: number): React.ReactElement => {
-    let asset: Asset | undefined
-    let numStr = ''
+  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[], 
+    index: number): React.ReactElement => {
+    let asset: {force: ForceData, asset: Asset} | undefined
     try {
-      asset = findAsset(forces, assetId.asset)
+      asset = findForceAndAsset(forces, assetId.asset)
     } catch (e) {
       console.warn('can\'t find asset for render asset', e)
-    }
-    if (assetId.number) {
-      if (assetId.missileType) {
-        numStr = ' (' + assetId.number + ' x ' + assetId.missileType + ')'
-      } else {
-        numStr = ' (' + assetId.number + ')'
-      }
     }
     if (!asset) {
       console.warn('Failed to find asset:' + assetId)
       return <li key={index}>Asset not found</li>
     } else {
-      return <li key={index}>{asset.name}{numStr}</li>
+      const numAssets = assetId.number  || 0
+      const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
+      const numDetails = assetId.missileType ?
+        <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td> :
+        <td>{alive + ' of ' + numAssets}</td>
+      return <tr>
+        <td>{asset.asset.name}</td>
+        {numDetails}
+        <td>{asset.asset.platformTypeId}<br/>{asset.asset.attributes?.a_Type}</td>
+        <td>{asset.asset.health}</td>
+        <td>{asset.asset.attributes?.a_C2_Status}</td>
+      </tr>
     }
   }
 
@@ -160,13 +164,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />
         <span><b>Time: </b> {timings} </span><br />
         <span><b>Own: </b> {plan.message.ownAssets &&
-          <ul> {
-            plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
-          </ul>}</span>
+          <table className={styles['assets']}>
+            <tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr>
+            {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}          
+          </table>}
+        </span>
         <span><b>Other: </b> {plan.message.otherAssets &&
-          <ul> {
-            plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
-          </ul>}</span>
+          <table className={styles['assets']}>
+            <tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr>
+            {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}          
+          </table>}
+        </span>
         {items}
       </Box>
     }
