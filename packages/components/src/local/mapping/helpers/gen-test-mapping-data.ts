@@ -196,7 +196,7 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
 
 const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
   // find mtg
-  let res = assets
+  let res: Asset[] = [ ...assets ]
   const mtg = platformTypes.find((pType: PlatformTypeData) => {
     return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') !== -1
   })
@@ -205,20 +205,16 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
   } else {
     // get the first instance
     const groups = assets.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
-    console.log('task group', groups, assets)
-    if (groups) {
+    if (groups.length > 0) {
       // ok, get some child classes
       const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
         return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
       })
       const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
       const children = assets.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
-      const childIds = children.map((asset: Asset) => asset.uniqid)
 
-      // remove the children from the top level
-      res = assets.filter((asset: Asset) => !childIds.includes(asset.uniqid))
-
-      console.log('trimmed', groups.length, children.length, assets.length, res.length)
+      // track the assets that have been moved to task groups, so we can later remove them
+      const movedToGroup: string[] = []
 
       children.forEach((asset: Asset, index: number) => {
         if (Math.random() > 0.4) {
@@ -231,12 +227,17 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
             newParent.comprising = []
           }
           newParent.comprising.push(asset)
+          // remember the id
+          movedToGroup.push(asset.uniqid)
         } else {
           // put it back in the results
           res.push(asset)
         }
       })
-      console.log('after re-organise', res.length)
+
+      // remove the children from the top level
+      res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
+
     }
   }
   return res
