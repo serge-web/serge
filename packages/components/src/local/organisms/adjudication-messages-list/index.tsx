@@ -68,7 +68,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
   const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
 
-
+  const msgSeparator = ' - '
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -521,7 +521,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
-  const modalStyle = useMemo(() => ({ content: { width: '650px' } }), [])
+  const modalStyle = useMemo(() => ({ content: { width: '850px' } }), [])
 
   const validateManualForm = ():void  => {
     const res = []
@@ -556,18 +556,23 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               return <Autocomplete
                 key={force.forceName}
                 disablePortal
-                options={force.messages.map(message => message.message.Reference)}
+                options={force.messages.map(message => message.message.Reference + msgSeparator + message.message.title)}
                 sx={{ width: `${(100 / manualDialog?.forceMessages.length) - 0.3}%` }}
                 renderInput={(params) => <TextField {...params} size='small' label={force.forceName} />}
                 onChange={(_: SyntheticEvent<Element, Event>, value: string | null) => {
-                  const message = force.messages.find(message => value === message.message.Reference)
-                  // clear out any existing
+                  // clear out any existing for this force
                   manuallyData.current.orders = manuallyData.current.orders.filter((plan: MessagePlanning) => {
                     return plan.details.from.force !== force.forceName
                   })
-                  // now add the new one
-                  if (message) {
-                    manuallyData.current.orders.push(message)
+                  // extract the order reference
+                  if (value) {
+                    const int = value.indexOf(msgSeparator)
+                    const ref = value.substring(0, int)
+                    const message = force.messages.find(message => ref === message.message.Reference)
+                    // now add the new one
+                    if (message) {
+                      manuallyData.current.orders.push(message)
+                    }  
                   }
                   validateManualForm()
                 }}
@@ -578,11 +583,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Autocomplete
               disablePortal
               multiple
-              options={manualDialog?.otherAssets.map(asset => asset.name) || []}
+              options={manualDialog?.otherAssets.map(asset => asset.name + msgSeparator + asset.uniqid) || []}
               sx={{ width: '33%' }}
               renderInput={(params) => <TextField {...params} size='small' label='Other assets' />}
               onChange={(_: SyntheticEvent<Element, Event>, value: string[]) => {
-                const assets = manualDialog?.otherAssets.filter(item => value.includes(item.name))
+                const assets = manualDialog?.otherAssets.filter(item => {
+                  const ids = value.map((str: string) => {
+                    const ind = str.indexOf(msgSeparator)
+                    return str.substring(ind + msgSeparator.length)  
+                  })
+                  return ids.includes(item.uniqid)
+                })
                 if (assets) {
                   manuallyData.current.otherAssets = assets
                 }
@@ -618,14 +629,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           </div>
         </div>
       </CustomDialog>
-      <CustomDialog
-        isOpen={dialogMessage.length > 0}
-        header={'Generate interactions'}
-        cancelBtnText={'OK'}
-        onClose={closeDialogCallback}
-      >
-        <>{dialogMessage}</>
-      </CustomDialog>
+      {dialogMessage.length > 0 &&
+        <CustomDialog
+          isOpen={dialogMessage.length > 0}
+          header={'Generate interactions'}
+          cancelBtnText={'OK'}
+          onClose={closeDialogCallback}
+        >
+          <>{dialogMessage}</>
+        </CustomDialog>
+      }
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;

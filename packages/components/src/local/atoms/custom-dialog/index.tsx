@@ -20,7 +20,7 @@ export const CustomDialog: React.FC<Props> = (props) => {
     children,
     errors
   } = props
-  console.log('errors')
+  console.log('errors', errors)
   return (
     <Modal
       style={modalStyle}
