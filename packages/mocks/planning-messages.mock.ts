@@ -2162,7 +2162,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-96",
+            "Reference": "Red-96b",
             "title": "Order item 96",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T08:30:00.000Z",
