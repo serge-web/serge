@@ -447,7 +447,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       orders1: data.orders[0]._id,
       orders2: data.orders.length === 2 ? data.orders[1]._id : undefined,
       complete: false,
-      id: moment().toISOString() + 'Manual'
+      id: moment().toISOString() + ' Manual'
     }
     const outcomes: MessageAdjudicationOutcomes = {
       messageType: ADJUDICATION_OUTCOMES,
@@ -501,13 +501,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
                 <li><b>Reference:</b>{msg.Reference}</li>
                 <li><b>Other assets:</b>
-                  <span>{data.otherAssets && data.otherAssets.length > 0 ?
-                    <table className={styles.assets}>
+                  <span>{data.otherAssets && data.otherAssets.length > 0
+                    ? <table className={styles.assets}>
                       <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
                       <tbody>
-                        {data.otherAssets.map((asset, index) => renderAsset({asset: asset.uniqid}, forces, index, false))}
+                        {data.otherAssets.map((asset, index) => renderAsset({ asset: asset.uniqid }, forces, index, false))}
                       </tbody>
-                    </table>: ' None'}
+                    </table> : ' None'}
                   </span>
                 </li>
                 <li><b>ID:</b>{interaction.id}</li>

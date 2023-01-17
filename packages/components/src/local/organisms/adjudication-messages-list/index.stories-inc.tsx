@@ -126,7 +126,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
       // ex for all template based messages will be used CUSTOM_MESSAGE Type
       messageType: 'InteractionMessage',
       details,
-      message: { ...outcomes, Reference: 'umpire-' + (interactionMessages.length + 1)},
+      message: { ...outcomes, Reference: 'umpire-' + (interactionMessages.length + 1) },
       hasBeenRead: false
     }
     setMessages([...messages, newMessage])
