@@ -438,8 +438,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const handleManualInteraction = (): void => {
-    // submit the adjudication
-    console.log('Manual Interaction Result: ', manuallyData.current)
+    // collate data for adjudication
     const data = manuallyData.current
     const iDetails: InteractionDetails = {
       startTime: data.startDate,
@@ -459,12 +458,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       locationOutcomes: [],
       healthOutcomes: []
     }
+    // close the panel
+    setManualDialog(undefined)
+
     // submit this new item
     handleAdjudication && handleAdjudication(iDetails, outcomes)
-
-
-    // clear the data
-    setManualDialog(undefined)
   }
 
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
@@ -560,11 +558,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     setValidationErrors(res)
   }
 
+  type MessageValue = {id: string, label: string}
+
   return (
     <div className={styles['messages-list']}>
-      <CustomDialog
-        isOpen={!!manualDialog}
-        header={'Manual dialog, #assets:' + (manualDialog && manualDialog.otherAssets.length)}
+      { manualDialog && <CustomDialog
+        isOpen={true}
+        header={'Create Manual Interaction'}
         cancelBtnText={'Cancel'}
         saveBtnText={'Submit'}
         onClose={closeManualCallback}
@@ -578,19 +578,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               return <Autocomplete
                 key={force.forceName}
                 disablePortal
-                options={force.messages.map(message => message.message.Reference + msgSeparator + message.message.title)}
+                options={force.messages.map(message => ({id: message._id, label:message.message.Reference + msgSeparator + message.message.title}))}
                 sx={{ width: `${(100 / manualDialog?.forceMessages.length) - 0.3}%` }}
+                isOptionEqualToValue={(option, value): boolean => {
+                  return option.id === value.id
+                }}
                 renderInput={(params) => <TextField {...params} size='small' label={force.forceName} />}
-                onChange={(_: SyntheticEvent<Element, Event>, value: string | null) => {
+                onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue | null) => {
                   // clear out any existing for this force
                   manuallyData.current.orders = manuallyData.current.orders.filter((plan: MessagePlanning) => {
                     return plan.details.from.force !== force.forceName
                   })
                   // extract the order reference
                   if (value) {
-                    const int = value.indexOf(msgSeparator)
-                    const ref = value.substring(0, int)
-                    const message = force.messages.find(message => ref === message.message.Reference)
+                    const message = force.messages.find(message => message._id === value.id )
                     // now add the new one
                     if (message) {
                       manuallyData.current.orders.push(message)
@@ -605,15 +606,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Autocomplete
               disablePortal
               multiple
-              options={manualDialog?.otherAssets.map(asset => asset.name + msgSeparator + asset.uniqid) || []}
-              sx={{ width: '33%' }}
+              options={manualDialog?.otherAssets.map(asset => ({id: asset.uniqid, label: asset.name + msgSeparator + asset.uniqid + 'asdfa sdfasdfasdfdasfasdf asdf asdf asdf ads'}) ) || []}
+              isOptionEqualToValue={(option, value): boolean => {
+                return option.id === value.id
+              }}
+              sx={{ width: '100%' }}
               renderInput={(params) => <TextField {...params} size='small' label='Other assets' />}
-              onChange={(_: SyntheticEvent<Element, Event>, value: string[]) => {
+              onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue[]) => {
                 const assets = manualDialog?.otherAssets.filter(item => {
-                  const ids = value.map((str: string) => {
-                    const ind = str.indexOf(msgSeparator)
-                    return str.substring(ind + msgSeparator.length)  
-                  })
+                  const ids = value.map((val: MessageValue) => val.id)
                   return ids.includes(item.uniqid)
                 })
                 if (assets) {
@@ -622,9 +623,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 validateManualForm()
               }}
             />
+          </div>
+          <div className={styles['autocomplete-dropdown']}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }} />}
+                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '50%' }} />}
                 label='Start Time'
                 inputFormat="YYYY/MM/DD HH:mm"
                 value={startTime}
@@ -637,7 +640,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }} />}
+                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '50%' }} />}
                 label='End Time'
                 inputFormat="YYYY/MM/DD HH:mm"
                 value={endTime}
@@ -651,6 +654,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           </div>
         </div>
       </CustomDialog>
+      }
+
       {dialogMessage.length > 0 &&
         <CustomDialog
           isOpen={dialogMessage.length > 0}
