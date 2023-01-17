@@ -4,8 +4,8 @@ import ReactModal from 'react-modal'
 export type Props = {
   isOpen: boolean
   header?: string
-  onClose?: noop
-  onSave?: noop
+  onClose?: {(): void}
+  onSave?: {(): void}
   cancelBtnText?: string
   saveBtnText?: string
   children?:React.ReactElement
