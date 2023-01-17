@@ -311,11 +311,11 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   return assetsWithTGs
 }
 
-export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
+export const generateTestData2 = (count: number, constraints: MappingConstraints, forces: ForceData[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
-
+    console.log('gen data', constraints.bounds)
   // regions
   const bounds = L.latLngBounds(constraints.bounds)
   const centre = bounds.getCenter()
@@ -327,8 +327,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 1000, undefined, bluePlatforms, forces, attributeTypes, true)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 1000, undefined, redPlatforms, forces, attributeTypes, true)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, count, undefined, bluePlatforms, forces, attributeTypes, true)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, count, undefined, redPlatforms, forces, attributeTypes, true)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces
