@@ -148,7 +148,7 @@ const psora = (k: number): number => {
   return res
 }
 
-const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
+export const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
   return arr[Math.floor(arr.length * psora(ctr))]
 }
 
