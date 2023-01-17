@@ -560,7 +560,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (orderLen > 2) {
       res.push('Only one or two sets of orders may be selected')
     }
-    if (manuallyData.current.startDate === '' || manuallyData.current.startDate === '') {
+    if (manuallyData.current.startDate === '' || manuallyData.current.endDate === '') {
       res.push('Start and end dates must be provided')
     }
     setValidationErrors(res)
@@ -582,12 +582,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       >
         <div>
           <div className={styles['autocomplete-dropdown']}>
-            {manualDialog?.forceMessages.map(force => {
+            {manualDialog.forceMessages.map(force => {
               return <Autocomplete
                 key={force.forceName}
                 disablePortal
                 options={force.messages.map(message => ({ id: message._id, label: message.message.Reference + msgSeparator + message.message.title }))}
-                sx={{ width: `${(100 / manualDialog?.forceMessages.length) - 0.3}%` }}
+                sx={{ width: `${(100 / manualDialog.forceMessages.length) - 0.3}%` }}
                 isOptionEqualToValue={(option, value): boolean => {
                   return option.id === value.id
                 }}
@@ -614,14 +614,14 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Autocomplete
               disablePortal
               multiple
-              options={manualDialog?.otherAssets.map(asset => ({ id: asset.uniqid, label: asset.name + msgSeparator + asset.uniqid + 'asdfa sdfasdfasdfdasfasdf asdf asdf asdf ads' })) || []}
+              options={manualDialog.otherAssets.map(asset => ({ id: asset.uniqid, label: asset.uniqid + msgSeparator + asset.name })) || []}
               isOptionEqualToValue={(option, value): boolean => {
                 return option.id === value.id
               }}
               sx={{ width: '100%' }}
               renderInput={(params) => <TextField {...params} size='small' label='Other assets' />}
               onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue[]) => {
-                const assets = manualDialog?.otherAssets.filter(item => {
+                const assets = manualDialog.otherAssets.filter(item => {
                   const ids = value.map((val: MessageValue) => val.id)
                   return ids.includes(item.uniqid)
                 })
