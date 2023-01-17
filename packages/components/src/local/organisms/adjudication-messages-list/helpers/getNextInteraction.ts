@@ -1,4 +1,4 @@
-import { INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import _ from 'lodash'
@@ -84,7 +84,7 @@ interface ProtectedTarget {
 const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   const res: MessageAdjudicationOutcomes = {
-    messageType: 'AdjudicationOutcomes',
+    messageType: ADJUDICATION_OUTCOMES,
     Reference: '', // leave blank, so backend creates it
     important: false,
     narrative: '',
@@ -189,7 +189,7 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
     perceptionOutcomes: [],
     narrative: 'Pending',
     important: false,
-    messageType: 'AdjudicationOutcomes',
+    messageType: ADJUDICATION_OUTCOMES,
     Reference: '' // leave blank, so backend creates it
   }
 }
@@ -473,7 +473,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
 
 const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes => {
   const res: MessageAdjudicationOutcomes = contact.outcomes || {
-    messageType: 'AdjudicationOutcomes',
+    messageType: ADJUDICATION_OUTCOMES,
     Reference: '', // leave blank, so backend creates it
     narrative: '',
     important: false,

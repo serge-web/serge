@@ -440,6 +440,28 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const handleManualInteraction = (): void => {
     // submit the adjudication
     console.log('Manual Interaction Result: ', manuallyData.current)
+    const data = manuallyData.current
+    const iDetails: InteractionDetails = {
+      startTime: data.startDate,
+      endTime: data.endDate,
+      otherAssets: data.otherAssets.map((asset: Asset) => asset.uniqid),
+      orders1: data.orders[0]._id,
+      orders2: data.orders.length === 2 ?  data.orders[1]._id : undefined,
+      complete: false,
+      id: moment().toISOString() + 'Manual'
+    }
+    const outcomes: MessageAdjudicationOutcomes = {
+      messageType: ADJUDICATION_OUTCOMES,
+      Reference: '', // leave blank, so backend creates it
+      narrative: '',
+      important: false,
+      perceptionOutcomes: [],
+      locationOutcomes: [],
+      healthOutcomes: []
+    }
+    // submit this new item
+    handleAdjudication && handleAdjudication(iDetails, outcomes)
+
 
     // clear the data
     setManualDialog(undefined)
