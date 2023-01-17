@@ -394,23 +394,3 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   }
   return itemRows
 }
-
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[],
-  playerForce: ForceData, selectedAssets: string[], platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): AssetRow[] => {
-  const rows: AssetRow[] = []
-
-  // ok, work through the assets
-  forces.forEach((force: ForceData) => {
-    if (force.assets) {
-      const handleThisOpFor = opFor && force.uniqid !== playerForce.uniqid
-      const handleThisOwnFor = !opFor && force.uniqid === playerForce.uniqid
-      const handleAllForces = (!opFor && playerForce.umpire)
-      if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
-        force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, undefined))
-        })
-      }
-    }
-  })
-  return rows
-}
