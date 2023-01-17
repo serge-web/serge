@@ -274,7 +274,7 @@ export const BulkForces = Template.bind({})
 BulkForces.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
-  allForces:  generateTestData2(1500, planningChannel.constraints, forces, platformTypes, attributeTypes || []),
+  allForces:  generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || []),
   phase: Phase.Planning
 }
 
