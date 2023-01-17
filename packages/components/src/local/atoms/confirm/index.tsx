@@ -11,9 +11,10 @@ export const Confirm: React.FC<Props> = ({ isOpen, title, message, onCancel, onC
       cancelBtnText={cancelBtnText || 'No'}
       saveBtnText={confirmBtnText || 'Yes'}
       onClose={onCancel}
-      content={message}
       onSave={onConfirm}
-    />
+    >
+      <>{message}</>
+    </CustomDialog>
   )
 }
 

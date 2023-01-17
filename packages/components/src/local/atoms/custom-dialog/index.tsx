@@ -9,7 +9,6 @@ export const CustomDialog: React.FC<Props> = (props) => {
   const {
     isOpen,
     header,
-    content,
     onClose,
     onSave,
     modalStyle,
@@ -33,16 +32,9 @@ export const CustomDialog: React.FC<Props> = (props) => {
       ariaHideApp={false}
     >
       <div style={headerStyle} className={localStyles.header}>{header}</div>
-      {
-        !children &&
-        <div style={bodyStyle} className={localStyles.body} dangerouslySetInnerHTML={{ __html: content || '' }} />
-      }
-      {
-        children &&
-        <div style={bodyStyle} className={localStyles.body} >
-          {children}
-        </div>
-      }
+      <div style={bodyStyle} className={localStyles.body} >
+        {children}
+      </div>
       <div style={footerStyle} className={localStyles.footer}>
         {
           onClose &&

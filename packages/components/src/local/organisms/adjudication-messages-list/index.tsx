@@ -38,7 +38,7 @@ type ManualInteractionData = {
 type ManualInteractionResults = {
   blue: MessagePlanning[]
   red?: MessagePlanning[]
-  green?:MessagePlanning[]
+  green?: MessagePlanning[]
   otherAssets: Asset[]
   startDate: string
   endDate: string
@@ -187,7 +187,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.warn('Failed to find message 2:', id)
         return <span>Order not found</span>
       }
-      return <span>{plan.message.Reference}<br/>{plan.message.title}</span>
+      return <span>{plan.message.Reference}<br />{plan.message.title}</span>
     }
   }
 
@@ -429,12 +429,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
-            <Box><b>Interaction details:</b><br/>
+            <Box><b>Interaction details:</b><br />
               <ul>
-                <li><b>Other assets:</b>{ assetNames.length > 0 ? assetNames.join(', ') : 'None' }</li>
-                <li><b>Date/time:</b>{ time }</li>
-                <li><b>Geometry provided:</b>{ interaction.geometry ? 'Yes' : 'No' }</li>
-                <li><b>ID:</b>{ interaction.id }</li>
+                <li><b>Other assets:</b>{assetNames.length > 0 ? assetNames.join(', ') : 'None'}</li>
+                <li><b>Date/time:</b>{time}</li>
+                <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                <li><b>ID:</b>{interaction.id}</li>
               </ul>
             </Box>
             <Table>
@@ -521,7 +521,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }}/>}
+                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }} />}
                 label='Start Time'
                 value={startTime}
                 onChange={(statTime) => {
@@ -532,7 +532,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }}/>}
+                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }} />}
                 label='End Time'
                 value={endTime}
                 onChange={(endTime) => {
@@ -549,15 +549,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         header={'Generate interactions'}
         cancelBtnText={'OK'}
         onClose={closeDialogCallback}
-        content={dialogMessage}
-      />
+      >
+        <>{dialogMessage}</>
+      </CustomDialog>
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
         <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
-        <Chip label={currentTime}/>
+        <Chip label={currentTime} />
       </div>
 
       <MaterialTable
