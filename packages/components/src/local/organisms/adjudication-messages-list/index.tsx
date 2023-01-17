@@ -445,7 +445,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       endTime: data.endDate,
       otherAssets: data.otherAssets.map((asset: Asset) => asset.uniqid),
       orders1: data.orders[0]._id,
-      orders2: data.orders.length === 2 ?  data.orders[1]._id : undefined,
+      orders2: data.orders.length === 2 ? data.orders[1]._id : undefined,
       complete: false,
       id: moment().toISOString() + 'Manual'
     }
@@ -543,16 +543,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const modalStyle = useMemo(() => ({ content: { width: '850px' } }), [])
 
-  const validateManualForm = ():void  => {
+  const validateManualForm = ():void => {
     const res = []
     const orderLen = manuallyData.current.orders.length
-    if(orderLen === 0) {
+    if (orderLen === 0) {
       res.push('One or two sets of orders must be selected')
     }
-    if(orderLen > 2) {
+    if (orderLen > 2) {
       res.push('Only one or two sets of orders may be selected')
     }
-    if(manuallyData.current.startDate === '' || manuallyData.current.startDate === '') {
+    if (manuallyData.current.startDate === '' || manuallyData.current.startDate === '') {
       res.push('Start and end dates must be provided')
     }
     setValidationErrors(res)
@@ -578,7 +578,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               return <Autocomplete
                 key={force.forceName}
                 disablePortal
-                options={force.messages.map(message => ({id: message._id, label:message.message.Reference + msgSeparator + message.message.title}))}
+                options={force.messages.map(message => ({ id: message._id, label: message.message.Reference + msgSeparator + message.message.title }))}
                 sx={{ width: `${(100 / manualDialog?.forceMessages.length) - 0.3}%` }}
                 isOptionEqualToValue={(option, value): boolean => {
                   return option.id === value.id
@@ -591,11 +591,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                   })
                   // extract the order reference
                   if (value) {
-                    const message = force.messages.find(message => message._id === value.id )
+                    const message = force.messages.find(message => message._id === value.id)
                     // now add the new one
                     if (message) {
                       manuallyData.current.orders.push(message)
-                    }  
+                    }
                   }
                   validateManualForm()
                 }}
@@ -606,7 +606,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Autocomplete
               disablePortal
               multiple
-              options={manualDialog?.otherAssets.map(asset => ({id: asset.uniqid, label: asset.name + msgSeparator + asset.uniqid + 'asdfa sdfasdfasdfdasfasdf asdf asdf asdf ads'}) ) || []}
+              options={manualDialog?.otherAssets.map(asset => ({ id: asset.uniqid, label: asset.name + msgSeparator + asset.uniqid + 'asdfa sdfasdfasdfdasfasdf asdf asdf asdf ads' })) || []}
               isOptionEqualToValue={(option, value): boolean => {
                 return option.id === value.id
               }}

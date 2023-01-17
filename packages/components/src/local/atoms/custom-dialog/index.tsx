@@ -39,12 +39,12 @@ export const CustomDialog: React.FC<Props> = (props) => {
       {errors && errors.length > 0 &&
       <div style={bodyStyle} className={localStyles.errors} >
         <ul>
-        { errors.map((str: string, index:number) => 
-          <li key={index}>{str}</li>
-        )}
+          { errors.map((str: string, index:number) =>
+            <li key={index}>{str}</li>
+          )}
         </ul>
-    </div>
-    }
+      </div>
+      }
       <div style={footerStyle} className={localStyles.footer}>
         {
           onClose &&
