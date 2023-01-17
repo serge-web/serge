@@ -126,7 +126,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
       // ex for all template based messages will be used CUSTOM_MESSAGE Type
       messageType: 'InteractionMessage',
       details,
-      message: outcomes,
+      message: { ...outcomes, Reference: 'umpire-' + (interactionMessages.length + 1)},
       hasBeenRead: false
     }
     setMessages([...messages, newMessage])
@@ -138,8 +138,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
       // defined constat for messages, it's not same as message.details.messageType,
       // ex for all template based messages will be used CUSTOM_MESSAGE Type
       messageType: 'InteractionMessage',
-      details,
       message: outcomes,
+      details,
       hasBeenRead: false
     }
     setMessages([...messages, newMessage])
