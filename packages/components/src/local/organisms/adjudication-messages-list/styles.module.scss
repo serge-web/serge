@@ -11,6 +11,13 @@
   color: rgb(37, 37, 37);
 }
 
+.autocomplete-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .assets {
   border: 2px solid #444;
   border-radius: 10px;

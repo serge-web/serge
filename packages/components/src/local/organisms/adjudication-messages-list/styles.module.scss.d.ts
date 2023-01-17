@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'assets': string;
+  'autocomplete-dropdown': string;
   'damaged': string;
   'dead': string;
   'full': string;

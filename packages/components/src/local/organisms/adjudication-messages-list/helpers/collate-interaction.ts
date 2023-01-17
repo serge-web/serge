@@ -29,7 +29,8 @@ const getActivity = (activities:PerForcePlanningActivitySet[], activityId: Plann
     })
   )
   if (!groupAct) {
-    throw Error('failed to find group activity' + activityId)
+    console.log('failed to find group activity', activityId)
+    return 'NOT FOUND'
   }
 
   const activity = groupAct.activities.find((act: string | PlanningActivity) => {
