@@ -1,4 +1,4 @@
-import { GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
@@ -638,7 +638,7 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
         locationOutcomes: [],
         perceptionOutcomes: [],
         narrative: '',
-        messageType: 'AdjudicationOutcomes'
+        messageType: ADJUDICATION_OUTCOMES
       }
       const msgInt: MessageInteraction = {
         messageType: INTERACTION_MESSAGE,

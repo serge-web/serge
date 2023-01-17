@@ -587,8 +587,9 @@ export const MappingChannel: React.FC<MappingChannelProps> = ({
         header={'Error'}
         cancelBtnText={'OK'}
         onClose={(): void => setProblems('')}
-        content={problems}
-      />
+      >
+        <>{problems}</>
+      </CustomDialog>
       <Confirm
         isOpen={participantKey !== -1}
         title="Delete Participation"

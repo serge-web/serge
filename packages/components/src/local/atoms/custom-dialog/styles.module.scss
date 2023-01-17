@@ -1,6 +1,6 @@
 .modalportal {
   position: absolute;
-  z-index: 10000;
+  z-index: 1000;
 }
 
 .modal {
@@ -12,7 +12,7 @@
   top: 50%;
   left: 50%;
   width: 60%;
-  max-width: 500px;
+  // max-width: 500px;
   height: auto;
   min-height: 150px;
   margin-right: -50%;
@@ -32,6 +32,13 @@
   padding: 20px;
   height: 50%;
   border-bottom: 1px solid rgb(211, 211, 211);
+}
+
+.errors {
+  padding: 20px;
+  height: 50%;
+  border-top: 1px solid rgb(211, 211, 211);
+  color: rgb(147, 4, 4);
 }
 
 .footer {
