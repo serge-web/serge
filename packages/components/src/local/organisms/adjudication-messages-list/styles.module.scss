@@ -25,3 +25,15 @@
 .assets tr:nth-child(odd) {
   background-color: #f3f3f3;
 }
+
+td:has(> span.dead) {
+  background-color: rgba(240, 91, 91);
+}
+
+td:has(> span.damaged) {
+  background-color: rgb(246, 181, 101);
+}
+
+td:has(> span.full) {
+  background-color: rgb(157, 247, 127);
+}

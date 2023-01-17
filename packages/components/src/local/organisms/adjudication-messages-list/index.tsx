@@ -109,6 +109,43 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
+  const healthStyleFor = (aHealth: number | undefined) => {
+    let healthStyle
+    if (aHealth !== undefined) {
+      switch (aHealth) {
+        case 0: {
+          healthStyle = styles.dead
+          break
+        }
+        case 100: {
+          healthStyle = styles.full
+          break
+        } 
+        default: {
+          healthStyle = styles.damaged
+          break
+        }
+      }
+    }
+    return healthStyle
+  }
+
+  const hexToRGB = (hex: string, opacity: number): string => {
+    const formatHex = (hexStr: string): string => {
+      const c = hexStr.substring(1).split('')
+      if (c.length === 3) {
+        return `${c[0]}${c[0]}${c[1]}${c[1]}${c[2]}${c[2]}`
+      }
+      return `${c.join('')}`
+    }
+    const color = formatHex(hex)
+    const r = parseInt(color.slice(0, 2), 16)
+    const g = parseInt(color.slice(2, 4), 16)
+    const b = parseInt(color.slice(4, 6), 16)
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+  }
+
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
     index: number): React.ReactElement => {
     let asset: {force: ForceData, asset: Asset} | undefined
@@ -117,23 +154,30 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } catch (e) {
       console.warn('can\'t find asset for render asset', e)
     }
-    if (!asset) {
-      console.warn('Failed to find asset:' + assetId)
-      return <li key={index}>Asset not found</li>
-    } else {
+    if (asset) {
       const platformType = platformTypes.find((value) => asset && value.uniqid === asset.asset.platformTypeId)
       const numAssets = assetId.number || 0
+      const forceStyle = { backgroundColor:hexToRGB(asset.force.color, 0.4) } 
       const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
       const numDetails = assetId.missileType
         ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
         : <td>{alive + ' of ' + numAssets}</td>
+      const aHealth = asset.asset.health
+      const healthStyle = healthStyleFor(asset.asset.health)
+      const health = healthStyle ? <span className={healthStyle}>{aHealth}</span> : 'n/a'
+      if (asset.asset.attributes) {
+        asset.asset.attributes.a_C2_Status = 'Degraded'
+      }
       return <tr>
-        <td>{asset.asset.name}</td>
+        <td style={forceStyle}>{asset.asset.name}</td>
         {numDetails}
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
-        <td>{asset.asset.health}</td>
+        <td>{health}</td>
         <td>{asset.asset.attributes?.a_C2_Status}</td>
       </tr>
+    } else {
+      console.warn('Failed to find asset:' + assetId)
+      return <li key={index}>Asset not found</li>
     }
   }
 
@@ -158,8 +202,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       const title = order1 ? 'Orders 1' : ' Orders 2'
       const timings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
+      const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
+      const forceStyle = { fontSize: '160%', backgroundColor:hexToRGB(force ? force.color : '#ddd', 0.4) } 
       return <Box>
-        <div><b>{title}</b></div>
+        <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Reference: </b> {plan.message.Reference} </span>
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />

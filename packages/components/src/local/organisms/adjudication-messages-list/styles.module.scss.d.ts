@@ -2,6 +2,9 @@
 // Please do not change this file!
 interface CssExports {
   'assets': string;
+  'damaged': string;
+  'dead': string;
+  'full': string;
   'messages-list': string;
   'selected': string;
 }
