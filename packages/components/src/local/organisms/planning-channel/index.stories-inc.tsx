@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
-import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -85,7 +85,7 @@ forces.forEach((force: ForceData) => {
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
-  title: 'local/organisms/PlanningChannelBravo',
+  title: 'local/organisms/PlanningChannel',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -275,7 +275,37 @@ BulkData.args = {
 
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
-  messages: planningMessages, // planningMessagesBulk,
+  messages: planningMessagesBulk,
+  selectedRoleId: allRoles[1],
+  phase: Phase.Adjudication
+}
+
+// open an interaction, and make this role the owner - so we have an adjudication open
+const adjRoleId = forces[0].roles[1].roleId
+const tmpMessages = [...PlanningChannelMessages]
+const firstInter = planningMessagesBulk.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+  return (msg.messageType === INTERACTION_MESSAGE)
+}) as MessageInteraction
+let tmpPlans: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = []
+if (firstInter) {
+  const inter = firstInter.details.interaction as InteractionDetails
+  if (inter) {
+    const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
+    const relevant = planningMessagesBulk.filter((msg) => msg._id && items.includes(msg._id))
+    const interCopy = JSON.parse(JSON.stringify(firstInter))
+    const newFrom = { ...firstInter.details.from, roleId: adjRoleId }
+    interCopy.details.from = newFrom
+    interCopy.details.interaction.complete = false
+    tmpMessages.push(interCopy)
+    tmpMessages.push(...relevant)
+    tmpPlans = tmpMessages
+  }
+} else {
+  tmpPlans.push({ a: 12 } as unknown as MessagePlanning)
+}
+export const AdjudicationFormOpen = Template.bind({})
+AdjudicationFormOpen.args = {
+  messages: tmpPlans,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }

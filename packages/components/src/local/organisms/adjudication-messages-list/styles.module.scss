@@ -10,3 +10,30 @@
 .selected {
   color: rgb(37, 37, 37);
 }
+
+.assets {
+  border: 2px solid #444;
+  border-radius: 10px;
+}
+
+.assets td,
+.assets th {
+  border: 1px solid;
+  padding: 3px;
+}
+
+.assets tr:nth-child(odd) {
+  background-color: #f3f3f3;
+}
+
+.dead {
+  background-color: rgba(240, 91, 91, 0.6);
+}
+
+.damaged {
+  background-color: rgb(246, 181, 101, 0.6);
+}
+
+.full {
+  background-color: rgb(157, 247, 127, 0.6);
+}
