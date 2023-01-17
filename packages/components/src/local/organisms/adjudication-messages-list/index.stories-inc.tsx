@@ -48,7 +48,41 @@ export default {
 
 const planningActivities = wargame.activities ? wargame.activities.activities : []
 
+// push in a few green messages
+const green = forces[3]
+const greenRole = green.roles[0]
+const greenMessages = []
+for (let i = 0; i < 5; i++) {
+  const newM: MessagePlanning = {
+    _id: moment().toISOString(),
+    messageType: PLANNING_MESSAGE,
+    details: {
+      from: {
+        force:  green.name,
+        forceId: green.uniqid,        
+        forceColor: green.color,
+        roleName: greenRole.name,
+        iconURL: "default_img/umpireDefault.png",
+        roleId: greenRole.roleId
+      },
+      channel: 'channel-planning',
+      messageType: PLANNING_MESSAGE,
+      timestamp: moment().toISOString(),
+      turnNumber: 3
+    },
+    message: {
+      activity: '',
+      startDate: moment().toISOString(),
+      endDate: moment().toISOString(),
+      Reference: 'green-' + i,
+      title: 'Title-' + (i+1)
+    }
+  }
+  greenMessages.push(newM)
+}
+
 const copyMessages = JSON.parse(JSON.stringify(planningChannelMessages)) as Array<MessagePlanning | MessageInteraction | MessageInfoTypeClipped>
+copyMessages.push(...greenMessages)
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { playerRoleId } = args
