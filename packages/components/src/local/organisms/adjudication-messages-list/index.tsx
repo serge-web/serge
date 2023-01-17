@@ -112,19 +112,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const healthStyleFor = (aHealth: number | undefined) => {
     let healthStyle
     if (aHealth !== undefined) {
-      switch (aHealth) {
-        case 0: {
-          healthStyle = styles.dead
-          break
-        }
-        case 100: {
-          healthStyle = styles.full
-          break
-        } 
-        default: {
-          healthStyle = styles.damaged
-          break
-        }
+      if (aHealth === 100) {
+        healthStyle = styles.full
+      } else if (aHealth === 0) {
+        healthStyle = styles.dead
+      } else {
+        healthStyle = styles.damaged
       }
     }
     return healthStyle
@@ -164,15 +157,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         : <td>{alive + ' of ' + numAssets}</td>
       const aHealth = asset.asset.health
       const healthStyle = healthStyleFor(asset.asset.health)
-      const health = healthStyle ? <span className={healthStyle}>{aHealth}</span> : 'n/a'
-      if (asset.asset.attributes) {
-        asset.asset.attributes.a_C2_Status = 'Degraded'
-      }
-      return <tr>
+      return <tr key={asset.asset.uniqid}>
         <td style={forceStyle}>{asset.asset.name}</td>
         {numDetails}
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
-        <td>{health}</td>
+        <td className={healthStyle}>{aHealth || 'unk'}</td>
         <td>{asset.asset.attributes?.a_C2_Status}</td>
       </tr>
     } else {
@@ -210,18 +199,23 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <span><b>Reference: </b> {plan.message.Reference} </span>
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />
         <span><b>Time: </b> {timings} </span><br />
-        <span><b>Own: </b> {plan.message.ownAssets &&
+        <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
           <table className={styles.assets}>
-            <tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr>
-            {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <tbody>
+              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
+            </tbody>
           </table>}
         </span>
-        <span><b>Other: </b> {plan.message.otherAssets &&
+        <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 && 
           <table className={styles.assets}>
-            <tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr>
-            {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <tbody>
+              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
+            </tbody>
           </table>}
         </span>
+        <hr/>
         {items}
       </Box>
     }
