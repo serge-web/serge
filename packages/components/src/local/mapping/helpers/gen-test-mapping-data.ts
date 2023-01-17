@@ -202,7 +202,7 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
   })
   if (!mtg) {
     console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
-  } else  {
+  } else {
     // get the first instance
     const groups = assets.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
     console.log('task group', groups, assets)
@@ -283,7 +283,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   }
 
   // make the first unit a composite one
-  const assetsWithTGs = withComprising ?  makeTaskGroup(assets, force, platformTypes) : assets
+  const assetsWithTGs = withComprising ? makeTaskGroup(assets, force, platformTypes) : assets
 
   // put aircraft onto airfields
   const airfields = assetsWithTGs.filter((asset: Asset) => {
@@ -342,7 +342,7 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const aus = [L.latLng(-22, 150), L.latLng(-12, 131), L.latLng(-22, 115), L.latLng(-22, 150)]
   const ausCoast = aus.slice(0, aus.length - 1)
   const nGuinea = [L.latLng(-1.62575, 137.5048), L.latLng(-3.9080, 135.3955), L.latLng(-8.2767, 138.4277),
-  L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
+    L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
   const nGuineaCoast = nGuinea.slice(0, nGuinea.length - 1)
   const ausCoastBuffer = L.polygon(leafletBufferLine(ausCoast, 30))
   const ausBuffer = L.polygon(aus)
