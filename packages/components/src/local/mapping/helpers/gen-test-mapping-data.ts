@@ -285,8 +285,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes, true)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes, true)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 1000, undefined, bluePlatforms, forces, attributeTypes, true)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 1000, undefined, redPlatforms, forces, attributeTypes, true)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces
