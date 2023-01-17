@@ -36,9 +36,7 @@ type ManualInteractionData = {
 }
 
 type ManualInteractionResults = {
-  blue: MessagePlanning[]
-  red?: MessagePlanning[]
-  green?: MessagePlanning[]
+  orders: MessagePlanning []
   otherAssets: Asset[]
   startDate: string
   endDate: string
@@ -60,13 +58,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
   const [currentTime, setCurrentTime] = useState<string>('pending')
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
-  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs())
-  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs())
+  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
+  const [validationErrors, setValidationErrors] = useState<string[]>([])
+
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
-  const manuallyData = useRef<ManualInteractionResults>({ blue: [], endDate: '', otherAssets: [], startDate: '' })
+  const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
+
+
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -430,16 +432,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       otherAssets: otherAssets
     }
 
-    console.log('xx> data: ', data)
+    validateManualForm()
     // popup the form
     setManualDialog(data)
   }
 
-  const handleManualInteraction = (results?: ManualInteractionResults): void => {
-    // collate the data
-    console.log('handling', results)
+  const handleManualInteraction = (): void => {
     // submit the adjudication
-
     console.log('Manual Interaction Result: ', manuallyData.current)
 
     // clear the data
@@ -524,6 +523,21 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const modalStyle = useMemo(() => ({ content: { width: '650px' } }), [])
 
+  const validateManualForm = ():void  => {
+    const res = []
+    const orderLen = manuallyData.current.orders.length
+    if(orderLen === 0) {
+      res.push('One or two sets of orders must be selected')
+    }
+    if(orderLen > 2) {
+      res.push('Only one or two sets of orders may be selected')
+    }
+    if(manuallyData.current.startDate === '' || manuallyData.current.startDate === '') {
+      res.push('Start and end dates must be provided')
+    }
+    setValidationErrors(res)
+  }
+
   return (
     <div className={styles['messages-list']}>
       <CustomDialog
@@ -534,6 +548,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         onClose={closeManualCallback}
         onSave={handleManualCallback}
         modalStyle={modalStyle}
+        errors={validationErrors}
       >
         <div>
           <div className={styles['autocomplete-dropdown']}>
@@ -541,15 +556,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               return <Autocomplete
                 key={force.forceName}
                 disablePortal
-                multiple
                 options={force.messages.map(message => message.message.Reference)}
                 sx={{ width: `${(100 / manualDialog?.forceMessages.length) - 0.3}%` }}
                 renderInput={(params) => <TextField {...params} size='small' label={force.forceName} />}
-                onChange={(_: SyntheticEvent<Element, Event>, value: string[]) => {
-                  const messages = force.messages.filter(message => value.includes(message.message.Reference))
-                  if (messages.length) {
-                    manuallyData.current[force.forceName.toLowerCase()] = messages
+                onChange={(_: SyntheticEvent<Element, Event>, value: string | null) => {
+                  const message = force.messages.find(message => value === message.message.Reference)
+                  // clear out any existing
+                  manuallyData.current.orders = manuallyData.current.orders.filter((plan: MessagePlanning) => {
+                    return plan.details.from.force !== force.forceName
+                  })
+                  // now add the new one
+                  if (message) {
+                    manuallyData.current.orders.push(message)
                   }
+                  validateManualForm()
                 }}
               />
             })}
@@ -566,16 +586,19 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 if (assets) {
                   manuallyData.current.otherAssets = assets
                 }
+                validateManualForm()
               }}
             />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
                 renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }} />}
                 label='Start Time'
+                inputFormat="YYYY/MM/DD HH:mm"
                 value={startTime}
-                onChange={(statTime) => {
-                  manuallyData.current.startDate = statTime?.toISOString() || new Date().toISOString()
-                  setStartTime(statTime)
+                onChange={(startTime) => {
+                  manuallyData.current.startDate = startTime?.toISOString() || new Date().toISOString()
+                  setStartTime(startTime)
+                  validateManualForm()
                 }}
               />
             </LocalizationProvider>
@@ -583,10 +606,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               <DateTimePicker
                 renderInput={(props) => <TextField size='small' {...props} sx={{ width: '33%' }} />}
                 label='End Time'
+                inputFormat="YYYY/MM/DD HH:mm"
                 value={endTime}
                 onChange={(endTime) => {
                   manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
                   setEndTime(endTime)
+                  validateManualForm()
                 }}
               />
             </LocalizationProvider>

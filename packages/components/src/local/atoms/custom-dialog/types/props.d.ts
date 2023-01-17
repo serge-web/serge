@@ -1,4 +1,3 @@
-import noop from 'lodash'
 import React from 'react'
 import ReactModal from 'react-modal'
 
@@ -15,4 +14,6 @@ export type Props = {
   headerStyle?: React.CSSProperties
   bodyStyle?: React.CSSProperties
   footerStyle?: React.CSSProperties
+  // validation errors
+  errors?: string[]
 }

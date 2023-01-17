@@ -17,9 +17,10 @@ export const CustomDialog: React.FC<Props> = (props) => {
     footerStyle,
     cancelBtnText = 'Cancel',
     saveBtnText = 'Save',
-    children
+    children,
+    errors
   } = props
-
+  console.log('errors')
   return (
     <Modal
       style={modalStyle}
@@ -35,6 +36,15 @@ export const CustomDialog: React.FC<Props> = (props) => {
       <div style={bodyStyle} className={localStyles.body} >
         {children}
       </div>
+      {errors && errors.length > 0 &&
+      <div style={bodyStyle} className={localStyles.errors} >
+        <ul>
+        { errors.map((str: string, index:number) => 
+          <li key={index}>{str}</li>
+        )}
+        </ul>
+    </div>
+    }
       <div style={footerStyle} className={localStyles.footer}>
         {
           onClose &&
@@ -50,6 +60,7 @@ export const CustomDialog: React.FC<Props> = (props) => {
           onSave &&
           <Button
             variant="contained"
+            disabled={!!(errors && errors.length)}
             color="primary"
             onClick={onSave}
           >

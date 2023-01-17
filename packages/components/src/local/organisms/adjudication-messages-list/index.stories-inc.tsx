@@ -58,11 +58,11 @@ for (let i = 0; i < 5; i++) {
     messageType: PLANNING_MESSAGE,
     details: {
       from: {
-        force:  green.name,
-        forceId: green.uniqid,        
+        force: green.name,
+        forceId: green.uniqid,
         forceColor: green.color,
         roleName: greenRole.name,
-        iconURL: "default_img/umpireDefault.png",
+        iconURL: 'default_img/umpireDefault.png',
         roleId: greenRole.roleId
       },
       channel: 'channel-planning',
@@ -74,8 +74,8 @@ for (let i = 0; i < 5; i++) {
       activity: '',
       startDate: moment().toISOString(),
       endDate: moment().toISOString(),
-      Reference: 'green-' + i,
-      title: 'Title-' + (i+1)
+      Reference: green.name + '-' + (i + 1),
+      title: 'Title-' + (i + 1)
     }
   }
   greenMessages.push(newM)
