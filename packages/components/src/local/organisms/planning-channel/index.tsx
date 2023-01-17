@@ -142,8 +142,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
           allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
         console.log(randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid,
-            allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
-        }
+          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+      }
     }
   }
 

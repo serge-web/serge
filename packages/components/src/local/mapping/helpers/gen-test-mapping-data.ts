@@ -196,7 +196,7 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
 
 const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
   // find mtg
-  let res: Asset[] = [ ...assets ]
+  let res: Asset[] = [...assets]
   const mtg = platformTypes.find((pType: PlatformTypeData) => {
     return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') !== -1
   })
@@ -237,7 +237,6 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
 
       // remove the children from the top level
       res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
-
     }
   }
   return res
