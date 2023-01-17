@@ -627,26 +627,38 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <div className={styles['autocomplete-dropdown']}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '50%' }} />}
+                renderInput={(props) => <TextField size='small' inputProps={{...props.inputProps, readOnly: true}} {...props} sx={{ width: '50%' }} />}
                 label='Start Time'
                 inputFormat="YYYY/MM/DD HH:mm"
                 value={startTime}
-                onChange={(startTime) => {
-                  manuallyData.current.startDate = startTime?.toISOString() || new Date().toISOString()
-                  setStartTime(startTime)
+                onChange={(value) => {
+                  try{
+                    manuallyData.current.startDate = value?.toISOString() || new Date().toISOString()
+                    setStartTime(value)
+                  }
+                  catch (err) {
+                    console.log('start date invalid')
+                    manuallyData.current.startDate = ''
+                  }
                   validateManualForm()
                 }}
               />
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' {...props} sx={{ width: '50%' }} />}
+                renderInput={(props) => <TextField size='small' inputProps={{...props.inputProps, readOnly: true}} {...props} sx={{ width: '50%' }} />}
                 label='End Time'
                 inputFormat="YYYY/MM/DD HH:mm"
                 value={endTime}
                 onChange={(endTime) => {
-                  manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
-                  setEndTime(endTime)
+                  try{
+                    manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
+                    setEndTime(endTime)
+                  }
+                  catch (err) {
+                    console.log('end date invalid')
+                    manuallyData.current.endDate = ''
+                  }
                   validateManualForm()
                 }}
               />
