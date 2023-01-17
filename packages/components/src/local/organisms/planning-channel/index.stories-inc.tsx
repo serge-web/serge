@@ -273,8 +273,6 @@ BulkData.args = {
   phase: Phase.Planning
 }
 
-
-
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
   messages: planningMessagesBulk,
@@ -295,7 +293,7 @@ if (firstInter) {
     const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
     const relevant = planningMessagesBulk.filter((msg) => msg._id && items.includes(msg._id))
     const interCopy = JSON.parse(JSON.stringify(firstInter))
-    const newFrom = {...firstInter.details.from, roleId: adjRoleId}
+    const newFrom = { ...firstInter.details.from, roleId: adjRoleId }
     interCopy.details.from = newFrom
     interCopy.details.interaction.complete = false
     tmpMessages.push(interCopy)
@@ -303,7 +301,7 @@ if (firstInter) {
     tmpPlans = tmpMessages
   }
 } else {
-  tmpPlans.push({a: 12} as unknown as  MessagePlanning)
+  tmpPlans.push({ a: 12 } as unknown as MessagePlanning)
 }
 export const AdjudicationFormOpen = Template.bind({})
 AdjudicationFormOpen.args = {

@@ -150,7 +150,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (asset) {
       const platformType = platformTypes.find((value) => asset && value.uniqid === asset.asset.platformTypeId)
       const numAssets = assetId.number || 0
-      const forceStyle = { backgroundColor:hexToRGB(asset.force.color, 0.4) } 
+      const forceStyle = { backgroundColor: hexToRGB(asset.force.color, 0.4) }
       const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
       const numDetails = assetId.missileType
         ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
@@ -192,7 +192,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const title = order1 ? 'Orders 1' : ' Orders 2'
       const timings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
       const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
-      const forceStyle = { fontSize: '160%', backgroundColor:hexToRGB(force ? force.color : '#ddd', 0.4) } 
+      const forceStyle = { fontSize: '160%', backgroundColor: hexToRGB(force ? force.color : '#ddd', 0.4) }
       return <Box>
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
@@ -207,7 +207,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             </tbody>
           </table>}
         </span>
-        <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 && 
+        <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 &&
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
             <tbody>
