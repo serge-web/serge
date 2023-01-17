@@ -2,12 +2,18 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
+import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
 import moment from 'moment'
-import React, { Fragment, useCallback, useEffect, useRef, useState } from 'react'
+import React, { Fragment, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
@@ -30,10 +36,9 @@ type ManualInteractionData = {
 }
 
 type ManualInteractionResults = {
-  order1: MessagePlanning
-  order2?: MessagePlanning
+  orders: MessagePlanning []
   otherAssets: Asset[]
-  startDate: string // isoString
+  startDate: string
   endDate: string
 }
 
@@ -47,21 +52,23 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-
   const [dialogMessage, setDialogMessage] = useState<string>('')
-
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
-
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
+  const [currentTime, setCurrentTime] = useState<string>('pending')
+  const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
+  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
+  const [validationErrors, setValidationErrors] = useState<string[]>([])
+
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
+  const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
 
-  const [currentTime, setCurrentTime] = useState<string>('pending')
-
-  const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
+  const msgSeparator = ' - '
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -140,7 +147,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
-    index: number): React.ReactElement => {
+    index: number, numberCol: boolean): React.ReactElement => {
     let asset: {force: ForceData, asset: Asset} | undefined
     try {
       asset = findForceAndAsset(forces, assetId.asset)
@@ -159,7 +166,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const healthStyle = healthStyleFor(asset.asset.health)
       return <tr key={asset.asset.uniqid}>
         <td style={forceStyle}>{asset.asset.name}</td>
-        {numDetails}
+        { numberCol && numDetails }
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
         <td className={healthStyle}>{aHealth || 'unk'}</td>
         <td>{asset.asset.attributes?.a_C2_Status}</td>
@@ -203,7 +210,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
             <tbody>
-              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
+              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index, true))}
             </tbody>
           </table>}
         </span>
@@ -211,7 +218,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
             <tbody>
-              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
+              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index, true))}
             </tbody>
           </table>}
         </span>
@@ -231,7 +238,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.warn('Failed to find message 2:', id)
         return <span>Order not found</span>
       }
-      return <span>{plan.message.Reference}<br/>{plan.message.title}</span>
+      return <span>{plan.message.Reference}<br />{plan.message.title}</span>
     }
   }
 
@@ -425,17 +432,37 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       otherAssets: otherAssets
     }
 
+    validateManualForm()
     // popup the form
     setManualDialog(data)
   }
 
-  const handleManualInteraction = (results?: ManualInteractionResults): void => {
-    // collate the data
-    console.log('handling', results)
-    // submit the adjudication
-
-    // clear the data
+  const handleManualInteraction = (): void => {
+    // collate data for adjudication
+    const data = manuallyData.current
+    const iDetails: InteractionDetails = {
+      startTime: data.startDate,
+      endTime: data.endDate,
+      otherAssets: data.otherAssets.map((asset: Asset) => asset.uniqid),
+      orders1: data.orders[0]._id,
+      orders2: data.orders.length === 2 ? data.orders[1]._id : undefined,
+      complete: false,
+      id: moment().toISOString() + ' Manual'
+    }
+    const outcomes: MessageAdjudicationOutcomes = {
+      messageType: ADJUDICATION_OUTCOMES,
+      Reference: '', // leave blank, so backend creates it
+      narrative: '',
+      important: false,
+      perceptionOutcomes: [],
+      locationOutcomes: [],
+      healthOutcomes: []
+    }
+    // close the panel
     setManualDialog(undefined)
+
+    // submit this new item
+    handleAdjudication && handleAdjudication(iDetails, outcomes)
   }
 
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
@@ -465,17 +492,25 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
-          const assetNames: string[] = data.otherAssets.map((asset: Asset) => asset.name)
-
           const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
-            <Box><b>Interaction details:</b><br/>
+            <Box><b>Interaction details:</b><br />
               <ul>
-                <li><b>Other assets:</b>{ assetNames.length > 0 ? assetNames.join(', ') : 'None' }</li>
-                <li><b>Date/time:</b>{ time }</li>
-                <li><b>Geometry provided:</b>{ interaction.geometry ? 'Yes' : 'No' }</li>
-                <li><b>ID:</b>{ interaction.id }</li>
+                <li><b>Date/time:</b>{time}</li>
+                <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                <li><b>Reference:</b>{msg.Reference}</li>
+                <li><b>Other assets:</b>
+                  <span>{data.otherAssets && data.otherAssets.length > 0
+                    ? <table className={styles.assets}>
+                      <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+                      <tbody>
+                        {data.otherAssets.map((asset, index) => renderAsset({ asset: asset.uniqid }, forces, index, false))}
+                      </tbody>
+                    </table> : ' None'}
+                  </span>
+                </li>
+                <li><b>ID:</b>{interaction.id}</li>
               </ul>
             </Box>
             <Table>
@@ -514,32 +549,148 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
+  const modalStyle = useMemo(() => ({ content: { width: '850px' } }), [])
+
+  const validateManualForm = ():void => {
+    const res = []
+    const orderLen = manuallyData.current.orders.length
+    if (orderLen === 0) {
+      res.push('One or two sets of orders must be selected')
+    }
+    if (orderLen > 2) {
+      res.push('Only one or two sets of orders may be selected')
+    }
+    if (manuallyData.current.startDate === '' || manuallyData.current.endDate === '') {
+      res.push('Start and end dates must be provided')
+    }
+    setValidationErrors(res)
+  }
+
+  type MessageValue = {id: string, label: string}
+
   return (
     <div className={styles['messages-list']}>
-      {/* todo - replace this CustomDialog with form matching layout */}
-      <CustomDialog
-        isOpen={manualDialog !== undefined}
-        header={'Manual dialog, #assets:' + (manualDialog && manualDialog.otherAssets.length)}
+      { manualDialog && <CustomDialog
+        isOpen={true}
+        header={'Create Manual Interaction'}
         cancelBtnText={'Cancel'}
-        saveBtnText={'Create'}
+        saveBtnText={'Submit'}
         onClose={closeManualCallback}
         onSave={handleManualCallback}
-        content={'Form to create manual interaction'}
-      />
-      <CustomDialog
-        isOpen={dialogMessage.length > 0}
-        header={'Generate interactions'}
-        cancelBtnText={'OK'}
-        onClose={closeDialogCallback}
-        content={dialogMessage}
-      />
+        modalStyle={modalStyle}
+        errors={validationErrors}
+      >
+        <div>
+          <div className={styles['autocomplete-dropdown']}>
+            {manualDialog.forceMessages.map(force => {
+              return <Autocomplete
+                key={force.forceName}
+                disablePortal
+                options={force.messages.map(message => ({ id: message._id, label: message.message.Reference + msgSeparator + message.message.title }))}
+                sx={{ width: `${(100 / manualDialog.forceMessages.length) - 0.3}%` }}
+                isOptionEqualToValue={(option, value): boolean => {
+                  return option.id === value.id
+                }}
+                renderInput={(params) => <TextField {...params} size='small' label={force.forceName} />}
+                onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue | null) => {
+                  // clear out any existing for this force
+                  manuallyData.current.orders = manuallyData.current.orders.filter((plan: MessagePlanning) => {
+                    return plan.details.from.force !== force.forceName
+                  })
+                  // extract the order reference
+                  if (value) {
+                    const message = force.messages.find(message => message._id === value.id)
+                    // now add the new one
+                    if (message) {
+                      manuallyData.current.orders.push(message)
+                    }
+                  }
+                  validateManualForm()
+                }}
+              />
+            })}
+          </div>
+          <div className={styles['autocomplete-dropdown']}>
+            <Autocomplete
+              disablePortal
+              multiple
+              options={manualDialog.otherAssets.map(asset => ({ id: asset.uniqid, label: asset.uniqid + msgSeparator + asset.name })) || []}
+              isOptionEqualToValue={(option, value): boolean => {
+                return option.id === value.id
+              }}
+              sx={{ width: '100%' }}
+              renderInput={(params) => <TextField {...params} size='small' label='Other assets' />}
+              onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue[]) => {
+                const assets = manualDialog.otherAssets.filter(item => {
+                  const ids = value.map((val: MessageValue) => val.id)
+                  return ids.includes(item.uniqid)
+                })
+                if (assets) {
+                  manuallyData.current.otherAssets = assets
+                }
+                validateManualForm()
+              }}
+            />
+          </div>
+          <div className={styles['autocomplete-dropdown']}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField size='small' inputProps={{ ...props.inputProps, readOnly: true }} {...props} sx={{ width: '50%' }} />}
+                label='Start Time'
+                inputFormat="YYYY/MM/DD HH:mm"
+                value={startTime}
+                onChange={(value) => {
+                  try {
+                    manuallyData.current.startDate = value?.toISOString() || new Date().toISOString()
+                    setStartTime(value)
+                  } catch (err) {
+                    console.log('start date invalid')
+                    manuallyData.current.startDate = ''
+                  }
+                  validateManualForm()
+                }}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField size='small' inputProps={{ ...props.inputProps, readOnly: true }} {...props} sx={{ width: '50%' }} />}
+                label='End Time'
+                inputFormat="YYYY/MM/DD HH:mm"
+                value={endTime}
+                onChange={(endTime) => {
+                  try {
+                    manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
+                    setEndTime(endTime)
+                  } catch (err) {
+                    console.log('end date invalid')
+                    manuallyData.current.endDate = ''
+                  }
+                  validateManualForm()
+                }}
+              />
+            </LocalizationProvider>
+          </div>
+        </div>
+      </CustomDialog>
+      }
+
+      {dialogMessage.length > 0 &&
+        <CustomDialog
+          isOpen={dialogMessage.length > 0}
+          header={'Generate interactions'}
+          cancelBtnText={'OK'}
+          onClose={closeDialogCallback}
+        >
+          <>{dialogMessage}</>
+        </CustomDialog>
+      }
       <div className='button-wrap' >
         <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
         <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
-        <Chip label={currentTime}/>
+        <Chip label={currentTime} />
       </div>
 
       <MaterialTable

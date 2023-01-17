@@ -8,6 +8,7 @@ import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
 import L from 'leaflet'
 import { uniqueId } from 'lodash'
+import { randomArrayItem } from '../../organisms/support-panel/helpers/gen-order-data'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
 const randomPointInPoly = (polygon: L.Polygon): any => {
@@ -48,7 +49,7 @@ export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): 
 }
 
 export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
-  forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
+  forces: ForceData[], localTest?: { (): boolean }): Perception[] => {
   const perceptions: Perception[] = []
   const seesAll = (): boolean => { return true }
   const letAllSeeAll = true
@@ -193,9 +194,57 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
   return attrVals
 }
 
+const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
+  // find mtg
+  let res: Asset[] = [...assets]
+  const mtg = platformTypes.find((pType: PlatformTypeData) => {
+    return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') !== -1
+  })
+  if (!mtg) {
+    console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
+  } else {
+    // get the first instance
+    const groups = assets.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
+    if (groups.length > 0) {
+      // ok, get some child classes
+      const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
+        return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
+      })
+      const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
+      const children = assets.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
+
+      // track the assets that have been moved to task groups, so we can later remove them
+      const movedToGroup: string[] = []
+
+      children.forEach((asset: Asset, index: number) => {
+        if (Math.random() > 0.4) {
+          // pick a task group parent
+          const newParent = randomArrayItem(groups, index)
+          // remove the location, we take it from the parent
+          delete asset.location
+          // store it
+          if (!newParent.comprising) {
+            newParent.comprising = []
+          }
+          newParent.comprising.push(asset)
+          // remember the id
+          movedToGroup.push(asset.uniqid)
+        } else {
+          // put it back in the results
+          res.push(asset)
+        }
+      })
+
+      // remove the children from the top level
+      res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
+    }
+  }
+  return res
+}
+
 const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined,
-  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising:boolean): Asset[] => {
-  const assets = []
+  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising: boolean): Asset[] => {
+  const assets: Asset[] = []
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
     const h3Pos = h3Res ? h3.geoToH3(posit[1], posit[0], h3Res) : undefined
@@ -229,26 +278,20 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
 
     // generate some perceptions:
     asset.perceptions = createPerceptions(asset, force.uniqid, forces)
-    // make the first unit a composite one
-    if (i > 0 && i < 4) {
-      if (!assets[0].comprising) {
-        assets[0].comprising = []
-      }
-      if (withComprising) {
-        assets[0].comprising.push(asset)
-      }
-    } else {
-      assets.push(asset)
-    }
+
+    assets.push(asset)
   }
 
+  // make the first unit a composite one
+  const assetsWithTGs = withComprising ? makeTaskGroup(assets, force, platformTypes) : assets
+
   // put aircraft onto airfields
-  const airfields = assets.filter((asset: Asset) => {
+  const airfields = assetsWithTGs.filter((asset: Asset) => {
     const isAsset = asset.platformTypeId.endsWith('land_asset')
     const aType = asset.attributes && asset.attributes.a_Type === 'Airfield'
     return isAsset && aType
   })
-  const airAsset = assets.filter((asset: Asset) => asset.platformTypeId.indexOf('air') > 0)
+  const airAsset = assetsWithTGs.filter((asset: Asset) => asset.platformTypeId.indexOf('air') > 0)
   airAsset.forEach((asset: Asset) => {
     if (asset.attributes) {
       const airfield = airfields[Math.floor(Math.random() * airfields.length)]
@@ -264,9 +307,8 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       console.warn('Not found assets for this aircraft')
     }
   })
-  console.log(airfields, airAsset)
 
-  return assets
+  return assetsWithTGs
 }
 
 export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
