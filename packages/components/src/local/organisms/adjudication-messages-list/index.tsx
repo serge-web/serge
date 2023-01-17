@@ -147,7 +147,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
-    index: number): React.ReactElement => {
+    index: number, numberCol: boolean): React.ReactElement => {
     let asset: {force: ForceData, asset: Asset} | undefined
     try {
       asset = findForceAndAsset(forces, assetId.asset)
@@ -166,7 +166,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const healthStyle = healthStyleFor(asset.asset.health)
       return <tr key={asset.asset.uniqid}>
         <td style={forceStyle}>{asset.asset.name}</td>
-        {numDetails}
+        { numberCol && numDetails }
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
         <td className={healthStyle}>{aHealth || 'unk'}</td>
         <td>{asset.asset.attributes?.a_C2_Status}</td>
@@ -210,7 +210,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
             <tbody>
-              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
+              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index, true))}
             </tbody>
           </table>}
         </span>
@@ -218,7 +218,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
             <tbody>
-              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
+              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index, true))}
             </tbody>
           </table>}
         </span>
@@ -492,16 +492,24 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
-          const assetNames: string[] = data.otherAssets.map((asset: Asset) => asset.name)
-
           const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
             <Box><b>Interaction details:</b><br />
               <ul>
-                <li><b>Other assets:</b>{assetNames.length > 0 ? assetNames.join(', ') : 'None'}</li>
                 <li><b>Date/time:</b>{time}</li>
                 <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                <li><b>Reference:</b>{msg.Reference}</li>
+                <li><b>Other assets:</b>
+                  <span>{data.otherAssets && data.otherAssets.length > 0 ?
+                    <table className={styles.assets}>
+                      <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+                      <tbody>
+                        {data.otherAssets.map((asset, index) => renderAsset({asset: asset.uniqid}, forces, index, false))}
+                      </tbody>
+                    </table>: ' None'}
+                  </span>
+                </li>
                 <li><b>ID:</b>{interaction.id}</li>
               </ul>
             </Box>
@@ -627,16 +635,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <div className={styles['autocomplete-dropdown']}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' inputProps={{...props.inputProps, readOnly: true}} {...props} sx={{ width: '50%' }} />}
+                renderInput={(props) => <TextField size='small' inputProps={{ ...props.inputProps, readOnly: true }} {...props} sx={{ width: '50%' }} />}
                 label='Start Time'
                 inputFormat="YYYY/MM/DD HH:mm"
                 value={startTime}
                 onChange={(value) => {
-                  try{
+                  try {
                     manuallyData.current.startDate = value?.toISOString() || new Date().toISOString()
                     setStartTime(value)
-                  }
-                  catch (err) {
+                  } catch (err) {
                     console.log('start date invalid')
                     manuallyData.current.startDate = ''
                   }
@@ -646,16 +653,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             </LocalizationProvider>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateTimePicker
-                renderInput={(props) => <TextField size='small' inputProps={{...props.inputProps, readOnly: true}} {...props} sx={{ width: '50%' }} />}
+                renderInput={(props) => <TextField size='small' inputProps={{ ...props.inputProps, readOnly: true }} {...props} sx={{ width: '50%' }} />}
                 label='End Time'
                 inputFormat="YYYY/MM/DD HH:mm"
                 value={endTime}
                 onChange={(endTime) => {
-                  try{
+                  try {
                     manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
                     setEndTime(endTime)
-                  }
-                  catch (err) {
+                  } catch (err) {
                     console.log('end date invalid')
                     manuallyData.current.endDate = ''
                   }
