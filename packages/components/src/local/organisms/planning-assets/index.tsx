@@ -45,7 +45,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     preventScroll.current = false
   }, [selectedAssets])
 
-
   const onSelectionChangeLocal = (rows: AssetRow[]) => {
     preventScroll.current = !!rows.length
     onSelectionChange && onSelectionChange(rows)
