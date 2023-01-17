@@ -9,7 +9,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
-import { findAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
+import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
 import moment from 'moment'
@@ -114,26 +114,64 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[], index: number): React.ReactElement => {
-    let asset: Asset | undefined
-    let numStr = ''
+  const healthStyleFor = (aHealth: number | undefined) => {
+    let healthStyle
+    if (aHealth !== undefined) {
+      if (aHealth === 100) {
+        healthStyle = styles.full
+      } else if (aHealth === 0) {
+        healthStyle = styles.dead
+      } else {
+        healthStyle = styles.damaged
+      }
+    }
+    return healthStyle
+  }
+
+  const hexToRGB = (hex: string, opacity: number): string => {
+    const formatHex = (hexStr: string): string => {
+      const c = hexStr.substring(1).split('')
+      if (c.length === 3) {
+        return `${c[0]}${c[0]}${c[1]}${c[1]}${c[2]}${c[2]}`
+      }
+      return `${c.join('')}`
+    }
+    const color = formatHex(hex)
+    const r = parseInt(color.slice(0, 2), 16)
+    const g = parseInt(color.slice(2, 4), 16)
+    const b = parseInt(color.slice(4, 6), 16)
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+  }
+
+  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
+    index: number): React.ReactElement => {
+    let asset: {force: ForceData, asset: Asset} | undefined
     try {
-      asset = findAsset(forces, assetId.asset)
+      asset = findForceAndAsset(forces, assetId.asset)
     } catch (e) {
       console.warn('can\'t find asset for render asset', e)
     }
-    if (assetId.number) {
-      if (assetId.missileType) {
-        numStr = ' (' + assetId.number + ' x ' + assetId.missileType + ')'
-      } else {
-        numStr = ' (' + assetId.number + ')'
-      }
-    }
-    if (!asset) {
+    if (asset) {
+      const platformType = platformTypes.find((value) => asset && value.uniqid === asset.asset.platformTypeId)
+      const numAssets = assetId.number || 0
+      const forceStyle = { backgroundColor: hexToRGB(asset.force.color, 0.4) }
+      const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
+      const numDetails = assetId.missileType
+        ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
+        : <td>{alive + ' of ' + numAssets}</td>
+      const aHealth = asset.asset.health
+      const healthStyle = healthStyleFor(asset.asset.health)
+      return <tr key={asset.asset.uniqid}>
+        <td style={forceStyle}>{asset.asset.name}</td>
+        {numDetails}
+        <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
+        <td className={healthStyle}>{aHealth || 'unk'}</td>
+        <td>{asset.asset.attributes?.a_C2_Status}</td>
+      </tr>
+    } else {
       console.warn('Failed to find asset:' + assetId)
       return <li key={index}>Asset not found</li>
-    } else {
-      return <li key={index}>{asset.name}{numStr}</li>
     }
   }
 
@@ -158,20 +196,31 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       const title = order1 ? 'Orders 1' : ' Orders 2'
       const timings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
+      const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
+      const forceStyle = { fontSize: '160%', backgroundColor: hexToRGB(force ? force.color : '#ddd', 0.4) }
       return <Box>
-        <div><b>{title}</b></div>
+        <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Reference: </b> {plan.message.Reference} </span>
         <span><b>Activity: </b> {activity || 'n/a'} </span><br />
         <span><b>Time: </b> {timings} </span><br />
-        <span><b>Own: </b> {plan.message.ownAssets &&
-          <ul> {
-            plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
-          </ul>}</span>
-        <span><b>Other: </b> {plan.message.otherAssets &&
-          <ul> {
-            plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
-          </ul>}</span>
+        <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
+          <table className={styles.assets}>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <tbody>
+              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
+            </tbody>
+          </table>}
+        </span>
+        <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 &&
+          <table className={styles.assets}>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <tbody>
+              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
+            </tbody>
+          </table>}
+        </span>
+        <hr/>
         {items}
       </Box>
     }
