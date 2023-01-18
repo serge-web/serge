@@ -634,26 +634,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                {allOwnAssets.length !== ownAssetsFiltered.length &&
+                {allOwnAssets.length !== ownAssetsFiltered.length ?
                   <>
                     <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                     <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} />
-                  </>
-                }
-                {allOwnAssets.length === ownAssetsFiltered.length &&
+                  </> :
                   <>
                     <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                     <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
                   </>
                 }
               </LayerGroup>
-              <LayerGroup key={'sel-opp-forces'}>
-                {allOppAssets.length !== opAssetsFiltered.length &&
+              <LayerGroup pmIgnore={true} key={'sel-opp-forces'}>
+                {allOppAssets.length !== opAssetsFiltered.length ?
                 <>
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                   <RangeRingPlotter title={'Opp range rings'} assets={filterApplied ? opAssetsFiltered : allOppAssets} forceCols={forceColors} />
-                </>}
-                {allOppAssets.length === opAssetsFiltered.length &&
+                </> :
                 <>
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                   <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
@@ -664,9 +661,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'cur-own-forces'}>
                 <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
+                <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => currentAssetIds.includes(asset.id))} forceCols={forceColors} />
               </LayerGroup>
               <LayerGroup key={'cur-opp-forces'}>
                 <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
+                <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => currentAssetIds.includes(asset.id))} forceCols={forceColors} />
               </LayerGroup>
             </Fragment>
             {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
