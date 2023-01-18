@@ -204,29 +204,37 @@ Default.args = {
   messages: copyMessages as CoreMessage[]
 }
 
-const noInterMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
+const planningMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
   if(msg.messageType !== INFO_MESSAGE_CLIPPED) {
-    return msg.details.messageType !== 'p9adjudicate'
+    return msg.details.from.forceId !== 'f-green' && msg.details.messageType !== 'p9adjudicate'
   } 
   return true
-})
+}) as MessagePlanning[]
+
 const interMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
   if(msg.messageType !== INFO_MESSAGE_CLIPPED) {
     return msg.details.messageType === 'p9adjudicate'
   } 
   return false
 })
-const oneInterMessage = noInterMessages.concat(interMessages[0])
+const oneInterMessage = planningMessages.concat(interMessages[0] as MessagePlanning)
 
 export const OneInteraction = Template.bind({})
 OneInteraction.args = {
   playerRoleId: umpireFole.roleId,
   messages: oneInterMessage as CoreMessage[]
 }
+
+console.table(planningMessages.map((msg: MessagePlanning) => {
+  return {
+    ref: msg.message.Reference, type: msg.message.activity, start: msg.message.startDate, end: msg.message.endDate
+  }
+}))
+
 export const ZeroInteractions = Template.bind({})
 ZeroInteractions.args = {
   playerRoleId: umpireFole.roleId,
-  messages: noInterMessages as CoreMessage[]
+  messages: planningMessages as CoreMessage[]
 }
 
 

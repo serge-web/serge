@@ -45,6 +45,11 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
   return res
 }
 
+export const timeForActivity = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
+  console.log('time for', plan, activity, iType)
+  return 1
+}
+
 const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
   // do we have routing?
   if (activity.geometries && activity.geometries.length) {
