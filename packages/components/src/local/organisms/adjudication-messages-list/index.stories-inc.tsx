@@ -210,9 +210,23 @@ const noInterMessages = copyMessages.filter((msg: MessagePlanning | MessageInter
   } 
   return true
 })
+const interMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
+  if(msg.messageType !== INFO_MESSAGE_CLIPPED) {
+    return msg.details.messageType === 'p9adjudicate'
+  } 
+  return false
+})
+const oneInterMessage = noInterMessages.concat(interMessages[0])
 
+export const OneInteraction = Template.bind({})
+OneInteraction.args = {
+  playerRoleId: umpireFole.roleId,
+  messages: oneInterMessage as CoreMessage[]
+}
 export const ZeroInteractions = Template.bind({})
 ZeroInteractions.args = {
   playerRoleId: umpireFole.roleId,
   messages: noInterMessages as CoreMessage[]
 }
+
+
