@@ -8,6 +8,7 @@ import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
 import L from 'leaflet'
 import { uniqueId } from 'lodash'
+import { randomArrayItem } from '../../organisms/support-panel/helpers/gen-order-data'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
 const randomPointInPoly = (polygon: L.Polygon): any => {
@@ -48,13 +49,15 @@ export const randomForce = (myForce: ForceData['uniqid'], forces: ForceData[]): 
 }
 
 export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
-  forces: ForceData[], localTest?: {(): boolean}): Perception[] => {
+  forces: ForceData[], localTest?: { (): boolean }): Perception[] => {
   const perceptions: Perception[] = []
-  const tester = localTest || doesIt
+  const seesAll = (): boolean => { return true }
+  const letAllSeeAll = true
+  const tester = letAllSeeAll ? seesAll : (localTest || doesIt)
   forces.forEach((force: ForceData) => {
     if (force.uniqid !== assetForce && !force.umpire) {
       if (tester()) {
-        const knowsContact = tester()
+        const knowsContact = !tester()
         const correctForce = tester()
         const newP: Perception = {
           by: force.uniqid,
@@ -86,7 +89,7 @@ const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: Att
       if (aType) {
         return aType
       } else {
-        throw Error('Attribute type not found for:' + id)
+        throw Error('Attribute type not found for:' + id + '-' + platformType.name)
       }
     })
     return res
@@ -97,26 +100,51 @@ const modernAttributeTypesFor = (platformType: PlatformTypeData, attributes: Att
 const createModernAttributesFor = (platformType: PlatformTypeData, attributeTypes: AttributeTypes): AttributeValues2 => {
   const attrTypes = modernAttributeTypesFor(platformType, attributeTypes)
   const attributes = {}
+  const domain = platformType.travelMode
   attrTypes.forEach((attr: AttributeType) => {
     const id = attr.attrId
-    switch (attr.attrType) {
-      case ATTRIBUTE_TYPE_NUMBER: {
-        const nType = attr as NumberAttributeType
-        attributes[id] = nType.defaultValue || Math.floor(Math.random() * 50)
-        break
+    // check for special case
+    if (attr.attrId === 'a_Speed') {
+      const multiplier = Math.floor(Math.random() * 5)
+      switch (domain) {
+        case 'air':
+          attributes[id] = 200 + multiplier * 20
+          break
+        case 'sea':
+          attributes[id] = 10 + multiplier * 5
+          break
+        case 'land':
+          attributes[id] = 10 + multiplier * 12
+          break
       }
-      case ATTRIBUTE_TYPE_STRING: {
-        const nType = attr as StringAttributeType
-        attributes[id] = nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
-        break
+    } else if (id === 'a_Type') {
+      // randomly generate airfield for land assets
+      if ((platformType.uniqid.indexOf('land_asset') > -1) && (Math.floor(Math.random() * 10) > 7)) {
+        attributes[id] = 'Airfield'
+      } else {
+        const multiplier = Math.floor(Math.random() * 6) + 1
+        attributes[id] = platformType.name + '_' + multiplier
       }
-      case ATTRIBUTE_TYPE_ENUM: {
-        const nType = attr as EnumAttributeType
-        attributes[id] = nType.values[Math.floor(Math.random() * nType.values.length)]
-        break
-      }
-      default: {
-        console.warn('Haven\'t handled attribute', attr)
+    } else {
+      switch (attr.attrType) {
+        case ATTRIBUTE_TYPE_NUMBER: {
+          const nType = attr as NumberAttributeType
+          attributes[id] = nType.defaultValue || Math.floor(Math.random() * 50)
+          break
+        }
+        case ATTRIBUTE_TYPE_STRING: {
+          const nType = attr as StringAttributeType
+          attributes[id] = nType.defaultValue ? nType.defaultValue + Math.floor(Math.random() * 50) : '_' + Math.floor(Math.random() * 50)
+          break
+        }
+        case ATTRIBUTE_TYPE_ENUM: {
+          const nType = attr as EnumAttributeType
+          attributes[id] = nType.values[Math.floor(Math.random() * nType.values.length)]
+          break
+        }
+        default: {
+          console.warn('Haven\'t handled attribute', attr)
+        }
       }
     }
   })
@@ -166,14 +194,64 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
   return attrVals
 }
 
+const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
+  // find mtg
+  let res: Asset[] = [...assets]
+  const mtg = platformTypes.find((pType: PlatformTypeData) => {
+    return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') !== -1
+  })
+  if (!mtg) {
+    console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
+  } else {
+    // get the first instance
+    const groups = assets.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
+    if (groups.length > 0) {
+      // ok, get some child classes
+      const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
+        return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
+      })
+      const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
+      const children = assets.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
+
+      // track the assets that have been moved to task groups, so we can later remove them
+      const movedToGroup: string[] = []
+
+      children.forEach((asset: Asset, index: number) => {
+        if (Math.random() > 0.4) {
+          // pick a task group parent
+          const newParent = randomArrayItem(groups, index)
+          // remove the location, we take it from the parent
+          delete asset.location
+          // store it
+          if (!newParent.comprising) {
+            newParent.comprising = []
+          }
+          newParent.comprising.push(asset)
+          // remember the id
+          movedToGroup.push(asset.uniqid)
+        } else {
+          // put it back in the results
+          res.push(asset)
+        }
+      })
+
+      // remove the children from the top level
+      res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
+    }
+  }
+  return res
+}
+
 const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined,
-  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising?:boolean): Asset[] => {
-  const assets = []
+  platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising: boolean): Asset[] => {
+  const assets: Asset[] = []
   for (let i = 0; i < ctr; i++) {
     const posit = randomPointInPoly(polygon).geometry.coordinates
     const h3Pos = h3Res ? h3.geoToH3(posit[1], posit[0], h3Res) : undefined
+    const generateLandAssets = Math.random() * 10.0 > 8
+    const landAssetType = platformTypes.find((platform: PlatformTypeData) => platform.uniqid.indexOf('land_asset') >= 0)
     const platformTypeCtr = Math.floor(platformTypes.length * Math.random())
-    const platformType = platformTypes[platformTypeCtr]
+    const platformType = generateLandAssets ? landAssetType : platformTypes[platformTypeCtr]
     if (!platformType) {
       console.warn('failed to find platform type with index', platformTypeCtr, platformTypes.length)
       continue
@@ -200,19 +278,37 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
 
     // generate some perceptions:
     asset.perceptions = createPerceptions(asset, force.uniqid, forces)
-    // make the first unit a composite one
-    if (i > 0 && i < 4) {
-      if (!assets[0].comprising) {
-        assets[0].comprising = []
-      }
-      if (withComprising) {
-        assets[0].comprising.push(asset)
-      }
-    } else {
-      assets.push(asset)
-    }
+
+    assets.push(asset)
   }
-  return assets
+
+  // make the first unit a composite one
+  const assetsWithTGs = withComprising ? makeTaskGroup(assets, force, platformTypes) : assets
+
+  // put aircraft onto airfields
+  const airfields = assetsWithTGs.filter((asset: Asset) => {
+    const isAsset = asset.platformTypeId.endsWith('land_asset')
+    const aType = asset.attributes && asset.attributes.a_Type === 'Airfield'
+    return isAsset && aType
+  })
+  const airAsset = assetsWithTGs.filter((asset: Asset) => asset.platformTypeId.indexOf('air') > 0)
+  airAsset.forEach((asset: Asset) => {
+    if (asset.attributes) {
+      const airfield = airfields[Math.floor(Math.random() * airfields.length)]
+      asset.attributes.a_Airfield = airfield.uniqid
+      const airLoc = airfield.location || [0, 0]
+
+      const origin = turf.point([airLoc[1], airLoc[0]])
+      const newPt = turf.destination(origin, 20, -180 + Math.random() * 360, { units: 'kilometers' })
+      const behindCoords = newPt.geometry.coordinates
+      const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
+      asset.location = newLoc
+    } else {
+      console.warn('Not found assets for this aircraft')
+    }
+  })
+
+  return assetsWithTGs
 }
 
 export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
@@ -231,8 +327,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes, true)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes, true)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces
@@ -254,10 +350,10 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const guinCoastBuffer = L.polygon(leafletBufferLine(nGuineaCoast, 30))
   const h3Res = constraints.h3res
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [])
-  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, []))
-  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [])
-  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, []))
+  newForces[2].assets = createInBounds(newForces[2], ausBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
+  newForces[2].assets.push(...createInBounds(newForces[2], ausCoastBuffer, 40, h3Res || 5, maritimePlatforms, forces, [], true))
+  newForces[1].assets = createInBounds(newForces[1], guinBuffer, 20, h3Res || 5, platformTypes, forces, [], true)
+  newForces[1].assets.push(...createInBounds(newForces[1], guinCoastBuffer, 20, h3Res || 5, maritimePlatforms, forces, [], true))
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   setForcesState(newForces)

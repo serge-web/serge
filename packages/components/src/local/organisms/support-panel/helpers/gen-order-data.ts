@@ -1,4 +1,4 @@
-import { GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
   Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
@@ -18,7 +18,9 @@ const msgContents: PlanningMessageStructureCore = {
   activity: 'point-recce',
   title: 'Operation Bravo-12',
   ownAssets: [],
-  otherAssets: []
+  otherAssets: [],
+  startDate: moment().toISOString(),
+  endDate: moment().toISOString()
 }
 
 const sample: MessagePlanning = {
@@ -71,6 +73,19 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
+/** an event created from just one set of plans */
+export interface ShortCircuitEvent {
+  id: string
+  message: MessagePlanning
+  activity: PlanningActivity
+  timeStart: number // unix millis
+  timeEnd: number // unix millis
+  intersection?: Geometry
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
+}
+
 /** an instance of one geometry interacting with another */
 export interface PlanningContact {
   id: string
@@ -79,6 +94,9 @@ export interface PlanningContact {
   intersection?: Geometry
   timeStart: number // unix millis
   timeEnd: number // unix millis
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
 }
 
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
@@ -130,7 +148,7 @@ const psora = (k: number): number => {
   return res
 }
 
-const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
+export const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
   return arr[Math.floor(arr.length * psora(ctr))]
 }
 
@@ -274,6 +292,23 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     forceId: force.forceId
   }
 
+  // get activities for this force
+  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
+  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
+  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
+  const activity = randomArrayItem(flatActivities, ctr++)
+
+  const needsMissiles = (activity.template && activity.template.includes('Strike'))
+
+  const missileTypes = [
+    'SRBM',
+    'MRBM',
+    'IRBM',
+    'Standard Cruise',
+    'Low Obs Cruise',
+    'Propellor OWA UAV',
+    'Jet OWA UAV']
+
   // assets
   const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
   const assets: Asset[] = []
@@ -285,24 +320,31 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     }
     assets.push(possAsset)
   }
-  const assetObj = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
+  const assetsArr = assets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+    if (needsMissiles) {
+      res.missileType = randomArrayItem(missileTypes, ++ctr)
+    }
+    return res
+  })
 
   const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
-  const targets: Asset['uniqid'][] = []
+  const targets: Asset[] = []
   for (let m = 0; m < numTargets; m++) {
     let possTarget = randomArrayItem(force.otherAssets, m + 3)
     let ctr2 = ctr
-    while (targets.includes(possTarget.uniqid)) {
+    while (targets.find((asset: Asset) => asset.uniqid === possTarget.uniqid)) {
       possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
-    targets.push(possTarget.uniqid)
+    targets.push(possTarget)
   }
-
-  // get activities for this force
-  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
-  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
-  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
-  const activity = randomArrayItem(flatActivities, ctr++)
+  const targetsAarr = targets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+    if (needsMissiles) {
+      res.missileType = randomArrayItem(missileTypes, ++ctr)
+    }
+    return res
+  })
 
   const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
     activity, 5 * psora(4 * ctr), timeNow)
@@ -326,11 +368,17 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
 
   if (!startDate) {
     const timeStart = timeNow
+    startDate = timeStart
+  }
+
+  if (!endDate) {
+    const timeStart = timeNow
     const minsOffset = Math.floor(psora(2 * ctr) * 20) * 10
     const timeEnd = timeStart.clone().add(minsOffset, 'm')
-    startDate = timeStart
     endDate = timeEnd
   }
+
+  // sort out the start/stop time for the geometries
 
   const details: MessageDetails = {
     channel: channelId,
@@ -346,10 +394,14 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     title: 'Order item ' + ctr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
-    location: geometries,
     activity: activity.uniqid,
-    ownAssets: assetObj,
-    otherAssets: targets
+    ownAssets: assetsArr,
+    otherAssets: targetsAarr
+  }
+
+  // inject location, if necessary
+  if (geometries.length > 0) {
+    message.location = geometries
   }
 
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
@@ -473,7 +525,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         }
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
-        const id = message.message.title + '//' + activity + '//' + message._id
+        const id = message.message.Reference + '//' + message.message.title + '//' + activity
         const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
@@ -528,10 +580,10 @@ const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
 }
 
 export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[],
-  adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
+  adjudicationTemplateId: string, startTimeStr: string): Array<MessagePlanning | MessageInteraction> => {
   const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
-  let startTime = moment('2022-11-15T00:00:00.000Z')
+  let startTime = moment(startTimeStr)
   for (let i = 0; i < count; i++) {
     const willIncrement = psora(2 + i) > 0.5
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
@@ -546,8 +598,9 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
   const justPlanning = deepCopy(res) as MessagePlanning[]
   const interactions: MessageInteraction[] = []
   let ctr = 0
+  const numInteractions = count > 40 ? 5 : 2
   umpireRoles.forEach((role) => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numInteractions; i++) {
       // find a force-1 doc
       const doc1 = getDocFromThisForce(justPlanning, createFor[0])
       const doc2 = getDocFromThisForce(justPlanning, createFor[1])
@@ -581,16 +634,17 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       const msgBody: MessageAdjudicationOutcomes = {
         Reference: reference,
         healthOutcomes: [],
+        important: psora(3 + i) > 0.7,
         locationOutcomes: [],
         perceptionOutcomes: [],
         narrative: '',
-        messageType: 'AdjudicationOutcomes'
+        messageType: ADJUDICATION_OUTCOMES
       }
       const msgInt: MessageInteraction = {
         messageType: INTERACTION_MESSAGE,
         details: details,
         message: msgBody,
-        _id: moment().toISOString()
+        _id: moment().toISOString() + '//' + interactions.length
       }
       // check it's not already present
       if (!interactions.find((inter) => inter.message.Reference === msgInt.message.Reference)) {
@@ -616,6 +670,7 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
     if (order.geometry.properties) {
       const planned = order.geometry.properties as PlannedProps
       if (!planned.startTime) {
+        console.warn('Geometry time missing, injecting times for whole orders')
         planned.startTime = moment(planned.startDate).valueOf()
         planned.endTime = moment(planned.endDate).valueOf()
       }
@@ -773,7 +828,6 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
           const first = meFirst ? me : other
           const second = meFirst ? other : me
           const id = createContactReference(first.id, second.id)
-
           // have we already checked this permutation (maybe in another bin)?
           if (!interactionsConsidered.includes(id)) {
             // has it already been adjudicated

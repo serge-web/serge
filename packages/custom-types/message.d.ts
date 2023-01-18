@@ -98,15 +98,15 @@ export interface PlanningMessageStructureCore {
   /** title for this plan */
   title: string
   /** start-time of this plan */
-  startDate?: string
+  startDate: string
   /** end-time of this plan */
-  endDate?: string
+  endDate: string
   /** any location-related data */
   location?: PlannedActivityGeometry[]
   /** own assets involved in plan */
-  ownAssets?: Array<{ asset: Asset['uniqid'], number: number}>
+  ownAssets?: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }>
   /** other assets involved in plan */
-  otherAssets?: Array<Asset['uniqid']>
+  otherAssets?: Array<{ asset: Asset['uniqid'], number?: number, missileType?: string }>
   /** id of the activity being conducted */
   activity: PlanningActivity['uniqid']
 }
@@ -182,6 +182,8 @@ export interface InteractionDetails {
   readonly orders1: string
   /** second (optional) set of orders this relates to */
   readonly orders2?: string
+  /** other assets associated with this interaction */
+  otherAssets?: Array<Asset['uniqid']>
   /** interaction start time */
   readonly startTime: string
   /** interaction end time */
@@ -251,7 +253,14 @@ export interface MessageAdjudicationOutcomes {
   readonly healthOutcomes: HealthOutcomes
   readonly locationOutcomes: LocationOutcomes
   readonly perceptionOutcomes: PerceptionOutcomes
-  readonly narrative: string
+  /** whether umpire considers this interaction as important */
+  important: boolean
+  /** other assets associated with this interaction,
+   * stored here temporarily, before being moved
+   * to InteractionDetails
+   */
+  otherAssets?: Array<Asset['uniqid']>
+  narrative: string
 }
 
 /** message containing updated game status, could be one of:

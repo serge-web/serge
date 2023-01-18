@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
-import { mostRecentPlanningOnly } from '@serge/helpers'
+import { incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
 import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
@@ -58,6 +58,9 @@ const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometr
   console.log('edit location', plans, !!callback)
 }
 
+const overview = P9BMock.data.overview
+const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+
 const Template: Story<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
@@ -78,11 +81,13 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
     const makeList = (assets: Asset[]): AssetRow[] => {
       return assets.map((asset: Asset): AssetRow => {
+        const subType: string = asset.attributes ? asset.attributes.a_Type as string : ''
         const row: AssetRow = {
           id: asset.uniqid,
           icon: 'aaa',
           name: asset.name,
           platformType: asset.platformTypeId,
+          subType: subType,
           health: 100,
           domain: 'Air',
           attributes: { word: 'text', number: 123 }
@@ -109,6 +114,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     channel={planningChannel}
     customiseTemplate={localCustomiseTemplate}
     gameDate={P9BMock.data.overview.gameDate}
+    gameTurnEndDate={turnEndDate}
     allTemplates={planningMessageTemplatesMock}
     playerForceId={playerForceId}
     playerRoleId={playerRoleId}

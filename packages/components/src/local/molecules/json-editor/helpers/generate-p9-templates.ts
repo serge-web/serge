@@ -1,5 +1,5 @@
-import { GeometryType } from '@serge/config'
-import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { GeometryType, INTER_AT_END } from '@serge/config'
+import { GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, PerForcePlanningActivitySet, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import _ from 'lodash'
 import moment from 'moment'
 import { airTemplate } from './p9-air'
@@ -108,6 +108,8 @@ interface Activity {
   interactsWith?: Array<Activity['uniqid']>
   // if activity interaction includes oppFor assets under geometries
   provideSpatialAssets?: boolean
+  // any short-circuit this activity generates
+  shortCircuits?: Array<INTERACTION_SHORT_CIRCUIT>
 }
 
 /** collated data on what this activity interacts with  */
@@ -184,8 +186,6 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
 
   // store which activites interact with which other activities
   const actInteracts: InteractsWithEntry[] = []
-  actInteracts.push({ uniqid: 'BMD-MEZ', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'SEAD'] })
-  actInteracts.push({ uniqid: 'SAM-MEZ', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'SEAD'] })
   actInteracts.push({ uniqid: 'STRIKE', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'RESUPP', 'TRANSIT', 'ASW-B', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'EW', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'CYB/SPA', 'SOF'] })
   actInteracts.push({ uniqid: 'ISTAR', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
@@ -196,8 +196,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'FIAC', interactsWith: ['EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'M-Clr', 'M-Lay'] })
   actInteracts.push({ uniqid: 'M-Clr', interactsWith: ['EW', 'ISTAR', 'PATRL', 'FIAC'] })
   actInteracts.push({ uniqid: 'M-Lay', interactsWith: ['EW', 'ISTAR', 'PATRL', 'FIAC'] })
-  actInteracts.push({ uniqid: 'DCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
-  actInteracts.push({ uniqid: 'OCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
+  actInteracts.push({ uniqid: 'CAP', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
   actInteracts.push({ uniqid: 'SoffS', interactsWith: ['EW', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'SEAD', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'TST', interactsWith: ['EW', 'DCA', 'OCA'] })
@@ -205,10 +204,12 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'SOF', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW'] })
 
+  // const strt = INTER_AT_START
+  // const rnd = INTER_AT_RANDOM
+  const endd = INTER_AT_END
+
   const acts: Activity[] = []
-  acts.push({ uniqid: 'BMD-MEZ', title: 'BMD MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['BMD MEZ Location'] })
-  acts.push({ uniqid: 'SAM-MEZ', title: 'SAM MEZ', forces: allForces, domains: landMar, acts: [point], actDesc: ['SAM MEZ Location'] })
-  acts.push({ uniqid: 'STRIKE', title: 'Strike', forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
+  acts.push({ uniqid: 'STRIKE', title: 'Strike', shortCircuits: [endd], forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike' })
   acts.push({ uniqid: 'EW', title: 'EW Attack', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', provideSpatialAssets: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', forces: allForces, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', provideSpatialAssets: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
@@ -218,8 +219,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'FIAC', title: 'FIAC EZ', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['FIAC EZ Location'] })
   acts.push({ uniqid: 'M-Clr', title: 'Mine Clearance', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], provideSpatialAssets: true })
   acts.push({ uniqid: 'M-Lay', title: 'Mine Laying', forces: allForces, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'MineLaying', provideSpatialAssets: true })
-  acts.push({ uniqid: 'DCA', title: 'Defensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['DCA Area'] })
-  acts.push({ uniqid: 'OCA', title: 'Offensive Counter Air', forces: allForces, domains: [air], acts: thereBack, actDesc: ['OCA Area'] })
+  acts.push({ uniqid: 'CAP', title: 'Combat Air Patrol', forces: allForces, domains: [air], acts: thereBack, actDesc: ['CAP Area'] })
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', forces: allForces, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike' })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', forces: allForces, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', provideSpatialAssets: true })
@@ -293,6 +293,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           interactsWith: act.interactsWith,
           uniqid: [force, domain, act.title].join('-'),
           template: templateName
+        }
+        if (act.shortCircuits) {
+          activity.events = act.shortCircuits
         }
         if (act.acts) {
           activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc || [])

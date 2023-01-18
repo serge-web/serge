@@ -28,6 +28,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   gameDate: string
   /**
+   *  current date for turn-end (may be used for finding other orders to sync iwth)
+   */
+  gameTurnEndDate: string
+  /**
    *  definition of planning channel
    */
   channel: ChannelPlanning
@@ -83,6 +87,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** callback for the location of a document being edited */
   editLocation?: LocationEditCallbackHandler
+
+  /**
+   *  modify document prior to being stored
+   */
+  modifyForSave?: { (document: Record<string, any>): Record<string, any> }
   /**
    *  the range of planning activities for each force
    */

@@ -1,11 +1,12 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
-import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { noop } from 'lodash'
+import { noop, uniqBy } from 'lodash'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import PlanningChannel from './index'
 import docs from './README.md'
@@ -84,7 +85,7 @@ forces.forEach((force: ForceData) => {
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
-  title: 'local/organisms/PlanningChannelBravo',
+  title: 'local/organisms/PlanningChannel',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -103,22 +104,22 @@ export default {
   argTypes: {
     selectedRoleId: {
       name: 'View as',
+      options: allRoles,
       defaultValue: allRoles[1],
       control: {
-        type: 'select',
-        options: allRoles
+        type: 'select'
       }
     }
   },
   phase: {
     name: 'Game phase',
-    defaultValue: Phase.Planning,
+    options: [
+      Phase.Planning,
+      Phase.Adjudication
+    ],
+    defaultValue: Phase.Adjudication,
     control: {
-      type: 'radio',
-      options: [
-        Phase.Planning,
-        Phase.Adjudication
-      ]
+      type: 'radio'
     }
   },
   wargameInitiated: {
@@ -154,9 +155,28 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const force = forces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
-  const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
+  const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
+
+  const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
+    console.warn('SAVE MESSAGE', details, message)
     return async (): Promise<void> => {
-      console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
+      const newMessage: MessageInteraction = {
+        _id: moment().toISOString(),
+        // defined constat for messages, it's not same as message.details.messageType,
+        // ex for all template based messages will be used CUSTOM_MESSAGE Type
+        messageType: 'InteractionMessage',
+        details,
+        message: message,
+        hasBeenRead: false
+      }
+      const newMessagesList = [...stateMessages, newMessage]
+      const nonInfoMessages = newMessagesList.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+      const reverseMes = nonInfoMessages.reverse()
+      const deDupeInteractions = uniqBy(reverseMes, function (inter: MessageInteraction | MessagePlanning) {
+        return inter.message.Reference
+      })
+      const restoreOrder = deDupeInteractions.reverse()
+      setStateMessages(restoreOrder)
     }
   }
 
@@ -165,13 +185,14 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   return <PlanningChannel
     channel={planningChannel}
-    messages={messages}
+    messages={stateMessages}
     allTemplates={templates}
     channelId={channels[0].uniqid}
     adjudicationTemplate={adjudicationTemplate}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
+    mapPostBack={(details, outcomes) => saveMessage('a', details, outcomes)()}
     markAllAsRead={mockFn}
     markUnread={mockFn}
     openMessage={mockFn}
@@ -187,7 +208,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     allForces={forces}
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
-    gameTurnTime={P9BMock.data.overview.gameTurnTime}
+    gameTurnLength={P9BMock.data.overview.gameTurnTime}
     forcePlanningActivities={activities}
   />
 }
@@ -231,7 +252,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   }
   if (otherForces) {
     const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])
-    newMsg.message.otherAssets = otherAssetIds
+    newMsg.message.otherAssets = otherAssetIds.map((asset: string) => { return { asset: asset } })
   }
   return newMsg
 })
@@ -242,7 +263,7 @@ export const Default = Template.bind({})
 Default.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
-  phase: Phase.Planning
+  phase: Phase.Adjudication
 }
 
 export const BulkData = Template.bind({})
@@ -255,6 +276,36 @@ BulkData.args = {
 export const BulkDataInAdjudication = Template.bind({})
 BulkDataInAdjudication.args = {
   messages: planningMessagesBulk,
+  selectedRoleId: allRoles[1],
+  phase: Phase.Adjudication
+}
+
+// open an interaction, and make this role the owner - so we have an adjudication open
+const adjRoleId = forces[0].roles[1].roleId
+const tmpMessages = [...PlanningChannelMessages]
+const firstInter = planningMessagesBulk.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+  return (msg.messageType === INTERACTION_MESSAGE)
+}) as MessageInteraction
+let tmpPlans: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = []
+if (firstInter) {
+  const inter = firstInter.details.interaction as InteractionDetails
+  if (inter) {
+    const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
+    const relevant = planningMessagesBulk.filter((msg) => msg._id && items.includes(msg._id))
+    const interCopy = JSON.parse(JSON.stringify(firstInter))
+    const newFrom = { ...firstInter.details.from, roleId: adjRoleId }
+    interCopy.details.from = newFrom
+    interCopy.details.interaction.complete = false
+    tmpMessages.push(interCopy)
+    tmpMessages.push(...relevant)
+    tmpPlans = tmpMessages
+  }
+} else {
+  tmpPlans.push({ a: 12 } as unknown as MessagePlanning)
+}
+export const AdjudicationFormOpen = Template.bind({})
+AdjudicationFormOpen.args = {
+  messages: tmpPlans,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }

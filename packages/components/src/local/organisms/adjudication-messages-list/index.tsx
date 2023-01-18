@@ -1,13 +1,19 @@
 import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Table } from '@material-ui/core'
+import MaterialTable, { Column } from '@material-table/core'
+import { Box, Chip, Table } from '@material-ui/core'
+import Autocomplete from '@mui/material/Autocomplete'
+import TextField from '@mui/material/TextField'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
-import { findAsset, forceColors, ForceStyle } from '@serge/helpers'
+import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
+import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
-import MaterialTable, { Column } from 'material-table'
 import moment from 'moment'
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
@@ -15,30 +21,54 @@ import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
 import { collateInteraction, InteractionData, updateAssets, updateForces, updatePlatformTypes } from './helpers/collate-interaction'
-import { getNextInteraction } from './helpers/getNextInteraction'
+import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
+
+type ForceMessages = {
+  forceName: string
+  messages: MessagePlanning[]
+}
+
+type ManualInteractionData = {
+  forceMessages: ForceMessages[]
+  otherAssets: Asset[]
+}
+
+type ManualInteractionResults = {
+  orders: MessagePlanning []
+  otherAssets: Asset[]
+  startDate: string
+  endDate: string
+}
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  gameTurnLength,
   onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
-
   const [dialogMessage, setDialogMessage] = useState<string>('')
-
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
-
   const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
+  const [currentTime, setCurrentTime] = useState<string>('pending')
+  const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
+  const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
+  const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
+  const [validationErrors, setValidationErrors] = useState<string[]>([])
+
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
+  const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
+
+  const msgSeparator = ' - '
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -46,6 +76,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const localDetailPanelClose = (row: AdjudicationRow): void => {
     onDetailPanelClose && onDetailPanelClose(row)
+  }
+
+  // compact date display
+  const shortDate = (date: string): string => {
+    return moment.utc(date).format('MMM DDHHmm[Z]').toUpperCase()
   }
 
   useEffect(() => {
@@ -63,6 +98,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setRows([...filterSaveMessage, row])
       }
     }
+    if (interactionMessages.length > 0) {
+      const lastMessage = interactionMessages[interactionMessages.length - 1]
+      if (lastMessage.details.interaction) {
+        setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
+      }
+    }
   }, [interactionMessages])
 
   useEffect(() => {
@@ -71,78 +112,134 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     setFilteredPlans(plans)
   }, [planningMessages])
 
-  /** custom date formatter, for compact date/time display */
-  const shortDate = (value?: string): string => {
-    return value ? moment(value).format('DDHHmm[Z]') : ''
-  }
-
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  const renderAsset = (assetId: string | { asset: Asset['uniqid'], number: number }, forces: ForceData[], index: number): React.ReactElement => {
-    let asset: Asset | undefined
-    const isString = typeof (assetId) === 'string'
-    let numStr = ''
-    if (isString) {
-      try {
-        asset = findAsset(forces, assetId)
-      } catch (e) {
-      }
-    } else {
-      try {
-        asset = findAsset(forces, assetId.asset)
-        numStr = ' (' + assetId.number + ')'
-      } catch (e) {
+  const healthStyleFor = (aHealth: number | undefined) => {
+    let healthStyle
+    if (aHealth !== undefined) {
+      if (aHealth === 100) {
+        healthStyle = styles.full
+      } else if (aHealth === 0) {
+        healthStyle = styles.dead
+      } else {
+        healthStyle = styles.damaged
       }
     }
-    if (!asset) {
+    return healthStyle
+  }
+
+  const hexToRGB = (hex: string, opacity: number): string => {
+    const formatHex = (hexStr: string): string => {
+      const c = hexStr.substring(1).split('')
+      if (c.length === 3) {
+        return `${c[0]}${c[0]}${c[1]}${c[1]}${c[2]}${c[2]}`
+      }
+      return `${c.join('')}`
+    }
+    const color = formatHex(hex)
+    const r = parseInt(color.slice(0, 2), 16)
+    const g = parseInt(color.slice(2, 4), 16)
+    const b = parseInt(color.slice(4, 6), 16)
+
+    return `rgba(${r}, ${g}, ${b}, ${opacity})`
+  }
+
+  const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
+    index: number, numberCol: boolean): React.ReactElement => {
+    let asset: {force: ForceData, asset: Asset} | undefined
+    try {
+      asset = findForceAndAsset(forces, assetId.asset)
+    } catch (e) {
+      console.warn('can\'t find asset for render asset', e)
+    }
+    if (asset) {
+      const platformType = platformTypes.find((value) => asset && value.uniqid === asset.asset.platformTypeId)
+      const numAssets = assetId.number || 0
+      const forceStyle = { backgroundColor: hexToRGB(asset.force.color, 0.4) }
+      const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
+      const numDetails = assetId.missileType
+        ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
+        : <td>{alive + ' of ' + numAssets}</td>
+      const aHealth = asset.asset.health
+      const healthStyle = healthStyleFor(asset.asset.health)
+      return <tr key={asset.asset.uniqid}>
+        <td style={forceStyle}>{asset.asset.name}</td>
+        { numberCol && numDetails }
+        <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
+        <td className={healthStyle}>{aHealth || 'unk'}</td>
+        <td>{asset.asset.attributes?.a_C2_Status}</td>
+      </tr>
+    } else {
       console.warn('Failed to find asset:' + assetId)
       return <li key={index}>Asset not found</li>
-    } else {
-      return <li key={index}>{asset.name}{numStr}</li>
     }
   }
 
   const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
-    const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
-    if (!plan) {
-      console.warn('Failed to find message:', id)
-      return <span>Order not found</span>
-    }
-    const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets']
-    const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
-      if (done.includes(item)) {
-        return <Fragment key={index} />
-      } else {
-        const name = _.kebabCase(item)
-        return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
+    if (id === 'n/a') {
+      return <span>n/a</span>
+    } else {
+      const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
+      if (!plan) {
+        console.warn('Failed to find message 1:', id)
+        return <span>Order not found</span>
       }
-    })
-    return <div>
-      <span><b>Title: </b> {plan.message.title} </span>
-      <span><b>Activity: </b> {activity || 'n/a'} </span><br />
-      <span><b>Own: </b> {plan.message.ownAssets &&
-        <ul> {
-          plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index))}
-        </ul>}</span>
-      <span><b>Other: </b> {plan.message.otherAssets &&
-        <ul> {
-          plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index))}
-        </ul>}</span>
-      {items}
-    </div>
+      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate']
+      const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
+        if (done.includes(item)) {
+          return <Fragment key={index} />
+        } else {
+          const name = _.kebabCase(item)
+          return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
+        }
+      })
+      const title = order1 ? 'Orders 1' : ' Orders 2'
+      const timings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
+      const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
+      const forceStyle = { fontSize: '160%', backgroundColor: hexToRGB(force ? force.color : '#ddd', 0.4) }
+      return <Box>
+        <div style={forceStyle}><b>{title}</b></div>
+        <span><b>Title: </b> {plan.message.title} </span>
+        <span><b>Reference: </b> {plan.message.Reference} </span>
+        <span><b>Activity: </b> {activity || 'n/a'} </span><br />
+        <span><b>Time: </b> {timings} </span><br />
+        <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
+          <table className={styles.assets}>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <tbody>
+              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index, true))}
+            </tbody>
+          </table>}
+        </span>
+        <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 &&
+          <table className={styles.assets}>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <tbody>
+              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index, true))}
+            </tbody>
+          </table>}
+        </span>
+        <hr/>
+        {items}
+      </Box>
+    }
   }
 
   const renderOrderTitle = (order1: boolean, row: AdjudicationRow): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
-    const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
-    if (!plan) {
-      console.warn('Failed to find message:', id)
-      return <span>Order not found</span>
+    if (id === 'n/a') {
+      return <span>n/a</span>
+    } else {
+      const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
+      if (!plan) {
+        console.warn('Failed to find message 2:', id)
+        return <span>Order not found</span>
+      }
+      return <span>{plan.message.Reference}<br />{plan.message.title}</span>
     }
-    return <span>Title: {plan.message.title}</span>
   }
 
   const toRow = (message: MessageInteraction): AdjudicationRow => {
@@ -153,16 +250,19 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const myMessage = message.details.from.roleId === playerRoleId
     const incompleteMessageFromMe = (myMessage && !interaction.complete)
 
-    const row = {
+    const row: AdjudicationRow = {
       id: message._id,
+      reference: message.message.Reference,
       order1: interaction.orders1,
       order2: interaction.orders2 || 'n/a',
+      important: message.message.important ? 'Y' : 'N',
       turn: message.details.turnNumber,
       complete: !!interaction.complete,
       activity: message.message.Reference,
       period: shortDate(interaction.startTime) + '-' + shortDate(interaction.endTime),
       // if the item is incomplete
-      tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined }
+      tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined },
+      owner: message.details.from.roleName
     }
     return row
   }
@@ -177,16 +277,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
       const umpireForce = forces.find((force: ForceData) => force.umpire)
       const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-      const columnsData: Column[] = jestWorkerId ? [] : !summaryData ? [] : [
-        { title: 'ID', field: 'id' },
+      const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+        { title: 'Reference', field: 'reference' },
         { title: 'Complete', field: 'complete', render: renderBoolean },
-        { title: 'Order 1', field: 'order1', render: (row) => renderOrderTitle(true, row) },
-        { title: 'Order 2', field: 'order2', render: (row) => renderOrderTitle(false, row) },
+        { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
+        { title: 'Owner', field: 'owner' },
+        { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+        { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
         { title: 'Activity', field: 'Reference' },
         { title: 'Duration', field: 'period' }
       ]
-      if (turnFilter === SHOW_ALL_TURNS && !jestWorkerId) {
-        const turnColumn: Column = { title: 'Turn', field: 'turn', type: 'numeric' }
+      if (turnFilter === SHOW_ALL_TURNS) {
+        const turnColumn: Column<AdjudicationRow> = { title: 'Turn', field: 'turn', type: 'numeric' }
         columnsData.splice(1, 0, turnColumn)
       }
       if (columns.length === 0) {
@@ -194,10 +296,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
     }
   }, [filteredInteractionsRow])
-
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
@@ -223,13 +321,21 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return firstUpdate
   }
 
+  // console.table(interactionMessages.map((msg: MessageInteraction) => {
+  //   return {
+  //     id: msg._id,
+  //     complete: msg.details.interaction && msg.details.interaction.complete,
+  //     reference: msg.message.Reference
+  //   }
+  // }))
+
   const localSubmitAdjudication = (): void => {
     if (currentAdjudication.current) {
       // get current message
       const outcomes = currentAdjudication.current as any as MessageAdjudicationOutcomes
       const document = filteredInteractions.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
-        const details = document.details
+        const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
         const interaction = details.interaction
         if (interaction) {
           // mark as adjudicatead
@@ -239,6 +345,29 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // for the map handler to work, the message type needs to be int he emssage
         const outAsAny = outcomes as any
         outAsAny.messageType = ADJUDICATION_OUTCOMES
+
+        // (temporarily) fix the locations. While we're waiting for the outcomes table
+        // to support the location editor, we're allowing locations to be entered as
+        // lat-long pairs
+        outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
+          const loc = value.location
+          if (typeof loc === 'string') {
+            // ok, convert string to JSON array
+            const json = JSON.parse(loc)
+            // extract the coords
+            const lat = parseFloat(json[0])
+            const lng = parseFloat(json[1])
+            // create new location array
+            const latLng: [number, number] = [lat, lng]
+            // store the value
+            value.location = latLng
+          } else if (Array.isArray(loc)) {
+            // value is valid, leave
+            value.location = loc
+          } else {
+            console.error('Unexpected location outcome format:', value.location)
+          }
+        })
 
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
@@ -253,26 +382,90 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const countRemainingInteractions = (): void => {
-    console.log('count remaining')
-    const contacts = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, true)
-    console.log('contacts', contacts)
-    const message = '' + contacts.length + ' interactions remaining'
+    console.time('count interactions')
+    const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
+    const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
+    const message = '' + contacts + ' interactions remaining'
+    console.timeLog('count interactions')
     setDialogMessage(message)
   }
 
   const getInteraction = (): void => {
-    console.log('get interaction', forcePlanningActivities)
-    const interactions = getNextInteraction(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30)
-    console.log('interaction', interactions)
-    if (interactions.length > 0) {
-      // send up to parent
-      handleAdjudication && handleAdjudication(interactions[0])
-    } else {
-      window.alert('Interaction not found')
+    const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
+    const results: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
+    console.log('get next inter recieved:', results)
+    if (results === undefined) {
+      setDialogMessage('No interactions found')
+      // fine, ignore it
+    } else if (typeof results === 'object') {
+      const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
+      handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
+    } else if (typeof results === 'number') {
+      console.warn('not expecting number return from get next interaction')
     }
   }
 
-  const detailPanel = (rowData: AdjudicationRow): any => {
+  const createManualInteraction = (): void => {
+    // collate the data
+
+    // orders
+    const forceMsgs: ForceMessages[] = []
+    filteredPlans.forEach((msg: MessagePlanning) => {
+      const force = msg.details.from.force
+      let forceData = forceMsgs.find((val: ForceMessages) => val.forceName === force)
+      if (!forceData) {
+        forceData = { forceName: force, messages: [] }
+        forceMsgs.push(forceData)
+      }
+      forceData.messages.push(msg)
+    })
+
+    const otherAssets: Asset[] = []
+    forces.forEach((force: ForceData) => {
+      if (force.assets) {
+        otherAssets.push(...force.assets)
+      }
+    })
+
+    const data: ManualInteractionData = {
+      forceMessages: forceMsgs,
+      otherAssets: otherAssets
+    }
+
+    validateManualForm()
+    // popup the form
+    setManualDialog(data)
+  }
+
+  const handleManualInteraction = (): void => {
+    // collate data for adjudication
+    const data = manuallyData.current
+    const iDetails: InteractionDetails = {
+      startTime: data.startDate,
+      endTime: data.endDate,
+      otherAssets: data.otherAssets.map((asset: Asset) => asset.uniqid),
+      orders1: data.orders[0]._id,
+      orders2: data.orders.length === 2 ? data.orders[1]._id : undefined,
+      complete: false,
+      id: moment().toISOString() + ' Manual'
+    }
+    const outcomes: MessageAdjudicationOutcomes = {
+      messageType: ADJUDICATION_OUTCOMES,
+      Reference: '', // leave blank, so backend creates it
+      narrative: '',
+      important: false,
+      perceptionOutcomes: [],
+      locationOutcomes: [],
+      healthOutcomes: []
+    }
+    // close the panel
+    setManualDialog(undefined)
+
+    // submit this new item
+    handleAdjudication && handleAdjudication(iDetails, outcomes)
+  }
+
+  const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
         localDetailPanelOpen(rowData)
@@ -294,12 +487,32 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       if (message && template) {
         const msg = message.message
         const isComplete = message.details.interaction?.complete
-        const data = collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
+        const interaction = message.details.interaction
+        const data = interaction && collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
+          const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
+            <Box><b>Interaction details:</b><br />
+              <ul>
+                <li><b>Date/time:</b>{time}</li>
+                <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                <li><b>Reference:</b>{msg.Reference}</li>
+                <li><b>Other assets:</b>
+                  <span>{data.otherAssets && data.otherAssets.length > 0
+                    ? <table className={styles.assets}>
+                      <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+                      <tbody>
+                        {data.otherAssets.map((asset, index) => renderAsset({ asset: asset.uniqid }, forces, index, false))}
+                      </tbody>
+                    </table> : ' None'}
+                  </span>
+                </li>
+                <li><b>ID:</b>{interaction.id}</li>
+              </ul>
+            </Box>
             <Table>
               <tbody>
                 <tr>
@@ -332,39 +545,160 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const extendProps = jestWorkerId ? {} : {
-    detailPanel: detailPanel
+  const closeDialogCallback = useCallback(() => setDialogMessage(''), [])
+  const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
+  const handleManualCallback = useCallback(handleManualInteraction, [])
+
+  const modalStyle = useMemo(() => ({ content: { width: '850px' } }), [])
+
+  const validateManualForm = ():void => {
+    const res = []
+    const orderLen = manuallyData.current.orders.length
+    if (orderLen === 0) {
+      res.push('One or two sets of orders must be selected')
+    }
+    if (orderLen > 2) {
+      res.push('Only one or two sets of orders may be selected')
+    }
+    if (manuallyData.current.startDate === '' || manuallyData.current.endDate === '') {
+      res.push('Start and end dates must be provided')
+    }
+    setValidationErrors(res)
   }
 
-  const closeDialog = (): void => {
-    if (dialogMessage !== '') {
-      setDialogMessage('')
-    }
-  }
+  type MessageValue = {id: string, label: string}
 
   return (
     <div className={styles['messages-list']}>
-      <CustomDialog
-        isOpen={dialogMessage.length > 0}
-        header={'Generate interactions'}
-        cancelBtnText={'OK'}
-        // TODO: fix issue on next line
-        // deepscan-disable-next-line
-        onClose={(): void => closeDialog()}
-        content={dialogMessage}
-      />
+      { manualDialog && <CustomDialog
+        isOpen={true}
+        header={'Create Manual Interaction'}
+        cancelBtnText={'Cancel'}
+        saveBtnText={'Submit'}
+        onClose={closeManualCallback}
+        onSave={handleManualCallback}
+        modalStyle={modalStyle}
+        errors={validationErrors}
+      >
+        <div>
+          <div className={styles['autocomplete-dropdown']}>
+            {manualDialog.forceMessages.map(force => {
+              return <Autocomplete
+                key={force.forceName}
+                disablePortal
+                options={force.messages.map(message => ({ id: message._id, label: message.message.Reference + msgSeparator + message.message.title }))}
+                sx={{ width: `${(100 / manualDialog.forceMessages.length) - 0.3}%` }}
+                isOptionEqualToValue={(option, value): boolean => {
+                  return option.id === value.id
+                }}
+                renderInput={(params) => <TextField {...params} size='small' label={force.forceName} />}
+                onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue | null) => {
+                  // clear out any existing for this force
+                  manuallyData.current.orders = manuallyData.current.orders.filter((plan: MessagePlanning) => {
+                    return plan.details.from.force !== force.forceName
+                  })
+                  // extract the order reference
+                  if (value) {
+                    const message = force.messages.find(message => message._id === value.id)
+                    // now add the new one
+                    if (message) {
+                      manuallyData.current.orders.push(message)
+                    }
+                  }
+                  validateManualForm()
+                }}
+              />
+            })}
+          </div>
+          <div className={styles['autocomplete-dropdown']}>
+            <Autocomplete
+              disablePortal
+              multiple
+              options={manualDialog.otherAssets.map(asset => ({ id: asset.uniqid, label: asset.uniqid + msgSeparator + asset.name })) || []}
+              isOptionEqualToValue={(option, value): boolean => {
+                return option.id === value.id
+              }}
+              sx={{ width: '100%' }}
+              renderInput={(params) => <TextField {...params} size='small' label='Other assets' />}
+              onChange={(_: SyntheticEvent<Element, Event>, value: MessageValue[]) => {
+                const assets = manualDialog.otherAssets.filter(item => {
+                  const ids = value.map((val: MessageValue) => val.id)
+                  return ids.includes(item.uniqid)
+                })
+                if (assets) {
+                  manuallyData.current.otherAssets = assets
+                }
+                validateManualForm()
+              }}
+            />
+          </div>
+          <div className={styles['autocomplete-dropdown']}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField size='small' inputProps={{ ...props.inputProps, readOnly: true }} {...props} sx={{ width: '50%' }} />}
+                label='Start Time'
+                inputFormat="YYYY/MM/DD HH:mm"
+                value={startTime}
+                onChange={(value) => {
+                  try {
+                    manuallyData.current.startDate = value?.toISOString() || new Date().toISOString()
+                    setStartTime(value)
+                  } catch (err) {
+                    console.log('start date invalid')
+                    manuallyData.current.startDate = ''
+                  }
+                  validateManualForm()
+                }}
+              />
+            </LocalizationProvider>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateTimePicker
+                renderInput={(props) => <TextField size='small' inputProps={{ ...props.inputProps, readOnly: true }} {...props} sx={{ width: '50%' }} />}
+                label='End Time'
+                inputFormat="YYYY/MM/DD HH:mm"
+                value={endTime}
+                onChange={(endTime) => {
+                  try {
+                    manuallyData.current.endDate = endTime?.toISOString() || new Date().toISOString()
+                    setEndTime(endTime)
+                  } catch (err) {
+                    console.log('end date invalid')
+                    manuallyData.current.endDate = ''
+                  }
+                  validateManualForm()
+                }}
+              />
+            </LocalizationProvider>
+          </div>
+        </div>
+      </CustomDialog>
+      }
+
+      {dialogMessage.length > 0 &&
+        <CustomDialog
+          isOpen={dialogMessage.length > 0}
+          header={'Generate interactions'}
+          cancelBtnText={'OK'}
+          onClose={closeDialogCallback}
+        >
+          <>{dialogMessage}</>
+        </CustomDialog>
+      }
       <div className='button-wrap' >
-        <Button color='secondary' onClick={getInteraction} icon='save'>Get next interaction</Button>
+        <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'>Remaining</Button>
+        <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
+        &nbsp;
+        <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
+        <Chip label={currentTime} />
       </div>
 
       <MaterialTable
         title={'Adjudication'}
         columns={columns}
         data={rows}
-        icons={materialIcons}
-        actions={jestWorkerId ? [] : [
+        icons={materialIcons as any}
+        actions={[
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
             iconProps: filter ? { color: 'action' } : { color: 'disabled' },
@@ -375,13 +709,14 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         ]}
         options={{
           paging: true,
+          detailPanelType: 'single',
           pageSize: 20,
           pageSizeOptions: [5, 10, 15, 20],
-          sorting: false,
           filtering: filter,
-          selection: !jestWorkerId // fix unit-test for material table
+          selection: true,
+          rowStyle: { fontSize: '80%' }
         }}
-        {...extendProps}
+        detailPanel={detailPanel}
       />
     </div>
   )

@@ -12,7 +12,7 @@ const p9StockTemplates: TemplateBody[] = [
       title: 'Adjudication Outcomes',
       format: 'grid',
       required: [
-        'narrative'
+        'narrative', 'Reference', 'important'
       ],
       properties: {
         Reference: {
@@ -27,16 +27,17 @@ const p9StockTemplates: TemplateBody[] = [
           },
           type: 'string'
         },
+        important: {
+          type: 'boolean',
+          propertyOrder: 15,
+          title: 'Important (high profile adjudication)',
+          format: 'checkbox'
+        },
         narrative: {
           title: 'General Feedback',
           propertyOrder: 20,
           type: 'string',
           format: 'textarea'
-        },
-        location: {
-          title: 'Location',
-          propertyOrder: 30,
-          type: 'string'
         },
         perceptionOutcomes: {
           type: 'array',
@@ -202,7 +203,20 @@ const p9StockTemplates: TemplateBody[] = [
                   '0'
                 ],
                 options: {
-                  grid_columns: 3
+                  grid_columns: 2
+                }
+              },
+              repairComplete: {
+                title: 'Repair in (days)',
+                type: 'string',
+                enum: [
+                  'n/a',
+                  '1',
+                  '2',
+                  '3'
+                ],
+                options: {
+                  grid_columns: 2
                 }
               },
               narrative: {
@@ -252,13 +266,8 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               location: {
-                title: 'Location',
+                title: 'Location [2.4, 4.2]',
                 type: 'string',
-                enum: [
-                  'Point A',
-                  'Point B',
-                  'Point C'
-                ],
                 options: {
                   grid_columns: 3
                 }

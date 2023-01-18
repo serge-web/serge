@@ -1,6 +1,7 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
-import { configDateTimeLocal, usePrevious } from '@serge/helpers'
+import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
@@ -23,8 +24,6 @@ export const JsonEditor: React.FC<Props> = ({
   expandHeight = true,
   gameDate,
   disableArrayToolsWithEditor = true,
-  cachedName,
-  clearCachedName,
   saveMessage,
   modifyForSave,
   confirmCancel = false,
@@ -52,8 +51,33 @@ export const JsonEditor: React.FC<Props> = ({
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
 
+  const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
+    const cleanDate = (date: string): string => {
+      if (!date.includes('Z')) {
+        // convert to ISO
+        const res = moment(date, 'DD/MM/YYYY HH:mm').toISOString()
+        return res
+      } else {
+        return date
+      }
+    }
+
+    const res = deepCopy(value) as { [property: string]: any }
+    if (res.startDate) {
+      res.startDate = cleanDate(res.startDate)
+    }
+    if (res.endDate) {
+      res.endDate = cleanDate(res.endDate)
+    }
+    return res
+  }
+
   const handleChange = (value: { [property: string]: any }): void => {
-    const newDoc = modifyForSave ? modifyForSave(value) : value
+    /** workaround. The FlatPickr control isn't returning ISO dates. If that happens
+     * convert them
+     */
+    const fixedDate = fixDate(value)
+    const newDoc = modifyForSave ? modifyForSave(fixedDate) : fixedDate
     storeNewValue && storeNewValue(newDoc)
   }
 
@@ -141,14 +165,18 @@ export const JsonEditor: React.FC<Props> = ({
     document.addEventListener('keydown', handleKeyDown)
 
     setTimeout(() => {
-      if (nextEditor) {
-        // only retrieve from expired content if we haven't been provided with message content
-        if (messageContent) {
-          nextEditor.setValue(messageContent)
-          nextEditor.on('change', changeListenter)
-        } else {
-          nextEditor.on('change', changeListenter)
+      try {
+        if (nextEditor) {
+          // only retrieve from expired content if we haven't been provided with message content
+          if (messageContent) {
+            nextEditor.setValue(messageContent)
+            nextEditor.on('change', changeListenter)
+          } else {
+            nextEditor.on('change', changeListenter)
+          }
         }
+      } catch (err) {
+        console.warn('JSONEditor error 2:', err)
       }
       // update time input for flatpickr
       const flatPickrElm = document.querySelectorAll('div[class*="flatpickr-calendar"]')
@@ -178,25 +206,6 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
-    if (template.details && template.details.type) {
-      if (cachedName === messageId) {
-        clearCachedName('')
-        initEditor()
-        setBeingEdited(false)
-      } else {
-        setBeingEdited(false)
-        initEditor()
-      }
-    }
-
-    return (): void => destroyEditor(editor)
-  }, [template.details, messageId, cachedName, messageContent, prevTemplates])
-
-  useLayoutEffect(() => {
-    if (editor) editor.destroy()
-  }, [disableArrayToolsWithEditor && disabled])
-
-  useLayoutEffect(() => {
     if (editor) {
       setTimeout(() => {
         try {
@@ -208,7 +217,7 @@ export const JsonEditor: React.FC<Props> = ({
             editor.enable()
           }
         } catch (err) {
-          console.warn('JSON Editor error', err)
+          console.warn('JSONEditor error 1', err)
         }
         const editInLocationBtns = document.querySelectorAll('button[name="editInLocation"]')
         Array.from(editInLocationBtns).forEach(btn => {
@@ -232,8 +241,21 @@ export const JsonEditor: React.FC<Props> = ({
           })
         }
       }, 50)
+      return
     }
-  }, [editor, beingEdited])
+
+    if (template.details && template.details.type) {
+      setBeingEdited(false)
+      initEditor()
+    }
+
+    return (): void => destroyEditor(editor)
+  }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
+
+  useLayoutEffect(() => {
+    console.log('destoy', editor)
+    if (editor) editor.destroy()
+  }, [disableArrayToolsWithEditor && disabled])
 
   const SaveMessageButton = () => (
     editor && viewSaveButton ? (

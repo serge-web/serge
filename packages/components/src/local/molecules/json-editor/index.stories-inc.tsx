@@ -117,11 +117,13 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   const blueAssets = forces[1].assets ? forces[1].assets : []
   const redAssets = forces[2].assets ? forces[2].assets : []
   const toRow = (asset: Asset): AssetRow => {
+    const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
     const row: AssetRow = {
       id: asset.uniqid,
       icon: 'icon',
       name: asset.name,
       platformType: asset.platformTypeId,
+      subType: subType,
       health: 100,
       domain: 'Land',
       attributes: { word: 'text', number: 123 }

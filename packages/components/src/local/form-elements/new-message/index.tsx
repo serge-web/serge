@@ -132,9 +132,7 @@ const NewMessage: React.FC<PropTypes> = ({
           )
         }
         <MessageCreator
-          getcachedCreatorMessageValue={getCachedNewMessagevalue}
           clearCachedCreatorMessage={clearCachedNewMessage}
-          createCachedCreatorMessage={saveCachedNewMessageValue}
           messageOption={selectedType}
           schema={selectedSchema}
           channel={channel}

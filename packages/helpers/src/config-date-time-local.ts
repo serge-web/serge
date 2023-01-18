@@ -4,15 +4,15 @@ import deepCopy from './deep-copy'
 /**
  * helper function to render default Datetime or Date or Time props of json
  */
-const configCommonProps = (prop: Record<string, unknown>, gameDate: string): Record<string, unknown> => {
+const configCommonProps = (propIn: Record<string, unknown>, gameDate: string): Record<string, unknown> => {
+  const prop = deepCopy(propIn)
   switch (prop.format) {
     case 'datetime-local':
-      prop.default = moment(gameDate).format('DD/MM/YYYY HH:mm')
+      prop.defaultDate = moment(gameDate).toISOString()
       prop.options = {
         flatpickr: {
-          wrap: false,
           time_24hr: true,
-          dateFormat: 'd/m/Y H:i'
+          dateFormat: 'Z'
         }
       }
       return prop

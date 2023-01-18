@@ -9,6 +9,7 @@ export type InteractionData = {
   order2: MessagePlanning | undefined
   allAssets: Asset[]
   allAssetNames: string[]
+  otherAssets: Asset[]
   order1Activity: string | undefined
   order2Activity: string | undefined
 }
@@ -28,7 +29,8 @@ const getActivity = (activities:PerForcePlanningActivitySet[], activityId: Plann
     })
   )
   if (!groupAct) {
-    throw Error('failed to find group activity' + activityId)
+    console.log('failed to find group activity', activityId)
+    return 'NOT FOUND'
   }
 
   const activity = groupAct.activities.find((act: string | PlanningActivity) => {
@@ -100,13 +102,13 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
     return undefined
   }
   order1.message.ownAssets && order1AssetsIds.push(...order1.message.ownAssets.map((asset) => asset.asset))
-  order1.message.otherAssets && order1AssetsIds.push(...order1.message.otherAssets)
+  order1.message.otherAssets && order1AssetsIds.push(...order1.message.otherAssets.map((asset) => asset.asset))
 
   const order2AssetsIds: string[] = []
   const order2: MessagePlanning | undefined = interaction.orders2 ? planningMessages.find((plan): boolean => plan._id === interaction.orders2) : undefined
   if (order2) {
     order2.message.ownAssets && order2AssetsIds.push(...order2.message.ownAssets.map((asset) => asset.asset))
-    order2.message.otherAssets && order2AssetsIds.push(...order2.message.otherAssets)
+    order2.message.otherAssets && order2AssetsIds.push(...order2.message.otherAssets.map((asset) => asset.asset))
   }
 
   const allIds = order1AssetsIds.concat(order2AssetsIds)
@@ -132,12 +134,20 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
   const act1 = forcePlanningActivities && getActivity(forcePlanningActivities, order1.message.activity, order1.details.from.forceId)
   const act2 = order2 && forcePlanningActivities && getActivity(forcePlanningActivities, order2.message.activity, order2.details.from.forceId)
 
+  let otherAssets: Array<Asset> | undefined
+  if (interaction.otherAssets && interaction.otherAssets.length) {
+    otherAssets = interaction.otherAssets.map((id: string) => {
+      return findAsset(forces, id)
+    })
+  }
+
   return {
     interaction: intMsg,
     order1: order1,
     order2: order2,
     allAssets: sortedAllAssets,
     allAssetNames: sortedAllAssetNames,
+    otherAssets: otherAssets || [],
     order1Activity: act1,
     order2Activity: act2
   }

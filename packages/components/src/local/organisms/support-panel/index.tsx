@@ -1,11 +1,12 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
-import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry } from '@serge/custom-types'
-import { forceColors, ForceStyle, platformIcons, PlatformStyle } from '@serge/helpers'
+import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
+import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import moment from 'moment'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -15,15 +16,16 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TABS, TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
+import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
 import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
+import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
-import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface, TabPanelProps } from './types/props'
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop })
+import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -47,6 +49,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleName,
   allForces,
   gameDate,
+  gameTurnLength: gameTurnTime,
   currentTurn,
   phase,
   currentWargame,
@@ -66,10 +69,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
   handleAdjudication
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
-  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TABS[3] : TABS[0])
+  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE)
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))
+
+  const [gameTurnEndDate, setGameTurnEndDate] = useState<string>('')
 
   const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
   const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
@@ -79,7 +84,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets } = useContext(SupportPanelContext)
+  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -89,6 +94,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     setLocalDraftMessage(draftMessage)
   }, [draftMessage])
+
+  useEffect(() => {
+    if (gameDate !== '' && gameTurnTime) {
+      const endDate = incrementGameTime(gameDate, gameTurnTime)
+      setGameTurnEndDate(endDate)
+    }
+    setLocalDraftMessage(draftMessage)
+  }, [gameDate, gameTurnTime])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -107,28 +120,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
     setFilteredInteractionMessages(filtered)
   }, [interactionMessages, turnFilter])
 
-  const TabPanel = (props: TabPanelProps): React.ReactElement => {
-    const { children, active, ...other } = props
-    return (
-      <div
-        hidden={!active}
-        {...other}
-      >
-        {children}
-      </div>
-    )
-  }
-
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
-    return (
-      <div className={cx(styles['action-tab'], className)}>
-        <p onClick={(): void => onChange(TABS[0])} className={cx({ [styles.active]: activeTab === TABS[0] })}>My Force</p>
-        <p onClick={(): void => onChange(TABS[1])} className={cx({ [styles.active]: activeTab === TABS[1] })}>Orders</p>
-        <p onClick={(): void => onChange(TABS[2])} className={cx({ [styles.active]: activeTab === TABS[2] })}>OPFOR</p>
-        {selectedForce.umpire && <p onClick={(): void => onChange(TABS[3])} className={cx({ [styles.active]: activeTab === TABS[3] })}>Adjudication</p>
-        }
+    if (selectedForce.umpire) {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>All Forces</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_ADJUDICATE)} className={cx({ [styles.active]: activeTab === TAB_ADJUDICATE })}>Adjudication</p>
       </div>
-    )
+    } else {
+      return <div className={cx(styles['action-tab'], className)}>
+        <p onClick={(): void => onChange(TAB_MY_FORCE)} className={cx({ [styles.active]: activeTab === TAB_MY_FORCE })}>My Force</p>
+        <p onClick={(): void => onChange(TAB_MY_ORDERS)} className={cx({ [styles.active]: activeTab === TAB_MY_ORDERS })}>Orders</p>
+        <p onClick={(): void => onChange(TAB_OPP_FOR)} className={cx({ [styles.active]: activeTab === TAB_OPP_FOR })}>Other Forces</p>
+      </div>
+    }
   }
 
   const onRender = (): void => {
@@ -176,8 +181,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const activity: MessageSentInteraction = {
       aType: MESSAGE_SENT_INTERACTION
     }
+
     saveNewActivityTimeMessage(selectedRoleId, activity, currentWargame)
-    saveMessage(currentWargame, details, message)()
+
+    // fix the location bits, if necessary
+    const updatedDoc = localModifyForSave(message)
+
+    saveMessage(currentWargame, details, updatedDoc)()
     // also clear local one
     setLocalDraftMessage(undefined)
   }
@@ -191,7 +201,33 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
-    const liveOrders: MessagePlanning[] = planningMessages
+    // sort out which orders are currently "live"
+    const turnStart = moment(gameDate)
+    const turnEnd = moment(gameTurnEndDate)
+    const liveOrders: MessagePlanning[] = planningMessages.filter((plan: MessagePlanning) => {
+      const startDate = plan.message.startDate
+      const endDate = plan.message.endDate
+      if (startDate && endDate) {
+        const startD = moment(startDate)
+        const endD = moment(endDate)
+        return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
+      } else {
+        console.warn('Support panel. Orders start/end missing for', plan)
+        return false
+      }
+    })
+
+    // set the default dates, if this is a planning message
+    const docAsAny = document as any
+    if (docAsAny.ownAssets !== undefined) {
+      const plan = document as PlanningMessageStructureCore
+      if (gameDate && (!plan.startDate || !plan.endDate)) {
+        plan.startDate = gameDate
+        plan.endDate = gameDate
+      }
+    }
+
+    // now modify the template
     const customisers: Array<{ (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> }> = [
       (document, template) => customiseAssets(document, template, allOwnAssets, allOppAssets),
       (document, template) => customiseActivities(document, template, forcePlanningActivities || [], selectedForce),
@@ -217,7 +253,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     if (plan) {
       const mine = plan.message.ownAssets || []
       const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
-      const others = plan.message.otherAssets || []
+      const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
       res = myIds.concat(others)
     }
     return res
@@ -233,7 +269,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         if (plan) {
           const mine = plan.message.ownAssets || []
           const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
-          const others = plan.message.otherAssets || []
+          const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
           const allIds = myIds.concat(others)
           setCurrentAssets(allIds)
           setCurrentOrders([plan._id])
@@ -242,6 +278,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
       case TAB_ADJUDICATE: {
         const adj = rowData as AdjudicationRow
+
         const doc = interactionMessages.find((doc) => doc._id === adj.id)
         if (doc) {
           const inter = doc.details.interaction
@@ -249,13 +286,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
             // get the assets
             const assets1 = assetsForOrders(inter.orders1)
             const assets2 = assetsForOrders(inter.orders2)
-            const allAssets = assets1.concat(assets2)
+            const assets3 = inter.otherAssets || []
+            const allAssets = assets1.concat(assets2).concat(assets3)
             setCurrentAssets(allAssets)
-            if (inter.orders2) {
-              setCurrentOrders([inter.orders1, inter.orders2])
-            } else {
-              setCurrentOrders([inter.orders1])
-            }
+            setCurrentInteraction(adj.id)
           }
         }
       }
@@ -265,6 +299,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const onDetailPanelClose = () => {
     setCurrentAssets([])
     setCurrentOrders([])
+    if (activeTab === TAB_ADJUDICATE) {
+      setCurrentInteraction(undefined)
+    }
   }
 
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
@@ -286,34 +323,51 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // }
   }
 
-  const checkDisplay = (tab: string): string => {
-    if (typeof tab === 'string' && tab === activeTab) {
-      return 'block'
-    }
-    return 'none'
-  }
-
   const onLocationEditorLoaded = (editorElm: HTMLDivElement) => {
     console.log('editorElm: ', editorElm)
   }
 
-  const SlideComponent = useMemo(() => (
-    <Slide direction="right" in={isShowPanel}>
-      <div className={styles.panel}>
-        <Rnd
-          disableDragging
-          style={PANEL_STYLES}
-          default={DEFAULT_SIZE}
-          minWidth={MIN_PANEL_WIDTH}
-          maxWidth={MAX_PANEL_WIDTH}
-          minHeight={MIN_PANEL_HEIGHT}
-          maxHeight={MAX_PANEL_HEIGHT}
-          onResize={onSizeChange}
-        >
-          <div className={styles.content}>
-            <TabPanel className={styles['tab-panel']} value={TABS[0]} active={activeTab === TABS[0]}>
-              {
-                activeTab === TABS[0] &&
+  const summariseLocations = (title: string, plans: PlannedActivityGeometry[]): void => {
+    console.log('== ' + title + ' ==')
+    console.table(plans.map((plan: PlannedActivityGeometry) => {
+      const props = plan.geometry.properties as PlannedProps
+      return {
+        id: plan.uniqid,
+        start: props.startDate,
+        end: props.endDate
+      }
+    }))
+  }
+
+  const localModifyForSave = (document: Record<string, any>): Record<string, any> => {
+    const fixedLocation = expandLocation(document)
+    const planDoc = fixedLocation as PlanningMessageStructureCore
+    if (planDoc.location && planDoc.ownAssets) {
+      const ownAssets = planDoc.ownAssets.map((item: {asset: string}) => item.asset)
+      const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
+      !7 && summariseLocations('before', planDoc.location)
+      !7 && summariseLocations('after', updatedLocations)
+      planDoc.location = updatedLocations
+    }
+    return planDoc
+  }
+
+  return (
+    <div className={styles.root}>
+      <Slide direction="right" in={isShowPanel}>
+        <div className={styles.panel}>
+          <Rnd
+            disableDragging
+            style={PANEL_STYLES}
+            default={DEFAULT_SIZE}
+            minWidth={MIN_PANEL_WIDTH}
+            maxWidth={MAX_PANEL_WIDTH}
+            minHeight={MIN_PANEL_HEIGHT}
+            maxHeight={MAX_PANEL_HEIGHT}
+            onResize={onSizeChange}
+          >
+            <div className={styles.content}>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_FORCE })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   assets={allOwnAssets}
@@ -327,14 +381,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onSelectionChange={setSelectedOwnAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
                 />
-              }
-            </TabPanel>
-            {
-              <div style={{ display: checkDisplay(TAB_MY_ORDERS) }} className={styles['order-group']}>
+              </div>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
                 <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
+                  gameTurnEndDate={gameTurnEndDate}
                   playerForceId={selectedForce.uniqid}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
@@ -355,6 +408,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   postBack={postBack}
                   turnFilter={turnFilter}
                   editLocation={editLocation}
+                  modifyForSave={localModifyForSave}
                   forcePlanningActivities={forcePlanningActivities}
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
@@ -380,14 +434,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   postBack={postBack}
                   customiseTemplate={localCustomiseTemplate}
                   modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-                  modifyForSave={expandLocation}
+                  modifyForSave={localModifyForSave}
                   draftMessage={localDraftMessage}
                   editCallback={localEditLocation}
                 />}
               </div>
-            }
-            <TabPanel className={styles['tab-panel']} value={TABS[2]} active={activeTab === TABS[2]} >
-              {activeTab === TABS[2] &&
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_OPP_FOR })}>
                 <PlanningAssets
                   forceColors={forceCols}
                   platformStyles={platIcons}
@@ -401,16 +453,15 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onSelectionChange={setSelectedOpAssets}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
                 />
-              }
-            </TabPanel>
-            {activeTab === TABS[3] &&
-              <div className={styles['order-group']}>
+              </div>
+              <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
                 <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
                   planningMessages={filteredPlanningMessages}
                   forces={allForces}
                   gameDate={gameDate}
+                  gameTurnLength={gameTurnTime}
                   playerRoleId={selectedRoleId}
                   forceColors={forceCols}
                   onRead={onRead}
@@ -430,36 +481,16 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onLocationEditorLoaded={onLocationEditorLoaded}
                 />
               </div>
-            }
-            <div className={styles['resize-indicator-container']} >
-              <div className={styles['resize-indicator-icon']} >
-                <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+              <div className={styles['resize-indicator-container']} >
+                <div className={styles['resize-indicator-icon']} >
+                  <MoreVert fontSize='large' color='primary' style={{ marginLeft: 0 }} />
+                </div>
               </div>
             </div>
-          </div>
-        </Rnd>
-        <TabPanelActions onChange={onTabChange} />
-      </div>
-    </Slide>
-  ), [
-    isShowPanel,
-    activeTab,
-    allForces,
-    filteredPlanningMessages,
-    filteredInteractionMessages,
-    selectedRoleId,
-    turnFilter,
-    draftMessage,
-    selectedOrders,
-    platformTypes,
-    planningMessages,
-    localDraftMessage
-  ]
-  )
-
-  return (
-    <div className={styles.root}>
-      {SlideComponent}
+          </Rnd>
+          <TabPanelActions onChange={onTabChange} />
+        </div>
+      </Slide>
       <TabPanelActions onChange={onTabChange} className={styles['secondary-action-tab']} />
     </div>
   )

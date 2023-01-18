@@ -20,16 +20,17 @@ import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
 import PlanningForces from '../planning-force'
-import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
+import { collapseLocation } from '../planning-messages-list/helpers/collapse-location'
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
-import { findActivity, PlanningContact, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
+import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
+import RangeRingPlotter from './helpers/RangeRingPlotter'
 import Ruler from './helpers/Ruler'
 import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
@@ -61,7 +62,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   allForces,
   platformTypes,
   gameDate,
-  gameTurnTime,
+  gameTurnLength,
   currentTurn,
   forcePlanningActivities,
   attributeTypes
@@ -124,6 +125,27 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // show the child elements, regardless of what is selected
   const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
+
+  const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
+
+  const genData = (): void => {
+    const doGenny = 7
+    if (!doGenny) {
+      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
+      setActivityBeingPlanned(newPlan)
+    } else {
+      const createAssets = false
+      if (createAssets) {
+        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
+        console.log('forces', forces)
+      } else {
+        console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
+          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        console.log(randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid,
+          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+      }
+    }
+  }
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -339,25 +361,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders }
-  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders])
-
-  const genData = (): void => {
-    const doGenny = 7
-    if (!doGenny) {
-      const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
-      setActivityBeingPlanned(newPlan)
-    } else {
-      const createAssets = false
-      if (createAssets) {
-        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
-        console.log('forces', forces)
-      } else {
-        const newOrders = randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id)
-        console.log(newOrders)
-      }
-    }
-  }
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction }
+  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction])
 
   const incrementDebugStep = (): void => {
     // do something
@@ -382,17 +387,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     setDebugStep(1 + debugStep)
   }
 
-  const handleAdjudication = (contact: PlanningContact): void => {
-    console.log('Apply some adjudication for', contact.id, contact)
-    const interDetails: InteractionDetails = {
-      id: contact.id,
-      orders1: contact.first.activity._id,
-      orders2: contact.second.activity._id,
-      startTime: moment(contact.timeStart).toISOString(),
-      endTime: moment(contact.timeEnd).toISOString(),
-      geometry: contact.intersection,
-      complete: false
-    }
+  const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
+    console.log('Apply some adjudication for', outcomes.Reference, outcomes)
     const from: MessageDetailsFrom = {
       force: selectedForce.uniqid,
       forceId: selectedForce.uniqid,
@@ -409,16 +405,24 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       timestamp: moment().toISOString(),
       turnNumber: currentTurn
     }
-    const message: MessageAdjudicationOutcomes = {
-      messageType: 'AdjudicationOutcomes',
-      Reference: '',
-      narrative: '',
-      perceptionOutcomes: [],
-      locationOutcomes: [],
-      healthOutcomes: []
-    }
     // store the new adjudication
-    saveMessage(currentWargame, details, message)()
+    saveMessage(currentWargame, details, outcomes)()
+  }
+
+  const activityBounds = (plans: PlannedActivityGeometry[]): [string, string] | undefined => {
+    if (plans.length) {
+      const firstGeom = plans[0].geometry
+      const lastGeom = plans[plans.length - 1].geometry
+      if (firstGeom.properties && lastGeom.properties) {
+        const firstProps: PlannedProps = firstGeom.properties as PlannedProps
+        const lastProps: PlannedProps = lastGeom.properties as PlannedProps
+        return [firstProps.startDate, lastProps.endDate]
+      } else {
+        return undefined
+      }
+    } else {
+      return undefined
+    }
   }
 
   useEffect(() => {
@@ -441,10 +445,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         timestamp: moment().toISOString(),
         turnNumber: currentTurn
       }
+      const timeBounds = activityBounds(activityPlanned)
       const plans: PlanningMessageStructureCore = {
         Reference: '',
         title: 'Pending',
-        activity: activityBeingPlanned.uniqid
+        activity: activityBeingPlanned.uniqid,
+        startDate: timeBounds ? timeBounds[0] : '',
+        endDate: timeBounds ? timeBounds[1] : ''
       }
       if (activityPlanned.length) {
         plans.location = activityPlanned
@@ -453,7 +460,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         plans.ownAssets = ownAssets.map((asset: string) => { return { asset: asset, number: 0 } })
       }
       if (otherAssets.length) {
-        plans.otherAssets = otherAssets
+        plans.otherAssets = otherAssets.map((asset: string) => { return { asset: asset } })
       }
       const newPlan: MessagePlanning = {
         messageType: PLANNING_MESSAGE,
@@ -481,7 +488,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [activityPlanned])
 
   const saveMessageLocal = (dbName: string, details: MessageDetails, message: any): { (): void } => {
-    const unmangledMessage = expandLocation(message)
+    const unmangledMessage = message // note: we no longer rely on hiddenText expandLocation(message)
     // if this is a draft plans, clear the draft plan
     if (!details.interaction) {
       setDraftMessage(undefined)
@@ -625,7 +632,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <Fragment>
             <Fragment key='selectedObjects'>
-              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+              <RangeRingPlotter title={'Own range rings'} assets={ownAssetsFiltered} forceCols={forceColors} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {allOwnAssets.length !== ownAssetsFiltered.length &&
                   <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
@@ -634,6 +642,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                   <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                 }
               </LayerGroup>
+              <RangeRingPlotter title={'Opp range rings'} assets={opAssetsFiltered} forceCols={forceColors} />
               <LayerGroup key={'sel-opp-forces'}>
                 {allOppAssets.length !== opAssetsFiltered.length &&
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
@@ -677,7 +686,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
 
     // constraints actually contains the max
-    const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 2 : 7
+    const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 4 : 7
 
     return (
       <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
@@ -704,7 +713,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             selectedForce={currentForce}
             allForces={allForces}
             gameDate={gameDate}
-            gameTurnTime={gameTurnTime}
+            gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
             selectedAssets={selectedAssets}
@@ -736,6 +745,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               maxBounds={boundsToUse}
               zoom={zoom}
               minZoom={channel.constraints.minZoom}
+              maxBoundsViscosity={1.0}
               maxZoom={maxZoom}
               zoomSnap={0.5}
             >
@@ -745,7 +755,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 actionCallback={mapActionCallback}
                 mapWidth={mapWidth}
                 tileLayer={channel.constraints.tileLayer || duffDefinition}
-                maxZoom={maxZoom}
                 toolbarChildren={
                   <>
                     {!activityBeingPlanned &&
