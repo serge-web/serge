@@ -140,9 +140,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         console.log('forces', forces)
       } else {
         console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
-          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
         console.log(randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid,
-          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
       }
     }
   }
@@ -633,23 +633,31 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           : <Fragment>
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
-              <RangeRingPlotter title={'Own range rings'} assets={ownAssetsFiltered} forceCols={forceColors} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {allOwnAssets.length !== ownAssetsFiltered.length &&
-                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                  <>
+                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                    <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} />
+                  </>
                 }
                 {allOwnAssets.length === ownAssetsFiltered.length &&
-                  <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                  <>
+                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
+                    <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
+                  </>
                 }
               </LayerGroup>
-              <RangeRingPlotter title={'Opp range rings'} assets={opAssetsFiltered} forceCols={forceColors} />
               <LayerGroup key={'sel-opp-forces'}>
                 {allOppAssets.length !== opAssetsFiltered.length &&
+                <>
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                }
+                  <RangeRingPlotter title={'Opp range rings'} assets={filterApplied ? opAssetsFiltered : allOppAssets} forceCols={forceColors} />
+                  </>}
                 {allOppAssets.length === opAssetsFiltered.length &&
+                <>
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                }
+                  <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
+                  </>}
               </LayerGroup>
             </Fragment>
             <Fragment key='currentObjects'>
