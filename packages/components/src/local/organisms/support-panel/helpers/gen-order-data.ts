@@ -78,6 +78,8 @@ export interface ShortCircuitEvent {
   id: string
   message: MessagePlanning
   activity: PlanningActivity
+  /** the specific geometry that relates to, if known */
+  geometry: PlannedActivityGeometry['uniqid'] | undefined
   timeStart: number // unix millis
   timeEnd: number // unix millis
   intersection?: Geometry

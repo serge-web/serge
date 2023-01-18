@@ -180,8 +180,12 @@ export interface InteractionDetails {
   complete?: boolean
   /** first set of orders this relates to */
   readonly orders1: string
+  /** id of activity in first set of orders (if known) */
+  readonly orders1Activity?: PlannedActivityGeometry['uniqid']
   /** second (optional) set of orders this relates to */
   readonly orders2?: string
+  /** id of activity in first set of orders (if known) */
+  readonly orders2Activity?: PlannedActivityGeometry['uniqid']
   /** other assets associated with this interaction */
   otherAssets?: Array<Asset['uniqid']>
   /** interaction start time */
