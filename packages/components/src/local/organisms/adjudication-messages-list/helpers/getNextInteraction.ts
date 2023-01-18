@@ -1,5 +1,5 @@
-import { ADJUDICATION_OUTCOMES, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import _ from 'lodash'
 import moment from 'moment'
@@ -50,30 +50,64 @@ export const timeForActivity = (plan: MessagePlanning, activity: PlanningActivit
   return 1
 }
 
+const roundedRandomTime = (start: number, end: number): number => {
+  const delta = Math.random() * (end - start)
+  const mins5 = 5 * 60 * 1000
+  const rounded = Math.floor(delta / mins5) * mins5
+  return start + rounded
+}
+
 const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
   // do we have routing?
-  if (activity.geometries && activity.geometries.length) {
+  if (activity.geometries && activity.geometries.length > 0) {
     // for `first`, use end-time of route-out (first line geometry)
     // for `last`, use start-time of route-back (last line geometry)
     // for `random` create period between `first` and `last`
-    console.warn('NOT YET IMPLEMENTED - GETTING TIME FROM GEOMETRIES')
-  } else {
-    // just use overall message timing
-    const tStart = moment.utc(plan.message.startDate).valueOf()
-    const tEnd = moment.utc(plan.message.endDate).valueOf()
-    switch (iType) {
-      case INTER_AT_END:
-        return tEnd
-      case INTER_AT_START:
-        return tStart
-      case INTER_AT_RANDOM:
-      default: {
-        const delta = tEnd - tStart
-        return tStart + (Math.random() * delta)
+    if (plan.message.location) {
+      let period: [number, number] | undefined
+      const anyPolygon = activity.geometries.find((plan: PlanningActivityGeometry) => plan.aType === GeometryType.polygon)
+      if (anyPolygon) {
+        const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === anyPolygon.uniqid)
+        if (plannedActivity) {
+          const props = plannedActivity.geometry.properties as PlannedProps
+          period = [props.startTime, props.endTime]
+        }
       }
+      if (!period) {
+        // just take start of first activity, to end of last activity
+        const timeFor = (planned: PlannedActivityGeometry): [number, number] => {
+          const props = planned.geometry.properties as PlannedProps
+          return [props.startTime, props.endTime]
+        }
+        const firstPeriod = timeFor(plan.message.location[0])
+        const lastPeriod = timeFor(plan.message.location[plan.message.location.length - 1])
+        period = [firstPeriod[0], lastPeriod[1]]
+      }
+      // work out the active time period
+      switch (iType) {
+        case INTER_AT_END:
+          return period[1]
+        case INTER_AT_START:
+          return period[0]
+        case INTER_AT_RANDOM:
+          return roundedRandomTime(period[0], period[1])
+      }
+    } else {
+      console.warn('Cannot breakdown activity, locations missing')
     }
   }
-  return -1
+  // just use overall message timing
+  const tStart = moment.utc(plan.message.startDate).valueOf()
+  const tEnd = moment.utc(plan.message.endDate).valueOf()
+
+  switch (iType) {
+    case INTER_AT_END:
+      return tEnd
+    case INTER_AT_START:
+      return tStart
+    case INTER_AT_RANDOM:
+      return roundedRandomTime(tStart[0], tEnd[1])
+  }
 }
 
 /** record of how a target site is protected */
@@ -238,7 +272,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
               }
             }
           })
-        }  
+        }
       }
     }
   })
