@@ -8560,6 +8560,40 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-blue-Land-Air-Air Refuel",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
@@ -8805,6 +8839,40 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-blue-Maritime-Air-Air Refuel",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
                                         }
                                     ]
                                 },
@@ -9125,8 +9193,42 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Combat Air Patrol",
-                                    "actId": "CAP",
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-blue-Air-Air-Air Refuel",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "actId": "DCA",
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
@@ -9140,26 +9242,26 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST"
                                     ],
-                                    "uniqid": "f-blue-Air-Combat Air Patrol",
+                                    "uniqid": "f-blue-Air-Defensive Counter Air",
                                     "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-0"
+                                            "uniqid": "Defensive Counter Air-0"
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "CAP Area",
+                                            "name": "DCA Area",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-1"
+                                            "uniqid": "Defensive Counter Air-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-2"
+                                            "uniqid": "Defensive Counter Air-2"
                                         }
                                     ]
                                 },
@@ -9257,6 +9359,45 @@ const game: Wargame = {
                                         }
                                     ],
                                     "provideSpatialAssets": true
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
+                                    "uniqid": "f-blue-Air-Offensive Counter Air",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ]
                                 },
                                 {
                                     "name": "Patrol",
@@ -9510,6 +9651,40 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-red-Land-Air-Air Refuel",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
@@ -9755,6 +9930,40 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-red-Maritime-Air-Air Refuel",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
                                         }
                                     ]
                                 },
@@ -10092,8 +10301,42 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Combat Air Patrol",
-                                    "actId": "CAP",
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-red-Air-Air-Air Refuel",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "actId": "DCA",
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
@@ -10107,26 +10350,26 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST"
                                     ],
-                                    "uniqid": "f-red-Air-Combat Air Patrol",
+                                    "uniqid": "f-red-Air-Defensive Counter Air",
                                     "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-0"
+                                            "uniqid": "Defensive Counter Air-0"
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "CAP Area",
+                                            "name": "DCA Area",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-1"
+                                            "uniqid": "Defensive Counter Air-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-2"
+                                            "uniqid": "Defensive Counter Air-2"
                                         }
                                     ]
                                 },
@@ -10224,6 +10467,45 @@ const game: Wargame = {
                                         }
                                     ],
                                     "provideSpatialAssets": true
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
+                                    "uniqid": "f-red-Air-Offensive Counter Air",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ]
                                 },
                                 {
                                     "name": "Patrol",
@@ -10477,6 +10759,40 @@ const game: Wargame = {
                             "category": "Land",
                             "activities": [
                                 {
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Land-Air-Air Refuel",
+                                    "template": "Land--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
@@ -10722,6 +11038,40 @@ const game: Wargame = {
                                             "name": "Route back",
                                             "optional": false,
                                             "uniqid": "ASW Barrier-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Maritime-Air-Air Refuel",
+                                    "template": "Maritime--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
                                         }
                                     ]
                                 },
@@ -11042,8 +11392,42 @@ const game: Wargame = {
                             "category": "Air",
                             "activities": [
                                 {
-                                    "name": "Combat Air Patrol",
-                                    "actId": "CAP",
+                                    "name": "Air-Air Refuel",
+                                    "actId": "AAR",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ASW-B",
+                                        "FIAC",
+                                        "DCA",
+                                        "OCA"
+                                    ],
+                                    "uniqid": "f-green-Air-Air-Air Refuel",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "AAR at this location",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Air-Air Refuel-2"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "name": "Defensive Counter Air",
+                                    "actId": "DCA",
                                     "interactsWith": [
                                         "STRIKE",
                                         "EW",
@@ -11057,26 +11441,26 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST"
                                     ],
-                                    "uniqid": "f-green-Air-Combat Air Patrol",
+                                    "uniqid": "f-green-Air-Defensive Counter Air",
                                     "template": "Air--Standard",
                                     "geometries": [
                                         {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-0"
+                                            "uniqid": "Defensive Counter Air-0"
                                         },
                                         {
                                             "aType": "Polygon",
-                                            "name": "CAP Area",
+                                            "name": "DCA Area",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-1"
+                                            "uniqid": "Defensive Counter Air-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "Combat Air Patrol-2"
+                                            "uniqid": "Defensive Counter Air-2"
                                         }
                                     ]
                                 },
@@ -11174,6 +11558,45 @@ const game: Wargame = {
                                         }
                                     ],
                                     "provideSpatialAssets": true
+                                },
+                                {
+                                    "name": "Offensive Counter Air",
+                                    "actId": "OCA",
+                                    "interactsWith": [
+                                        "STRIKE",
+                                        "EW",
+                                        "ISTAR",
+                                        "PATRL",
+                                        "RESUPP",
+                                        "TRANSIT",
+                                        "DCA",
+                                        "OCA",
+                                        "SoffS",
+                                        "SEAD",
+                                        "TST"
+                                    ],
+                                    "uniqid": "f-green-Air-Offensive Counter Air",
+                                    "template": "Air--Standard",
+                                    "geometries": [
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route out",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-0"
+                                        },
+                                        {
+                                            "aType": "Polygon",
+                                            "name": "OCA Area",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-1"
+                                        },
+                                        {
+                                            "aType": "Polyline",
+                                            "name": "Route back",
+                                            "optional": false,
+                                            "uniqid": "Offensive Counter Air-2"
+                                        }
+                                    ]
                                 },
                                 {
                                     "name": "Patrol",
