@@ -315,7 +315,6 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
-  console.log('gen data', constraints.bounds)
   // regions
   const bounds = L.latLngBounds(constraints.bounds)
   const centre = bounds.getCenter()
