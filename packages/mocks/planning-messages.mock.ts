@@ -3536,5 +3536,48 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "messageType": "AdjudicationOutcomes"
         },
         "_id": "2023-01-17T17:08:36.076Z//5"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-planning",
+            "from": {
+                "force": "Red",
+                "forceColor": "#ff3d43",
+                "roleName": "Direct Action",
+                "roleId": "red-direct",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "f-red"
+            },
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-24T00:45:23.580Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "Reference": "Red-276",
+            "title": "Order item 276",
+            "startDate": "2022-05-01T07:50:00.000Z",
+            "endDate": "2022-05-01T08:00:00.000Z",
+            "activity": "f-red-Other-Cyber/Space Activity",
+            "ownAssets": [
+                {
+                    "asset": "a1590",
+                    "number": 5
+                },
+                {
+                    "asset": "a1534",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a1410",
+                    "number": 3
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_f-red_276",
+        "_rev": "2"
     }
 ]
