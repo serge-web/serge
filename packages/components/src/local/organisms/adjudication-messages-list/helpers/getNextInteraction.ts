@@ -245,6 +245,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     id: string
     time: number
     timeStr: string
+    event: INTERACTION_SHORT_CIRCUIT,
     message: MessagePlanning
     activity: PlanningActivity
     geomId: PlannedActivityGeometry['uniqid'] | undefined
@@ -263,10 +264,10 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
       if (activity) {
         const activityEvents = activity.events
         if (activityEvents) {
-          activityEvents.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
-            const thisTime = timeFor(plan, activity, short)
+          activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {
+            const thisTime = timeFor(plan, activity, event)
             if (thisTime) {
-              const interactionId = plan._id + ' ' + short
+              const interactionId = plan._id + ' ' + event
               // check this hasn't been processed already
               if (interactionIDs.find((id: string) => id === interactionId)) {
                 console.log('Skipping this event, already processed', interactionId)
@@ -275,6 +276,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
                 if (thisTime.time <= gameTime) {
                   eventList.push({ 
                     id: interactionId,
+                    event: event,
                     message: plan, 
                     time: thisTime.time,
                     timeStr: moment(thisTime.time).toISOString(), 
@@ -303,6 +305,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
       const res: ShortCircuitEvent = {
         id: firstEvent.id,
         message: contact,
+        event: firstEvent.event,
         timeStart: eventTime,
         timeEnd: eventTime,
         intersection: undefined,
@@ -370,10 +373,11 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     const details: InteractionDetails = {
       id: event.id,
       orders1: event.message._id,
+      event: event.event,
       startTime: moment.utc(event.timeStart).toISOString(),
       endTime: moment.utc(event.timeEnd).toISOString(),
       complete: false,
-      orders1Activity: event.geomId
+      orders1Geometry: event.geomId
     }
     const outcomes = outcomesFor(event.message, event.activity, forces, gameTimeVal)
     if (outcomes.otherAssets) {
@@ -453,6 +457,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const sortedContacts = _.sortBy(contacts, function (contact) { return moment.utc(contact.timeStart).valueOf() })
       const firstContact = sortedContacts[0]
 
+      console.log('contact', firstContact)
+
       // just check there isn't a short-circuit before this
       if (eventInWindow !== undefined) {
         const eventTime = eventInWindow.timeStart
@@ -463,8 +469,9 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           // return the short-circuit interaction
           const details: InteractionDetails = {
             id: eventInWindow.id,
+            event: eventInWindow.event,
             orders1: eventInWindow.message._id,
-            orders1Activity: eventInWindow.geomId,
+            orders1Geometry: eventInWindow.geomId,
             startTime: moment.utc(eventInWindow.timeStart).toISOString(),
             endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
             complete: false
@@ -495,6 +502,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       console.log('Gen 3 - Have event, but no contacts', eventInWindow.id)
       const details: InteractionDetails = {
         id: eventInWindow.id,
+        event: eventInWindow.event,
         orders1: eventInWindow.message._id,
         startTime: moment.utc(eventInWindow.timeStart).toISOString(),
         endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
@@ -519,9 +527,9 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
   const res: InteractionDetails = {
     id: contact.id,
     orders1: contact.first.activity._id,
-    orders1Activity: props1.id,
+    orders1Geometry: props1.geomId,
     orders2: contact.second.activity._id,
-    orders2Activity: props2.id,
+    orders2Geometry: props2.geomId,
     startTime: moment(contact.timeStart).toISOString(),
     endTime: moment(contact.timeEnd).toISOString(),
     geometry: contact.intersection,

@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
@@ -465,6 +465,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     handleAdjudication && handleAdjudication(iDetails, outcomes)
   }
 
+  const translateEvent = (event: INTERACTION_SHORT_CIRCUIT): string => {
+    switch(event) {
+      case 'i-end':
+        return 'End of activity'
+      case 'i-start':  
+      return 'End of activity'
+      case 'i-random':  
+      return 'Random point in period'
+    }
+  }
+
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
@@ -497,10 +508,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <DetailPanelStateListener />
             <Box><b>Interaction details:</b><br />
               <ul>
-                <li><b>Date/time:</b>{time}</li>
-                <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
-                <li><b>Reference:</b>{msg.Reference}</li>
-                <li><b>Other assets:</b>
+                <li><b>Date/time: </b>{time}</li>
+                <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                { interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li> }
+                <li><b>Other assets: </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
                     ? <table className={styles.assets}>
                       <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
@@ -510,7 +521,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                     </table> : ' None'}
                   </span>
                 </li>
-                <li><b>ID:</b>{interaction.id}</li>
+                <li><b>ID: </b>{interaction.id}</li>
               </ul>
             </Box>
             <Table>

@@ -5,7 +5,7 @@ import {
 } from '@serge/config'
 
 import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, INTERACTION_SHORT_CIRCUIT, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -178,14 +178,16 @@ export interface InteractionDetails {
   readonly id: string
   /** whether adjudication of this interaction is complete */
   complete?: boolean
+  /** if this is in response to an event, rather than interaction */
+  event?: INTERACTION_SHORT_CIRCUIT
   /** first set of orders this relates to */
   readonly orders1: string
   /** id of activity in first set of orders (if known) */
-  readonly orders1Activity?: PlannedActivityGeometry['uniqid']
+  readonly orders1Geometry?: PlannedActivityGeometry['uniqid']
   /** second (optional) set of orders this relates to */
   readonly orders2?: string
   /** id of activity in first set of orders (if known) */
-  readonly orders2Activity?: PlannedActivityGeometry['uniqid']
+  readonly orders2Geometry?: PlannedActivityGeometry['uniqid']
   /** other assets associated with this interaction */
   otherAssets?: Array<Asset['uniqid']>
   /** interaction start time */

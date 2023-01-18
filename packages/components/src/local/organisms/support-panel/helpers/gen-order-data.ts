@@ -1,6 +1,6 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
-  Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
+  Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -78,6 +78,8 @@ export interface ShortCircuitEvent {
   id: string
   message: MessagePlanning
   activity: PlanningActivity
+  // the type of event that triggered this
+  event: INTERACTION_SHORT_CIRCUIT,
   /** the specific geometry that relates to, if known */
   geomId: PlannedActivityGeometry['uniqid'] | undefined
   timeStart: number // unix millis
