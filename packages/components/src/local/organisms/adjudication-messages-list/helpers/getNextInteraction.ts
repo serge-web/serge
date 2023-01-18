@@ -247,7 +247,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     timeStr: string
     message: MessagePlanning
     activity: PlanningActivity
-    geometry: PlannedActivityGeometry['uniqid'] | undefined
+    geomId: PlannedActivityGeometry['uniqid'] | undefined
   }
 
   console.log('look for event before', moment.utc(gameTime).toISOString())
@@ -279,7 +279,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
                     time: thisTime.time,
                     timeStr: moment(thisTime.time).toISOString(), 
                     activity: activity, 
-                    geometry: thisTime.geometry})
+                    geomId: thisTime.geometry})
                 }
               }
             }
@@ -308,7 +308,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
         intersection: undefined,
         outcomes: outcomes,
         activity: firstEvent.activity,
-        geomId: firstEvent.geometry
+        geomId: firstEvent.geomId
       }
       return res
     } else {
@@ -464,6 +464,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           const details: InteractionDetails = {
             id: eventInWindow.id,
             orders1: eventInWindow.message._id,
+            orders1Activity: eventInWindow.geomId,
             startTime: moment.utc(eventInWindow.timeStart).toISOString(),
             endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
             complete: false
@@ -513,10 +514,14 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 }
 
 const contactDetails = (contact: PlanningContact): InteractionDetails => {
+  const props1 = contact.first.geometry.properties as PlannedProps
+  const props2 = contact.second.geometry.properties as PlannedProps
   const res: InteractionDetails = {
     id: contact.id,
     orders1: contact.first.activity._id,
-    orders2: contact.second ? contact.second.activity._id : undefined,
+    orders1Activity: props1.id,
+    orders2: contact.second.activity._id,
+    orders2Activity: props2.id,
     startTime: moment(contact.timeStart).toISOString(),
     endTime: moment(contact.timeEnd).toISOString(),
     geometry: contact.intersection,

@@ -79,7 +79,7 @@ export interface ShortCircuitEvent {
   message: MessagePlanning
   activity: PlanningActivity
   /** the specific geometry that relates to, if known */
-  geometry: PlannedActivityGeometry['uniqid'] | undefined
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
   timeStart: number // unix millis
   timeEnd: number // unix millis
   intersection?: Geometry
@@ -528,7 +528,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.Reference + '//' + message.message.title + '//' + activity
-        const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
+        const newItem: GeomWithOrders = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
