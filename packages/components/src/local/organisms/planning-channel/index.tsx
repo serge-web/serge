@@ -140,9 +140,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         console.log('forces', forces)
       } else {
         console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
-        allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
         console.log(randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid,
-        allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
       }
     }
   }
@@ -652,12 +652,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <>
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                   <RangeRingPlotter title={'Opp range rings'} assets={filterApplied ? opAssetsFiltered : allOppAssets} forceCols={forceColors} />
-                  </>}
+                </>}
                 {allOppAssets.length === opAssetsFiltered.length &&
                 <>
                   <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
                   <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
-                  </>}
+                </>}
               </LayerGroup>
             </Fragment>
             <Fragment key='currentObjects'>
