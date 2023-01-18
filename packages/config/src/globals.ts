@@ -115,10 +115,10 @@ export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
 export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
 export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 
-/** types of short-ciruit interaction for an activity */
-export const INTER_AT_START = 'inter-at-start'
-export const INTER_AT_END = 'inter-at-end'
-export const INTER_AT_RANDOM = 'inter-at-random'
+/** when to generate interaction events for an activity */
+export const INTER_AT_START = 'i-start'
+export const INTER_AT_END = 'i-end'
+export const INTER_AT_RANDOM = 'i-random'
 
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
