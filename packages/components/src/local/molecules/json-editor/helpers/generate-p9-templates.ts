@@ -236,7 +236,6 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'Raid', title: 'Raid', shortCircuits: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], specific: 'SOFAttack' })
   acts.push({ uniqid: 'LAND', title: 'Land Close Combat', shortCircuits: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Combat Location'] })
 
-
   // do some sanity testing
   acts.forEach((act: Activity) => {
     const numActivities = act.acts ? act.acts.filter((act) => [activity, point].includes(act)).length : 0

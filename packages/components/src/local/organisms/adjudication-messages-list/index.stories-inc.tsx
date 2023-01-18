@@ -205,16 +205,16 @@ Default.args = {
 }
 
 const planningMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
-  if(msg.messageType !== INFO_MESSAGE_CLIPPED) {
+  if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
     return msg.details.from.forceId !== 'f-green' && msg.details.messageType !== 'p9adjudicate'
-  } 
+  }
   return true
 }) as MessagePlanning[]
 
 const interMessages = copyMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
-  if(msg.messageType !== INFO_MESSAGE_CLIPPED) {
+  if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
     return msg.details.messageType === 'p9adjudicate'
-  } 
+  }
   return false
 })
 const oneInterMessage = planningMessages.concat(interMessages[0] as MessagePlanning)
@@ -236,5 +236,3 @@ ZeroInteractions.args = {
   playerRoleId: umpireFole.roleId,
   messages: planningMessages as CoreMessage[]
 }
-
-

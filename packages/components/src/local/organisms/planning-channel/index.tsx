@@ -506,7 +506,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         } else {
           setActivityBeingPlanned(newActivity)
           setActivityPlanned([])
-        }  
+        }
       } else {
         console.warn('Can\'t create new orders, activity not found for', activity)
       }
