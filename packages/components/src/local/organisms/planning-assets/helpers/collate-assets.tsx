@@ -225,7 +225,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const fixedColWidth = 100
 
-  const ownAssets: boolean = !!(playerForce && !opFor)
+  const ownAssets = !!(playerForce && !opFor)
 
   const columns: Column<any>[] = [
     { title: 'Icon', field: 'icon', render: renderIcon, width: fixedColWidth, minWidth: fixedColWidth },
@@ -237,7 +237,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   ]
 
   // show attributes for own forces (or if we're umpire)
-  if(ownAssets) {
+  if (ownAssets) {
     columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
   }
 
