@@ -27,7 +27,7 @@ export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[],
   return []
 }
 
-export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity => {
+export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
   let res: PlanningActivity | undefined
   activities.groupedActivities.find((group: GroupedActivitySet) => {
     group.activities.find((plan: PlanningActivity) => {
@@ -39,8 +39,8 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
     return res
   })
   if (!res) {
-    console.log('act', activities.force, activities.groupedActivities[0].activities[0].actId)
-    throw Error('Failed to find group activities for this activity:' + name)
+    console.warn('Failed to find group activities for this activity:', name)
+    return undefined
   }
   return res
 }
@@ -215,23 +215,25 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     if (forceActivities) {
       const actName = plan.message.activity
       const activity = findActivity(actName, forceActivities)
-      const activityEvents = activity.events
-      if (activityEvents) {
-        activityEvents.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
-          const thisTime = timeFor(plan, activity, short)
-          if (thisTime) {
-            const interactionId = plan._id + ' ' + short
-            // check this hasn't been processed already
-            if (interactionIDs.find((id: string) => id === interactionId)) {
-              console.log('Skipping this event, already processed', interactionId)
-            } else {
-              // check the time of this event has passed
-              if (thisTime <= gameTime) {
-                eventList.push({ time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity, id: interactionId })
+      if (activity) {
+        const activityEvents = activity.events
+        if (activityEvents) {
+          activityEvents.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
+            const thisTime = timeFor(plan, activity, short)
+            if (thisTime) {
+              const interactionId = plan._id + ' ' + short
+              // check this hasn't been processed already
+              if (interactionIDs.find((id: string) => id === interactionId)) {
+                console.log('Skipping this event, already processed', interactionId)
+              } else {
+                // check the time of this event has passed
+                if (thisTime <= gameTime) {
+                  eventList.push({ time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity, id: interactionId })
+                }
               }
             }
-          }
-        })
+          })
+        }  
       }
     }
   })

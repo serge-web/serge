@@ -500,11 +500,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const planNewActivity = (group: GroupedActivitySet['category'], activity: PlanningActivity['uniqid']) => {
     if (forcePlanningActivities) {
       const newActivity = findActivity(activity, group, selectedForce.uniqid, forcePlanningActivities)
-      if (newActivity.geometries) {
-        setActivityBeingPlanned(newActivity)
+      if (newActivity) {
+        if (newActivity.geometries) {
+          setActivityBeingPlanned(newActivity)
+        } else {
+          setActivityBeingPlanned(newActivity)
+          setActivityPlanned([])
+        }  
       } else {
-        setActivityBeingPlanned(newActivity)
-        setActivityPlanned([])
+        console.warn('Can\'t create new orders, activity not found for', activity)
       }
     }
   }
