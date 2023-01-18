@@ -148,7 +148,7 @@ const psora = (k: number): number => {
   return res
 }
 
-const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
+export const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
   return arr[Math.floor(arr.length * psora(ctr))]
 }
 
@@ -598,8 +598,9 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
   const justPlanning = deepCopy(res) as MessagePlanning[]
   const interactions: MessageInteraction[] = []
   let ctr = 0
+  const numInteractions = count > 40 ? 5 : 2
   umpireRoles.forEach((role) => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numInteractions; i++) {
       // find a force-1 doc
       const doc1 = getDocFromThisForce(justPlanning, createFor[0])
       const doc2 = getDocFromThisForce(justPlanning, createFor[1])
