@@ -177,7 +177,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string, geometry?: string): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
     if (id === 'n/a') {
       return <span>n/a</span>
@@ -204,7 +204,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Reference: </b> {plan.message.Reference} </span>
-        <span><b>Activity: </b> {activity || 'n/a'} </span><br />
+        <span><b>Activity: </b> {activity || 'n/a'}: {geometry || ''}</span><br />
         <span><b>Time: </b> {timings} </span><br />
         <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
           <table className={styles.assets}>
@@ -527,8 +527,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity)}</td>
-                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity)}</td>
+                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity, data.order1Geometry)}</td>
+                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity, data.order2Geometry)}</td>
                 </tr>
               </tbody>
             </Table>
