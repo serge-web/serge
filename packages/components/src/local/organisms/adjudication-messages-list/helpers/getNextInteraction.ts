@@ -57,7 +57,7 @@ const roundedRandomTime = (start: number, end: number): number => {
   return start + rounded
 }
 
-const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
+const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): TimePlusGeometry => {
   // do we have routing?
   if (activity.geometries && activity.geometries.length > 0) {
     // for `first`, use end-time of route-out (first line geometry)
@@ -65,12 +65,15 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
     // for `random` create period between `first` and `last`
     if (plan.message.location) {
       let period: [number, number] | undefined
-      const anyPolygon = activity.geometries.find((plan: PlanningActivityGeometry) => plan.aType === GeometryType.polygon)
-      if (anyPolygon) {
-        const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === anyPolygon.uniqid)
+      let geomName: string | undefined
+      const allPolygons = activity.geometries.filter((plan: PlanningActivityGeometry) => plan.aType === GeometryType.polygon)
+      const lastPolygon = allPolygons.length && allPolygons[allPolygons.length-1]
+      if (lastPolygon) {
+        const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === lastPolygon.uniqid)
         if (plannedActivity) {
           const props = plannedActivity.geometry.properties as PlannedProps
           period = [props.startTime, props.endTime]
+          geomName = lastPolygon.uniqid
         }
       }
       if (!period) {
@@ -86,11 +89,11 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
       // work out the active time period
       switch (iType) {
         case INTER_AT_END:
-          return period[1]
+          return {time: period[1], geometry: geomName}
         case INTER_AT_START:
-          return period[0]
+          return {time: period[0], geometry: geomName}
         case INTER_AT_RANDOM:
-          return roundedRandomTime(period[0], period[1])
+          return {time: roundedRandomTime(period[0], period[1]), geometry: geomName}
       }
     } else {
       console.warn('Cannot breakdown activity, locations missing')
@@ -102,11 +105,11 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
 
   switch (iType) {
     case INTER_AT_END:
-      return tEnd
+      return {time: tEnd, geometry: undefined}
     case INTER_AT_START:
-      return tStart
+      return {time: tStart, geometry: undefined}
     case INTER_AT_RANDOM:
-      return roundedRandomTime(tStart[0], tEnd[1])
+      return {time:  roundedRandomTime(tStart[0], tEnd[1]), geometry: undefined}
   }
 }
 
@@ -233,6 +236,8 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
   }
 }
 
+type TimePlusGeometry = {time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined}
+
 export const checkForEvent = (gameTime: number, orders: MessagePlanning[], interactionIDs: string[],
   activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
   interface TimedIntervention {
@@ -242,6 +247,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     timeStr: string
     message: MessagePlanning
     activity: PlanningActivity
+    geometry: PlannedActivityGeometry['uniqid'] | undefined
   }
 
   console.log('look for event before', moment.utc(gameTime).toISOString())
@@ -266,8 +272,14 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
                 console.log('Skipping this event, already processed', interactionId)
               } else {
                 // check the time of this event has passed
-                if (thisTime <= gameTime) {
-                  eventList.push({ time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity, id: interactionId })
+                if (thisTime.time <= gameTime) {
+                  eventList.push({ 
+                    id: interactionId,
+                    message: plan, 
+                    time: thisTime.time,
+                    timeStr: moment(thisTime.time).toISOString(), 
+                    activity: activity, 
+                    geometry: thisTime.geometry})
                 }
               }
             }
@@ -295,7 +307,8 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
         timeEnd: eventTime,
         intersection: undefined,
         outcomes: outcomes,
-        activity: firstEvent.activity
+        activity: firstEvent.activity,
+        geomId: firstEvent.geometry
       }
       return res
     } else {
@@ -359,7 +372,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       orders1: event.message._id,
       startTime: moment.utc(event.timeStart).toISOString(),
       endTime: moment.utc(event.timeEnd).toISOString(),
-      complete: false
+      complete: false,
+      orders1Activity: event.geomId
     }
     const outcomes = outcomesFor(event.message, event.activity, forces, gameTimeVal)
     if (outcomes.otherAssets) {
@@ -398,7 +412,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
       const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
-      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
+      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length, geometriesInTimeWindow)
       // console.table(liveOrders.map((plan: MessagePlanning) => {
       //   return {
       //     id: plan._id,
