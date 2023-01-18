@@ -8,7 +8,7 @@ const configCommonProps = (propIn: Record<string, unknown>, gameDate: string): R
   const prop = deepCopy(propIn)
   switch (prop.format) {
     case 'datetime-local':
-      prop.defaultDate = moment(gameDate).toISOString()
+      prop.default = moment(gameDate).toISOString()
       prop.options = {
         flatpickr: {
           time_24hr: true,
