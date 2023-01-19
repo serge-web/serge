@@ -1,6 +1,6 @@
 import cx from 'classnames'
 import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
@@ -12,8 +12,6 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import PropTypes from './types/props'
 
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
-  const [isOPens, setIsopens] = useState(true)
-
   const mcg = L.markerClusterGroup()
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
@@ -90,7 +88,6 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
         <MarkerCluster markers={assets} />
       </LayerGroup >
     }
-    <button onClick={() => { setIsopens(!isOPens) }}></button>
   </>
 }
 
