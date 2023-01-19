@@ -51,11 +51,13 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   attributeTypes: AttributeTypes): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
-    force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
-      rows.push(...assets)
+    // don't generate op-for for umpire
+    if (!force.umpire) {
+      force.assets && force.assets.forEach((asset: Asset) => {
+        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
+        rows.push(...assets)
+      })  
     }
-    )
   })
   return rows
 }
