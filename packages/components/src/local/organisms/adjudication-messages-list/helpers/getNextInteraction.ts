@@ -5,6 +5,8 @@ import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 
+type TimePlusGeometry = {time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined}
+
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
   if (!inter) {
@@ -235,8 +237,6 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
     Reference: '' // leave blank, so backend creates it
   }
 }
-
-type TimePlusGeometry = {time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined}
 
 export const checkForEvent = (gameTime: number, orders: MessagePlanning[], interactionIDs: string[],
   activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
