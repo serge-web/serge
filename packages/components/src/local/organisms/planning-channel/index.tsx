@@ -483,7 +483,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       if (activityBeingPlanned) {
         // ok, we know an activity was being planned, but we have received an empty
         // activity planned - because the player has cancelled editing.  So,
-        // cancel the draft message 
+        // cancel the draft message
         setDraftMessage(undefined)
       }
       if (activityPlanned) {
