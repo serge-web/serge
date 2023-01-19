@@ -1,14 +1,20 @@
 import cx from 'classnames'
-import L, { LatLng, latLng } from 'leaflet'
-import React, { useCallback } from 'react'
+import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
+import React, { useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, Marker, Tooltip } from 'react-leaflet-v4'
+import { LayerGroup, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
 import styles from './styles.module.scss'
+import 'leaflet.markercluster/dist/leaflet.markercluster'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import PropTypes from './types/props'
 
-export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
+const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
+  const [isOPens, setIsopens] = useState(true)
+
+  const mcg = L.markerClusterGroup()
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
@@ -23,6 +29,21 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     )
   }
 
+  const MarkerCluster = ({ markers }: {markers: AssetRow[]}) => {
+    const map = useMap()
+
+    useEffect(() => {
+      mcg.clearLayers()
+      const markerList = markers.map((asset) => getMarkerOption(asset))
+      mcg.addLayers(markerList)
+
+      // add the marker cluster group to the map
+      map.addLayer(mcg)
+    }, [markers, map])
+
+    return null
+  }
+
   const handleAssetClick = (assetId: string): void => {
     const idx = selectedAssets.indexOf(assetId)
     if (idx !== -1) {
@@ -33,58 +54,43 @@ export const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, se
     setSelectedAssets([...selectedAssets])
   }
 
-  const getMarkerOption = useCallback((asset: AssetRow, index: number) => {
+  const getMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
-    return {
-      eventHandlers: {
-        click: (): void => {
-          if (interactive) {
-            handleAssetClick(asset.id)
-          }
-        }
-      },
-      key: `asset-icon-${index}`,
-      position: loc,
-      icon: L.divIcon({
-        iconSize: [30, 30],
-        html: getAssetIcon(asset, isSelected, !!isDestroyed),
-        className: styles['map-icon']
-      })
+
+    const interactiveIcon = (): void => {
+      if (interactive) {
+        handleAssetClick(asset.id)
+      }
     }
-  }, [selectedAssets])
+
+    return (
+      L.marker(new L.LatLng(loc.lat, loc.lng),
+        {
+          pmIgnore: interactive,
+          interactive: interactive,
+          icon: L.divIcon({
+            iconSize: [30, 30],
+            html: getAssetIcon(asset, isSelected, !!isDestroyed),
+            className: styles['map-icon']
+          })
+        })
+        .addTo(mcg)
+        .bindPopup(asset.name)
+        .on('click', interactiveIcon)
+        .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
+    )
+  }
 
   return <>
     {
       assets.length > 0 &&
       <LayerGroup key={'first-forces-layer'}>
-        {
-          interactive &&
-          assets.map((asset: AssetRow, index: number) => {
-            const markerOption = getMarkerOption(asset, index)
-            return <Marker
-              {...markerOption}
-            >
-              <Tooltip>{asset.name}</Tooltip>
-            </Marker>
-          })
-        }
-        {
-          !interactive &&
-          assets.map((asset: AssetRow, index: number) => {
-            const markerOption = getMarkerOption(asset, index)
-            return <Marker
-              pmIgnore
-              interactive={false}
-              {...markerOption}
-            >
-              <Tooltip>{asset.name}</Tooltip>
-            </Marker>
-          })
-        }
+        <MarkerCluster markers={assets} />
       </LayerGroup >
     }
+    <button onClick={() => { setIsopens(!isOPens) }}></button>
   </>
 }
 
