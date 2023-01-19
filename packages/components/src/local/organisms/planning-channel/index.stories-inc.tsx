@@ -69,7 +69,7 @@ const templates = wargame.templates ? wargame.templates.templates : []
 // sea in StoryBook
 const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
 const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
-if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
+if (planningChannel.channelType === 'ChannelPlanning') {
   if (planningChannel.constraints.tileLayer) {
     planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
