@@ -2,7 +2,7 @@ import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { P9BMock, planningMessages as mockMessages } from '@serge/mocks'
+import { P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop, uniqBy } from 'lodash'
@@ -85,7 +85,7 @@ forces.forEach((force: ForceData) => {
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
-  title: 'local/organisms/PlanningChannel',
+  title: 'local/organisms/PlanningChannelBulk',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -213,7 +213,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   />
 }
 const doNotDoIt = 7 // don't transform the messages
-const channelMessages = mockMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+const channelMessages = planningMessagesBulk.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = channelMessages.filter((msg) => msg.details.interaction === undefined) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
@@ -261,22 +261,22 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
 
 export const Default = Template.bind({})
 Default.args = {
-  messages: channelMessages,
+  messages: planningMessagesBulk,
   selectedRoleId: allRoles[5],
-  phase: Phase.Adjudication
+  phase: Phase.Planning
 }
 
-export const DataInAdjudication = Template.bind({})
-DataInAdjudication.args = {
-  messages: planningMessages,
+export const BulkDataInAdjudication = Template.bind({})
+BulkDataInAdjudication.args = {
+  messages: planningMessagesBulk,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }
 
 // open an interaction, and make this role the owner - so we have an adjudication open
 const adjRoleId = forces[0].roles[1].roleId
-const tmpMessages = [...mockMessages]
-const firstInter = mockMessages.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+const tmpMessages = [...planningMessagesBulk]
+const firstInter = planningMessagesBulk.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
   return (msg.messageType === INTERACTION_MESSAGE)
 }) as MessageInteraction
 let tmpPlans: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = []
@@ -284,7 +284,7 @@ if (firstInter) {
   const inter = firstInter.details.interaction as InteractionDetails
   if (inter) {
     const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
-    const relevant = mockMessages.filter((msg) => msg._id && items.includes(msg._id))
+    const relevant = planningMessagesBulk.filter((msg) => msg._id && items.includes(msg._id))
     const interCopy = JSON.parse(JSON.stringify(firstInter))
     const newFrom = { ...firstInter.details.from, roleId: adjRoleId }
     interCopy.details.from = newFrom

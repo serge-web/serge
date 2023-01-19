@@ -64,7 +64,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       pageSizeOptions: [5, 10, 15, 20, 50, 100],
       filtering: filter,
       selection: true,
-      rowStyle: { fontSize: '80%' }
+      rowStyle: { fontSize: '80%' },
+      columnsButton: true
     }}
     onSelectionChange={onSelectionChangeLocal}
     components={{
