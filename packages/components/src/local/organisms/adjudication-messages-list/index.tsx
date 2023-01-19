@@ -466,13 +466,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const translateEvent = (event: INTERACTION_SHORT_CIRCUIT): string => {
-    switch(event) {
+    switch (event) {
       case 'i-end':
         return 'End of activity'
-      case 'i-start':  
-      return 'End of activity'
-      case 'i-random':  
-      return 'Random point in period'
+      case 'i-start':
+        return 'End of activity'
+      case 'i-random':
+        return 'Random point in period'
     }
   }
 

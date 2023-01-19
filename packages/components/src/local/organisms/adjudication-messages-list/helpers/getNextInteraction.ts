@@ -67,7 +67,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
       let period: [number, number] | undefined
       let geomName: string | undefined
       const allPolygons = activity.geometries.filter((plan: PlanningActivityGeometry) => plan.aType === GeometryType.polygon)
-      const lastPolygon = allPolygons.length && allPolygons[allPolygons.length-1]
+      const lastPolygon = allPolygons.length && allPolygons[allPolygons.length - 1]
       if (lastPolygon) {
         const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === lastPolygon.uniqid)
         if (plannedActivity) {
@@ -89,11 +89,11 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
       // work out the active time period
       switch (iType) {
         case INTER_AT_END:
-          return {time: period[1], geometry: geomName}
+          return { time: period[1], geometry: geomName }
         case INTER_AT_START:
-          return {time: period[0], geometry: geomName}
+          return { time: period[0], geometry: geomName }
         case INTER_AT_RANDOM:
-          return {time: roundedRandomTime(period[0], period[1]), geometry: geomName}
+          return { time: roundedRandomTime(period[0], period[1]), geometry: geomName }
       }
     } else {
       console.warn('Cannot breakdown activity, locations missing')
@@ -105,11 +105,11 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
 
   switch (iType) {
     case INTER_AT_END:
-      return {time: tEnd, geometry: undefined}
+      return { time: tEnd, geometry: undefined }
     case INTER_AT_START:
-      return {time: tStart, geometry: undefined}
+      return { time: tStart, geometry: undefined }
     case INTER_AT_RANDOM:
-      return {time:  roundedRandomTime(tStart[0], tEnd[1]), geometry: undefined}
+      return { time: roundedRandomTime(tStart[0], tEnd[1]), geometry: undefined }
   }
 }
 
@@ -245,7 +245,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     id: string
     time: number
     timeStr: string
-    event: INTERACTION_SHORT_CIRCUIT,
+    event: INTERACTION_SHORT_CIRCUIT
     message: MessagePlanning
     activity: PlanningActivity
     geomId: PlannedActivityGeometry['uniqid'] | undefined
@@ -274,14 +274,15 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
               } else {
                 // check the time of this event has passed
                 if (thisTime.time <= gameTime) {
-                  eventList.push({ 
+                  eventList.push({
                     id: interactionId,
                     event: event,
-                    message: plan, 
+                    message: plan,
                     time: thisTime.time,
-                    timeStr: moment(thisTime.time).toISOString(), 
-                    activity: activity, 
-                    geomId: thisTime.geometry})
+                    timeStr: moment(thisTime.time).toISOString(),
+                    activity: activity,
+                    geomId: thisTime.geometry
+                  })
                 }
               }
             }

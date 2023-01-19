@@ -79,7 +79,7 @@ export interface ShortCircuitEvent {
   message: MessagePlanning
   activity: PlanningActivity
   // the type of event that triggered this
-  event: INTERACTION_SHORT_CIRCUIT,
+  event: INTERACTION_SHORT_CIRCUIT
   /** the specific geometry that relates to, if known */
   geomId: PlannedActivityGeometry['uniqid'] | undefined
   timeStart: number // unix millis
