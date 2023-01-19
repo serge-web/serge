@@ -56,7 +56,7 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
       force.assets && force.assets.forEach((asset: Asset) => {
         const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
         rows.push(...assets)
-      })  
+      })
     }
   })
   return rows

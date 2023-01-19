@@ -278,7 +278,6 @@ BulkForces.args = {
   phase: Phase.Planning
 }
 
-
 // open an interaction, and make this role the owner - so we have an adjudication open
 const adjRoleId = forces[0].roles[1].roleId
 const tmpMessages = [...mockMessages]
