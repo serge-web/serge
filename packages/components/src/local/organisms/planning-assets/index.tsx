@@ -5,14 +5,14 @@ import cx from 'classnames'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
-import { getColumns, getRows } from './helpers/collate-assets'
+import { getColumns } from './helpers/collate-assets'
 import CustomFilterRow from './helpers/custom-filter-row'
 import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
-  assets, forces, playerForce, opFor, forceColors, platformStyles,
-  onSelectionChange, onVisibleRowsChange, platformTypes, attributeTypes
+  assets, forces, playerForce, opFor, platformStyles,
+  onSelectionChange, onVisibleRowsChange
 }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column<any>[]>([])
@@ -24,9 +24,16 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     if (!columns.length) {
       setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
     }
+  }, [playerForce, forces])
+
+  useEffect(() => {
+    // const newRows = getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes)
+    // setRows(newRows)
     // TODO - swap next line for
-    // setRows(assets)
-    setRows(getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes))
+    setRows(assets)
+  }, [assets])
+
+  useEffect(() => {
     if (selectedAssets.length) {
       const lastSelectedAssetId = selectedAssets[selectedAssets.length - 1]
       const elmRow = document.getElementById(lastSelectedAssetId)
@@ -36,7 +43,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       }
     }
     preventScroll.current = false
-  }, [playerForce, forces, selectedAssets, assets])
+  }, [selectedAssets])
 
   const onSelectionChangeLocal = (rows: AssetRow[]) => {
     preventScroll.current = !!rows.length

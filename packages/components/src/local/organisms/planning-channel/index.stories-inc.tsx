@@ -8,6 +8,7 @@ import { Story } from '@storybook/react/types-6-0'
 import { noop, uniqBy } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -61,14 +62,14 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
-
+const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 const templates = wargame.templates ? wargame.templates.templates : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook
 const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
 const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
-if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
+if (planningChannel.channelType === 'ChannelPlanning') {
   if (planningChannel.constraints.tileLayer) {
     planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
@@ -139,8 +140,11 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
     messages,
-    phase
+    phase,
+    allForces
   } = args
+
+  const localForces = allForces || forces
 
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
@@ -152,7 +156,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const ind = selectedRoleStr.indexOf(' ~ ')
   const forceStr = selectedRoleStr.substring(0, ind)
   const roleStr = selectedRoleStr.substring(ind + 3)
-  const force = forces.find((f: ForceData) => f.uniqid === forceStr)
+  const force = localForces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
   const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
@@ -203,9 +207,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleId={role?.roleId || ''}
     selectedRoleName={role?.name || ''}
     currentWargame={P9BMock.wargameTitle}
-    selectedForce={force || forces[1]}
+    selectedForce={force || localForces[1]}
     phase={phase}
-    allForces={forces}
+    allForces={localForces}
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
@@ -266,11 +270,12 @@ Default.args = {
   phase: Phase.Adjudication
 }
 
-export const DataInAdjudication = Template.bind({})
-DataInAdjudication.args = {
-  messages: planningMessages,
-  selectedRoleId: allRoles[1],
-  phase: Phase.Adjudication
+export const BulkForces = Template.bind({})
+BulkForces.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[5],
+  allForces: generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || []),
+  phase: Phase.Planning
 }
 
 // open an interaction, and make this role the owner - so we have an adjudication open
@@ -296,6 +301,7 @@ if (firstInter) {
 } else {
   tmpPlans.push({ a: 12 } as unknown as MessagePlanning)
 }
+
 export const AdjudicationFormOpen = Template.bind({})
 AdjudicationFormOpen.args = {
   messages: tmpPlans,
