@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ChannelPlanning, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
+import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
 import { incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import { noop } from 'lodash'
@@ -60,7 +60,7 @@ const overview = P9BMock.data.overview
 const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedForce, turnFilter } = args
+  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedRoleName, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -105,7 +105,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(planningMessages)
   return <PlanningMessagesList
-    selectedRoleName={blueRole.name}
+    selectedRoleName={selectedRoleName}
     selectedForce={selectedForce}
     currentTurn={currentTurn}
     messages={newestMessages}
@@ -128,15 +128,17 @@ const Template: Story<MessageListPropTypes> = (args) => {
   />
 }
 
-const blueForce = P9BMock.data.forces.forces[0]
-const blueRole = blueForce.roles[0]
+const randomMessage = planningMessages[Math.floor(Math.random() * planningMessages.length)]
+const randomFrom = randomMessage.details.from
+const force = forces.find((force: ForceData) => force.uniqid === randomFrom.forceId)
 
 export const Default = Template.bind({})
 Default.args = {
   messages: planningMessages,
-  playerForceId: blueForce.uniqid,
-  selectedForce: blueForce,
-  playerRoleId: blueRole.roleId,
+  playerForceId: randomFrom.forceId,
+  selectedRoleName: randomFrom.roleName,
+  selectedForce: force,
+  playerRoleId: randomFrom.roleId,
   hideForcesInChannel: true,
   currentTurn: P9BMock.gameTurn,
   turnFilter: -1
