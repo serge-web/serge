@@ -1,14 +1,14 @@
 import cx from 'classnames'
 import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
+import 'leaflet.markercluster/dist/leaflet.markercluster'
+import 'leaflet.markercluster/dist/MarkerCluster.css'
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import React, { useEffect } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
 import styles from './styles.module.scss'
-import 'leaflet.markercluster/dist/leaflet.markercluster'
-import 'leaflet.markercluster/dist/MarkerCluster.css'
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import PropTypes from './types/props'
 
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
@@ -32,7 +32,8 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
     useEffect(() => {
       mcg.clearLayers()
-      const markerList = markers.map((asset) => getMarkerOption(asset))
+      const markersWithLocation = markers.filter((row: AssetRow) => row.position)
+      const markerList = markersWithLocation.map((asset) => getMarkerOption(asset))
       mcg.addLayers(markerList)
 
       // add the marker cluster group to the map
