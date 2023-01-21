@@ -6,6 +6,7 @@ import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
+import SymbolAssetIcon from '../../../symbol-asset-icon'
 import styles from '../styles.module.scss'
 import { AssetRow } from '../types/props'
 
@@ -149,6 +150,13 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   if (icons.length === 3) {
     return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} color={icons[1]} health={+icons[3]} />{icons[2]}</span>
   }
+
+  // test new asset icon component
+  if (icons[2] === 'Blue:0') {
+    return <SymbolAssetIcon className={styles['cell-icon']} sidc='SGG*UCIN--' iconName={icons[2]} />
+  }
+  // end
+
   return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]} <small>({row.id})</small></span>
 }
 
