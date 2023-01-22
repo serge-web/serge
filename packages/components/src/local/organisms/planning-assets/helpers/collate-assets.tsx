@@ -154,8 +154,9 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   }
 
   // test new asset icon component
-  if (icons[2] === 'Blue:0') {
-    return <SymbolAssetIcon className={styles['cell-icon']} sidc='SGG*UCIN--' iconName={icons[2]} />
+  if (row.sidc) {
+    // SGG*UCIN--
+    return <SymbolAssetIcon className={styles['cell-icon']} sidc={row.sidc} iconName={icons[2]} />
   }
   // end
 
@@ -367,6 +368,12 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           domain: domain,
           attributes: modernAttrDict
         }
+
+        const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+        if (perceivedPlatformType && perceivedPlatformType.sidc) {
+          res.sidc = perceivedPlatformType.sidc
+        }
+
         itemRows.push(res)
       }
     }
@@ -391,6 +398,11 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         domain: domain,
         attributes: modernAttrDict
       }
+
+      if (platformType && platformType.sidc) {
+        res.sidc = platformType.sidc
+      }
+
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
         res.parentId = parentId

@@ -26,6 +26,8 @@ export default interface PlatformTypeData {
   name: string,
   conditions: Array<string>,
   icon: string,
+  /** if the icon for this platform type can come from the milsymbol library */
+  sidc?: string
   /** list of potential speeds for this platform,
    * omitted if the platform isn't mobile, empty if the
    * platform is effectively capable of infinite speed
