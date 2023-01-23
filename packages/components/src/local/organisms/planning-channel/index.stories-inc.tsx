@@ -160,13 +160,14 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
     console.warn('SAVE MESSAGE', details, message)
     return async (): Promise<void> => {
+      const ref = message.Reference ? message.Reference : 'umpire-' + (stateMessages.length + 1)
       const newMessage: MessageInteraction = {
         _id: moment().toISOString(),
         // defined constat for messages, it's not same as message.details.messageType,
         // ex for all template based messages will be used CUSTOM_MESSAGE Type
         messageType: 'InteractionMessage',
         details,
-        message: message,
+        message: { ...message, Reference: ref },
         hasBeenRead: false
       }
       const newMessagesList = [...stateMessages, newMessage]
