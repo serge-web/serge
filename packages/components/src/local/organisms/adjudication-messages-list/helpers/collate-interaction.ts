@@ -12,8 +12,10 @@ export type InteractionData = {
   otherAssets: Asset[]
   order1Activity: string | undefined
   order1Geometry: string | undefined
+  order1GeometryID: string | undefined
   order2Activity: string | undefined
   order2Geometry: string | undefined
+  order2GeometryID: string | undefined
 }
 
 const getActivity = (activities:PerForcePlanningActivitySet[], activityId: PlanningMessageStructure['activity'], forceId?: ForceData['uniqid']): PlanningActivity | undefined => {
@@ -87,7 +89,8 @@ export const updatePlatformTypes = (platformType: Record<string, any>, pTypes: P
 }
 
 export const collateInteraction = (intId: string, interactionMessages: MessageInteraction[],
-  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[], forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined => {
+  planningMessages: MessagePlanning[], forces: ForceData[], forceStyles: ForceStyle[],
+  forcePlanningActivities?: PerForcePlanningActivitySet[]): InteractionData | undefined => {
   const intMsg = interactionMessages.find((value) => value._id === intId)
   if (!intMsg) {
     console.warn('Failed to find interaction message:', intId)
@@ -156,7 +159,9 @@ export const collateInteraction = (intId: string, interactionMessages: MessageIn
     otherAssets: otherAssets || [],
     order1Activity: act1?.name,
     order1Geometry: geom1 ? geom1.name : '',
+    order1GeometryID: geom1 ? geom1.uniqid : '',
     order2Activity: act2?.name,
-    order2Geometry: geom2 ? geom2.name : ''
+    order2Geometry: geom2 ? geom2.name : '',
+    order2GeometryID: geom2 ? geom2.uniqid : ''
   }
 }
