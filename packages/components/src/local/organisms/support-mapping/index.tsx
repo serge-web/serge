@@ -2,6 +2,7 @@
 import 'leaflet-polylinedecorator'
 import 'leaflet/dist/leaflet.css'
 import React, { useEffect } from 'react'
+import L from 'leaflet'
 import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
 import MapControl from '../../map-control'
 import MapCoordinates from './helper/Coordinates'
@@ -21,6 +22,14 @@ export const SupportMapping: React.FC<PropTypes> = ({
       map.invalidateSize()
     }
   }, [mapWidth])
+
+  useEffect(() => {
+    map.eachLayer(function (layer) {
+      if (layer instanceof L.MarkerClusterGroup) {
+        map.removeLayer(layer)
+      }
+    })
+  }, [])
 
   useEffect(() => {
     if (bounds && map) {
