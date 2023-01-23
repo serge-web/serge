@@ -24,11 +24,13 @@ export const SupportMapping: React.FC<PropTypes> = ({
   }, [mapWidth])
 
   useEffect(() => {
-    map.eachLayer(function (layer) {
-      if (layer instanceof L.MarkerClusterGroup) {
-        map.removeLayer(layer)
-      }
-    })
+    if (map) {
+      map.eachLayer(function (layer) {
+        if (layer instanceof L.MarkerClusterGroup) {
+          map.removeLayer(layer)
+        }
+      })
+    }
   }, [])
 
   useEffect(() => {
