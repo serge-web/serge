@@ -12,7 +12,6 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
-
   const [clusterGroup, setClusterGroup] = useState<any | undefined>(undefined)
 
   useEffect(() => {
