@@ -236,3 +236,10 @@ ZeroInteractions.args = {
   playerRoleId: umpireFole.roleId,
   messages: planningMessages as CoreMessage[]
 }
+
+const idsOfInterest = ['Red-9', 'Blue-24']
+export const TestSubjects = Template.bind({})
+TestSubjects.args = {
+  playerRoleId: umpireFole.roleId,
+  messages: planningMessages.filter((msg: MessagePlanning) => idsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+}

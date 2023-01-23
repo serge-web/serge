@@ -871,11 +871,12 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
   let res: PlanningContact | boolean | undefined
   let intersection: ShapeInteraction | undefined
   const titles: string[] = []
-  const monitor = (titles.includes(me.activity.message.title) ||
-    titles.includes(other.activity.message.title))
+  const monitor = (titles.includes(me.id) && titles.includes(other.id))
   const intersectionTime = timeIntersect2(myTime, otherTime)
-  if (monitor) {
-    console.log('check', me, other)
+  if (titles.length > 0 && monitor) {
+    console.log('touches', me.geometry.geometry.type, other.geometry.geometry.type)
+  } else {
+    return null
   }
   switch (me.geometry.geometry.type) {
     case 'Point': {
