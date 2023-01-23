@@ -53,7 +53,9 @@ export const timeForActivity = (plan: MessagePlanning, activity: PlanningActivit
 }
 
 const roundedRandomTime = (start: number, end: number): number => {
-  const delta = Math.random() * (end - start)
+  // TODO: switch back to randomly generated time
+  // const delta = Math.random() * (end - start)
+  const delta = 0.5 * (end - start)
   const mins5 = 5 * 60 * 1000
   const rounded = Math.floor(delta / mins5) * mins5
   return start + rounded
@@ -347,6 +349,27 @@ const endAfterTime = (msg: GeomWithOrders, time: number) => {
   return props.endTime > time
 }
 
+const listPlans = (orders: MessagePlanning[], gameTime: string): void => {
+  console.log('---- ' + gameTime + ' -------')
+  const dateFor = (date: string): string => {
+    return moment.utc(date).format('MMM DDHHmm[Z]')
+  }
+  const colsFor = (plan: MessagePlanning): Record<string, string> => {
+    const startD = moment(plan.message.startDate).valueOf()
+    const endD = moment(plan.message.endDate).valueOf()
+    return {
+      ref: plan.message.Reference,
+      start: dateFor(plan.message.startDate),
+      mid: dateFor(moment.utc(roundedRandomTime(startD, endD)).toISOString()),
+      end: dateFor(plan.message.endDate)
+    }
+  }
+  const sortAsc = _.sortBy(orders, (order: MessagePlanning) => order.message.startDate)
+  console.table(sortAsc.map((plan: MessagePlanning) => {
+    return colsFor(plan)
+  }))
+}
+
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
   _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, forces: ForceData[], getAll: boolean): InteractionResults => {
@@ -361,6 +384,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     }
     return inter.id
   })
+
+  !7 && listPlans(orders, gameTime)
 
   console.log('earliest time', gameTime, gameTurnEnd, moment(earliestTime).toISOString(), ' interactions:', interactions.length)
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
