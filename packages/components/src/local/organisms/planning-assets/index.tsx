@@ -30,8 +30,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     // const newRows = getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes)
     // setRows(newRows)
     // TODO - swap next line for
-    const asset = assets.filter(filter => filter.position )
-    setRows(asset)
+    setRows(assets)
   }, [assets])
 
   useEffect(() => {
