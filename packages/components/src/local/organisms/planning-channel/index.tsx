@@ -134,9 +134,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const createAssets = false
+      const createAssets = true
       if (createAssets) {
-        const forces = generateTestData2(channel.constraints, allForces, platformTypes, attributeTypes || [])
+        const forces = generateTestData2(400, channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
         console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
@@ -481,9 +481,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setActivityPlanned(undefined)
     } else {
       if (activityBeingPlanned) {
+        // ok, we know an activity was being planned, but we have received an empty
+        // activity planned - because the player has cancelled editing.  So,
+        // cancel the draft message
         setDraftMessage(undefined)
       }
-      console.log('UI Presumes there is an activity being planned.')
+      if (activityPlanned) {
+        console.log('UI Presumes there is an activity being planned', activityPlanned)
+      }
     }
   }, [activityPlanned])
 
