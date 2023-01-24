@@ -1,6 +1,6 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { P9BMock, planningMessages as mockMessages } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
@@ -185,7 +185,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
-  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+ const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
@@ -280,7 +280,7 @@ BulkForces.args = {
 }
 
 // open an interaction, and make this role the owner - so we have an adjudication open
-const adjRoleId = forces[0].roles[1].roleId
+const adjRole = forces[0].roles[1]
 const tmpMessages = [...mockMessages]
 const firstInter = mockMessages.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
   return (msg.messageType === INTERACTION_MESSAGE)
@@ -291,16 +291,18 @@ if (firstInter) {
   if (inter) {
     const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
     const relevant = mockMessages.filter((msg) => msg._id && items.includes(msg._id))
-    const interCopy = JSON.parse(JSON.stringify(firstInter))
-    const newFrom = { ...firstInter.details.from, roleId: adjRoleId }
+    const interCopy1 = JSON.parse(JSON.stringify(firstInter)) as MessageInteraction
+    const interCopy = { ...interCopy1, _id:moment().toISOString() }
+    // give it a new, unique id
+    const newFrom: MessageDetailsFrom = { ...firstInter.details.from, roleId: adjRole.roleId, roleName: adjRole.name }
     interCopy.details.from = newFrom
-    interCopy.details.interaction.complete = false
+    if (interCopy.details.interaction) {
+      interCopy.details.interaction.complete = false
+    }
     tmpMessages.push(interCopy)
     tmpMessages.push(...relevant)
     tmpPlans = tmpMessages
   }
-} else {
-  tmpPlans.push({ a: 12 } as unknown as MessagePlanning)
 }
 
 export const AdjudicationFormOpen = Template.bind({})
