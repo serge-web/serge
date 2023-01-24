@@ -361,16 +361,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // lat-long pairs
         outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
           const loc = value.location
-          if (typeof loc === 'string') {
-            // ok, convert string to JSON array
-            const json = JSON.parse(loc)
-            // extract the coords
-            const lat = parseFloat(json[0])
-            const lng = parseFloat(json[1])
-            // create new location array
-            const latLng: [number, number] = [lat, lng]
-            // store the value
-            value.location = latLng
+          if (typeof loc === 'string' && (loc as string).length > 0) {
+            try {
+              // ok, convert string to JSON array
+              const json = JSON.parse(loc)
+              // extract the coords
+              const lat = parseFloat(json[0])
+              const lng = parseFloat(json[1])
+              // create new location array
+              const latLng: [number, number] = [lat, lng]
+              // store the value
+              value.location = latLng
+            } catch (err) {
+              console.warn('Failed to parse JSON. No location stored')
+            }
           } else if (Array.isArray(loc)) {
             // value is valid, leave
             value.location = loc
