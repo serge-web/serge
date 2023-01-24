@@ -175,6 +175,7 @@ const p9StockTemplates: TemplateBody[] = [
             properties: {
               asset: {
                 title: 'Asset',
+                propertyOrder: 10,
                 type: 'string',
                 enum: [
                   'ta',
@@ -194,6 +195,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               health: {
                 title: 'Condition',
+                propertyOrder: 20,
                 type: 'string',
                 enum: [
                   '100',
@@ -208,6 +210,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               repairComplete: {
                 title: 'Repair in (days)',
+                propertyOrder: 40,
                 type: 'string',
                 enum: [
                   'n/a',
@@ -221,11 +224,13 @@ const p9StockTemplates: TemplateBody[] = [
               },
               narrative: {
                 title: 'Comment',
+                propertyOrder: 50,
                 type: 'string',
                 format: 'textarea'
               },
               private: {
                 title: 'Private',
+                propertyOrder: 60,
                 type: 'string',
                 format: 'textarea'
               }
@@ -248,6 +253,7 @@ const p9StockTemplates: TemplateBody[] = [
             properties: {
               asset: {
                 title: 'Asset',
+                propertyOrder: 30,
                 type: 'string',
                 enum: [
                   'ta',
@@ -267,6 +273,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               location: {
                 title: 'Location [2.4, 4.2]',
+                propertyOrder: 40,
                 type: 'string',
                 options: {
                   grid_columns: 3
@@ -274,11 +281,13 @@ const p9StockTemplates: TemplateBody[] = [
               },
               narrative: {
                 title: 'Comment',
+                propertyOrder: 50,
                 type: 'string',
                 format: 'textarea'
               },
               private: {
                 title: 'Private',
+                propertyOrder: 60,
                 type: 'string',
                 format: 'textarea'
               }

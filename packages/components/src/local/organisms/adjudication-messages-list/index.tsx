@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
@@ -177,7 +177,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity?: string): React.ReactElement => {
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity: string | undefined, geometry: string | undefined, geometryID: string | undefined): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
     if (id === 'n/a') {
       return <span>n/a</span>
@@ -196,16 +196,26 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
         }
       })
+      let geomTimings: string | undefined
+      if (geometryID && plan.message.location) {
+        const theGeom = plan.message.location.find((item: PlannedActivityGeometry) => item.uniqid === geometryID)
+        if (theGeom) {
+          const props = theGeom.geometry.properties as PlannedProps
+          geomTimings = shortDate(props.startDate) + ' - ' + shortDate(props.endDate)
+        }
+      }
       const title = order1 ? 'Orders 1' : ' Orders 2'
-      const timings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
+      const orderTimings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
       const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
       const forceStyle = { fontSize: '160%', backgroundColor: hexToRGB(force ? force.color : '#ddd', 0.4) }
       return <Box>
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Reference: </b> {plan.message.Reference} </span>
-        <span><b>Activity: </b> {activity || 'n/a'} </span><br />
-        <span><b>Time: </b> {timings} </span><br />
+        <span><b>Activity: </b> {activity || 'n/a'}: {geometry || ''}</span><br />
+        <span><b>Order Time: </b> {orderTimings} </span><br />
+        { geomTimings && <><span><b>Activity Time: </b> {geomTimings} </span><br /></>
+        }
         <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
@@ -465,6 +475,17 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     handleAdjudication && handleAdjudication(iDetails, outcomes)
   }
 
+  const translateEvent = (event: INTERACTION_SHORT_CIRCUIT): string => {
+    switch (event) {
+      case 'i-end':
+        return 'End of activity'
+      case 'i-start':
+        return 'Start of activity'
+      case 'i-random':
+        return 'Random point in period'
+    }
+  }
+
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
@@ -497,10 +518,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <DetailPanelStateListener />
             <Box><b>Interaction details:</b><br />
               <ul>
-                <li><b>Date/time:</b>{time}</li>
-                <li><b>Geometry provided:</b>{interaction.geometry ? 'Yes' : 'No'}</li>
-                <li><b>Reference:</b>{msg.Reference}</li>
-                <li><b>Other assets:</b>
+                <li><b>Date/time: </b>{time}</li>
+                <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                { interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li> }
+                <li><b>Other assets: </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
                     ? <table className={styles.assets}>
                       <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
@@ -510,14 +531,14 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                     </table> : ' None'}
                   </span>
                 </li>
-                <li><b>ID:</b>{interaction.id}</li>
+                <li><b>ID: </b>{interaction.id}</li>
               </ul>
             </Box>
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity)}</td>
-                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity)}</td>
+                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity, data.order1Geometry, data.order1GeometryID)}</td>
+                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity, data.order2Geometry, data.order2GeometryID)}</td>
                 </tr>
               </tbody>
             </Table>

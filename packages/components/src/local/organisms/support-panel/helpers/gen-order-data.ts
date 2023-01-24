@@ -1,6 +1,6 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
-  Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
+  Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -78,6 +78,10 @@ export interface ShortCircuitEvent {
   id: string
   message: MessagePlanning
   activity: PlanningActivity
+  // the type of event that triggered this
+  event: INTERACTION_SHORT_CIRCUIT
+  /** the specific geometry that relates to, if known */
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
   timeStart: number // unix millis
   timeEnd: number // unix millis
   intersection?: Geometry
@@ -526,7 +530,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.Reference + '//' + message.message.title + '//' + activity
-        const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
+        const newItem: GeomWithOrders = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
@@ -867,11 +871,12 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
   let res: PlanningContact | boolean | undefined
   let intersection: ShapeInteraction | undefined
   const titles: string[] = []
-  const monitor = (titles.includes(me.activity.message.title) ||
-    titles.includes(other.activity.message.title))
+  const monitor = (titles.includes(me.id) && titles.includes(other.id))
   const intersectionTime = timeIntersect2(myTime, otherTime)
-  if (monitor) {
-    console.log('check', me, other)
+  if (titles.length > 0 && monitor) {
+    console.log('touches', me.geometry.geometry.type, other.geometry.geometry.type)
+  } else {
+    return null
   }
   switch (me.geometry.geometry.type) {
     case 'Point': {
