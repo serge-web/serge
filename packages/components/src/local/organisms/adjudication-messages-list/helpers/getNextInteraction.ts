@@ -385,7 +385,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     return inter.id
   })
 
-  !7 && listPlans(orders, gameTime)
+  listPlans(orders, gameTime)
 
   console.log('earliest time', gameTime, gameTurnEnd, moment(earliestTime).toISOString(), ' interactions:', interactions.length)
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
