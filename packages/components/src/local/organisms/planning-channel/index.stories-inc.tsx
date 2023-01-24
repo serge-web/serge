@@ -62,7 +62,6 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
-const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 const templates = wargame.templates ? wargame.templates.templates : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
@@ -150,7 +149,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   const localForces = forces1.length !== 0 ? forces1 : generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
-
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
     payload: {}
@@ -165,7 +163,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
   const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
-
 
   const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
     console.warn('SAVE MESSAGE', details, message)
@@ -291,7 +288,6 @@ StartOfAdjudication.args = {
   allForces: forces,
   phase: Phase.Adjudication
 }
-
 
 // open an interaction, and make this role the owner - so we have an adjudication open
 const adjRole = forces[0].roles[1]
