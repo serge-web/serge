@@ -185,7 +185,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
- const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
@@ -292,7 +292,7 @@ if (firstInter) {
     const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
     const relevant = mockMessages.filter((msg) => msg._id && items.includes(msg._id))
     const interCopy1 = JSON.parse(JSON.stringify(firstInter)) as MessageInteraction
-    const interCopy = { ...interCopy1, _id:moment().toISOString() }
+    const interCopy = { ...interCopy1, _id: moment().toISOString() }
     // give it a new, unique id
     const newFrom: MessageDetailsFrom = { ...firstInter.details.from, roleId: adjRole.roleId, roleName: adjRole.name }
     interCopy.details.from = newFrom
