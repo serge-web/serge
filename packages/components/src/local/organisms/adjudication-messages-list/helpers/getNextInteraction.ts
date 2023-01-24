@@ -271,21 +271,19 @@ const eventOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, for
   }
 }
 
-export const checkForEvent = (gameTime: number, orders: MessagePlanning[], interactionIDs: string[],
-  activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
-  interface TimedIntervention {
-    // id of the interaction (composite of planning message & event)
-    id: string
-    time: number
-    timeStr: string
-    event: INTERACTION_SHORT_CIRCUIT
-    message: MessagePlanning
-    activity: PlanningActivity
-    geomId: PlannedActivityGeometry['uniqid'] | undefined
-  }
+interface TimedIntervention {
+  // id of the interaction (composite of planning message & event)
+  id: string
+  time: number
+  timeStr: string
+  event: INTERACTION_SHORT_CIRCUIT
+  message: MessagePlanning
+  activity: PlanningActivity
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
+}
 
-  console.log('look for event before', moment.utc(gameTime).toISOString())
-
+const getEventList = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
+  activities: PerForcePlanningActivitySet[]): TimedIntervention[] => {
   // loop through plans
   const eventList: TimedIntervention[] = []
   orders.forEach((plan: MessagePlanning) => {
@@ -306,7 +304,7 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
                 console.log('Skipping this event, already processed', interactionId)
               } else {
                 // check the time of this event has passed
-                if (thisTime.time <= gameTime) {
+                if (thisTime.time <= cutoffTime) {
                   eventList.push({
                     id: interactionId,
                     event: event,
@@ -324,6 +322,15 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
       }
     }
   })
+  return eventList
+}
+
+export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
+  activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
+
+  console.log('look for event before', moment.utc(cutoffTime).toISOString())
+
+  const eventList = getEventList(cutoffTime, orders, interactionIDs, activities)
 
   if (eventList.length) {
     // sort in ascending
@@ -331,11 +338,11 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     const firstEvent = sorted[0]
     const eventTime = firstEvent.time
 
-    if (eventTime <= gameTime) {
+    if (eventTime <= cutoffTime) {
       const contact = sorted[0].message
 
       // sort out the outcomes
-      const outcomes = eventOutcomesFor(contact, firstEvent.activity, forces, gameTime, firstEvent.event)
+      const outcomes = eventOutcomesFor(contact, firstEvent.activity, forces, cutoffTime, firstEvent.event)
       const res: ShortCircuitEvent = {
         id: firstEvent.id,
         message: contact,
@@ -454,6 +461,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
     const contacts: PlanningContact[] = []
     let eventInWindow: ShortCircuitEvent | undefined
+    let allRemainingEvents: TimedIntervention[] = []
 
     console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowMillis, moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowMillis).format('d HH:mm'))
 
@@ -461,7 +469,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const windowEnd = gameTimeVal + currentWindowMillis
 
       // if we're doing get-all, don't bother with shortcircuits
-      if (!getAll) {
+      
+      if (getAll) {
+        allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities)
+      } else {
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
         console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
       }
@@ -559,7 +570,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       } else {
         console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
         if (getAll) {
-          return contacts.length
+          return (contacts.length + allRemainingEvents.length)
         } else {
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(firstContact)
