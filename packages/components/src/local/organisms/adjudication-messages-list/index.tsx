@@ -415,7 +415,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (results === undefined) {
       setDialogMessage('No interactions found')
       // fine, ignore it
-    } else if (typeof results === 'object') {
+    } else if (!Array.isArray(results)) {
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
     } else if (typeof results === 'number') {
