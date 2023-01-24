@@ -69,9 +69,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
   const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
 
-  const msgSeparator = ' - '
+  const [interactionIsOpen, setInteractionIsOpen] = useState<boolean>(false)
 
-  console.log('adj list', currentAdjudication)
+  const msgSeparator = ' - '
 
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
@@ -107,6 +107,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
       }
     }
+    const openInteraction = interactionMessages.find((msg) => {
+      const isMine = msg.details.from.roleId === playerRoleId
+      const isOpen = msg.details.interaction && msg.details.interaction.complete === false
+      return isMine && isOpen
+    })
+    setInteractionIsOpen(!!openInteraction)
   }, [interactionMessages])
 
   useEffect(() => {
@@ -722,9 +728,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </CustomDialog>
       }
       <div className='button-wrap' >
-        <Button color='secondary' disabled={false} onClick={getInteraction} icon='save'>Get next</Button>
+        <Button color='secondary' disabled={interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
+        <Button color='secondary' disabled={interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
         <Chip label={currentTime} />
