@@ -875,8 +875,6 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
   const intersectionTime = timeIntersect2(myTime, otherTime)
   if (titles.length > 0 && monitor) {
     console.log('touches', me.geometry.geometry.type, other.geometry.geometry.type)
-  } else {
-    return null
   }
   switch (me.geometry.geometry.type) {
     case 'Point': {
