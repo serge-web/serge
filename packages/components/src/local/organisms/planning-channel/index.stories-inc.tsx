@@ -283,7 +283,7 @@ BulkForces.args = {
 
 export const StartOfAdjudication = Template.bind({})
 StartOfAdjudication.args = {
-  messages: channelMessages.filter((msg) => msg.details.interaction == undefined),
+  messages: channelMessages.filter((msg) => msg.details.interaction === undefined),
   selectedRoleId: allRoles[1],
   allForces: forces,
   phase: Phase.Adjudication
