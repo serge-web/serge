@@ -71,6 +71,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const msgSeparator = ' - '
 
+  console.log('adj list', currentAdjudication)
+
   const localDetailPanelOpen = (row: AdjudicationRow): void => {
     onDetailPanelOpen && onDetailPanelOpen(row)
   }
@@ -87,16 +89,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-    const relevantMessages: MessageInteraction[] = onlyShowOpen ? messages.filter((msg) => {
-      console.log('complete', msg.details.interaction?.complete)
-      return msg.details.interaction && !msg.details.interaction.complete
-    }) : messages
-    console.log('open', onlyShowOpen, messages, relevantMessages)
-    setFilteredInteractions(relevantMessages)
+    setFilteredInteractions(messages)
     if (filteredInteractionsRow.length === 0) {
-      setFilteredInteractionsRow(relevantMessages)
+      setFilteredInteractionsRow(messages)
     } else {
-      const newMessage = relevantMessages[0]
+      const newMessage = messages[0]
       if (newMessage) {
         const row = toRow(newMessage)
         const filterSaveMessage = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
@@ -110,7 +107,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
       }
     }
-  }, [interactionMessages, onlyShowOpen])
+  }, [interactionMessages])
 
   useEffect(() => {
     const plans = turnFilter === SHOW_ALL_TURNS ? planningMessages
@@ -725,7 +722,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </CustomDialog>
       }
       <div className='button-wrap' >
-        <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
+        <Button color='secondary' disabled={false} onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
         <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
