@@ -327,7 +327,6 @@ const getEventList = (cutoffTime: number, orders: MessagePlanning[], interaction
 
 export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
   activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
-
   console.log('look for event before', moment.utc(cutoffTime).toISOString())
 
   const eventList = getEventList(cutoffTime, orders, interactionIDs, activities)
@@ -375,7 +374,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 }
 
 export type CompositeInteractionResults = { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
-export type InteractionResults = CompositeInteractionResults | number | undefined
+export type InteractionResults = CompositeInteractionResults | [number, number] | undefined
 
 const startBeforeTime = (msg: GeomWithOrders, time: number) => {
   const props = msg.geometry.properties as PlannedProps
@@ -469,7 +468,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const windowEnd = gameTimeVal + currentWindowMillis
 
       // if we're doing get-all, don't bother with shortcircuits
-      
+
       if (getAll) {
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities)
       } else {
@@ -570,7 +569,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       } else {
         console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
         if (getAll) {
-          return (contacts.length + allRemainingEvents.length)
+          return [allRemainingEvents.length, contacts.length]
         } else {
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(firstContact)
