@@ -497,10 +497,21 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       // console.log('Existing interactions received', existingInteractionIDs.length)
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
+        // console.log('bin', _index, bin.orders.length)
+        // console.table(bin.orders.map((geom) => {
+        //   const props = geom.geometry.properties as PlannedProps
+        //   return {
+        //     id: geom.id,
+        //     force: geom.force,
+        //     geom: geom.geometry.type,
+        //     start: props.startDate,
+        //     end: props.endDate
+        //   }
+        // }))
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
-        contacts.push(...newContacts)
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
+        contacts.push(...newContacts)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
