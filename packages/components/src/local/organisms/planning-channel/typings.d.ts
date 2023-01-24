@@ -95,4 +95,5 @@ declare module 'leaflet' {
   }
   export function timelineSliderControl(options?: TimelineControlOption): Timeline;
   export function timeline(data?: FeatureCollection<Geometry, GeoJsonProperties>, option?: TimelineDataOption): TimelineData;
+  export function markerClusterGroup()
 }

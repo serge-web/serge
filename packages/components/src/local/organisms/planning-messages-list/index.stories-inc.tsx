@@ -4,12 +4,13 @@ import React, { useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
+import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
 import { incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import { noop } from 'lodash'
 import { AssetRow } from '../planning-assets/types/props'
 import { customiseAssets } from '../support-panel/helpers/customise-assets'
+import { randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes, { LocationEditCallbackHandler } from './types/props'
@@ -17,9 +18,10 @@ import MessageListPropTypes, { LocationEditCallbackHandler } from './types/props
 console.clear()
 
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
-const templates = P9BMock.data.templates ? P9BMock.data.templates.templates : []
+const wargame = P9BMock.data
 const forces = P9BMock.data.forces.forces
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
+const templates = wargame.templates ? wargame.templates.templates : []
 
 export default {
   title: 'local/organisms/PlanningMessagesList',
@@ -51,6 +53,7 @@ const filledInPerForcePlanningActivities = P9BMock.data.activities ? P9BMock.dat
 
 const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
+const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
 const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: {(newValue: PlannedActivityGeometry[]): void}): void => {
   console.log('edit location', plans, !!callback)
@@ -58,10 +61,21 @@ const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometr
 
 const overview = P9BMock.data.overview
 const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const Template: Story<MessageListPropTypes> = (args) => {
   const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedRoleName, selectedForce, turnFilter } = args
   const [isRead, setIsRead] = useState([true, false])
+
+  let localMessages
+  if (messages.length) {
+    localMessages = messages
+  } else {
+    // put data generation into this `if` side to only generate it if necessary
+    const docs: Array<MessagePlanning | MessageInteraction> = randomOrdersDocs(planningChannel.uniqid, 200, forces, [forces[1].uniqid,
+      forces[2].uniqid], activities, adjudicationTemplate._id, overview.gameDate)
+    localMessages = docs.filter((msg) => !msg.details.interaction) as MessagePlanning[]
+  }
 
   const markAllAsRead = (): void => {
     setIsRead(isRead.map(() => true))
@@ -103,7 +117,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   }
 
   // remove later versions
-  const newestMessages = mostRecentPlanningOnly(planningMessages)
+  const newestMessages = mostRecentPlanningOnly(localMessages)
   return <PlanningMessagesList
     selectedRoleName={selectedRoleName}
     selectedForce={selectedForce}
@@ -130,15 +144,29 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
 const randomMessage = planningMessages[Math.floor(Math.random() * planningMessages.length)]
 const randomFrom = randomMessage.details.from
-const force = forces.find((force: ForceData) => force.uniqid === randomFrom.forceId)
+const randomForce = forces.find((force: ForceData) => force.uniqid === randomFrom.forceId)
 
 export const Default = Template.bind({})
 Default.args = {
   messages: planningMessages,
   playerForceId: randomFrom.forceId,
   selectedRoleName: randomFrom.roleName,
-  selectedForce: force,
+  selectedForce: randomForce,
   playerRoleId: randomFrom.roleId,
+  hideForcesInChannel: true,
+  currentTurn: P9BMock.gameTurn,
+  turnFilter: -1
+}
+
+const blueForce = forces[1]
+const blueRole = blueForce.roles[0]
+
+export const Bulk = Template.bind({})
+Bulk.args = {
+  messages: [],
+  playerForceId: blueForce.uniqid,
+  selectedForce: blueForce,
+  playerRoleId: blueRole.roleId,
   hideForcesInChannel: true,
   currentTurn: P9BMock.gameTurn,
   turnFilter: -1
