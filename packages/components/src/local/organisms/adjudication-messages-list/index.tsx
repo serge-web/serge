@@ -1,4 +1,4 @@
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelopeOpen, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
@@ -52,6 +52,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+  const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(false)
   const [dialogMessage, setDialogMessage] = useState<string>('')
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
@@ -86,11 +87,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-    setFilteredInteractions(messages)
+    const relevantMessages: MessageInteraction[] = onlyShowOpen ? messages.filter((msg) => {
+      console.log('complete', msg.details.interaction?.complete)
+      return msg.details.interaction && !msg.details.interaction.complete
+    }) : messages
+    console.log('open', onlyShowOpen, messages, relevantMessages)
+    setFilteredInteractions(relevantMessages)
     if (filteredInteractionsRow.length === 0) {
-      setFilteredInteractionsRow(messages)
+      setFilteredInteractionsRow(relevantMessages)
     } else {
-      const newMessage = messages[0]
+      const newMessage = relevantMessages[0]
       if (newMessage) {
         const row = toRow(newMessage)
         const filterSaveMessage = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
@@ -104,7 +110,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
       }
     }
-  }, [interactionMessages])
+  }, [interactionMessages, onlyShowOpen])
 
   useEffect(() => {
     const plans = turnFilter === SHOW_ALL_TURNS ? planningMessages
@@ -415,11 +421,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (results === undefined) {
       setDialogMessage('No interactions found')
       // fine, ignore it
-    } else if (!Array.isArray(results)) {
+    } else if (!Array.isArray(results) && results !== undefined) {
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
-    } else if (typeof results === 'number') {
-      console.warn('not expecting number return from get next interaction')
+    } else {
+      console.warn('not expecting number return from get next interaction', results)
     }
   }
 
@@ -739,6 +745,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             tooltip: 'Show filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
+          },
+          {
+            icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faEnvelopeOpen} />,
+            iconProps: onlyShowOpen ? { color: 'action' } : { color: 'disabled' },
+            tooltip: 'Only show open interactions',
+            isFreeAction: true,
+            onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
           }
         ]}
         options={{
