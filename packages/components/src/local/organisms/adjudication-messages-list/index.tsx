@@ -480,7 +480,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       case 'i-end':
         return 'End of activity'
       case 'i-start':
-        return 'End of activity'
+        return 'Start of activity'
       case 'i-random':
         return 'Random point in period'
     }
