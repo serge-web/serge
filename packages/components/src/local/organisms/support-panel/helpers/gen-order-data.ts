@@ -874,7 +874,7 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
   const monitor = (titles.includes(me.id) && titles.includes(other.id))
   const intersectionTime = timeIntersect2(myTime, otherTime)
   if (titles.length > 0) {
-    // ok, we're looking for something.  If this permutation matches it, carry on - else 
+    // ok, we're looking for something.  If this permutation matches it, carry on - else
     // return null.
     if (monitor) {
       console.log('touches', me.geometry.geometry.type, other.geometry.geometry.type)
