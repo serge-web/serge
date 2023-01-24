@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
+import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
@@ -22,19 +23,22 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
+
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
       * that begin with `n_` don't require background shading
       */
     const shadeBackground = !imageSrc.startsWith('n_')
     const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
+
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
-        <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />
+        {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
+        {asset.sidc && <SymbolAssetIcon sidc={asset.sidc} iconName={asset.name} />}
       </div>)
     )
   }
 
-  const MarkerCluster = ({ markers }: {markers: AssetRow[]}) => {
+  const MarkerCluster = ({ markers }: { markers: AssetRow[] }) => {
     const map = useMap()
 
     useEffect(() => {
