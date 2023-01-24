@@ -399,11 +399,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
-    if( Array.isArray(contacts) ) {
+    if (Array.isArray(contacts)) {
       const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
-      setDialogMessage(message)  
+      setDialogMessage(message)
     } else {
-      setDialogMessage('No events or interactions remaining')  
+      setDialogMessage('No events or interactions remaining')
     }
     console.timeLog('count interactions')
   }
