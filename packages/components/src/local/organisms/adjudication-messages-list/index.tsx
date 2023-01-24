@@ -399,9 +399,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
-    const message = '' + contacts + ' interactions remaining'
+    if( Array.isArray(contacts) ) {
+      const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
+      setDialogMessage(message)  
+    } else {
+      setDialogMessage('No events or interactions remaining')  
+    }
     console.timeLog('count interactions')
-    setDialogMessage(message)
   }
 
   const getInteraction = (): void => {
@@ -520,6 +524,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
+            {!isComplete &&
+              <div className='button-wrap' >
+                <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
+              </div>
+            }
             <Box><b>Interaction details:</b><br />
               <ul>
                 <li><b>Date/time: </b>{time}</li>
