@@ -24,7 +24,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
     assets.forEach((asset) => {
-      if(selectedAssets.includes(asset.id)) {
+      if (selectedAssets.includes(asset.id)) {
         raw.push(asset)
       } else {
         clustered.push(asset)
@@ -59,9 +59,9 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
         // const theMarker = markersWithLocation.find((asset) => asset.id === 'a111')
         // console.log('render marker', theMarker && theMarker.position)
         clusterGroup.addLayers(markerList)
-  
+
         // add the marker cluster group to the map
-        map.addLayer(clusterGroup)  
+        map.addLayer(clusterGroup)
       }
     }, [markers, map, clusterGroup])
 
@@ -110,7 +110,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
         handleAssetClick(asset.id)
       }
     }
-    
+
     return (
       L.marker(new L.LatLng(loc.lat, loc.lng),
         {
@@ -134,15 +134,15 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
       <LayerGroup key={'first-forces-layer'}>
         <MarkerCluster markers={clustereredMarkers} />
         { rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
-            const markerOption = getRawMarkerOption(asset, index)
-            return <Marker
-              pmIgnore
-              interactive={false}
-              {...markerOption}
-            >
-              <Tooltip>{asset.name}</Tooltip>
-            </Marker>
-          })}
+          const markerOption = getRawMarkerOption(asset, index)
+          return <Marker
+            pmIgnore
+            interactive={false}
+            {...markerOption}
+          >
+            <Tooltip>{asset.name}</Tooltip>
+          </Marker>
+        })}
       </LayerGroup >
     }
   </>
