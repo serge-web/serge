@@ -62,7 +62,6 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
-const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
 const templates = wargame.templates ? wargame.templates.templates : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
@@ -144,7 +143,11 @@ const Template: Story<PlanningChannelProps> = (args) => {
     allForces
   } = args
 
-  const localForces = allForces || forces
+  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+
+  const forces1 = allForces || forces
+
+  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
@@ -185,7 +188,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
-  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
@@ -275,8 +277,16 @@ export const BulkForces = Template.bind({})
 BulkForces.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
-  allForces: generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || []),
+  allForces: [],
   phase: Phase.Planning
+}
+
+export const StartOfAdjudication = Template.bind({})
+StartOfAdjudication.args = {
+  messages: channelMessages.filter((msg) => msg.details.interaction === undefined),
+  selectedRoleId: allRoles[1],
+  allForces: forces,
+  phase: Phase.Adjudication
 }
 
 // open an interaction, and make this role the owner - so we have an adjudication open

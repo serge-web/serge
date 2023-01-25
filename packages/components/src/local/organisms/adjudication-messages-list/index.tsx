@@ -1,4 +1,4 @@
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelopeOpen, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
@@ -52,6 +52,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
+  const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(false)
   const [dialogMessage, setDialogMessage] = useState<string>('')
   const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
   const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
@@ -67,6 +68,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const currentAdjudication = useRef<MessageAdjudicationOutcomes | string>('')
   const manuallyData = useRef<ManualInteractionResults>({ orders: [], endDate: gameDate, otherAssets: [], startDate: gameDate })
+
+  const [interactionIsOpen, setInteractionIsOpen] = useState<boolean>(false)
 
   const msgSeparator = ' - '
 
@@ -104,6 +107,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
       }
     }
+    const openInteraction = interactionMessages.find((msg) => {
+      const isMine = msg.details.from.roleId === playerRoleId
+      const isOpen = msg.details.interaction && msg.details.interaction.complete === false
+      return isMine && isOpen
+    })
+    setInteractionIsOpen(!!openInteraction)
   }, [interactionMessages])
 
   useEffect(() => {
@@ -361,16 +370,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         // lat-long pairs
         outcomes.locationOutcomes.forEach((value: LocationOutcome) => {
           const loc = value.location
-          if (typeof loc === 'string') {
-            // ok, convert string to JSON array
-            const json = JSON.parse(loc)
-            // extract the coords
-            const lat = parseFloat(json[0])
-            const lng = parseFloat(json[1])
-            // create new location array
-            const latLng: [number, number] = [lat, lng]
-            // store the value
-            value.location = latLng
+          if (typeof loc === 'string' && (loc as string).length > 0) {
+            try {
+              // ok, convert string to JSON array
+              const json = JSON.parse(loc)
+              // extract the coords
+              const lat = parseFloat(json[0])
+              const lng = parseFloat(json[1])
+              // create new location array
+              const latLng: [number, number] = [lat, lng]
+              // store the value
+              value.location = latLng
+            } catch (err) {
+              console.warn('Failed to parse JSON. No location stored')
+            }
           } else if (Array.isArray(loc)) {
             // value is valid, leave
             value.location = loc
@@ -395,9 +408,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
-    const message = '' + contacts + ' interactions remaining'
+    if (Array.isArray(contacts)) {
+      const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
+      setDialogMessage(message)
+    } else {
+      setDialogMessage('No events or interactions remaining')
+    }
     console.timeLog('count interactions')
-    setDialogMessage(message)
   }
 
   const getInteraction = (): void => {
@@ -407,11 +424,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (results === undefined) {
       setDialogMessage('No interactions found')
       // fine, ignore it
-    } else if (typeof results === 'object') {
+    } else if (!Array.isArray(results) && results !== undefined) {
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
       handleAdjudication && handleAdjudication(outcomes.details, outcomes.outcomes)
-    } else if (typeof results === 'number') {
-      console.warn('not expecting number return from get next interaction')
+    } else {
+      console.warn('not expecting number return from get next interaction', results)
     }
   }
 
@@ -516,6 +533,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           const time = interaction.startTime === interaction.endTime ? shortDate(interaction.startTime) : shortDate(interaction.startTime) + ' - ' + shortDate(interaction.endTime)
           return <>
             <DetailPanelStateListener />
+            {!isComplete &&
+              <div className='button-wrap' >
+                <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
+              </div>
+            }
             <Box><b>Interaction details:</b><br />
               <ul>
                 <li><b>Date/time: </b>{time}</li>
@@ -706,9 +728,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </CustomDialog>
       }
       <div className='button-wrap' >
-        <Button color='secondary' onClick={getInteraction} icon='save'>Get next</Button>
+        <Button color='secondary' disabled={interactionIsOpen} onClick={getInteraction} icon='save'>Get next</Button>
         &nbsp;
-        <Button color='secondary' onClick={createManualInteraction} icon='add'>Create manual</Button>
+        <Button color='secondary' disabled={interactionIsOpen} onClick={createManualInteraction} icon='add'>Create manual</Button>
         &nbsp;
         <Button color="secondary" onClick={countRemainingInteractions} icon='functions'># Remaining</Button>
         <Chip label={currentTime} />
@@ -726,6 +748,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             tooltip: 'Show filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
+          },
+          {
+            icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faEnvelopeOpen} />,
+            iconProps: onlyShowOpen ? { color: 'action' } : { color: 'disabled' },
+            tooltip: 'Only show open interactions',
+            isFreeAction: true,
+            onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
           }
         ]}
         options={{
