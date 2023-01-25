@@ -99,7 +99,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * get the turn periods data (used for filtering via drop-down list of turns)
   */
-  onTurnPeriods?: (gameDate: string, currentWargame: string) => TurnPeriod[]
+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
 
   onDetailPanelOpen?: (rowData: AdjudicationRow) => void
 
