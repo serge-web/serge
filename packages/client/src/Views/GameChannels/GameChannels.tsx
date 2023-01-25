@@ -120,7 +120,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     const data: SheetOptions[] = []
 
     return excellentExport.convert({
-      anchor: 'don\'t know about this bit',
+      anchor: 'export_button_xlsx',
       filename: 'SERGE-' + moment().format('MMM DDHHmm[Z]') + '.xlsx',
       format: 'xlsx'
     }, data)
@@ -170,12 +170,11 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         </span> }
         { isUmpire && <a
           href={hreflink}
-          className='link link--secondary'
+          className='playerlog'
           onClick={e => generateFile()}
           id={'export_button_xlsx'}
         >
-          <FontAwesomeIcon icon={faFileExcel}/>Download .xlsx
-        </a> }
+          <FontAwesomeIcon icon={faFileExcel}/></a> }
       </div>
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
