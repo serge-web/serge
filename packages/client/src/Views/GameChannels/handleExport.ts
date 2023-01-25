@@ -29,8 +29,8 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
     location: asset.location,
     attributes: attrList,
     gameTurn: turnNumber,
-    turnStart: turnStart,
-    turnEnd: turnEnd
+    turnStart,
+    turnEnd
   }
   assets.push(val)
   if (asset.comprising) {
@@ -54,7 +54,7 @@ const planningMessages = (channels: PlayerUiChannels): {interactions: MessageInt
     const interactions = nonInfo.filter((msg) => msg.details.interaction) as unknown as MessageInteraction[]
     const completeInteractions = interactions.filter((msg) => msg.details.interaction && msg.details.interaction.complete)
     const plans = nonInfo.filter((msg) => !msg.details.interaction) as unknown as MessagePlanning[]
-    return { interactions: completeInteractions, plans: plans }
+    return { interactions: completeInteractions, plans }
   } else {
     console.warn('Didn\t find planning channel')
     return { interactions: [], plans: [] }
