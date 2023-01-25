@@ -7,7 +7,6 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import computeTabs from './helpers/computeTabs'
 import { setDefaultModel } from './helpers/DefaultModel'
 import factory from './helpers/factory'
-import handleExport from './helpers/handleExport'
 import tabRender from './helpers/tabRender'
 import Props from './types'
 
@@ -54,9 +53,6 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
     if (allowTabChangeEvent && selectedNode.current) {
       onTabChange(selectedNode.current)
       setAllowTabChangeEvent(false)
-      // FAKE EVENT, TO TRIGGER EXPORT
-      const exportData = handleExport(state)
-      console.log('export', exportData)
     }
   }, [allowTabChangeEvent])
 
