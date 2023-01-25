@@ -4,7 +4,9 @@ import { ForceObjective, TurnProgression } from '@serge/components'
 import { CHANGE_TAB_INTERACTION } from '@serge/config'
 import { ChangeTabInteraction } from '@serge/custom-types'
 import classNames from 'classnames'
+import excellentExport, { SheetOptions } from 'excellentexport'
 import { TabNode } from 'flexlayout-react'
+import moment from 'moment'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
@@ -51,6 +53,8 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
   const [selectedNode, setSelectedNode] = useState<string>('')
+
+  const hreflink = window.location.href
 
   if (selectedForce === undefined) {
     return (
@@ -99,10 +103,27 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     PlayerUiDispatch(markAllAsUnread(''))
   }, [])
 
-  const onExportClick = () => {
+  const generateFile = () => {
     const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
-    console.log('export', res)
-    // to-do trigger sending dictionary to xlsx download
+    // const data = Object.keys(res).map((key): SheetOptions => {
+    //   const rows = res[key]
+    //   return ({
+    //     name: key,
+    //     from: {
+    //       arrayHasHeader: true,
+    //       array: rows
+    //     }
+    //   })
+    // })
+    console.log('about to export', res)
+    // todo - convert the data to expected arrays
+    const data: SheetOptions[] = []
+
+    return excellentExport.convert({
+      anchor: 'don\'t know about this bit',
+      filename: 'SERGE-' + moment().format('MMM DDHHmm[Z]') + '.xlsx',
+      format: 'xlsx'
+    }, data)
   }
  
   return <div className='flex-content flex-content--row-wrap'>
@@ -147,9 +168,14 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         { isUmpire && <span title='Show player log' className='playerlog'>
           <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
         </span> }
-        { isUmpire && <span title='Export data' className='playerlog'>
-          <FontAwesomeIcon icon={faFileExcel} onClick={onExportClick} />
-        </span> }
+        { isUmpire && <a
+          href={hreflink}
+          className='link link--secondary'
+          onClick={e => generateFile()}
+          id={'export_button_xlsx'}
+        >
+          <FontAwesomeIcon icon={faFileExcel}/>Download .xlsx
+        </a> }
       </div>
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective
