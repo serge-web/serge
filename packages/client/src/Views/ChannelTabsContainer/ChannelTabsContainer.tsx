@@ -55,7 +55,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
       onTabChange(selectedNode.current)
       setAllowTabChangeEvent(false)
       // FAKE EVENT, TO TRIGGER EXPORT
-      handleExport(state)
+      const exportData = handleExport(state)
+      console.log('export', exportData)
     }
   }, [allowTabChangeEvent])
 
