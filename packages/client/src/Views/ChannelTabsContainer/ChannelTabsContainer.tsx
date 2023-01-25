@@ -5,10 +5,11 @@ import Loader from '../../Components/Loader'
 import { expiredStorage, LOCAL_STORAGE_TIMEOUT } from '../../consts'
 import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import computeTabs from './helpers/computeTabs'
+import { setDefaultModel } from './helpers/DefaultModel'
 import factory from './helpers/factory'
+import handleExport from './helpers/handleExport'
 import tabRender from './helpers/tabRender'
 import Props from './types'
-import { setDefaultModel } from './helpers/DefaultModel'
 
 const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.ReactElement => {
   const [allowTabChangeEvent, setAllowTabChangeEvent] = useState<boolean>(false)
@@ -53,6 +54,8 @@ const ChannelTabsContainer: React.FC<Props> = ({ rootRef, onTabChange }): React.
     if (allowTabChangeEvent && selectedNode.current) {
       onTabChange(selectedNode.current)
       setAllowTabChangeEvent(false)
+      // FAKE EVENT, TO TRIGGER EXPORT
+      handleExport(state)
     }
   }, [allowTabChangeEvent])
 
