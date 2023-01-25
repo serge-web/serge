@@ -82,12 +82,12 @@ const extractOutcomes = (msg: MessageInteraction, plans: MessagePlanning[], outc
       end: inter.endTime,
       event: inter.event
     }
-    outcomes.perception = []
-    outcomes.health = []
-    outcomes.movement = []
-    extractItems('perception', res, msg.message.perceptionOutcomes, outcomes.perception)
-    extractItems('health', res, msg.message.healthOutcomes, outcomes.health)
-    extractItems('movement', res, msg.message.locationOutcomes, outcomes.movement)
+    outcomes.outcomes_perception = []
+    outcomes.outcomes_health = []
+    outcomes.outcomes_movement = []
+    extractItems('perception', res, msg.message.perceptionOutcomes, outcomes.outcomes_perception)
+    extractItems('health', res, msg.message.healthOutcomes, outcomes.outcomes_health)
+    extractItems('movement', res, msg.message.locationOutcomes, outcomes.outcomes_movement)
   } else {
     console.warn('Didn\'t find interaction details for', msg._id)
   }
@@ -101,22 +101,22 @@ const exportMessages = (channels: PlayerUiChannels, res: Record<string, Record<s
       const nonInfo = messages.filter((msg) => !msg.infoType && msg.messageType !== INFO_MESSAGE_CLIPPED) as MessageCustom[]
       const nonInteraction = nonInfo.filter((msg) => !msg.details.interaction)
       nonInteraction.forEach((msg) => {
-        const msgType = msg.details.messageType
+        const msgLabel = 'msg-' + msg.details.messageType
         const core = {
           id: msg._id,
           title: msg.message.title + '-' + msg.message.Reference,
           channel: channel.uniqid,
           fromForce: msg.details.from.force,
           from: msg.details.from.name,
-          messageType: msgType,
+          messageType: msg.details.messageType,
           time: msg.details.timestamp,
           turnNumber: msg.details.turnNumber
         }
         const combined = Object.assign({}, core, msg.message)
-        if (!res[msgType]) {
-          res[msgType] = []
+        if (!res[msgLabel]) {
+          res[msgLabel] = []
         }
-        res[msgType].push(combined)
+        res[msgLabel].push(combined)
       })
     }
   })
