@@ -1,4 +1,4 @@
-import { faAddressBook, faBookOpen, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook, faBookOpen, faFileExcel, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import { CHANGE_TAB_INTERACTION } from '@serge/config'
@@ -95,6 +95,10 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     PlayerUiDispatch(markAllAsUnread(''))
   }, [])
 
+  const handleExportClick = useCallback(() => {
+    console.log('trigger file export')
+  }, [])
+
   return <div className='flex-content flex-content--row-wrap'>
     <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} handlePlayerlogsMarkAllAsRead={handlePlayerlogsMarkAllAsRead} handlePlayerlogsMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread} playerLogsActivity={openPlayerlogModal} />
     <div className='message-feed in-game-feed' data-tour='fourth-step'>
@@ -136,6 +140,9 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         </span>
         { isUmpire && <span title='Show player log' className='playerlog'>
           <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
+        </span> }
+        { isUmpire && <span title='Export data' className='playerlog'>
+          <FontAwesomeIcon icon={faFileExcel} onClick={handleExportClick} />
         </span> }
       </div>
       <AdminAndInsightsTabsContainer />

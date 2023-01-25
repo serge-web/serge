@@ -1,5 +1,5 @@
 import { CHANNEL_PLANNING, INFO_MESSAGE_CLIPPED } from '@serge/config'
-import { Asset, ChannelUI, ForceData, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUi, PlayerUiChannels } from '@serge/custom-types'
+import { Asset, ChannelUI, ForceData, GameTurnLength, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUiChannels } from '@serge/custom-types'
 import { incrementGameTime } from '@serge/helpers'
 
 export const FORCES = 'forces'
@@ -122,13 +122,13 @@ const exportMessages = (channels: PlayerUiChannels, res: Record<string, Record<s
   })
 }
 
-const handleExport = (state: PlayerUi): Record<string, Record<string, any>[]> => {
+const handleExport = (gameDate: string, gameTurnTime: GameTurnLength, allPlatformTypes: PlatformTypeData[],
+  allForces: ForceData[], turnNumber: number, channels: PlayerUiChannels): Record<string, Record<string, any>[]> => {
   const res: Record<string, Record<string, any>[]> = {}
-  const turnNumber = state.currentTurn
-  const turnStart = state.gameDate
-  const turnEnd = incrementGameTime(state.gameDate, state.gameTurnTime)
-  const platformTypes = state.allPlatformTypes
-  const forces = state.allForces
+  const turnStart = gameDate
+  const turnEnd = incrementGameTime(gameDate, gameTurnTime)
+  const platformTypes = allPlatformTypes
+  const forces = allForces
   const assets: Array<Record<string, any>> = []
   forces.forEach((force: ForceData) => {
     const forceName = force.name
@@ -139,9 +139,9 @@ const handleExport = (state: PlayerUi): Record<string, Record<string, any>[]> =>
     }
   })
   res.assets = assets
-  const { interactions, plans } = planningMessages(state.channels)
+  const { interactions, plans } = planningMessages(channels)
   interactions.forEach((msg) => extractOutcomes(msg, plans, res))
-  exportMessages(state.channels, res)
+  exportMessages(channels, res)
   return res
 }
 
