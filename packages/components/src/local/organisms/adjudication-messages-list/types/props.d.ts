@@ -57,6 +57,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * Callback on expanding message item
    */
+
+  currentWargame: string
+   /**
+   * the name of the wargame
+   */
+
   onRead?: { (message: MessagePlanning, count?: number): void }
 
   /**
@@ -89,6 +95,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** descriptions of platform types (used for perception drop-down) */
   platformTypes: PlatformTypeData[]
+
+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
+  /**
+   * get the turnaround periods data
+  */
 
   onDetailPanelOpen?: (rowData: AdjudicationRow) => void
 

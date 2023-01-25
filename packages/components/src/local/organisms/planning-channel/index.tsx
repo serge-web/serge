@@ -49,6 +49,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   openMessage,
   saveMessage,
   mapPostBack,
+  onTurnPeriods,
   allTemplates,
   messages,
   channel,
@@ -719,6 +720,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
+            onTurnPeriods={onTurnPeriods}
             currentWargame={currentWargame}
             selectedRoleName={selectedRoleName}
             selectedRoleId={selectedRoleId}

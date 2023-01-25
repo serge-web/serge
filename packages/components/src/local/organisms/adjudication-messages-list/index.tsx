@@ -45,9 +45,8 @@ type ManualInteractionResults = {
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
-  gameTurnLength,
-  onLocationEditorLoaded
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, onTurnPeriods,
+  gameTurnLength, currentWargame, onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
@@ -84,6 +83,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
+    onTurnPeriods && onTurnPeriods(gameDate, currentWargame)
+  }, [gameDate])
+
+  useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
       : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
     setFilteredInteractions(messages)
@@ -115,6 +118,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
+
+  console.log('gameDate', gameDate)
 
   const healthStyleFor = (aHealth: number | undefined) => {
     let healthStyle

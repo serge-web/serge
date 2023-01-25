@@ -195,13 +195,14 @@ const pouchDb = (app, io, pouchOptions) => {
         messageType: INFO_MESSAGE,
         _id: { $ne: wargameSettings }
       },
-      fields: ['data', '_id']
+      fields: ['data', '_id', 'gameTurn']
     }).then((result) => {
       const resaultData = result.docs.map((data) => {
         const { gameDate, gameTurnTime } = data.data.overview
         return {
           gameDate,
           gameTurnTime,
+          gameTurn: data.gameTurn,
           _id: data._id
         }
       })

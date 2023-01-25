@@ -36,6 +36,7 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
 
   /**
    * The method for posting messages out of the mapping components. They have

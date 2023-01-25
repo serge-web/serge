@@ -9,7 +9,7 @@ import isError from '../../Helpers/isError'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
-  ChatMessage, Message, MessageChannel,
+  ChatMessage, Message, MessageChannel, TurnPeriod,
   MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame
 } from '@serge/custom-types'
 
@@ -145,6 +145,10 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
     }
     await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.')
   }
+}
+
+export const turnPeriods = (gameDate: string, dbName: string):Promise<TurnPeriod> => {
+  return wargamesApi.getTurnPeriodsList(gameDate, dbName)
 }
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {

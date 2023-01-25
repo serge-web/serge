@@ -8,7 +8,7 @@ import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import React from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 
 import { useDispatch } from 'react-redux'
@@ -193,6 +193,7 @@ const factory = (state: PlayerUi): Factory => {
             attributeTypes={state.attributeTypes}
             isUmpire={state.isUmpire}
             phase={state.phase}
+            onTurnPeriods={turnPeriods}
             allForces={state.allForces}
             platformTypes={state.allPlatformTypes}
             gameDate={state.gameDate}

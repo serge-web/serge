@@ -176,6 +176,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
+    currentWargame={P9BMock.name}
     forces={forces}
     platformTypes={platformTypes}
     interactionMessages={interactionMessages}

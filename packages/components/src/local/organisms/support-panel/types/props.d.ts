@@ -35,6 +35,7 @@ export default interface PropTypes {
   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
   getCachedNewMessagevalue?: (value: string) => string
   clearCachedNewMessage?: (data: string[]) => void
+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
   dispatch: Dispatch<any>
   selectedRoleName: Role['name']
   selectedRoleId: Role['roleId']
