@@ -86,7 +86,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     // get turn period array
-    onTurnPeriods && setTurnPeriods(onTurnPeriods(gameDate, currentWargame))
+    onTurnPeriods && onTurnPeriods(gameDate, currentWargame)
+    // note - we should be getting data back from onTurnPeriods, then we store it with the below line
+    setTurnPeriods([])
   }, [gameDate])
 
   useEffect(() => {
