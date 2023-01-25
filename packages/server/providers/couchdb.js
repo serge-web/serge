@@ -236,7 +236,7 @@ const couchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
-  app.get('/:wargame/turn', (req, res) => {
+  app.get('/:wargame/turns', (req, res) => {
     const databaseName = checkSqliteExists(req.params.wargame)
 
     if (!databaseName) {
