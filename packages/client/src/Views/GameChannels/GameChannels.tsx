@@ -20,6 +20,7 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import PlayerLog from '../PlayerLog'
+import handleExport from './handleExport'
 
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
@@ -43,7 +44,10 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     turnEndTime,
     selectedForce,
     wargameInitiated,
-    isUmpire
+    isUmpire,
+    allPlatformTypes, 
+    allForces,
+    channels
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
   const [selectedNode, setSelectedNode] = useState<string>('')
@@ -95,10 +99,12 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     PlayerUiDispatch(markAllAsUnread(''))
   }, [])
 
-  const handleExportClick = useCallback(() => {
-    console.log('trigger file export')
-  }, [])
-
+  const onExportClick = () => {
+    const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
+    console.log('export', res)
+    // to-do trigger sending dictionary to xlsx download
+  }
+ 
   return <div className='flex-content flex-content--row-wrap'>
     <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} handlePlayerlogsMarkAllAsRead={handlePlayerlogsMarkAllAsRead} handlePlayerlogsMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread} playerLogsActivity={openPlayerlogModal} />
     <div className='message-feed in-game-feed' data-tour='fourth-step'>
@@ -142,7 +148,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
           <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
         </span> }
         { isUmpire && <span title='Export data' className='playerlog'>
-          <FontAwesomeIcon icon={faFileExcel} onClick={handleExportClick} />
+          <FontAwesomeIcon icon={faFileExcel} onClick={onExportClick} />
         </span> }
       </div>
       <AdminAndInsightsTabsContainer />
