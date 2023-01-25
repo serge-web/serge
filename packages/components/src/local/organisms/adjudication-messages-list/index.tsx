@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps, TurnPeriod } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
@@ -60,6 +60,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
   const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
 
+  const [turnPeriods, setTurnPeriods] = useState<TurnPeriod[]>([])
+
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
   const [validationErrors, setValidationErrors] = useState<string[]>([])
@@ -83,7 +85,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    onTurnPeriods && onTurnPeriods(gameDate, currentWargame)
+    // get turn period array
+    onTurnPeriods && setTurnPeriods(onTurnPeriods(gameDate, currentWargame))
   }, [gameDate])
 
   useEffect(() => {
@@ -119,7 +122,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
 
-  console.log('gameDate', gameDate)
+  console.log('turn periods', turnPeriods)
 
   const healthStyleFor = (aHealth: number | undefined) => {
     let healthStyle
