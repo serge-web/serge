@@ -19885,7 +19885,7 @@ const game: Wargame = {
     "infoType": true,
     "messageType": "InfoMessage",
     "name": "wargame-l6nngxlk",
-    "phase": "planning",
+    "phase": "adjudication",
     "turnEndTime": "2021-08-10T16:17:26+01:00",
     "wargameInitiated": true,
     "wargameTitle": "P9 Test"
