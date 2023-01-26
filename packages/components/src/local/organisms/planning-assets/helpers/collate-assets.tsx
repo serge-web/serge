@@ -338,22 +338,22 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     // may be from umpire force (so no player force shown)
     if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
-      const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const perceptionTypes = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const perception = asset.perceptions.find((perc) => perc.by === playerForce.uniqid)
       // as a performance measure, we don't create attributes for OpFor assets
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
-
-      if (perception) {
-        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
+      if (perceptionTypes) {
+        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name + ',' + health,
+          icon: iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health,
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-          name: perception.name,
-          platformType: perception.typeId,
+          name: perceptionTypes.name,
+          platformType: perceptionTypes.typeId,
           subType: subType,
-          position: asset.location && latLng(asset.location[0], asset.location[1]),
+          position: perception && perception.position && latLng(perception.position[0], perception.position[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           domain: domain,
