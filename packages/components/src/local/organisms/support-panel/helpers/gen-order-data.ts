@@ -825,32 +825,29 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
       // check it's not me
       if (myIndex !== otherIndex) {
-        // don't compare geometries that are part of the same activity
-        if (me.activity._id !== other.activity._id) {
-          // generate IDs, to ensure we don't compare shapes twice
-          const meFirst = (me.id < other.id)
-          const first = meFirst ? me : other
-          const second = meFirst ? other : me
-          const id = createContactReference(first.id, second.id)
-          // have we already checked this permutation (maybe in another bin)?
-          if (!interactionsConsidered.includes(id)) {
-            // has it already been adjudicated
-            if (!interactionsProcessed.includes(id)) {
-              interactionsConsidered.push(id)
-              if (differentForces(me, other) && overlapsInTime(me, other)) {
-                // see if we have a cached contact
-                const cachedResult = interactionsTested[id]
-                if (cachedResult !== undefined) {
-                  if (cachedResult !== null) {
-                    res.push(cachedResult)
-                  }
-                } else {
-                  const contact = touches(me, other, id, Math.random, sensorRangeKm)
-                  if (contact) {
-                    res.push(contact)
-                  }
-                  interactionsTested[id] = contact || null
+        // generate IDs, to ensure we don't compare shapes twice
+        const meFirst = (me.id < other.id)
+        const first = meFirst ? me : other
+        const second = meFirst ? other : me
+        const id = createContactReference(first.id, second.id)
+        // have we already checked this permutation (maybe in another bin)?
+        if (!interactionsConsidered.includes(id)) {
+          // has it already been adjudicated
+          if (!interactionsProcessed.includes(id)) {
+            interactionsConsidered.push(id)
+            if (differentForces(me, other) && overlapsInTime(me, other)) {
+              // see if we have a cached contact
+              const cachedResult = interactionsTested[id]
+              if (cachedResult !== undefined) {
+                if (cachedResult !== null) {
+                  res.push(cachedResult)
                 }
+              } else {
+                const contact = touches(me, other, id, Math.random, sensorRangeKm)
+                if (contact) {
+                  res.push(contact)
+                }
+                interactionsTested[id] = contact || null
               }
             }
           }
