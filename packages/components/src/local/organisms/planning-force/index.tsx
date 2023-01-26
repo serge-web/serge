@@ -5,7 +5,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import React, { useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, useMap } from 'react-leaflet-v4'
+import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
@@ -15,10 +15,24 @@ import PropTypes from './types/props'
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const [clusterGroup, setClusterGroup] = useState<any | undefined>(undefined)
 
+  const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
+  const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
+
   useEffect(() => {
     if (clusterGroup === undefined) {
       setClusterGroup(L.markerClusterGroup())
     }
+    const clustered: AssetRow[] = []
+    const raw: AssetRow[] = []
+    assets.forEach((asset) => {
+      if (selectedAssets.includes(asset.id)) {
+        raw.push(asset)
+      } else {
+        clustered.push(asset)
+      }
+    })
+    setClusteredMarkers(clustered)
+    setRawMarkers(raw)
   }, [assets])
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
@@ -42,13 +56,17 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     const map = useMap()
 
     useEffect(() => {
-      clusterGroup.clearLayers()
-      const markersWithLocation = markers.filter((row: AssetRow) => row.position)
-      const markerList = markersWithLocation.map((asset) => getMarkerOption(asset))
-      clusterGroup.addLayers(markerList)
+      if (clusterGroup) {
+        clusterGroup.clearLayers()
+        const markersWithLocation = markers.filter((row: AssetRow) => row.position)
+        const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
+        // const theMarker = markersWithLocation.find((asset) => asset.id === 'a111')
+        // console.log('render marker', theMarker && theMarker.position)
+        clusterGroup.addLayers(markerList)
 
-      // add the marker cluster group to the map
-      map.addLayer(clusterGroup)
+        // add the marker cluster group to the map
+        map.addLayer(clusterGroup)
+      }
     }, [markers, map, clusterGroup])
 
     return null
@@ -64,7 +82,29 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     setSelectedAssets([...selectedAssets])
   }
 
-  const getMarkerOption = (asset: AssetRow) => {
+  const getRawMarkerOption = (asset: AssetRow, index: number) => {
+    const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
+    const isSelected = selectedAssets.includes(asset.id)
+    const isDestroyed = asset.health && asset.health === 0
+    return {
+      eventHandlers: {
+        click: (): void => {
+          if (interactive) {
+            handleAssetClick(asset.id)
+          }
+        }
+      },
+      key: `asset-icon-${index}`,
+      position: loc,
+      icon: L.divIcon({
+        iconSize: [30, 30],
+        html: getAssetIcon(asset, isSelected, !!isDestroyed),
+        className: styles['map-icon']
+      })
+    }
+  }
+
+  const getClusteredMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
@@ -95,9 +135,18 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
   return <>
     {
-      assets.length > 0 &&
       <LayerGroup key={'first-forces-layer'}>
-        <MarkerCluster markers={assets} />
+        <MarkerCluster markers={clustereredMarkers} />
+        { rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
+          const markerOption = getRawMarkerOption(asset, index)
+          return <Marker
+            pmIgnore
+            interactive={false}
+            {...markerOption}
+          >
+            <Tooltip>{asset.name}</Tooltip>
+          </Marker>
+        })}
       </LayerGroup >
     }
   </>
