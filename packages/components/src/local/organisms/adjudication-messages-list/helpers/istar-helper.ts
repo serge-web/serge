@@ -17,7 +17,7 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
   const areaKM2 = areaM2 / 1000000
   const durationMillis = endD - startD
   const durationHrs = durationMillis / 1000 / 60 / 60
-  const searchProb =  areaKM2 / (searchRateKm2perHour * durationHrs) / areaKM2
+  const searchProb = (searchRateKm2perHour * durationHrs) / areaKM2
   // find all asset in the area
   const assetsInArea: Array<{ force: ForceData, asset: Asset }> = []
   forces.forEach((force: ForceData) => {
@@ -44,8 +44,17 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
     }
   })
   // randomly include some
-  const observedAssets = assetsInArea.filter(() => Math.random() <= searchProb)
-  console.log('in area', areaKM2.toFixed(0), durationHrs.toFixed(2), searchProb.toFixed(2), assetsInArea.length, observedAssets.length)
+  const observedAssets = assetsInArea.filter(() => {
+    const rnd = Math.random()
+    const res = rnd <= searchProb
+    console.log('random', rnd, searchProb, res)
+    return res
+  })
+  for (let i=0; i< 100; i++) {
+    console.log(Math.random())
+  }
+  console.log('ISTAR Calc', {areaKM2: areaKM2.toFixed(0), durationHrs: durationHrs.toFixed(2), searchRateKM2h: searchRateKm2perHour.toFixed(2), 
+    searchProb: searchProb.toFixed(2), totalInArea: assetsInArea.length, observed: observedAssets.length})
   return observedAssets
 }
 
