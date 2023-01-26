@@ -422,7 +422,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     return inter.id
   })
 
-  listPlans(orders, gameTime)
+  !7 && listPlans(orders, gameTime)
 
   console.log('earliest time', gameTime, gameTurnEnd, moment(earliestTime).toISOString(), ' interactions:', interactions.length)
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
@@ -629,96 +629,3 @@ const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes 
   }
   return res
 }
-
-// export const getNextInteraction = (orders: MessagePlanning[],
-//   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[], _ctr: number, sensorRangeKm: number, getAll?: boolean): PlanningContact[] => {
-//   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : timeOfStartOfFirstPlan(orders)
-
-//   // console.log('earliest time', moment(earliestTime).toISOString())
-//   // console.table(trimmedOrders.map((inter) => {
-//   //   return {id: inter._id, start: inter.message.startDate, end: inter.message.endDate, force: inter.details.from.forceId}
-//   // }))
-
-//   const newGeometries = invertMessages(orders, activities)
-//   const withTimes = injectTimes(newGeometries)
-
-//   // console.log('geoms', orders, newGeometries, withTimes)
-
-//   const trimmedGeoms = withTimes // .filter((val) => startBeforeTime(val)).filter((val) => endAfterTime(val))
-
-//   //  console.log('get next a', orders.length, trimmedOrders.length)
-//   // console.log('get interaction', orders, interactions)
-//   // console.table(interactions.map((order) => {
-//   //   return { force: order.details.interaction?.startTime }
-//   // }))
-
-//   console.log('Get Next. Ctr:' + _ctr + ' orders:' + orders.length + ' Interactions:', interactions.length, ' earliest:', moment(earliestTime).toString(), !7 && !!tStart && !!tEnd)
-
-//   // console.table(trimmedGeoms.map((val) => {
-//   //   // return { id: val._id, start: val.message.startDate, end: val.message.endDate }
-//   //   return { geometry: val.id, start: val.activity.message.startDate, end: val.activity.message.endDate, force: val.force }
-//   // }))
-
-//   // calculate suitable window. First 10%?
-//   const latestTime = timeOfEndOfLastPlan(orders)
-//   const diffMins = moment.duration(moment(latestTime).diff(moment(earliestTime))).asMinutes()
-
-//   // console.log('timings', moment(earliestTime).toISOString(), moment(latestTime).toISOString(), diffMins)
-//   // console.table(orders.map((order) => {
-//   //   return { endTime: order.message.endDate }
-//   // }))
-
-//   let interactionWindow = getAll ? diffMins : Math.max(diffMins / 10, 60)
-//   const contacts: PlanningContact[] = []
-
-//   // console.log('inter window', interactionWindow, diffMins, moment(earliestTime).toISOString(), moment(latestTime).toISOString())
-
-//   while (contacts.length === 0 && interactionWindow <= diffMins) {
-//     const geometriesInTimeWindow = findPlannedGeometries(trimmedGeoms, earliestTime, interactionWindow)
-
-//     const timeEnd = moment(earliestTime).add(interactionWindow, 'm')
-//     console.log('geoms in this window:', moment(earliestTime).toISOString(), timeEnd.toISOString(), ' windows size (mins):', interactionWindow, 'matching geoms:', geometriesInTimeWindow.length)
-//     //  console.table(withTimes.map((value) => { return { id: value.id, time: value.geometry.properties && moment(value.geometry.properties.startTime).toISOString() } }))
-
-//     // now do spatial binning
-//     const bins = spatialBinning(geometriesInTimeWindow, 4)
-//     const binnedOrders = putInBin(geometriesInTimeWindow, bins)
-
-//     const interactionsProcessed = interactions.map((val) => {
-//       const inter = val.details.interaction
-//       if (!inter) {
-//         throw Error('Interaction missing')
-//       }
-//       return inter.id
-//     })
-//     const interactionsConsidered: string[] = []
-//     const interactionsTested: Record<string, PlanningContact | null> = {}
-
-//     binnedOrders.forEach((bin: SpatialBin, _index: number) => {
-//       // console.log('process bin', _index, bin.orders.length, contacts.length)
-//       const newContacts = findTouching(bin.orders, interactionsConsidered, interactionsProcessed,
-//         interactionsTested, sensorRangeKm)
-//       contacts.push(...newContacts)
-//     })
-
-//     interactionWindow *= 2
-//   }
-
-//   if (contacts.length > 0) {
-//     if (getAll) {
-//       return contacts
-//     } else {
-//       //    console.log('got contacts', Math.floor(interactionWindow), contacts.length, contacts[0].id)
-//       // sort then
-//       const sortFunc = (order: PlanningContact): number => {
-//         return order.timeStart
-//       }
-//       const sortedContacts: PlanningContact[] = _.sortBy(contacts, sortFunc)
-//       // console.table(sortedContacts.map((value) => { return { id: value.id, time: moment(value.timeStart).toISOString() } }))
-//       const first = sortedContacts[0]
-//       return [first]
-//     }
-//   } else {
-//     return []
-//   }
-// }
