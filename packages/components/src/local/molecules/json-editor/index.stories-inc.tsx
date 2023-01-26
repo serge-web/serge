@@ -213,7 +213,6 @@ if (injectPerceivedLocations) {
               delete perc.position
             }
           })
-  
         }
       })
     }
