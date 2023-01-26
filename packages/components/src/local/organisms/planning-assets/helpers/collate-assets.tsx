@@ -369,7 +369,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           attributes: modernAttrDict
         }
 
-        const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+        const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
         if (perceivedPlatformType && perceivedPlatformType.sidc) {
           res.sidc = perceivedPlatformType.sidc
         }
