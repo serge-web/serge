@@ -1,3 +1,4 @@
+import * as turf from '@turf/turf'
 import React from 'react'
 
 // Import component files
@@ -184,6 +185,40 @@ const maritime = generateTemplate('first', true, coreTemplate, otherTemplate, 'I
 // const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
 
 // generateAllTemplates()
+
+// helper code to inject perceived locations, including some that aren't the actual locations
+const injectPerceivedLocations = !7
+if (injectPerceivedLocations) {
+  P9BMock.data.forces.forces.forEach((force) => {
+    if (force.assets) {
+      force.assets.forEach((asset) => {
+        const loc = asset.location
+        if (loc) {
+          const pers = asset.perceptions
+          pers.forEach((perc) => {
+            const rnd = Math.random()
+            if (rnd > 0.6) {
+              perc.position = deepCopy(loc)
+            } else if (rnd > 0.4) {
+              const randBrg = Math.random() * 360
+              const randDistKm = Math.random() * 50
+              const origin = turf.point([loc[1], loc[0]])
+              const newPt = turf.destination(origin, randDistKm, -180 + randBrg, { units: 'kilometers' })
+              const newLocation = newPt.geometry.coordinates
+              const newLat = Math.floor(newLocation[1] * 10000) / 10000
+              const newLong = Math.floor(newLocation[0] * 10000) / 10000
+              const newLoc: [number, number] = [newLat, newLong]
+              perc.position = newLoc
+            } else {
+              delete perc.position
+            }
+          })
+        }
+      })
+    }
+  })
+  console.log('force with percept', P9BMock.data.forces.forces)
+}
 
 export const P9Message = Template.bind({})
 P9Message.args = {

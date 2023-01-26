@@ -150,6 +150,13 @@ export interface PerceptionOutcome extends CoreOutcome {
   perceivedHealth?: Asset['health']
   /** new perceived name or undefined for unknown */
   perceivedName?: ForceData['uniqid']
+  /** 
+   * perceivedLocation: The string will be parsed to JSON.
+   * We'll use special values `t` to pull in the current location,
+   * `x` to clear the location, and [number, number] to
+   * specify a location
+   */
+  perceivedLocation?: string
 }
 
 export interface LocationOutcome extends CoreOutcome  {
