@@ -152,9 +152,9 @@ export interface PerceptionOutcome extends CoreOutcome {
   perceivedName?: ForceData['uniqid']
   /** 
    * perceivedLocation: The string will be parsed to JSON.
-   * If parsing fails, it will be assumed umpire wants to clear
-   * perceived location, and prior perceived location will
-   * be cleared
+   * We'll use special values `t` to pull in the current location,
+   * `x` to clear the location, and [number, number] to
+   * specify a location
    */
   perceivedLocation?: string
 }
