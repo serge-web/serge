@@ -1,8 +1,7 @@
 import { GroupedActivitySet, PerForcePlanningActivitySet, PlanningActivity } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages } from '@serge/mocks'
+import { P9BMock, planningMessages } from '@serge/mocks'
 import _ from 'lodash'
 import React from 'react'
-import { fixPerForcePlanningActivities } from '../../organisms/planning-channel/helpers/collate-plans-helper'
 
 // Import component files
 import OrderDetail from './index'
@@ -20,14 +19,12 @@ export default {
   }
 }
 
-// produce the own and opp assets for this player force
-const allForces = P9Mock.data.forces.forces
-const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
-const forceId = allForces[1].uniqid
+const filledInPerForcePlanningActivities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
-const planningActivities = MockPlanningActivities
-const perForcePlanningActivities = MockPerForceActivities
-const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
+// produce the own and opp assets for this player force
+const allForces = P9BMock.data.forces.forces
+const platformTypes = P9BMock.data.platformTypes ? P9BMock.data.platformTypes.platformTypes : []
+const forceId = allForces[1].uniqid
 
 const force = filledInPerForcePlanningActivities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
 const activities: Array<PlanningActivity[]> | undefined = force && force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])

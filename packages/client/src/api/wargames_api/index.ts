@@ -781,7 +781,6 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === ADJUDICATION_OUTCOMES) {
           const validMessage: MessageAdjudicationOutcomes = message
-          console.log('handling outcomes')
           res.data.forces.forces = handleAdjudicationOutcomes(validMessage, res.data.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers

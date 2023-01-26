@@ -144,6 +144,11 @@ const p9StockTemplates: TemplateBody[] = [
                 propertyOrder: 60,
                 type: 'string'
               },
+              perceivedLocation: {
+                title: 'Location t/[1,2]/x',
+                propertyOrder: 65,
+                type: 'string'
+              },
               narrative: {
                 title: 'Comment',
                 propertyOrder: 70,

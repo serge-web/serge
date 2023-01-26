@@ -25,5 +25,9 @@ export default interface Perception {
   /** 
    * the perceived health of this asset
    */
-   health?: number
+  health?: number
+  /**
+   * the perceived location
+   */ 
+  position?: [number, number]
 }
