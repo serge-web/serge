@@ -103,6 +103,39 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     PlayerUiDispatch(markAllAsUnread(''))
   }, [])
 
+  const convertToXlsx = (res: Record<string, Record<string, any>>): SheetOptions[] => {
+    const data = Object.keys(res).map((key): SheetOptions => {
+      const tableData = res[key]
+      if (!Array.isArray(tableData) || !tableData.length) {
+        throw new Error('Table data should be a non-empty array of column/value rows')
+      }
+      
+      const colNames = Object.keys(tableData[0])
+      const rows = tableData.map(rowData => {
+        const row = []
+        for (const key in rowData) {
+          if (Array.isArray(rowData[key]) && rowData[key].length) {
+            row.push('"' + rowData[key].join(',') + '"')
+          } else {
+            row.push(rowData[key])
+          }
+        }
+        return row
+      })
+      rows.unshift(colNames)
+      return ({
+        name: key,
+        from: {
+          // @ts-ignore
+          arrayHasHeader: true,
+          array: rows
+        }
+      })
+    })
+
+    return data
+  }
+
   const generateFile = () => {
     const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
     // const data = Object.keys(res).map((key): SheetOptions => {
@@ -117,8 +150,8 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     // })
     console.log('about to export', res)
     // todo - convert the data to expected arrays
-    const data: SheetOptions[] = []
-
+    const data: SheetOptions[] = convertToXlsx(res)
+    console.log('convert xlxs data:', data)
     return excellentExport.convert({
       anchor: 'export_button_xlsx',
       filename: 'SERGE-' + moment().format('MMM DDHHmm[Z]') + '.xlsx',
