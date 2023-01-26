@@ -22,16 +22,6 @@ const messages = planningMessagesBulk
 
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-// it('gets all interactions (2)', () => {
-//   const interactions: MessageInteraction[] = []
-//   console.log('game start time', gameStartTime)
-//   const contacts: PlanningContact[] | ShortCircuitInteraction = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, true)
-//   if (contacts && Array.isArray(contacts)) {
-//     expect(contacts.length).toEqual(0)
-//   }
-// }
-// )
-
 const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
   const selectedForce = P9BMock.data.forces.forces[1]
   const selectedRole = selectedForce.roles[1]
@@ -60,7 +50,7 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
-!7 && it('gets count of', () => {
+it('gets count of', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
@@ -71,7 +61,7 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   expect(results1).toEqual(267)
 })
 
-7 && it('gets interactions (2)', () => {
+it('gets interactions (2)', () => {
   console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-05-01T00:00:00.000Z' // P9BMock.data.overview.gameDate
@@ -103,7 +93,7 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   }))
 })
 
-!7 && it('avoids existing interactions', () => {
+it('avoids existing interactions', () => {
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
@@ -127,40 +117,6 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
     expect(res3Msg.details.id).not.toEqual(res1Id)
   }
 })
-
-// it('process successive interactions', () => {
-//   const interactions: MessageInteraction[] = []
-//   let contacts: PlanningContact[] = []
-//   for (let ctr = 0; ctr < 20 && contacts.length > 0; ctr++) {
-//     contacts = getNextInteraction(planningMessages2, activities, interactions, ctr, 30)
-//     if (contacts) {
-//       const newInteractions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
-//         return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-//       })
-//       interactions.push(...newInteractions)
-//     }
-//   }
-//   !7 && console.table(interactions.map((inter) => {
-//     const interact = inter.details.interaction
-//     if (interact) {
-//       return { id: interact.id, start: interact.startTime, end: interact.endTime }
-//     } else {
-//       return { id: 'n/a' }
-//     }
-//   }))
-// })
-
-// it('gets all interactions', () => {
-//   const interactions: MessageInteraction[] = []
-//   const contacts: PlanningContact[] = getNextInteraction(planningMessages2, activities, interactions, 0, 30, true)
-//   if (contacts) {
-//     const interactions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
-//       return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-//     })
-//     expect(interactions.length).toEqual(201)
-//   }
-// }
-// )
 
 it('fixes geometry timings', () => {
   const msgWithLocation = planningMessages2.find((msg: MessagePlanning) => {
