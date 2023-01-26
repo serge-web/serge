@@ -1,10 +1,11 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import * as turf from '@turf/turf'
-import { LineString } from 'geojson'
+import { Geometry, LineString, Polygon } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+import { calculateDetections, istarBoundingBox } from './istar-helper'
 
 type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
 
@@ -128,17 +129,8 @@ interface ProtectedTarget {
   protectedBy: Asset[]
 }
 
-const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
+const strikeOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
-  const res: MessageAdjudicationOutcomes = {
-    messageType: ADJUDICATION_OUTCOMES,
-    Reference: '', // leave blank, so backend creates it
-    important: false,
-    narrative: '',
-    healthOutcomes: [],
-    perceptionOutcomes: [],
-    locationOutcomes: []
-  }
   // loop through targets
   if (plan.message.otherAssets) {
     const ownForce = plan.details.from.forceId
@@ -196,15 +188,15 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
         asset: target.asset,
         health: 50
       }
-      res.healthOutcomes.push(health)
+      outcomes.healthOutcomes.push(health)
     })
-    !7 && console.log(plan, activity, forces, gameTime)
+    !7 && console.log(plan, forces)
   }
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
       return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
     })
-    res.narrative += message
+    outcomes.narrative += message
 
     // store the other assets
     const otherAssets: Array<Asset['uniqid']> = []
@@ -215,21 +207,12 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
         }
       })
     })
-    res.otherAssets = otherAssets
+    outcomes.otherAssets = otherAssets
   }
-  return res
+  return outcomes
 }
 
-const transitOutcomesFor = (plan: MessagePlanning, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
-  const res: MessageAdjudicationOutcomes = {
-    messageType: ADJUDICATION_OUTCOMES,
-    Reference: '', // leave blank, so backend creates it
-    important: false,
-    narrative: '',
-    healthOutcomes: [],
-    perceptionOutcomes: [],
-    locationOutcomes: []
-  }
+const transitOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   if (event === 'i-end' && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
     // ok, put the asset(s) at the destination
     const destGeom = plan.message.location[0].geometry.geometry as LineString
@@ -241,34 +224,95 @@ const transitOutcomesFor = (plan: MessagePlanning, event: INTERACTION_SHORT_CIRC
         asset: target.asset,
         location: [coords[1], coords[0]]
       }
-      res.locationOutcomes.push(outCome)
+      outcomes.locationOutcomes.push(outCome)
     })
     !7 && console.log(plan)
   }
-  return res
+  return outcomes
 }
 
-const eventOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+const istarOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+  if (!plan.message.location) {
+    console.warn('ISTAR plan doesn\'t have location data')
+    return outcomes
+  }
+
+  // find own force
+  const ownFor = plan.details.from.forceId || ''
+
+  // find the bounding box
+  const boxGeometry = istarBoundingBox(plan.message.location)
+  if (!boxGeometry) {
+    console.warn('Observation box missing')
+    return outcomes
+  }
+  const box = boxGeometry.geometry.geometry as Geometry as Polygon
+  const coords = box.coordinates
+
+  // find the period of coverage
+  const props = boxGeometry.geometry.properties as PlannedProps
+  const startTime = props.startTime || moment.utc(props.startDate).valueOf()
+  const endTime = props.endTime || moment.utc(props.endDate).valueOf()
+
+  // calculate the search rate
+  // NOTE: for now, this is fixed
+  const searchRateKm2perHour = 30
+
+
+  // run the calculator
+  const detections = calculateDetections(ownFor, forces, coords, startTime, endTime, searchRateKm2perHour)
+
+  console.log('detections', detections)
+
+  // create the perceptions
+  const perceptions = detections.map((item: {force: ForceData, asset: Asset}): PerceptionOutcome => {
+    return {
+      force: plan.details.from.forceId || '',
+      asset: item.asset.uniqid,
+      perceivedLocation: item.asset.position,
+      perceivedType: item.asset.platformTypeId,
+      perceivedName: item.asset.name,
+      perceivedForce: item.force.uniqid
+    }
+  })
+  if (perceptions.length) {
+    outcomes.perceptionOutcomes.push( ...perceptions )
+  }
+
+  if (event === 'i-end' && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
+    // ok, put the asset(s) at the destination
+    const destGeom = plan.message.location[0].geometry.geometry as LineString
+    const coords = destGeom.coordinates[destGeom.coordinates.length - 1]
+    // clean (shorten) coords
+
+    plan.message.ownAssets.forEach((target: { asset: string }) => {
+      const outCome: LocationOutcome = {
+        asset: target.asset,
+        location: [coords[1], coords[0]]
+      }
+      outcomes.locationOutcomes.push(outCome)
+    })
+    !7 && console.log(plan)
+  }
+  return outcomes
+}
+
+const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
     case 'STRIKE': {
-      return strikeOutcomesFor(plan, activity, forces, gameTime)
+      return strikeOutcomesFor(plan, outcomes, forces)
     }
     case 'TRANSIT': {
-      return transitOutcomesFor(plan, event)
+      return transitOutcomesFor(plan, outcomes, event)
+    }
+    case 'ISTAR': {
+      return istarOutcomesFor(plan, outcomes, activity, forces, event)
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
     }
   }
-  return {
-    healthOutcomes: [],
-    locationOutcomes: [],
-    perceptionOutcomes: [],
-    narrative: 'Pending',
-    important: false,
-    messageType: ADJUDICATION_OUTCOMES,
-    Reference: '' // leave blank, so backend creates it
-  }
+  return outcomes
 }
 
 interface TimedIntervention {
@@ -325,6 +369,16 @@ const getEventList = (cutoffTime: number, orders: MessagePlanning[], interaction
   return eventList
 }
 
+const emptyOutcomes: MessageAdjudicationOutcomes = {
+  healthOutcomes: [],
+  locationOutcomes: [],
+  perceptionOutcomes: [],
+  narrative: '',
+  important: false,
+  Reference: '',
+  messageType: ADJUDICATION_OUTCOMES
+}
+
 export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
   activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
   console.log('look for event before', moment.utc(cutoffTime).toISOString())
@@ -341,7 +395,8 @@ export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], int
       const contact = sorted[0].message
 
       // sort out the outcomes
-      const outcomes = eventOutcomesFor(contact, firstEvent.activity, forces, cutoffTime, firstEvent.event)
+      const bareOutcomes = { ...emptyOutcomes }
+      const outcomes = eventOutcomesFor(contact, bareOutcomes, firstEvent.activity, forces, firstEvent.event)
       const res: ShortCircuitEvent = {
         id: firstEvent.id,
         message: contact,
@@ -442,7 +497,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       complete: false,
       orders1Geometry: event.geomId
     }
-    const outcomes = eventOutcomesFor(event.message, event.activity, forces, gameTimeVal, event.event)
+    const outcomes = eventOutcomesFor(event.message, {... emptyOutcomes }, event.activity, forces, event.event)
     if (outcomes.otherAssets) {
       details.otherAssets = outcomes.otherAssets
       delete outcomes.otherAssets
@@ -554,7 +609,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
             endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
             complete: false
           }
-          const outcomes = eventOutcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal, eventInWindow.event)
+          const outcomes = eventOutcomesFor(eventInWindow.message, {... emptyOutcomes }, eventInWindow.activity, forces, eventInWindow.event)
           if (outcomes.otherAssets) {
             details.otherAssets = outcomes.otherAssets
             delete outcomes.otherAssets
@@ -587,7 +642,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         otherAssets: [],
         complete: false
       }
-      const outcomes = eventOutcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal, eventInWindow.event)
+      const outcomes = eventOutcomesFor(eventInWindow.message, {... emptyOutcomes }, eventInWindow.activity, forces, eventInWindow.event)
       if (outcomes.otherAssets) {
         details.otherAssets = outcomes.otherAssets
         delete outcomes.otherAssets
