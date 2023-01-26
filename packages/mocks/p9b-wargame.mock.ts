@@ -71,13 +71,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:0",
                                     "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        47.8926,
+                                        38.7471
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:0",
                                     "typeId": "blue_maritime_mine",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        47.8961,
+                                        38.7549
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -102,13 +110,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:1",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.4342,
+                                        51.7408
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:1",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.3830848991446,
+                                        51.570029040752495
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -153,7 +169,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:2",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        50.2728,
+                                        45.8408
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -180,13 +200,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:3",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.5889,
+                                        83.366
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:3",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.5889,
+                                        83.366
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -221,13 +249,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:4",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        37.2274,
+                                        73.0396
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:4",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        37.4854,
+                                        73.313
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -256,13 +292,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:5",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.1988,
+                                        62.1309
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:5",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.0053,
+                                        62.0044
+                                    ]
                                 }
                             ],
                             "health": 50,
@@ -291,13 +335,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:6",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.392813662446464,
+                                        51.660863623427666
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:6",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.392813662446464,
+                                        51.660863623427666
+                                    ]
                                 }
                             ],
                             "health": 90,
@@ -324,13 +376,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:7",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        35.8902,
+                                        45.4078
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:7",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        35.8902,
+                                        45.4078
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -371,7 +431,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:8",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        31.3682,
+                                        22.0875
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -398,19 +462,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:9",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        38.503,
+                                        29.4357
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:9",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        38.0289,
+                                        29.1653
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:9",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        38.3893,
+                                        29.3437
+                                    ]
                                 }
                             ],
                             "health": 5,
@@ -435,19 +511,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:10",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        55.1215,
+                                        39.3185
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:10",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.86750791546363,
+                                        39.52137707624843
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:10",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        55.1494,
+                                        39.1936
+                                    ]
                                 }
                             ],
                             "health": 0,
@@ -509,13 +597,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:12",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.7309,
+                                        23.6293
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:12",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.7309,
+                                        23.6293
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -560,7 +656,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:13",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.12583006216369,
+                                        44.97178468050092
+                                    ]
                                 }
                             ],
                             "health": 40,
@@ -599,7 +699,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:14",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.80384302790609,
+                                        39.07436002228477
+                                    ]
                                 }
                             ],
                             "health": 40,
@@ -626,13 +730,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:16",
                                     "typeId": "blue_land_c2",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        38.2786,
+                                        60.6903
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:16",
                                     "typeId": "blue_land_c2",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        37.9589,
+                                        60.6694
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -663,7 +775,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:17",
                                     "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        40.9342,
+                                        36.247
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -675,7 +791,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:17",
                                     "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        40.9342,
+                                        36.247
+                                    ]
                                 }
                             ],
                             "health": 50,
@@ -714,7 +834,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:18",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.8,
+                                        66.4966
+                                    ]
                                 }
                             ],
                             "health": 25,
@@ -745,7 +869,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:20",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.74040393167245,
+                                        52.0822096795412
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -778,19 +906,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:21",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.3606,
+                                        51.625
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:21",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.34854276455371,
+                                        51.48362531431719
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:21",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.34854276455371,
+                                        51.48362531431719
+                                    ]
                                 }
                             ],
                             "health": 75,
@@ -823,13 +963,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:22",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.7561568614964,
+                                        39.04378392227977
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:22",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.783,
+                                        38.9099
+                                    ]
                                 }
                             ],
                             "health": 90,
@@ -856,7 +1004,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:23",
                                     "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        52.3707,
+                                        26.9577
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -868,7 +1020,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:23",
                                     "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        52.4104,
+                                        27.5835
+                                    ]
                                 }
                             ],
                             "health": 75,
@@ -901,7 +1057,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:24",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.11710982437424,
+                                        51.874415972427286
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -977,13 +1137,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:26",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.81354679675008,
+                                        51.8633526617029
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:26",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.7785,
+                                        51.8674
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -1010,7 +1178,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:27",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        38.7798,
+                                        52.4527
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -1047,19 +1219,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:28",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        52.7879,
+                                        50.6934
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:28",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        52.851,
+                                        50.6693
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:28",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        53.2296,
+                                        50.8499
+                                    ]
                                 }
                             ],
                             "health": 70,
@@ -1082,13 +1266,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:29",
                                     "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        50.5164,
+                                        26.9068
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:29",
                                     "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        50.5164,
+                                        26.9068
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1126,13 +1318,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:30",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.3409,
+                                        73.2396
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:30",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.0095,
+                                        73.4825
+                                    ]
                                 }
                             ],
                             "health": 60,
@@ -1260,13 +1460,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:31",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.161762598053503,
+                                        62.33450909534515
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:31",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.0589,
+                                        62.5914
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1305,13 +1513,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:32",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        47.3242,
+                                        36.4399
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:32",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        47.3242,
+                                        36.4399
+                                    ]
                                 }
                             ],
                             "health": 85,
@@ -1337,7 +1553,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:33",
                                     "typeId": "blue_maritime_submarine",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.3748,
+                                        74.4208
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -1374,19 +1594,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:34",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.9154,
+                                        52.0343
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:34",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.9154,
+                                        52.0343
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:34",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.8932,
+                                        52.2069
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -1409,13 +1641,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:35",
                                     "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        31.1161,
+                                        30.7157
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:35",
                                     "typeId": "blue_land_sam",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        31.1161,
+                                        30.7157
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1448,19 +1688,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:36",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        35.8755,
+                                        52.3544
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:36",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        35.8755,
+                                        52.3544
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:36",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        35.8755,
+                                        52.3544
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -1486,19 +1738,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:37",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.2971,
+                                        44.9037
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:37",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.2971,
+                                        44.9037
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:37",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.2971,
+                                        44.9037
+                                    ]
                                 }
                             ],
                             "health": 75,
@@ -1521,13 +1785,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:38",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.790021986284174,
+                                        39.06267847545985
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:38",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.790021986284174,
+                                        39.06267847545985
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1566,13 +1838,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:39",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.19127934308574,
+                                        45.08403504425084
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:39",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.19127934308574,
+                                        45.08403504425084
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -1599,7 +1879,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:41",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.7391,
+                                        39.3558
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -1611,7 +1895,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:41",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.6796,
+                                        38.7343
+                                    ]
                                 }
                             ],
                             "health": 70,
@@ -1634,7 +1922,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:43",
                                     "typeId": "blue_maritime_submarine",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        43.7347,
+                                        76.6674
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -1671,13 +1963,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:44",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        44.7569,
+                                        71.7978
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:44",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        44.7569,
+                                        71.7978
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1720,7 +2020,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:45",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        51.2515,
+                                        81.7353
+                                    ]
                                 }
                             ],
                             "health": 40,
@@ -1788,7 +2092,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:47",
                                     "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        53.6921,
+                                        64.9178
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1826,7 +2134,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:48",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.0941,
+                                        51.8214
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -1865,13 +2177,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:49",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.378468687399508,
+                                        62.1211936610906
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:49",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.378468687399508,
+                                        62.1211936610906
+                                    ]
                                 }
                             ],
                             "health": 65,
@@ -1898,7 +2218,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:50",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        44.5625,
+                                        67.1996
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -1910,7 +2234,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:50",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        44.3594,
+                                        67.1061
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -1933,7 +2261,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:51",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        40.2705,
+                                        26.2469
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -1945,7 +2277,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:51",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        40.1232,
+                                        25.7993
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -1971,19 +2307,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:52",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        31.3537,
+                                        38.5324
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:52",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        31.4345,
+                                        38.4123
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:52",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        31.3537,
+                                        38.5324
+                                    ]
                                 }
                             ],
                             "health": 15,
@@ -2006,13 +2354,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:53",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.78604970025718,
+                                        39.05977758360606
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:53",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.9739,
+                                        39.0623
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -2051,7 +2407,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:55",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.5446,
+                                        44.7672
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -2084,7 +2444,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:56",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.263436713093945,
+                                        61.93663097971033
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -2096,7 +2460,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:56",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.263436713093945,
+                                        61.93663097971033
+                                    ]
                                 }
                             ],
                             "health": 5,
@@ -2123,19 +2491,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:57",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        50.9034,
+                                        53.8269
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:57",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        50.9034,
+                                        53.8269
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:57",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        50.9034,
+                                        53.8269
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -2229,13 +2609,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:58",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        37.3782,
+                                        43.6423
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:58",
                                     "typeId": "blue_maritime_fiac",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        37.2916,
+                                        43.3486
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -2278,7 +2666,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:59",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.269774424770674,
+                                        44.6831610648321
+                                    ]
                                 }
                             ],
                             "health": 65,
@@ -2305,13 +2697,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:60",
                                     "typeId": "blue_land_c2",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        48.0173,
+                                        22.8742
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:60",
                                     "typeId": "blue_land_c2",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        48.0051,
+                                        22.835
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -2342,7 +2742,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:61",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.3624,
+                                        51.8085
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -2381,19 +2785,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:62",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        48.092,
+                                        65.0801
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:62",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        47.9799,
+                                        65.0077
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:62",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        47.9799,
+                                        65.0077
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -2416,19 +2832,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:63",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        39.1048,
+                                        55.9079
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:63",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        38.9863,
+                                        56.1312
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:63",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        39.1677,
+                                        56.2996
+                                    ]
                                 }
                             ],
                             "health": 60,
@@ -2625,19 +3053,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:65",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        34.4398,
+                                        55.1252
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:65",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        34.4714,
+                                        55.1437
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:65",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        34.4714,
+                                        55.1437
+                                    ]
                                 }
                             ],
                             "health": 85,
@@ -2660,7 +3100,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:66",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.6008,
+                                        51.947
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -2672,7 +3116,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:66",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.78335041955734,
+                                        51.89349781890296
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -2736,19 +3184,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:68",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        45.9778,
+                                        51.6467
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:68",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.213,
+                                        51.6547
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:68",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.213,
+                                        51.6547
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -2777,13 +3237,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:69",
                                     "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.2061,
+                                        44.6465
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:69",
                                     "typeId": "blue_maritime_ship",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        46.2061,
+                                        44.6465
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -2853,13 +3321,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:72",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.79934934080792,
+                                        51.87585210940132
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:72",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.79934934080792,
+                                        51.87585210940132
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -2886,7 +3362,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:76",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        48.4251,
+                                        44.3535
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -2898,7 +3378,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Blue:76",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        48.4251,
+                                        44.3535
+                                    ]
                                 }
                             ],
                             "health": 65,
@@ -2958,19 +3442,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:77",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.9863,
+                                        39.3405
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:77",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.87469537290555,
+                                        39.195330832744965
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:77",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.87469537290555,
+                                        39.195330832744965
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -3003,13 +3499,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:78",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.93131570333072,
+                                        51.82758499243218
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:78",
                                     "typeId": "blue_air_logs",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.7825,
+                                        51.3526
+                                    ]
                                 }
                             ],
                             "health": 55,
@@ -3036,13 +3540,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:79",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        42.8027,
+                                        54.4403
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:79",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        42.8027,
+                                        54.4403
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3071,13 +3583,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:80",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.7502,
+                                        63.0687
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:80",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.7502,
+                                        63.0687
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3110,19 +3630,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:81",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.6526,
+                                        51.8376
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:81",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.9299827692028,
+                                        52.241144485434
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:81",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        29.9299827692028,
+                                        52.241144485434
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -3186,13 +3718,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:83",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        40.1356,
+                                        26.8013
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:83",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        40.1356,
+                                        26.8013
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3221,13 +3761,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:85",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        45.379,
+                                        72.6178
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:85",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        45.379,
+                                        72.6178
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3291,13 +3839,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:87",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.300187175794875,
+                                        44.68056043126746
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:87",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        36.300187175794875,
+                                        44.68056043126746
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3374,13 +3930,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:90",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.53817954759286,
+                                        39.36061422231187
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:90",
                                     "typeId": "blue_air_istar",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.4761,
+                                        39.2982
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -3407,7 +3971,11 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:91",
                                     "typeId": "blue_air_fighter",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.485,
+                                        39.2329
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -3452,13 +4020,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:92",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.37,
+                                        39.9206
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:92",
                                     "typeId": "blue_land_ssm",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        54.37,
+                                        39.9206
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -3491,7 +4067,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Blue:93",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        41.5472,
+                                        26.0307
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3558,19 +4138,31 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:95",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        32.9712,
+                                        25.7194
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:95",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        32.8752,
+                                        25.467
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Blue:95",
                                     "typeId": "blue_land_asset",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        32.9712,
+                                        25.7194
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -3593,13 +4185,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:97",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        32.7733,
+                                        29.099
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:97",
                                     "typeId": "blue_maritime_mtg",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        33.1102,
+                                        29.0926
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3698,13 +4298,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:98",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        28.9942,
+                                        44.8984
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:98",
                                     "typeId": "blue_land_unit",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        28.9942,
+                                        44.8984
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3736,13 +4344,21 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:99",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.3645,
+                                        62.0336
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Blue:99",
                                     "typeId": "blue_air_bomber",
-                                    "force": "f-blue"
+                                    "force": "f-blue",
+                                    "position": [
+                                        30.7173,
+                                        61.7594
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3835,13 +4451,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:0",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.0439,
+                                        34.2781
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:0",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.0439,
+                                        34.2781
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3870,13 +4494,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:1",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.2375,
+                                        73.9607
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:1",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.9649,
+                                        74.359
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -3917,7 +4549,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:2",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.5183,
+                                        77.9241
+                                    ]
                                 }
                             ],
                             "health": 55,
@@ -3956,7 +4592,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:3",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.5814,
+                                        66.0674
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -3979,7 +4619,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:4",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.439902597479236,
+                                        40.85514218467267
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -3991,7 +4635,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:4",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.439902597479236,
+                                        40.85514218467267
+                                    ]
                                 }
                             ],
                             "health": 55,
@@ -4024,13 +4672,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:5",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.0359,
+                                        38.1328
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:5",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.2172,
+                                        38.1348
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -4053,13 +4709,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:7",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.3951,
+                                        49.664
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:7",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.0661,
+                                        49.9233
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -4088,19 +4752,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:8",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.6178,
+                                        31.2233
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:8",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.6178,
+                                        31.2233
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:8",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.6007,
+                                        31.36
+                                    ]
                                 }
                             ],
                             "health": 50,
@@ -4129,13 +4805,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:9",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.5291,
+                                        78.1657
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:9",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.4773,
+                                        77.8108
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -4164,13 +4848,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:10",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.7999,
+                                        29.8623
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:10",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        28.1827,
+                                        30.1024
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -4197,7 +4889,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:11",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.564918177555528,
+                                        35.926138613052444
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -4209,7 +4905,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:11",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.564918177555528,
+                                        35.926138613052444
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -4236,19 +4936,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:12",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        19.7545,
+                                        81.1644
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:12",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        19.6692,
+                                        81.1273
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:12",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        19.6826,
+                                        81.1152
+                                    ]
                                 }
                             ],
                             "health": 5,
@@ -4308,13 +5020,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:13",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.1404,
+                                        52.1276
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:13",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.1404,
+                                        52.1276
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -4343,19 +5063,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:14",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.710637119570142,
+                                        35.96678259790696
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:14",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.710637119570142,
+                                        35.96678259790696
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:14",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.710637119570142,
+                                        35.96678259790696
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -4388,13 +5120,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:16",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.7743,
+                                        41.7679
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:16",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.5404,
+                                        41.2305
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -4429,7 +5169,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:17",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.4784,
+                                        41.031
+                                    ]
                                 }
                             ],
                             "health": 15,
@@ -4458,13 +5202,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:18",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        24.2453,
+                                        65.1249
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:18",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        24.2453,
+                                        65.1249
+                                    ]
                                 }
                             ],
                             "health": 60,
@@ -4487,13 +5239,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:19",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.0389,
+                                        30.4862
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:19",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.0389,
+                                        30.4862
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -4592,7 +5352,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:20",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.1155,
+                                        31.16
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -4604,7 +5368,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:20",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.1155,
+                                        31.16
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -4631,13 +5399,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:21",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.6595,
+                                        42.9619
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:21",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.4534,
+                                        42.9136
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -4703,19 +5479,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:23",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.4856,
+                                        42.7292
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:23",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.4856,
+                                        42.7292
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:23",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.4856,
+                                        42.7292
+                                    ]
                                 }
                             ],
                             "health": 85,
@@ -4738,13 +5526,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:24",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.330701244818076,
+                                        41.133736298147326
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:24",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.330701244818076,
+                                        41.133736298147326
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -4777,7 +5573,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:25",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        9.0432,
+                                        52.643
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -4789,7 +5589,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:25",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        8.8777,
+                                        52.8289
+                                    ]
                                 }
                             ],
                             "health": 50,
@@ -4867,7 +5671,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:27",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.386447108442569,
+                                        40.87627807103341
+                                    ]
                                 }
                             ],
                             "health": 45,
@@ -4894,7 +5702,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:28",
                                     "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        8.5659,
+                                        84.8959
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -4906,7 +5718,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:28",
                                     "typeId": "red_maritime_submarine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        8.5659,
+                                        84.8959
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -4931,13 +5747,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:29",
                                     "typeId": "red_maritime_fiac",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        24.0755,
+                                        29.5512
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:29",
                                     "typeId": "red_maritime_fiac",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        24.0755,
+                                        29.5512
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -4968,13 +5792,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:31",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.6202,
+                                        27.8195
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:31",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.7104,
+                                        28.001
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -5006,19 +5838,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:32",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.7581633397764,
+                                        35.9513632114755
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:32",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.6465,
+                                        35.9106
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:32",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.5742,
+                                        35.5464
+                                    ]
                                 }
                             ],
                             "health": 80,
@@ -5045,19 +5889,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:33",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        7.4965,
+                                        24.2746
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:33",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        8.0713,
+                                        24.2911
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:33",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        7.5286,
+                                        24.237
+                                    ]
                                 }
                             ],
                             "health": 70,
@@ -5117,19 +5973,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:34",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.681256477768343,
+                                        78.26225490156736
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:34",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.681256477768343,
+                                        78.26225490156736
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:34",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.681256477768343,
+                                        78.26225490156736
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -5156,7 +6024,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:35",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.762680758885622,
+                                        35.62092905151478
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -5195,7 +6067,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:36",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        28.1752,
+                                        29.4696
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -5207,7 +6083,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:36",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        28.1752,
+                                        29.4696
+                                    ]
                                 }
                             ],
                             "health": 55,
@@ -5273,7 +6153,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:37",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        18.0741,
+                                        59.8379
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -5314,7 +6198,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:38",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        18.0273,
+                                        45.0951
+                                    ]
                                 }
                             ],
                             "health": 25,
@@ -5337,7 +6225,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:39",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        22.601,
+                                        35.9105
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -5451,19 +6343,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:42",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.3135,
+                                        43.9726
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:42",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.2063,
+                                        43.6983
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:42",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.3135,
+                                        43.9726
+                                    ]
                                 }
                             ],
                             "health": 75,
@@ -5486,7 +6390,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:43",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.2219,
+                                        40.4058
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -5527,7 +6435,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:44",
                                     "typeId": "red_maritime_fiac",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.7423,
+                                        23.5538
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -5558,19 +6470,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:45",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.4043,
+                                        34.4826
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:45",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.21771202015732,
+                                        34.32651305245667
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:45",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.21771202015732,
+                                        34.32651305245667
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -5597,19 +6521,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:46",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.6806,
+                                        35.785
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:46",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.6806,
+                                        35.785
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:46",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        13.0578,
+                                        35.7741
+                                    ]
                                 }
                             ],
                             "health": 25,
@@ -5632,19 +6568,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:47",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.9151,
+                                        34.0686
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:47",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.975858858273106,
+                                        34.10398551619159
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:47",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.9541,
+                                        34.0511
+                                    ]
                                 }
                             ],
                             "health": 70,
@@ -5683,7 +6631,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:48",
                                     "typeId": "red_land_c2",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        25.0956,
+                                        65.7104
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -5708,7 +6660,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:49",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.8312,
+                                        61.5353
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -5752,13 +6708,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:50",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.3124,
+                                        42.6005
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:50",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.3741,
+                                        42.5171
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -5791,7 +6755,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:51",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        13.7303,
+                                        63.2357
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -5826,7 +6794,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:52",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.8162,
+                                        78.4456
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -5859,7 +6831,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:53",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        22.0242,
+                                        81.8386
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -5871,7 +6847,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:53",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        21.6005,
+                                        81.9023
+                                    ]
                                 }
                             ],
                             "health": 65,
@@ -5900,7 +6880,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:54",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        19.0343,
+                                        78.5743
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -5966,13 +6950,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:55",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        3.8403,
+                                        24.1815
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:55",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        3.8787,
+                                        24.4348
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6011,7 +7003,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:56",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        23.9837,
+                                        49.7966
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6040,19 +7036,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:57",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        13.2679,
+                                        23.6653
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:57",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        13.2725,
+                                        23.6395
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:57",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        13.2725,
+                                        23.6395
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -6077,7 +7085,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:58",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        23.2696,
+                                        25.2722
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -6166,7 +7178,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:62",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        18.0051,
+                                        32.9816
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -6205,7 +7221,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:63",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        9.84,
+                                        47.3278
+                                    ]
                                 }
                             ],
                             "health": 10,
@@ -6228,13 +7248,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:64",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        8.7932,
+                                        29.0108
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:64",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        8.823,
+                                        28.6466
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6272,13 +7300,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:65",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.3807,
+                                        41.5882
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:65",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.3641436978865835,
+                                        41.17003629083843
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -6305,19 +7341,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:66",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.2061,
+                                        36.402
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:66",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.1651,
+                                        36.1474
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:66",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.2061,
+                                        36.402
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -6352,7 +7400,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:67",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.223730617874917,
+                                        34.27446995507758
+                                    ]
                                 }
                             ],
                             "health": 0,
@@ -6385,13 +7437,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:68",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.2246,
+                                        82.2637
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:68",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.2246,
+                                        82.2637
+                                    ]
                                 }
                             ],
                             "health": 20,
@@ -6424,7 +7484,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:69",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        7.7116,
+                                        56.108
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6459,7 +7523,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:70",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.20462619487544,
+                                        34.193619600007054
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6492,13 +7560,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:71",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.635561245319858,
+                                        40.943440354185995
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:71",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.635561245319858,
+                                        40.943440354185995
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6537,13 +7613,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:72",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        24.0336,
+                                        78.5787
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:72",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        24.0336,
+                                        78.5787
+                                    ]
                                 }
                             ],
                             "health": 90,
@@ -6568,7 +7652,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:73",
                                     "typeId": "red_land_c2",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.9576,
+                                        32.2175
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -6580,7 +7668,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:73",
                                     "typeId": "red_land_c2",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.9576,
+                                        32.2175
+                                    ]
                                 }
                             ],
                             "health": 15,
@@ -6611,13 +7703,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:74",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.1812,
+                                        34.8177
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:74",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.210071310574804,
+                                        34.350128623069835
+                                    ]
                                 }
                             ],
                             "health": 0,
@@ -6644,13 +7744,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:75",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.3596,
+                                        78.1005
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:75",
                                     "typeId": "red_air_logs",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        6.361626382146199,
+                                        78.0996803106867
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6720,19 +7828,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:77",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        9.9569,
+                                        42.4052
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:77",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        9.8146,
+                                        42.4842
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:77",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        9.9569,
+                                        42.4052
+                                    ]
                                 }
                             ],
                             "health": 80,
@@ -6755,13 +7875,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:78",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.0755,
+                                        24.7608
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:78",
                                     "typeId": "red_land_sam",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        26.0409,
+                                        24.7305
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6806,7 +7934,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:79",
                                     "typeId": "red_land_ssm",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.5686,
+                                        51.8172
+                                    ]
                                 }
                             ],
                             "health": 35,
@@ -6839,7 +7971,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:80",
                                     "typeId": "red_land_c2",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        10.2658,
+                                        61.3075
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -6876,13 +8012,21 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:81",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        20.5285,
+                                        67.1884
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:81",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        20.5285,
+                                        67.1884
+                                    ]
                                 }
                             ],
                             "health": 40,
@@ -6907,19 +8051,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:82",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.9159,
+                                        29.0008
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:82",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.8482,
+                                        29.0998
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:82",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.9159,
+                                        29.0008
+                                    ]
                                 }
                             ],
                             "health": 50,
@@ -6944,19 +8100,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:83",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        18.1212,
+                                        65.3394
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:83",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        18.1212,
+                                        65.3394
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:83",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        18.1279,
+                                        65.3118
+                                    ]
                                 }
                             ],
                             "health": 30,
@@ -6979,13 +8147,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:84",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.97488802417341,
+                                        45.27601397390213
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:84",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        17.9756,
+                                        45.2785
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -7018,19 +8194,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:85",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        25.689,
+                                        83.8651
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:85",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        25.689,
+                                        83.8651
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:85",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        25.689,
+                                        83.8651
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -7091,7 +8279,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:87",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.8443,
+                                        46.0119
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -7103,7 +8295,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:87",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.8626,
+                                        46.4354
+                                    ]
                                 }
                             ],
                             "health": 85,
@@ -7138,7 +8334,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:88",
                                     "typeId": "red_air_istar",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        12.844738592948971,
+                                        35.86041325762552
+                                    ]
                                 }
                             ],
                             "health": 40,
@@ -7165,13 +8365,21 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:89",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.07125961176953,
+                                        40.50596757416454
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:89",
                                     "typeId": "red_air_fighter",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.0283,
+                                        40.4872
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -7204,19 +8412,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:90",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.1735,
+                                        76.9828
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:90",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.367,
+                                        76.8127
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:90",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        27.1735,
+                                        76.9828
+                                    ]
                                 }
                             ],
                             "health": 65,
@@ -7241,7 +8461,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:91",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.524,
+                                        35.9746
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -7253,7 +8477,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:91",
                                     "typeId": "red_maritime_mine",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        11.4134,
+                                        35.6829
+                                    ]
                                 }
                             ],
                             "health": 75,
@@ -7278,19 +8506,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:92",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.0986,
+                                        65.5333
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:92",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.095,
+                                        65.521
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:92",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        16.095,
+                                        65.521
+                                    ]
                                 }
                             ],
                             "health": 80,
@@ -7313,7 +8553,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:93",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        2.9228,
+                                        73.4079
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -7356,7 +8600,11 @@ const game: Wargame = {
                                     "by": "f-green",
                                     "name": "Red:94",
                                     "typeId": "red_land_asset",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.3926,
+                                        68.8564
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
@@ -7385,7 +8633,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:95",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.058,
+                                        69.8971
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
@@ -7397,7 +8649,11 @@ const game: Wargame = {
                                     "by": "f-white",
                                     "name": "Red:95",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        15.058,
+                                        69.8971
+                                    ]
                                 }
                             ],
                             "health": 60,
@@ -7461,19 +8717,31 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:97",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        22.7216,
+                                        42.3406
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
                                     "name": "Red:97",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        22.7216,
+                                        42.3406
+                                    ]
                                 },
                                 {
                                     "by": "f-white",
                                     "name": "Red:97",
                                     "typeId": "red_land_unit",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        22.9568,
+                                        42.1102
+                                    ]
                                 }
                             ],
                             "health": 95,
@@ -7499,7 +8767,11 @@ const game: Wargame = {
                                     "by": "f-blue",
                                     "name": "Red:99",
                                     "typeId": "red_maritime_mtg",
-                                    "force": "f-red"
+                                    "force": "f-red",
+                                    "position": [
+                                        5.4369,
+                                        24.2401
+                                    ]
                                 },
                                 {
                                     "by": "f-green",
