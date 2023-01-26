@@ -256,7 +256,7 @@ const istarOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
 
   // calculate the search rate
   // NOTE: for now, this is fixed
-  const searchRateKm2perHour = 30
+  const searchRateKm2perHour = 100000
 
 
   // run the calculator
