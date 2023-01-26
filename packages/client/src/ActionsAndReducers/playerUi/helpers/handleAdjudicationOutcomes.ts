@@ -49,22 +49,23 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
       res.name = perception.perceivedName
     }
     if (perception.perceivedLocation) {
-      // if we can parse a number array, set new location, else clear the location
-      let newLocation: [number, number] | undefined
-      try {
-        const parsedStr = JSON.parse(perception.perceivedLocation)
-        if (Array.isArray(parsedStr)) {
-          newLocation = parsedStr as [number, number]       
+      if (perception.perceivedLocation.toLowerCase() === 't') {
+        if (asset.location) {
+          res.position = asset.location
         }
-      } catch (err) {
-        // set flag to clear location
-        newLocation = undefined
-      }
-      if (newLocation) {
-        res.position = newLocation
-      } else {
-        // umpire wishes to clear perceived location
+      } else if (perception.perceivedLocation.toLowerCase() === 'x') {
         delete res.position
+      } else {
+        try {
+          const parsedStr = JSON.parse(perception.perceivedLocation)
+          if (Array.isArray(parsedStr)) {
+            res.position = parsedStr as [number, number]       
+          }
+        } catch (err) {
+          console.warn('Failed to parse location for', asset.uniqid, perception.perceivedLocation)
+          // clear location
+          delete res.position 
+        }  
       }
     }
   })
