@@ -145,7 +145,7 @@ const p9StockTemplates: TemplateBody[] = [
                 type: 'string'
               },
               perceivedLocation: {
-                title: 'Location ([1,2] or "lost")',
+                title: 'Location t/[1,2]/x',
                 propertyOrder: 65,
                 type: 'string'
               },
