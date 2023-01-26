@@ -1,9 +1,12 @@
-import { INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import * as turf from '@turf/turf'
+import { LineString } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
+
+type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
 
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
@@ -27,7 +30,7 @@ export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[],
   return []
 }
 
-export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity => {
+export const findActivity = (name: string, activities: PerForcePlanningActivitySet): PlanningActivity | undefined => {
   let res: PlanningActivity | undefined
   activities.groupedActivities.find((group: GroupedActivitySet) => {
     group.activities.find((plan: PlanningActivity) => {
@@ -39,36 +42,80 @@ export const findActivity = (name: string, activities: PerForcePlanningActivityS
     return res
   })
   if (!res) {
-    console.log('act', activities.force, activities.groupedActivities[0].activities[0].actId)
-    throw Error('Failed to find group activities for this activity:' + name)
+    console.warn('Failed to find group activities for this activity:', name)
+    return undefined
   }
   return res
 }
 
-const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
+export const timeForActivity = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): number => {
+  console.log('time for', plan, activity, iType)
+  return 1
+}
+
+const roundedRandomTime = (start: number, end: number): number => {
+  // TODO: switch back to randomly generated time
+  // const delta = Math.random() * (end - start)
+  const delta = 0.5 * (end - start)
+  const mins5 = 5 * 60 * 1000
+  const rounded = Math.floor(delta / mins5) * mins5
+  return start + rounded
+}
+
+const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): TimePlusGeometry => {
   // do we have routing?
-  if (activity.geometries && activity.geometries.length) {
+  if (activity.geometries && activity.geometries.length > 0) {
     // for `first`, use end-time of route-out (first line geometry)
     // for `last`, use start-time of route-back (last line geometry)
     // for `random` create period between `first` and `last`
-    console.warn('NOT YET IMPLEMENTED - GETTING TIME FROM GEOMETRIES')
-  } else {
-    // just use overall message timing
-    const tStart = moment.utc(plan.message.startDate).valueOf()
-    const tEnd = moment.utc(plan.message.endDate).valueOf()
-    switch (iType) {
-      case INTER_AT_END:
-        return tEnd
-      case INTER_AT_START:
-        return tStart
-      case INTER_AT_RANDOM:
-      default: {
-        const delta = tEnd - tStart
-        return tStart + (Math.random() * delta)
+    if (plan.message.location) {
+      let period: [number, number] | undefined
+      let geomName: string | undefined
+      const allPolygons = activity.geometries.filter((plan: PlanningActivityGeometry) => plan.aType === GeometryType.polygon)
+      const lastPolygon = allPolygons.length && allPolygons[allPolygons.length - 1]
+      if (lastPolygon) {
+        const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === lastPolygon.uniqid)
+        if (plannedActivity) {
+          const props = plannedActivity.geometry.properties as PlannedProps
+          period = [props.startTime, props.endTime]
+          geomName = lastPolygon.uniqid
+        }
       }
+      if (!period) {
+        // just take start of first activity, to end of last activity
+        const timeFor = (planned: PlannedActivityGeometry): [number, number] => {
+          const props = planned.geometry.properties as PlannedProps
+          return [props.startTime, props.endTime]
+        }
+        const firstPeriod = timeFor(plan.message.location[0])
+        const lastPeriod = timeFor(plan.message.location[plan.message.location.length - 1])
+        period = [firstPeriod[0], lastPeriod[1]]
+      }
+      // work out the active time period
+      switch (iType) {
+        case INTER_AT_END:
+          return { time: period[1], geometry: geomName }
+        case INTER_AT_START:
+          return { time: period[0], geometry: geomName }
+        case INTER_AT_RANDOM:
+          return { time: roundedRandomTime(period[0], period[1]), geometry: geomName }
+      }
+    } else {
+      console.warn('Cannot breakdown activity, locations missing')
     }
   }
-  return -1
+  // just use overall message timing
+  const tStart = moment.utc(plan.message.startDate).valueOf()
+  const tEnd = moment.utc(plan.message.endDate).valueOf()
+
+  switch (iType) {
+    case INTER_AT_END:
+      return { time: tEnd, geometry: undefined }
+    case INTER_AT_START:
+      return { time: tStart, geometry: undefined }
+    case INTER_AT_RANDOM:
+      return { time: roundedRandomTime(tStart[0], tEnd[1]), geometry: undefined }
+  }
 }
 
 /** record of how a target site is protected */
@@ -84,7 +131,7 @@ interface ProtectedTarget {
 const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   const res: MessageAdjudicationOutcomes = {
-    messageType: 'AdjudicationOutcomes',
+    messageType: ADJUDICATION_OUTCOMES,
     Reference: '', // leave blank, so backend creates it
     important: false,
     narrative: '',
@@ -153,7 +200,6 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
     })
     !7 && console.log(plan, activity, forces, gameTime)
   }
-
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
       return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
@@ -174,10 +220,41 @@ const strikeOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, fo
   return res
 }
 
-const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number): MessageAdjudicationOutcomes => {
+const transitOutcomesFor = (plan: MessagePlanning, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+  const res: MessageAdjudicationOutcomes = {
+    messageType: ADJUDICATION_OUTCOMES,
+    Reference: '', // leave blank, so backend creates it
+    important: false,
+    narrative: '',
+    healthOutcomes: [],
+    perceptionOutcomes: [],
+    locationOutcomes: []
+  }
+  if (event === 'i-end' && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
+    // ok, put the asset(s) at the destination
+    const destGeom = plan.message.location[0].geometry.geometry as LineString
+    const coords = destGeom.coordinates[destGeom.coordinates.length - 1]
+    // clean (shorten) coords
+
+    plan.message.ownAssets.forEach((target: { asset: string }) => {
+      const outCome: LocationOutcome = {
+        asset: target.asset,
+        location: [coords[1], coords[0]]
+      }
+      res.locationOutcomes.push(outCome)
+    })
+    !7 && console.log(plan)
+  }
+  return res
+}
+
+const eventOutcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: ForceData[], gameTime: number, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
     case 'STRIKE': {
       return strikeOutcomesFor(plan, activity, forces, gameTime)
+    }
+    case 'TRANSIT': {
+      return transitOutcomesFor(plan, event)
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
@@ -189,24 +266,24 @@ const outcomesFor = (plan: MessagePlanning, activity: PlanningActivity, forces: 
     perceptionOutcomes: [],
     narrative: 'Pending',
     important: false,
-    messageType: 'AdjudicationOutcomes',
+    messageType: ADJUDICATION_OUTCOMES,
     Reference: '' // leave blank, so backend creates it
   }
 }
 
-export const checkForEvent = (gameTime: number, orders: MessagePlanning[], interactionIDs: string[],
-  activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
-  interface TimedIntervention {
-    // id of the interaction (composite of planning message & event)
-    id: string
-    time: number
-    timeStr: string
-    message: MessagePlanning
-    activity: PlanningActivity
-  }
+interface TimedIntervention {
+  // id of the interaction (composite of planning message & event)
+  id: string
+  time: number
+  timeStr: string
+  event: INTERACTION_SHORT_CIRCUIT
+  message: MessagePlanning
+  activity: PlanningActivity
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
+}
 
-  console.log('look for event before', moment.utc(gameTime).toISOString())
-
+const getEventList = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
+  activities: PerForcePlanningActivitySet[]): TimedIntervention[] => {
   // loop through plans
   const eventList: TimedIntervention[] = []
   orders.forEach((plan: MessagePlanning) => {
@@ -215,26 +292,44 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     if (forceActivities) {
       const actName = plan.message.activity
       const activity = findActivity(actName, forceActivities)
-      const activityEvents = activity.events
-      if (activityEvents) {
-        activityEvents.forEach((short: INTERACTION_SHORT_CIRCUIT) => {
-          const thisTime = timeFor(plan, activity, short)
-          if (thisTime) {
-            const interactionId = plan._id + ' ' + short
-            // check this hasn't been processed already
-            if (interactionIDs.find((id: string) => id === interactionId)) {
-              console.log('Skipping this event, already processed', interactionId)
-            } else {
-              // check the time of this event has passed
-              if (thisTime <= gameTime) {
-                eventList.push({ time: thisTime, message: plan, timeStr: moment(thisTime).toISOString(), activity: activity, id: interactionId })
+      if (activity) {
+        const activityEvents = activity.events
+        if (activityEvents) {
+          activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {
+            const thisTime = timeFor(plan, activity, event)
+            if (thisTime) {
+              const interactionId = plan._id + ' ' + event
+              // check this hasn't been processed already
+              if (interactionIDs.find((id: string) => id === interactionId)) {
+                console.log('Skipping this event, already processed', interactionId)
+              } else {
+                // check the time of this event has passed
+                if (thisTime.time <= cutoffTime) {
+                  eventList.push({
+                    id: interactionId,
+                    event: event,
+                    message: plan,
+                    time: thisTime.time,
+                    timeStr: moment(thisTime.time).toISOString(),
+                    activity: activity,
+                    geomId: thisTime.geometry
+                  })
+                }
               }
             }
-          }
-        })
+          })
+        }
       }
     }
   })
+  return eventList
+}
+
+export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
+  activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
+  console.log('look for event before', moment.utc(cutoffTime).toISOString())
+
+  const eventList = getEventList(cutoffTime, orders, interactionIDs, activities)
 
   if (eventList.length) {
     // sort in ascending
@@ -242,19 +337,21 @@ export const checkForEvent = (gameTime: number, orders: MessagePlanning[], inter
     const firstEvent = sorted[0]
     const eventTime = firstEvent.time
 
-    if (eventTime <= gameTime) {
+    if (eventTime <= cutoffTime) {
       const contact = sorted[0].message
 
       // sort out the outcomes
-      const outcomes = outcomesFor(contact, firstEvent.activity, forces, gameTime)
+      const outcomes = eventOutcomesFor(contact, firstEvent.activity, forces, cutoffTime, firstEvent.event)
       const res: ShortCircuitEvent = {
         id: firstEvent.id,
         message: contact,
+        event: firstEvent.event,
         timeStart: eventTime,
         timeEnd: eventTime,
         intersection: undefined,
         outcomes: outcomes,
-        activity: firstEvent.activity
+        activity: firstEvent.activity,
+        geomId: firstEvent.geomId
       }
       return res
     } else {
@@ -277,7 +374,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 }
 
 export type CompositeInteractionResults = { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
-export type InteractionResults = CompositeInteractionResults | number | undefined
+export type InteractionResults = CompositeInteractionResults | [number, number] | undefined
 
 const startBeforeTime = (msg: GeomWithOrders, time: number) => {
   const props = msg.geometry.properties as PlannedProps
@@ -287,6 +384,27 @@ const startBeforeTime = (msg: GeomWithOrders, time: number) => {
 const endAfterTime = (msg: GeomWithOrders, time: number) => {
   const props = msg.geometry.properties as PlannedProps
   return props.endTime > time
+}
+
+const listPlans = (orders: MessagePlanning[], gameTime: string): void => {
+  console.log('---- ' + gameTime + ' -------')
+  const dateFor = (date: string): string => {
+    return moment.utc(date).format('MMM DDHHmm[Z]')
+  }
+  const colsFor = (plan: MessagePlanning): Record<string, string> => {
+    const startD = moment(plan.message.startDate).valueOf()
+    const endD = moment(plan.message.endDate).valueOf()
+    return {
+      ref: plan.message.Reference,
+      start: dateFor(plan.message.startDate),
+      mid: dateFor(moment.utc(roundedRandomTime(startD, endD)).toISOString()),
+      end: dateFor(plan.message.endDate)
+    }
+  }
+  const sortAsc = _.sortBy(orders, (order: MessagePlanning) => order.message.startDate)
+  console.table(sortAsc.map((plan: MessagePlanning) => {
+    return colsFor(plan)
+  }))
 }
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
@@ -304,6 +422,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     return inter.id
   })
 
+  listPlans(orders, gameTime)
+
   console.log('earliest time', gameTime, gameTurnEnd, moment(earliestTime).toISOString(), ' interactions:', interactions.length)
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
@@ -316,11 +436,13 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     const details: InteractionDetails = {
       id: event.id,
       orders1: event.message._id,
+      event: event.event,
       startTime: moment.utc(event.timeStart).toISOString(),
       endTime: moment.utc(event.timeEnd).toISOString(),
-      complete: false
+      complete: false,
+      orders1Geometry: event.geomId
     }
-    const outcomes = outcomesFor(event.message, event.activity, forces, gameTimeVal)
+    const outcomes = eventOutcomesFor(event.message, event.activity, forces, gameTimeVal, event.event)
     if (outcomes.otherAssets) {
       details.otherAssets = outcomes.otherAssets
       delete outcomes.otherAssets
@@ -338,6 +460,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 
     const contacts: PlanningContact[] = []
     let eventInWindow: ShortCircuitEvent | undefined
+    let allRemainingEvents: TimedIntervention[] = []
 
     console.log('about to start looping for interaction, window size:', fullTurnLength, currentWindowMillis, moment.utc(fullTurnLength).format('d HH:mm'), moment.utc(currentWindowMillis).format('d HH:mm'))
 
@@ -345,7 +468,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const windowEnd = gameTimeVal + currentWindowMillis
 
       // if we're doing get-all, don't bother with shortcircuits
-      if (!getAll) {
+
+      if (getAll) {
+        allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities)
+      } else {
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
         console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
       }
@@ -357,7 +483,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
       const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
-      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
+      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length, geometriesInTimeWindow)
       // console.table(liveOrders.map((plan: MessagePlanning) => {
       //   return {
       //     id: plan._id,
@@ -381,10 +507,21 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       // console.log('Existing interactions received', existingInteractionIDs.length)
 
       binnedOrders.forEach((bin: SpatialBin, _index: number) => {
+        // console.log('bin', _index, bin.orders.length)
+        // console.table(bin.orders.map((geom) => {
+        //   const props = geom.geometry.properties as PlannedProps
+        //   return {
+        //     id: geom.id,
+        //     force: geom.force,
+        //     geom: geom.geometry.type,
+        //     start: props.startDate,
+        //     end: props.endDate
+        //   }
+        // }))
         const newContacts = findTouching(bin.orders, interactionsConsidered, existingInteractionIDs,
           interactionsTested, sensorRangeKm)
-        contacts.push(...newContacts)
         !7 && console.log('bin', _index, bin.orders.length, newContacts.length, interactionsConsidered.length)
+        contacts.push(...newContacts)
       })
 
       // console.log('binning complete, contacts:', contacts.length)
@@ -398,6 +535,8 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const sortedContacts = _.sortBy(contacts, function (contact) { return moment.utc(contact.timeStart).valueOf() })
       const firstContact = sortedContacts[0]
 
+      console.log('contact', firstContact)
+
       // just check there isn't a short-circuit before this
       if (eventInWindow !== undefined) {
         const eventTime = eventInWindow.timeStart
@@ -408,12 +547,14 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           // return the short-circuit interaction
           const details: InteractionDetails = {
             id: eventInWindow.id,
+            event: eventInWindow.event,
             orders1: eventInWindow.message._id,
+            orders1Geometry: eventInWindow.geomId,
             startTime: moment.utc(eventInWindow.timeStart).toISOString(),
             endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
             complete: false
           }
-          const outcomes = outcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal)
+          const outcomes = eventOutcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal, eventInWindow.event)
           if (outcomes.otherAssets) {
             details.otherAssets = outcomes.otherAssets
             delete outcomes.otherAssets
@@ -428,7 +569,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       } else {
         console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
         if (getAll) {
-          return contacts.length
+          return [allRemainingEvents.length, contacts.length]
         } else {
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(firstContact)
@@ -439,13 +580,14 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       console.log('Gen 3 - Have event, but no contacts', eventInWindow.id)
       const details: InteractionDetails = {
         id: eventInWindow.id,
+        event: eventInWindow.event,
         orders1: eventInWindow.message._id,
         startTime: moment.utc(eventInWindow.timeStart).toISOString(),
         endTime: moment.utc(eventInWindow.timeEnd).toISOString(),
         otherAssets: [],
         complete: false
       }
-      const outcomes = outcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal)
+      const outcomes = eventOutcomesFor(eventInWindow.message, eventInWindow.activity, forces, gameTimeVal, eventInWindow.event)
       if (outcomes.otherAssets) {
         details.otherAssets = outcomes.otherAssets
         delete outcomes.otherAssets
@@ -458,10 +600,14 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
 }
 
 const contactDetails = (contact: PlanningContact): InteractionDetails => {
+  const props1 = contact.first.geometry.properties as PlannedProps
+  const props2 = contact.second.geometry.properties as PlannedProps
   const res: InteractionDetails = {
     id: contact.id,
     orders1: contact.first.activity._id,
-    orders2: contact.second ? contact.second.activity._id : undefined,
+    orders1Geometry: props1.geomId,
+    orders2: contact.second.activity._id,
+    orders2Geometry: props2.geomId,
     startTime: moment(contact.timeStart).toISOString(),
     endTime: moment(contact.timeEnd).toISOString(),
     geometry: contact.intersection,
@@ -473,7 +619,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
 
 const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes => {
   const res: MessageAdjudicationOutcomes = contact.outcomes || {
-    messageType: 'AdjudicationOutcomes',
+    messageType: ADJUDICATION_OUTCOMES,
     Reference: '', // leave blank, so backend creates it
     narrative: '',
     important: false,

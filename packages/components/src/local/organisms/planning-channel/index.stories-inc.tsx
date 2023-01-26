@@ -1,13 +1,14 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
-import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
+import { P9BMock, planningMessages as mockMessages } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop, uniqBy } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -61,14 +62,13 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
-
 const templates = wargame.templates ? wargame.templates.templates : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook
 const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
 const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
-if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
+if (planningChannel.channelType === 'ChannelPlanning') {
   if (planningChannel.constraints.tileLayer) {
     planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
@@ -85,7 +85,7 @@ forces.forEach((force: ForceData) => {
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
-  title: 'local/organisms/PlanningChannelBravo',
+  title: 'local/organisms/PlanningChannel',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -139,8 +139,15 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
     messages,
-    phase
+    phase,
+    allForces
   } = args
+
+  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+
+  const forces1 = allForces || forces
+
+  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
@@ -152,7 +159,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const ind = selectedRoleStr.indexOf(' ~ ')
   const forceStr = selectedRoleStr.substring(0, ind)
   const roleStr = selectedRoleStr.substring(ind + 3)
-  const force = forces.find((f: ForceData) => f.uniqid === forceStr)
+  const force = localForces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
   const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
@@ -160,13 +167,14 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
     console.warn('SAVE MESSAGE', details, message)
     return async (): Promise<void> => {
+      const ref = message.Reference ? message.Reference : 'umpire-' + (stateMessages.length + 1)
       const newMessage: MessageInteraction = {
         _id: moment().toISOString(),
         // defined constat for messages, it's not same as message.details.messageType,
         // ex for all template based messages will be used CUSTOM_MESSAGE Type
         messageType: 'InteractionMessage',
         details,
-        message: message,
+        message: { ...message, Reference: ref },
         hasBeenRead: false
       }
       const newMessagesList = [...stateMessages, newMessage]
@@ -180,7 +188,6 @@ const Template: Story<PlanningChannelProps> = (args) => {
     }
   }
 
-  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
@@ -203,9 +210,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleId={role?.roleId || ''}
     selectedRoleName={role?.name || ''}
     currentWargame={P9BMock.wargameTitle}
-    selectedForce={force || forces[1]}
+    selectedForce={force || localForces[1]}
     phase={phase}
-    allForces={forces}
+    allForces={localForces}
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
@@ -213,7 +220,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   />
 }
 const doNotDoIt = 7 // don't transform the messages
-const channelMessages = PlanningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+const channelMessages = mockMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = channelMessages.filter((msg) => msg.details.interaction === undefined) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
@@ -266,16 +273,51 @@ Default.args = {
   phase: Phase.Adjudication
 }
 
-export const BulkData = Template.bind({})
-BulkData.args = {
-  messages: planningMessagesBulk,
+export const BulkForces = Template.bind({})
+BulkForces.args = {
+  messages: channelMessages,
   selectedRoleId: allRoles[5],
+  allForces: [],
   phase: Phase.Planning
 }
 
-export const BulkDataInAdjudication = Template.bind({})
-BulkDataInAdjudication.args = {
-  messages: planningMessages, // planningMessagesBulk,
+export const StartOfAdjudication = Template.bind({})
+StartOfAdjudication.args = {
+  messages: channelMessages.filter((msg) => msg.details.interaction === undefined),
+  selectedRoleId: allRoles[1],
+  allForces: forces,
+  phase: Phase.Adjudication
+}
+
+// open an interaction, and make this role the owner - so we have an adjudication open
+const adjRole = forces[0].roles[1]
+const tmpMessages = [...mockMessages]
+const firstInter = mockMessages.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+  return (msg.messageType === INTERACTION_MESSAGE)
+}) as MessageInteraction
+let tmpPlans: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = []
+if (firstInter) {
+  const inter = firstInter.details.interaction as InteractionDetails
+  if (inter) {
+    const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
+    const relevant = mockMessages.filter((msg) => msg._id && items.includes(msg._id))
+    const interCopy1 = JSON.parse(JSON.stringify(firstInter)) as MessageInteraction
+    const interCopy = { ...interCopy1, _id: moment().toISOString() }
+    // give it a new, unique id
+    const newFrom: MessageDetailsFrom = { ...firstInter.details.from, roleId: adjRole.roleId, roleName: adjRole.name }
+    interCopy.details.from = newFrom
+    if (interCopy.details.interaction) {
+      interCopy.details.interaction.complete = false
+    }
+    tmpMessages.push(interCopy)
+    tmpMessages.push(...relevant)
+    tmpPlans = tmpMessages
+  }
+}
+
+export const AdjudicationFormOpen = Template.bind({})
+AdjudicationFormOpen.args = {
+  messages: tmpPlans,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }

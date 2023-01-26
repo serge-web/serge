@@ -25,15 +25,15 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Maritime-Strike",
             "ownAssets": [
                 {
-                    "asset": "a19",
+                    "asset": "a14",
                     "number": 4,
                     "missileType": "Jet OWA UAV"
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
-                    "number": 0,
+                    "asset": "a111",
+                    "number": 5,
                     "missileType": "Standard Cruise"
                 }
             ]
@@ -54,7 +54,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land--ISTAR",
+            "messageType": "Land--EWAttack",
             "timestamp": "2022-09-27T19:41:04.380Z",
             "turnNumber": 3
         },
@@ -62,123 +62,123 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "Red-9",
             "title": "Order item 9",
             "startDate": "2022-05-01T00:05:00.000Z",
-            "endDate": "2022-05-01T06:45:00.000Z",
-            "activity": "f-red-Land-ISTAR",
+            "endDate": "2022-05-01T04:55:00.000Z",
+            "activity": "f-red-Land-EW Attack",
             "ownAssets": [
                 {
-                    "asset": "a194",
+                    "asset": "a193",
                     "number": 2
                 },
                 {
                     "asset": "a176",
-                    "number": 1
-                },
-                {
-                    "asset": "a187",
                     "number": 5
                 },
                 {
-                    "asset": "a128",
-                    "number": 1
+                    "asset": "a186",
+                    "number": 3
+                },
+                {
+                    "asset": "a127",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 4
+                    "asset": "a9",
+                    "number": 3
                 },
                 {
-                    "asset": "a94",
-                    "number": 4
+                    "asset": "a93",
+                    "number": 1
                 },
                 {
-                    "asset": "a10",
-                    "number": 4
+                    "asset": "a6",
+                    "number": 0
                 }
             ],
             "location": [
                 {
-                    "uniqid": "ISTAR-0",
+                    "uniqid": "EW Attack-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "ISTAR//Route out",
+                            "id": "EW Attack//Route out",
                             "startDate": "2022-05-01T00:05:00.000Z",
                             "endDate": "2022-05-01T00:55:00.000Z",
                             "force": "f-red",
                             "startTime": 1651363500000,
                             "endTime": 1651366500000,
-                            "geomId": "ISTAR-0",
+                            "geomId": "EW Attack-0",
                             "name": "f-red//3.8121305503746044//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    34.457,
-                                    26.1751
+                                    41.3754,
+                                    10.8007
                                 ],
                                 [
-                                    47.23,
-                                    29.93
+                                    50.05,
+                                    18.98
                                 ],
                                 [
-                                    58.9,
-                                    34.6
+                                    57.62,
+                                    28.07
                                 ],
                                 [
-                                    71.86,
-                                    38.54
+                                    66.48,
+                                    36.44
                                 ],
                                 [
-                                    84.1,
-                                    41.78
+                                    74.62,
+                                    44.1
                                 ],
                                 [
-                                    84.3072,
-                                    42.2763
+                                    74.8334,
+                                    44.5993
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "ISTAR-1",
+                    "uniqid": "EW Attack-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "ISTAR//Patrol Area",
+                            "id": "EW Attack//EW Area of Effect",
                             "startDate": "2022-05-01T00:55:00.000Z",
                             "endDate": "2022-05-01T03:15:00.000Z",
                             "force": "f-red",
                             "startTime": 1651366500000,
                             "endTime": 1651374900000,
-                            "geomId": "ISTAR-1",
-                            "name": "f-red//7.624261100749209//Patrol Area"
+                            "geomId": "EW Attack-1",
+                            "name": "f-red//7.624261100749209//EW Area of Effect"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        79.87289437143227,
-                                        45.31188468067518
+                                        70.2058933016498,
+                                        47.62763026602858
                                     ],
                                     [
-                                        79.87289437143227,
-                                        39.08585976465398
+                                        70.2058933016498,
+                                        41.40295601556113
                                     ],
                                     [
-                                        88.32400793626634,
-                                        39.08585976465398
+                                        78.99035465557196,
+                                        41.40295601556113
                                     ],
                                     [
-                                        88.32400793626634,
-                                        45.31188468067518
+                                        78.99035465557196,
+                                        47.62763026602858
                                     ],
                                     [
-                                        79.87289437143227,
-                                        45.31188468067518
+                                        70.2058933016498,
+                                        47.62763026602858
                                     ]
                                 ]
                             ]
@@ -186,84 +186,41 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "ISTAR-2",
+                    "uniqid": "EW Attack-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "ISTAR//Observation Area",
+                            "id": "EW Attack//Route back",
                             "startDate": "2022-05-01T03:15:00.000Z",
                             "endDate": "2022-05-01T04:55:00.000Z",
                             "force": "f-red",
                             "startTime": 1651374900000,
                             "endTime": 1651380900000,
-                            "geomId": "ISTAR-2",
-                            "name": "f-red//11.436391651123813//Observation Area"
-                        },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
-                                [
-                                    [
-                                        80.33978047100938,
-                                        45.014484694578094
-                                    ],
-                                    [
-                                        80.33978047100938,
-                                        39.41293367025239
-                                    ],
-                                    [
-                                        87.93695652550652,
-                                        39.41293367025239
-                                    ],
-                                    [
-                                        87.93695652550652,
-                                        45.014484694578094
-                                    ],
-                                    [
-                                        80.33978047100938,
-                                        45.014484694578094
-                                    ]
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "ISTAR-3",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "ISTAR//Route back",
-                            "startDate": "2022-05-01T04:55:00.000Z",
-                            "endDate": "2022-05-01T06:45:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651380900000,
-                            "endTime": 1651387500000,
-                            "geomId": "ISTAR-3",
-                            "name": "f-red//15.248522201498417//Route back"
+                            "geomId": "EW Attack-2",
+                            "name": "f-red//11.436391651123813//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    84.3072,
-                                    42.2763
+                                    74.8334,
+                                    44.5993
                                 ],
                                 [
-                                    67.78,
-                                    36.55
+                                    63.69,
+                                    32.97
                                 ],
                                 [
-                                    51.3,
-                                    31.89
+                                    52.65,
+                                    22.44
                                 ],
                                 [
-                                    34.11,
-                                    26.51
+                                    40.89,
+                                    11.2
                                 ],
                                 [
-                                    34.457,
-                                    26.1751
+                                    41.3754,
+                                    10.8007
                                 ]
                             ]
                         }
@@ -299,34 +256,34 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Land-Resupply",
             "ownAssets": [
                 {
-                    "asset": "a28",
+                    "asset": "a24",
                     "number": 4
                 },
                 {
-                    "asset": "a93",
-                    "number": 4
+                    "asset": "a92",
+                    "number": 2
                 },
                 {
-                    "asset": "a88",
+                    "asset": "a87",
                     "number": 0
                 },
                 {
-                    "asset": "a15",
-                    "number": 1
+                    "asset": "a11",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
-                    "number": 1
+                    "asset": "a111",
+                    "number": 4
                 },
                 {
                     "asset": "a194",
                     "number": 5
                 },
                 {
-                    "asset": "a110",
-                    "number": 4
+                    "asset": "a106",
+                    "number": 3
                 }
             ],
             "location": [
@@ -348,24 +305,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    26.6004,
-                                    29.7616
+                                    39.54269395607191,
+                                    54.85852207777224
                                 ],
                                 [
-                                    29.3,
-                                    21.1
+                                    52.74,
+                                    39.02
                                 ],
                                 [
-                                    31.09,
-                                    11.53
+                                    65.03,
+                                    22.27
                                 ],
                                 [
-                                    33.16,
-                                    3.24
+                                    77.6,
+                                    6.81
                                 ],
                                 [
-                                    33.6602,
-                                    2.7986
+                                    78.0996803106867,
+                                    6.361626382146199
                                 ]
                             ]
                         }
@@ -390,24 +347,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        33.41218497723386,
-                                        3.04623839678729
+                                        77.85035879918293,
+                                        6.6092312437344924
                                     ],
                                     [
-                                        33.41218497723386,
-                                        2.550909270125764
+                                        77.85035879918293,
+                                        6.113902163535662
                                     ],
                                     [
-                                        33.908110232104065,
-                                        2.550909270125764
+                                        78.34876163028545,
+                                        6.113902163535662
                                     ],
                                     [
-                                        33.908110232104065,
-                                        3.04623839678729
+                                        78.34876163028545,
+                                        6.6092312437344924
                                     ],
                                     [
-                                        33.41218497723386,
-                                        3.04623839678729
+                                        77.85035879918293,
+                                        6.6092312437344924
                                     ]
                                 ]
                             ]
@@ -432,20 +389,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    33.6602,
-                                    2.7986
+                                    78.0996803106867,
+                                    6.361626382146199
                                 ],
                                 [
-                                    30.36,
-                                    16.14
+                                    59.05,
+                                    30.47
                                 ],
                                 [
-                                    26.45,
-                                    29.85
+                                    39.39,
+                                    54.95
                                 ],
                                 [
-                                    26.6004,
-                                    29.7616
+                                    39.54269395607191,
+                                    54.85852207777224
                                 ]
                             ]
                         }
@@ -469,7 +426,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Air--Standard",
+            "messageType": "Air--Patrol",
             "timestamp": "2022-09-26T20:39:53.339Z",
             "turnNumber": 3
         },
@@ -478,110 +435,110 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "title": "Order item 15",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T05:35:00.000Z",
-            "activity": "f-blue-Air-Resupply",
+            "activity": "f-blue-Air-Patrol",
             "ownAssets": [
                 {
-                    "asset": "a15",
+                    "asset": "a11",
                     "number": 1
                 },
                 {
-                    "asset": "a65",
+                    "asset": "a61",
                     "number": 1
                 },
                 {
-                    "asset": "a46",
-                    "number": 2
+                    "asset": "a42",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
+                    "asset": "a111",
                     "number": 3
                 },
                 {
                     "asset": "a194",
-                    "number": 0
+                    "number": 4
                 },
                 {
-                    "asset": "a110",
+                    "asset": "a106",
                     "number": 2
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Resupply-0",
+                    "uniqid": "Patrol-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Resupply//Route out",
+                            "id": "Patrol//Route out",
                             "startDate": "2022-05-01T00:05:00.000Z",
                             "endDate": "2022-05-01T00:55:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651363500000,
                             "endTime": 1651366500000,
-                            "geomId": "Resupply-0",
+                            "geomId": "Patrol-0",
                             "name": "f-blue//6.906210489443765//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    59.45940954761188,
-                                    45.10710680038071
+                                    27.3296,
+                                    52.2103
                                 ],
                                 [
-                                    49.39,
-                                    31.03
+                                    31.46,
+                                    32.1
                                 ],
                                 [
-                                    39.63,
-                                    16.26
+                                    35.89,
+                                    11.3
                                 ],
                                 [
-                                    39.4258,
-                                    16.3734
+                                    35.6829,
+                                    11.4134
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "Resupply-1",
+                    "uniqid": "Patrol-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Resupply//Resupply at this location",
+                            "id": "Patrol//Patrol Area",
                             "startDate": "2022-05-01T00:55:00.000Z",
                             "endDate": "2022-05-01T03:05:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651366500000,
                             "endTime": 1651374300000,
-                            "geomId": "Resupply-1",
-                            "name": "f-blue//13.81242097888753//Resupply at this location"
+                            "geomId": "Patrol-1",
+                            "name": "f-blue//13.81242097888753//Patrol Area"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        35.505430765170914,
-                                        20.020931865112562
+                                        31.868377295387244,
+                                        15.072210800826328
                                     ],
                                     [
-                                        35.505430765170914,
-                                        12.65602224103101
+                                        31.868377295387244,
+                                        7.706604656433418
                                     ],
                                     [
-                                        43.200762905117514,
-                                        12.65602224103101
+                                        39.39963149005186,
+                                        7.706604656433418
                                     ],
                                     [
-                                        43.200762905117514,
-                                        20.020931865112562
+                                        39.39963149005186,
+                                        15.072210800826328
                                     ],
                                     [
-                                        35.505430765170914,
-                                        20.020931865112562
+                                        31.868377295387244,
+                                        15.072210800826328
                                     ]
                                 ]
                             ]
@@ -589,41 +546,41 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Resupply-2",
+                    "uniqid": "Patrol-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Resupply//Route back",
+                            "id": "Patrol//Route back",
                             "startDate": "2022-05-01T03:05:00.000Z",
                             "endDate": "2022-05-01T05:35:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651374300000,
                             "endTime": 1651383300000,
-                            "geomId": "Resupply-2",
+                            "geomId": "Patrol-2",
                             "name": "f-blue//20.718631468331296//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    39.4258,
-                                    16.3734
+                                    35.6829,
+                                    11.4134
                                 ],
                                 [
-                                    46.58,
-                                    26.24
+                                    33.38,
+                                    25.3
                                 ],
                                 [
-                                    52.78,
-                                    35.15
+                                    30.11,
+                                    38.23
                                 ],
                                 [
-                                    59.26,
-                                    45.34
+                                    27.13,
+                                    52.44
                                 ],
                                 [
-                                    59.45940954761188,
-                                    45.10710680038071
+                                    27.3296,
+                                    52.2103
                                 ]
                             ]
                         }
@@ -659,34 +616,34 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-blue-Air-Transit",
             "ownAssets": [
                 {
-                    "asset": "a55",
+                    "asset": "a51",
+                    "number": 4
+                },
+                {
+                    "asset": "a89",
                     "number": 5
                 },
                 {
-                    "asset": "a91",
-                    "number": 5
+                    "asset": "a53",
+                    "number": 0
                 },
                 {
-                    "asset": "a58",
-                    "number": 3
-                },
-                {
-                    "asset": "a52",
-                    "number": 2
+                    "asset": "a48",
+                    "number": 1
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
+                    "asset": "a111",
                     "number": 4
                 },
                 {
                     "asset": "a194",
-                    "number": 0
+                    "number": 4
                 },
                 {
-                    "asset": "a110",
-                    "number": 2
+                    "asset": "a106",
+                    "number": 0
                 }
             ],
             "location": [
@@ -708,20 +665,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    70.55492001555534,
-                                    41.119732191869886
+                                    39.52137707624843,
+                                    54.86750791546363
                                 ],
                                 [
-                                    77.09,
-                                    26.19
+                                    40.54,
+                                    28.57
                                 ],
                                 [
-                                    82.98,
-                                    11.61
+                                    40.92,
+                                    2.62
                                 ],
                                 [
-                                    83.2352,
-                                    11.3596
+                                    41.17003629083843,
+                                    2.3641436978865835
                                 ]
                             ]
                         }
@@ -745,7 +702,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Air--EWAttack",
+            "messageType": "Air--Standard",
             "timestamp": "2022-09-27T12:34:45.461Z",
             "turnNumber": 3
         },
@@ -754,110 +711,110 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "title": "Order item 21",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T06:55:00.000Z",
-            "activity": "f-blue-Air-EW Attack",
+            "activity": "f-blue-Air-Defensive Counter Air",
             "ownAssets": [
                 {
-                    "asset": "a52",
-                    "number": 0
+                    "asset": "a48",
+                    "number": 5
                 },
                 {
-                    "asset": "a73",
-                    "number": 0
+                    "asset": "a68",
+                    "number": 5
                 },
                 {
-                    "asset": "a25",
-                    "number": 3
+                    "asset": "a22",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
-                    "number": 4
+                    "asset": "a111",
+                    "number": 5
                 },
                 {
                     "asset": "a194",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "location": [
                 {
-                    "uniqid": "EW Attack-0",
+                    "uniqid": "Defensive Counter Air-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "EW Attack//Route out",
+                            "id": "Defensive Counter Air//Route out",
                             "startDate": "2022-05-01T00:05:00.000Z",
                             "endDate": "2022-05-01T00:55:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651363500000,
                             "endTime": 1651366500000,
-                            "geomId": "EW Attack-0",
+                            "geomId": "Defensive Counter Air-0",
                             "name": "f-blue//5.573975105719001//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    61.78098697225979,
-                                    52.05096337357197
+                                    67.5387,
+                                    44.4622
                                 ],
                                 [
-                                    62.72,
-                                    41.55
+                                    58.31,
+                                    33.29
                                 ],
                                 [
-                                    63.73,
-                                    31.1
+                                    49.13,
+                                    22.17
                                 ],
                                 [
-                                    65.01,
-                                    20.94
+                                    40.24,
+                                    11.33
                                 ],
                                 [
-                                    65.2746,
-                                    20.6812
+                                    40.50596757416454,
+                                    11.07125961176953
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "EW Attack-1",
+                    "uniqid": "Defensive Counter Air-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "EW Attack//EW Area of Effect",
+                            "id": "Defensive Counter Air//DCA Area",
                             "startDate": "2022-05-01T00:55:00.000Z",
                             "endDate": "2022-05-01T04:05:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651366500000,
                             "endTime": 1651377900000,
-                            "geomId": "EW Attack-1",
-                            "name": "f-blue//11.147950211438001//EW Area of Effect"
+                            "geomId": "Defensive Counter Air-1",
+                            "name": "f-blue//11.147950211438001//DCA Area"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        64.38736881889128,
-                                        21.50440864926064
+                                        39.66238430644417,
+                                        11.895558606565922
                                     ],
                                     [
-                                        64.38736881889128,
-                                        19.853501027350706
+                                        39.66238430644417,
+                                        10.244633124995497
                                     ],
                                     [
-                                        66.15223267139291,
-                                        19.853501027350706
+                                        41.34480785610437,
+                                        10.244633124995497
                                     ],
                                     [
-                                        66.15223267139291,
-                                        21.50440864926064
+                                        41.34480785610437,
+                                        11.895558606565922
                                     ],
                                     [
-                                        64.38736881889128,
-                                        21.50440864926064
+                                        39.66238430644417,
+                                        11.895558606565922
                                     ]
                                 ]
                             ]
@@ -865,33 +822,33 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "EW Attack-2",
+                    "uniqid": "Defensive Counter Air-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "EW Attack//Route back",
+                            "id": "Defensive Counter Air//Route back",
                             "startDate": "2022-05-01T04:05:00.000Z",
                             "endDate": "2022-05-01T06:55:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651377900000,
                             "endTime": 1651388100000,
-                            "geomId": "EW Attack-2",
+                            "geomId": "Defensive Counter Air-2",
                             "name": "f-blue//16.721925317157//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    65.2746,
-                                    20.6812
+                                    40.50596757416454,
+                                    11.07125961176953
                                 ],
                                 [
-                                    61.42,
-                                    52.09
+                                    67.18,
+                                    44.5
                                 ],
                                 [
-                                    61.78098697225979,
-                                    52.05096337357197
+                                    67.5387,
+                                    44.4622
                                 ]
                             ]
                         }
@@ -915,7 +872,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Air--Transit",
+            "messageType": "Air--TST",
             "timestamp": "2022-09-22T05:08:12.707Z",
             "turnNumber": 3
         },
@@ -923,53 +880,133 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "Blue-24",
             "title": "Order item 24",
             "startDate": "2022-05-01T00:05:00.000Z",
-            "endDate": "2022-05-01T00:55:00.000Z",
-            "activity": "f-blue-Air-Transit",
+            "endDate": "2022-05-01T03:45:00.000Z",
+            "activity": "f-blue-Air-Time Sensitive Targeting (TST)",
             "ownAssets": [
                 {
                     "asset": "a1",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
-                    "number": 4
+                    "asset": "a111",
+                    "number": 5
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Transit-0",
+                    "uniqid": "Time Sensitive Targeting (TST)-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Transit//Route out",
+                            "id": "Time Sensitive Targeting (TST)//Route out",
                             "startDate": "2022-05-01T00:05:00.000Z",
                             "endDate": "2022-05-01T00:55:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651363500000,
                             "endTime": 1651366500000,
-                            "geomId": "Transit-0",
+                            "geomId": "Time Sensitive Targeting (TST)-0",
                             "name": "f-blue//5.747989167804917//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    47.2410970399821,
-                                    50.85313679538694
+                                    65.0533,
+                                    53.5684
                                 ],
                                 [
-                                    49.8,
-                                    37.86
+                                    72.02,
+                                    38.56
                                 ],
                                 [
-                                    51.81,
-                                    25.32
+                                    78.44,
+                                    23.99
                                 ],
                                 [
-                                    51.9514,
-                                    25.3601
+                                    78.5787,
+                                    24.0336
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Time Sensitive Targeting (TST)-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Time Sensitive Targeting (TST)//TST Area",
+                            "startDate": "2022-05-01T00:55:00.000Z",
+                            "endDate": "2022-05-01T02:35:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651366500000,
+                            "endTime": 1651372500000,
+                            "geomId": "Time Sensitive Targeting (TST)-1",
+                            "name": "f-blue//11.495978335609834//TST Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        74.67804163903591,
+                                        27.446577638683195
+                                    ],
+                                    [
+                                        74.67804163903591,
+                                        20.52702824611724
+                                    ],
+                                    [
+                                        82.27470143766315,
+                                        20.52702824611724
+                                    ],
+                                    [
+                                        82.27470143766315,
+                                        27.446577638683195
+                                    ],
+                                    [
+                                        74.67804163903591,
+                                        27.446577638683195
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Time Sensitive Targeting (TST)-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Time Sensitive Targeting (TST)//Route back",
+                            "startDate": "2022-05-01T02:35:00.000Z",
+                            "endDate": "2022-05-01T03:45:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651372500000,
+                            "endTime": 1651376700000,
+                            "geomId": "Time Sensitive Targeting (TST)-2",
+                            "name": "f-blue//17.24396750341475//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    78.5787,
+                                    24.0336
+                                ],
+                                [
+                                    72.22,
+                                    38.44
+                                ],
+                                [
+                                    65.27,
+                                    53.25
+                                ],
+                                [
+                                    65.0533,
+                                    53.5684
                                 ]
                             ]
                         }
@@ -993,7 +1030,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Air--Patrol",
+            "messageType": "Air--ISTAR",
             "timestamp": "2022-09-29T19:25:40.744Z",
             "turnNumber": 3
         },
@@ -1001,82 +1038,82 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "Red-27",
             "title": "Order item 27",
             "startDate": "2022-05-01T00:05:00.000Z",
-            "endDate": "2022-05-01T03:35:00.000Z",
-            "activity": "f-red-Air-Patrol",
+            "endDate": "2022-05-01T06:45:00.000Z",
+            "activity": "f-red-Air-ISTAR",
             "ownAssets": [
                 {
-                    "asset": "a110",
-                    "number": 5
+                    "asset": "a108",
+                    "number": 1
                 },
                 {
                     "asset": "a200",
                     "number": 3
                 },
                 {
-                    "asset": "a122",
-                    "number": 1
+                    "asset": "a121",
+                    "number": 0
                 },
                 {
                     "asset": "a170",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
+                    "asset": "a9",
                     "number": 1
                 },
                 {
-                    "asset": "a94",
-                    "number": 0
+                    "asset": "a93",
+                    "number": 4
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Patrol-0",
+                    "uniqid": "ISTAR-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Route out",
+                            "id": "ISTAR//Route out",
                             "startDate": "2022-05-01T00:05:00.000Z",
                             "endDate": "2022-05-01T00:55:00.000Z",
                             "force": "f-red",
                             "startTime": 1651363500000,
                             "endTime": 1651366500000,
-                            "geomId": "Patrol-0",
+                            "geomId": "ISTAR-0",
                             "name": "f-red//4.815424399195763//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    77.498,
-                                    9.2829
+                                    34.2781,
+                                    17.0439
                                 ],
                                 [
-                                    47.81,
-                                    50.64
+                                    51.77,
+                                    46.03
                                 ],
                                 [
-                                    47.70065712271597,
-                                    50.996635560374486
+                                    51.660863623427666,
+                                    46.392813662446464
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "Patrol-1",
+                    "uniqid": "ISTAR-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Patrol Area",
+                            "id": "ISTAR//Patrol Area",
                             "startDate": "2022-05-01T00:55:00.000Z",
                             "endDate": "2022-05-01T01:15:00.000Z",
                             "force": "f-red",
                             "startTime": 1651366500000,
                             "endTime": 1651367700000,
-                            "geomId": "Patrol-1",
+                            "geomId": "ISTAR-1",
                             "name": "f-red//9.630848798391526//Patrol Area"
                         },
                         "geometry": {
@@ -1084,24 +1121,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        41.41663459533614,
-                                        54.486434634899155
+                                        45.994930161038404,
+                                        49.90753000737898
                                     ],
                                     [
-                                        41.41663459533614,
-                                        47.21804605080612
+                                        45.994930161038404,
+                                        42.63286583253974
                                     ],
                                     [
-                                        53.07217512689795,
-                                        47.21804605080612
+                                        56.618801506203866,
+                                        42.63286583253974
                                     ],
                                     [
-                                        53.07217512689795,
-                                        54.486434634899155
+                                        56.618801506203866,
+                                        49.90753000737898
                                     ],
                                     [
-                                        41.41663459533614,
-                                        54.486434634899155
+                                        45.994930161038404,
+                                        49.90753000737898
                                     ]
                                 ]
                             ]
@@ -1109,41 +1146,80 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Patrol-2",
+                    "uniqid": "ISTAR-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Route back",
+                            "id": "ISTAR//Observation Area",
                             "startDate": "2022-05-01T01:15:00.000Z",
                             "endDate": "2022-05-01T03:35:00.000Z",
                             "force": "f-red",
                             "startTime": 1651367700000,
                             "endTime": 1651376100000,
-                            "geomId": "Patrol-2",
-                            "name": "f-red//14.446273197587288//Route back"
+                            "geomId": "ISTAR-2",
+                            "name": "f-red//14.446273197587288//Observation Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        47.50574757774615,
+                                        49.0435128171829
+                                    ],
+                                    [
+                                        47.50574757774615,
+                                        43.60579248343846
+                                    ],
+                                    [
+                                        55.42164154166271,
+                                        43.60579248343846
+                                    ],
+                                    [
+                                        55.42164154166271,
+                                        49.0435128171829
+                                    ],
+                                    [
+                                        47.50574757774615,
+                                        49.0435128171829
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "ISTAR-3",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "ISTAR//Route back",
+                            "startDate": "2022-05-01T03:35:00.000Z",
+                            "endDate": "2022-05-01T06:45:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651376100000,
+                            "endTime": 1651387500000,
+                            "geomId": "ISTAR-3",
+                            "name": "f-red//19.26169759678305//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    47.70065712271597,
-                                    50.996635560374486
+                                    51.660863623427666,
+                                    46.392813662446464
                                 ],
                                 [
-                                    57.95,
-                                    37.37
+                                    42.57,
+                                    31.33
                                 ],
                                 [
-                                    67.33,
-                                    22.87
+                                    33.79,
+                                    16.59
                                 ],
                                 [
-                                    76.99,
-                                    9.65
-                                ],
-                                [
-                                    77.498,
-                                    9.2829
+                                    34.2781,
+                                    17.0439
                                 ]
                             ]
                         }
@@ -1167,7 +1243,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land--Patrol",
+            "messageType": "Land--ISTAR",
             "timestamp": "2022-09-25T07:27:09.572Z",
             "turnNumber": 3
         },
@@ -1175,86 +1251,86 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "Reference": "Red-30",
             "title": "Order item 30",
             "startDate": "2022-05-01T00:10:00.000Z",
-            "endDate": "2022-05-01T04:00:00.000Z",
-            "activity": "f-red-Land-Patrol",
+            "endDate": "2022-05-01T05:40:00.000Z",
+            "activity": "f-red-Land-ISTAR",
             "ownAssets": [
                 {
                     "asset": "a170",
-                    "number": 2
+                    "number": 5
                 },
                 {
-                    "asset": "a147",
-                    "number": 0
+                    "asset": "a146",
+                    "number": 3
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 2
+                    "asset": "a9",
+                    "number": 0
                 },
                 {
-                    "asset": "a94",
-                    "number": 1
+                    "asset": "a93",
+                    "number": 0
                 },
                 {
-                    "asset": "a10",
-                    "number": 3
+                    "asset": "a6",
+                    "number": 4
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Patrol-0",
+                    "uniqid": "ISTAR-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Route out",
+                            "id": "ISTAR//Route out",
                             "startDate": "2022-05-01T00:10:00.000Z",
                             "endDate": "2022-05-01T01:00:00.000Z",
                             "force": "f-red",
                             "startTime": 1651363800000,
                             "endTime": 1651366800000,
-                            "geomId": "Patrol-0",
+                            "geomId": "ISTAR-0",
                             "name": "f-red//2.7762807999097276//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    61.0728,
-                                    3.6523
+                                    49.9233,
+                                    26.0661
                                 ],
                                 [
-                                    65.92,
-                                    14.95
+                                    54,
+                                    27.76
                                 ],
                                 [
-                                    71.04,
-                                    25.53
+                                    58.35,
+                                    28.73
                                 ],
                                 [
-                                    75.44,
-                                    36.4
+                                    61.98,
+                                    29.98
                                 ],
                                 [
-                                    75.4991,
-                                    36.7758
+                                    62.04247564897565,
+                                    30.361650096972443
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "Patrol-1",
+                    "uniqid": "ISTAR-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Patrol Area",
+                            "id": "ISTAR//Patrol Area",
                             "startDate": "2022-05-01T01:00:00.000Z",
                             "endDate": "2022-05-01T01:50:00.000Z",
                             "force": "f-red",
                             "startTime": 1651366800000,
                             "endTime": 1651369800000,
-                            "geomId": "Patrol-1",
+                            "geomId": "ISTAR-1",
                             "name": "f-red//5.552561599819455//Patrol Area"
                         },
                         "geometry": {
@@ -1262,24 +1338,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        72.45119024551839,
-                                        39.10289219129241
+                                        59.232080052655455,
+                                        32.69709127673877
                                     ],
                                     [
-                                        72.45119024551839,
-                                        34.37559035267623
+                                        59.232080052655455,
+                                        27.968919504733876
                                     ],
                                     [
-                                        78.36464924973247,
-                                        34.37559035267623
+                                        64.72019544455712,
+                                        27.968919504733876
                                     ],
                                     [
-                                        78.36464924973247,
-                                        39.10289219129241
+                                        64.72019544455712,
+                                        32.69709127673877
                                     ],
                                     [
-                                        72.45119024551839,
-                                        39.10289219129241
+                                        59.232080052655455,
+                                        32.69709127673877
                                     ]
                                 ]
                             ]
@@ -1287,45 +1363,80 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Patrol-2",
+                    "uniqid": "ISTAR-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Route back",
+                            "id": "ISTAR//Observation Area",
                             "startDate": "2022-05-01T01:50:00.000Z",
                             "endDate": "2022-05-01T04:00:00.000Z",
                             "force": "f-red",
                             "startTime": 1651369800000,
                             "endTime": 1651377600000,
-                            "geomId": "Patrol-2",
-                            "name": "f-red//8.328842399729183//Route back"
+                            "geomId": "ISTAR-2",
+                            "name": "f-red//8.328842399729183//Observation Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        57.20805386775505,
+                                        34.26993488723825
+                                    ],
+                                    [
+                                        57.20805386775505,
+                                        26.289366717282537
+                                    ],
+                                    [
+                                        66.49770826105797,
+                                        26.289366717282537
+                                    ],
+                                    [
+                                        66.49770826105797,
+                                        34.26993488723825
+                                    ],
+                                    [
+                                        57.20805386775505,
+                                        34.26993488723825
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "ISTAR-3",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "ISTAR//Route back",
+                            "startDate": "2022-05-01T04:00:00.000Z",
+                            "endDate": "2022-05-01T05:40:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651377600000,
+                            "endTime": 1651383600000,
+                            "geomId": "ISTAR-3",
+                            "name": "f-red//11.10512319963891//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    75.4991,
-                                    36.7758
+                                    62.04247564897565,
+                                    30.361650096972443
                                 ],
                                 [
-                                    72.26,
-                                    28.4
+                                    55.57,
+                                    28.58
                                 ],
                                 [
-                                    67.81,
-                                    19.81
+                                    49.54,
+                                    26.25
                                 ],
                                 [
-                                    64.64,
-                                    11.51
-                                ],
-                                [
-                                    60.76,
-                                    3.49
-                                ],
-                                [
-                                    61.0728,
-                                    3.6523
+                                    49.9233,
+                                    26.0661
                                 ]
                             ]
                         }
@@ -1365,22 +1476,22 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     "number": 4
                 },
                 {
-                    "asset": "a148",
-                    "number": 3
+                    "asset": "a147",
+                    "number": 1
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
+                    "asset": "a9",
                     "number": 3
                 },
                 {
-                    "asset": "a10",
-                    "number": 1
+                    "asset": "a93",
+                    "number": 4
+                },
+                {
+                    "asset": "a6",
+                    "number": 3
                 }
             ],
             "location": [
@@ -1402,24 +1513,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    23.4389,
-                                    26.1235
+                                    56.1128,
+                                    7.6144
                                 ],
                                 [
-                                    39.38,
-                                    31.59
+                                    63.07,
+                                    20.1
                                 ],
                                 [
-                                    55.5,
-                                    36.22
+                                    70.2,
+                                    31.76
                                 ],
                                 [
-                                    70.9,
-                                    41.14
+                                    76.61,
+                                    43.69
                                 ],
                                 [
-                                    70.9350442961223,
-                                    41.32276280103669
+                                    76.6514,
+                                    43.8809
                                 ]
                             ]
                         }
@@ -1444,24 +1555,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        69.59230884278999,
-                                        42.30803992398669
+                                        75.25035798236539,
+                                        44.86544442453982
                                     ],
                                     [
-                                        69.59230884278999,
-                                        40.32234876994448
+                                        75.25035798236539,
+                                        42.87979855817896
                                     ],
                                     [
-                                        72.23747856010931,
-                                        40.32234876994448
+                                        78.0065132411834,
+                                        42.87979855817896
                                     ],
                                     [
-                                        72.23747856010931,
-                                        42.30803992398669
+                                        78.0065132411834,
+                                        44.86544442453982
                                     ],
                                     [
-                                        69.59230884278999,
-                                        42.30803992398669
+                                        75.25035798236539,
+                                        44.86544442453982
                                     ]
                                 ]
                             ]
@@ -1487,24 +1598,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        65.81467651139506,
-                                        44.84361744749381
+                                        71.28798045705791,
+                                        47.39106542753973
                                     ],
                                     [
-                                        65.81467651139506,
-                                        37.59869915881325
+                                        71.28798045705791,
+                                        40.14836786133995
                                     ],
                                     [
-                                        75.5160548219284,
-                                        37.59869915881325
+                                        81.40015278046678,
+                                        40.14836786133995
                                     ],
                                     [
-                                        75.5160548219284,
-                                        44.84361744749381
+                                        81.40015278046678,
+                                        47.39106542753973
                                     ],
                                     [
-                                        65.81467651139506,
-                                        44.84361744749381
+                                        71.28798045705791,
+                                        47.39106542753973
                                     ]
                                 ]
                             ]
@@ -1529,20 +1640,20 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    70.9350442961223,
-                                    41.32276280103669
+                                    76.6514,
+                                    43.8809
                                 ],
                                 [
-                                    47.12,
-                                    33.81
+                                    66.32,
+                                    25.84
                                 ],
                                 [
-                                    23.72,
-                                    25.71
+                                    56.4,
+                                    7.2
                                 ],
                                 [
-                                    23.4389,
-                                    26.1235
+                                    56.1128,
+                                    7.6144
                                 ]
                             ]
                         }
@@ -1566,7 +1677,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Maritime--Patrol",
+            "messageType": "Maritime--MineLaying",
             "timestamp": "2022-09-21T16:42:09.598Z",
             "turnNumber": 3
         },
@@ -1575,106 +1686,106 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "title": "Order item 36",
             "startDate": "2022-05-01T00:45:00.000Z",
             "endDate": "2022-05-01T02:45:00.000Z",
-            "activity": "f-blue-Maritime-Patrol",
+            "activity": "f-blue-Maritime-Mine Laying",
             "ownAssets": [
                 {
-                    "asset": "a57",
-                    "number": 4
+                    "asset": "a52",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a113",
+                    "asset": "a111",
                     "number": 0
                 },
                 {
                     "asset": "a194",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Patrol-0",
+                    "uniqid": "Mine Laying-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Route out",
+                            "id": "Mine Laying//Route out",
                             "startDate": "2022-05-01T00:45:00.000Z",
                             "endDate": "2022-05-01T01:35:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651365900000,
                             "endTime": 1651368900000,
-                            "geomId": "Patrol-0",
+                            "geomId": "Mine Laying-0",
                             "name": "f-blue//5.378257109216065//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    84.7067,
-                                    51.5851
+                                    65.5047,
+                                    46.7161
                                 ],
                                 [
-                                    73.71,
-                                    40.68
+                                    57.81,
+                                    38.61
                                 ],
                                 [
-                                    63.57,
-                                    28.63
+                                    50.97,
+                                    29.36
                                 ],
                                 [
-                                    52.7,
-                                    17.87
+                                    43.42,
+                                    21.39
                                 ],
                                 [
-                                    42.13,
-                                    6.39
+                                    36.15,
+                                    12.71
                                 ],
                                 [
-                                    41.7659,
-                                    6.3586
+                                    35.785,
+                                    12.6806
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "Patrol-1",
+                    "uniqid": "Mine Laying-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Patrol Area",
+                            "id": "Mine Laying//Mine Area",
                             "startDate": "2022-05-01T01:35:00.000Z",
                             "endDate": "2022-05-01T02:35:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651368900000,
                             "endTime": 1651372500000,
-                            "geomId": "Patrol-1",
-                            "name": "f-blue//10.75651421843213//Patrol Area"
+                            "geomId": "Mine Laying-1",
+                            "name": "f-blue//10.75651421843213//Mine Area"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        38.88943315350979,
-                                        9.190210706376737
+                                        32.83816674674587,
+                                        15.504067023182225
                                     ],
                                     [
-                                        38.88943315350979,
-                                        3.5112718903509847
+                                        32.83816674674587,
+                                        9.825395343289436
                                     ],
                                     [
-                                        44.610757652905676,
-                                        3.5112718903509847
+                                        38.666817174182064,
+                                        9.825395343289436
                                     ],
                                     [
-                                        44.610757652905676,
-                                        9.190210706376737
+                                        38.666817174182064,
+                                        15.504067023182225
                                     ],
                                     [
-                                        38.88943315350979,
-                                        9.190210706376737
+                                        32.83816674674587,
+                                        15.504067023182225
                                     ]
                                 ]
                             ]
@@ -1682,41 +1793,41 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Patrol-2",
+                    "uniqid": "Mine Laying-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Patrol//Route back",
+                            "id": "Mine Laying//Route back",
                             "startDate": "2022-05-01T02:35:00.000Z",
                             "endDate": "2022-05-01T02:45:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651372500000,
                             "endTime": 1651373100000,
-                            "geomId": "Patrol-2",
+                            "geomId": "Mine Laying-2",
                             "name": "f-blue//16.134771327648195//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    41.7659,
-                                    6.3586
+                                    35.785,
+                                    12.6806
                                 ],
                                 [
-                                    55.86,
-                                    20.99
+                                    45.47,
+                                    23.58
                                 ],
                                 [
-                                    70.21,
-                                    36.88
+                                    55.41,
+                                    35.74
                                 ],
                                 [
-                                    84.84,
-                                    52.05
+                                    65.64,
+                                    47.18
                                 ],
                                 [
-                                    84.7067,
-                                    51.5851
+                                    65.5047,
+                                    46.7161
                                 ]
                             ]
                         }
@@ -1752,13 +1863,13 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "activity": "f-red-Maritime-Patrol",
             "ownAssets": [
                 {
-                    "asset": "a182",
-                    "number": 3
+                    "asset": "a181",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
+                    "asset": "a9",
                     "number": 2
                 }
             ],
@@ -1781,24 +1892,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    35.9251,
-                                    24.0545
+                                    78.6075,
+                                    19.2395
                                 ],
                                 [
-                                    36.58,
-                                    26.6
+                                    70.07,
+                                    28.21
                                 ],
                                 [
-                                    36.46,
-                                    29.37
+                                    60.75,
+                                    37.41
                                 ],
                                 [
-                                    36.62,
-                                    31.42
+                                    51.72,
+                                    45.89
                                 ],
                                 [
-                                    36.4711,
-                                    31.9137
+                                    51.570029040752495,
+                                    46.3830848991446
                                 ]
                             ]
                         }
@@ -1823,24 +1934,24 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "coordinates": [
                                 [
                                     [
-                                        35.84804215180255,
-                                        32.43802895864629
+                                        50.800335577592755,
+                                        46.90636819815821
                                     ],
                                     [
-                                        35.84804215180255,
-                                        31.386365227492416
+                                        50.800335577592755,
+                                        45.8547360751713
                                     ],
                                     [
-                                        37.087076046890594,
-                                        31.386365227492416
+                                        52.32503760617694,
+                                        45.8547360751713
                                     ],
                                     [
-                                        37.087076046890594,
-                                        32.43802895864629
+                                        52.32503760617694,
+                                        46.90636819815821
                                     ],
                                     [
-                                        35.84804215180255,
-                                        32.43802895864629
+                                        50.800335577592755,
+                                        46.90636819815821
                                     ]
                                 ]
                             ]
@@ -1865,28 +1976,28 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    36.4711,
-                                    31.9137
+                                    51.570029040752495,
+                                    46.3830848991446
                                 ],
                                 [
-                                    35.94,
-                                    29.45
+                                    57.94,
+                                    39.1
                                 ],
                                 [
-                                    36.28,
-                                    27.86
+                                    65.17,
+                                    32.69
                                 ],
                                 [
-                                    35.91,
-                                    25.55
+                                    71.69,
+                                    25.56
                                 ],
                                 [
-                                    35.81,
-                                    24.53
+                                    78.5,
+                                    19.71
                                 ],
                                 [
-                                    35.9251,
-                                    24.0545
+                                    78.6075,
+                                    19.2395
                                 ]
                             ]
                         }
@@ -1905,58 +2016,523 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
-                "roleName": "Air & AD",
-                "roleId": "red-air",
+                "roleName": "Direct Action",
+                "roleId": "red-direct",
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Maritime--MissileStrike",
-            "timestamp": "2022-09-24T18:35:03.780Z",
+            "messageType": "Land--Standard",
+            "timestamp": "2022-09-28T00:53:12.787Z",
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-96",
-            "title": "Order item 96",
-            "startDate": "2022-05-01T02:00:00.000Z",
-            "endDate": "2022-05-01T02:10:00.000Z",
-            "activity": "f-red-Maritime-Strike",
+            "Reference": "Red-42",
+            "title": "Order item 42",
+            "startDate": "2022-05-01T00:50:00.000Z",
+            "endDate": "2022-05-01T04:30:00.000Z",
+            "activity": "f-red-Land-Air-Air Refuel",
             "ownAssets": [
                 {
-                    "asset": "a114",
-                    "number": 2,
-                    "missileType": "Standard Cruise"
+                    "asset": "a163",
+                    "number": 5
                 },
                 {
-                    "asset": "a188",
-                    "number": 4,
-                    "missileType": "Standard Cruise"
+                    "asset": "a179",
+                    "number": 5
                 },
                 {
-                    "asset": "a193",
-                    "number": 1,
-                    "missileType": "Low Obs Cruise"
+                    "asset": "a125",
+                    "number": 4
                 },
                 {
-                    "asset": "a127",
-                    "number": 3,
-                    "missileType": "SRBM"
+                    "asset": "a196",
+                    "number": 1
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 4,
-                    "missileType": "Jet OWA UAV"
+                    "asset": "a9",
+                    "number": 5
                 },
                 {
-                    "asset": "a94",
-                    "number": 2,
-                    "missileType": "MRBM"
+                    "asset": "a93",
+                    "number": 1
+                },
+                {
+                    "asset": "a6",
+                    "number": 3
+                }
+            ],
+            "location": [
+                {
+                    "uniqid": "Air-Air Refuel-0",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Air-Air Refuel//Route out",
+                            "startDate": "2022-05-01T00:50:00.000Z",
+                            "endDate": "2022-05-01T01:40:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651366200000,
+                            "endTime": 1651369200000,
+                            "geomId": "Air-Air Refuel-0",
+                            "name": "f-red//3.55391809566936//Route out"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    61.3075,
+                                    10.2658
+                                ],
+                                [
+                                    53.63,
+                                    24.9
+                                ],
+                                [
+                                    47.2,
+                                    39.78
+                                ],
+                                [
+                                    39.06,
+                                    54.94
+                                ],
+                                [
+                                    39.52137707624843,
+                                    54.86750791546363
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Air-Air Refuel-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Air-Air Refuel//AAR at this location",
+                            "startDate": "2022-05-01T01:40:00.000Z",
+                            "endDate": "2022-05-01T02:30:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651369200000,
+                            "endTime": 1651372200000,
+                            "geomId": "Air-Air Refuel-1",
+                            "name": "f-red//7.10783619133872//AAR at this location"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        34.31130780994285,
+                                        57.55586675701658
+                                    ],
+                                    [
+                                        34.31130780994285,
+                                        51.98463469729294
+                                    ],
+                                    [
+                                        44.05827336503961,
+                                        51.98463469729294
+                                    ],
+                                    [
+                                        44.05827336503961,
+                                        57.55586675701658
+                                    ],
+                                    [
+                                        34.31130780994285,
+                                        57.55586675701658
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Air-Air Refuel-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Air-Air Refuel//Route back",
+                            "startDate": "2022-05-01T02:30:00.000Z",
+                            "endDate": "2022-05-01T04:30:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651372200000,
+                            "endTime": 1651379400000,
+                            "geomId": "Air-Air Refuel-2",
+                            "name": "f-red//10.66175428700808//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    39.52137707624843,
+                                    54.86750791546363
+                                ],
+                                [
+                                    50.41,
+                                    32.43
+                                ],
+                                [
+                                    61.79,
+                                    10.49
+                                ],
+                                [
+                                    61.3075,
+                                    10.2658
+                                ]
+                            ]
+                        }
+                    }
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_96",
+        "_id": "m_f-red_42",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#3dd0ff",
+                "roleName": "MTG 2",
+                "roleId": "blue-mtg-2",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "f-blue"
+            },
+            "messageType": "Land--Patrol",
+            "timestamp": "2022-09-29T17:34:45.567Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "Reference": "Blue-45",
+            "title": "Order item 45",
+            "startDate": "2022-05-01T01:10:00.000Z",
+            "endDate": "2022-05-01T04:00:00.000Z",
+            "activity": "f-blue-Land-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a96",
+                    "number": 5
+                },
+                {
+                    "asset": "a99",
+                    "number": 0
+                },
+                {
+                    "asset": "a27",
+                    "number": 4
+                },
+                {
+                    "asset": "a86",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a111",
+                    "number": 1
+                }
+            ],
+            "location": [
+                {
+                    "uniqid": "Patrol-0",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Patrol//Route out",
+                            "startDate": "2022-05-01T01:10:00.000Z",
+                            "endDate": "2022-05-01T02:00:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651367400000,
+                            "endTime": 1651370400000,
+                            "geomId": "Patrol-0",
+                            "name": "f-blue//5.981880342907971//Route out"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    43.3486,
+                                    37.2916
+                                ],
+                                [
+                                    24.77,
+                                    25.68
+                                ],
+                                [
+                                    24.7305,
+                                    26.0409
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Patrol-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Patrol//Patrol Area",
+                            "startDate": "2022-05-01T02:00:00.000Z",
+                            "endDate": "2022-05-01T02:00:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651370400000,
+                            "endTime": 1651370400000,
+                            "geomId": "Patrol-1",
+                            "name": "f-blue//11.963760685815942//Patrol Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        23.683972760596628,
+                                        26.969861747839854
+                                    ],
+                                    [
+                                        23.683972760596628,
+                                        25.104517341520776
+                                    ],
+                                    [
+                                        25.760510323519636,
+                                        25.104517341520776
+                                    ],
+                                    [
+                                        25.760510323519636,
+                                        26.969861747839854
+                                    ],
+                                    [
+                                        23.683972760596628,
+                                        26.969861747839854
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Patrol-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Patrol//Route back",
+                            "startDate": "2022-05-01T02:00:00.000Z",
+                            "endDate": "2022-05-01T04:00:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651370400000,
+                            "endTime": 1651377600000,
+                            "geomId": "Patrol-2",
+                            "name": "f-blue//17.945641028723912//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    24.7305,
+                                    26.0409
+                                ],
+                                [
+                                    34.21,
+                                    31.64
+                                ],
+                                [
+                                    43.04,
+                                    37.6
+                                ],
+                                [
+                                    43.3486,
+                                    37.2916
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_f-blue_45",
+        "_rev": "2"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-planning",
+            "from": {
+                "force": "Red",
+                "forceColor": "#ff3d43",
+                "roleName": "MAR",
+                "roleId": "red-mar",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "f-red"
+            },
+            "messageType": "Air--Patrol",
+            "timestamp": "2022-09-27T16:00:19.138Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "Reference": "Red-48",
+            "title": "Order item 48",
+            "startDate": "2022-05-01T01:10:00.000Z",
+            "endDate": "2022-05-01T07:00:00.000Z",
+            "activity": "f-red-Air-Patrol",
+            "ownAssets": [
+                {
+                    "asset": "a187",
+                    "number": 2
+                },
+                {
+                    "asset": "a175",
+                    "number": 4
+                },
+                {
+                    "asset": "a189",
+                    "number": 4
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a9",
+                    "number": 1
+                },
+                {
+                    "asset": "a93",
+                    "number": 4
+                }
+            ],
+            "location": [
+                {
+                    "uniqid": "Patrol-0",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Patrol//Route out",
+                            "startDate": "2022-05-01T01:10:00.000Z",
+                            "endDate": "2022-05-01T02:00:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651367400000,
+                            "endTime": 1651370400000,
+                            "geomId": "Patrol-0",
+                            "name": "f-red//2.303263759415131//Route out"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    69.8971,
+                                    15.058
+                                ],
+                                [
+                                    63.96,
+                                    18.35
+                                ],
+                                [
+                                    57.89,
+                                    22.51
+                                ],
+                                [
+                                    51.1,
+                                    25.95
+                                ],
+                                [
+                                    44.59,
+                                    28.67
+                                ],
+                                [
+                                    44.8984,
+                                    28.9942
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Patrol-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Patrol//Patrol Area",
+                            "startDate": "2022-05-01T02:00:00.000Z",
+                            "endDate": "2022-05-01T04:40:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651370400000,
+                            "endTime": 1651380000000,
+                            "geomId": "Patrol-1",
+                            "name": "f-red//4.606527518830262//Patrol Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        43.2362791939618,
+                                        30.417414730151332
+                                    ],
+                                    [
+                                        43.2362791939618,
+                                        27.551101057711495
+                                    ],
+                                    [
+                                        46.51506764361621,
+                                        27.551101057711495
+                                    ],
+                                    [
+                                        46.51506764361621,
+                                        30.417414730151332
+                                    ],
+                                    [
+                                        43.2362791939618,
+                                        30.417414730151332
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Patrol-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Patrol//Route back",
+                            "startDate": "2022-05-01T04:40:00.000Z",
+                            "endDate": "2022-05-01T07:00:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651380000000,
+                            "endTime": 1651388400000,
+                            "geomId": "Patrol-2",
+                            "name": "f-red//6.909791278245393//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    44.8984,
+                                    28.9942
+                                ],
+                                [
+                                    57.16,
+                                    22.06
+                                ],
+                                [
+                                    69.95,
+                                    14.65
+                                ],
+                                [
+                                    69.8971,
+                                    15.058
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_f-red_48",
         "_rev": "2"
     },
     {
@@ -1971,123 +2547,115 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-blue"
             },
-            "messageType": "Maritime--MineLaying",
-            "timestamp": "2022-09-28T16:25:17.560Z",
+            "messageType": "Other--SOFAttack",
+            "timestamp": "2022-09-21T20:09:53.499Z",
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-93",
-            "title": "Order item 93",
-            "startDate": "2022-05-01T02:00:00.000Z",
-            "endDate": "2022-05-01T04:10:00.000Z",
-            "activity": "f-blue-Maritime-Mine Laying",
+            "Reference": "Blue-51",
+            "title": "Order item 51",
+            "startDate": "2022-05-01T01:10:00.000Z",
+            "endDate": "2022-05-01T06:30:00.000Z",
+            "activity": "f-blue-Other-SOF Activity",
             "ownAssets": [
                 {
-                    "asset": "a27",
+                    "asset": "a30",
+                    "number": 1
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a111",
                     "number": 1
                 },
                 {
-                    "asset": "a87",
-                    "number": 2
-                },
-                {
-                    "asset": "a76",
-                    "number": 3
-                },
-                {
-                    "asset": "a93",
-                    "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 4
+                    "asset": "a194",
+                    "number": 0
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Mine Laying-0",
+                    "uniqid": "SOF Activity-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Mine Laying//Route out",
-                            "startDate": "2022-05-01T02:00:00.000Z",
-                            "endDate": "2022-05-01T02:50:00.000Z",
+                            "id": "SOF Activity//Route out",
+                            "startDate": "2022-05-01T01:10:00.000Z",
+                            "endDate": "2022-05-01T02:00:00.000Z",
                             "force": "f-blue",
-                            "startTime": 1651370400000,
-                            "endTime": 1651373400000,
-                            "geomId": "Mine Laying-0",
-                            "name": "f-blue//4.334555323177483//Route out"
+                            "startTime": 1651367400000,
+                            "endTime": 1651370400000,
+                            "geomId": "SOF Activity-0",
+                            "name": "f-blue//2.5180683452636003//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    59.3690906989148,
-                                    45.201747379238086
+                                    72.6178,
+                                    45.379
                                 ],
                                 [
-                                    53.51,
-                                    39.29
+                                    62.86,
+                                    38.68
                                 ],
                                 [
-                                    47.56,
-                                    33.28
+                                    53.96,
+                                    30.83
                                 ],
                                 [
-                                    41.88,
-                                    26.55
+                                    44.33,
+                                    24.26
                                 ],
                                 [
-                                    36.49,
-                                    21.11
+                                    33.99,
+                                    16.97
                                 ],
                                 [
-                                    36.514,
-                                    20.7833
+                                    34.350128623069835,
+                                    17.210071310574804
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "Mine Laying-1",
+                    "uniqid": "SOF Activity-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Mine Laying//Mine Area",
-                            "startDate": "2022-05-01T02:50:00.000Z",
+                            "id": "SOF Activity//Activity Location",
+                            "startDate": "2022-05-01T02:00:00.000Z",
                             "endDate": "2022-05-01T03:30:00.000Z",
                             "force": "f-blue",
-                            "startTime": 1651373400000,
+                            "startTime": 1651370400000,
                             "endTime": 1651375800000,
-                            "geomId": "Mine Laying-1",
-                            "name": "f-blue//8.669110646354966//Mine Area"
+                            "geomId": "SOF Activity-1",
+                            "name": "f-blue//5.036136690527201//Activity Location"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        35.07385373090781,
-                                        22.111556338752617
+                                        31.53014080054548,
+                                        19.84316916929565
                                     ],
                                     [
-                                        35.07385373090781,
-                                        19.44324554653482
+                                        31.53014080054548,
+                                        14.538859061276458
                                     ],
                                     [
-                                        37.928912649953475,
-                                        19.44324554653482
+                                        37.09036982640282,
+                                        14.538859061276458
                                     ],
                                     [
-                                        37.928912649953475,
-                                        22.111556338752617
+                                        37.09036982640282,
+                                        19.84316916929565
                                     ],
                                     [
-                                        35.07385373090781,
-                                        22.111556338752617
+                                        31.53014080054548,
+                                        19.84316916929565
                                     ]
                                 ]
                             ]
@@ -2095,181 +2663,42 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Mine Laying-2",
+                    "uniqid": "SOF Activity-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Mine Laying//Route back",
+                            "id": "SOF Activity//Effect Location",
                             "startDate": "2022-05-01T03:30:00.000Z",
-                            "endDate": "2022-05-01T04:10:00.000Z",
+                            "endDate": "2022-05-01T05:10:00.000Z",
                             "force": "f-blue",
                             "startTime": 1651375800000,
-                            "endTime": 1651378200000,
-                            "geomId": "Mine Laying-2",
-                            "name": "f-blue//13.003665969532449//Route back"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    36.514,
-                                    20.7833
-                                ],
-                                [
-                                    41.77,
-                                    26.6
-                                ],
-                                [
-                                    47.82,
-                                    33.21
-                                ],
-                                [
-                                    53.15,
-                                    39.11
-                                ],
-                                [
-                                    59.77,
-                                    45.29
-                                ],
-                                [
-                                    59.3690906989148,
-                                    45.201747379238086
-                                ]
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "hasBeenRead": false,
-        "_id": "m_f-blue_93",
-        "_rev": "2"
-    },
-    {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-planning",
-            "from": {
-                "force": "Red",
-                "forceColor": "#ff3d43",
-                "roleName": "Direct Action",
-                "roleId": "red-direct",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "f-red"
-            },
-            "messageType": "Air--TST",
-            "timestamp": "2022-09-24T18:35:03.780Z",
-            "turnNumber": 3
-        },
-        "message": {
-            "Reference": "Red-96",
-            "title": "Order item 96",
-            "startDate": "2022-05-01T02:00:00.000Z",
-            "endDate": "2022-05-01T08:30:00.000Z",
-            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
-            "ownAssets": [
-                {
-                    "asset": "a193",
-                    "number": 0
-                },
-                {
-                    "asset": "a141",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a13",
-                    "number": 5
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                },
-                {
-                    "asset": "a10",
-                    "number": 3
-                }
-            ],
-            "location": [
-                {
-                    "uniqid": "Time Sensitive Targeting (TST)-0",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Time Sensitive Targeting (TST)//Route out",
-                            "startDate": "2022-05-01T02:00:00.000Z",
-                            "endDate": "2022-05-01T02:50:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651370400000,
-                            "endTime": 1651373400000,
-                            "geomId": "Time Sensitive Targeting (TST)-0",
-                            "name": "f-red//2.9506774487090297//Route out"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    38.014101672558375,
-                                    27.422513044490213
-                                ],
-                                [
-                                    45.33,
-                                    33.63
-                                ],
-                                [
-                                    52.92,
-                                    39.11
-                                ],
-                                [
-                                    59.81,
-                                    44.89
-                                ],
-                                [
-                                    59.866173825773274,
-                                    45.28378071561283
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Time Sensitive Targeting (TST)-1",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Time Sensitive Targeting (TST)//TST Area",
-                            "startDate": "2022-05-01T02:50:00.000Z",
-                            "endDate": "2022-05-01T05:20:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651373400000,
-                            "endTime": 1651382400000,
-                            "geomId": "Time Sensitive Targeting (TST)-1",
-                            "name": "f-red//5.901354897418059//TST Area"
+                            "endTime": 1651381800000,
+                            "geomId": "SOF Activity-2",
+                            "name": "f-blue//7.554205035790801//Effect Location"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        56.59004848338601,
-                                        47.453382062120816
+                                        32.300722228800645,
+                                        19.135940149161698
                                     ],
                                     [
-                                        56.59004848338601,
-                                        43.0275088582531
+                                        32.300722228800645,
+                                        15.26391465615122
                                     ],
                                     [
-                                        62.896309146243055,
-                                        43.0275088582531
+                                        36.35707314729603,
+                                        15.26391465615122
                                     ],
                                     [
-                                        62.896309146243055,
-                                        47.453382062120816
+                                        36.35707314729603,
+                                        19.135940149161698
                                     ],
                                     [
-                                        56.59004848338601,
-                                        47.453382062120816
+                                        32.300722228800645,
+                                        19.135940149161698
                                     ]
                                 ]
                             ]
@@ -2277,37 +2706,37 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Time Sensitive Targeting (TST)-2",
+                    "uniqid": "SOF Activity-3",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Time Sensitive Targeting (TST)//Route back",
-                            "startDate": "2022-05-01T05:20:00.000Z",
-                            "endDate": "2022-05-01T08:30:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651382400000,
-                            "endTime": 1651393800000,
-                            "geomId": "Time Sensitive Targeting (TST)-2",
-                            "name": "f-red//8.85203234612709//Route back"
+                            "id": "SOF Activity//Route back",
+                            "startDate": "2022-05-01T05:10:00.000Z",
+                            "endDate": "2022-05-01T06:30:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651381800000,
+                            "endTime": 1651386600000,
+                            "geomId": "SOF Activity-3",
+                            "name": "f-blue//10.072273381054401//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    59.866173825773274,
-                                    45.28378071561283
+                                    34.350128623069835,
+                                    17.210071310574804
                                 ],
                                 [
-                                    48.78,
-                                    36.53
+                                    53.9,
+                                    30.95
                                 ],
                                 [
-                                    38.11,
-                                    27.2
+                                    72.84,
+                                    45.08
                                 ],
                                 [
-                                    38.014101672558375,
-                                    27.422513044490213
+                                    72.6178,
+                                    45.379
                                 ]
                             ]
                         }
@@ -2316,7 +2745,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_96",
+        "_id": "m_f-blue_51",
         "_rev": "2"
     },
     {
@@ -2332,114 +2761,122 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                 "forceId": "f-red"
             },
             "messageType": "Air--Standard",
-            "timestamp": "2022-09-25T10:28:50.789Z",
+            "timestamp": "2022-09-28T22:03:28.651Z",
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-99",
-            "title": "Order item 99",
-            "startDate": "2022-05-01T02:10:00.000Z",
+            "Reference": "Red-54",
+            "title": "Order item 54",
+            "startDate": "2022-05-01T01:10:00.000Z",
             "endDate": "2022-05-01T04:40:00.000Z",
-            "activity": "f-red-Air-Suppression of Air Defences (SEAD)",
+            "activity": "f-red-Air-Offensive Counter Air",
             "ownAssets": [
                 {
-                    "asset": "a119",
+                    "asset": "a134",
                     "number": 2
                 },
                 {
-                    "asset": "a149",
+                    "asset": "a189",
+                    "number": 5
+                },
+                {
+                    "asset": "a175",
                     "number": 2
+                },
+                {
+                    "asset": "a187",
+                    "number": 0
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 5
+                    "asset": "a9",
+                    "number": 4
+                },
+                {
+                    "asset": "a93",
+                    "number": 3
                 }
             ],
             "location": [
                 {
-                    "uniqid": "Suppression of Air Defences (SEAD)-0",
+                    "uniqid": "Offensive Counter Air-0",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Suppression of Air Defences (SEAD)//Route out",
-                            "startDate": "2022-05-01T02:10:00.000Z",
-                            "endDate": "2022-05-01T03:00:00.000Z",
+                            "id": "Offensive Counter Air//Route out",
+                            "startDate": "2022-05-01T01:10:00.000Z",
+                            "endDate": "2022-05-01T02:00:00.000Z",
                             "force": "f-red",
-                            "startTime": 1651371000000,
-                            "endTime": 1651374000000,
-                            "geomId": "Suppression of Air Defences (SEAD)-0",
-                            "name": "f-red//5.460220743145328//Route out"
+                            "startTime": 1651367400000,
+                            "endTime": 1651370400000,
+                            "geomId": "Offensive Counter Air-0",
+                            "name": "f-red//6.6262941003078595//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    39.4258,
-                                    16.3734
+                                    24.3135,
+                                    7.8918
                                 ],
                                 [
-                                    38.47,
-                                    24.35
+                                    43.58,
+                                    17.21
                                 ],
                                 [
-                                    37.51,
-                                    32.31
+                                    64.1,
+                                    26.79
                                 ],
                                 [
-                                    36.82,
-                                    40.56
+                                    82.9,
+                                    36.65
                                 ],
                                 [
-                                    35.42,
-                                    48.09
-                                ],
-                                [
-                                    35.8981,
-                                    48.4922
+                                    83.366,
+                                    36.5889
                                 ]
                             ]
                         }
                     }
                 },
                 {
-                    "uniqid": "Suppression of Air Defences (SEAD)-1",
+                    "uniqid": "Offensive Counter Air-1",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Suppression of Air Defences (SEAD)//SEAD Area",
-                            "startDate": "2022-05-01T03:00:00.000Z",
-                            "endDate": "2022-05-01T03:30:00.000Z",
+                            "id": "Offensive Counter Air//OCA Area",
+                            "startDate": "2022-05-01T02:00:00.000Z",
+                            "endDate": "2022-05-01T04:20:00.000Z",
                             "force": "f-red",
-                            "startTime": 1651374000000,
-                            "endTime": 1651375800000,
-                            "geomId": "Suppression of Air Defences (SEAD)-1",
-                            "name": "f-red//10.920441486290656//SEAD Area"
+                            "startTime": 1651370400000,
+                            "endTime": 1651378800000,
+                            "geomId": "Offensive Counter Air-1",
+                            "name": "f-red//13.252588200615719//OCA Area"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        35.212180963317955,
-                                        48.94071308136687
+                                        79.27643699203578,
+                                        39.66870844829771
                                     ],
                                     [
-                                        35.212180963317955,
-                                        48.03968329976831
+                                        79.27643699203578,
+                                        33.380270200649576
                                     ],
                                     [
-                                        36.57193759115035,
-                                        48.03968329976831
+                                        87.13533051746509,
+                                        33.380270200649576
                                     ],
                                     [
-                                        36.57193759115035,
-                                        48.94071308136687
+                                        87.13533051746509,
+                                        39.66870844829771
                                     ],
                                     [
-                                        35.212180963317955,
-                                        48.94071308136687
+                                        79.27643699203578,
+                                        39.66870844829771
                                     ]
                                 ]
                             ]
@@ -2447,33 +2884,37 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                     }
                 },
                 {
-                    "uniqid": "Suppression of Air Defences (SEAD)-2",
+                    "uniqid": "Offensive Counter Air-2",
                     "geometry": {
                         "type": "Feature",
                         "properties": {
-                            "id": "Suppression of Air Defences (SEAD)//Route back",
-                            "startDate": "2022-05-01T03:30:00.000Z",
+                            "id": "Offensive Counter Air//Route back",
+                            "startDate": "2022-05-01T04:20:00.000Z",
                             "endDate": "2022-05-01T04:40:00.000Z",
                             "force": "f-red",
-                            "startTime": 1651375800000,
+                            "startTime": 1651378800000,
                             "endTime": 1651380000000,
-                            "geomId": "Suppression of Air Defences (SEAD)-2",
-                            "name": "f-red//16.380662229435984//Route back"
+                            "geomId": "Offensive Counter Air-2",
+                            "name": "f-red//19.87888230092358//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    35.8981,
-                                    48.4922
+                                    83.366,
+                                    36.5889
                                 ],
                                 [
-                                    39.59,
-                                    16.6
+                                    53.62,
+                                    22.43
                                 ],
                                 [
-                                    39.4258,
-                                    16.3734
+                                    24.31,
+                                    7.71
+                                ],
+                                [
+                                    24.3135,
+                                    7.8918
                                 ]
                             ]
                         }
@@ -2482,347 +2923,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_99",
-        "_rev": "2"
-    },
-    {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#3dd0ff",
-                "roleName": "MTG 1",
-                "roleId": "blue-mtg-1",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "f-blue"
-            },
-            "messageType": "Maritime--Standard",
-            "timestamp": "2022-09-22T08:06:38.589Z",
-            "turnNumber": 3
-        },
-        "message": {
-            "Reference": "Blue-102",
-            "title": "Order item 102",
-            "startDate": "2022-05-01T02:20:00.000Z",
-            "endDate": "2022-05-01T06:00:00.000Z",
-            "activity": "f-blue-Maritime-Mine Clearance",
-            "ownAssets": [
-                {
-                    "asset": "a94",
-                    "number": 3
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 3
-                },
-                {
-                    "asset": "a194",
-                    "number": 5
-                }
-            ],
-            "location": [
-                {
-                    "uniqid": "Mine Clearance-0",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Mine Clearance//Route out",
-                            "startDate": "2022-05-01T02:20:00.000Z",
-                            "endDate": "2022-05-01T03:10:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651371600000,
-                            "endTime": 1651374600000,
-                            "geomId": "Mine Clearance-0",
-                            "name": "f-blue//6.863185207359493//Route out"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    60.5542,
-                                    33.3606
-                                ],
-                                [
-                                    51.65,
-                                    28
-                                ],
-                                [
-                                    42.88,
-                                    23.79
-                                ],
-                                [
-                                    34.4,
-                                    18.86
-                                ],
-                                [
-                                    33.9474,
-                                    18.4807
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Mine Clearance-1",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Mine Clearance//Mine Clearance Area Area",
-                            "startDate": "2022-05-01T03:10:00.000Z",
-                            "endDate": "2022-05-01T05:30:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651374600000,
-                            "endTime": 1651383000000,
-                            "geomId": "Mine Clearance-1",
-                            "name": "f-blue//13.726370414718986//Mine Clearance Area Area"
-                        },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
-                                [
-                                    [
-                                        31.318838842538028,
-                                        20.918042131897973
-                                    ],
-                                    [
-                                        31.318838842538028,
-                                        16.008130035806822
-                                    ],
-                                    [
-                                        36.50172018295525,
-                                        16.008130035806822
-                                    ],
-                                    [
-                                        36.50172018295525,
-                                        20.918042131897973
-                                    ],
-                                    [
-                                        31.318838842538028,
-                                        20.918042131897973
-                                    ]
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Mine Clearance-2",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Mine Clearance//Route back",
-                            "startDate": "2022-05-01T05:30:00.000Z",
-                            "endDate": "2022-05-01T06:00:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651383000000,
-                            "endTime": 1651384800000,
-                            "geomId": "Mine Clearance-2",
-                            "name": "f-blue//20.58955562207848//Route back"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    33.9474,
-                                    18.4807
-                                ],
-                                [
-                                    42.48,
-                                    23.29
-                                ],
-                                [
-                                    52.18,
-                                    28.26
-                                ],
-                                [
-                                    60.16,
-                                    33.52
-                                ],
-                                [
-                                    60.5542,
-                                    33.3606
-                                ]
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "hasBeenRead": false,
-        "_id": "m_f-blue_102",
-        "_rev": "2"
-    },
-    {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#3dd0ff",
-                "roleName": "Sub-Surface",
-                "roleId": "blue-sub",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "f-blue"
-            },
-            "messageType": "Maritime--Patrol",
-            "timestamp": "2022-09-23T19:28:27.180Z",
-            "turnNumber": 3
-        },
-        "message": {
-            "Reference": "Blue-105",
-            "title": "Order item 105",
-            "startDate": "2022-05-01T02:20:00.000Z",
-            "endDate": "2022-05-01T05:00:00.000Z",
-            "activity": "f-blue-Maritime-Patrol",
-            "ownAssets": [
-                {
-                    "asset": "a29",
-                    "number": 0
-                },
-                {
-                    "asset": "a30",
-                    "number": 0
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a194",
-                    "number": 3
-                }
-            ],
-            "location": [
-                {
-                    "uniqid": "Patrol-0",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Patrol//Route out",
-                            "startDate": "2022-05-01T02:20:00.000Z",
-                            "endDate": "2022-05-01T03:10:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651371600000,
-                            "endTime": 1651374600000,
-                            "geomId": "Patrol-0",
-                            "name": "f-blue//2.1595708401873708//Route out"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    26.6004,
-                                    29.7616
-                                ],
-                                [
-                                    52.98,
-                                    21.42
-                                ],
-                                [
-                                    52.7025,
-                                    21.4062
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Patrol-1",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Patrol//Patrol Area",
-                            "startDate": "2022-05-01T03:10:00.000Z",
-                            "endDate": "2022-05-01T03:40:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651374600000,
-                            "endTime": 1651376400000,
-                            "geomId": "Patrol-1",
-                            "name": "f-blue//4.3191416803747416//Patrol Area"
-                        },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
-                                [
-                                    [
-                                        50.131605577196666,
-                                        23.74013632923449
-                                    ],
-                                    [
-                                        50.131605577196666,
-                                        19.03430880688867
-                                    ],
-                                    [
-                                        55.19191048571001,
-                                        19.03430880688867
-                                    ],
-                                    [
-                                        55.19191048571001,
-                                        23.74013632923449
-                                    ],
-                                    [
-                                        50.131605577196666,
-                                        23.74013632923449
-                                    ]
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Patrol-2",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Patrol//Route back",
-                            "startDate": "2022-05-01T03:40:00.000Z",
-                            "endDate": "2022-05-01T05:00:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651376400000,
-                            "endTime": 1651381200000,
-                            "geomId": "Patrol-2",
-                            "name": "f-blue//6.478712520562112//Route back"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    52.7025,
-                                    21.4062
-                                ],
-                                [
-                                    46.5,
-                                    23.27
-                                ],
-                                [
-                                    39.18,
-                                    26
-                                ],
-                                [
-                                    33.14,
-                                    28.02
-                                ],
-                                [
-                                    26.39,
-                                    29.32
-                                ],
-                                [
-                                    26.6004,
-                                    29.7616
-                                ]
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "hasBeenRead": false,
-        "_id": "m_f-blue_105",
+        "_id": "m_f-red_54",
         "_rev": "2"
     },
     {
@@ -2832,209 +2933,35 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
-                "roleName": "Air & AD",
-                "roleId": "red-air",
+                "roleName": "Direct Action",
+                "roleId": "red-direct",
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Land--Patrol",
-            "timestamp": "2022-09-29T20:34:16.561Z",
+            "messageType": "Land--EWAttack",
+            "timestamp": "2022-09-23T21:41:04.593Z",
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-108",
-            "title": "Order item 108",
-            "startDate": "2022-05-01T02:20:00.000Z",
-            "endDate": "2022-05-01T04:40:00.000Z",
-            "activity": "f-red-Land-Patrol",
+            "Reference": "Red-57",
+            "title": "Order item 57",
+            "startDate": "2022-05-01T01:20:00.000Z",
+            "endDate": "2022-05-01T05:00:00.000Z",
+            "activity": "f-red-Land-EW Attack",
             "ownAssets": [
                 {
-                    "asset": "a117",
-                    "number": 5
+                    "asset": "a187",
+                    "number": 0
                 },
                 {
-                    "asset": "a200",
-                    "number": 3
-                },
-                {
-                    "asset": "a129",
-                    "number": 5
-                },
-                {
-                    "asset": "a158",
-                    "number": 5
+                    "asset": "a130",
+                    "number": 2
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 2
-                },
-                {
-                    "asset": "a94",
-                    "number": 2
-                }
-            ],
-            "location": [
-                {
-                    "uniqid": "Patrol-0",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Patrol//Route out",
-                            "startDate": "2022-05-01T02:20:00.000Z",
-                            "endDate": "2022-05-01T03:10:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651371600000,
-                            "endTime": 1651374600000,
-                            "geomId": "Patrol-0",
-                            "name": "f-red//6.3493776430841535//Route out"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    52.9196,
-                                    22.8558
-                                ],
-                                [
-                                    55.73,
-                                    33.14
-                                ],
-                                [
-                                    57.77,
-                                    43.64
-                                ],
-                                [
-                                    60.09,
-                                    53.42
-                                ],
-                                [
-                                    60.5032,
-                                    53.337
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Patrol-1",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Patrol//Patrol Area",
-                            "startDate": "2022-05-01T03:10:00.000Z",
-                            "endDate": "2022-05-01T04:40:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651374600000,
-                            "endTime": 1651380000000,
-                            "geomId": "Patrol-1",
-                            "name": "f-red//12.698755286168307//Patrol Area"
-                        },
-                        "geometry": {
-                            "type": "Polygon",
-                            "coordinates": [
-                                [
-                                    [
-                                        55.61587779221084,
-                                        55.97578373438614
-                                    ],
-                                    [
-                                        55.61587779221084,
-                                        50.52225826459914
-                                    ],
-                                    [
-                                        64.80331283030398,
-                                        50.52225826459914
-                                    ],
-                                    [
-                                        64.80331283030398,
-                                        55.97578373438614
-                                    ],
-                                    [
-                                        55.61587779221084,
-                                        55.97578373438614
-                                    ]
-                                ]
-                            ]
-                        }
-                    }
-                },
-                {
-                    "uniqid": "Patrol-2",
-                    "geometry": {
-                        "type": "Feature",
-                        "properties": {
-                            "id": "Patrol//Route back",
-                            "startDate": "2022-05-01T04:40:00.000Z",
-                            "endDate": "2022-05-01T04:40:00.000Z",
-                            "force": "f-red",
-                            "startTime": 1651380000000,
-                            "endTime": 1651380000000,
-                            "geomId": "Patrol-2",
-                            "name": "f-red//19.04813292925246//Route back"
-                        },
-                        "geometry": {
-                            "type": "LineString",
-                            "coordinates": [
-                                [
-                                    60.5032,
-                                    53.337
-                                ],
-                                [
-                                    52.8,
-                                    22.51
-                                ],
-                                [
-                                    52.9196,
-                                    22.8558
-                                ]
-                            ]
-                        }
-                    }
-                }
-            ]
-        },
-        "hasBeenRead": false,
-        "_id": "m_f-red_108",
-        "_rev": "2"
-    },
-    {
-        "messageType": "PlanningMessage",
-        "details": {
-            "channel": "channel-planning",
-            "from": {
-                "force": "Blue",
-                "forceColor": "#3dd0ff",
-                "roleName": "MTG 1",
-                "roleId": "blue-mtg-1",
-                "iconURL": "default_img/umpireDefault.png",
-                "forceId": "f-blue"
-            },
-            "messageType": "Maritime--EWAttack",
-            "timestamp": "2022-09-23T19:24:06.733Z",
-            "turnNumber": 3
-        },
-        "message": {
-            "Reference": "Blue-111",
-            "title": "Order item 111",
-            "startDate": "2022-05-01T02:25:00.000Z",
-            "endDate": "2022-05-01T07:35:00.000Z",
-            "activity": "f-blue-Maritime-EW Attack",
-            "ownAssets": [
-                {
-                    "asset": "a58",
-                    "number": 4
-                },
-                {
-                    "asset": "a30",
+                    "asset": "a9",
                     "number": 5
-                }
-            ],
-            "otherAssets": [
-                {
-                    "asset": "a113",
-                    "number": 2
                 }
             ],
             "location": [
@@ -3044,36 +2971,36 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "EW Attack//Route out",
-                            "startDate": "2022-05-01T02:25:00.000Z",
-                            "endDate": "2022-05-01T03:15:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651371900000,
-                            "endTime": 1651374900000,
+                            "startDate": "2022-05-01T01:20:00.000Z",
+                            "endDate": "2022-05-01T02:10:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651368000000,
+                            "endTime": 1651371000000,
                             "geomId": "EW Attack-0",
-                            "name": "f-blue//4.432605614885688//Route out"
+                            "name": "f-red//4.627941024693428//Route out"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    37.4246,
-                                    42.9126
+                                    24.3135,
+                                    7.8918
                                 ],
                                 [
-                                    46.84,
-                                    35.99
+                                    33.17,
+                                    19.24
                                 ],
                                 [
-                                    56.4,
-                                    28.21
+                                    41.23,
+                                    30.78
                                 ],
                                 [
-                                    65.25,
-                                    20.72
+                                    49.57,
+                                    41.61
                                 ],
                                 [
-                                    65.46679121001898,
-                                    20.685862585822825
+                                    49.418,
+                                    42.0476
                                 ]
                             ]
                         }
@@ -3085,37 +3012,37 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "EW Attack//EW Area of Effect",
-                            "startDate": "2022-05-01T03:15:00.000Z",
-                            "endDate": "2022-05-01T04:25:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651374900000,
-                            "endTime": 1651379100000,
+                            "startDate": "2022-05-01T02:10:00.000Z",
+                            "endDate": "2022-05-01T05:00:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651371000000,
+                            "endTime": 1651381200000,
                             "geomId": "EW Attack-1",
-                            "name": "f-blue//8.865211229771376//EW Area of Effect"
+                            "name": "f-red//9.255882049386855//EW Area of Effect"
                         },
                         "geometry": {
                             "type": "Polygon",
                             "coordinates": [
                                 [
                                     [
-                                        62.13661918416215,
-                                        23.703479855521927
+                                        45.510771345632364,
+                                        44.75761656820245
                                     ],
                                     [
-                                        62.13661918416215,
-                                        17.606804637751626
+                                        45.510771345632364,
+                                        39.21606955776042
                                     ],
                                     [
-                                        68.66574709265771,
-                                        17.606804637751626
+                                        52.99861932786276,
+                                        39.21606955776042
                                     ],
                                     [
-                                        68.66574709265771,
-                                        23.703479855521927
+                                        52.99861932786276,
+                                        44.75761656820245
                                     ],
                                     [
-                                        62.13661918416215,
-                                        23.703479855521927
+                                        45.510771345632364,
+                                        44.75761656820245
                                     ]
                                 ]
                             ]
@@ -3128,36 +3055,32 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
                         "type": "Feature",
                         "properties": {
                             "id": "EW Attack//Route back",
-                            "startDate": "2022-05-01T04:25:00.000Z",
-                            "endDate": "2022-05-01T07:35:00.000Z",
-                            "force": "f-blue",
-                            "startTime": 1651379100000,
-                            "endTime": 1651390500000,
+                            "startDate": "2022-05-01T05:00:00.000Z",
+                            "endDate": "2022-05-01T05:00:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651381200000,
+                            "endTime": 1651381200000,
                             "geomId": "EW Attack-2",
-                            "name": "f-blue//13.297816844657063//Route back"
+                            "name": "f-red//13.883823074080283//Route back"
                         },
                         "geometry": {
                             "type": "LineString",
                             "coordinates": [
                                 [
-                                    65.46679121001898,
-                                    20.685862585822825
+                                    49.418,
+                                    42.0476
                                 ],
                                 [
-                                    56.45,
-                                    28.4
+                                    36.96,
+                                    24.72
                                 ],
                                 [
-                                    46.54,
-                                    35.22
+                                    24.01,
+                                    7.9
                                 ],
                                 [
-                                    37.92,
-                                    43.32
-                                ],
-                                [
-                                    37.4246,
-                                    42.9126
+                                    24.3135,
+                                    7.8918
                                 ]
                             ]
                         }
@@ -3166,7 +3089,7 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_111",
+        "_id": "m_f-red_57",
         "_rev": "2"
     },
     {
@@ -3176,52 +3099,596 @@ export const planningMessages: Array<MessageInteraction | MessagePlanning | Mess
             "from": {
                 "force": "Red",
                 "forceColor": "#ff3d43",
-                "roleName": "CO",
-                "roleId": "red-CO",
+                "roleName": "Threat Network",
+                "roleId": "red-threat",
                 "iconURL": "default_img/umpireDefault.png",
                 "forceId": "f-red"
             },
-            "messageType": "Maritime--MissileStrike",
-            "timestamp": "2022-09-25T06:20:57.752Z",
+            "messageType": "Air--TST",
+            "timestamp": "2022-09-23T11:02:41.326Z",
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-143",
-            "title": "Order item 143",
-            "startDate": "2022-05-01T03:15:00.000Z",
-            "endDate": "2022-05-01T06:25:00.000Z",
-            "activity": "f-red-Maritime-Strike",
+            "Reference": "Red-60",
+            "title": "Order item 60",
+            "startDate": "2022-05-01T01:30:00.000Z",
+            "endDate": "2022-05-01T07:50:00.000Z",
+            "activity": "f-red-Air-Time Sensitive Targeting (TST)",
             "ownAssets": [
                 {
-                    "asset": "a111",
-                    "number": 5,
-                    "missileType": "Low Obs Cruise"
-                },
-                {
-                    "asset": "a145",
-                    "number": 3,
-                    "missileType": "MRBM"
+                    "asset": "a196",
+                    "number": 5
                 }
             ],
             "otherAssets": [
                 {
-                    "asset": "a13",
-                    "number": 4,
-                    "missileType": "SRBM"
+                    "asset": "a9",
+                    "number": 1
                 },
                 {
-                    "asset": "a94",
-                    "number": 1,
-                    "missileType": "IRBM"
+                    "asset": "a93",
+                    "number": 1
                 },
                 {
-                    "asset": "a10",
-                    "number": 1,
-                    "missileType": "SRBM"
+                    "asset": "a6",
+                    "number": 0
+                }
+            ],
+            "location": [
+                {
+                    "uniqid": "Time Sensitive Targeting (TST)-0",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Time Sensitive Targeting (TST)//Route out",
+                            "startDate": "2022-05-01T01:30:00.000Z",
+                            "endDate": "2022-05-01T02:20:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651368600000,
+                            "endTime": 1651371600000,
+                            "geomId": "Time Sensitive Targeting (TST)-0",
+                            "name": "f-red//6.523009118420305//Route out"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    49.7238,
+                                    16.1247
+                                ],
+                                [
+                                    50.98,
+                                    22.98
+                                ],
+                                [
+                                    51.56,
+                                    30.17
+                                ],
+                                [
+                                    51.8633526617029,
+                                    29.81354679675008
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Time Sensitive Targeting (TST)-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Time Sensitive Targeting (TST)//TST Area",
+                            "startDate": "2022-05-01T02:20:00.000Z",
+                            "endDate": "2022-05-01T05:10:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651371600000,
+                            "endTime": 1651381800000,
+                            "geomId": "Time Sensitive Targeting (TST)-1",
+                            "name": "f-red//13.04601823684061//TST Area"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        48.23531548398229,
+                                        32.814026294360545
+                                    ],
+                                    [
+                                        48.23531548398229,
+                                        26.719815464414964
+                                    ],
+                                    [
+                                        55.27673962599262,
+                                        26.719815464414964
+                                    ],
+                                    [
+                                        55.27673962599262,
+                                        32.814026294360545
+                                    ],
+                                    [
+                                        48.23531548398229,
+                                        32.814026294360545
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Time Sensitive Targeting (TST)-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Time Sensitive Targeting (TST)//Route back",
+                            "startDate": "2022-05-01T05:10:00.000Z",
+                            "endDate": "2022-05-01T07:50:00.000Z",
+                            "force": "f-red",
+                            "startTime": 1651381800000,
+                            "endTime": 1651391400000,
+                            "geomId": "Time Sensitive Targeting (TST)-2",
+                            "name": "f-red//19.569027355260914//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    51.8633526617029,
+                                    29.81354679675008
+                                ],
+                                [
+                                    51.14,
+                                    26.59
+                                ],
+                                [
+                                    50.33,
+                                    23.28
+                                ],
+                                [
+                                    49.81,
+                                    19.26
+                                ],
+                                [
+                                    49.57,
+                                    16.53
+                                ],
+                                [
+                                    49.7238,
+                                    16.1247
+                                ]
+                            ]
+                        }
+                    }
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_143",
+        "_id": "m_f-red_60",
         "_rev": "2"
-    }]
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-planning",
+            "from": {
+                "force": "Blue",
+                "forceColor": "#3dd0ff",
+                "roleName": "AEW 1",
+                "roleId": "blue-aew-1",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "f-blue"
+            },
+            "messageType": "Maritime--Standard",
+            "timestamp": "2022-09-27T14:08:18.849Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "Reference": "Blue-63",
+            "title": "Order item 63",
+            "startDate": "2022-05-01T01:50:00.000Z",
+            "endDate": "2022-05-01T04:50:00.000Z",
+            "activity": "f-blue-Maritime-Air-Air Refuel",
+            "ownAssets": [
+                {
+                    "asset": "a59",
+                    "number": 5
+                },
+                {
+                    "asset": "a69",
+                    "number": 4
+                },
+                {
+                    "asset": "a11",
+                    "number": 2
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a111",
+                    "number": 0
+                }
+            ],
+            "location": [
+                {
+                    "uniqid": "Air-Air Refuel-0",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Air-Air Refuel//Route out",
+                            "startDate": "2022-05-01T01:50:00.000Z",
+                            "endDate": "2022-05-01T02:40:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651369800000,
+                            "endTime": 1651372800000,
+                            "geomId": "Air-Air Refuel-0",
+                            "name": "f-blue//2.311498381488491//Route out"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    25.7194,
+                                    32.9712
+                                ],
+                                [
+                                    33.57,
+                                    17.65
+                                ],
+                                [
+                                    40.78,
+                                    2.67
+                                ],
+                                [
+                                    41.133736298147326,
+                                    2.330701244818076
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Air-Air Refuel-1",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Air-Air Refuel//AAR at this location",
+                            "startDate": "2022-05-01T02:40:00.000Z",
+                            "endDate": "2022-05-01T03:00:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651372800000,
+                            "endTime": 1651374000000,
+                            "geomId": "Air-Air Refuel-1",
+                            "name": "f-blue//4.622996762976982//AAR at this location"
+                        },
+                        "geometry": {
+                            "type": "Polygon",
+                            "coordinates": [
+                                [
+                                    [
+                                        37.291045615337865,
+                                        6.1460521790799385
+                                    ],
+                                    [
+                                        37.291045615337865,
+                                        -1.4950611967589291
+                                    ],
+                                    [
+                                        44.955610102881664,
+                                        -1.4950611967589291
+                                    ],
+                                    [
+                                        44.955610102881664,
+                                        6.1460521790799385
+                                    ],
+                                    [
+                                        37.291045615337865,
+                                        6.1460521790799385
+                                    ]
+                                ]
+                            ]
+                        }
+                    }
+                },
+                {
+                    "uniqid": "Air-Air Refuel-2",
+                    "geometry": {
+                        "type": "Feature",
+                        "properties": {
+                            "id": "Air-Air Refuel//Route back",
+                            "startDate": "2022-05-01T03:00:00.000Z",
+                            "endDate": "2022-05-01T04:50:00.000Z",
+                            "force": "f-blue",
+                            "startTime": 1651374000000,
+                            "endTime": 1651380600000,
+                            "geomId": "Air-Air Refuel-2",
+                            "name": "f-blue//6.9344951444654725//Route back"
+                        },
+                        "geometry": {
+                            "type": "LineString",
+                            "coordinates": [
+                                [
+                                    41.133736298147326,
+                                    2.330701244818076
+                                ],
+                                [
+                                    33.42,
+                                    17.83
+                                ],
+                                [
+                                    26.04,
+                                    32.68
+                                ],
+                                [
+                                    25.7194,
+                                    32.9712
+                                ]
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_f-blue_63",
+        "_rev": "2"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "umpire",
+                "roleName": "Game Designer"
+            },
+            "channel": "channel-planning",
+            "messageType": "p9adjudicate",
+            "timestamp": "2023-01-19T13:04:52.920Z",
+            "turnNumber": 3,
+            "counter": 1,
+            "interaction": {
+                "startTime": "2022-05-01T01:20:00.000Z",
+                "endTime": "2022-05-01T05:00:00.000Z",
+                "id": "umpire-1",
+                "orders1": "m_f-blue_21",
+                "orders2": "m_f-red_57",
+                "complete": true
+            }
+        },
+        "message": {
+            "Reference": "umpire-1",
+            "healthOutcomes": [],
+            "important": false,
+            "locationOutcomes": [],
+            "perceptionOutcomes": [],
+            "narrative": "",
+            "messageType": "AdjudicationOutcomes"
+        },
+        "_id": "2023-01-19T13:04:52.920Z//0"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "umpire",
+                "roleName": "Game Designer"
+            },
+            "channel": "channel-planning",
+            "messageType": "p9adjudicate",
+            "timestamp": "2023-01-19T13:04:52.920Z",
+            "turnNumber": 3,
+            "counter": 2,
+            "interaction": {
+                "startTime": "2022-05-01T01:10:00.000Z",
+                "endTime": "2022-05-01T00:55:00.000Z",
+                "id": "umpire-2",
+                "orders1": "m_f-blue_18",
+                "orders2": "m_f-red_54",
+                "complete": true
+            }
+        },
+        "message": {
+            "Reference": "umpire-2",
+            "healthOutcomes": [],
+            "important": true,
+            "locationOutcomes": [],
+            "perceptionOutcomes": [],
+            "narrative": "",
+            "messageType": "AdjudicationOutcomes"
+        },
+        "_id": "2023-01-19T13:04:52.920Z//1"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "adjud-1",
+                "roleName": "Adjudicator 1"
+            },
+            "channel": "channel-planning",
+            "messageType": "p9adjudicate",
+            "timestamp": "2023-01-19T13:04:52.920Z",
+            "turnNumber": 3,
+            "counter": 3,
+            "interaction": {
+                "startTime": "2022-05-01T01:10:00.000Z",
+                "endTime": "2022-05-01T03:15:00.000Z",
+                "id": "umpire-3",
+                "orders1": "m_f-blue_12",
+                "orders2": "m_f-red_48",
+                "complete": true
+            }
+        },
+        "message": {
+            "Reference": "umpire-3",
+            "healthOutcomes": [],
+            "important": false,
+            "locationOutcomes": [],
+            "perceptionOutcomes": [],
+            "narrative": "",
+            "messageType": "AdjudicationOutcomes"
+        },
+        "_id": "2023-01-19T13:04:52.920Z//2"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "adjud-1",
+                "roleName": "Adjudicator 1"
+            },
+            "channel": "channel-planning",
+            "messageType": "p9adjudicate",
+            "timestamp": "2023-01-19T13:04:52.920Z",
+            "turnNumber": 3,
+            "counter": 4,
+            "interaction": {
+                "startTime": "2022-05-01T00:50:00.000Z",
+                "endTime": "2022-05-01T00:25:00.000Z",
+                "id": "umpire-4",
+                "orders1": "m_f-blue_8",
+                "orders2": "m_f-red_42",
+                "complete": true
+            }
+        },
+        "message": {
+            "Reference": "umpire-4",
+            "healthOutcomes": [],
+            "important": true,
+            "locationOutcomes": [],
+            "perceptionOutcomes": [],
+            "narrative": "",
+            "messageType": "AdjudicationOutcomes"
+        },
+        "_id": "2023-01-19T13:04:52.920Z//3"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "adjud-2",
+                "roleName": "Adjudicator 2"
+            },
+            "channel": "channel-planning",
+            "messageType": "p9adjudicate",
+            "timestamp": "2023-01-19T13:04:52.920Z",
+            "turnNumber": 3,
+            "counter": 5,
+            "interaction": {
+                "startTime": "2022-05-01T01:30:00.000Z",
+                "endTime": "2022-05-01T06:55:00.000Z",
+                "id": "umpire-5",
+                "orders1": "m_f-blue_21",
+                "orders2": "m_f-red_60",
+                "complete": true
+            }
+        },
+        "message": {
+            "Reference": "umpire-5",
+            "healthOutcomes": [],
+            "important": false,
+            "locationOutcomes": [],
+            "perceptionOutcomes": [],
+            "narrative": "",
+            "messageType": "AdjudicationOutcomes"
+        },
+        "_id": "2023-01-19T13:04:52.920Z//4"
+    },
+    {
+        "messageType": "InteractionMessage",
+        "details": {
+            "from": {
+                "force": "Umpire",
+                "forceColor": "#000000",
+                "forceId": "umpire",
+                "iconURL": "",
+                "roleId": "adjud-2",
+                "roleName": "Adjudicator 2"
+            },
+            "channel": "channel-planning",
+            "messageType": "p9adjudicate",
+            "timestamp": "2023-01-19T13:04:52.920Z",
+            "turnNumber": 3,
+            "counter": 6,
+            "interaction": {
+                "startTime": "2022-05-01T00:30:00.000Z",
+                "endTime": "2022-05-01T03:15:00.000Z",
+                "id": "umpire-6",
+                "orders1": "m_f-blue_12",
+                "orders2": "m_f-red_33",
+                "complete": true
+            }
+        },
+        "message": {
+            "Reference": "umpire-6",
+            "healthOutcomes": [],
+            "important": true,
+            "locationOutcomes": [],
+            "perceptionOutcomes": [],
+            "narrative": "",
+            "messageType": "AdjudicationOutcomes"
+        },
+        "_id": "2023-01-17T17:08:36.076Z//5"
+    },
+    {
+        "messageType": "PlanningMessage",
+        "details": {
+            "channel": "channel-planning",
+            "from": {
+                "force": "Red",
+                "forceColor": "#ff3d43",
+                "roleName": "Direct Action",
+                "roleId": "red-direct",
+                "iconURL": "default_img/umpireDefault.png",
+                "forceId": "f-red"
+            },
+            "messageType": "Other--Cyber",
+            "timestamp": "2022-09-24T00:45:23.580Z",
+            "turnNumber": 3
+        },
+        "message": {
+            "Reference": "Red-276",
+            "title": "Order item 276",
+            "startDate": "2022-05-01T07:50:00.000Z",
+            "endDate": "2022-05-01T08:00:00.000Z",
+            "activity": "f-red-Other-Cyber/Space Activity",
+            "ownAssets": [
+                {
+                    "asset": "a159",
+                    "number": 5
+                },
+                {
+                    "asset": "a153",
+                    "number": 0
+                }
+            ],
+            "otherAssets": [
+                {
+                    "asset": "a41",
+                    "number": 3
+                }
+            ]
+        },
+        "hasBeenRead": false,
+        "_id": "m_f-red_276",
+        "_rev": "2"
+    }
+]

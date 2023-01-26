@@ -51,11 +51,13 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   attributeTypes: AttributeTypes): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
-    force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
-      rows.push(...assets)
+    // don't generate op-for for umpire
+    if (!force.umpire) {
+      force.assets && force.assets.forEach((asset: Asset) => {
+        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
+        rows.push(...assets)
+      })
     }
-    )
   })
   return rows
 }
@@ -225,34 +227,32 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const fixedColWidth = 100
 
+  const ownAssets = !!(playerForce && !opFor)
+
   const columns: Column<any>[] = [
     { title: 'Icon', field: 'icon', render: renderIcon, width: fixedColWidth, minWidth: fixedColWidth },
-    { title: 'Force', field: 'force', width: 'auto', lookup: arrToDict(summaryData.forces) },
+    { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
     { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
-    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
-    { title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes }
+    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth }
   ]
 
-  // don't need to show Force if we're just showing
-  // our own force
-  if (playerForce && !opFor) {
-    columns.splice(1, 1)
-  }
-
-  // don't show health or attributes for OpFor assets
-  if (opFor) {
-    columns.splice(4, 2)
+  // show attributes for own forces (or if we're umpire)
+  if (ownAssets) {
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
   }
 
   return columns
 }
 
-const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, unknown> => {
+const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipThese: string[]): Record<string, unknown> => {
   const attrDict = {}
   const ids = asset.attributes || {}
   Object.keys(ids).forEach((attrId: string) => {
+    if (skipThese && skipThese.includes(attrId)) {
+      return
+    }
     const aType = attributeTypes.find((aType) => aType.attrId === attrId)
     if (aType) {
       switch (aType.attrType) {
@@ -330,13 +330,18 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   }
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
+  // we don't show some attributes, since they are shown in other columns
+  const attributesToSkip = ['a_Type']
+
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
     if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
       const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
-      const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
+      // as a performance measure, we don't create attributes for OpFor assets
+      // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
+      const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
 
       if (perception) {
@@ -361,7 +366,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
     const myForce = assetForce.uniqid === playerForce.uniqid
     const umpireInOwnFor = (isUmpire && !opFor)
-    const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
+    const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
@@ -393,24 +398,4 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     })
   }
   return itemRows
-}
-
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[],
-  playerForce: ForceData, selectedAssets: string[], platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): AssetRow[] => {
-  const rows: AssetRow[] = []
-
-  // ok, work through the assets
-  forces.forEach((force: ForceData) => {
-    if (force.assets) {
-      const handleThisOpFor = opFor && force.uniqid !== playerForce.uniqid
-      const handleThisOwnFor = !opFor && force.uniqid === playerForce.uniqid
-      const handleAllForces = (!opFor && playerForce.umpire)
-      if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
-        force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, undefined))
-        })
-      }
-    }
-  })
-  return rows
 }

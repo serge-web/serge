@@ -19,6 +19,7 @@ jest.mock('react-leaflet-v4', () => ({
     invalidateSize: jest.fn(),
     flyTo: jest.fn(),
     flyToBounds: jest.fn(),
+    eachLayer: jest.fn(),
     on: jest.fn(),
     addLayer: jest.fn()
   }),

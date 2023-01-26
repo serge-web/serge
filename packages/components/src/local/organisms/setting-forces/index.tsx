@@ -149,7 +149,7 @@ export const SettingForces: React.FC<PropTypes> = ({
 
     return (
       <div key={selectedItem}>
-        <CustomDialog isOpen={!!content} cancelBtnText={'OK'} header='Error' onClose={onClose} content={content} />
+        <CustomDialog isOpen={!!content} cancelBtnText={'OK'} header='Error' onClose={onClose} >{content}</CustomDialog>
         <div className={cx(styles.row, styles['mb-20'])}>
           <div className={styles.col}>
             <TextInput

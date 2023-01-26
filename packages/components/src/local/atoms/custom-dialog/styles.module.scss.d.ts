@@ -2,6 +2,7 @@
 // Please do not change this file!
 interface CssExports {
   'body': string;
+  'errors': string;
   'footer': string;
   'header': string;
   'modal': string;
