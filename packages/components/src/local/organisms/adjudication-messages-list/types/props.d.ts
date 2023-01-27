@@ -96,10 +96,10 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /** descriptions of platform types (used for perception drop-down) */
   platformTypes: PlatformTypeData[]
 
-  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
   /**
-   * get the turnaround periods data
+   * get the turn periods data (used for filtering via drop-down list of turns)
   */
+  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
 
   onDetailPanelOpen?: (rowData: AdjudicationRow) => void
 
