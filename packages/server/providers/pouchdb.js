@@ -192,10 +192,10 @@ const pouchDb = (app, io, pouchOptions) => {
 
     db.find({
       selector: {
-        adjudicationStartTime: {$exists: true}
+        adjudicationStartTime: { $exists: true }
       },
       fields: ['data', '_id', 'gameTurn']
-      
+
     }).then((result) => {
       const resaultData = result.docs.map((data) => {
         const { gameDate, gameTurnTime } = data.data.overview
