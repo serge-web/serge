@@ -704,7 +704,6 @@ const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, g
     return
   }
   const thisG = activity.geometries && activity.geometries.find((geo) => geo.uniqid === props.geomId)
-  console.log('act 1', geom.geometry, thisG)
   switch (activeName) {
     case 'ISTAR': {
       insertIstarInteractionOutcomes(interaction, geom, geom2, outcomes, thisG, activity, forces)
@@ -728,7 +727,7 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
   insertOutcomes(interaction, orders1, orders2, res, activities, forces)
 
   if (orders2) {
-    insertOutcomes(interaction, orders2, orders2, res, activities, forces)
+    insertOutcomes(interaction, orders2, orders1, res, activities, forces)
   }
   return res
 }
