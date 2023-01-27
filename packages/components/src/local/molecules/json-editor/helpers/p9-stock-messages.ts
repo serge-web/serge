@@ -123,7 +123,7 @@ const p9StockTemplates: TemplateBody[] = [
                   grid_columns: 3
                 }
               },
-              health: {
+              perceivedHealth: {
                 title: 'Health',
                 propertyOrder: 50,
                 type: 'string',
