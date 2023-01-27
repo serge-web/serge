@@ -244,7 +244,6 @@ TestIstar.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
 }
 
-
 const idsOfInterest = ['Red-9', 'Blue-24']
 export const TestSubjects = Template.bind({})
 TestSubjects.args = {

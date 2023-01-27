@@ -1,6 +1,7 @@
-import { Asset, ForceData, PlannedActivityGeometry } from "@serge/custom-types"
+import { Asset, ForceData, PlannedActivityGeometry } from '@serge/custom-types'
 import * as turf from '@turf/turf'
-import { Feature, Polygon, Position } from "geojson"
+import { Feature, Polygon, Position } from 'geojson'
+import { shuffle } from 'lodash'
 
 const checkInArea = (area: Feature<Polygon>, point: [number, number], id: string): boolean => {
   const otherPt = turf.point([point[1], point[0]])
@@ -9,7 +10,7 @@ const checkInArea = (area: Feature<Polygon>, point: [number, number], id: string
 
 export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceData[], coords: Position[][],
   startD: number, endD: number, searchRateKm2perHour: number): Array<{ force: ForceData, asset: Asset }> => {
-  // calculate prob of detecting sometghing  
+  // calculate prob of detecting sometghing
   console.log('calc detections', ownFor, forces, coords, startD, endD, searchRateKm2perHour)
   // convert the boundary to a turn object
   const mePoly = turf.polygon(coords)
@@ -44,17 +45,17 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
     }
   })
   // randomly include some
-  const observedAssets = assetsInArea.filter(() => {
-    const rnd = Math.random()
-    const res = rnd <= searchProb
-    console.log('random', rnd, searchProb, res)
-    return res
+  const randomised = shuffle(assetsInArea)
+  const numToTake = Math.floor(randomised.length * searchProb)
+  const observedAssets = randomised.slice(0, numToTake)
+  console.log('ISTAR Calc', {
+    areaKM2: areaKM2.toFixed(0),
+    durationHrs: durationHrs.toFixed(2),
+    searchRateKM2h: searchRateKm2perHour.toFixed(2),
+    searchProb: searchProb.toFixed(2),
+    totalInArea: assetsInArea.length,
+    observed: observedAssets.length
   })
-  for (let i=0; i< 100; i++) {
-    console.log(Math.random())
-  }
-  console.log('ISTAR Calc', {areaKM2: areaKM2.toFixed(0), durationHrs: durationHrs.toFixed(2), searchRateKM2h: searchRateKm2perHour.toFixed(2), 
-    searchProb: searchProb.toFixed(2), totalInArea: assetsInArea.length, observed: observedAssets.length})
   return observedAssets
 }
 
