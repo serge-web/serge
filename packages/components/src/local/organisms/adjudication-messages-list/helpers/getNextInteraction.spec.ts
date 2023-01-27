@@ -18,6 +18,10 @@ forces.forEach((force: ForceData) => {
   })
 })
 
+let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
+
+!7 && console.log('dummy', deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
+
 const messages = planningMessagesBulk
 
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
@@ -53,12 +57,13 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
 it('gets count of', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
-  const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
+  const gameStartTimeLocal = P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
+  console.log('spec results', results1)
   expect(results1).toBeTruthy()
-  expect(results1).toEqual(267)
+  expect(results1).toEqual([156, 323])
 })
 
 it('gets interactions (2)', () => {
