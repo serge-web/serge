@@ -72,12 +72,11 @@ export const updateWithAllAssets = (asset: Record<string, any>, interaction: Int
         assets.push(...force.assets)
       }
     })
-    asset.enum = assets.map((asset) => asset.uniqid)
-    asset.options.enum_titles = assets.map((asset) => asset.name)
+    asset.enum.push(...assets.map((asset) => asset.uniqid))
+    asset.options.enum_titles.push(...assets.map((asset) => asset.name))
   }
   return asset
 }
-
 
 const unknownId = 'unknown'
 const unknownLabel = 'Unknown'
