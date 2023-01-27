@@ -59,6 +59,26 @@ export const updateAssets = (asset: Record<string, any>, interaction: Interactio
   return asset
 }
 
+export const updateWithAllAssets = (asset: Record<string, any>, interaction: InteractionData, forces: ForceData[]): Record<string, any> => {
+  if (asset !== undefined) {
+    // start off with the assets in this interaction
+    asset.enum = interaction.allAssets.map((asset) => asset.uniqid)
+    asset.options.enum_titles = interaction.allAssets.map((asset) => asset.name)
+
+    // now the remaining assets
+    const assets: Asset[] = []
+    forces.forEach((force) => {
+      if (force.assets) {
+        assets.push(...force.assets)
+      }
+    })
+    asset.enum = assets.map((asset) => asset.uniqid)
+    asset.options.enum_titles = assets.map((asset) => asset.name)
+  }
+  return asset
+}
+
+
 const unknownId = 'unknown'
 const unknownLabel = 'Unknown'
 
