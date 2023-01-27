@@ -460,7 +460,7 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
   }
   const activity = findGeometryInGroup(id, group)
   if (!activity) {
-    throw Error('Failed to find group activities for this activity:' + id)
+    throw Error('Failed to find group activities for this activity 2:' + id)
   }
   return activity.name
 }
