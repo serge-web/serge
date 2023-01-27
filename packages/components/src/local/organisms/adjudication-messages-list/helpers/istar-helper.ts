@@ -1,4 +1,5 @@
 import { Asset, ForceData, InteractionDetails, MessageAdjudicationOutcomes, PerceptionOutcome, PerceptionOutcomes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { booleanPointInPolygon, buffer } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
@@ -18,12 +19,9 @@ const bufferShape = (geom: Geometry, bufferKM: number): Polygon => {
 
 export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceData[], areaGeometry: Geometry,
   startD: number, endD: number, searchRateKm2perHour: number, narrative: string): PerceptionOutcomes => {
-  console.log('geom type', areaGeometry)
   const box = areaGeometry.type === 'Polygon' ? areaGeometry as Geometry as Polygon : bufferShape(areaGeometry, 30)
-  console.log('POLY', box)
   const coords = box.coordinates
   // calculate prob of detecting sometghing
-  console.log('calc detections', ownFor, forces, coords, startD, endD, searchRateKm2perHour)
   // convert the boundary to a turn object
   const mePoly = turf.polygon(coords)
   const areaM2 = turf.area(mePoly)
@@ -116,8 +114,64 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   const searchRateKm2perHour = 200000
 
   // run the calculator
-  const perceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, searchRateKm2perHour, 'In interaction area')
-  if (perceptions.length > 0) {
-    outcomes.perceptionOutcomes.push(...perceptions)
+  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, searchRateKm2perHour, 'In interaction area')
+
+  const targetPerceptions: PerceptionOutcomes = []
+
+  // also generate perceptions for the op-for 
+  if (geom2) {
+    const oppAssets = geom2.activity.message.otherAssets
+    if (oppAssets) {
+      // ok, generate perceptions for them
+      if (conductingObvs) {
+        // asset is conducting obvs, it will see them
+        const oppIDs = oppAssets.map((item: { asset: Asset['uniqid'], number?: number, missileType?: string }) => item.asset)
+        const detIDs = inAreaPerceptions.map((det): Asset['uniqid'] => det.asset)
+        const notDetected = oppIDs.filter((id: Asset['uniqid']) => {
+          return !detIDs.includes(id)
+        })
+        const oppPerceptions = notDetected.map((assetId: string): PerceptionOutcome => {
+          const item = findForceAndAsset(forces, assetId)
+          return {
+            force: ownFor,
+            asset: item.asset.uniqid,
+            perceivedLocation: JSON.stringify(item.asset.location),
+            perceivedType: item.asset.platformTypeId,
+            perceivedHealth: item.asset.health,
+            perceivedName: item.asset.name,
+            perceivedForce: item.force.uniqid,
+            narrative: 'Op-for asset travelling through obvs area'
+          }
+        })
+        if (oppPerceptions.length > 0) {
+          targetPerceptions.push(...oppPerceptions)
+        }
+      }
+    }
   }
+
+  // have we spotted any in the subject area?
+  if (inAreaPerceptions.length) {
+    // we found some inter
+    const targetIDs = targetPerceptions.map((per) => per.asset)
+    const inAreaIds = inAreaPerceptions.map((per) => per.asset)
+    // check which in-area ids aren't in target ids
+    const notInTarget = inAreaIds.filter((id) => !targetIDs.includes(id))
+    if (notInTarget.length) {
+      if (!interaction.otherAssets) {
+        interaction.otherAssets = []
+      }
+      interaction.otherAssets.push(...notInTarget)
+    }
+  }
+
+  // push in the target perceptions first
+  if (targetPerceptions.length > 0) {
+    outcomes.perceptionOutcomes.push(...targetPerceptions)
+  }
+  // then the in-area perceptions
+  if (inAreaPerceptions.length > 0) {
+    outcomes.perceptionOutcomes.push(...inAreaPerceptions)
+  }
+
 }

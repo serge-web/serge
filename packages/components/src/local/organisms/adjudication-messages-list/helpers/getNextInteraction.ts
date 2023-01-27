@@ -1,5 +1,5 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure } from '@serge/custom-types'
 import { findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { LineString } from 'geojson'
@@ -290,11 +290,22 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   // now push in the in-area perceptions, since we want to see the subject ones first
   if (inAreaPerceptions) {
     perceptions.push(...inAreaPerceptions)
+
+    const areaIds = inAreaPerceptions.map((item) => item.asset)
+    const targetIds = oppAssets ? oppAssets.map((item) => item.asset) : []
+    const areaNotTargets = areaIds.filter((item) => !targetIds.includes(item))
+    if (areaNotTargets) {
+      if (!outcomes.otherAssets) {
+        outcomes.otherAssets = []
+      }
+      outcomes.otherAssets.push(...areaNotTargets)
+    }
   }
 
   if (perceptions.length) {
     outcomes.perceptionOutcomes.push(...perceptions)
   }
+
   return outcomes
 }
 
@@ -380,6 +391,16 @@ const emptyOutcomes = (): MessageAdjudicationOutcomes => {
     Reference: '',
     messageType: ADJUDICATION_OUTCOMES
   }
+}
+
+const otherAssetIds = (plan: PlanningMessageStructure, outcomes: MessageAdjudicationOutcomes):Asset['uniqid'][] => {
+  if (outcomes && outcomes.perceptionOutcomes.length) {
+    const ids = outcomes.perceptionOutcomes.map((item) => item.asset)
+    const planIds = plan.otherAssets ? plan.otherAssets.map((item) => item.asset) : []
+    const newIds = ids.filter((item) => !planIds.includes(item))
+    return newIds
+  }
+  return []
 }
 
 export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
