@@ -247,10 +247,10 @@ const couchDb = (app, io, pouchOptions) => {
 
     db.find({
       selector: {
-        messageType: INFO_MESSAGE,
-        _id: { $ne: wargameSettings }
+        adjudicationStartTime: { $exists: true }
       },
       fields: ['data', '_id', 'gameTurn']
+      
     }).then((result) => {
       const resaultData = result.docs.map((data) => {
         const { gameDate, gameTurnTime } = data.data.overview
