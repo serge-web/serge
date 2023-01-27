@@ -1,5 +1,5 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, PlanningMessageStructure } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { LineString } from 'geojson'
@@ -391,16 +391,6 @@ const emptyOutcomes = (): MessageAdjudicationOutcomes => {
     Reference: '',
     messageType: ADJUDICATION_OUTCOMES
   }
-}
-
-const otherAssetIds = (plan: PlanningMessageStructure, outcomes: MessageAdjudicationOutcomes):Asset['uniqid'][] => {
-  if (outcomes && outcomes.perceptionOutcomes.length) {
-    const ids = outcomes.perceptionOutcomes.map((item) => item.asset)
-    const planIds = plan.otherAssets ? plan.otherAssets.map((item) => item.asset) : []
-    const newIds = ids.filter((item) => !planIds.includes(item))
-    return newIds
-  }
-  return []
 }
 
 export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],

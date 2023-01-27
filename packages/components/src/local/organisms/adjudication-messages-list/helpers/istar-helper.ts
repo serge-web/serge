@@ -118,7 +118,7 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
 
   const targetPerceptions: PerceptionOutcomes = []
 
-  // also generate perceptions for the op-for 
+  // also generate perceptions for the op-for
   if (geom2) {
     const oppAssets = geom2.activity.message.otherAssets
     if (oppAssets) {
@@ -173,5 +173,4 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   if (inAreaPerceptions.length > 0) {
     outcomes.perceptionOutcomes.push(...inAreaPerceptions)
   }
-
 }

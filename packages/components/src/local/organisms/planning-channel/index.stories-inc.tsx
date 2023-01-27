@@ -276,16 +276,15 @@ Default.args = {
 const eventIdsOfInterest = ['Red-30']
 export const IstarEvent = Template.bind({})
 IstarEvent.args = {
-  messages:  planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
+  messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }
 
-
 const interactionIdsOfInterest = ['Red-30', 'Blue-12']
 export const IstarInteraction = Template.bind({})
 IstarInteraction.args = {
-  messages:  planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)),
+  messages: planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)),
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }
