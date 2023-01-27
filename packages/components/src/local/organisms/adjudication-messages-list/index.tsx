@@ -322,7 +322,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const includeUnknown = true
     // wrap manipulation code in `try` in case the template structure doesn't match
     try {
-      // now our local changes. For 
+      // now our local changes. Note: we don't just provide the assets in the orders, we show all assets,
+      // since an activity may relate to all assets in the area
       updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forces)
       updateWithAllAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction, forces)
       updateWithAllAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction, forces)
