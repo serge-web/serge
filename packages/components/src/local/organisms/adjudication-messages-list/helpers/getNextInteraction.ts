@@ -1,8 +1,8 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { Geometry, LineString, Polygon } from 'geojson'
+import { LineString } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
@@ -247,8 +247,6 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
     console.warn('Observation box missing')
     return outcomes
   }
-  const box = boxGeometry.geometry.geometry as Geometry as Polygon
-  const coords = box.coordinates
 
   // find the period of coverage
   const props = boxGeometry.geometry.properties as PlannedProps
@@ -260,27 +258,14 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   const searchRateKm2perHour = 200000
 
   // run the calculator
-  const detections = calculateDetections(ownFor, forces, coords, startTime, endTime, searchRateKm2perHour)
+  const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry, startTime, endTime, searchRateKm2perHour, 'In observation area')
 
-  // create the perceptions
-  const perceptions = detections.map((item: {force: ForceData, asset: Asset}): PerceptionOutcome => {
-    return {
-      force: plan.details.from.forceId || '',
-      asset: item.asset.uniqid,
-      perceivedLocation: JSON.stringify(item.asset.location),
-      perceivedType: item.asset.platformTypeId,
-      perceivedHealth: item.asset.health,
-      perceivedName: item.asset.name,
-      perceivedForce: item.force.uniqid,
-      narrative: 'In observation area'
-    }
-  })
-
-  // also add the selected op-for assets
+  // start off with the selected op-for assets
+  const perceptions: PerceptionOutcomes = []
   const oppAssets = plan.message.otherAssets
   if (oppAssets) {
     const oppIDs = oppAssets.map((item: { asset: Asset['uniqid'], number?: number, missileType?: string }) => item.asset)
-    const detIDs = detections.map((det): Asset['uniqid'] => det.asset.uniqid)
+    const detIDs = inAreaPerceptions.map((det): Asset['uniqid'] => det.asset)
     const notDetected = oppIDs.filter((id: Asset['uniqid']) => {
       return !detIDs.includes(id)
     })
@@ -300,6 +285,11 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
     if (oppPerceptions.length > 0) {
       perceptions.push(...oppPerceptions)
     }
+  }
+
+  // now push in the in-area perceptions, since we want to see the subject ones first
+  if (inAreaPerceptions) {
+    perceptions.push(...inAreaPerceptions)
   }
 
   if (perceptions.length) {
