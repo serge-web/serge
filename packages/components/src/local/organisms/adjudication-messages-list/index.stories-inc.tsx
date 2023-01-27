@@ -244,6 +244,13 @@ TestIstar.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
 }
 
+const interactionIdsOfInterest = ['Red-30', 'Blue-12']
+export const istarInteraction = Template.bind({})
+istarInteraction.args = {
+  playerRoleId: umpireFole.roleId,
+  messages: planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+}
+
 const idsOfInterest = ['Red-9', 'Blue-24']
 export const TestSubjects = Template.bind({})
 TestSubjects.args = {

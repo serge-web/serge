@@ -1,7 +1,9 @@
-import { Asset, ForceData, PlannedActivityGeometry } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, MessageAdjudicationOutcomes, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import { Feature, Polygon, Position } from 'geojson'
 import { shuffle } from 'lodash'
+import moment from 'moment'
+import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
 
 const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
   const otherPt = turf.point([point[1], point[0]])
@@ -61,4 +63,18 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
 
 export const istarBoundingBox = (plan: PlannedActivityGeometry[]): PlannedActivityGeometry | undefined => {
   return plan.length === 4 ? plan[2] : undefined
+}
+
+export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, geom2: GeomWithOrders | undefined,
+    outcomes: MessageAdjudicationOutcomes, thisG: PlanningActivityGeometry | undefined, 
+    activity:PlanningActivity, forces: ForceData[]): void => {
+      // was this the observation polygon?
+      const g1Props = geom.geometry.properties as PlannedProps
+      const conductingObvs = (activity.geometries && activity.geometries[2].uniqid === g1Props.geomId) 
+      const observationFudgeFactor = conductingObvs ? 1.5 : 0.75
+      // ok, sort out the interaction area & period
+      const interGeom = interaction.geometry
+      const tStart = moment.utc(interaction.startTime).valueOf()
+      const tEnd = moment.utc(interaction.endTime).valueOf()
+      console.log('istar inter outcomes', geom, geom2, outcomes, thisG, activity, forces, observationFudgeFactor, tStart, tEnd, interGeom)
 }

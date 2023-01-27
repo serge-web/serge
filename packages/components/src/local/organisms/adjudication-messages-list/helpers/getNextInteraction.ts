@@ -6,7 +6,7 @@ import { Geometry, LineString, Polygon } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
-import { calculateDetections, istarBoundingBox } from './istar-helper'
+import { calculateDetections, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
 
 type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
 
@@ -130,7 +130,7 @@ interface ProtectedTarget {
   protectedBy: Asset[]
 }
 
-const strikeOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
+const strikeEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   // loop through targets
   if (plan.message.otherAssets) {
@@ -213,7 +213,7 @@ const strikeOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationO
   return outcomes
 }
 
-const transitOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   if (event === 'i-end' && plan.message.ownAssets && plan.message.location && plan.message.location.length === 1) {
     // ok, put the asset(s) at the destination
     const destGeom = plan.message.location[0].geometry.geometry as LineString
@@ -232,7 +232,7 @@ const transitOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudication
   return outcomes
 }
 
-const istarOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
+const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
   if (!plan.message.location) {
     console.warn('ISTAR plan doesn\'t have location data')
     return outcomes
@@ -311,13 +311,13 @@ const istarOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
 const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
     case 'STRIKE': {
-      return strikeOutcomesFor(plan, outcomes, forces)
+      return strikeEventOutcomesFor(plan, outcomes, forces)
     }
     case 'TRANSIT': {
-      return transitOutcomesFor(plan, outcomes, event)
+      return transitEventOutcomesFor(plan, outcomes, event)
     }
     case 'ISTAR': {
-      return istarOutcomesFor(plan, outcomes, forces)
+      return istarEventOutcomesFor(plan, outcomes, forces)
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
@@ -630,7 +630,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         } else {
           console.log('Gen 3 - Have contacts and event, but Contact occurs first', firstContact.id, moment(firstContact.timeStart).toISOString(), moment(firstContact.timeEnd).toISOString())
           const details = contactDetails(firstContact)
-          const outcomes = contactOutcomes(firstContact)
+          const outcomes = contactOutcomes(details, firstContact, activities, forces)
           return { details: details, outcomes: outcomes }
         }
       } else {
@@ -639,7 +639,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
           return [allRemainingEvents.length, contacts.length]
         } else {
           const details = contactDetails(firstContact)
-          const outcomes = contactOutcomes(firstContact)
+          const outcomes = contactOutcomes(details, firstContact, activities, forces)
           return { details: details, outcomes: outcomes }
         }
       }
@@ -684,7 +684,35 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
   return res
 }
 
-const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes => {
+const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, geom2: GeomWithOrders | undefined, outcomes: MessageAdjudicationOutcomes, activities: PerForcePlanningActivitySet[],
+  forces: ForceData[]) => {
+  console.log('insert outcomes', geom, outcomes)
+  // get the activity
+  const props = geom.geometry.properties as PlannedProps
+  const activBlock = props.id
+  const activeName = activBlock.substring(0, activBlock.indexOf('//'))
+  const forceId = geom.activity.details.from.forceId || ''
+  const forceActs = activities.find((set) => set.force === forceId)
+  if (!forceActs) {
+    console.log('Failed to find force activities for', forceActs)
+    return
+  }
+  const activity = findActivity(activeName, forceActs)
+  if (!activity) {
+    console.log('Failed to find activity for', activeName)
+    return
+  }
+  const thisG = activity.geometries && activity.geometries.find((geo) => geo.uniqid === props.geomId)
+  console.log('act 1', geom.geometry, thisG)
+  switch (activeName) {
+    case 'ISTAR': {
+      insertIstarInteractionOutcomes(interaction, geom, geom2, outcomes, thisG, activity, forces)
+    }
+  }  
+}
+
+const contactOutcomes = (interaction: InteractionDetails, contact: PlanningContact, activities: PerForcePlanningActivitySet[],
+  forces: ForceData[]): MessageAdjudicationOutcomes => {
   const res: MessageAdjudicationOutcomes = contact.outcomes || {
     messageType: ADJUDICATION_OUTCOMES,
     Reference: '', // leave blank, so backend creates it
@@ -693,6 +721,13 @@ const contactOutcomes = (contact: PlanningContact): MessageAdjudicationOutcomes 
     perceptionOutcomes: [],
     locationOutcomes: [],
     healthOutcomes: []
+  }
+  const orders1 = contact.first
+  const orders2 = contact.second
+  insertOutcomes(interaction, orders1, orders2, res, activities, forces)
+
+  if (orders2) {
+    insertOutcomes(interaction, orders2, orders2, res, activities, forces)
   }
   return res
 }
