@@ -698,7 +698,7 @@ const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, g
     case 'ISTAR': {
       insertIstarInteractionOutcomes(interaction, geom, geom2, outcomes, thisG, activity, forces)
     }
-  }  
+  }
 }
 
 const contactOutcomes = (interaction: InteractionDetails, contact: PlanningContact, activities: PerForcePlanningActivitySet[],

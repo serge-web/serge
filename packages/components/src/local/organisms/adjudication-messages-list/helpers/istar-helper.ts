@@ -12,14 +12,14 @@ const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean =
 }
 
 const bufferShape = (geom: Geometry, bufferKM: number): Polygon => {
-  const poly = buffer(geom, bufferKM, {units: 'kilometers'})
+  const poly = buffer(geom, bufferKM, { units: 'kilometers' })
   return poly.geometry as Polygon
 }
 
 export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceData[], areaGeometry: Geometry,
   startD: number, endD: number, searchRateKm2perHour: number, narrative: string): PerceptionOutcomes => {
-    console.log('geom type', areaGeometry)
-  const box = areaGeometry.type === 'Polygon' ?  areaGeometry as Geometry as Polygon : bufferShape(areaGeometry, 30)
+  console.log('geom type', areaGeometry)
+  const box = areaGeometry.type === 'Polygon' ? areaGeometry as Geometry as Polygon : bufferShape(areaGeometry, 30)
   console.log('POLY', box)
   const coords = box.coordinates
   // calculate prob of detecting sometghing
@@ -108,7 +108,7 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   const tStart = moment.utc(interaction.startTime).valueOf()
   const tEnd = moment.utc(interaction.endTime).valueOf()
   console.log('istar inter outcomes', geom, geom2, outcomes, thisG, activity, forces, observationFudgeFactor, tStart, tEnd, interGeom)
-    
+
   const ownFor = geom.force
 
   // calculate the search rate
