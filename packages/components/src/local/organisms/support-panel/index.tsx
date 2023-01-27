@@ -5,6 +5,7 @@ import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInterac
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
+import LRU from 'lru-cache'
 import moment from 'moment'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Rnd } from 'react-rnd'
@@ -16,7 +17,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
+import { DEFAULT_SIZE, LRU_CACHE_OPTION, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
@@ -25,7 +26,9 @@ import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop })
+import ms from 'milsymbol'
+
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, ms.Symbol>(LRU_CACHE_OPTION) })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -343,7 +346,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const fixedLocation = expandLocation(document)
     const planDoc = fixedLocation as PlanningMessageStructureCore
     if (planDoc.location && planDoc.ownAssets) {
-      const ownAssets = planDoc.ownAssets.map((item: {asset: string}) => item.asset)
+      const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
       !7 && summariseLocations('before', planDoc.location)
       !7 && summariseLocations('after', updatedLocations)

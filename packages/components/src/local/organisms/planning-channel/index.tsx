@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
 import { Feature, FeatureCollection } from 'geojson'
+import LRU from 'lru-cache'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
 import Item from '../../map-control/helpers/item'
@@ -36,6 +37,8 @@ import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
+import ms from 'milsymbol'
+import { LRU_CACHE_OPTION } from '../support-panel/constants'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -127,6 +130,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
+  const [assetsCache] = useState<LRU<string, ms.Symbol>>(new LRU(LRU_CACHE_OPTION))
 
   const genData = (): void => {
     const doGenny = 7
@@ -140,9 +144,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         console.log('forces', forces)
       } else {
         console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
-          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
         console.log(randomOrdersDocs(channelId, 20, allForces, [allForces[1].uniqid,
-          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
       }
     }
   }
@@ -361,8 +365,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction }
-  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction])
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
+  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
   const incrementDebugStep = (): void => {
     // do something
@@ -746,66 +750,66 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             editLocation={editOrderGeometries}
             handleAdjudication={handleAdjudication}
           />
-        </SupportPanelContext.Provider>
-        <div className={styles['map-container']}>
-          <div style={{ width: mapWidth }}>
-            <MapContainer
-              className={styles.map}
-              zoomControl={false}
-              center={centerToUse}
-              bounds={boundsToUse}
-              maxBounds={boundsToUse}
-              zoom={zoom}
-              minZoom={channel.constraints.minZoom}
-              maxBoundsViscosity={1.0}
-              maxZoom={maxZoom}
-              zoomSnap={0.5}
-            >
-              <SupportMapping
-                bounds={bounds}
-                position={position}
-                actionCallback={mapActionCallback}
-                mapWidth={mapWidth}
-                tileLayer={channel.constraints.tileLayer || duffDefinition}
-                toolbarChildren={
-                  <>
-                    {!activityBeingPlanned &&
-                      <>
-                        {
-                          umpireInAdjudication &&
-                          <div className={cx('leaflet-control')}>
-                            <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                              onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+          <div className={styles['map-container']}>
+            <div style={{ width: mapWidth }}>
+              <MapContainer
+                className={styles.map}
+                zoomControl={false}
+                center={centerToUse}
+                bounds={boundsToUse}
+                maxBounds={boundsToUse}
+                zoom={zoom}
+                minZoom={channel.constraints.minZoom}
+                maxBoundsViscosity={1.0}
+                maxZoom={maxZoom}
+                zoomSnap={0.5}
+              >
+                <SupportMapping
+                  bounds={bounds}
+                  position={position}
+                  actionCallback={mapActionCallback}
+                  mapWidth={mapWidth}
+                  tileLayer={channel.constraints.tileLayer || duffDefinition}
+                  toolbarChildren={
+                    <>
+                      {!activityBeingPlanned &&
+                        <>
+                          {
+                            umpireInAdjudication &&
+                            <div className={cx('leaflet-control')}>
+                              <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                                onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                            </div>
+                          }
+                          {showInteractionGenerator ? <div className={cx('leaflet-control')}>
+                            <Item onClick={incrementDebugStep}>Step</Item>
                           </div>
-                        }
-                        {showInteractionGenerator ? <div className={cx('leaflet-control')}>
-                          <Item onClick={incrementDebugStep}>Step</Item>
-                        </div>
-                          : <>
-                            <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                            <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                            {7 && // don't bother with this, but keep it in case we want to gen more data
-                              <div className={cx('leaflet-control')}>
-                                <Item onClick={genData}>gen data</Item>
-                              </div>
-                            }
-                          </>
-                        }
-                        <div className={cx('leaflet-control')}>
-                          <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
-                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
-                        </div>
-                      </>
-                    }
+                            : <>
+                              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                              <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                              {7 && // don't bother with this, but keep it in case we want to gen more data
+                                <div className={cx('leaflet-control')}>
+                                  <Item onClick={genData}>gen data</Item>
+                                </div>
+                              }
+                            </>
+                          }
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
+                              onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
+                          </div>
+                        </>
+                      }
+                    </>
+                  }>
+                  <>
+                    {mapChildren}
                   </>
-                }>
-                <>
-                  {mapChildren}
-                </>
-              </SupportMapping>
-            </MapContainer>
+                </SupportMapping>
+              </MapContainer>
+            </div>
           </div>
-        </div>
+        </SupportPanelContext.Provider>
       </div>
     )
   }

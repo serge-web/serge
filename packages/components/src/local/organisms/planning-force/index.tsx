@@ -47,7 +47,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
-        {asset.sidc && <SymbolAssetIcon sidc={asset.sidc} iconName={asset.name} />}
+        {asset.sidc && <SymbolAssetIcon sidc={asset.sidc} iconName={asset.name} isSelected={isSelected} />}
       </div>)
     )
   }
@@ -137,7 +137,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     {
       <LayerGroup key={'first-forces-layer'}>
         <MarkerCluster markers={clustereredMarkers} />
-        { rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
+        {rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
           const markerOption = getRawMarkerOption(asset, index)
           return <Marker
             pmIgnore

@@ -1,3 +1,4 @@
+import LRUCache from 'lru-cache'
 import { CSSProperties } from 'react'
 
 export const TAB_MY_ORDERS = 'my_orders'
@@ -21,3 +22,5 @@ export const DEFAULT_SIZE = {
   width: MIN_PANEL_WIDTH,
   height: '100%'
 }
+
+export const LRU_CACHE_OPTION = { max: 500, maxSize: 5000, ttl: 1000 * 60 * 60, maxEntrySize: 5000, sizeCalculation: () => 1 }

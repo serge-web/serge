@@ -156,7 +156,7 @@ const renderIcon = (row: AssetRow): React.ReactElement => {
   // test new asset icon component
   if (row.sidc) {
     // SGG*UCIN--
-    return <SymbolAssetIcon className={styles['cell-icon']} sidc={row.sidc} iconName={icons[2]} />
+    return <SymbolAssetIcon sidc={row.sidc} iconName={icons[2]} />
   }
   // end
 

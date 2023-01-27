@@ -1,8 +1,8 @@
 .asset-icon-background {
   position: relative;
   border-radius: 100%;
-  width: 100%;
-  height: 100%;
+  width: 35px;
+  height: 35px;
 }
 
 .img {
@@ -36,4 +36,9 @@
   left: 0;
   bottom: 0;
   right: 0;
+}
+
+.selected {
+  width: 16px;
+  height: 16px;
 }

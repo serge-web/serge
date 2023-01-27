@@ -5,6 +5,7 @@ interface CssExports {
   'asset-icon-with-image': string;
   'corner-line': string;
   'img': string;
+  'selected': string;
 }
 export const cssExports: CssExports;
 export default cssExports;
