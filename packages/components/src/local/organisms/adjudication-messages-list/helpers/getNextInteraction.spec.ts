@@ -105,7 +105,7 @@ it('avoids existing interactions', () => {
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
   expect(results1).toBeTruthy()
-  if (results1 !== undefined && typeof results1 === 'object') {
+  if (results1 !== undefined) {
     const res1Msg = results1 as CompositeInteractionResults
     const res1Id = res1Msg.details.id
     const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
