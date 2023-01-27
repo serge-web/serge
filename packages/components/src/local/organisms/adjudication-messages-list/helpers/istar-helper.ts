@@ -3,7 +3,7 @@ import * as turf from '@turf/turf'
 import { Feature, Polygon, Position } from 'geojson'
 import { shuffle } from 'lodash'
 
-const checkInArea = (area: Feature<Polygon>, point: [number, number], id: string): boolean => {
+const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
   const otherPt = turf.point([point[1], point[0]])
   return turf.booleanPointInPolygon(otherPt, area)
 }
@@ -26,14 +26,14 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
       if (force.assets) {
         force.assets.forEach((asset: Asset) => {
           if (asset.location) {
-            if (checkInArea(mePoly, asset.location, asset.name)) {
+            if (checkInArea(mePoly, asset.location)) {
               assetsInArea.push({ force, asset })
             }
             if (asset.comprising) {
               // check child assets
               asset.comprising.forEach((asset2: Asset) => {
                 if (asset2.location) {
-                  if (checkInArea(mePoly, asset2.location, asset2.name)) {
+                  if (checkInArea(mePoly, asset2.location)) {
                     assetsInArea.push({ force, asset: asset2 })
                   }
                 }
