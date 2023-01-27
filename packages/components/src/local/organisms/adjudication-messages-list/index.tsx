@@ -196,7 +196,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.warn('Failed to find message 1:', id)
         return <span>Order not found</span>
       }
-      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate']
+      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate', 'Reference']
       const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
         if (done.includes(item)) {
           return <Fragment key={index} />
