@@ -1,4 +1,3 @@
-import LRUCache from 'lru-cache'
 import { CSSProperties } from 'react'
 
 export const TAB_MY_ORDERS = 'my_orders'

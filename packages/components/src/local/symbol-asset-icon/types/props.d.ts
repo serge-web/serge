@@ -1,3 +1,4 @@
+import LRUCache from 'lru-cache'
 import ms from 'milsymbol'
 
 export default interface PropTypes {
@@ -6,4 +7,5 @@ export default interface PropTypes {
   iconName: string
   options?: ms.SymbolOptions
   isSelected?: boolean
+  assetsCache: LRUCache<string, ms.Symbol>
 }

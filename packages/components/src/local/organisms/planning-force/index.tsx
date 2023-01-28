@@ -3,12 +3,13 @@ import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
+import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
@@ -17,6 +18,8 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
+
+  const { assetsCache } = useContext(SupportPanelContext)
 
   useEffect(() => {
     if (clusterGroup === undefined) {
@@ -47,7 +50,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
-        {asset.sidc && <SymbolAssetIcon sidc={asset.sidc} iconName={asset.name} isSelected={isSelected} />}
+        {asset.sidc && <SymbolAssetIcon sidc={asset.sidc} iconName={asset.name} isSelected={isSelected} assetsCache={assetsCache} />}
       </div>)
     )
   }
