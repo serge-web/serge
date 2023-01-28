@@ -15,10 +15,8 @@ import PropTypes from './types/props'
 
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const [clusterGroup, setClusterGroup] = useState<any | undefined>(undefined)
-
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
-
   const { assetsCache } = useContext(SupportPanelContext)
 
   useEffect(() => {
