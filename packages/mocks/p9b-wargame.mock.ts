@@ -9460,10 +9460,10 @@ const game: Wargame = {
                     "attrId": "a_C2_Status",
                     "attrType": "AttributeTypeEnum",
                     "defaultValue": "Operational",
-                    "description": "C2 Status",
+                    "description": "C4 Status",
                     "values": ["None", "Degraded", "Operational"],
                     "editableByPlayer": false,
-                    "name": "C2 Status"
+                    "name": "C4 Status"
                 }, {
                     "attrId": "a_Minefield_Passable",
                     "attrType": "AttributeTypeEnum",
@@ -12964,7 +12964,7 @@ const game: Wargame = {
                                             "propertyOrder": 30,
                                             "type": "string",
                                             "enum": [
-                                                "Unknown",
+                                                "Unk",
                                                 "Blue",
                                                 "Red",
                                                 "Green",
@@ -12994,7 +12994,7 @@ const game: Wargame = {
                                             "propertyOrder": 50,
                                             "type": "string",
                                             "enum": [
-                                                "Unknown",
+                                                "Unk",
                                                 "100",
                                                 "75",
                                                 "50",
@@ -13002,7 +13002,7 @@ const game: Wargame = {
                                                 "0"
                                             ],
                                             "options": {
-                                                "grid_columns": 3
+                                                "grid_columns": 2
                                             }
                                         },
                                         "perceivedName": {
@@ -13013,17 +13013,14 @@ const game: Wargame = {
                                         "perceivedLocation": {
                                             "title": "Location t/[1,2]/x",
                                             "propertyOrder": 65,
-                                            "type": "string"
+                                            "type": "string",
+                                            "options": {
+                                                "grid_columns": 1
+                                            }
                                         },
                                         "narrative": {
                                             "title": "Comment",
                                             "propertyOrder": 70,
-                                            "type": "string",
-                                            "format": "textarea"
-                                        },
-                                        "private": {
-                                            "title": "Private",
-                                            "propertyOrder": 80,
                                             "type": "string",
                                             "format": "textarea"
                                         }
