@@ -297,7 +297,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       const origin = turf.point([airLoc[1], airLoc[0]])
       // code to spread out assets at airfield. Note: real data won't have this, so we won't either
       // const newPt = turf.destination(origin, 20, -180 + Math.random() * 360, { units: 'kilometers' })
-      const newPt = origin 
+      const newPt = origin
       const behindCoords = newPt.geometry.coordinates
       const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
       asset.location = newLoc
