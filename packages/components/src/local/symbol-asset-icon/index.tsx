@@ -5,21 +5,20 @@ import React from 'react'
 import styles from './styles.module.scss'
 import AssetIconProps from './types/props'
 
-const setCharAt = (str: string,index: number,chr: string): string => {
-  if(index > str.length-1) return str;
-  return str.substring(0,index) + chr + str.substring(index+1);
+const setCharAt = (str: string, index: number, chr: string): string => {
+  if (index > str.length - 1) return str
+  return str.substring(0, index) + chr + str.substring(index + 1)
 }
-
 
 const forceFor = (force?: string): SymbolForces | undefined => {
   if (force) {
     switch (force) {
-      case 'Blue': 
+      case 'Blue':
         return SymbolForces.Friend
-        case 'Red': 
+      case 'Red':
         return SymbolForces.Hostile
-        case 'Green': 
-        default:
+      case 'Green':
+      default:
         return SymbolForces.Neutral
     }
   } else {
@@ -27,18 +26,14 @@ const forceFor = (force?: string): SymbolForces | undefined => {
   }
 }
 
-
-
 const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, force, isSelected, assetsCache }) => {
-
   // update the forc color, if we know it
   const forceVal = forceFor(force)
   const sidc2 = forceVal ? setCharAt(sidc, 1, forceVal) : sidc
 
-  // check if we have cached symbol 
+  // check if we have cached symbol
   const key = `${sidc2}-${JSON.stringify(options)}`
   let icon = assetsCache.get(key)
-
 
   if (!icon) {
     console.log('sym', sidc, sidc2, force)
