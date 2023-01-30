@@ -8,7 +8,7 @@ export interface DbProviderInterface {
   put: (doc: Wargame | Message) => Promise<Wargame | Message >
   allDocs: () => Promise<Message[]>
   lastWargame: () => Promise<MessageInfoType>
-  getTurnPeriods: () => Promise<TurnPeriod>
+  getTurnPeriods: () => Promise<TurnPeriod[]>
   lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>
   putPlayerLogs: (docs: PlayerLogEntries) => Promise<{msg: string}> 
@@ -50,7 +50,7 @@ export interface FetchDataLogs {
 
 export interface FetchTurnPeriod {
   msg: string,
-  data: TurnPeriod
+  data: TurnPeriod[]
 }
 
 export type ChangeListener = (value: ChangesResponseChange) => any

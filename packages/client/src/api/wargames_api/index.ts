@@ -890,13 +890,10 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)
   })
 }
 
-export const getTurnPeriodsList = (getData: string, dbName: string): Promise<TurnPeriod> => {
+export const getTurnPeriodsList = (getData: string, dbName: string): Promise<TurnPeriod[]> => {
   const { db } = getWargameDbByName(dbName)
 
   return db.getTurnPeriods()
-    .then((res) => { 
-      console.log('TurnPeriodsList:', res)
-      console.log('getData:', getData)
-      return res
-    })
+    .then((res) => res)
+    .catch(rejectDefault)
 }

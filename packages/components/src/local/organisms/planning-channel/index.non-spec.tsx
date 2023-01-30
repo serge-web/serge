@@ -33,6 +33,7 @@ const channels = wargame.channels.channels
 const planningChannel = channels[0]
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
+const overview = wargame.overview
 
 const force = forces[1]
 const role = force && force.roles[0]
@@ -77,8 +78,8 @@ describe('Planning Channel component: ', () => {
       selectedForce={force || forces[1]}
       phase={Phase.Planning}
       allForces={forces}
-      gameDate={P9Mock.data.overview.gameDate}
-      gameTurnLength={wargame.overview.gameTurnTime}
+      gameDate={overview.gameDate}
+      gameTurnLength={overview.gameTurnTime}
       currentTurn={P9Mock.gameTurn}
       forcePlanningActivities={filledInPerForcePlanningActivities}
     />)

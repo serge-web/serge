@@ -7,3 +7,5 @@ export interface TurnPeriod {
   gameTurn: number,
   _id?: string
 }
+
+export type TurnPeriods = TurnPeriod[]

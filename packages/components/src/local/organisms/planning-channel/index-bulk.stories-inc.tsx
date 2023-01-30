@@ -61,6 +61,7 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
+const overview = wargame.overview
 
 const templates = wargame.templates ? wargame.templates.templates : []
 
@@ -206,9 +207,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedForce={force || forces[1]}
     phase={phase}
     allForces={forces}
-    gameDate={P9BMock.data.overview.gameDate}
+    gameDate={overview.gameDate}
     currentTurn={P9BMock.gameTurn}
-    gameTurnLength={P9BMock.data.overview.gameTurnTime}
+    gameTurnLength={overview.gameTurnTime}
     forcePlanningActivities={activities}
   />
 }

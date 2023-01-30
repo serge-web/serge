@@ -136,7 +136,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  getTurnPeriods (): Promise<TurnPeriod> {
+  getTurnPeriods (): Promise<TurnPeriod[]> {
     return new Promise((resolve, reject) => {
       fetch(serverPath + this.getDbName() + '/' + 'turns')
         .then(res => res.json() as Promise<FetchTurnPeriod>)

@@ -43,7 +43,7 @@ type ManualInteractionResults = {
 }
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, interactionMessages, planningMessages, template, gameDate,
+  forces, interactionMessages, planningMessages, template, gameDate, periods,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, onTurnPeriods,
   gameTurnLength, currentWargame, onLocationEditorLoaded
@@ -61,7 +61,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
   const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
 
-  const [turnPeriods, setTurnPeriods] = useState<TurnPeriod[]>([])
+  const [turnPeriods, setTurnPeriods] = useState<TurnPeriod[] | any>([])
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
@@ -91,7 +91,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     // get turn period array
     onTurnPeriods && onTurnPeriods(gameDate, currentWargame)
     // note - we should be getting data back from onTurnPeriods, then we store it with the below line
-    setTurnPeriods([])
+    setTurnPeriods(periods)
   }, [gameDate])
 
   useEffect(() => {

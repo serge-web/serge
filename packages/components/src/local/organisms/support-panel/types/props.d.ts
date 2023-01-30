@@ -1,7 +1,7 @@
 import { TurnFormats } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
-  PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody
+  PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import React, { Dispatch } from 'react'
@@ -41,6 +41,7 @@ export default interface PropTypes {
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
+  allPeriods?: TurnPeriods
   gameDate: string
   phase: Phase
   currentTurn: number

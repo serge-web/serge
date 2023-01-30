@@ -1,6 +1,6 @@
 import {
   CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES,
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, SET_ALL_TURN_PERIOD,
   UPDATE_MESSAGE_STATE
 } from '@serge/config'
 import React from 'react'
@@ -9,8 +9,8 @@ import isError from '../../Helpers/isError'
 import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
-  ChatMessage, Message, MessageChannel, TurnPeriod,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame
+  ChatMessage, Message, MessageChannel,
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame, TurnPeriod
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -59,6 +59,12 @@ export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoTy
   type: SET_ALL_MESSAGES,
   payload: messages
 })
+
+export const seTAllTurnPeriod = (turnPeriod: Array<TurnPeriod>) : PlayerUiActionTypes => ({
+  type: SET_ALL_TURN_PERIOD,
+  payload: turnPeriod
+})
+
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
   payload: { channel, message }
@@ -147,8 +153,11 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
   }
 }
 
-export const turnPeriods = (gameDate: string, dbName: string):Promise<TurnPeriod> => {
-  return wargamesApi.getTurnPeriodsList(gameDate, dbName)
+export const turnPeriods = (gameDate: string, dbName: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+    const turnPeriod = await wargamesApi.getTurnPeriodsList(gameDate, dbName)
+    dispatch(seTAllTurnPeriod(turnPeriod))
+  }
 }
 
 export const saveMessage = (dbName: string, details: MessageDetails, message: object): Function => {

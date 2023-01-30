@@ -48,6 +48,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleId,
   selectedRoleName,
   allForces,
+  allPeriods,
   gameDate,
   gameTurnLength: gameTurnTime,
   currentTurn,
@@ -461,6 +462,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   interactionMessages={filteredInteractionMessages}
                   planningMessages={filteredPlanningMessages}
                   forces={allForces}
+                  periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}
                   playerRoleId={selectedRoleId}

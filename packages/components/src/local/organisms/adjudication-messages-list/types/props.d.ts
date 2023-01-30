@@ -1,5 +1,5 @@
 import {
-  ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
+  ChannelPlanning, ForceData, TurnPeriods, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
   PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
@@ -41,6 +41,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    *  current game-date (may be used in JSON Editor for date-picker)
    */
+  periods?: TurnPeriods
+
   gameDate: string
   /**
    *  the turn length

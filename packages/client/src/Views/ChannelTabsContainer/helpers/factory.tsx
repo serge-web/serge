@@ -31,7 +31,7 @@ const phaseFor = (phase: string): Phase => {
 const factory = (state: PlayerUi): Factory => {
   const dispatch = usePlayerUiDispatch()
   const reduxDisplatch = useDispatch()
-
+  
   const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
     saveMapMessage(state.currentWargame, details, outcomes)
   }
@@ -193,12 +193,13 @@ const factory = (state: PlayerUi): Factory => {
             attributeTypes={state.attributeTypes}
             isUmpire={state.isUmpire}
             phase={state.phase}
-            onTurnPeriods={turnPeriods}
             allForces={state.allForces}
+            allPeriods={state.allPeriods}
             platformTypes={state.allPlatformTypes}
             gameDate={state.gameDate}
             currentTurn={state.currentTurn}
             gameTurnLength={state.gameTurnTime}
+            onTurnPeriods={turnPeriods}
             dispatch={dispatch}
             mapPostBack={adjudicatePostBack}
             getAllWargameMessages={getAllWargameMessages}

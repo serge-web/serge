@@ -244,6 +244,26 @@ const testState: PlayerUi = {
       ]
     }
   ],
+  allPeriods: [
+    {
+      gameDate: '2022-05-25T04:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 1,
+      _id: '2023-01-30T08:47:21.664Z'
+    },
+    {
+      gameDate: '2022-05-28T04:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 2,
+      _id: '2023-01-30T09:48:13.771Z'
+    }
+  ],
   allForces: [
     {
       name: 'White',
