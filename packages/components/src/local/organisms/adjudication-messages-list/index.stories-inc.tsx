@@ -225,15 +225,14 @@ OneInteraction.args = {
   messages: oneInterMessage as CoreMessage[]
 }
 
-
 const openInter = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
 if (openInter.details.interaction) {
   openInter.details.interaction.complete = false
-  openInter.details.from = { ... openInter.details.from, roleId: umpireFole.roleId }
+  openInter.details.from = { ...openInter.details.from, roleId: umpireFole.roleId }
 }
-const firstAsset = forces[1].assets && forces[1].assets[0].uniqid || 'unknown'
+const firstAsset = forces[1].assets ? forces[1].assets[0].uniqid : 'unknown'
 openInter.message.perceptionOutcomes.push({ force: forces[1].uniqid, asset: firstAsset })
-const oneOpenInterMessage =  planningMessages.concat(openInter as any as MessagePlanning)
+const oneOpenInterMessage = planningMessages.concat(openInter as any as MessagePlanning)
 
 export const OneOpenInteraction = Template.bind({})
 OneOpenInteraction.args = {
