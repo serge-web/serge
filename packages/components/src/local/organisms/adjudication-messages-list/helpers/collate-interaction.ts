@@ -79,7 +79,7 @@ export const updateWithAllAssets = (asset: Record<string, any>, interaction: Int
 }
 
 const unknownId = 'unknown'
-const unknownLabel = 'Unknown'
+const unknownLabel = 'Unk'
 
 export const updateForces = (force: Record<string, any>, forces: ForceStyle[], includeUnknown?: boolean): Record<string, any> => {
   if (force !== undefined) {
