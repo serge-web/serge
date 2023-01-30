@@ -8,4 +8,5 @@ export default interface PropTypes {
   options?: ms.SymbolOptions
   isSelected?: boolean
   assetsCache: LRUCache<string, ms.Symbol>
+  force?: string
 }
