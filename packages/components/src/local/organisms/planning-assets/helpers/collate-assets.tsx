@@ -158,7 +158,7 @@ const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, ms.Symbol>): Re
   // test new asset icon component
   if (row.sidc) {
     // SGG*UCIN--
-    return <SymbolAssetIcon sidc={row.sidc} iconName={icons[2]} assetsCache={assetsCache} />
+    return <SymbolAssetIcon sidc={row.sidc} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />
   }
   // end
 
