@@ -154,12 +154,6 @@ const p9StockTemplates: TemplateBody[] = [
                 propertyOrder: 70,
                 type: 'string',
                 format: 'textarea'
-              },
-              private: {
-                title: 'Private',
-                propertyOrder: 80,
-                type: 'string',
-                format: 'textarea'
               }
             }
           }
