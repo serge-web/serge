@@ -225,11 +225,26 @@ OneInteraction.args = {
   messages: oneInterMessage as CoreMessage[]
 }
 
-console.table(planningMessages.map((msg: MessagePlanning) => {
-  return {
-    ref: msg.message.Reference, type: msg.message.activity, start: msg.message.startDate, end: msg.message.endDate
-  }
-}))
+const openInter = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
+if (openInter.details.interaction) {
+  openInter.details.interaction.complete = false
+  openInter.details.from = { ...openInter.details.from, roleId: umpireFole.roleId }
+}
+const firstAsset = forces[1].assets ? forces[1].assets[0].uniqid : 'unknown'
+openInter.message.perceptionOutcomes.push({ force: forces[1].uniqid, asset: firstAsset })
+const oneOpenInterMessage = planningMessages.concat(openInter as any as MessagePlanning)
+
+export const OneOpenInteraction = Template.bind({})
+OneOpenInteraction.args = {
+  playerRoleId: umpireFole.roleId,
+  messages: oneOpenInterMessage as CoreMessage[]
+}
+
+// console.table(planningMessages.map((msg: MessagePlanning) => {
+//   return {
+//     ref: msg.message.Reference, type: msg.message.activity, start: msg.message.startDate, end: msg.message.endDate
+//   }
+// }))
 
 export const ZeroInteractions = Template.bind({})
 ZeroInteractions.args = {
