@@ -343,9 +343,10 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     targets.push(possTarget)
   }
   const targetsAarr = targets.map((asset: Asset) => {
-    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+    const res = { asset: asset.uniqid } as any
     if (needsMissiles) {
       res.missileType = randomArrayItem(missileTypes, ++ctr)
+      res.number = Math.floor(Math.random() * 6)
     }
     return res
   })
