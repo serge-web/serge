@@ -46,8 +46,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
-  gameTurnLength,
-  onLocationEditorLoaded
+  gameTurnLength, onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])

@@ -1,6 +1,6 @@
 import {
   ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
-  PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody
+  PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
@@ -41,6 +41,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    *  current game-date (may be used in JSON Editor for date-picker)
    */
+
+  /**
+   * all the turn periods of the wargame
+   */
+  periods: TurnPeriods
+
   gameDate: string
   /**
    *  the turn length
@@ -57,6 +63,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    * Callback on expanding message item
    */
+
+  currentWargame: string
+   /**
+   * the name of the wargame
+   */
+
   onRead?: { (message: MessagePlanning, count?: number): void }
 
   /**
