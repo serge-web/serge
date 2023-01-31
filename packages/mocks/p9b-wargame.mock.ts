@@ -188,7 +188,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (blue)_5",
                                 "a_Equipment": "_10",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -450,7 +450,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (blue)_1",
                                 "a_Equipment": "_42",
-                                "a_C2_Status": "Operational"
+                                "a_C4_Status": "Operational"
                             }
                         },
                         {
@@ -632,7 +632,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (blue)_1",
                                 "a_Equipment": "_17",
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -763,7 +763,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (blue)_6",
                                 "a_Connections": "_9",
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -810,7 +810,7 @@ const game: Wargame = {
                                 "a_Type": "SAM (blue)_1",
                                 "a_Equipment": "_1",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -1039,7 +1039,7 @@ const game: Wargame = {
                                 "a_Type": "SAM (blue)_2",
                                 "a_Equipment": "_42",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -1676,7 +1676,7 @@ const game: Wargame = {
                                 "a_Type": "SAM (blue)_5",
                                 "a_Equipment": "_46",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -2730,7 +2730,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (blue)_4",
                                 "a_Connections": "_34",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -3172,7 +3172,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (blue)_6",
                                 "a_Connections": "_46",
-                                "a_C2_Status": "Operational"
+                                "a_C4_Status": "Operational"
                             }
                         },
                         {
@@ -3618,7 +3618,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (blue)_6",
                                 "a_Equipment": "_32",
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -3706,7 +3706,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (blue)_2",
                                 "a_Connections": "_43",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -4049,7 +4049,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (blue)_1",
                                 "a_Equipment": "_14",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -4877,7 +4877,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (red)_1",
                                 "a_Equipment": "_38",
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -5387,7 +5387,7 @@ const game: Wargame = {
                                 "a_Equipment": "_38",
                                 "a_Type": "SAM (red)_3",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -5608,7 +5608,7 @@ const game: Wargame = {
                                 "a_Equipment": "_36",
                                 "a_Type": "SAM (red)_4",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -6648,7 +6648,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (red)_1",
                                 "a_Connections": "_5",
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -6737,7 +6737,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (red)_4",
                                 "a_Equipment": "_12",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -6985,7 +6985,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (red)_5",
                                 "a_Equipment": "_10",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -7154,7 +7154,7 @@ const game: Wargame = {
                                 "a_Equipment": "_7",
                                 "a_Type": "SAM (red)_6",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -7197,7 +7197,7 @@ const game: Wargame = {
                                 "a_Equipment": "_2",
                                 "a_Type": "SAM (red)_2",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -7466,7 +7466,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (red)_6",
                                 "a_Equipment": "_12",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -7685,7 +7685,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (red)_3",
                                 "a_Connections": "_44",
-                                "a_C2_Status": "Degraded"
+                                "a_C4_Status": "Degraded"
                             }
                         },
                         {
@@ -7816,7 +7816,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (red)_2",
                                 "a_Connections": "_16",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -7910,7 +7910,7 @@ const game: Wargame = {
                                 "a_Equipment": "_3",
                                 "a_Type": "SAM (red)_6",
                                 "a_MEZ_range": 300,
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -7953,7 +7953,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (red)_1",
                                 "a_Equipment": "_39",
-                                "a_C2_Status": "None"
+                                "a_C4_Status": "None"
                             }
                         },
                         {
@@ -7994,7 +7994,7 @@ const game: Wargame = {
                             "attributes": {
                                 "a_Type": "C2 Node (red)_6",
                                 "a_Connections": "_22",
-                                "a_C2_Status": "Operational"
+                                "a_C4_Status": "Operational"
                             }
                         },
                         {
@@ -8705,7 +8705,7 @@ const game: Wargame = {
                                 "a_Number_Missiles": 100,
                                 "a_Type": "SSM (red)_4",
                                 "a_Equipment": "_46",
-                                "a_C2_Status": "Operational"
+                                "a_C4_Status": "Operational"
                             }
                         },
                         {
@@ -9052,6 +9052,7 @@ const game: Wargame = {
                         "a_Speed",
                         "a_Type",
                         "a_Number_Aircraft",
+                        "a_C4_Status",
                         "a_Airfield",
                         "a_Equipment"
                     ],
@@ -9063,6 +9064,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Type",
                         "a_Speed",
+                        "a_C4_Status",
                         "a_Airfield",
                         "a_Number_Aircraft",
                         "a_Equipment"
@@ -9078,9 +9080,10 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Number_Missiles",
                         "a_Type",
+                        "a_C4_Status",
                         "a_Equipment",
                         "a_MEZ_range",
-                        "a_C2_Status"
+                        "a_C4_Status"
                     ],
                     "conditions": [],
                     "states": [],
@@ -9092,6 +9095,7 @@ const game: Wargame = {
                     "icon": "n_blue_maritime_task_force.svg",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_C4_Status",
                         "a_MEZ_range",
                         "a_Type"
                     ],
@@ -9106,6 +9110,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Type",
+                        "a_C4_Status",
                         "a_MEZ_range",
                         "a_Equipment"
                     ],
@@ -9120,6 +9125,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Type",
+                        "a_C4_Status",
                         "a_Equipment"
                     ],
                     "conditions": [],
@@ -9133,6 +9139,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Type",
+                        "a_C4_Status",
                         "a_Size",
                         "a_Equipment"
                     ],
@@ -9145,6 +9152,7 @@ const game: Wargame = {
                     "name": "Fixed Asset (blue)",
                     "icon": "n_blue_land_asset.svg",
                     "attributeTypeIds": [
+                        "a_C4_Status",
                         "a_Type"
                     ],
                     "conditions": [],
@@ -9158,9 +9166,10 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Number_Missiles",
+                        "a_C4_Status",
                         "a_Type",
                         "a_Equipment",
-                        "a_C2_Status"
+                        "a_C4_Status"
                     ],
                     "conditions": [],
                     "states": [],
@@ -9173,6 +9182,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Number_Aircraft",
+                        "a_C4_Status",
                         "a_Type",
                         "a_Airfield",
                         "a_Equipment"
@@ -9188,6 +9198,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Type",
                         "a_Speed",
+                        "a_C4_Status",
                         "a_Airfield",
                         "a_Number_Aircraft",
                         "a_Equipment"
@@ -9202,8 +9213,9 @@ const game: Wargame = {
                     "icon": "n_blue_hq.svg",
                     "attributeTypeIds": [
                         "a_Type",
+                        "a_C4_Status",
                         "a_Connections",
-                        "a_C2_Status"
+                        "a_C4_Status"
                     ],
                     "conditions": [],
                     "states": [],
@@ -9216,6 +9228,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Type",
                         "a_Speed",
+                        "a_C4_Status",
                         "a_Number_FIACs"
                     ],
                     "conditions": [],
@@ -9229,6 +9242,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Density",
                         "a_Type",
+                        "a_C4_Status",
                         "a_Minefield_Passable"
                     ],
                     "conditions": [],
@@ -9246,6 +9260,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Type",
+                        "a_C4_Status",
                         "a_Airfield",
                         "a_Number_Aircraft",
                         "a_Equipment"
@@ -9263,7 +9278,7 @@ const game: Wargame = {
                         "a_Equipment",
                         "a_Type",
                         "a_MEZ_range",
-                        "a_C2_Status"
+                        "a_C4_Status"
                     ]
                 },
                 {
@@ -9275,6 +9290,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_C4_Status",
                         "a_MEZ_range",
                         "a_Type"
                     ]
@@ -9288,6 +9304,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_C4_Status",
                         "a_Type",
                         "a_Equipment"
                     ]
@@ -9302,6 +9319,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Size",
                         "a_Speed",
+                        "a_C4_Status",
                         "a_Type",
                         "a_Equipment"
                     ]
@@ -9314,6 +9332,7 @@ const game: Wargame = {
                     "uniqid": "red_land_asset",
                     "travelMode": "land",
                     "attributeTypeIds": [
+                        "a_C4_Status",
                         "a_Type"
                     ]
                 },
@@ -9329,7 +9348,7 @@ const game: Wargame = {
                         "a_Number_Missiles",
                         "a_Type",
                         "a_Equipment",
-                        "a_C2_Status"
+                        "a_C4_Status"
                     ]
                 },
                 {
@@ -9342,6 +9361,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Number_Aircraft",
+                        "a_C4_Status",
                         "a_Airfield",
                         "a_Equipment",
                         "a_Type"
@@ -9358,6 +9378,7 @@ const game: Wargame = {
                         "a_Speed",
                         "a_Type",
                         "a_Airfield",
+                        "a_C4_Status",
                         "a_Number_Aircraft",
                         "a_Equipment"
                     ]
@@ -9372,7 +9393,7 @@ const game: Wargame = {
                     "attributeTypeIds": [
                         "a_Type",
                         "a_Connections",
-                        "a_C2_Status"
+                        "a_C4_Status"
                     ]
                 },
                 {
@@ -9384,6 +9405,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Speed",
+                        "a_C4_Status",
                         "a_Type",
                         "a_Number_FIACs"
                     ]
@@ -9397,6 +9419,7 @@ const game: Wargame = {
                     "travelMode": "sea",
                     "attributeTypeIds": [
                         "a_Density",
+                        "a_C4_Status",
                         "a_Type",
                         "a_Minefield_Passable"
                     ]
@@ -9457,7 +9480,7 @@ const game: Wargame = {
                     "editableByPlayer": false,
                     "name": "Size"
                 }, {
-                    "attrId": "a_C2_Status",
+                    "attrId": "a_C4_Status",
                     "attrType": "AttributeTypeEnum",
                     "defaultValue": "Operational",
                     "description": "C4 Status",
@@ -9471,7 +9494,7 @@ const game: Wargame = {
                     "description": "If minefield is passable",
                     "values": ["No", "Limited", "Yes"],
                     "editableByPlayer": false,
-                    "name": "C2 Status"
+                    "name": "Minefield Status"
                 },                
                 {
                     "attrId": "a_Building_Type",
