@@ -551,7 +551,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const newGeometries = invertMessages(liveOrders, activities)
       const withTimes = injectTimes(newGeometries)
       const geometriesInTimeWindow = withTimes.filter((val) => startBeforeTime(val, windowEnd)).filter((val) => endAfterTime(val, gameTimeVal))
-      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length, geometriesInTimeWindow)
+      console.log('Filtered geoms in window from', withTimes.length, 'to', geometriesInTimeWindow.length)
       // console.table(liveOrders.map((plan: MessagePlanning) => {
       //   return {
       //     id: plan._id,
@@ -687,7 +687,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
 
 const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, geom2: GeomWithOrders | undefined, outcomes: MessageAdjudicationOutcomes, activities: PerForcePlanningActivitySet[],
   forces: ForceData[]) => {
-  console.log('insert outcomes', geom, outcomes)
+//  console.log('insert outcomes', geom, outcomes)
   // get the activity
   const props = geom.geometry.properties as PlannedProps
   const activBlock = props.id
