@@ -8,7 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps, TurnPeriod } from '@serge/custom-types'
+import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
@@ -43,7 +43,7 @@ type ManualInteractionResults = {
 }
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, interactionMessages, planningMessages, template, gameDate, periods,
+  forces, interactionMessages, planningMessages, template, gameDate,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
   gameTurnLength, onLocationEditorLoaded
@@ -60,8 +60,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
   const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
-
-  const [turnPeriods, setTurnPeriods] = useState<TurnPeriod[] | any>([])
 
   const forceStyles: Array<ForceStyle> = forceColors(forces, true)
 
@@ -86,10 +84,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const shortDate = (date: string): string => {
     return moment.utc(date).format('MMM DDHHmm[Z]').toUpperCase()
   }
-
-  useEffect(() => {
-    setTurnPeriods(periods)
-  }, [periods])
 
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages

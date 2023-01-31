@@ -119,14 +119,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
         const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
         const turnEndTime = moment.utc(turnEnd).valueOf()
-        filteredMessages = planningMessages.filter((msg) =>  {
+        filteredMessages = planningMessages.filter((msg) => {
           const pStart = moment.utc(msg.message.startDate).valueOf()
           const pEnd = moment.utc(msg.message.endDate).valueOf()
           return pEnd >= turnStartTime && pStart < turnEndTime
         })
       }
     }
-    if(filteredMessages === undefined) {
+    if (filteredMessages === undefined) {
       filteredMessages = planningMessages
     }
     setFilteredPlanningMessages(filteredMessages)

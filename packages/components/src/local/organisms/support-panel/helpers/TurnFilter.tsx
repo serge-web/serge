@@ -26,14 +26,13 @@ const TurnFilter: React.FC<TurnFilterProps> = ({ label, allPeriods, value, onCha
 
   if (allPeriods) {
     return <div className={styles['turn-dropdown']}>
-    <p>{label}</p>
-    <Select value={value} style={style} onChange={onLocalChange}>
-      <MenuItem style={style} value={SHOW_ALL_TURNS}>All turns</MenuItem>
-      {allPeriods.map(turn => <MenuItem key={turn.gameTurn} style={style} value={turn.gameTurn}>{`Turn ${turn.gameTurn}`}</MenuItem>)}
-    </Select>
-  </div>
-  }
-  else {
+      <p>{label}</p>
+      <Select value={value} style={style} onChange={onLocalChange}>
+        <MenuItem style={style} value={SHOW_ALL_TURNS}>All turns</MenuItem>
+        {allPeriods.map(turn => <MenuItem key={turn.gameTurn} style={style} value={turn.gameTurn}>{`Turn ${turn.gameTurn}`}</MenuItem>)}
+      </Select>
+    </div>
+  } else {
     return <Chip label={'Waiting for list of turns'} />
   }
 }
