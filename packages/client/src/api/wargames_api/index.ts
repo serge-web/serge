@@ -18,7 +18,7 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision, TurnPeriod
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
@@ -890,7 +890,7 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)
   })
 }
 
-export const getTurnPeriodsList = (getData: string, dbName: string): Promise<TurnPeriod[]> => {
+export const getTurnPeriodsList = (dbName: string): Promise<TurnPeriod[]> => {
   const { db } = getWargameDbByName(dbName)
 
   return db.getTurnPeriods()
