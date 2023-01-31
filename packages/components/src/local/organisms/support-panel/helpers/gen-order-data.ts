@@ -285,7 +285,6 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
 }
 
 const createMessage = (channelId: string, force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
-
   let localCtr = ctr
 
   // details first
