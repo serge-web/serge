@@ -194,17 +194,24 @@ const pouchDb = (app, io, pouchOptions) => {
       selector: {
         adjudicationStartTime: { $exists: true }
       },
-      fields: ['data', '_id', 'gameTurn', 'phase']
+      fields: ['data', 'gameTurn']
 
     }).then((result) => {
-      const resaultData = result.docs.map((data) => {
-        const { gameDate, gameTurnTime } = data.data.overview
-        return {
-          gameDate,
-          gameTurnTime,
-          gameTurn: data.gameTurn
-        }
-      })
+      const uniqBy = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x),
+              {
+                gameTurn: x.gameTurn,
+                gameTurnTime: x.data.overview.gameTurnTime,
+                gameDate: x.data.overview.gameDate
+
+              }])
+          ).values()
+        ]
+      }
+      const resaultData = uniqBy(result.docs, it => it.gameTurn)
+
       res.send({ msg: 'ok', data: resaultData })
     })
       .catch(() => res.send([]))
