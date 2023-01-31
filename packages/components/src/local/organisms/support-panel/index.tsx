@@ -5,6 +5,7 @@ import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInterac
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
+import LRU from 'lru-cache'
 import moment from 'moment'
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { Rnd } from 'react-rnd'
@@ -16,7 +17,7 @@ import { AssetRow } from '../planning-assets/types/props'
 import PlanningMessagesList from '../planning-messages-list'
 import { collapseLocation, expandLocation } from '../planning-messages-list/helpers/collapse-location'
 import { OrderRow } from '../planning-messages-list/types/props'
-import { DEFAULT_SIZE, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
+import { DEFAULT_SIZE, LRU_CACHE_OPTION, MAX_PANEL_HEIGHT, MAX_PANEL_WIDTH, MIN_PANEL_HEIGHT, MIN_PANEL_WIDTH, PANEL_STYLES, TAB_ADJUDICATE, TAB_MY_FORCE, TAB_MY_ORDERS, TAB_OPP_FOR } from './constants'
 import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
@@ -25,7 +26,8 @@ import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop })
+
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION) })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -48,6 +50,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleId,
   selectedRoleName,
   allForces,
+  allPeriods,
   gameDate,
   gameTurnLength: gameTurnTime,
   currentTurn,
@@ -111,8 +114,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [forcePlanningActivities, selectedForce])
 
   useEffect(() => {
-    const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
-    setFilteredPlanningMessages(filtered)
+    let filteredMessages: MessagePlanning[] | undefined
+    if (turnFilter) {
+      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
+      if (thisTurn) {
+        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
+        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
+        const turnEndTime = moment.utc(turnEnd).valueOf()
+        filteredMessages = planningMessages.filter((msg) => {
+          const pStart = moment.utc(msg.message.startDate).valueOf()
+          const pEnd = moment.utc(msg.message.endDate).valueOf()
+          return pEnd >= turnStartTime && pStart < turnEndTime
+        })
+      }
+    }
+    if (filteredMessages === undefined) {
+      filteredMessages = planningMessages
+    }
+    setFilteredPlanningMessages(filteredMessages)
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
@@ -343,7 +362,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const fixedLocation = expandLocation(document)
     const planDoc = fixedLocation as PlanningMessageStructureCore
     if (planDoc.location && planDoc.ownAssets) {
-      const ownAssets = planDoc.ownAssets.map((item: {asset: string}) => item.asset)
+      const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
       !7 && summariseLocations('before', planDoc.location)
       !7 && summariseLocations('after', updatedLocations)
@@ -383,7 +402,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
-                <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
@@ -455,11 +474,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
-                <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
                   planningMessages={filteredPlanningMessages}
                   forces={allForces}
+                  periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}
                   playerRoleId={selectedRoleId}
@@ -469,6 +489,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onMarkAllAsRead={onReadAll}
                   mapPostBack={mapPostBack}
                   channel={channel}
+                  currentWargame={currentWargame}
                   template={adjudicationTemplate}
                   customiseTemplate={localCustomiseTemplate}
                   forcePlanningActivities={forcePlanningActivities}

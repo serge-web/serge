@@ -18,11 +18,11 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const [columns, setColumns] = useState<Column<any>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const preventScroll = useRef<boolean>(false)
-  const { selectedAssets } = useContext(SupportPanelContext)
+  const { selectedAssets, assetsCache } = useContext(SupportPanelContext)
 
   useEffect(() => {
     if (!columns.length) {
-      setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles))
+      setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache))
     }
   }, [playerForce, forces])
 

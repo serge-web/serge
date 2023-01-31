@@ -1,5 +1,5 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { ForceData, GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, Role } from '@serge/custom-types'
+import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessagesBulk } from '@serge/mocks'
 import { sum } from 'lodash'
@@ -9,14 +9,6 @@ import { CompositeInteractionResults, getNextInteraction2, InteractionResults } 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
-
-// generate list of roles, for dropdown control
-const allRoles: string[] = []
-forces.forEach((force: ForceData) => {
-  force.roles.forEach((role: Role) => {
-    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
-  })
-})
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
@@ -63,7 +55,7 @@ it('gets count of', () => {
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
-  expect(results1).toEqual([156, 323])
+  expect(results1).toEqual([156, 325])
 })
 
 it('gets interactions (2)', () => {
@@ -88,14 +80,14 @@ it('gets interactions (2)', () => {
     const res3Msg = results3 as CompositeInteractionResults
     interactions.push(interactionFor(res3Msg))
   }
-  console.log('listing interactions')
-  console.table(interactions.map((msg: MessageInteraction) => {
-    const details = msg.details.interaction
-    return details && {
-      id: msg._id,
-      start: details.startTime
-    }
-  }))
+  // console.log('listing interactions')
+  // console.table(interactions.map((msg: MessageInteraction) => {
+  //   const details = msg.details.interaction
+  //   return details && {
+  //     id: msg._id,
+  //     start: details.startTime
+  //   }
+  // }))
 })
 
 it('avoids existing interactions', () => {

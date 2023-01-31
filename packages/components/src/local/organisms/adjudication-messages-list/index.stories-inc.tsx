@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
-import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
 import moment from 'moment-timezone'
 import AdjudicationMessagesList from './index'
@@ -176,7 +176,9 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   const templates = wargame.templates ? wargame.templates.templates : []
   return <AdjudicationMessagesList
+    currentWargame={P9BMock.name}
     forces={forces}
+    periods={turnPeriod}
     platformTypes={platformTypes}
     interactionMessages={interactionMessages}
     planningMessages={planningMessages}

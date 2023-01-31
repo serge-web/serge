@@ -1,7 +1,6 @@
 import {
-  CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES,
-  UPDATE_MESSAGE_STATE
+  CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, UPDATE_MESSAGE_STATE
 } from '@serge/config'
 import React from 'react'
 import * as wargamesApi from '../../api/wargames_api'
@@ -10,7 +9,7 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
   ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, Wargame
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -59,6 +58,12 @@ export const setWargameMessages = (messages: Array<MessageCustom | MessageInfoTy
   type: SET_ALL_MESSAGES,
   payload: messages
 })
+
+export const seTAllTurnPeriod = (turnPeriod: Array<TurnPeriod>) : PlayerUiActionTypes => ({
+  type: SET_ALL_TURN_PERIOD,
+  payload: turnPeriod
+})
+
 export const openMessage = (channel: string, message: MessageChannel): PlayerUiActionTypes => ({
   type: OPEN_MESSAGE,
   payload: { channel, message }
@@ -144,6 +149,14 @@ export const failedLoginFeedbackMessage = (dbName: string, password: string, tur
       name: password
     }
     await wargamesApi.postFeedback(dbName, from, turnNumber, 'A failed login attempt has been made.')
+  }
+}
+
+/** get an updated list of turn start and end times */
+export const turnPeriods = (dbName: string): Function => {
+  return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+    const turnPeriod = await wargamesApi.getTurnPeriodsList(dbName)
+    dispatch(seTAllTurnPeriod(turnPeriod))
   }
 }
 

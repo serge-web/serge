@@ -5,6 +5,8 @@ import { LatLng } from 'leaflet'
 export type AssetRow = {
   id: string
   icon: string
+  /* the milSymbol for this asset type */
+  sidc?: string
   name: string
   platformType: string
   subType: string

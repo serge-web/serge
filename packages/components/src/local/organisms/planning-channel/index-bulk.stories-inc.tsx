@@ -2,7 +2,7 @@ import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { P9BMock, planningMessagesBulk } from '@serge/mocks'
+import { P9BMock, planningMessagesBulk, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop, uniqBy } from 'lodash'
@@ -61,6 +61,7 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
+const overview = wargame.overview
 
 const templates = wargame.templates ? wargame.templates.templates : []
 
@@ -187,6 +188,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     channel={planningChannel}
     messages={stateMessages}
     allTemplates={templates}
+    allPeriods={turnPeriod}
     channelId={channels[0].uniqid}
     adjudicationTemplate={adjudicationTemplate}
     dispatch={noop}
@@ -206,9 +208,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedForce={force || forces[1]}
     phase={phase}
     allForces={forces}
-    gameDate={P9BMock.data.overview.gameDate}
+    gameDate={overview.gameDate}
     currentTurn={P9BMock.gameTurn}
-    gameTurnLength={P9BMock.data.overview.gameTurnTime}
+    gameTurnLength={overview.gameTurnTime}
     forcePlanningActivities={activities}
   />
 }
