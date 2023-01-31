@@ -327,7 +327,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forces)
       updateWithAllAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction, forces)
       updateWithAllAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction, forces)
-      console.log('all assets', firstUpdate.properties.perceptionOutcomes.items.properties.asset)
 
       // now the perceived forces
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)
