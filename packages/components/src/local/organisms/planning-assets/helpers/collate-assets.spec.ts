@@ -110,11 +110,11 @@ describe('check collating assets', () => {
   it('handles opFor tab', () => {
     const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(6)
+    expect(umpireColumns.length).toEqual(7)
 
     const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(6)
+    expect(blueColumns.length).toEqual(7)
 
     const umpireRows = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes)
     expect(umpireRows).toBeTruthy()

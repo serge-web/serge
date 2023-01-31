@@ -105,7 +105,7 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   }
   const tStart = moment.utc(interaction.startTime).valueOf()
   const tEnd = moment.utc(interaction.endTime).valueOf()
-  console.log('istar inter outcomes', geom, geom2, outcomes, thisG, activity, forces, observationFudgeFactor, tStart, tEnd, interGeom)
+  !7 && console.log('istar inter outcomes', geom, geom2, outcomes, thisG, activity, forces, observationFudgeFactor, tStart, tEnd, interGeom)
 
   const ownFor = geom.force
 
