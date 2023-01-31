@@ -178,7 +178,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         { numberCol && numDetails }
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
         <td className={healthStyle}>{aHealth || 'unk'}</td>
-        <td>{asset.asset.attributes?.a_C2_Status}</td>
+        <td>{asset.asset.attributes?.a_C4_Status}</td>
       </tr>
     } else {
       console.warn('Failed to find asset:' + assetId)
@@ -227,7 +227,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         }
         <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
           <table className={styles.assets}>
-            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
             <tbody>
               {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index, true))}
             </tbody>
@@ -235,7 +235,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         </span>
         <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 &&
           <table className={styles.assets}>
-            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
             <tbody>
               {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index, true))}
             </tbody>
@@ -548,7 +548,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                 <li><b>Other assets: </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
                     ? <table className={styles.assets}>
-                      <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C2</th></tr></thead>
+                      <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
                       <tbody>
                         {data.otherAssets.map((asset, index) => renderAsset({ asset: asset.uniqid }, forces, index, false))}
                       </tbody>

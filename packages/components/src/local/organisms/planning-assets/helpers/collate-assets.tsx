@@ -235,7 +235,8 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
     { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
-    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth }
+    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'C4', type: 'string', field: 'c4', width: fixedColWidth, minWidth: fixedColWidth }
   ]
 
   // show attributes for own forces (or if we're umpire)
@@ -331,7 +332,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   // we don't show some attributes, since they are shown in other columns
-  const attributesToSkip = ['a_Type']
+  const attributesToSkip = ['a_Type', 'a_C4_Status']
 
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
@@ -344,6 +345,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
       // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
+      const c4 = 'unk'
       if (perceptionTypes) {
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
         const res: AssetRow = {
@@ -356,6 +358,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           position: perception && perception.position && latLng(perception.position[0], perception.position[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
+          c4: c4,
           domain: domain,
           attributes: modernAttrDict
         }
@@ -368,6 +371,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const umpireInOwnFor = (isUmpire && !opFor)
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
+    const c4 = asset.attributes ? asset.attributes.a_C4_Status : 'Unk'
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
@@ -380,6 +384,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
         health: health,
+        c4: '' + c4,
         domain: domain,
         attributes: modernAttrDict
       }

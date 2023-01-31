@@ -14,6 +14,7 @@ export type AssetRow = {
   position?: LatLng
   tableData?: { checked: boolean }
   health?: number
+  c4: string
   attributes: Record<string, any>
   domain: string
 }
