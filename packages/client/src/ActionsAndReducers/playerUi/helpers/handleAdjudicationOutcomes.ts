@@ -12,6 +12,12 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   payload.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
     asset.health = health.health
+    if (health.c4) {
+      const attrs = asset.attributes
+      if (attrs) {
+        attrs.a_C4_Status = health.c4
+      }
+    }
   })
 
   payload.locationOutcomes.forEach((movement) => {

@@ -165,8 +165,10 @@ export interface LocationOutcome extends CoreOutcome  {
 }
 
 export interface HealthOutcome extends CoreOutcome  {
-  /** new location (zero for destroyed) */
+  /** new health */
   health: number
+  /** c4 ability */
+  c4: 'None' | 'Degraded' | 'Operational'
 }
 
 export type LocationOutcomes = LocationOutcome[]
