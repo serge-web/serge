@@ -635,8 +635,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
-  console.log('allForces', allForces)
-  console.log('allPeriodsallPeriodsallPeriodsallPeriodsallPeriodsallPeriodsallPeriods', allPeriods)
   const mapChildren = useMemo(() => {
     return (
       <>
