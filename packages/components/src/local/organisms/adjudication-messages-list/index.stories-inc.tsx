@@ -85,7 +85,7 @@ const copyMessages = JSON.parse(JSON.stringify(planningChannelMessages)) as Arra
 copyMessages.push(...greenMessages)
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { playerRoleId, messages } = args
+  const { playerRoleId, messages, gameDate } = args
   const [isRead, setIsRead] = useState([true, false])
 
   const markAllAsRead = (): void => {
@@ -168,7 +168,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
 
   // run through an adjudication
   // const interactions: MessageInteraction[] = []
-  const gameStartTimeLocal = P9BMock.data.overview.gameDate
+  const gameStartTimeLocal = gameDate || P9BMock.data.overview.gameDate
+
   // const turnLength = P9BMock.data.overview.gameTurnTime
   // const turnEnd = incrementGameTime(gameStartTimeLocal, turnLength)
   // const results: InteractionResults | false = !7 && planningMessages.length && getNextInteraction2(planningMessages, planningActivities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
@@ -252,19 +253,35 @@ ZeroInteractions.args = {
   messages: planningMessages as CoreMessage[]
 }
 
-const istarIdsOfInterest = ['Red-30']
+const istarIdsOfInterest = ['Blue-75']
 export const TestIstar = Template.bind({})
 TestIstar.args = {
   playerRoleId: umpireFole.roleId,
   messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
 }
 
-const interactionIdsOfInterest = ['Red-30', 'Blue-12']
+const interactionIdsOfInterest = ['Red-9', 'Blue-75']
+const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+// get an adjudication
+const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
+if (openInter2.details && openInter2.details.interaction) {
+  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random'}
+  istarInterMessages.push(openInter2)
+}
 export const istarInteraction = Template.bind({})
 istarInteraction.args = {
   playerRoleId: umpireFole.roleId,
-  messages: planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+  gameDate: "2022-05-01T00:05:00.000Z",
+  messages: istarInterMessages
 }
+
+const cyberEvent = ['Red-42']
+export const CyberEvent = Template.bind({})
+CyberEvent.args = {
+  playerRoleId: umpireFole.roleId,
+  messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
+}
+
 
 const idsOfInterest = ['Red-9', 'Blue-24']
 export const TestSubjects = Template.bind({})
