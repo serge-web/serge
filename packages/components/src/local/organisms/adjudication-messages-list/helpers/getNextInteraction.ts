@@ -1,6 +1,6 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
-import { findForceAndAsset } from '@serge/helpers'
+import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import { LineString } from 'geojson'
 import _ from 'lodash'
@@ -185,9 +185,11 @@ const strikeEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudica
         }
       }
       // create damage outcome for this asset
+      const existingC4: 'None' | 'Degraded' | 'Operational'  = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
       const health: HealthOutcome = {
         asset: target.asset,
-        health: 50
+        health: 50,
+        c4: existingC4
       }
       outcomes.healthOutcomes.push(health)
     })
@@ -228,6 +230,34 @@ const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
       outcomes.locationOutcomes.push(outCome)
     })
     !7 && console.log(plan)
+  }
+  return outcomes
+}
+
+const alterC4 = (current: string, degrade: boolean): string => {
+  const states =  ['None',  'Degraded',  'Operational']
+  const index = states.findIndex((state) => state === current) || 1
+  const mod = degrade ? -1 : 1
+  let newI = index + mod
+  newI = Math.min(newI, states.length)
+  newI = Math.max(newI, 0)
+  return states[newI]
+}
+
+const ewEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
+  event: INTERACTION_SHORT_CIRCUIT | undefined, forces: ForceData[]): MessageAdjudicationOutcomes => {
+  if (plan.message.otherAssets) {
+    const newState = (event === INTER_AT_START) ? 'Degraded' : 'Operational'
+    plan.message.otherAssets.forEach((target: { asset: string }) => {
+      const theAsset = findAsset(forces, target.asset)
+      const currentHealth = theAsset.health === undefined ? 100 : theAsset.health
+      const outCome: HealthOutcome = {
+        asset: target.asset,
+        health: currentHealth,
+        c4: newState
+      }
+      outcomes.healthOutcomes.push(outCome)
+    })
   }
   return outcomes
 }
@@ -319,6 +349,10 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
     }
     case 'ISTAR': {
       return istarEventOutcomesFor(plan, outcomes, forces)
+    }
+    case 'CYBER/SPA': 
+    case 'EW': {
+      return ewEventOutcomesFor(plan, outcomes, event, forces)
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
