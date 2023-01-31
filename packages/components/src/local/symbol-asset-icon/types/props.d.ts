@@ -7,6 +7,6 @@ export default interface PropTypes {
   iconName: string
   options?: ms.SymbolOptions
   isSelected?: boolean
-  assetsCache: LRUCache<string, ms.Symbol>
+  assetsCache: LRUCache<string, string>
   force?: string
 }

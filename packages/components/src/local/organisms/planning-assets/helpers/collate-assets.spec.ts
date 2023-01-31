@@ -3,9 +3,8 @@ import { Asset } from '@serge/custom-types'
 import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
 import LRUCache from 'lru-cache'
-import { collateItem, getColumns, getOppAssets, getOwnAssets } from './collate-assets'
-import ms from 'milsymbol'
 import { LRU_CACHE_OPTION } from '../../support-panel/constants'
+import { collateItem, getColumns, getOppAssets, getOwnAssets } from './collate-assets'
 
 const forces = P9Mock.data.forces.forces
 const umpireForce = forces[0]
@@ -30,7 +29,7 @@ const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.plat
 
 const attributeTypes = P9Mock.data.attributeTypes ? P9Mock.data.attributeTypes.attributes : []
 
-const assetsCache = new LRUCache<string, ms.Symbol>(LRU_CACHE_OPTION)
+const assetsCache = new LRUCache<string, string>(LRU_CACHE_OPTION)
 
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {

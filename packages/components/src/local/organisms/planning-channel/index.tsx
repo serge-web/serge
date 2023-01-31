@@ -25,6 +25,7 @@ import { collapseLocation } from '../planning-messages-list/helpers/collapse-loc
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
 import SupportPanel, { SupportPanelContext } from '../support-panel'
+import { LRU_CACHE_OPTION } from '../support-panel/constants'
 import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
 import OrderDrawing from './helpers/OrderDrawing'
@@ -37,8 +38,6 @@ import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
-import ms from 'milsymbol'
-import { LRU_CACHE_OPTION } from '../support-panel/constants'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
 
@@ -130,7 +129,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
-  const [assetsCache] = useState<LRU<string, ms.Symbol>>(new LRU(LRU_CACHE_OPTION))
+  const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
 
   const genData = (): void => {
     const doGenny = 7
@@ -143,10 +142,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         const forces = generateTestData2(400, channel.constraints, allForces, platformTypes, attributeTypes || [])
         console.log('forces', forces)
       } else {
-        console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid,
-          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
-        console.log(randomOrdersDocs(channelId, 30, allForces, [allForces[1].uniqid,
-          allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        console.log(randomOrdersDocs(channelId, 30, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
       }
     }
   }

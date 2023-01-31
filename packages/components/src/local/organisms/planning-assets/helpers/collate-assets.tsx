@@ -5,7 +5,6 @@ import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue 
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
 import LRUCache from 'lru-cache'
-import ms from 'milsymbol'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
 import SymbolAssetIcon from '../../../symbol-asset-icon'
@@ -148,7 +147,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   return res
 }
 
-const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, ms.Symbol>): React.ReactElement => {
+const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, string>): React.ReactElement => {
   if (!row.icon) return <></>
   const icons = row.icon.split(',')
   if (icons.length === 3) {
@@ -234,7 +233,7 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
  * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[], assetsCache: LRUCache<string, ms.Symbol>): Column<any>[] => {
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[], assetsCache: LRUCache<string, string>): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const fixedColWidth = 100
 

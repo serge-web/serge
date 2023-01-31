@@ -33,17 +33,18 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
 
   // check if we have cached symbol
   const key = `${sidc2}-${JSON.stringify(options)}`
-  let icon = assetsCache.get(key)
+  let iconDataUrl = assetsCache.get(key)
 
-  if (!icon) {
+  if (!iconDataUrl) {
     console.log('sym', sidc, sidc2, force)
-    icon = new ms.Symbol(sidc2).setOptions(options)
-    assetsCache.set(key, icon)
+    const icon = new ms.Symbol(sidc2).setOptions(options)
+    iconDataUrl = icon.toDataURL()
+    assetsCache.set(key, iconDataUrl)
   }
 
   return <div className={cx({ [styles['asset-icon-background']]: true, [styles.selected]: isSelected })} onClick={onClick}>
     <div className={styles['asset-icon-with-image']}>
-      <img src={icon.toDataURL()} className={styles.img} />
+      <img src={iconDataUrl} className={styles.img} />
       <span>{iconName}</span>
     </div>
   </div>

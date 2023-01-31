@@ -4,12 +4,11 @@ import {
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
+import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 import { AdjudicationPostBack } from '../../planning-channel/types/props'
 import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
-import LRUCache from 'lru-cache'
-import ms from 'milsymbol'
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
   interactionMessages: MessageInteraction[]
@@ -89,7 +88,7 @@ export type PanelActionTabsProps = {
 
 export type SupportPanelContextInterface = {
   selectedAssets: string[]
-  assetsCache: LRUCache<string, ms.Symbol>
+  assetsCache: LRUCache<string, string>
   setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>

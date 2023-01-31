@@ -27,5 +27,5 @@ export const LRU_CACHE_OPTION = {
   maxSize: 5000,
   ttl: 1000 * 60 * 60,
   maxEntrySize: 5000,
-  sizeCalculation: () => 1
+  sizeCalculation: (): number => 1
 }
