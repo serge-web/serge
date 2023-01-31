@@ -285,8 +285,10 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
 }
 
 const createMessage = (channelId: string, force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
+  let localCtr = ctr
+
   // details first
-  const from = randomRole(force.roles, 4 + ctr)
+  const from = randomRole(force.roles, 4 + localCtr)
   const fromD: MessageDetailsFrom = {
     force: force.forceName,
     forceColor: force.forceColor,
@@ -300,7 +302,7 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
   const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
   const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
   const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
-  const activity = randomArrayItem(flatActivities, ctr++)
+  const activity = randomArrayItem(flatActivities, localCtr++)
 
   const needsMissiles = (activity.template && activity.template.includes('Strike'))
 
@@ -314,11 +316,11 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     'Jet OWA UAV']
 
   // assets
-  const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
+  const numAssets = randomArrayItem([1, 2, 3, 4], localCtr + 5)
   const assets: Asset[] = []
   for (let k = 0; k < numAssets; k++) {
-    let possAsset = randomArrayItem(force.ownAssets, 1 + k + ctr + 3)
-    let ctr2 = ctr
+    let possAsset = randomArrayItem(force.ownAssets, 1 + k + localCtr + 3)
+    let ctr2 = localCtr
     while (assets.includes(possAsset)) {
       possAsset = randomArrayItem(force.ownAssets, ++ctr2)
     }
@@ -327,16 +329,16 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
   const assetsArr = assets.map((asset: Asset) => {
     const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
     if (needsMissiles) {
-      res.missileType = randomArrayItem(missileTypes, ++ctr)
+      res.missileType = randomArrayItem(missileTypes, ++localCtr)
     }
     return res
   })
 
-  const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
+  const numTargets = randomArrayItem([1, 2, 3], ++localCtr * 1.4)
   const targets: Asset[] = []
   for (let m = 0; m < numTargets; m++) {
     let possTarget = randomArrayItem(force.otherAssets, m + 3)
-    let ctr2 = ctr
+    let ctr2 = localCtr
     while (targets.find((asset: Asset) => asset.uniqid === possTarget.uniqid)) {
       possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
@@ -345,14 +347,14 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
   const targetsAarr = targets.map((asset: Asset) => {
     const res = { asset: asset.uniqid } as any
     if (needsMissiles) {
-      res.missileType = randomArrayItem(missileTypes, ++ctr)
+      res.missileType = randomArrayItem(missileTypes, ++localCtr)
       res.number = Math.floor(Math.random() * 6)
     }
     return res
   })
 
-  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
-    activity, 5 * psora(4 * ctr), timeNow)
+  const geometries = geometriesFor([randomArrayItem(force.ownAssets, localCtr++)], force.forceId, [randomArrayItem(force.otherAssets, localCtr++)],
+    activity, 5 * psora(4 * localCtr), timeNow)
 
   // sort out the overall time period
   let startDate: moment.Moment | undefined
@@ -378,7 +380,7 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
 
   if (!endDate) {
     const timeStart = timeNow
-    const minsOffset = Math.floor(psora(2 * ctr) * 20) * 10
+    const minsOffset = Math.floor(psora(2 * localCtr) * 20) * 10
     const timeEnd = timeStart.clone().add(minsOffset, 'm')
     endDate = timeEnd
   }
@@ -389,14 +391,14 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     channel: channelId,
     from: fromD,
     messageType: activity.template,
-    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
+    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(localCtr + 2) * 200, 'h').toISOString(),
     turnNumber: 3
   }
 
   // create the message
   const message: PlanningMessageStructureCore = {
     Reference: force.forceName + '-' + ctr,
-    title: 'Order item ' + ctr,
+    title: 'Order item ' + localCtr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
     activity: activity.uniqid,
@@ -408,7 +410,6 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
   if (geometries.length > 0) {
     message.location = geometries
   }
-
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
