@@ -256,7 +256,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const statuses = platformType.states
 
     const healthValues = [100, 75, 50, 25, 0]
-    const health = randomArrayItem(healthValues, ctr)
+    const health = randomArrayItem(healthValues, Math.random() * ctr)
 
     const asset: Asset = {
       uniqid: uniqueId('a'),
