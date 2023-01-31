@@ -154,7 +154,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
   }, [gameDate])
 
-
   useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want

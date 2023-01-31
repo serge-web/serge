@@ -112,8 +112,26 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [forcePlanningActivities, selectedForce])
 
   useEffect(() => {
-    const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
-    setFilteredPlanningMessages(filtered)
+    let filteredMessages: MessagePlanning[] | undefined
+    if (turnFilter) {
+      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
+      console.log('this turn', thisTurn)
+      if (thisTurn) {
+        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
+        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
+        const turnEndTime = moment.utc(turnEnd).valueOf()
+        filteredMessages = planningMessages.filter((msg) =>  {
+          const pStart = moment.utc(msg.message.startDate).valueOf()
+          const pEnd = moment.utc(msg.message.endDate).valueOf()
+          return pEnd >= turnStartTime && pStart < turnEndTime
+        })
+        console.log('this turn', planningMessages.length, filteredMessages.length)
+      }
+    }
+    if(filteredMessages === undefined) {
+      filteredMessages = planningMessages
+    }
+    setFilteredPlanningMessages(filteredMessages)
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
