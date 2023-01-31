@@ -212,8 +212,8 @@ const p9StockTemplates: TemplateBody[] = [
                 propertyOrder: 25,
                 type: 'string',
                 enum: [
-                  'None', 
-                  'Degraded', 
+                  'None',
+                  'Degraded',
                   'Operational'
                 ],
                 options: {
