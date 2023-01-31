@@ -356,7 +356,7 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
     case 'ISTAR': {
       return istarEventOutcomesFor(plan, outcomes, forces)
     }
-    case 'CYBER/SPA':
+    case 'CYB/SPA':
     case 'EW': {
       return ewEventOutcomesFor(plan, outcomes, event, forces)
     }
