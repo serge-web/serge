@@ -18,7 +18,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-6",
+            "Reference": "Blue-2",
             "title": "Order item 6",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T00:55:00.000Z",
@@ -26,7 +26,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a14",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -78,7 +78,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_6",
+        "_id": "m_f-blue_2",
         "_rev": "2"
     },
     {
@@ -98,7 +98,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-9",
+            "Reference": "Red-5",
             "title": "Order item 9",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T06:45:00.000Z",
@@ -110,11 +110,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a176",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a186",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a127",
@@ -308,7 +308,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_9",
+        "_id": "m_f-red_5",
         "_rev": "2"
     },
     {
@@ -328,7 +328,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-12",
+            "Reference": "Blue-8",
             "title": "Order item 12",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T03:15:00.000Z",
@@ -336,19 +336,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a24",
-                    "number": 1
-                },
-                {
-                    "asset": "a92",
-                    "number": 3
-                },
-                {
-                    "asset": "a87",
                     "number": 2
                 },
                 {
-                    "asset": "a11",
+                    "asset": "a92",
                     "number": 1
+                },
+                {
+                    "asset": "a87",
+                    "number": 1
+                },
+                {
+                    "asset": "a11",
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -487,7 +487,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_12",
+        "_id": "m_f-blue_8",
         "_rev": "2"
     },
     {
@@ -507,7 +507,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-15",
+            "Reference": "Blue-11",
             "title": "Order item 15",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T05:35:00.000Z",
@@ -515,15 +515,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a11",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a61",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a42",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -662,7 +662,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_15",
+        "_id": "m_f-blue_11",
         "_rev": "2"
     },
     {
@@ -682,7 +682,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-18",
+            "Reference": "Blue-14",
             "title": "Order item 18",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T00:55:00.000Z",
@@ -690,19 +690,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a51",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a89",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a53",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a48",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -757,7 +757,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_18",
+        "_id": "m_f-blue_14",
         "_rev": "2"
     },
     {
@@ -777,7 +777,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-21",
+            "Reference": "Blue-17",
             "title": "Order item 21",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T06:55:00.000Z",
@@ -785,11 +785,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a48",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a68",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a22",
@@ -925,7 +925,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_21",
+        "_id": "m_f-blue_17",
         "_rev": "2"
     },
     {
@@ -945,7 +945,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-24",
+            "Reference": "Blue-20",
             "title": "Order item 24",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T00:55:00.000Z",
@@ -953,7 +953,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -1002,7 +1002,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_24",
+        "_id": "m_f-blue_20",
         "_rev": "2"
     },
     {
@@ -1022,7 +1022,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-27",
+            "Reference": "Red-23",
             "title": "Order item 27",
             "startDate": "2022-05-01T00:05:00.000Z",
             "endDate": "2022-05-01T03:35:00.000Z",
@@ -1030,19 +1030,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a108",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a121",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a170",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -1174,7 +1174,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_27",
+        "_id": "m_f-red_23",
         "_rev": "2"
     },
     {
@@ -1194,7 +1194,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-30",
+            "Reference": "Red-26",
             "title": "Order item 30",
             "startDate": "2022-05-01T00:10:00.000Z",
             "endDate": "2022-05-01T04:00:00.000Z",
@@ -1202,7 +1202,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a170",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a146",
@@ -1353,7 +1353,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_30",
+        "_id": "m_f-red_26",
         "_rev": "2"
     },
     {
@@ -1373,7 +1373,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-33",
+            "Reference": "Red-29",
             "title": "Order item 33",
             "startDate": "2022-05-01T00:30:00.000Z",
             "endDate": "2022-05-01T05:00:00.000Z",
@@ -1381,11 +1381,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a185",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a147",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -1567,7 +1567,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_33",
+        "_id": "m_f-red_29",
         "_rev": "2"
     },
     {
@@ -1587,7 +1587,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-36",
+            "Reference": "Blue-32",
             "title": "Order item 36",
             "startDate": "2022-05-01T00:45:00.000Z",
             "endDate": "2022-05-01T02:45:00.000Z",
@@ -1595,7 +1595,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a52",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -1739,7 +1739,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_36",
+        "_id": "m_f-blue_32",
         "_rev": "2"
     },
     {
@@ -1759,7 +1759,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-39",
+            "Reference": "Red-35",
             "title": "Order item 39",
             "startDate": "2022-05-01T00:45:00.000Z",
             "endDate": "2022-05-01T03:55:00.000Z",
@@ -1767,7 +1767,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -1908,7 +1908,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_39",
+        "_id": "m_f-red_35",
         "_rev": "2"
     },
     {
@@ -1928,7 +1928,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-42",
+            "Reference": "Red-38",
             "title": "Order item 42",
             "startDate": "2022-05-01T00:50:00.000Z",
             "endDate": "2022-05-01T04:30:00.000Z",
@@ -1936,19 +1936,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a163",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a179",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a125",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a196",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -2087,7 +2087,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_42",
+        "_id": "m_f-red_38",
         "_rev": "2"
     },
     {
@@ -2107,7 +2107,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-45",
+            "Reference": "Blue-41",
             "title": "Order item 45",
             "startDate": "2022-05-01T01:10:00.000Z",
             "endDate": "2022-05-01T04:00:00.000Z",
@@ -2115,19 +2115,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a96",
-                    "number": 0
-                },
-                {
-                    "asset": "a99",
                     "number": 3
                 },
                 {
+                    "asset": "a99",
+                    "number": 0
+                },
+                {
                     "asset": "a27",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a86",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -2252,7 +2252,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_45",
+        "_id": "m_f-blue_41",
         "_rev": "2"
     },
     {
@@ -2272,7 +2272,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-48",
+            "Reference": "Red-44",
             "title": "Order item 48",
             "startDate": "2022-05-01T01:10:00.000Z",
             "endDate": "2022-05-01T07:00:00.000Z",
@@ -2280,15 +2280,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a187",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a175",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a189",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -2428,7 +2428,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_48",
+        "_id": "m_f-red_44",
         "_rev": "2"
     },
     {
@@ -2448,7 +2448,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-51",
+            "Reference": "Blue-47",
             "title": "Order item 51",
             "startDate": "2022-05-01T01:10:00.000Z",
             "endDate": "2022-05-01T06:30:00.000Z",
@@ -2456,7 +2456,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a30",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -2639,7 +2639,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_51",
+        "_id": "m_f-blue_47",
         "_rev": "2"
     },
     {
@@ -2659,7 +2659,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-54",
+            "Reference": "Red-50",
             "title": "Order item 54",
             "startDate": "2022-05-01T01:10:00.000Z",
             "endDate": "2022-05-01T04:40:00.000Z",
@@ -2667,15 +2667,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a134",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a189",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a175",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a187",
@@ -2815,7 +2815,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_54",
+        "_id": "m_f-red_50",
         "_rev": "2"
     },
     {
@@ -2835,7 +2835,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-57",
+            "Reference": "Red-53",
             "title": "Order item 57",
             "startDate": "2022-05-01T01:20:00.000Z",
             "endDate": "2022-05-01T07:30:00.000Z",
@@ -2843,7 +2843,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a187",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a130",
@@ -3031,7 +3031,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_57",
+        "_id": "m_f-red_53",
         "_rev": "2"
     },
     {
@@ -3051,7 +3051,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-60",
+            "Reference": "Red-56",
             "title": "Order item 60",
             "startDate": "2022-05-01T01:30:00.000Z",
             "endDate": "2022-05-01T07:50:00.000Z",
@@ -3059,7 +3059,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -3202,7 +3202,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_60",
+        "_id": "m_f-red_56",
         "_rev": "2"
     },
     {
@@ -3222,7 +3222,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-63",
+            "Reference": "Blue-59",
             "title": "Order item 63",
             "startDate": "2022-05-01T01:50:00.000Z",
             "endDate": "2022-05-01T04:50:00.000Z",
@@ -3230,11 +3230,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a59",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a69",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a11",
@@ -3367,7 +3367,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_63",
+        "_id": "m_f-blue_59",
         "_rev": "2"
     },
     {
@@ -3387,7 +3387,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-66",
+            "Reference": "Red-62",
             "title": "Order item 66",
             "startDate": "2022-05-01T01:50:00.000Z",
             "endDate": "2022-05-01T02:40:00.000Z",
@@ -3395,15 +3395,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a178",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a102",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a155",
@@ -3459,7 +3459,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_66",
+        "_id": "m_f-red_62",
         "_rev": "2"
     },
     {
@@ -3479,7 +3479,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-69",
+            "Reference": "Blue-65",
             "title": "Order item 69",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T07:40:00.000Z",
@@ -3487,11 +3487,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a52",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a34",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -3619,7 +3619,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_69",
+        "_id": "m_f-blue_65",
         "_rev": "2"
     },
     {
@@ -3639,7 +3639,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-72",
+            "Reference": "Blue-68",
             "title": "Order item 72",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T07:30:00.000Z",
@@ -3647,15 +3647,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a83",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a48",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a44",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -3795,7 +3795,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_72",
+        "_id": "m_f-blue_68",
         "_rev": "2"
     },
     {
@@ -3815,7 +3815,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-75",
+            "Reference": "Blue-71",
             "title": "Order item 75",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T08:10:00.000Z",
@@ -4003,7 +4003,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_75",
+        "_id": "m_f-blue_71",
         "_rev": "2"
     },
     {
@@ -4023,7 +4023,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-81",
+            "Reference": "Blue-74",
             "title": "Order item 81",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T04:50:00.000Z",
@@ -4031,12 +4031,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a7",
-                    "number": 5,
+                    "number": 2,
                     "missileType": "Low Obs Cruise"
                 },
                 {
                     "asset": "a40",
-                    "number": 5,
+                    "number": 1,
                     "missileType": "MRBM"
                 }
             ],
@@ -4049,7 +4049,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_81",
+        "_id": "m_f-blue_74",
         "_rev": "2"
     },
     {
@@ -4069,7 +4069,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-81",
+            "Reference": "Blue-77",
             "title": "Order item 81",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T05:00:00.000Z",
@@ -4077,7 +4077,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -4202,7 +4202,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_81",
+        "_id": "m_f-blue_77",
         "_rev": "2"
     },
     {
@@ -4222,7 +4222,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-84",
+            "Reference": "Red-80",
             "title": "Order item 84",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T06:20:00.000Z",
@@ -4234,11 +4234,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a156",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a190",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -4370,7 +4370,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_84",
+        "_id": "m_f-red_80",
         "_rev": "2"
     },
     {
@@ -4390,7 +4390,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-91",
+            "Reference": "Blue-83",
             "title": "Order item 91",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T02:00:00.000Z",
@@ -4411,17 +4411,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Standard Cruise",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a194",
                     "missileType": "Standard Cruise",
-                    "number": 2
+                    "number": 4
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_91",
+        "_id": "m_f-blue_83",
         "_rev": "2"
     },
     {
@@ -4441,7 +4441,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-90",
+            "Reference": "Red-86",
             "title": "Order item 90",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T02:50:00.000Z",
@@ -4449,19 +4449,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a112",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a188",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a192",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a126",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -4521,7 +4521,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_90",
+        "_id": "m_f-red_86",
         "_rev": "2"
     },
     {
@@ -4541,7 +4541,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-93",
+            "Reference": "Blue-89",
             "title": "Order item 93",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T04:10:00.000Z",
@@ -4549,19 +4549,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a24",
-                    "number": 0
-                },
-                {
-                    "asset": "a84",
-                    "number": 5
-                },
-                {
-                    "asset": "a71",
                     "number": 3
                 },
                 {
+                    "asset": "a84",
+                    "number": 4
+                },
+                {
+                    "asset": "a71",
+                    "number": 4
+                },
+                {
                     "asset": "a92",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -4706,7 +4706,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_93",
+        "_id": "m_f-blue_89",
         "_rev": "2"
     },
     {
@@ -4726,7 +4726,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-96",
+            "Reference": "Red-92",
             "title": "Order item 96",
             "startDate": "2022-05-01T02:00:00.000Z",
             "endDate": "2022-05-01T08:30:00.000Z",
@@ -4734,11 +4734,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a193",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a140",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -4877,7 +4877,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_96",
+        "_id": "m_f-red_92",
         "_rev": "2"
     },
     {
@@ -4897,7 +4897,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-99",
+            "Reference": "Red-95",
             "title": "Order item 99",
             "startDate": "2022-05-01T02:10:00.000Z",
             "endDate": "2022-05-01T04:40:00.000Z",
@@ -4905,11 +4905,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a117",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a148",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -5042,7 +5042,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_99",
+        "_id": "m_f-red_95",
         "_rev": "2"
     },
     {
@@ -5062,7 +5062,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-102",
+            "Reference": "Blue-98",
             "title": "Order item 102",
             "startDate": "2022-05-01T02:20:00.000Z",
             "endDate": "2022-05-01T06:00:00.000Z",
@@ -5070,7 +5070,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a93",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -5210,7 +5210,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_102",
+        "_id": "m_f-blue_98",
         "_rev": "2"
     },
     {
@@ -5230,7 +5230,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-105",
+            "Reference": "Blue-101",
             "title": "Order item 105",
             "startDate": "2022-05-01T02:20:00.000Z",
             "endDate": "2022-05-01T05:00:00.000Z",
@@ -5238,7 +5238,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a25",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a26",
@@ -5378,7 +5378,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_105",
+        "_id": "m_f-blue_101",
         "_rev": "2"
     },
     {
@@ -5398,7 +5398,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-108",
+            "Reference": "Red-104",
             "title": "Order item 108",
             "startDate": "2022-05-01T02:20:00.000Z",
             "endDate": "2022-05-01T04:40:00.000Z",
@@ -5406,19 +5406,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a114",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a128",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a157",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5550,7 +5550,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_108",
+        "_id": "m_f-red_104",
         "_rev": "2"
     },
     {
@@ -5570,7 +5570,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-111",
+            "Reference": "Blue-107",
             "title": "Order item 111",
             "startDate": "2022-05-01T02:25:00.000Z",
             "endDate": "2022-05-01T07:35:00.000Z",
@@ -5578,11 +5578,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a53",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a26",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -5719,7 +5719,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_111",
+        "_id": "m_f-blue_107",
         "_rev": "2"
     },
     {
@@ -5739,7 +5739,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-114",
+            "Reference": "Red-110",
             "title": "Order item 114",
             "startDate": "2022-05-01T02:25:00.000Z",
             "endDate": "2022-05-01T09:35:00.000Z",
@@ -5747,7 +5747,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a154",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -5917,7 +5917,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_114",
+        "_id": "m_f-red_110",
         "_rev": "2"
     },
     {
@@ -5937,7 +5937,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-117",
+            "Reference": "Red-113",
             "title": "Order item 117",
             "startDate": "2022-05-01T02:25:00.000Z",
             "endDate": "2022-05-01T06:25:00.000Z",
@@ -5945,11 +5945,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a106",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a148",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -6078,7 +6078,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_117",
+        "_id": "m_f-red_113",
         "_rev": "2"
     },
     {
@@ -6098,7 +6098,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-120",
+            "Reference": "Blue-116",
             "title": "Order item 120",
             "startDate": "2022-05-01T02:40:00.000Z",
             "endDate": "2022-05-01T07:00:00.000Z",
@@ -6106,11 +6106,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a12",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a36",
-                    "number": 3
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -6242,7 +6242,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_120",
+        "_id": "m_f-blue_116",
         "_rev": "2"
     },
     {
@@ -6262,7 +6262,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-123",
+            "Reference": "Red-119",
             "title": "Order item 123",
             "startDate": "2022-05-01T02:40:00.000Z",
             "endDate": "2022-05-01T05:20:00.000Z",
@@ -6278,11 +6278,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a126",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a192",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -6410,7 +6410,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_123",
+        "_id": "m_f-red_119",
         "_rev": "2"
     },
     {
@@ -6430,7 +6430,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-126",
+            "Reference": "Red-122",
             "title": "Order item 126",
             "startDate": "2022-05-01T02:40:00.000Z",
             "endDate": "2022-05-01T05:00:00.000Z",
@@ -6442,15 +6442,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a188",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a112",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a165",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -6574,7 +6574,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_126",
+        "_id": "m_f-red_122",
         "_rev": "2"
     },
     {
@@ -6594,7 +6594,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-129",
+            "Reference": "Red-125",
             "title": "Order item 129",
             "startDate": "2022-05-01T02:55:00.000Z",
             "endDate": "2022-05-01T05:15:00.000Z",
@@ -6746,7 +6746,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_129",
+        "_id": "m_f-red_125",
         "_rev": "2"
     },
     {
@@ -6766,7 +6766,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-132",
+            "Reference": "Blue-128",
             "title": "Order item 132",
             "startDate": "2022-05-01T03:10:00.000Z",
             "endDate": "2022-05-01T05:20:00.000Z",
@@ -6778,11 +6778,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a53",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a47",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -6915,7 +6915,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_132",
+        "_id": "m_f-blue_128",
         "_rev": "2"
     },
     {
@@ -6935,7 +6935,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-135",
+            "Reference": "Red-131",
             "title": "Order item 135",
             "startDate": "2022-05-01T03:10:00.000Z",
             "endDate": "2022-05-01T07:30:00.000Z",
@@ -7079,7 +7079,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_135",
+        "_id": "m_f-red_131",
         "_rev": "2"
     },
     {
@@ -7099,7 +7099,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-138",
+            "Reference": "Red-134",
             "title": "Order item 138",
             "startDate": "2022-05-01T03:15:00.000Z",
             "endDate": "2022-05-01T04:05:00.000Z",
@@ -7107,11 +7107,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a108",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a144",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -7162,7 +7162,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_138",
+        "_id": "m_f-red_134",
         "_rev": "2"
     },
     {
@@ -7182,7 +7182,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-143",
+            "Reference": "Blue-137",
             "title": "Order item 143",
             "startDate": "2022-05-01T03:35:00.000Z",
             "endDate": "2022-05-01T06:45:00.000Z",
@@ -7203,7 +7203,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_143",
+        "_id": "m_f-blue_137",
         "_rev": "2"
     },
     {
@@ -7223,7 +7223,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-144",
+            "Reference": "Red-140",
             "title": "Order item 144",
             "startDate": "2022-05-01T03:35:00.000Z",
             "endDate": "2022-05-01T06:45:00.000Z",
@@ -7231,11 +7231,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a151",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7370,7 +7370,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_144",
+        "_id": "m_f-red_140",
         "_rev": "2"
     },
     {
@@ -7390,7 +7390,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-147",
+            "Reference": "Red-143",
             "title": "Order item 147",
             "startDate": "2022-05-01T03:40:00.000Z",
             "endDate": "2022-05-01T07:20:00.000Z",
@@ -7398,7 +7398,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a147",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a138",
@@ -7538,7 +7538,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_147",
+        "_id": "m_f-red_143",
         "_rev": "2"
     },
     {
@@ -7558,7 +7558,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-150",
+            "Reference": "Red-146",
             "title": "Order item 150",
             "startDate": "2022-05-01T04:00:00.000Z",
             "endDate": "2022-05-01T04:50:00.000Z",
@@ -7566,19 +7566,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a102",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a178",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a181",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a112",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -7633,7 +7633,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_150",
+        "_id": "m_f-red_146",
         "_rev": "2"
     },
     {
@@ -7653,7 +7653,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-153",
+            "Reference": "Blue-149",
             "title": "Order item 153",
             "startDate": "2022-05-01T04:15:00.000Z",
             "endDate": "2022-05-01T06:25:00.000Z",
@@ -7661,15 +7661,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a11",
-                    "number": 4
-                },
-                {
-                    "asset": "a68",
                     "number": 0
                 },
                 {
-                    "asset": "a58",
+                    "asset": "a68",
                     "number": 5
+                },
+                {
+                    "asset": "a58",
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -7851,7 +7851,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_153",
+        "_id": "m_f-blue_149",
         "_rev": "2"
     },
     {
@@ -7871,7 +7871,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-156",
+            "Reference": "Blue-152",
             "title": "Order item 156",
             "startDate": "2022-05-01T04:15:00.000Z",
             "endDate": "2022-05-01T07:55:00.000Z",
@@ -7879,7 +7879,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a77",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -8008,7 +8008,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_156",
+        "_id": "m_f-blue_152",
         "_rev": "2"
     },
     {
@@ -8028,7 +8028,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-159",
+            "Reference": "Blue-155",
             "title": "Order item 159",
             "startDate": "2022-05-01T04:15:00.000Z",
             "endDate": "2022-05-01T08:05:00.000Z",
@@ -8036,11 +8036,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a98",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a27",
-                    "number": 4
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -8185,7 +8185,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_159",
+        "_id": "m_f-blue_155",
         "_rev": "2"
     },
     {
@@ -8205,7 +8205,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-169",
+            "Reference": "Blue-158",
             "title": "Order item 169",
             "startDate": "2022-05-01T04:15:00.000Z",
             "endDate": "2022-05-01T05:55:00.000Z",
@@ -8213,7 +8213,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a69",
-                    "number": 3,
+                    "number": 5,
                     "missileType": "Jet OWA UAV"
                 },
                 {
@@ -8223,12 +8223,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a30",
-                    "number": 4,
+                    "number": 5,
                     "missileType": "Jet OWA UAV"
                 },
                 {
                     "asset": "a3",
-                    "number": 3,
+                    "number": 5,
                     "missileType": "Propellor OWA UAV"
                 }
             ],
@@ -8236,22 +8236,22 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "IRBM",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a194",
                     "missileType": "SRBM",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a106",
                     "missileType": "SRBM",
-                    "number": 2
+                    "number": 1
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_169",
+        "_id": "m_f-blue_158",
         "_rev": "2"
     },
     {
@@ -8271,7 +8271,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-165",
+            "Reference": "Red-161",
             "title": "Order item 165",
             "startDate": "2022-05-01T04:15:00.000Z",
             "endDate": "2022-05-01T08:35:00.000Z",
@@ -8279,7 +8279,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a103",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -8418,7 +8418,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_165",
+        "_id": "m_f-red_161",
         "_rev": "2"
     },
     {
@@ -8438,7 +8438,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-168",
+            "Reference": "Red-164",
             "title": "Order item 168",
             "startDate": "2022-05-01T04:20:00.000Z",
             "endDate": "2022-05-01T08:00:00.000Z",
@@ -8450,11 +8450,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a174",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a186",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -8594,7 +8594,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_168",
+        "_id": "m_f-red_164",
         "_rev": "2"
     },
     {
@@ -8614,7 +8614,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-171",
+            "Reference": "Red-167",
             "title": "Order item 171",
             "startDate": "2022-05-01T04:40:00.000Z",
             "endDate": "2022-05-01T07:10:00.000Z",
@@ -8622,11 +8622,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a129",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a197",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a195",
@@ -8634,7 +8634,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a124",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -8759,7 +8759,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_171",
+        "_id": "m_f-red_167",
         "_rev": "2"
     },
     {
@@ -8779,7 +8779,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-174",
+            "Reference": "Blue-170",
             "title": "Order item 174",
             "startDate": "2022-05-01T04:55:00.000Z",
             "endDate": "2022-05-01T09:25:00.000Z",
@@ -8787,15 +8787,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a22",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a77",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a58",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a68",
@@ -8939,7 +8939,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_174",
+        "_id": "m_f-blue_170",
         "_rev": "2"
     },
     {
@@ -8959,7 +8959,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-177",
+            "Reference": "Red-173",
             "title": "Order item 177",
             "startDate": "2022-05-01T04:55:00.000Z",
             "endDate": "2022-05-01T08:55:00.000Z",
@@ -8967,7 +8967,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a173",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -9134,7 +9134,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_177",
+        "_id": "m_f-red_173",
         "_rev": "2"
     },
     {
@@ -9154,7 +9154,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-180",
+            "Reference": "Red-176",
             "title": "Order item 180",
             "startDate": "2022-05-01T05:00:00.000Z",
             "endDate": "2022-05-01T09:50:00.000Z",
@@ -9162,7 +9162,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a177",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -9298,7 +9298,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_180",
+        "_id": "m_f-red_176",
         "_rev": "2"
     },
     {
@@ -9318,7 +9318,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-183",
+            "Reference": "Blue-179",
             "title": "Order item 183",
             "startDate": "2022-05-01T05:20:00.000Z",
             "endDate": "2022-05-01T09:40:00.000Z",
@@ -9326,11 +9326,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a33",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a44",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -9455,7 +9455,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_183",
+        "_id": "m_f-blue_179",
         "_rev": "2"
     },
     {
@@ -9475,7 +9475,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-186",
+            "Reference": "Red-182",
             "title": "Order item 186",
             "startDate": "2022-05-01T05:20:00.000Z",
             "endDate": "2022-05-01T10:40:00.000Z",
@@ -9483,7 +9483,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a151",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a146",
@@ -9614,7 +9614,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_186",
+        "_id": "m_f-red_182",
         "_rev": "2"
     },
     {
@@ -9634,7 +9634,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-189",
+            "Reference": "Red-185",
             "title": "Order item 189",
             "startDate": "2022-05-01T05:25:00.000Z",
             "endDate": "2022-05-01T07:25:00.000Z",
@@ -9642,7 +9642,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a120",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a198",
@@ -9650,11 +9650,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a106",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a144",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -9782,7 +9782,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_189",
+        "_id": "m_f-red_185",
         "_rev": "2"
     },
     {
@@ -9802,7 +9802,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-192",
+            "Reference": "Red-188",
             "title": "Order item 192",
             "startDate": "2022-05-01T05:40:00.000Z",
             "endDate": "2022-05-01T09:10:00.000Z",
@@ -9949,7 +9949,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_192",
+        "_id": "m_f-red_188",
         "_rev": "2"
     },
     {
@@ -9969,7 +9969,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-195",
+            "Reference": "Blue-191",
             "title": "Order item 195",
             "startDate": "2022-05-01T05:55:00.000Z",
             "endDate": "2022-05-01T11:15:00.000Z",
@@ -9977,15 +9977,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a21",
-                    "number": 5
-                },
-                {
-                    "asset": "a67",
                     "number": 2
                 },
                 {
-                    "asset": "a47",
+                    "asset": "a67",
                     "number": 4
+                },
+                {
+                    "asset": "a47",
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -10171,7 +10171,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_195",
+        "_id": "m_f-blue_191",
         "_rev": "2"
     },
     {
@@ -10191,7 +10191,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-198",
+            "Reference": "Red-194",
             "title": "Order item 198",
             "startDate": "2022-05-01T05:55:00.000Z",
             "endDate": "2022-05-01T09:15:00.000Z",
@@ -10199,19 +10199,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a155",
-                    "number": 4
-                },
-                {
-                    "asset": "a189",
                     "number": 0
                 },
                 {
+                    "asset": "a189",
+                    "number": 5
+                },
+                {
                     "asset": "a153",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a145",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -10350,7 +10350,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_198",
+        "_id": "m_f-red_194",
         "_rev": "2"
     },
     {
@@ -10370,7 +10370,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-201",
+            "Reference": "Red-197",
             "title": "Order item 201",
             "startDate": "2022-05-01T05:55:00.000Z",
             "endDate": "2022-05-01T10:55:00.000Z",
@@ -10378,15 +10378,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a145",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a165",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a111",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -10568,7 +10568,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_201",
+        "_id": "m_f-red_197",
         "_rev": "2"
     },
     {
@@ -10588,7 +10588,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-204",
+            "Reference": "Blue-200",
             "title": "Order item 204",
             "startDate": "2022-05-01T06:15:00.000Z",
             "endDate": "2022-05-01T11:05:00.000Z",
@@ -10596,19 +10596,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a86",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a91",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a23",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a83",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -10752,7 +10752,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_204",
+        "_id": "m_f-blue_200",
         "_rev": "2"
     },
     {
@@ -10772,7 +10772,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-207",
+            "Reference": "Red-203",
             "title": "Order item 207",
             "startDate": "2022-05-01T06:15:00.000Z",
             "endDate": "2022-05-01T10:55:00.000Z",
@@ -10784,11 +10784,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a175",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a192",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -10935,7 +10935,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_207",
+        "_id": "m_f-red_203",
         "_rev": "2"
     },
     {
@@ -10955,7 +10955,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-210",
+            "Reference": "Blue-206",
             "title": "Order item 210",
             "startDate": "2022-05-01T06:15:00.000Z",
             "endDate": "2022-05-01T07:05:00.000Z",
@@ -11008,7 +11008,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_210",
+        "_id": "m_f-blue_206",
         "_rev": "2"
     },
     {
@@ -11028,7 +11028,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-213",
+            "Reference": "Blue-209",
             "title": "Order item 213",
             "startDate": "2022-05-01T06:15:00.000Z",
             "endDate": "2022-05-01T12:25:00.000Z",
@@ -11036,7 +11036,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a44",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -11172,7 +11172,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_213",
+        "_id": "m_f-blue_209",
         "_rev": "2"
     },
     {
@@ -11192,7 +11192,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-216",
+            "Reference": "Red-212",
             "title": "Order item 216",
             "startDate": "2022-05-01T06:15:00.000Z",
             "endDate": "2022-05-01T12:15:00.000Z",
@@ -11200,11 +11200,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a109",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a153",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a127",
@@ -11348,7 +11348,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_216",
+        "_id": "m_f-red_212",
         "_rev": "2"
     },
     {
@@ -11368,7 +11368,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-219",
+            "Reference": "Red-215",
             "title": "Order item 219",
             "startDate": "2022-05-01T06:25:00.000Z",
             "endDate": "2022-05-01T11:15:00.000Z",
@@ -11376,7 +11376,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a128",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a156",
@@ -11384,7 +11384,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a113",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -11552,7 +11552,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_219",
+        "_id": "m_f-red_215",
         "_rev": "2"
     },
     {
@@ -11572,7 +11572,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-226",
+            "Reference": "Blue-218",
             "title": "Order item 226",
             "startDate": "2022-05-01T06:45:00.000Z",
             "endDate": "2022-05-01T07:25:00.000Z",
@@ -11580,7 +11580,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a99",
-                    "number": 2,
+                    "number": 5,
                     "missileType": "MRBM"
                 }
             ],
@@ -11593,17 +11593,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a194",
                     "missileType": "Jet OWA UAV",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a106",
                     "missileType": "SRBM",
-                    "number": 0
+                    "number": 5
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_226",
+        "_id": "m_f-blue_218",
         "_rev": "2"
     },
     {
@@ -11623,7 +11623,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-225",
+            "Reference": "Red-221",
             "title": "Order item 225",
             "startDate": "2022-05-01T06:45:00.000Z",
             "endDate": "2022-05-01T07:35:00.000Z",
@@ -11631,11 +11631,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a128",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a127",
-                    "number": 5
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -11683,7 +11683,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_225",
+        "_id": "m_f-red_221",
         "_rev": "2"
     },
     {
@@ -11703,7 +11703,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-228",
+            "Reference": "Blue-224",
             "title": "Order item 228",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T12:25:00.000Z",
@@ -11711,19 +11711,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a8",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a92",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a5",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a44",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -11862,7 +11862,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_228",
+        "_id": "m_f-blue_224",
         "_rev": "2"
     },
     {
@@ -11882,7 +11882,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-231",
+            "Reference": "Red-227",
             "title": "Order item 231",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T07:45:00.000Z",
@@ -11943,7 +11943,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_231",
+        "_id": "m_f-red_227",
         "_rev": "2"
     },
     {
@@ -11963,7 +11963,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-234",
+            "Reference": "Blue-230",
             "title": "Order item 234",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T07:45:00.000Z",
@@ -11971,7 +11971,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a35",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a91",
@@ -11979,11 +11979,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a70",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a83",
-                    "number": 4
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -12028,7 +12028,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_234",
+        "_id": "m_f-blue_230",
         "_rev": "2"
     },
     {
@@ -12048,7 +12048,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-237",
+            "Reference": "Blue-233",
             "title": "Order item 237",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T08:05:00.000Z",
@@ -12195,7 +12195,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_237",
+        "_id": "m_f-blue_233",
         "_rev": "2"
     },
     {
@@ -12215,7 +12215,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-240",
+            "Reference": "Blue-236",
             "title": "Order item 240",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T07:45:00.000Z",
@@ -12223,7 +12223,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a84",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12271,7 +12271,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_240",
+        "_id": "m_f-blue_236",
         "_rev": "2"
     },
     {
@@ -12291,7 +12291,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-248",
+            "Reference": "Blue-239",
             "title": "Order item 248",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T09:15:00.000Z",
@@ -12304,12 +12304,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a49",
-                    "number": 0,
+                    "number": 4,
                     "missileType": "SRBM"
                 },
                 {
                     "asset": "a88",
-                    "number": 5,
+                    "number": 1,
                     "missileType": "Low Obs Cruise"
                 }
             ],
@@ -12317,7 +12317,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Standard Cruise",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a194",
@@ -12327,7 +12327,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_248",
+        "_id": "m_f-blue_239",
         "_rev": "2"
     },
     {
@@ -12347,7 +12347,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-246",
+            "Reference": "Blue-242",
             "title": "Order item 246",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T11:15:00.000Z",
@@ -12355,11 +12355,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a52",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a46",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -12495,7 +12495,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_246",
+        "_id": "m_f-blue_242",
         "_rev": "2"
     },
     {
@@ -12515,7 +12515,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-249",
+            "Reference": "Red-245",
             "title": "Order item 249",
             "startDate": "2022-05-01T06:55:00.000Z",
             "endDate": "2022-05-01T07:45:00.000Z",
@@ -12523,11 +12523,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a121",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a200",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a106",
@@ -12535,7 +12535,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a143",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -12596,7 +12596,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_249",
+        "_id": "m_f-red_245",
         "_rev": "2"
     },
     {
@@ -12616,7 +12616,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-252",
+            "Reference": "Blue-248",
             "title": "Order item 252",
             "startDate": "2022-05-01T07:00:00.000Z",
             "endDate": "2022-05-01T11:40:00.000Z",
@@ -12624,7 +12624,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a39",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -12759,7 +12759,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_252",
+        "_id": "m_f-blue_248",
         "_rev": "2"
     },
     {
@@ -12779,7 +12779,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-255",
+            "Reference": "Red-251",
             "title": "Order item 255",
             "startDate": "2022-05-01T07:00:00.000Z",
             "endDate": "2022-05-01T14:00:00.000Z",
@@ -12787,7 +12787,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a119",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a168",
@@ -12795,7 +12795,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a145",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -12966,7 +12966,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_255",
+        "_id": "m_f-red_251",
         "_rev": "2"
     },
     {
@@ -12986,7 +12986,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-258",
+            "Reference": "Red-254",
             "title": "Order item 258",
             "startDate": "2022-05-01T07:10:00.000Z",
             "endDate": "2022-05-01T14:00:00.000Z",
@@ -12994,19 +12994,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a150",
-                    "number": 2
-                },
-                {
-                    "asset": "a183",
-                    "number": 0
-                },
-                {
-                    "asset": "a146",
                     "number": 4
                 },
                 {
+                    "asset": "a183",
+                    "number": 1
+                },
+                {
+                    "asset": "a146",
+                    "number": 0
+                },
+                {
                     "asset": "a137",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -13182,7 +13182,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_258",
+        "_id": "m_f-red_254",
         "_rev": "2"
     },
     {
@@ -13202,7 +13202,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-261",
+            "Reference": "Red-257",
             "title": "Order item 261",
             "startDate": "2022-05-01T07:20:00.000Z",
             "endDate": "2022-05-01T09:50:00.000Z",
@@ -13210,15 +13210,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a137",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a154",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a200",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13361,7 +13361,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_261",
+        "_id": "m_f-red_257",
         "_rev": "2"
     },
     {
@@ -13381,7 +13381,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-270",
+            "Reference": "Blue-260",
             "title": "Order item 270",
             "startDate": "2022-05-01T07:40:00.000Z",
             "endDate": "2022-05-01T13:00:00.000Z",
@@ -13389,7 +13389,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a71",
-                    "number": 5,
+                    "number": 4,
                     "missileType": "IRBM"
                 },
                 {
@@ -13399,7 +13399,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a10",
-                    "number": 0,
+                    "number": 1,
                     "missileType": "Jet OWA UAV"
                 },
                 {
@@ -13412,12 +13412,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "SRBM",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a194",
                     "missileType": "Low Obs Cruise",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "location": [
@@ -13549,7 +13549,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_270",
+        "_id": "m_f-blue_260",
         "_rev": "2"
     },
     {
@@ -13569,7 +13569,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-272",
+            "Reference": "Red-263",
             "title": "Order item 272",
             "startDate": "2022-05-01T07:40:00.000Z",
             "endDate": "2022-05-01T10:10:00.000Z",
@@ -13577,12 +13577,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a172",
-                    "number": 4,
+                    "number": 5,
                     "missileType": "Propellor OWA UAV"
                 },
                 {
                     "asset": "a159",
-                    "number": 3,
+                    "number": 1,
                     "missileType": "Propellor OWA UAV"
                 },
                 {
@@ -13595,17 +13595,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a9",
                     "missileType": "Low Obs Cruise",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a93",
                     "missileType": "Propellor OWA UAV",
-                    "number": 0
+                    "number": 5
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_272",
+        "_id": "m_f-red_263",
         "_rev": "2"
     },
     {
@@ -13625,7 +13625,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-270",
+            "Reference": "Blue-266",
             "title": "Order item 270",
             "startDate": "2022-05-01T07:50:00.000Z",
             "endDate": "2022-05-01T13:10:00.000Z",
@@ -13633,7 +13633,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a21",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a94",
@@ -13641,11 +13641,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a96",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a25",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -13785,7 +13785,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_270",
+        "_id": "m_f-blue_266",
         "_rev": "2"
     },
     {
@@ -13805,7 +13805,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-273",
+            "Reference": "Red-269",
             "title": "Order item 273",
             "startDate": "2022-05-01T07:50:00.000Z",
             "endDate": "2022-05-01T11:10:00.000Z",
@@ -13813,19 +13813,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a128",
-                    "number": 3
-                },
-                {
-                    "asset": "a185",
-                    "number": 3
-                },
-                {
-                    "asset": "a173",
                     "number": 1
                 },
                 {
-                    "asset": "a187",
+                    "asset": "a185",
+                    "number": 0
+                },
+                {
+                    "asset": "a173",
                     "number": 3
+                },
+                {
+                    "asset": "a187",
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -13961,7 +13961,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_273",
+        "_id": "m_f-red_269",
         "_rev": "2"
     },
     {
@@ -13981,7 +13981,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-276",
+            "Reference": "Red-272",
             "title": "Order item 276",
             "startDate": "2022-05-01T07:50:00.000Z",
             "endDate": "2022-05-01T08:00:00.000Z",
@@ -13989,11 +13989,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a187",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a132",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -14003,7 +14003,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_276",
+        "_id": "m_f-red_272",
         "_rev": "2"
     },
     {
@@ -14023,7 +14023,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-279",
+            "Reference": "Blue-275",
             "title": "Order item 279",
             "startDate": "2022-05-01T08:10:00.000Z",
             "endDate": "2022-05-01T14:40:00.000Z",
@@ -14031,11 +14031,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a2",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a28",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -14171,7 +14171,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_279",
+        "_id": "m_f-blue_275",
         "_rev": "2"
     },
     {
@@ -14191,7 +14191,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-282",
+            "Reference": "Red-278",
             "title": "Order item 282",
             "startDate": "2022-05-01T08:10:00.000Z",
             "endDate": "2022-05-01T11:50:00.000Z",
@@ -14199,15 +14199,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a173",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a185",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a128",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a196",
@@ -14362,7 +14362,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_282",
+        "_id": "m_f-red_278",
         "_rev": "2"
     },
     {
@@ -14382,7 +14382,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-285",
+            "Reference": "Red-281",
             "title": "Order item 285",
             "startDate": "2022-05-01T08:15:00.000Z",
             "endDate": "2022-05-01T11:55:00.000Z",
@@ -14390,11 +14390,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a194",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a122",
@@ -14402,7 +14402,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a177",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -14535,7 +14535,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_285",
+        "_id": "m_f-red_281",
         "_rev": "2"
     },
     {
@@ -14555,7 +14555,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-288",
+            "Reference": "Red-284",
             "title": "Order item 288",
             "startDate": "2022-05-01T08:35:00.000Z",
             "endDate": "2022-05-01T13:55:00.000Z",
@@ -14563,15 +14563,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a177",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a159",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a172",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -14708,7 +14708,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_288",
+        "_id": "m_f-red_284",
         "_rev": "2"
     },
     {
@@ -14728,7 +14728,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-291",
+            "Reference": "Blue-287",
             "title": "Order item 291",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T10:30:00.000Z",
@@ -14736,11 +14736,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a9",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a78",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a70",
@@ -14748,7 +14748,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a100",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -14758,7 +14758,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_291",
+        "_id": "m_f-blue_287",
         "_rev": "2"
     },
     {
@@ -14778,7 +14778,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-294",
+            "Reference": "Blue-290",
             "title": "Order item 294",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T13:00:00.000Z",
@@ -14786,7 +14786,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a100",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a50",
@@ -14794,7 +14794,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a32",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -14933,7 +14933,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_294",
+        "_id": "m_f-blue_290",
         "_rev": "2"
     },
     {
@@ -14953,7 +14953,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-297",
+            "Reference": "Blue-293",
             "title": "Order item 297",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T12:30:00.000Z",
@@ -14961,19 +14961,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a40",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a81",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a46",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a100",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -15109,7 +15109,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_297",
+        "_id": "m_f-blue_293",
         "_rev": "2"
     },
     {
@@ -15129,7 +15129,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-304",
+            "Reference": "Blue-296",
             "title": "Order item 304",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T10:30:00.000Z",
@@ -15142,12 +15142,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a63",
-                    "number": 4,
+                    "number": 3,
                     "missileType": "Propellor OWA UAV"
                 },
                 {
                     "asset": "a15",
-                    "number": 0,
+                    "number": 2,
                     "missileType": "Standard Cruise"
                 }
             ],
@@ -15155,12 +15155,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Low Obs Cruise",
-                    "number": 5
+                    "number": 3
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_304",
+        "_id": "m_f-blue_296",
         "_rev": "2"
     },
     {
@@ -15180,7 +15180,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-306",
+            "Reference": "Blue-299",
             "title": "Order item 306",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T13:20:00.000Z",
@@ -15196,12 +15196,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "MRBM",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a194",
                     "missileType": "Jet OWA UAV",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "location": [
@@ -15333,7 +15333,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_306",
+        "_id": "m_f-blue_299",
         "_rev": "2"
     },
     {
@@ -15353,7 +15353,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-306",
+            "Reference": "Red-302",
             "title": "Order item 306",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T13:20:00.000Z",
@@ -15361,7 +15361,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a106",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a198",
@@ -15369,11 +15369,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a121",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a171",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -15510,7 +15510,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_306",
+        "_id": "m_f-red_302",
         "_rev": "2"
     },
     {
@@ -15530,7 +15530,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-309",
+            "Reference": "Blue-305",
             "title": "Order item 309",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T17:00:00.000Z",
@@ -15538,11 +15538,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a66",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a45",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -15718,7 +15718,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_309",
+        "_id": "m_f-blue_305",
         "_rev": "2"
     },
     {
@@ -15738,7 +15738,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-312",
+            "Reference": "Red-308",
             "title": "Order item 312",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T12:00:00.000Z",
@@ -15746,11 +15746,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a188",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a151",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a143",
@@ -15936,7 +15936,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_312",
+        "_id": "m_f-red_308",
         "_rev": "2"
     },
     {
@@ -15956,7 +15956,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-315",
+            "Reference": "Blue-311",
             "title": "Order item 315",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T13:00:00.000Z",
@@ -15964,7 +15964,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a59",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16088,7 +16088,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_315",
+        "_id": "m_f-blue_311",
         "_rev": "2"
     },
     {
@@ -16108,7 +16108,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-322",
+            "Reference": "Blue-314",
             "title": "Order item 322",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T12:00:00.000Z",
@@ -16116,7 +16116,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a88",
-                    "number": 0,
+                    "number": 3,
                     "missileType": "Low Obs Cruise"
                 }
             ],
@@ -16124,22 +16124,22 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Propellor OWA UAV",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a194",
                     "missileType": "Jet OWA UAV",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a106",
                     "missileType": "MRBM",
-                    "number": 0
+                    "number": 1
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_322",
+        "_id": "m_f-blue_314",
         "_rev": "2"
     },
     {
@@ -16159,7 +16159,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-321",
+            "Reference": "Red-317",
             "title": "Order item 321",
             "startDate": "2022-05-01T08:50:00.000Z",
             "endDate": "2022-05-01T10:10:00.000Z",
@@ -16167,19 +16167,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a174",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a190",
-                    "number": 3
-                },
-                {
-                    "asset": "a138",
                     "number": 5
                 },
                 {
+                    "asset": "a138",
+                    "number": 0
+                },
+                {
                     "asset": "a111",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16304,7 +16304,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_321",
+        "_id": "m_f-red_317",
         "_rev": "2"
     },
     {
@@ -16324,7 +16324,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-326",
+            "Reference": "Blue-320",
             "title": "Order item 326",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T11:25:00.000Z",
@@ -16332,7 +16332,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a10",
-                    "number": 2,
+                    "number": 1,
                     "missileType": "Propellor OWA UAV"
                 }
             ],
@@ -16340,12 +16340,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "IRBM",
-                    "number": 4
+                    "number": 0
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_326",
+        "_id": "m_f-blue_320",
         "_rev": "2"
     },
     {
@@ -16365,7 +16365,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-327",
+            "Reference": "Red-323",
             "title": "Order item 327",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T12:25:00.000Z",
@@ -16373,19 +16373,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a104",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a191",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a108",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a152",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -16522,7 +16522,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_327",
+        "_id": "m_f-red_323",
         "_rev": "2"
     },
     {
@@ -16542,7 +16542,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-330",
+            "Reference": "Blue-326",
             "title": "Order item 330",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T13:25:00.000Z",
@@ -16550,7 +16550,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a49",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -16685,7 +16685,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_330",
+        "_id": "m_f-blue_326",
         "_rev": "2"
     },
     {
@@ -16705,7 +16705,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-333",
+            "Reference": "Red-329",
             "title": "Order item 333",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T09:45:00.000Z",
@@ -16713,7 +16713,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a154",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -16769,7 +16769,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_333",
+        "_id": "m_f-red_329",
         "_rev": "2"
     },
     {
@@ -16789,7 +16789,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-336",
+            "Reference": "Blue-332",
             "title": "Order item 336",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T09:45:00.000Z",
@@ -16797,15 +16797,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a10",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a51",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a24",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -16864,7 +16864,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_336",
+        "_id": "m_f-blue_332",
         "_rev": "2"
     },
     {
@@ -16884,7 +16884,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-339",
+            "Reference": "Blue-335",
             "title": "Order item 339",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T14:05:00.000Z",
@@ -16892,7 +16892,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a23",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a49",
@@ -16900,7 +16900,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a6",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -17045,7 +17045,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_339",
+        "_id": "m_f-blue_335",
         "_rev": "2"
     },
     {
@@ -17065,7 +17065,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-346",
+            "Reference": "Red-338",
             "title": "Order item 346",
             "startDate": "2022-05-01T08:55:00.000Z",
             "endDate": "2022-05-01T11:25:00.000Z",
@@ -17073,7 +17073,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a191",
-                    "number": 2,
+                    "number": 4,
                     "missileType": "MRBM"
                 }
             ],
@@ -17081,22 +17081,22 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a9",
                     "missileType": "SRBM",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a93",
                     "missileType": "Jet OWA UAV",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a6",
                     "missileType": "SRBM",
-                    "number": 0
+                    "number": 4
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_346",
+        "_id": "m_f-red_338",
         "_rev": "2"
     },
     {
@@ -17116,7 +17116,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-349",
+            "Reference": "Blue-341",
             "title": "Order item 349",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T11:30:00.000Z",
@@ -17124,7 +17124,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a12",
-                    "number": 2,
+                    "number": 0,
                     "missileType": "Jet OWA UAV"
                 }
             ],
@@ -17132,22 +17132,22 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Standard Cruise",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a194",
                     "missileType": "SRBM",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a106",
                     "missileType": "SRBM",
-                    "number": 1
+                    "number": 0
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_349",
+        "_id": "m_f-blue_341",
         "_rev": "2"
     },
     {
@@ -17167,7 +17167,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-348",
+            "Reference": "Red-344",
             "title": "Order item 348",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T12:20:00.000Z",
@@ -17175,15 +17175,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a190",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a173",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a183",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -17334,7 +17334,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_348",
+        "_id": "m_f-red_344",
         "_rev": "2"
     },
     {
@@ -17354,7 +17354,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-351",
+            "Reference": "Blue-347",
             "title": "Order item 351",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T12:50:00.000Z",
@@ -17362,19 +17362,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a21",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a88",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a83",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a8",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -17510,7 +17510,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_351",
+        "_id": "m_f-blue_347",
         "_rev": "2"
     },
     {
@@ -17530,7 +17530,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-354",
+            "Reference": "Blue-350",
             "title": "Order item 354",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T11:50:00.000Z",
@@ -17538,7 +17538,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a8",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a58",
@@ -17546,7 +17546,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a38",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -17677,7 +17677,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_354",
+        "_id": "m_f-blue_350",
         "_rev": "2"
     },
     {
@@ -17697,7 +17697,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-357",
+            "Reference": "Blue-353",
             "title": "Order item 357",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T15:40:00.000Z",
@@ -17705,15 +17705,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a48",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a86",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a50",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a45",
@@ -17846,7 +17846,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_357",
+        "_id": "m_f-blue_353",
         "_rev": "2"
     },
     {
@@ -17866,7 +17866,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-360",
+            "Reference": "Blue-356",
             "title": "Order item 360",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T12:40:00.000Z",
@@ -17874,15 +17874,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a45",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a65",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a18",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -18015,7 +18015,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_360",
+        "_id": "m_f-blue_356",
         "_rev": "2"
     },
     {
@@ -18035,7 +18035,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-363",
+            "Reference": "Blue-359",
             "title": "Order item 363",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T11:20:00.000Z",
@@ -18176,7 +18176,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_363",
+        "_id": "m_f-blue_359",
         "_rev": "2"
     },
     {
@@ -18196,7 +18196,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-366",
+            "Reference": "Red-362",
             "title": "Order item 366",
             "startDate": "2022-05-01T09:00:00.000Z",
             "endDate": "2022-05-01T12:50:00.000Z",
@@ -18204,7 +18204,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a104",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a195",
@@ -18212,7 +18212,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a117",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a166",
@@ -18406,7 +18406,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_366",
+        "_id": "m_f-red_362",
         "_rev": "2"
     },
     {
@@ -18426,7 +18426,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-369",
+            "Reference": "Red-365",
             "title": "Order item 369",
             "startDate": "2022-05-01T09:05:00.000Z",
             "endDate": "2022-05-01T14:25:00.000Z",
@@ -18434,11 +18434,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a166",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a143",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -18617,7 +18617,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_369",
+        "_id": "m_f-red_365",
         "_rev": "2"
     },
     {
@@ -18637,7 +18637,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-372",
+            "Reference": "Red-368",
             "title": "Order item 372",
             "startDate": "2022-05-01T09:25:00.000Z",
             "endDate": "2022-05-01T12:35:00.000Z",
@@ -18645,11 +18645,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a181",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a144",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -18659,7 +18659,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_372",
+        "_id": "m_f-red_368",
         "_rev": "2"
     },
     {
@@ -18679,7 +18679,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-375",
+            "Reference": "Blue-371",
             "title": "Order item 375",
             "startDate": "2022-05-01T09:40:00.000Z",
             "endDate": "2022-05-01T13:50:00.000Z",
@@ -18687,19 +18687,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a49",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a99",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a69",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a73",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -18839,7 +18839,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_375",
+        "_id": "m_f-blue_371",
         "_rev": "2"
     },
     {
@@ -18859,7 +18859,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-378",
+            "Reference": "Red-374",
             "title": "Order item 378",
             "startDate": "2022-05-01T09:40:00.000Z",
             "endDate": "2022-05-01T15:30:00.000Z",
@@ -18867,7 +18867,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a178",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -19007,7 +19007,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_378",
+        "_id": "m_f-red_374",
         "_rev": "2"
     },
     {
@@ -19027,7 +19027,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-381",
+            "Reference": "Red-377",
             "title": "Order item 381",
             "startDate": "2022-05-01T09:45:00.000Z",
             "endDate": "2022-05-01T16:15:00.000Z",
@@ -19035,15 +19035,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a158",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a175",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a120",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -19222,7 +19222,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_381",
+        "_id": "m_f-red_377",
         "_rev": "2"
     },
     {
@@ -19242,7 +19242,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-384",
+            "Reference": "Blue-380",
             "title": "Order item 384",
             "startDate": "2022-05-01T10:05:00.000Z",
             "endDate": "2022-05-01T13:45:00.000Z",
@@ -19250,19 +19250,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a92",
-                    "number": 2
+                    "number": 3
                 },
                 {
                     "asset": "a93",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a24",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a81",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -19395,7 +19395,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_384",
+        "_id": "m_f-blue_380",
         "_rev": "2"
     },
     {
@@ -19415,7 +19415,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-387",
+            "Reference": "Red-383",
             "title": "Order item 387",
             "startDate": "2022-05-01T10:05:00.000Z",
             "endDate": "2022-05-01T14:05:00.000Z",
@@ -19431,7 +19431,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a185",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -19570,7 +19570,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_387",
+        "_id": "m_f-red_383",
         "_rev": "2"
     },
     {
@@ -19590,7 +19590,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-390",
+            "Reference": "Blue-386",
             "title": "Order item 390",
             "startDate": "2022-05-01T10:05:00.000Z",
             "endDate": "2022-05-01T12:55:00.000Z",
@@ -19598,19 +19598,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a27",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a100",
-                    "number": 5
+                    "number": 4
                 },
                 {
                     "asset": "a81",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a66",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -19620,7 +19620,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_390",
+        "_id": "m_f-blue_386",
         "_rev": "2"
     },
     {
@@ -19640,7 +19640,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-393",
+            "Reference": "Red-389",
             "title": "Order item 393",
             "startDate": "2022-05-01T10:05:00.000Z",
             "endDate": "2022-05-01T16:05:00.000Z",
@@ -19648,19 +19648,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a129",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a185",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a171",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a183",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -19839,7 +19839,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_393",
+        "_id": "m_f-red_389",
         "_rev": "2"
     },
     {
@@ -19859,7 +19859,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-396",
+            "Reference": "Red-392",
             "title": "Order item 396",
             "startDate": "2022-05-01T10:15:00.000Z",
             "endDate": "2022-05-01T16:15:00.000Z",
@@ -20049,7 +20049,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_396",
+        "_id": "m_f-red_392",
         "_rev": "2"
     },
     {
@@ -20069,7 +20069,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-399",
+            "Reference": "Red-395",
             "title": "Order item 399",
             "startDate": "2022-05-01T10:25:00.000Z",
             "endDate": "2022-05-01T14:55:00.000Z",
@@ -20216,7 +20216,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_399",
+        "_id": "m_f-red_395",
         "_rev": "2"
     },
     {
@@ -20236,7 +20236,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-402",
+            "Reference": "Blue-398",
             "title": "Order item 402",
             "startDate": "2022-05-01T10:45:00.000Z",
             "endDate": "2022-05-01T11:35:00.000Z",
@@ -20244,15 +20244,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a54",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a65",
-                    "number": 2
+                    "number": 4
                 },
                 {
                     "asset": "a7",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -20304,7 +20304,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_402",
+        "_id": "m_f-blue_398",
         "_rev": "2"
     },
     {
@@ -20324,7 +20324,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-405",
+            "Reference": "Red-401",
             "title": "Order item 405",
             "startDate": "2022-05-01T10:45:00.000Z",
             "endDate": "2022-05-01T14:15:00.000Z",
@@ -20332,15 +20332,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a177",
-                    "number": 2
-                },
-                {
-                    "asset": "a174",
                     "number": 0
                 },
                 {
-                    "asset": "a197",
+                    "asset": "a174",
                     "number": 3
+                },
+                {
+                    "asset": "a197",
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -20473,7 +20473,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_405",
+        "_id": "m_f-red_401",
         "_rev": "2"
     },
     {
@@ -20493,7 +20493,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-408",
+            "Reference": "Blue-404",
             "title": "Order item 408",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T17:25:00.000Z",
@@ -20501,11 +20501,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a48",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a30",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -20684,7 +20684,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_408",
+        "_id": "m_f-blue_404",
         "_rev": "2"
     },
     {
@@ -20704,7 +20704,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-411",
+            "Reference": "Blue-407",
             "title": "Order item 411",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T14:45:00.000Z",
@@ -20712,11 +20712,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a79",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a44",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -20847,7 +20847,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_411",
+        "_id": "m_f-blue_407",
         "_rev": "2"
     },
     {
@@ -20867,7 +20867,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-414",
+            "Reference": "Blue-410",
             "title": "Order item 414",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T16:25:00.000Z",
@@ -20875,7 +20875,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a61",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -21008,7 +21008,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_414",
+        "_id": "m_f-blue_410",
         "_rev": "2"
     },
     {
@@ -21028,7 +21028,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-417",
+            "Reference": "Blue-413",
             "title": "Order item 417",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T12:05:00.000Z",
@@ -21036,11 +21036,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a3",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a36",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -21161,7 +21161,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_417",
+        "_id": "m_f-blue_413",
         "_rev": "2"
     },
     {
@@ -21181,7 +21181,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-420",
+            "Reference": "Blue-416",
             "title": "Order item 420",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T14:45:00.000Z",
@@ -21189,7 +21189,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a96",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -21332,7 +21332,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_420",
+        "_id": "m_f-blue_416",
         "_rev": "2"
     },
     {
@@ -21352,7 +21352,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-423",
+            "Reference": "Red-419",
             "title": "Order item 423",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T15:05:00.000Z",
@@ -21360,7 +21360,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a146",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a152",
@@ -21512,7 +21512,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_423",
+        "_id": "m_f-red_419",
         "_rev": "2"
     },
     {
@@ -21532,7 +21532,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-426",
+            "Reference": "Blue-422",
             "title": "Order item 426",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T15:55:00.000Z",
@@ -21540,11 +21540,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a46",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a37",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -21683,7 +21683,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_426",
+        "_id": "m_f-blue_422",
         "_rev": "2"
     },
     {
@@ -21703,7 +21703,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-429",
+            "Reference": "Red-425",
             "title": "Order item 429",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T11:45:00.000Z",
@@ -21711,7 +21711,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a108",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a183",
@@ -21719,11 +21719,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a187",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a121",
-                    "number": 0
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -21778,7 +21778,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_429",
+        "_id": "m_f-red_425",
         "_rev": "2"
     },
     {
@@ -21798,7 +21798,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-432",
+            "Reference": "Blue-428",
             "title": "Order item 432",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T14:05:00.000Z",
@@ -21806,19 +21806,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a19",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a80",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a66",
-                    "number": 5
+                    "number": 1
                 },
                 {
                     "asset": "a87",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -21950,7 +21950,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_432",
+        "_id": "m_f-blue_428",
         "_rev": "2"
     },
     {
@@ -21970,7 +21970,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-440",
+            "Reference": "Blue-431",
             "title": "Order item 440",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T13:05:00.000Z",
@@ -21978,12 +21978,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a87",
-                    "number": 4,
+                    "number": 5,
                     "missileType": "MRBM"
                 },
                 {
                     "asset": "a32",
-                    "number": 2,
+                    "number": 1,
                     "missileType": "Propellor OWA UAV"
                 }
             ],
@@ -21991,17 +21991,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Jet OWA UAV",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a194",
                     "missileType": "IRBM",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a106",
                     "missileType": "SRBM",
-                    "number": 1
+                    "number": 0
                 }
             ],
             "location": [
@@ -22129,7 +22129,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_440",
+        "_id": "m_f-blue_431",
         "_rev": "2"
     },
     {
@@ -22149,7 +22149,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-442",
+            "Reference": "Red-434",
             "title": "Order item 442",
             "startDate": "2022-05-01T10:55:00.000Z",
             "endDate": "2022-05-01T14:45:00.000Z",
@@ -22157,12 +22157,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a111",
-                    "number": 0,
+                    "number": 5,
                     "missileType": "Jet OWA UAV"
                 },
                 {
                     "asset": "a143",
-                    "number": 4,
+                    "number": 1,
                     "missileType": "IRBM"
                 }
             ],
@@ -22170,7 +22170,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a9",
                     "missileType": "SRBM",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a93",
@@ -22311,7 +22311,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_442",
+        "_id": "m_f-red_434",
         "_rev": "2"
     },
     {
@@ -22331,7 +22331,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-441",
+            "Reference": "Blue-437",
             "title": "Order item 441",
             "startDate": "2022-05-01T11:05:00.000Z",
             "endDate": "2022-05-01T17:35:00.000Z",
@@ -22339,7 +22339,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a88",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -22517,7 +22517,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_441",
+        "_id": "m_f-blue_437",
         "_rev": "2"
     },
     {
@@ -22537,7 +22537,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-444",
+            "Reference": "Blue-440",
             "title": "Order item 444",
             "startDate": "2022-05-01T11:05:00.000Z",
             "endDate": "2022-05-01T17:05:00.000Z",
@@ -22545,7 +22545,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a21",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -22693,7 +22693,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_444",
+        "_id": "m_f-blue_440",
         "_rev": "2"
     },
     {
@@ -22713,7 +22713,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-447",
+            "Reference": "Red-443",
             "title": "Order item 447",
             "startDate": "2022-05-01T11:05:00.000Z",
             "endDate": "2022-05-01T16:55:00.000Z",
@@ -22721,7 +22721,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a110",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a194",
@@ -22729,11 +22729,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a122",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a152",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -22915,7 +22915,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_447",
+        "_id": "m_f-red_443",
         "_rev": "2"
     },
     {
@@ -22935,7 +22935,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-453",
+            "Reference": "Blue-446",
             "title": "Order item 453",
             "startDate": "2022-05-01T11:10:00.000Z",
             "endDate": "2022-05-01T12:10:00.000Z",
@@ -22943,7 +22943,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a49",
-                    "number": 5,
+                    "number": 3,
                     "missileType": "SRBM"
                 }
             ],
@@ -22951,17 +22951,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "SRBM",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a194",
                     "missileType": "Standard Cruise",
-                    "number": 0
+                    "number": 3
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_453",
+        "_id": "m_f-blue_446",
         "_rev": "2"
     },
     {
@@ -22981,7 +22981,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-453",
+            "Reference": "Red-449",
             "title": "Order item 453",
             "startDate": "2022-05-01T11:10:00.000Z",
             "endDate": "2022-05-01T12:10:00.000Z",
@@ -22989,7 +22989,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a150",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -23005,7 +23005,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_453",
+        "_id": "m_f-red_449",
         "_rev": "2"
     },
     {
@@ -23025,7 +23025,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-459",
+            "Reference": "Red-452",
             "title": "Order item 459",
             "startDate": "2022-05-01T11:10:00.000Z",
             "endDate": "2022-05-01T13:20:00.000Z",
@@ -23033,12 +23033,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a101",
-                    "number": 4,
+                    "number": 3,
                     "missileType": "Standard Cruise"
                 },
                 {
                     "asset": "a143",
-                    "number": 0,
+                    "number": 1,
                     "missileType": "SRBM"
                 }
             ],
@@ -23046,12 +23046,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a9",
                     "missileType": "SRBM",
-                    "number": 1
+                    "number": 4
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_459",
+        "_id": "m_f-red_452",
         "_rev": "2"
     },
     {
@@ -23071,7 +23071,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-459",
+            "Reference": "Blue-455",
             "title": "Order item 459",
             "startDate": "2022-05-01T11:25:00.000Z",
             "endDate": "2022-05-01T15:35:00.000Z",
@@ -23079,11 +23079,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a7",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a31",
-                    "number": 3
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -23258,7 +23258,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_459",
+        "_id": "m_f-blue_455",
         "_rev": "2"
     },
     {
@@ -23278,7 +23278,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-462",
+            "Reference": "Red-458",
             "title": "Order item 462",
             "startDate": "2022-05-01T11:25:00.000Z",
             "endDate": "2022-05-01T16:05:00.000Z",
@@ -23286,7 +23286,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a171",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a181",
@@ -23294,11 +23294,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a120",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a187",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -23441,7 +23441,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_462",
+        "_id": "m_f-red_458",
         "_rev": "2"
     },
     {
@@ -23461,7 +23461,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-465",
+            "Reference": "Red-461",
             "title": "Order item 465",
             "startDate": "2022-05-01T11:25:00.000Z",
             "endDate": "2022-05-01T16:45:00.000Z",
@@ -23469,19 +23469,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a187",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a182",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a106",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a158",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -23657,7 +23657,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_465",
+        "_id": "m_f-red_461",
         "_rev": "2"
     },
     {
@@ -23677,7 +23677,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-468",
+            "Reference": "Red-464",
             "title": "Order item 468",
             "startDate": "2022-05-01T11:40:00.000Z",
             "endDate": "2022-05-01T15:20:00.000Z",
@@ -23685,11 +23685,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a158",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a140",
-                    "number": 1
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -23821,7 +23821,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_468",
+        "_id": "m_f-red_464",
         "_rev": "2"
     },
     {
@@ -23841,7 +23841,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-475",
+            "Reference": "Blue-467",
             "title": "Order item 475",
             "startDate": "2022-05-01T11:55:00.000Z",
             "endDate": "2022-05-01T17:05:00.000Z",
@@ -23849,12 +23849,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a83",
-                    "number": 1,
+                    "number": 3,
                     "missileType": "Low Obs Cruise"
                 },
                 {
                     "asset": "a48",
-                    "number": 3,
+                    "number": 0,
                     "missileType": "IRBM"
                 }
             ],
@@ -23862,12 +23862,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "Propellor OWA UAV",
-                    "number": 0
+                    "number": 1
                 },
                 {
                     "asset": "a194",
                     "missileType": "Standard Cruise",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "location": [
@@ -23991,7 +23991,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_475",
+        "_id": "m_f-blue_467",
         "_rev": "2"
     },
     {
@@ -24011,7 +24011,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-474",
+            "Reference": "Red-470",
             "title": "Order item 474",
             "startDate": "2022-05-01T11:55:00.000Z",
             "endDate": "2022-05-01T17:45:00.000Z",
@@ -24019,7 +24019,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a167",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -24155,7 +24155,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_474",
+        "_id": "m_f-red_470",
         "_rev": "2"
     },
     {
@@ -24175,7 +24175,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-477",
+            "Reference": "Red-473",
             "title": "Order item 477",
             "startDate": "2022-05-01T12:00:00.000Z",
             "endDate": "2022-05-01T12:50:00.000Z",
@@ -24183,11 +24183,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a102",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a139",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24242,7 +24242,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_477",
+        "_id": "m_f-red_473",
         "_rev": "2"
     },
     {
@@ -24262,7 +24262,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-480",
+            "Reference": "Blue-476",
             "title": "Order item 480",
             "startDate": "2022-05-01T12:20:00.000Z",
             "endDate": "2022-05-01T16:20:00.000Z",
@@ -24270,7 +24270,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a92",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24414,7 +24414,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_480",
+        "_id": "m_f-blue_476",
         "_rev": "2"
     },
     {
@@ -24434,7 +24434,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-483",
+            "Reference": "Red-479",
             "title": "Order item 483",
             "startDate": "2022-05-01T12:20:00.000Z",
             "endDate": "2022-05-01T15:30:00.000Z",
@@ -24442,11 +24442,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a141",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a146",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -24577,7 +24577,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_483",
+        "_id": "m_f-red_479",
         "_rev": "2"
     },
     {
@@ -24597,7 +24597,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-486",
+            "Reference": "Red-482",
             "title": "Order item 486",
             "startDate": "2022-05-01T12:25:00.000Z",
             "endDate": "2022-05-01T14:05:00.000Z",
@@ -24609,7 +24609,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a132",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -24738,7 +24738,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_486",
+        "_id": "m_f-red_482",
         "_rev": "2"
     },
     {
@@ -24758,7 +24758,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-489",
+            "Reference": "Red-485",
             "title": "Order item 489",
             "startDate": "2022-05-01T12:45:00.000Z",
             "endDate": "2022-05-01T15:25:00.000Z",
@@ -24766,15 +24766,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a195",
-                    "number": 3
+                    "number": 2
                 },
                 {
                     "asset": "a172",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a175",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -24915,7 +24915,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_489",
+        "_id": "m_f-red_485",
         "_rev": "2"
     },
     {
@@ -24935,7 +24935,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-492",
+            "Reference": "Blue-488",
             "title": "Order item 492",
             "startDate": "2022-05-01T13:00:00.000Z",
             "endDate": "2022-05-01T18:10:00.000Z",
@@ -24943,15 +24943,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a6",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a63",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a52",
-                    "number": 0
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -25084,7 +25084,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_492",
+        "_id": "m_f-blue_488",
         "_rev": "2"
     },
     {
@@ -25104,7 +25104,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-495",
+            "Reference": "Blue-491",
             "title": "Order item 495",
             "startDate": "2022-05-01T13:00:00.000Z",
             "endDate": "2022-05-01T15:30:00.000Z",
@@ -25112,7 +25112,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a67",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -25247,7 +25247,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_495",
+        "_id": "m_f-blue_491",
         "_rev": "2"
     },
     {
@@ -25267,7 +25267,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-498",
+            "Reference": "Blue-494",
             "title": "Order item 498",
             "startDate": "2022-05-01T13:00:00.000Z",
             "endDate": "2022-05-01T19:50:00.000Z",
@@ -25275,7 +25275,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a91",
-                    "number": 2
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -25400,7 +25400,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_498",
+        "_id": "m_f-blue_494",
         "_rev": "2"
     },
     {
@@ -25420,7 +25420,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-501",
+            "Reference": "Blue-497",
             "title": "Order item 501",
             "startDate": "2022-05-01T13:00:00.000Z",
             "endDate": "2022-05-01T17:00:00.000Z",
@@ -25428,19 +25428,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a63",
-                    "number": 5
-                },
-                {
-                    "asset": "a81",
-                    "number": 3
-                },
-                {
-                    "asset": "a24",
                     "number": 0
                 },
                 {
+                    "asset": "a81",
+                    "number": 0
+                },
+                {
+                    "asset": "a24",
+                    "number": 5
+                },
+                {
                     "asset": "a98",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -25584,7 +25584,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_501",
+        "_id": "m_f-blue_497",
         "_rev": "2"
     },
     {
@@ -25604,7 +25604,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-510",
+            "Reference": "Red-500",
             "title": "Order item 510",
             "startDate": "2022-05-01T13:00:00.000Z",
             "endDate": "2022-05-01T15:40:00.000Z",
@@ -25612,22 +25612,22 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a196",
-                    "number": 5,
+                    "number": 0,
                     "missileType": "Low Obs Cruise"
                 },
                 {
                     "asset": "a168",
-                    "number": 3,
+                    "number": 2,
                     "missileType": "Propellor OWA UAV"
                 },
                 {
                     "asset": "a127",
-                    "number": 3,
+                    "number": 1,
                     "missileType": "MRBM"
                 },
                 {
                     "asset": "a182",
-                    "number": 2,
+                    "number": 5,
                     "missileType": "Jet OWA UAV"
                 }
             ],
@@ -25635,17 +25635,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a9",
                     "missileType": "MRBM",
-                    "number": 4
+                    "number": 0
                 },
                 {
                     "asset": "a93",
                     "missileType": "Propellor OWA UAV",
-                    "number": 4
+                    "number": 0
                 }
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_510",
+        "_id": "m_f-red_500",
         "_rev": "2"
     },
     {
@@ -25665,7 +25665,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-513",
+            "Reference": "Red-503",
             "title": "Order item 513",
             "startDate": "2022-05-01T13:05:00.000Z",
             "endDate": "2022-05-01T16:05:00.000Z",
@@ -25673,17 +25673,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a182",
-                    "number": 3,
+                    "number": 2,
                     "missileType": "Jet OWA UAV"
                 },
                 {
                     "asset": "a168",
-                    "number": 5,
+                    "number": 4,
                     "missileType": "Jet OWA UAV"
                 },
                 {
                     "asset": "a181",
-                    "number": 0,
+                    "number": 1,
                     "missileType": "MRBM"
                 }
             ],
@@ -25691,17 +25691,17 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a9",
                     "missileType": "Low Obs Cruise",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a93",
                     "missileType": "Propellor OWA UAV",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a6",
                     "missileType": "MRBM",
-                    "number": 1
+                    "number": 3
                 }
             ],
             "location": [
@@ -25817,7 +25817,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_513",
+        "_id": "m_f-red_503",
         "_rev": "2"
     },
     {
@@ -25837,7 +25837,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-510",
+            "Reference": "Red-506",
             "title": "Order item 510",
             "startDate": "2022-05-01T13:25:00.000Z",
             "endDate": "2022-05-01T16:05:00.000Z",
@@ -25845,19 +25845,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a122",
-                    "number": 5
+                    "number": 2
                 },
                 {
                     "asset": "a191",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a190",
-                    "number": 4
+                    "number": 2
                 },
                 {
                     "asset": "a117",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -25873,7 +25873,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_510",
+        "_id": "m_f-red_506",
         "_rev": "2"
     },
     {
@@ -25893,7 +25893,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-513",
+            "Reference": "Blue-509",
             "title": "Order item 513",
             "startDate": "2022-05-01T13:40:00.000Z",
             "endDate": "2022-05-01T16:40:00.000Z",
@@ -25901,15 +25901,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a14",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a67",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a51",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -26033,7 +26033,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_513",
+        "_id": "m_f-blue_509",
         "_rev": "2"
     },
     {
@@ -26053,7 +26053,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-516",
+            "Reference": "Red-512",
             "title": "Order item 516",
             "startDate": "2022-05-01T13:40:00.000Z",
             "endDate": "2022-05-01T14:30:00.000Z",
@@ -26061,7 +26061,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a167",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -26116,7 +26116,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_516",
+        "_id": "m_f-red_512",
         "_rev": "2"
     },
     {
@@ -26136,7 +26136,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-519",
+            "Reference": "Red-515",
             "title": "Order item 519",
             "startDate": "2022-05-01T13:45:00.000Z",
             "endDate": "2022-05-01T22:15:00.000Z",
@@ -26144,19 +26144,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a171",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a194",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a149",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a130",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -26347,7 +26347,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_519",
+        "_id": "m_f-red_515",
         "_rev": "2"
     },
     {
@@ -26367,7 +26367,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-522",
+            "Reference": "Blue-518",
             "title": "Order item 522",
             "startDate": "2022-05-01T14:05:00.000Z",
             "endDate": "2022-05-01T15:55:00.000Z",
@@ -26375,7 +26375,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a28",
-                    "number": 5
+                    "number": 0
                 },
                 {
                     "asset": "a36",
@@ -26554,7 +26554,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_522",
+        "_id": "m_f-blue_518",
         "_rev": "2"
     },
     {
@@ -26574,7 +26574,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-525",
+            "Reference": "Red-521",
             "title": "Order item 525",
             "startDate": "2022-05-01T14:05:00.000Z",
             "endDate": "2022-05-01T14:45:00.000Z",
@@ -26582,11 +26582,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a144",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a140",
-                    "number": 5
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -26599,7 +26599,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_525",
+        "_id": "m_f-red_521",
         "_rev": "2"
     },
     {
@@ -26619,7 +26619,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-528",
+            "Reference": "Red-524",
             "title": "Order item 528",
             "startDate": "2022-05-01T14:10:00.000Z",
             "endDate": "2022-05-01T16:40:00.000Z",
@@ -26627,19 +26627,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a113",
-                    "number": 0
-                },
-                {
-                    "asset": "a192",
                     "number": 3
                 },
                 {
+                    "asset": "a192",
+                    "number": 2
+                },
+                {
                     "asset": "a200",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a138",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -26779,7 +26779,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_528",
+        "_id": "m_f-red_524",
         "_rev": "2"
     },
     {
@@ -26799,7 +26799,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-531",
+            "Reference": "Red-527",
             "title": "Order item 531",
             "startDate": "2022-05-01T14:25:00.000Z",
             "endDate": "2022-05-01T19:15:00.000Z",
@@ -26807,7 +26807,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a138",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -26936,7 +26936,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_531",
+        "_id": "m_f-red_527",
         "_rev": "2"
     },
     {
@@ -26956,7 +26956,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-534",
+            "Reference": "Blue-530",
             "title": "Order item 534",
             "startDate": "2022-05-01T14:40:00.000Z",
             "endDate": "2022-05-01T15:30:00.000Z",
@@ -26964,15 +26964,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a13",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a61",
-                    "number": 1
+                    "number": 4
                 },
                 {
                     "asset": "a39",
-                    "number": 1
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27031,7 +27031,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_534",
+        "_id": "m_f-blue_530",
         "_rev": "2"
     },
     {
@@ -27051,7 +27051,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-537",
+            "Reference": "Red-533",
             "title": "Order item 537",
             "startDate": "2022-05-01T14:40:00.000Z",
             "endDate": "2022-05-01T15:50:00.000Z",
@@ -27059,19 +27059,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a149",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a183",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a147",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a138",
-                    "number": 5
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27200,7 +27200,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_537",
+        "_id": "m_f-red_533",
         "_rev": "2"
     },
     {
@@ -27220,7 +27220,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-540",
+            "Reference": "Red-536",
             "title": "Order item 540",
             "startDate": "2022-05-01T14:40:00.000Z",
             "endDate": "2022-05-01T17:20:00.000Z",
@@ -27228,7 +27228,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a138",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a156",
@@ -27236,7 +27236,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a104",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27364,7 +27364,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_540",
+        "_id": "m_f-red_536",
         "_rev": "2"
     },
     {
@@ -27384,7 +27384,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-549",
+            "Reference": "Blue-539",
             "title": "Order item 549",
             "startDate": "2022-05-01T14:55:00.000Z",
             "endDate": "2022-05-01T18:55:00.000Z",
@@ -27392,22 +27392,22 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a79",
-                    "number": 4,
+                    "number": 3,
                     "missileType": "IRBM"
                 },
                 {
                     "asset": "a83",
-                    "number": 2,
+                    "number": 5,
                     "missileType": "Standard Cruise"
                 },
                 {
                     "asset": "a15",
-                    "number": 3,
+                    "number": 5,
                     "missileType": "SRBM"
                 },
                 {
                     "asset": "a77",
-                    "number": 4,
+                    "number": 5,
                     "missileType": "Propellor OWA UAV"
                 }
             ],
@@ -27415,12 +27415,12 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 {
                     "asset": "a111",
                     "missileType": "MRBM",
-                    "number": 1
+                    "number": 0
                 },
                 {
                     "asset": "a194",
                     "missileType": "Propellor OWA UAV",
-                    "number": 2
+                    "number": 3
                 }
             ],
             "location": [
@@ -27548,7 +27548,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_549",
+        "_id": "m_f-blue_539",
         "_rev": "2"
     },
     {
@@ -27568,7 +27568,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-546",
+            "Reference": "Red-542",
             "title": "Order item 546",
             "startDate": "2022-05-01T14:55:00.000Z",
             "endDate": "2022-05-01T15:45:00.000Z",
@@ -27576,15 +27576,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a179",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a169",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a185",
-                    "number": 4
+                    "number": 2
                 }
             ],
             "otherAssets": [
@@ -27644,7 +27644,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_546",
+        "_id": "m_f-red_542",
         "_rev": "2"
     },
     {
@@ -27664,7 +27664,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-549",
+            "Reference": "Blue-545",
             "title": "Order item 549",
             "startDate": "2022-05-01T14:55:00.000Z",
             "endDate": "2022-05-01T18:55:00.000Z",
@@ -27672,7 +27672,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a29",
-                    "number": 3
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -27805,7 +27805,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_549",
+        "_id": "m_f-blue_545",
         "_rev": "2"
     },
     {
@@ -27825,7 +27825,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-552",
+            "Reference": "Blue-548",
             "title": "Order item 552",
             "startDate": "2022-05-01T14:55:00.000Z",
             "endDate": "2022-05-01T19:05:00.000Z",
@@ -27837,15 +27837,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a99",
-                    "number": 2
+                    "number": 5
                 },
                 {
                     "asset": "a84",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a2",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -28027,7 +28027,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_552",
+        "_id": "m_f-blue_548",
         "_rev": "2"
     },
     {
@@ -28047,7 +28047,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-555",
+            "Reference": "Red-551",
             "title": "Order item 555",
             "startDate": "2022-05-01T14:55:00.000Z",
             "endDate": "2022-05-01T18:35:00.000Z",
@@ -28055,11 +28055,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a102",
-                    "number": 3
+                    "number": 0
                 },
                 {
                     "asset": "a147",
-                    "number": 2
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -28231,7 +28231,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_555",
+        "_id": "m_f-red_551",
         "_rev": "2"
     },
     {
@@ -28251,7 +28251,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-558",
+            "Reference": "Blue-554",
             "title": "Order item 558",
             "startDate": "2022-05-01T15:05:00.000Z",
             "endDate": "2022-05-01T21:55:00.000Z",
@@ -28263,7 +28263,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a46",
-                    "number": 2
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -28450,7 +28450,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_558",
+        "_id": "m_f-blue_554",
         "_rev": "2"
     },
     {
@@ -28470,7 +28470,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-561",
+            "Reference": "Blue-557",
             "title": "Order item 561",
             "startDate": "2022-05-01T15:05:00.000Z",
             "endDate": "2022-05-01T18:15:00.000Z",
@@ -28478,7 +28478,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a91",
-                    "number": 3
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -28606,7 +28606,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_561",
+        "_id": "m_f-blue_557",
         "_rev": "2"
     },
     {
@@ -28626,7 +28626,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-564",
+            "Reference": "Red-560",
             "title": "Order item 564",
             "startDate": "2022-05-01T15:05:00.000Z",
             "endDate": "2022-05-01T20:45:00.000Z",
@@ -28634,7 +28634,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a120",
-                    "number": 2
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -28766,7 +28766,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_564",
+        "_id": "m_f-red_560",
         "_rev": "2"
     },
     {
@@ -28786,7 +28786,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-567",
+            "Reference": "Blue-563",
             "title": "Order item 567",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T21:55:00.000Z",
@@ -28794,19 +28794,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a1",
-                    "number": 2
+                    "number": 1
                 },
                 {
                     "asset": "a84",
-                    "number": 0
+                    "number": 5
                 },
                 {
                     "asset": "a98",
-                    "number": 3
+                    "number": 1
                 },
                 {
                     "asset": "a36",
-                    "number": 1
+                    "number": 5
                 }
             ],
             "otherAssets": [
@@ -28978,7 +28978,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_567",
+        "_id": "m_f-blue_563",
         "_rev": "2"
     },
     {
@@ -28998,7 +28998,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-570",
+            "Reference": "Red-566",
             "title": "Order item 570",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T20:05:00.000Z",
@@ -29006,7 +29006,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a140",
-                    "number": 0
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -29141,7 +29141,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_570",
+        "_id": "m_f-red_566",
         "_rev": "2"
     },
     {
@@ -29161,7 +29161,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-573",
+            "Reference": "Blue-569",
             "title": "Order item 573",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T22:25:00.000Z",
@@ -29169,19 +29169,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a29",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a83",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a63",
-                    "number": 4
+                    "number": 3
                 },
                 {
                     "asset": "a73",
-                    "number": 4
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -29302,7 +29302,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_573",
+        "_id": "m_f-blue_569",
         "_rev": "2"
     },
     {
@@ -29322,7 +29322,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-576",
+            "Reference": "Blue-572",
             "title": "Order item 576",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T22:05:00.000Z",
@@ -29458,7 +29458,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_576",
+        "_id": "m_f-blue_572",
         "_rev": "2"
     },
     {
@@ -29478,7 +29478,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-579",
+            "Reference": "Blue-575",
             "title": "Order item 579",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T19:35:00.000Z",
@@ -29622,7 +29622,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_579",
+        "_id": "m_f-blue_575",
         "_rev": "2"
     },
     {
@@ -29642,7 +29642,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-582",
+            "Reference": "Red-578",
             "title": "Order item 582",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T19:05:00.000Z",
@@ -29650,11 +29650,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a137",
-                    "number": 0
+                    "number": 2
                 },
                 {
                     "asset": "a145",
-                    "number": 4
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -29786,7 +29786,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_582",
+        "_id": "m_f-red_578",
         "_rev": "2"
     },
     {
@@ -29806,7 +29806,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-585",
+            "Reference": "Blue-581",
             "title": "Order item 585",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T18:55:00.000Z",
@@ -29814,11 +29814,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a45",
-                    "number": 5
+                    "number": 3
                 },
                 {
                     "asset": "a38",
-                    "number": 0
+                    "number": 1
                 }
             ],
             "otherAssets": [
@@ -29951,7 +29951,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_585",
+        "_id": "m_f-blue_581",
         "_rev": "2"
     },
     {
@@ -29971,7 +29971,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-588",
+            "Reference": "Red-584",
             "title": "Order item 588",
             "startDate": "2022-05-01T15:15:00.000Z",
             "endDate": "2022-05-01T19:25:00.000Z",
@@ -29979,19 +29979,19 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a113",
-                    "number": 1
+                    "number": 3
                 },
                 {
                     "asset": "a192",
-                    "number": 3
+                    "number": 5
                 },
                 {
                     "asset": "a198",
-                    "number": 4
+                    "number": 1
                 },
                 {
                     "asset": "a136",
-                    "number": 3
+                    "number": 0
                 }
             ],
             "otherAssets": [
@@ -30134,7 +30134,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_588",
+        "_id": "m_f-red_584",
         "_rev": "2"
     },
     {
@@ -30154,7 +30154,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-591",
+            "Reference": "Blue-587",
             "title": "Order item 591",
             "startDate": "2022-05-01T15:20:00.000Z",
             "endDate": "2022-05-01T17:20:00.000Z",
@@ -30162,15 +30162,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a32",
-                    "number": 0
+                    "number": 4
                 },
                 {
                     "asset": "a98",
-                    "number": 3
+                    "number": 4
                 },
                 {
                     "asset": "a88",
-                    "number": 2
+                    "number": 0
                 },
                 {
                     "asset": "a9",
@@ -30311,7 +30311,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_591",
+        "_id": "m_f-blue_587",
         "_rev": "2"
     },
     {
@@ -30331,7 +30331,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-594",
+            "Reference": "Red-590",
             "title": "Order item 594",
             "startDate": "2022-05-01T15:20:00.000Z",
             "endDate": "2022-05-01T16:10:00.000Z",
@@ -30339,15 +30339,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a111",
-                    "number": 4
+                    "number": 5
                 },
                 {
                     "asset": "a159",
-                    "number": 1
+                    "number": 5
                 },
                 {
                     "asset": "a138",
-                    "number": 5
+                    "number": 4
                 }
             ],
             "otherAssets": [
@@ -30395,7 +30395,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_594",
+        "_id": "m_f-red_590",
         "_rev": "2"
     },
     {
@@ -30415,7 +30415,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-597",
+            "Reference": "Red-593",
             "title": "Order item 597",
             "startDate": "2022-05-01T15:30:00.000Z",
             "endDate": "2022-05-01T20:20:00.000Z",
@@ -30423,15 +30423,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a142",
-                    "number": 2
-                },
-                {
-                    "asset": "a176",
                     "number": 1
                 },
                 {
-                    "asset": "a138",
+                    "asset": "a176",
                     "number": 0
+                },
+                {
+                    "asset": "a138",
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -30610,7 +30610,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_597",
+        "_id": "m_f-red_593",
         "_rev": "2"
     },
     {
@@ -30630,7 +30630,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Red-600",
+            "Reference": "Red-596",
             "title": "Order item 600",
             "startDate": "2022-05-01T15:40:00.000Z",
             "endDate": "2022-05-01T19:00:00.000Z",
@@ -30638,11 +30638,11 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "ownAssets": [
                 {
                     "asset": "a128",
-                    "number": 1
+                    "number": 2
                 },
                 {
                     "asset": "a146",
-                    "number": 5
+                    "number": 3
                 }
             ],
             "otherAssets": [
@@ -30782,7 +30782,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-red_600",
+        "_id": "m_f-red_596",
         "_rev": "2"
     },
     {
@@ -30802,7 +30802,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "turnNumber": 3
         },
         "message": {
-            "Reference": "Blue-603",
+            "Reference": "Blue-599",
             "title": "Order item 603",
             "startDate": "2022-05-01T16:00:00.000Z",
             "endDate": "2022-05-01T17:10:00.000Z",
@@ -30814,7 +30814,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
                 },
                 {
                     "asset": "a67",
-                    "number": 0
+                    "number": 3
                 },
                 {
                     "asset": "a3",
@@ -30955,7 +30955,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             ]
         },
         "hasBeenRead": false,
-        "_id": "m_f-blue_603",
+        "_id": "m_f-blue_599",
         "_rev": "2"
     },
     {
@@ -30971,15 +30971,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.548Z",
+            "timestamp": "2023-01-31T12:59:29.497Z",
             "turnNumber": 3,
             "counter": 1,
             "interaction": {
-                "startTime": "2022-05-01T04:55:00.000Z",
-                "endTime": "2022-05-01T03:15:00.000Z",
+                "startTime": "2022-05-01T11:10:00.000Z",
+                "endTime": "2022-05-01T05:00:00.000Z",
                 "id": "umpire-1",
-                "orders1": "m_f-blue_12",
-                "orders2": "m_f-red_177",
+                "orders1": "m_f-blue_101",
+                "orders2": "m_f-red_449",
                 "complete": true
             }
         },
@@ -30992,7 +30992,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.548Z//0"
+        "_id": "2023-01-31T12:59:29.497Z//0"
     },
     {
         "messageType": "InteractionMessage",
@@ -31007,15 +31007,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.497Z",
             "turnNumber": 3,
             "counter": 2,
             "interaction": {
-                "startTime": "2022-05-01T07:20:00.000Z",
-                "endTime": "2022-05-01T02:00:00.000Z",
+                "startTime": "2022-05-01T10:45:00.000Z",
+                "endTime": "2022-05-01T11:50:00.000Z",
                 "id": "umpire-2",
-                "orders1": "m_f-blue_91",
-                "orders2": "m_f-red_261",
+                "orders1": "m_f-blue_350",
+                "orders2": "m_f-red_401",
                 "complete": true
             }
         },
@@ -31028,7 +31028,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//1"
+        "_id": "2023-01-31T12:59:29.497Z//1"
     },
     {
         "messageType": "InteractionMessage",
@@ -31043,15 +31043,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.497Z",
             "turnNumber": 3,
             "counter": 3,
             "interaction": {
-                "startTime": "2022-05-01T06:45:00.000Z",
-                "endTime": "2022-05-01T03:15:00.000Z",
+                "startTime": "2022-05-01T14:10:00.000Z",
+                "endTime": "2022-05-01T09:25:00.000Z",
                 "id": "umpire-3",
-                "orders1": "m_f-blue_12",
-                "orders2": "m_f-red_225",
+                "orders1": "m_f-blue_170",
+                "orders2": "m_f-red_524",
                 "complete": true
             }
         },
@@ -31064,7 +31064,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//2"
+        "_id": "2023-01-31T12:59:29.497Z//2"
     },
     {
         "messageType": "InteractionMessage",
@@ -31079,15 +31079,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.497Z",
             "turnNumber": 3,
             "counter": 4,
             "interaction": {
-                "startTime": "2022-05-01T14:55:00.000Z",
-                "endTime": "2022-05-01T09:45:00.000Z",
+                "startTime": "2022-05-01T15:15:00.000Z",
+                "endTime": "2022-05-01T09:15:00.000Z",
                 "id": "umpire-4",
-                "orders1": "m_f-blue_336",
-                "orders2": "m_f-red_555",
+                "orders1": "m_f-blue_563",
+                "orders2": "m_f-red_194",
                 "complete": true
             }
         },
@@ -31100,7 +31100,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//3"
+        "_id": "2023-01-31T12:59:29.497Z//3"
     },
     {
         "messageType": "InteractionMessage",
@@ -31115,15 +31115,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.497Z",
             "turnNumber": 3,
             "counter": 5,
             "interaction": {
-                "startTime": "2022-05-01T02:00:00.000Z",
-                "endTime": "2022-05-01T00:55:00.000Z",
+                "startTime": "2022-05-01T10:55:00.000Z",
+                "endTime": "2022-05-01T07:00:00.000Z",
                 "id": "umpire-5",
-                "orders1": "m_f-blue_6",
-                "orders2": "m_f-red_96",
+                "orders1": "m_f-blue_404",
+                "orders2": "m_f-red_44",
                 "complete": true
             }
         },
@@ -31136,7 +31136,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//4"
+        "_id": "2023-01-31T12:59:29.497Z//4"
     },
     {
         "messageType": "InteractionMessage",
@@ -31151,15 +31151,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.497Z",
             "turnNumber": 3,
             "counter": 6,
             "interaction": {
                 "startTime": "2022-05-01T10:55:00.000Z",
-                "endTime": "2022-05-01T10:10:00.000Z",
+                "endTime": "2022-05-01T14:05:00.000Z",
                 "id": "umpire-6",
-                "orders1": "m_f-blue_432",
-                "orders2": "m_f-red_272",
+                "orders1": "m_f-blue_428",
+                "orders2": "m_f-red_395",
                 "complete": true
             }
         },
@@ -31172,7 +31172,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//5"
+        "_id": "2023-01-31T12:59:29.497Z//5"
     },
     {
         "messageType": "InteractionMessage",
@@ -31187,15 +31187,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 7,
             "interaction": {
-                "startTime": "2022-05-01T13:00:00.000Z",
-                "endTime": "2022-05-01T09:50:00.000Z",
+                "startTime": "2022-05-01T06:25:00.000Z",
+                "endTime": "2022-05-01T02:00:00.000Z",
                 "id": "umpire-7",
-                "orders1": "m_f-blue_492",
-                "orders2": "m_f-red_180",
+                "orders1": "m_f-blue_83",
+                "orders2": "m_f-red_215",
                 "complete": true
             }
         },
@@ -31208,7 +31208,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//6"
+        "_id": "2023-01-31T12:59:29.498Z//6"
     },
     {
         "messageType": "InteractionMessage",
@@ -31223,15 +31223,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 8,
             "interaction": {
-                "startTime": "2022-05-01T13:00:00.000Z",
-                "endTime": "2022-05-01T13:20:00.000Z",
+                "startTime": "2022-05-01T02:55:00.000Z",
+                "endTime": "2022-05-01T05:15:00.000Z",
                 "id": "umpire-8",
-                "orders1": "m_f-blue_306",
-                "orders2": "m_f-red_510",
+                "orders1": "m_f-blue_116",
+                "orders2": "m_f-red_125",
                 "complete": true
             }
         },
@@ -31244,7 +31244,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//7"
+        "_id": "2023-01-31T12:59:29.498Z//7"
     },
     {
         "messageType": "InteractionMessage",
@@ -31259,15 +31259,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 9,
             "interaction": {
-                "startTime": "2022-05-01T15:05:00.000Z",
-                "endTime": "2022-05-01T06:30:00.000Z",
+                "startTime": "2022-05-01T08:50:00.000Z",
+                "endTime": "2022-05-01T12:00:00.000Z",
                 "id": "umpire-9",
-                "orders1": "m_f-blue_51",
-                "orders2": "m_f-red_564",
+                "orders1": "m_f-blue_314",
+                "orders2": "m_f-red_212",
                 "complete": true
             }
         },
@@ -31280,7 +31280,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//8"
+        "_id": "2023-01-31T12:59:29.498Z//8"
     },
     {
         "messageType": "InteractionMessage",
@@ -31295,15 +31295,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 10,
             "interaction": {
-                "startTime": "2022-05-01T09:00:00.000Z",
-                "endTime": "2022-05-01T11:20:00.000Z",
+                "startTime": "2022-05-01T10:55:00.000Z",
+                "endTime": "2022-05-01T12:35:00.000Z",
                 "id": "umpire-10",
-                "orders1": "m_f-blue_363",
-                "orders2": "m_f-red_346",
+                "orders1": "m_f-blue_422",
+                "orders2": "m_f-red_368",
                 "complete": true
             }
         },
@@ -31316,7 +31316,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//9"
+        "_id": "2023-01-31T12:59:29.498Z//9"
     },
     {
         "messageType": "InteractionMessage",
@@ -31331,15 +31331,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 11,
             "interaction": {
-                "startTime": "2022-05-01T08:55:00.000Z",
+                "startTime": "2022-05-01T02:00:00.000Z",
                 "endTime": "2022-05-01T02:40:00.000Z",
                 "id": "umpire-11",
-                "orders1": "m_f-blue_336",
-                "orders2": "m_f-red_66",
+                "orders1": "m_f-blue_77",
+                "orders2": "m_f-red_62",
                 "complete": true
             }
         },
@@ -31352,7 +31352,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//10"
+        "_id": "2023-01-31T12:59:29.498Z//10"
     },
     {
         "messageType": "InteractionMessage",
@@ -31367,15 +31367,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 12,
             "interaction": {
-                "startTime": "2022-05-01T15:05:00.000Z",
-                "endTime": "2022-05-01T08:55:00.000Z",
+                "startTime": "2022-05-01T09:00:00.000Z",
+                "endTime": "2022-05-01T07:10:00.000Z",
                 "id": "umpire-12",
-                "orders1": "m_f-blue_561",
-                "orders2": "m_f-red_177",
+                "orders1": "m_f-blue_356",
+                "orders2": "m_f-red_167",
                 "complete": true
             }
         },
@@ -31388,7 +31388,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//11"
+        "_id": "2023-01-31T12:59:29.498Z//11"
     },
     {
         "messageType": "InteractionMessage",
@@ -31403,15 +31403,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 13,
             "interaction": {
-                "startTime": "2022-05-01T10:05:00.000Z",
-                "endTime": "2022-05-01T07:10:00.000Z",
+                "startTime": "2022-05-01T11:10:00.000Z",
+                "endTime": "2022-05-01T11:35:00.000Z",
                 "id": "umpire-13",
-                "orders1": "m_f-blue_390",
-                "orders2": "m_f-red_171",
+                "orders1": "m_f-blue_398",
+                "orders2": "m_f-red_449",
                 "complete": true
             }
         },
@@ -31424,7 +31424,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//12"
+        "_id": "2023-01-31T12:59:29.498Z//12"
     },
     {
         "messageType": "InteractionMessage",
@@ -31439,15 +31439,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.549Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 14,
             "interaction": {
-                "startTime": "2022-05-01T00:05:00.000Z",
-                "endTime": "2022-05-01T00:55:00.000Z",
+                "startTime": "2022-05-01T10:05:00.000Z",
+                "endTime": "2022-05-01T11:20:00.000Z",
                 "id": "umpire-14",
-                "orders1": "m_f-blue_18",
-                "orders2": "m_f-red_9",
+                "orders1": "m_f-blue_359",
+                "orders2": "m_f-red_383",
                 "complete": true
             }
         },
@@ -31460,7 +31460,7 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.549Z//13"
+        "_id": "2023-01-31T12:59:29.498Z//13"
     },
     {
         "messageType": "InteractionMessage",
@@ -31475,15 +31475,15 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             },
             "channel": "channel-planning",
             "messageType": "p9adjudicate",
-            "timestamp": "2023-01-30T17:42:56.550Z",
+            "timestamp": "2023-01-31T12:59:29.498Z",
             "turnNumber": 3,
             "counter": 15,
             "interaction": {
-                "startTime": "2022-05-01T15:05:00.000Z",
-                "endTime": "2022-05-01T04:50:00.000Z",
+                "startTime": "2022-05-01T10:55:00.000Z",
+                "endTime": "2022-05-01T11:45:00.000Z",
                 "id": "umpire-15",
-                "orders1": "m_f-blue_81",
-                "orders2": "m_f-red_564",
+                "orders1": "m_f-blue_260",
+                "orders2": "m_f-red_425",
                 "complete": true
             }
         },
@@ -31496,6 +31496,6 @@ export const planningMessagesBulk: Array<MessageInteraction | MessagePlanning | 
             "narrative": "",
             "messageType": "AdjudicationOutcomes"
         },
-        "_id": "2023-01-30T17:42:56.550Z//14"
+        "_id": "2023-01-31T12:59:29.498Z//14"
     }
 ]
