@@ -115,7 +115,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
     let filteredMessages: MessagePlanning[] | undefined
     if (turnFilter) {
       const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
-      console.log('this turn', thisTurn)
       if (thisTurn) {
         const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
         const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
@@ -125,7 +124,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
           const pEnd = moment.utc(msg.message.endDate).valueOf()
           return pEnd >= turnStartTime && pStart < turnEndTime
         })
-        console.log('this turn', planningMessages.length, filteredMessages.length)
       }
     }
     if(filteredMessages === undefined) {
@@ -402,7 +400,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
-                <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
@@ -474,7 +472,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
-                <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
                   planningMessages={filteredPlanningMessages}
