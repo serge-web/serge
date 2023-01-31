@@ -20,7 +20,7 @@ import JsonEditor from '../../molecules/json-editor'
 import { getColumnSummary } from '../planning-assets/helpers/collate-assets'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { SHOW_ALL_TURNS } from '../support-panel/helpers/TurnFilter'
-import { collateInteraction, InteractionData, updateAssets, updateForces, updatePlatformTypes } from './helpers/collate-interaction'
+import { collateInteraction, InteractionData, updateForces, updatePlatformTypes, updateWithAllAssets } from './helpers/collate-interaction'
 import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
@@ -206,7 +206,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         console.warn('Failed to find message 1:', id)
         return <span>Order not found</span>
       }
-      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate']
+      const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate', 'Reference']
       const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
         if (done.includes(item)) {
           return <Fragment key={index} />
@@ -332,10 +332,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const includeUnknown = true
     // wrap manipulation code in `try` in case the template structure doesn't match
     try {
-      // now our local changes
-      updateAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction)
-      updateAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction)
-      updateAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction)
+      // now our local changes. Note: we don't just provide the assets in the orders, we show all assets,
+      // since an activity may relate to all assets in the area
+      updateWithAllAssets(firstUpdate.properties.perceptionOutcomes.items.properties.asset, interaction, forces)
+      updateWithAllAssets(firstUpdate.properties.healthOutcomes.items.properties.asset, interaction, forces)
+      updateWithAllAssets(firstUpdate.properties.locationOutcomes.items.properties.asset, interaction, forces)
+      console.log('all assets', firstUpdate.properties.perceptionOutcomes.items.properties.asset)
 
       // now the perceived forces
       updateForces(firstUpdate.properties.perceptionOutcomes.items.properties.force, forceStyles)

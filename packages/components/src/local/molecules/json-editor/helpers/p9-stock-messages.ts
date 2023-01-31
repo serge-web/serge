@@ -123,7 +123,7 @@ const p9StockTemplates: TemplateBody[] = [
                   grid_columns: 3
                 }
               },
-              health: {
+              perceivedHealth: {
                 title: 'Health',
                 propertyOrder: 50,
                 type: 'string',
@@ -152,12 +152,6 @@ const p9StockTemplates: TemplateBody[] = [
               narrative: {
                 title: 'Comment',
                 propertyOrder: 70,
-                type: 'string',
-                format: 'textarea'
-              },
-              private: {
-                title: 'Private',
-                propertyOrder: 80,
                 type: 'string',
                 format: 'textarea'
               }
