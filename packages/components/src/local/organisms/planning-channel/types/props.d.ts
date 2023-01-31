@@ -25,7 +25,7 @@ export default interface PropTypes {
   /** which phase game is currently in */
   phase: Phase
   allForces: ForceData[]
-  allPeriods?: TurnPeriods
+  allPeriods: TurnPeriods
   gameDate: string
   currentTurn: number
   gameTurnLength: GameTurnLength

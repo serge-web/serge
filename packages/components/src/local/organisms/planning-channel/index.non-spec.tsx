@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
@@ -60,6 +60,7 @@ describe('Planning Channel component: ', () => {
     const tree = mount(<PlanningChannel
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
+      allPeriods={turnPeriod}
       allTemplates={templateBodies}
       channelId={channels[0].uniqid}
       adjudicationTemplate={planningMessageTemplatesMock[0]}

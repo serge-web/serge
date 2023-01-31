@@ -41,7 +41,7 @@ export default interface PropTypes {
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
-  allPeriods?: TurnPeriods
+  allPeriods: TurnPeriods
   gameDate: string
   phase: Phase
   currentTurn: number

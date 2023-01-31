@@ -194,7 +194,7 @@ const pouchDb = (app, io, pouchOptions) => {
       selector: {
         adjudicationStartTime: { $exists: true }
       },
-      fields: ['data', '_id', 'gameTurn']
+      fields: ['data', '_id', 'gameTurn', 'phase']
 
     }).then((result) => {
       const resaultData = result.docs.map((data) => {
@@ -203,6 +203,7 @@ const pouchDb = (app, io, pouchOptions) => {
           gameDate,
           gameTurnTime,
           gameTurn: data.gameTurn,
+          phase: data.phase,
           _id: data._id
         }
       })

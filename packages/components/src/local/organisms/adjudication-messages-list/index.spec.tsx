@@ -6,7 +6,7 @@ import renderer from 'react-test-renderer'
 import { AdjudicationMessagesList } from './index'
 
 import { forceColors } from '@serge/helpers'
-import { P9Mock, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9Mock, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 
 const planningChannel = P9Mock.data.channels.channels[0] as ChannelPlanning
 const forces = P9Mock.data.forces.forces
@@ -27,7 +27,7 @@ describe('AdjudicationMessagesList component: ', () => {
 
     const tree = renderer
       .create(<AdjudicationMessagesList currentWargame={P9Mock.name} handleAdjudication={handler} planningMessages={planningMessages} forces={forces}
-        template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
+        periods={turnPeriod} template={planningMessageTemplatesMock[0]} gameDate={P9Mock.data.overview.gameDate} channel={planningChannel}
         interactionMessages={messages} gameTurnLength={P9Mock.data.overview.gameTurnTime} onRead={undefined} forceColors={forceColors(forces)} onUnread={undefined} playerRoleId={blueRole.roleId}
         platformTypes={platformTypes} onMarkAllAsRead={markAllAsRead} />, {
         createNodeMock: node => {

@@ -41,7 +41,11 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   /**
    *  current game-date (may be used in JSON Editor for date-picker)
    */
-  periods?: TurnPeriods
+
+  /**
+   * all the turn periods of the wargame
+   */
+  periods: TurnPeriods
 
   gameDate: string
   /**

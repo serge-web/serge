@@ -5,6 +5,7 @@ export interface TurnPeriod {
   gameTurnTime: GameTurnLength,
   gameDate: string,
   gameTurn: number,
+  phase: string,
   _id?: string
 }
 
