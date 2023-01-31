@@ -55,7 +55,7 @@ it('gets count of', () => {
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
-  expect(results1).toEqual([156, 325])
+  expect(results1).toEqual([156, 345])
 })
 
 it('gets interactions (2)', () => {

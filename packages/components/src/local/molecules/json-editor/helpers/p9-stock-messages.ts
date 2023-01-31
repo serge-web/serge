@@ -207,6 +207,19 @@ const p9StockTemplates: TemplateBody[] = [
                   grid_columns: 2
                 }
               },
+              c4: {
+                title: 'C4 Ability',
+                propertyOrder: 25,
+                type: 'string',
+                enum: [
+                  'None',
+                  'Degraded',
+                  'Operational'
+                ],
+                options: {
+                  grid_columns: 2
+                }
+              },
               repairComplete: {
                 title: 'Repair in (days)',
                 propertyOrder: 40,

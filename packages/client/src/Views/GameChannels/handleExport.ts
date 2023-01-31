@@ -10,7 +10,7 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
   turnNumber: number, turnStart: string, turnEnd: string) => {
   const pType = platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
   const attrs = asset.attributes ? asset.attributes : {}
-  const doneTypes = ['a_Type', 'a_C2_Status']
+  const doneTypes = ['a_Type', 'a_C4_Status']
   let attrList: string = ''
   Object.keys(attrs).forEach(key => {
     const value = attrs[key]
@@ -25,7 +25,7 @@ const storeAsset = (asset: Asset, assets: Record<string, any>[], forceName: stri
     platformType: pType ? pType.name : 'UNKNOWN',
     subType: attrs.a_Type,
     health: asset.health || 'UNKNOWN',
-    c2: attrs.a_C2_Status,
+    c4: attrs.a_C4_Status,
     location: asset.location,
     attributes: attrList,
     gameTurn: turnNumber,

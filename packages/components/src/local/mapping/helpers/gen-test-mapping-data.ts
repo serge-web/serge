@@ -255,7 +255,8 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
     const statuses = platformType.states
 
-    const health = 5 * Math.floor(Math.random() * 20)
+    const healthValues = [100, 75, 50, 25, 0]
+    const health = randomArrayItem(healthValues, Math.random() * ctr)
 
     const asset: Asset = {
       uniqid: uniqueId('a'),

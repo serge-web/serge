@@ -274,7 +274,7 @@ Default.args = {
   phase: Phase.Adjudication
 }
 
-const eventIdsOfInterest = ['Red-30']
+const eventIdsOfInterest = ['Red-5']
 export const IstarEvent = Template.bind({})
 IstarEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
@@ -282,10 +282,24 @@ IstarEvent.args = {
   phase: Phase.Adjudication
 }
 
-const interactionIdsOfInterest = ['Red-30', 'Blue-12']
+const interactionIdsOfInterest = ['Red-5', 'Blue-17']
+const interMessages = channelMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
+  if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
+    return msg.details.messageType === 'p9adjudicate'
+  }
+  return false
+})
+const istarInterMessages = planningMessages.filter((msg: MessagePlanning) =>
+  interactionIdsOfInterest.includes(msg.message.Reference)) as Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>
+// get an adjudication
+const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
+if (openInter2.details && openInter2.details.interaction) {
+  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
+  istarInterMessages.push(openInter2)
+}
 export const IstarInteraction = Template.bind({})
 IstarInteraction.args = {
-  messages: planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)),
+  messages: istarInterMessages,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }
