@@ -51,6 +51,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   openMessage,
   saveMessage,
   mapPostBack,
+  onTurnPeriods,
   allTemplates,
   messages,
   channel,
@@ -62,6 +63,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   selectedForce,
   phase,
   allForces,
+  allPeriods,
   platformTypes,
   gameDate,
   gameTurnLength,
@@ -147,6 +149,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       }
     }
   }
+
+  useEffect(() => {
+    // game date has changed, get updated periods
+    onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
+  }, [gameDate])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -725,6 +732,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             selectedRoleId={selectedRoleId}
             selectedForce={currentForce}
             allForces={allForces}
+            allPeriods={allPeriods}
             gameDate={gameDate}
             gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
