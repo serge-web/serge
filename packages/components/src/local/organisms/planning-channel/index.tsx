@@ -150,6 +150,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
+    // game date has changed, get updated periods
+    onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
+  }, [gameDate])
+
+
+  useEffect(() => {
     if (forcePlanningActivities) {
       // we don't have planning activities for umpire force, but we may want
       // a fake one if we're generating data
@@ -311,12 +317,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       iconSize: [25, 41]
     })
   }, [])
-
-  const onTurnPeriodsPlanning = (gameDate: string, currentWargame: string): void => {
-    if (currentWargame) {
-      onTurnPeriods && onTurnPeriods(gameDate, currentWargame)(dispatch)
-    }
-  }
 
   const onReadAll = (): void => {
     dispatch(markAllAsRead(channel.uniqid))
@@ -727,7 +727,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}
-            onTurnPeriods={onTurnPeriodsPlanning}
             currentWargame={currentWargame}
             selectedRoleName={selectedRoleName}
             selectedRoleId={selectedRoleId}

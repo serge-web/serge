@@ -1,6 +1,6 @@
 import {
-  ChannelPlanning, ForceData, TurnPeriods, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
-  PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody
+  ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning, MessageStructure,
+  PerForcePlanningActivitySet, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
 import { ForceStyle } from '@serge/helpers'
@@ -101,11 +101,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   turnFilter?: number
   /** descriptions of platform types (used for perception drop-down) */
   platformTypes: PlatformTypeData[]
-
-  /**
-   * get the turn periods data (used for filtering via drop-down list of turns)
-  */
-  onTurnPeriods?: (gameDate: string, currentWargame: string) => void
 
   onDetailPanelOpen?: (rowData: AdjudicationRow) => void
 

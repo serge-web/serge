@@ -67,8 +67,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   forcePlanningActivities,
   editLocation,
   attributeTypes,
-  handleAdjudication,
-  onTurnPeriods
+  handleAdjudication
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
   const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE)
@@ -473,7 +472,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   mapPostBack={mapPostBack}
                   channel={channel}
                   currentWargame={currentWargame}
-                  onTurnPeriods={onTurnPeriods}
                   template={adjudicationTemplate}
                   customiseTemplate={localCustomiseTemplate}
                   forcePlanningActivities={forcePlanningActivities}

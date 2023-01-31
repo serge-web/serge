@@ -45,8 +45,8 @@ type ManualInteractionResults = {
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate, periods,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack, onTurnPeriods,
-  gameTurnLength, currentWargame, onLocationEditorLoaded
+  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  gameTurnLength, onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
@@ -88,11 +88,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    // get turn period array
-    onTurnPeriods && onTurnPeriods(gameDate, currentWargame)
-    // note - we should be getting data back from onTurnPeriods, then we store it with the below line
     setTurnPeriods(periods)
-  }, [gameDate])
+  }, [periods])
 
   useEffect(() => {
     const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
@@ -132,8 +129,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
   }
-
-  console.log('turn periods', turnPeriods)
 
   const healthStyleFor = (aHealth: number | undefined) => {
     let healthStyle
