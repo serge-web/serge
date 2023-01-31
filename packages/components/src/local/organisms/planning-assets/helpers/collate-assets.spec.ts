@@ -66,7 +66,7 @@ describe('check collating assets', () => {
   it('handles own-forces tab', () => {
     const umpireColumns = getColumns(false, forces, blueForce.uniqid, platformStyles)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(7)
+    expect(umpireColumns.length).toEqual(8)
 
     const pTypeCol = umpireColumns[2]
     expect(pTypeCol.lookup).toBeTruthy()
