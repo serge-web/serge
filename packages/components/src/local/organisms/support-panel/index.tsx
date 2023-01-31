@@ -48,6 +48,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   selectedRoleId,
   selectedRoleName,
   allForces,
+  allPeriods,
   gameDate,
   gameTurnLength: gameTurnTime,
   currentTurn,
@@ -111,8 +112,24 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [forcePlanningActivities, selectedForce])
 
   useEffect(() => {
-    const filtered = turnFilter === SHOW_ALL_TURNS ? planningMessages : planningMessages.filter((msg) => msg.details.turnNumber === turnFilter)
-    setFilteredPlanningMessages(filtered)
+    let filteredMessages: MessagePlanning[] | undefined
+    if (turnFilter) {
+      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
+      if (thisTurn) {
+        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
+        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
+        const turnEndTime = moment.utc(turnEnd).valueOf()
+        filteredMessages = planningMessages.filter((msg) => {
+          const pStart = moment.utc(msg.message.startDate).valueOf()
+          const pEnd = moment.utc(msg.message.endDate).valueOf()
+          return pEnd >= turnStartTime && pStart < turnEndTime
+        })
+      }
+    }
+    if (filteredMessages === undefined) {
+      filteredMessages = planningMessages
+    }
+    setFilteredPlanningMessages(filteredMessages)
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
@@ -383,7 +400,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
-                <TurnFilter label='Show orders for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <TurnFilter label='Show orders for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
@@ -455,11 +472,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>
-                <TurnFilter label='Show interactions for turn:' currentTurn={currentTurn} value={turnFilter} onChange={onTurnFilterChange} />
+                <TurnFilter label='Show interactions for turn:' allPeriods={allPeriods} value={turnFilter} onChange={onTurnFilterChange} />
                 <AdjudicationMessagesList
                   interactionMessages={filteredInteractionMessages}
                   planningMessages={filteredPlanningMessages}
                   forces={allForces}
+                  periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}
                   playerRoleId={selectedRoleId}
@@ -469,6 +487,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onMarkAllAsRead={onReadAll}
                   mapPostBack={mapPostBack}
                   channel={channel}
+                  currentWargame={currentWargame}
                   template={adjudicationTemplate}
                   customiseTemplate={localCustomiseTemplate}
                   forcePlanningActivities={forcePlanningActivities}

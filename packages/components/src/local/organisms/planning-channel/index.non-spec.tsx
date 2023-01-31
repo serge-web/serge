@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import { ChannelPlanning, CoreMessage, MessageDetails, ParticipantPlanning, ParticipantTemplate, PlayerUiActionTypes, TemplateBody } from '@serge/custom-types'
-import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9Mock, planningMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { mount } from 'enzyme'
 import { noop } from 'lodash'
 import React from 'react'
@@ -33,6 +33,7 @@ const channels = wargame.channels.channels
 const planningChannel = channels[0]
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
+const overview = wargame.overview
 
 const force = forces[1]
 const role = force && force.roles[0]
@@ -59,6 +60,7 @@ describe('Planning Channel component: ', () => {
     const tree = mount(<PlanningChannel
       channel={channels[0] as ChannelPlanning}
       messages={planningMessages}
+      allPeriods={turnPeriod}
       allTemplates={templateBodies}
       channelId={channels[0].uniqid}
       adjudicationTemplate={planningMessageTemplatesMock[0]}
@@ -77,8 +79,8 @@ describe('Planning Channel component: ', () => {
       selectedForce={force || forces[1]}
       phase={Phase.Planning}
       allForces={forces}
-      gameDate={P9Mock.data.overview.gameDate}
-      gameTurnLength={wargame.overview.gameTurnTime}
+      gameDate={overview.gameDate}
+      gameTurnLength={overview.gameTurnTime}
       currentTurn={P9Mock.gameTurn}
       forcePlanningActivities={filledInPerForcePlanningActivities}
     />)

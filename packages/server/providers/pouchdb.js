@@ -181,6 +181,42 @@ const pouchDb = (app, io, pouchOptions) => {
       .catch(() => res.send([]))
   })
 
+  app.get('/:wargame/turns', (req, res) => {
+    const databaseName = checkSqliteExists(req.params.wargame)
+
+    if (!databaseName) {
+      res.status(404).send({ msg: 'Wrong Wargame Name', data: null })
+    }
+
+    const db = new PouchDB(databaseName, pouchOptions)
+
+    db.find({
+      selector: {
+        adjudicationStartTime: { $exists: true }
+      },
+      fields: ['data', 'gameTurn']
+
+    }).then((result) => {
+      const uniqBy = (data, key) => {
+        return [
+          ...new Map(
+            data.map(x => [key(x),
+              {
+                gameTurn: x.gameTurn,
+                gameTurnTime: x.data.overview.gameTurnTime,
+                gameDate: x.data.overview.gameDate
+
+              }])
+          ).values()
+        ]
+      }
+      const resaultData = uniqBy(result.docs, it => it.gameTurn)
+
+      res.send({ msg: 'ok', data: resaultData })
+    })
+      .catch(() => res.send([]))
+  })
+
   app.get('/:wargame/:dbname/logs', (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
 
