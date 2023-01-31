@@ -202,9 +202,7 @@ const pouchDb = (app, io, pouchOptions) => {
         return {
           gameDate,
           gameTurnTime,
-          gameTurn: data.gameTurn,
-          phase: data.phase,
-          _id: data._id
+          gameTurn: data.gameTurn
         }
       })
       res.send({ msg: 'ok', data: resaultData })

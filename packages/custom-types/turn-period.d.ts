@@ -4,9 +4,7 @@ import { GameTurnLength } from "./turn-length";
 export interface TurnPeriod {
   gameTurnTime: GameTurnLength,
   gameDate: string,
-  gameTurn: number,
-  phase: string,
-  _id?: string
+  gameTurn: number
 }
 
 export type TurnPeriods = TurnPeriod[]
