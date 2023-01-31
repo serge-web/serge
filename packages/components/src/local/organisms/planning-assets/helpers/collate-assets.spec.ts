@@ -2,6 +2,8 @@ import { UNKNOWN_TYPE } from '@serge/config'
 import { Asset } from '@serge/custom-types'
 import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9Mock } from '@serge/mocks'
+import LRUCache from 'lru-cache'
+import { LRU_CACHE_OPTION } from '../../support-panel/constants'
 import { collateItem, getColumns, getOppAssets, getOwnAssets } from './collate-assets'
 
 const forces = P9Mock.data.forces.forces
@@ -26,6 +28,8 @@ const platformStyles = P9Mock.data.platformTypes ? platformIcons(P9Mock.data.pla
 const platformTypes = P9Mock.data.platformTypes ? P9Mock.data.platformTypes.platformTypes : []
 
 const attributeTypes = P9Mock.data.attributeTypes ? P9Mock.data.attributeTypes.attributes : []
+
+const assetsCache = new LRUCache<string, string>(LRU_CACHE_OPTION)
 
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
@@ -64,7 +68,7 @@ describe('check collating assets', () => {
   })
 
   it('handles own-forces tab', () => {
-    const umpireColumns = getColumns(false, forces, blueForce.uniqid, platformStyles)
+    const umpireColumns = getColumns(false, forces, blueForce.uniqid, platformStyles, assetsCache)
     expect(umpireColumns).toBeTruthy()
     expect(umpireColumns.length).toEqual(8)
 
@@ -108,11 +112,11 @@ describe('check collating assets', () => {
   })
 
   it('handles opFor tab', () => {
-    const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles)
+    const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles, assetsCache)
     expect(umpireColumns).toBeTruthy()
     expect(umpireColumns.length).toEqual(7)
 
-    const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles)
+    const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles, assetsCache)
     expect(blueColumns).toBeTruthy()
     expect(blueColumns.length).toEqual(7)
 

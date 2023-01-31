@@ -3,19 +3,21 @@ import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
+import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
+import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
   const [clusterGroup, setClusterGroup] = useState<any | undefined>(undefined)
-
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
+  const { assetsCache } = useContext(SupportPanelContext)
 
   useEffect(() => {
     if (clusterGroup === undefined) {
@@ -36,19 +38,22 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
+
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
       * that begin with `n_` don't require background shading
       */
     const shadeBackground = !imageSrc.startsWith('n_')
     const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
+
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
-        <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />
+        {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
+        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} isSelected={isSelected} assetsCache={assetsCache} />}
       </div>)
     )
   }
 
-  const MarkerCluster = ({ markers }: {markers: AssetRow[]}) => {
+  const MarkerCluster = ({ markers }: { markers: AssetRow[] }) => {
     const map = useMap()
 
     useEffect(() => {
@@ -133,7 +138,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     {
       <LayerGroup key={'first-forces-layer'}>
         <MarkerCluster markers={clustereredMarkers} />
-        { rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
+        {rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
           const markerOption = getRawMarkerOption(asset, index)
           return <Marker
             pmIgnore

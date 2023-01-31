@@ -30531,6 +30531,7 @@ const game: Wargame = {
                     "conditions": [],
                     "states": [],                    
                     "uniqid": "blue_air_fighter",
+                    "sidc": "SGG*UCIN--",
                     "attributeTypeIds": [
                         "a_Speed",
                         "a_Type",
@@ -30728,6 +30729,7 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_Minefield_Passable"
                     ],
+                    "sidc": "SFG-UCIZ---B",
                     "conditions": [],
                     "states": [],
                     "uniqid": "blue_maritime_mine",
