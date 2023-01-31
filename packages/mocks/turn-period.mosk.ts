@@ -2,7 +2,7 @@ import { TurnPeriods } from '@serge/custom-types'
 
 const turnPeriod: TurnPeriods = [
     {
-      gameDate: '2022-05-25T04:00',
+      gameDate: '2022-05-01T00:00',
       gameTurnTime: {
         millis: 259200000,
         unit: 'millis'
@@ -10,7 +10,7 @@ const turnPeriod: TurnPeriods = [
       gameTurn: 1
     },
     {
-      gameDate: '2022-05-04T04:00',
+      gameDate: '2022-05-04T00:00',
       gameTurnTime: {
         millis: 259200000,
         unit: 'millis'
