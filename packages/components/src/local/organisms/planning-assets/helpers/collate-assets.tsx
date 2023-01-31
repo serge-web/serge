@@ -4,8 +4,10 @@ import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType,
 import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue } from '@serge/helpers'
 import { latLng } from 'leaflet'
 import sortBy from 'lodash/sortBy'
+import LRUCache from 'lru-cache'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
+import SymbolAssetIcon from '../../../symbol-asset-icon'
 import styles from '../styles.module.scss'
 import { AssetRow } from '../types/props'
 
@@ -145,12 +147,20 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   return res
 }
 
-const renderIcon = (row: AssetRow): React.ReactElement => {
+const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, string>): React.ReactElement => {
   if (!row.icon) return <></>
   const icons = row.icon.split(',')
   if (icons.length === 3) {
     return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} color={icons[1]} health={+icons[3]} />{icons[2]}</span>
   }
+
+  // test new asset icon component
+  if (row.sidc) {
+    // SGG*UCIN--
+    return <SymbolAssetIcon sidc={row.sidc} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />
+  }
+  // end
+
   return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]} <small>({row.id})</small></span>
 }
 
@@ -223,14 +233,14 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
  * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column<any>[] => {
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[], assetsCache: LRUCache<string, string>): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const fixedColWidth = 100
 
   const ownAssets = !!(playerForce && !opFor)
 
   const columns: Column<any>[] = [
-    { title: 'Icon', field: 'icon', render: renderIcon, width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
@@ -359,6 +369,12 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           domain: domain,
           attributes: modernAttrDict
         }
+
+        const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+        if (perceivedPlatformType && perceivedPlatformType.sidc) {
+          res.sidc = perceivedPlatformType.sidc
+        }
+
         itemRows.push(res)
       }
     }
@@ -383,6 +399,11 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         domain: domain,
         attributes: modernAttrDict
       }
+
+      if (platformType && platformType.sidc) {
+        res.sidc = platformType.sidc
+      }
+
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
         res.parentId = parentId
