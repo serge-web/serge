@@ -267,13 +267,13 @@ const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => int
 // get an adjudication
 const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
 if (openInter2.details && openInter2.details.interaction) {
-  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random'}
+  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
   istarInterMessages.push(openInter2)
 }
 export const istarInteraction = Template.bind({})
 istarInteraction.args = {
   playerRoleId: umpireFole.roleId,
-  gameDate: "2022-05-01T00:05:00.000Z",
+  gameDate: '2022-05-01T00:05:00.000Z',
   messages: istarInterMessages
 }
 
@@ -283,7 +283,6 @@ CyberEvent.args = {
   playerRoleId: umpireFole.roleId,
   messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
 }
-
 
 const idsOfInterest = ['Red-9', 'Blue-24']
 export const TestSubjects = Template.bind({})

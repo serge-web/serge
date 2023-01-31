@@ -185,7 +185,7 @@ const strikeEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudica
         }
       }
       // create damage outcome for this asset
-      const existingC4: 'None' | 'Degraded' | 'Operational'  = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
+      const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
       const health: HealthOutcome = {
         asset: target.asset,
         health: 50,
@@ -234,28 +234,28 @@ const transitEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   return outcomes
 }
 
-const alterC4 = (current: string | undefined, degrade: boolean): 'None' |  'Degraded' | 'Operational' => {
-  const states: Array<'None' |  'Degraded' | 'Operational'> =  ['None',  'Degraded',  'Operational']
+const alterC4 = (current: string | undefined, degrade: boolean): 'None' | 'Degraded' | 'Operational' => {
+  const states: Array<'None' | 'Degraded' | 'Operational'> = ['None', 'Degraded', 'Operational']
   if (current) {
     const index = states.findIndex((state) => state === current) || 1
     const mod = degrade ? -1 : 1
     let newI = index + mod
     newI = Math.min(newI, states.length - 1)
     newI = Math.max(newI, 0)
-    return states[newI]  
+    return states[newI]
   } else {
     return states[1]
   }
 }
 
-const ewEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
+const ewEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   event: INTERACTION_SHORT_CIRCUIT | undefined, forces: ForceData[]): MessageAdjudicationOutcomes => {
   if (plan.message.otherAssets) {
-    const degrade = (event === INTER_AT_START) ? true : false
+    const degrade = (event === INTER_AT_START)
     plan.message.otherAssets.forEach((target: { asset: string }) => {
       const theAsset = findAsset(forces, target.asset)
       const currentHealth = theAsset.health === undefined ? 100 : theAsset.health
-      const existingC4 = theAsset.attributes && theAsset.attributes.a_C4_Status as string || undefined
+      const existingC4 = (theAsset.attributes && theAsset.attributes.a_C4_Status as string) || undefined
       const newC4 = alterC4(existingC4, degrade)
       const outCome: HealthOutcome = {
         asset: target.asset,
@@ -356,7 +356,7 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
     case 'ISTAR': {
       return istarEventOutcomesFor(plan, outcomes, forces)
     }
-    case 'CYBER/SPA': 
+    case 'CYBER/SPA':
     case 'EW': {
       return ewEventOutcomesFor(plan, outcomes, event, forces)
     }
