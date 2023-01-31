@@ -101,6 +101,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
           platformType: asset.platformTypeId,
           subType: subType,
           health: 100,
+          c4: 'Operational',
           domain: 'Air',
           attributes: { word: 'text', number: 123 }
         }
