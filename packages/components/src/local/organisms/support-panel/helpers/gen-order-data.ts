@@ -397,7 +397,7 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
 
   // create the message
   const message: PlanningMessageStructureCore = {
-    Reference: force.forceName + '-' + localCtr,
+    Reference: force.forceName + '-' + ctr,
     title: 'Order item ' + localCtr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
