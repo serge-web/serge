@@ -30,7 +30,7 @@
     "classnames": "^2.2.6",
     "excellentexport": "^3.3.0",
     "expired-storage": "^1.0.2",
-    "flat": "^4.1.0",
+    "flat": "^5.0.1",
     "flexlayout-react": "^0.3.4",
     "jest": "^26.0.1",
     "jest-mock-console": "^1.0.0",
