@@ -274,7 +274,7 @@ Default.args = {
   phase: Phase.Adjudication
 }
 
-const eventIdsOfInterest = ['Blue-75']
+const eventIdsOfInterest = ['Red-5']
 export const IstarEvent = Template.bind({})
 IstarEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
@@ -282,7 +282,7 @@ IstarEvent.args = {
   phase: Phase.Adjudication
 }
 
-const interactionIdsOfInterest = ['Red-9', 'Blue-75']
+const interactionIdsOfInterest = ['Red-5', 'Blue-17']
 const interMessages = channelMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
   if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
     return msg.details.messageType === 'p9adjudicate'

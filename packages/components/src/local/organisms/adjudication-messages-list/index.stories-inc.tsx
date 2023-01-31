@@ -255,19 +255,19 @@ ZeroInteractions.args = {
   messages: planningMessages as CoreMessage[]
 }
 
-const istarIdsOfInterest = ['Blue-75']
+const istarIdsOfInterest = ['Red-5']
 export const TestIstar = Template.bind({})
 TestIstar.args = {
   playerRoleId: umpireFole.roleId,
   messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
 }
 
-const interactionIdsOfInterest = ['Red-9', 'Blue-75']
+const interactionIdsOfInterest = ['Red-5', 'Blue-17']
 const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => interactionIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
 // get an adjudication
 const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
 if (openInter2.details && openInter2.details.interaction) {
-  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
+//  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
   istarInterMessages.push(openInter2)
 }
 export const istarInteraction = Template.bind({})
@@ -277,7 +277,7 @@ istarInteraction.args = {
   messages: istarInterMessages
 }
 
-const cyberEvent = ['Red-42']
+const cyberEvent = ['Blue-17']
 export const CyberEvent = Template.bind({})
 CyberEvent.args = {
   playerRoleId: umpireFole.roleId,
