@@ -4,6 +4,9 @@ interface CssExports {
   'iconbase': string;
   'map-icon': string;
   'pulse': string;
+  'mycluster': string;
+  'circle': string;
+  'yellow': string;
   'selected': string;
 }
 export const cssExports: CssExports;

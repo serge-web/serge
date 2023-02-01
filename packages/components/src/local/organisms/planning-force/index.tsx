@@ -1,9 +1,7 @@
 import cx from 'classnames'
-import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
+import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
-import 'leaflet.markercluster/dist/MarkerCluster.css'
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import React, { useContext, useEffect, useState } from 'react'
+import React, {useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
@@ -19,9 +17,26 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
 
+  const createIcon = () => {
+    return {
+      iconCreateFunction: function (cluster: MarkerCluster) {
+        const markers = cluster.getAllChildMarkers()
+        const size = markers.length / 5 + 40
+        const chnageColor = markers.length > 10
+        const color = styles.circle
+        const html = ReactDOMServer.renderToString(<div className={cx({ [color]: true, [styles.yellow]: chnageColor })} >{markers.length}</div>)
+        return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true, [styles.yellow]: chnageColor }), iconSize: L.point(size, size) })
+      },
+      spiderfyOnMaxZoom: false,
+      showCoverageOnHover: true,
+      zoomToBoundsOnClick: true,
+      removeOutsideVisibleBounds: true
+    }
+  }
+
   useEffect(() => {
     if (clusterGroup === undefined) {
-      setClusterGroup(L.markerClusterGroup())
+      setClusterGroup(new L.MarkerClusterGroup(createIcon()))
     }
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
@@ -58,15 +73,15 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
     useEffect(() => {
       if (clusterGroup) {
-        clusterGroup.clearLayers()
-        const markersWithLocation = markers.filter((row: AssetRow) => row.position)
-        const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
+      clusterGroup.clearLayers()
+      const markersWithLocation = markers.filter((row: AssetRow) => row.position)
+      const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
         // const theMarker = markersWithLocation.find((asset) => asset.id === 'a111')
         // console.log('render marker', theMarker && theMarker.position)
-        clusterGroup.addLayers(markerList)
+      clusterGroup.addLayers(markerList)
 
-        // add the marker cluster group to the map
-        map.addLayer(clusterGroup)
+      // add the marker cluster group to the map
+      map.addLayer(clusterGroup)
       }
     }, [markers, map, clusterGroup])
 
