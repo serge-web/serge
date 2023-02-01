@@ -22,10 +22,10 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
       iconCreateFunction: function (cluster: MarkerCluster) {
         const markers = cluster.getAllChildMarkers()
         const size = markers.length / 5 + 40
-        const chnageColor = markers.length > 10
+        const changeColor = markers.length > 10
         const color = styles.circle
-        const html = ReactDOMServer.renderToString(<div className={cx({ [color]: true, [styles.yellow]: chnageColor })} >{markers.length}</div>)
-        return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true, [styles.yellow]: chnageColor }), iconSize: L.point(size, size) })
+        const html = ReactDOMServer.renderToString(<div className={cx({ [color]: true, [styles.yellow]: changeColor })} >{markers.length}</div>)
+        return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true, [styles.yellow]: changeColor }), iconSize: L.point(size, size) })
       },
       spiderfyOnMaxZoom: false,
       showCoverageOnHover: true,
