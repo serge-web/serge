@@ -13,7 +13,7 @@ import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelectedAssets, interactive }) => {
+const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
   const [clusterGroup, setClusterGroup] = useState<any | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
@@ -26,10 +26,13 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
     assets.forEach((asset) => {
-      if (selectedAssets.includes(asset.id)) {
-        raw.push(asset)
-      } else {
-        clustered.push(asset)
+      // check we have position
+      if (asset.position) {
+        if (selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
+          raw.push(asset)
+        } else {
+          clustered.push(asset)
+        }  
       }
     })
     setClusteredMarkers(clustered)
@@ -85,6 +88,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
   const getRawMarkerOption = (asset: AssetRow, index: number) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
+    console.log('asset', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
     return {
@@ -107,6 +111,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
 
   const getClusteredMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
+    console.log('asset 2', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
 
