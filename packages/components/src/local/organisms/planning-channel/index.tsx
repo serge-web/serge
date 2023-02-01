@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE } from '@serge/config'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
@@ -20,7 +20,7 @@ import ApplyFilter from '../apply-filter'
 import MapPlanningOrders from '../map-planning-orders'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { AssetRow } from '../planning-assets/types/props'
-import PlanningForces from '../planning-force'
+import PlanningForceIcons from '../planning-force-icons'
 import { collapseLocation } from '../planning-messages-list/helpers/collapse-location'
 import { LocationEditCallbackHandler } from '../planning-messages-list/types/props'
 import SupportMapping from '../support-mapping'
@@ -32,7 +32,6 @@ import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
 import PlanningActitivityMenu from './helpers/PlanningActitivityMenu'
-import RangeRingPlotter from './helpers/RangeRingPlotter'
 import Ruler from './helpers/Ruler'
 import { boundsForGeometry } from './helpers/spatial-helpers'
 import Timeline from './helpers/Timeline'
@@ -40,6 +39,14 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 type PlannedActivityGeometryCallback = (newValue: PlannedActivityGeometry[]) => void
+
+type PerForceAssets = {
+  force: ForceData['uniqid']
+  color: string
+  rows: AssetRow[]
+  selectedRowIds: Asset['uniqid'][]
+  currentRowIds: Asset['uniqid'][]
+}
 
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
@@ -80,6 +87,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
   const [currentForce, setCurrentForce] = useState<ForceData>(selectedForce)
 
+  // whether the user wants to apply the table filter to the map
+  const [filterApplied, setFilterApplied] = useState<boolean>(true)
+
   // all of the assets known to players of this force
   const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
   const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
@@ -87,10 +97,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
   const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
 
-  const [filterApplied, setFilterApplied] = useState<boolean>(true)
-
   // handle selections from asset tables
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
+
+  // the currently active assets and orders. i.e. if an order or adjudication is expanded,
+  // show the child elements, regardless of what is selected
+  const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
+  const [currentAssets, setCurrentAssets] = useState<AssetRow[]>([])
+  const [currentOrderIDs, setCurrentOrderIDs] = useState<string[]>([])
+
+  // we need to break down assets by force, so they can be plotted (clustered) by color
+  // will show current assets (if present), then filtered or all, according to show all filter
+  const [perForceAssets, setPerForceAssets] = useState<PerForceAssets[]>([])
+
   // have `local` selected assets handler, since we don't always want to
   // propagate changes to selected assets
   const [localSelectedAssets, setLocalSelectedAssets] = useState<string[]>([])
@@ -125,11 +144,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
 
-  // the currently active assets and orders. i.e. if an order or adjudication is expanded,
-  // show the child elements, regardless of what is selected
-  const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
-  const [currentOrders, setCurrentOrders] = useState<string[]>([])
-
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
 
@@ -154,6 +168,64 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // game date has changed, get updated periods
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
   }, [gameDate])
+
+  useEffect(() => {
+    const res: PerForceAssets[] = []
+    const doRows = (rows: AssetRow[], currentIDs: string[], selectedIDs: string[]) => {
+      rows.forEach((row) => addIt(row, currentIDs, selectedIDs))
+    }
+    const addIt = (asset: AssetRow, currentIDs: string[], selectedIDs: string[]) => {
+      const force = asset.force
+      const forceToUse = force || UNKNOWN_TYPE
+      let thisA = res.find((force) => force.force === forceToUse) //[forceToUse]
+      if (thisA === undefined) {   
+        const forceCol = forceColors.find((forceStyle) => forceStyle.force === force)     
+        thisA = {
+          force: forceToUse,
+          rows: [],
+          selectedRowIds: [],
+          currentRowIds: [],
+          color: forceCol ? forceCol.color : '#999'
+        }
+        res.push(thisA)
+      }
+      thisA.rows.push(asset)
+      if (selectedIDs.includes(asset.id)) {
+        thisA.selectedRowIds.push(asset.id)
+      }
+      if (currentIDs.includes(asset.id)) {
+        thisA.currentRowIds.push(asset.id)
+      }
+    } 
+    if (currentAssets.length) {
+      // just group by force
+      doRows(currentAssets, currentAssetIds, [])
+    } else {
+      if (filterApplied) {
+        doRows(ownAssetsFiltered,[] , selectedAssets)
+        doRows(opAssetsFiltered,[], selectedAssets)
+      } else {
+        doRows(allOwnAssets,[], selectedAssets)
+        doRows(allOppAssets,[], selectedAssets)
+      }
+    }
+    setPerForceAssets(res)
+    console.table(res.map((item) => {
+      return {
+        force: item.force,
+        col: item.color,
+        rows: item.rows.length
+      }
+    }))
+  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied])
+
+
+  useEffect(() => {
+    const currentOwn = allOwnAssets.filter((row) => currentAssetIds.includes(row.id))
+    const currentOpp = allOppAssets.filter((row) => currentAssetIds.includes(row.id))
+    const allCurrent = currentOwn.concat(currentOpp)
+    setCurrentAssets(allCurrent)
+  }, [currentAssetIds])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -196,7 +268,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       }
     })
-    currentOrders.forEach((id) => {
+    currentOrderIDs.forEach((id) => {
       const plan = planningMessages.find((msg) => id === msg._id)
       if (plan) {
         const activities = plan.message.location
@@ -214,7 +286,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
 
     // update map bounds
-  }, [currentAssetIds, currentOrders])
+  }, [currentAssetIds, currentOrderIDs])
 
   useEffect(() => {
     if (showTimeControl) {
@@ -369,8 +441,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
-  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders: setCurrentOrderIDs, setCurrentInteraction: setCurrentInteraction, assetsCache }
+  ), [selectedAssets, setCurrentAssetIds, setCurrentOrderIDs, setCurrentInteraction, assetsCache])
 
   const incrementDebugStep = (): void => {
     // do something
@@ -647,31 +719,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                {allOwnAssets.length !== ownAssetsFiltered.length
-                  ? <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} />
-                  </>
-                  : <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
-                  </>
-                }
+                { perForceAssets.map((force) => {
+                  return <PlanningForceIcons forceCol={force.color} interactive={!activityBeingPlanned} opFor={false} currentAssets={force.currentRowIds} assets={ force.rows } setSelectedAssets={setLocalSelectedAssets} selectedAssets={force.selectedRowIds} />
+                })}
               </LayerGroup>
-              <LayerGroup pmIgnore={true} key={'sel-opp-forces'}>
-                {allOppAssets.length !== opAssetsFiltered.length
-                  ? <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={filterApplied ? opAssetsFiltered : allOppAssets} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Opp range rings'} assets={filterApplied ? opAssetsFiltered : allOppAssets} forceCols={forceColors} />
-                  </>
-                  : <>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} />
-                    <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => selectedAssets.includes(asset.id))} forceCols={forceColors} />
-                  </>}
-              </LayerGroup>
+              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrderIDs} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             </Fragment>
-            <Fragment key='currentObjects'>
-              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
+            {/* <Fragment key='currentObjects'>
+              <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrderIDs} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'cur-own-forces'}>
                 <PlanningForces interactive={!activityBeingPlanned} opFor={false} assets={allOwnAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
                 <RangeRingPlotter title={'Own range rings'} assets={allOwnAssets.filter((asset: AssetRow) => currentAssetIds.includes(asset.id))} forceCols={forceColors} />
@@ -680,16 +735,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                 <PlanningForces interactive={!activityBeingPlanned} opFor={true} assets={allOppAssets.filter((row) => currentAssetIds.includes(row.id))} setSelectedAssets={noop} selectedAssets={currentAssetIds} />
                 <RangeRingPlotter title={'Opp range rings'} assets={allOppAssets.filter((asset: AssetRow) => currentAssetIds.includes(asset.id))} forceCols={forceColors} />
               </LayerGroup>
-            </Fragment>
+            </Fragment> */}
             {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </Fragment>
         }
       </>
     )
-  }, [selectedAssets, filterApplied, ownAssetsFiltered, allOwnAssets, opAssetsFiltered, allOppAssets, debugStep,
+  }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders])
+     currentOrderIDs, perForceAssets])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
