@@ -108,12 +108,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   // will show current assets (if present), then filtered or all, according to show all filter
   const [perForceAssets, setPerForceAssets] = useState<PerForceAssets[]>([])
 
-    // the currently active assets and orders. i.e. if an order or adjudication is expanded,
+  // the currently active assets and orders. i.e. if an order or adjudication is expanded,
   // show the child elements, regardless of what is selected
   const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
   const [currentAssets, setCurrentAssets] = useState<AssetRow[]>([])
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
-
 
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
 
@@ -195,9 +194,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const addIt = (asset: AssetRow) => {
       const force = asset.force
       const forceToUse = force || UNKNOWN_TYPE
-      let thisA = res.find((force) => force.force === forceToUse) //[forceToUse]
-      if (thisA === undefined) {   
-        const forceCol = forceColors.find((forceStyle) => forceStyle.force === force)     
+      let thisA = res.find((force) => force.force === forceToUse)
+      if (thisA === undefined) {
+        const forceCol = forceColors.find((forceStyle) => forceStyle.force === force)
         thisA = {
           force: forceToUse,
           rows: [],
@@ -206,7 +205,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         res.push(thisA)
       }
       thisA.rows.push(asset)
-    } 
+    }
     if (currentAssets.length) {
       // just group by force
       doRows(currentAssets)
@@ -706,8 +705,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 { perForceAssets.map((force) => {
-                return <PlanningForces key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                  assets={force.rows} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                  return <PlanningForces key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                    assets={force.rows} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
                 })
                 }
                 {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
