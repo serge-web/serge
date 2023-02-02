@@ -1,6 +1,6 @@
 import { hexToRGBA } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster } from 'leaflet'
+import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
@@ -15,7 +15,7 @@ import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
 const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
-  const [clusterGroup, setClusterGroup] = useState<any | undefined>(undefined)
+  const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
@@ -150,7 +150,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
             className: styles['map-icon']
           })
         })
-        .addTo(clusterGroup)
+        .addTo(clusterGroup as MarkerClusterGroup)
         .bindPopup(asset.name)
         .on('click', interactiveIcon)
         .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
