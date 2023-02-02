@@ -87,12 +87,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
         clusterGroup.addLayers(markerList)
 
         // add the marker cluster group to the map
-        if (!clusterAdded) {
-          setClusterAdded(true)
-          map.addLayer(clusterGroup)
-        } else {
-          console.log('not adding cluster layer for ', label)
-        }
+        map.addLayer(clusterGroup)
       }
     }, [markers, map, clusterGroup])
 
