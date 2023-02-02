@@ -335,7 +335,6 @@ const injectPerceivedPosition = (perception: Perception, location: [number, numb
   }
 }
 
- 
 export const fixPerceivedPositions = (forces: ForceData[]): ForceData[] => {
   forces.forEach((force) => {
     if (force.assets) {
