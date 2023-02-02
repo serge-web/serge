@@ -3,9 +3,9 @@ import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
+import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
@@ -34,7 +34,25 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
     })
     setClusteredMarkers(clustered)
     setRawMarkers(raw)
-  }, [assets])
+  }, [assets, selectedAssets])
+
+  const rangeRingFor = (asset: AssetRow): React.ReactElement | undefined => {
+    const attrs = asset.attributes
+    // try for the two range attributes
+    const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
+    // only plot range rings for SAM sites
+    const isSAM = asset.platformType.indexOf('sam') >= 0
+    if (range && isSAM) {
+      const index = range.indexOf(' km')
+      const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
+      const centre = asset.position ? asset.position : latLng([0, 0])
+      const rad = rangeKm * 1000
+      if (rad > 0) {
+        return <Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: '#0f0' }} />
+      }
+    }
+    return undefined
+  }
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
@@ -116,22 +134,20 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
       }
     }
 
-    return (
-      L.marker(new L.LatLng(loc.lat, loc.lng),
-        {
-          pmIgnore: interactive,
-          interactive: interactive,
-          icon: L.divIcon({
-            iconSize: [30, 30],
-            html: getAssetIcon(asset, isSelected, !!isDestroyed),
-            className: styles['map-icon']
-          })
+    return L.marker(new L.LatLng(loc.lat, loc.lng),
+      {
+        pmIgnore: interactive,
+        interactive: interactive,
+        icon: L.divIcon({
+          iconSize: [30, 30],
+          html: getAssetIcon(asset, isSelected, !!isDestroyed),
+          className: styles['map-icon']
         })
-        .addTo(clusterGroup)
-        .bindPopup(asset.name)
-        .on('click', interactiveIcon)
-        .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
-    )
+      })
+      .addTo(clusterGroup)
+      .bindPopup(asset.name)
+      .on('click', interactiveIcon)
+      .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
   }
 
   return <>
@@ -140,13 +156,27 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, setSelect
         <MarkerCluster markers={clustereredMarkers} />
         {rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
           const markerOption = getRawMarkerOption(asset, index)
-          return <Marker
-            pmIgnore
-            interactive={false}
-            {...markerOption}
-          >
-            <Tooltip>{asset.name}</Tooltip>
-          </Marker>
+          const rangeRing = rangeRingFor(asset)
+          if (rangeRing) {
+            return <Fragment key={asset.id}>
+              <Marker
+                pmIgnore
+                interactive={false}
+                {...markerOption}
+              >
+                <Tooltip>{asset.name}</Tooltip>
+              </Marker>
+              {rangeRing}
+            </Fragment>
+          } else {
+            return <Marker
+              pmIgnore
+              interactive={false}
+              {...markerOption}
+            >
+              <Tooltip>{asset.name}</Tooltip>
+            </Marker>
+          }
         })}
       </LayerGroup >
     }
