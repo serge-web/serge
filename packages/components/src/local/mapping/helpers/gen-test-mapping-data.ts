@@ -65,6 +65,7 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
           typeId: asset.platformTypeId,
           force: correctForce ? assetForce : randomForce(force.uniqid, forces)
         }
+        injectPerceivedPosition(newP, asset.location)
         if (!tester()) delete newP.typeId
         if (!tester()) delete newP.condition
         if (!tester()) delete newP.force
@@ -310,32 +311,37 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   return assetsWithTGs
 }
 
+const injectPerceivedPosition = (perception: Perception, location: [number, number] | undefined): void => {
+  if (location) {
+    const rnd = Math.random()
+    if (rnd > 0.95) {
+      // don't provide perceived position
+    } else if (rnd > 0.7) {
+      // shift position
+      const rndDegs = 0.1
+      const factor = 10000
+      const rndLat = -rndDegs + Math.random() * rndDegs * 2
+      const newLat = location[0] + rndLat
+      const roundedLat = Math.floor(newLat * factor) / factor
+      const rndLng = -rndDegs + Math.random() * rndDegs * 2
+      const newLng = location[1] + rndLng
+      const roundedLong = Math.floor(newLng * factor) / factor
+      const pos: [number, number] = [roundedLat, roundedLong]
+      perception.position = pos
+    } else {
+      // real position
+      perception.position = location
+    }
+  }
+}
+
+ 
 export const fixPerceivedPositions = (forces: ForceData[]): ForceData[] => {
   forces.forEach((force) => {
     if (force.assets) {
       force.assets.forEach((asset) => {
         asset.perceptions.forEach((perception) => {
-          if (asset.location) {
-            const rnd = Math.random()
-            if (rnd > 0.95) {
-              // don't provide perceived position
-            } else if (rnd > 0.7) {
-              // shift position
-              const rndDegs = 0.1
-              const factor = 10000
-              const rndLat = -rndDegs + Math.random() * rndDegs * 2
-              const newLat = asset.location[0] + rndLat
-              const roundedLat = Math.floor(newLat * factor) / factor
-              const rndLng = -rndDegs + Math.random() * rndDegs * 2
-              const newLng = asset.location[1] + rndLng
-              const roundedLong = Math.floor(newLng * factor) / factor
-              const pos: [number, number] = [roundedLat, roundedLong]
-              perception.position = pos
-            } else {
-              // real position
-              perception.position = asset.location
-            }
-          }
+          injectPerceivedPosition(perception, asset.location)
         })
       })
     }
