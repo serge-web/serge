@@ -310,6 +310,39 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   return assetsWithTGs
 }
 
+export const fixPerceivedPositions = (forces: ForceData[]): ForceData[] => {
+  forces.forEach((force) => {
+    if (force.assets) {
+      force.assets.forEach((asset) => {
+        asset.perceptions.forEach((perception) => {
+          if (asset.location) {
+            const rnd = Math.random()
+            if (rnd > 0.95) {
+              // don't provide perceived position
+            } else if (rnd > 0.7) {
+              // shift position
+              const rndDegs = 0.1
+              const factor = 10000
+              const rndLat = -rndDegs + Math.random() * rndDegs * 2
+              const newLat = asset.location[0] + rndLat
+              const roundedLat = Math.floor(newLat * factor) / factor
+              const rndLng = -rndDegs + Math.random() * rndDegs * 2
+              const newLng = asset.location[1] + rndLng
+              const roundedLong = Math.floor(newLng * factor) / factor
+              const pos: [number, number] = [roundedLat, roundedLong]
+              perception.position = pos
+            } else {
+              // real position
+              perception.position = asset.location
+            }
+          }
+        })
+      })
+    }
+  })
+  return forces
+}
+
 export const generateTestData2 = (count: number, constraints: MappingConstraints, forces: ForceData[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
