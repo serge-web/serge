@@ -38,6 +38,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   }
 
   useEffect(() => {
+    console.log('Planning force', label, assets.length)
     if (clusterGroup === undefined) {
       setClusterGroup(L.markerClusterGroup(createClusterIcon()))
     }
