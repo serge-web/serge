@@ -2,7 +2,7 @@ import L, { LatLng, Layer } from 'leaflet'
 import 'leaflet-textpath'
 import React, { useEffect } from 'react'
 import { useMap } from 'react-leaflet-v4'
-import { ArrowHeadPattern, LeafletTextOption } from './MapConstants'
+import { LeafletTextOption } from './MapConstants'
 
 type PolylineDecoratorProps = {
   latlngs: LatLng[]
@@ -32,7 +32,15 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, m
 
   useEffect(() => {
     const pathOpts: L.PolylineOptions = {}
-    const newArrow = { ...ArrowHeadPattern }
+    const newArrow = {
+      offset: '100',
+      repeat: '100',
+      symbol: L.Symbol.arrowHead({
+        pixelSize: 15,
+        polygon: false,
+        pathOptions: { stroke: true }
+      })
+    }
     if (color) {
       pathOpts.color = color
       const arrowHead = newArrow.symbol as L.Symbol.ArrowHead
