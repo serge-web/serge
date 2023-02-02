@@ -32,7 +32,7 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, m
 
   useEffect(() => {
     const pathOpts: L.PolylineOptions = {}
-    const newArrow =  {
+    const newArrow = {
       offset: '100',
       repeat: '100',
       symbol: L.Symbol.arrowHead({
