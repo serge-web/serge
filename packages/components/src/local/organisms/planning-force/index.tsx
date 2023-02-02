@@ -14,15 +14,13 @@ import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
 
-  console.log('force assets', forceColor, assets.length)
-
-  const createIcon = () => {
+  const createClusterIcon = () => {
     return {
       iconCreateFunction: function (cluster: MarkerCluster) {
         const markers = cluster.getAllChildMarkers()
@@ -41,7 +39,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   useEffect(() => {
     if (clusterGroup === undefined) {
-      setClusterGroup(L.markerClusterGroup(createIcon()))
+      setClusterGroup(L.markerClusterGroup(createClusterIcon()))
     }
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
@@ -89,7 +87,12 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
         clusterGroup.addLayers(markerList)
 
         // add the marker cluster group to the map
-        map.addLayer(clusterGroup)
+        if (!clusterAdded) {
+          setClusterAdded(true)
+          map.addLayer(clusterGroup)
+        } else {
+          console.log('not adding cluster layer for ', label)
+        }
       }
     }, [markers, map, clusterGroup])
 
@@ -159,7 +162,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   return <>
     {
-      <LayerGroup key={'first-forces-layer'}>
+      <LayerGroup key={'force-' + label}>
         <MarkerCluster markers={clustereredMarkers} />
         {rawMarkers && rawMarkers.map((asset: AssetRow) => {
           const markerOption = getRawMarkerOption(asset)

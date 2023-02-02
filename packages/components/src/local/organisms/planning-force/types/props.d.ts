@@ -15,4 +15,6 @@ export default interface PropTypes {
   currentAssets: string[]
   setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
   interactive?: boolean
+  /** name of this force */
+  label: string
 }
