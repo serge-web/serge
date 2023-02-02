@@ -20,6 +20,8 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
 
+  console.log('force assets', forceColor, assets.length)
+
   const createIcon = () => {
     return {
       iconCreateFunction: function (cluster: MarkerCluster) {
@@ -106,7 +108,6 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   const getRawMarkerOption = (asset: AssetRow, index: number) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
-    console.log('asset', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
     return {
