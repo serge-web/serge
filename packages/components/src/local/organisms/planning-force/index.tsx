@@ -1,5 +1,6 @@
+import { hexToRGBA } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLng, latLng, LeafletMouseEvent } from 'leaflet'
+import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
@@ -19,9 +20,26 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
 
+  const createIcon = () => {
+    return {
+      iconCreateFunction: function (cluster: MarkerCluster) {
+        const markers = cluster.getAllChildMarkers()
+        const size = markers.length / 5 + 40
+        const color = styles.circle
+        const rgb = hexToRGBA(forceColor, 0.6)
+        const html = ReactDOMServer.renderToString(<div style={{backgroundColor: rgb}} className={cx({ [color]: true })} >{markers.length}</div>)
+        return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true }), iconSize: L.point(size, size) })
+      },
+      spiderfyOnMaxZoom: true,
+      showCoverageOnHover: true,
+      zoomToBoundsOnClick: true,
+      removeOutsideVisibleBounds: true
+    }
+  }
+
   useEffect(() => {
     if (clusterGroup === undefined) {
-      setClusterGroup(L.markerClusterGroup())
+      setClusterGroup(L.markerClusterGroup(createIcon()))
     }
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
@@ -111,7 +129,6 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   const getClusteredMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
-    console.log('asset 2', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
 
