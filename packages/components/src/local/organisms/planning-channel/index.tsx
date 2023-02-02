@@ -189,22 +189,21 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     const res: PerForceAssets[] = []
     const doRows = (rows: AssetRow[]) => {
-      rows.forEach((row) => addIt(row))
-    }
-    const addIt = (asset: AssetRow) => {
-      const force = asset.force
-      const forceToUse = force || UNKNOWN_TYPE
-      let thisA = res.find((force) => force.force === forceToUse)
-      if (thisA === undefined) {
-        const forceCol = forceColors.find((forceStyle) => forceStyle.force === force)
-        thisA = {
-          force: forceToUse,
-          rows: [],
-          color: forceCol ? forceCol.color : '#999'
+      rows.forEach((row) => {
+        const force = row.force
+        const forceToUse = force || UNKNOWN_TYPE
+        let thisA = res.find((force) => force.force === forceToUse)
+        if (thisA === undefined) {
+          const forceCol = forceColors.find((forceStyle) => forceStyle.force === force)
+          thisA = {
+            force: forceToUse,
+            rows: [],
+            color: forceCol ? forceCol.color : '#999'
+          }
+          res.push(thisA)
         }
-        res.push(thisA)
-      }
-      thisA.rows.push(asset)
+        thisA.rows.push(row)
+      })
     }
     if (currentAssets.length) {
       // just group by force
