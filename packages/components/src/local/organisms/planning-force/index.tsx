@@ -29,7 +29,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
         const size = markers.length / 5 + 40
         const color = styles.circle
         const rgb = hexToRGBA(forceColor, 0.6)
-        const html = ReactDOMServer.renderToString(<div style={{backgroundColor: rgb}} className={cx({ [color]: true })} >{markers.length}</div>)
+        const html = ReactDOMServer.renderToString(<div style={{ backgroundColor: rgb }} className={cx({ [color]: true })} >{markers.length}</div>)
         return L.divIcon({ html: html, className: cx({ [styles.mycluster]: true }), iconSize: L.point(size, size) })
       },
       spiderfyOnMaxZoom: true,
@@ -106,7 +106,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
     setSelectedAssets([...selectedAssets])
   }
 
-  const getRawMarkerOption = (asset: AssetRow, index: number) => {
+  const getRawMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
@@ -118,7 +118,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
           }
         }
       },
-      key: `asset-icon-${index}`,
+      key: `asset-icon-${asset.id}`,
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
