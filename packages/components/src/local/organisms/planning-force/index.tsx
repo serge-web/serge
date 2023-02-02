@@ -161,8 +161,8 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
     {
       <LayerGroup key={'first-forces-layer'}>
         <MarkerCluster markers={clustereredMarkers} />
-        {rawMarkers && rawMarkers.map((asset: AssetRow, index: number) => {
-          const markerOption = getRawMarkerOption(asset, index)
+        {rawMarkers && rawMarkers.map((asset: AssetRow) => {
+          const markerOption = getRawMarkerOption(asset)
           return <Marker
             pmIgnore
             interactive={false}
