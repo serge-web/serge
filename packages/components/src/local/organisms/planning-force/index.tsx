@@ -32,7 +32,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
           raw.push(asset)
         } else {
           clustered.push(asset)
-        }  
+        }
       }
     })
     setClusteredMarkers(clustered)

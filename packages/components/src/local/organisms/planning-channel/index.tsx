@@ -646,13 +646,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={false} forceColor={'#00f'}
-                      assets={currentAssetIds.length ? allOwnAssets.filter((row) => currentAssetIds.includes(row.id)) : filterApplied ? ownAssetsFiltered : allOwnAssets} 
-                      setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
-                    <PlanningForces interactive={!activityBeingPlanned} opFor={true} forceColor={'#f00'}
-                      assets={currentAssetIds.length ? allOppAssets.filter((row) => currentAssetIds.includes(row.id)) : filterApplied ? opAssetsFiltered : allOppAssets} 
-                      setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds}/>
-                    {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
+                <PlanningForces interactive={!activityBeingPlanned} opFor={false} forceColor={'#00f'}
+                  assets={currentAssetIds.length ? allOwnAssets.filter((row) => currentAssetIds.includes(row.id)) : filterApplied ? ownAssetsFiltered : allOwnAssets}
+                  setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                <PlanningForces interactive={!activityBeingPlanned} opFor={true} forceColor={'#f00'}
+                  assets={currentAssetIds.length ? allOppAssets.filter((row) => currentAssetIds.includes(row.id)) : filterApplied ? opAssetsFiltered : allOppAssets}
+                  setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds}/>
+                {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
               </LayerGroup>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             </Fragment>
