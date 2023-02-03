@@ -8,7 +8,7 @@ import { cloneDeep, noop } from 'lodash'
 import moment from 'moment'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
-import { TAB_MY_ORDERS } from './constants'
+import { TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -78,8 +78,9 @@ const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes,
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
   const initialTab = args.initialTab
-  const messages = args.planningMessages
-
+  const planningMessages = args.planningMessages
+  const interactionMessages = args.interactionMessages
+  
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const forceStr = roleStr.substring(0, ind)
@@ -102,7 +103,7 @@ const Template: Story<SupportPanelProps> = (args) => {
 
   return <SupportPanel
     platformTypes={platformTypes}
-    planningMessages={messages}
+    planningMessages={planningMessages}
     interactionMessages={interactionMessages}
     forcePlanningActivities={activities}
     onReadAll={noop}
@@ -155,13 +156,36 @@ const msgToMove2 = newPlans[5]
 msgToMove2.message.startDate = moment.utc(startTime - 100000).toISOString()
 msgToMove2.message.endDate = moment.utc(midPoint + 500000).toISOString()
 
+const newInter = cloneDeep(interactionMessages) as MessageInteraction[]
+const interToMove1 = newInter[2]
+const intertoMove2 = newInter[3]
+if (interToMove1.details.interaction) {
+  interToMove1.details.interaction = { ... interToMove1.details.interaction, startTime: moment.utc(midPoint).toISOString(),
+  endTime: moment.utc(midPoint + 500000).toISOString()}
+}
+if (intertoMove2.details.interaction) {
+  intertoMove2.details.interaction =  { ... intertoMove2.details.interaction, startTime:  moment.utc(startTime - 100000).toISOString(),
+    endTime:  moment.utc(midPoint + 500000).toISOString()} 
+}
+
+
 export const Default = Template.bind({})
 Default.args = {
-  planningMessages: newPlans
+  planningMessages: planningMessages,
+  interactionMessages: newInter
 }
 
 export const OrdersTab = Template.bind({})
 OrdersTab.args = {
   initialTab: TAB_MY_ORDERS,
-  planningMessages: newPlans
+  planningMessages: newPlans,
+  interactionMessages: newInter
+}
+
+export const AdjudicationTab = Template.bind({})
+AdjudicationTab.args = {
+  initialTab: TAB_ADJUDICATE,
+  planningMessages: newPlans,
+  interactionMessages: newInter,
+  selectedRoleName: allRoles[1]
 }
