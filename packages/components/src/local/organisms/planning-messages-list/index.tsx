@@ -37,7 +37,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // Note: we have an issue here.  If the player filters their orders, then we'll have a reduced set of orders
       // Note: but, the processing below will just inject the newest message.
       // Note: I "think" we only do this following processing if the new messages is one longer than the previous list, and that
-      // Note: the first message has the reference of an existing message 
+      // Note: the first message has the reference of an existing message
       const newMessage = myForceMessages[0]
       if (newMessage) {
         // see if this is a new version of an existing message

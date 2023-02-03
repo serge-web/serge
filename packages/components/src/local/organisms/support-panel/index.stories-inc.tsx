@@ -143,7 +143,7 @@ const Template: Story<SupportPanelProps> = (args) => {
   />
 }
 
-// mangle some dates 
+// mangle some dates
 const firstTurn = turnPeriod[0]
 const startTime = moment.utc(firstTurn.gameDate).valueOf()
 const secondTurn = turnPeriod[1]
