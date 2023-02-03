@@ -1,10 +1,11 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
-import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
+import { checkV3ParticipantStates, forceColors, incrementGameTime, platformIcons } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { noop } from 'lodash'
+import { cloneDeep, noop } from 'lodash'
+import moment from 'moment'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
 import { TAB_MY_ORDERS } from './constants'
@@ -76,6 +77,8 @@ const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes,
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
   const initialTab = args.initialTab
+  const messages = args.planningMessages
+
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const forceStr = roleStr.substring(0, ind)
@@ -104,7 +107,7 @@ const Template: Story<SupportPanelProps> = (args) => {
 
   return <SupportPanel
     platformTypes={platformTypes}
-    planningMessages={planningMessages}
+    planningMessages={messages}
     interactionMessages={interactionMessages}
     forcePlanningActivities={activities}
     onReadAll={noop}
@@ -140,7 +143,25 @@ const Template: Story<SupportPanelProps> = (args) => {
   />
 }
 
+// mangle some dates 
+const firstTurn = turnPeriod[0]
+const startTime = moment.utc(firstTurn.gameDate).valueOf()
+const secondTurn = turnPeriod[1]
+const secondEnd = incrementGameTime(secondTurn.gameDate, secondTurn.gameTurnTime)
+const secondEndTime = moment.utc(secondEnd).valueOf()
+const secondStartTime = moment.utc(secondTurn.gameDate).valueOf()
+const midPoint = secondStartTime + (secondEndTime - secondStartTime) / 2
+
+const newPlans = cloneDeep(planningMessages) as MessagePlanning[]
+const msgToMove1 = newPlans[4]
+msgToMove1.message.startDate = moment.utc(midPoint).toISOString()
+msgToMove1.message.endDate = moment.utc(midPoint + 500000).toISOString()
+const msgToMove2 = newPlans[5]
+msgToMove2.message.startDate = moment.utc(startTime - 100000).toISOString()
+msgToMove2.message.endDate = moment.utc(midPoint + 500000).toISOString()
+
 export const Default = Template.bind({})
 Default.args = {
-  initialTab: TAB_MY_ORDERS
+  initialTab: TAB_MY_ORDERS,
+  planningMessages: newPlans
 }

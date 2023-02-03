@@ -16,6 +16,14 @@ const turnPeriod: TurnPeriods = [
         unit: 'millis'
       },
       gameTurn: 2
+    },
+    {
+      gameDate: '2022-05-07T00:00',
+      gameTurnTime: {
+        millis: 259200000,
+        unit: 'millis'
+      },
+      gameTurn: 3
     }
   ]
 

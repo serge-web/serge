@@ -34,16 +34,27 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (myMessages.length === 0 || myForceMessages.length === 0) {
       setMyMessages(myForceMessages)
     } else {
+      // Note: we have an issue here.  If the player filters their orders, then we'll have a reduced set of orders
+      // Note: but, the processing below will just inject the newest message.
+      // Note: I "think" we only do this following processing if the new messages is one longer than the previous list, and that
+      // Note: the first message has the reference of an existing message 
       const newMessage = myForceMessages[0]
       if (newMessage) {
-        // remove the previous object of the save message
-        const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-        const row = toRow(newMessage)
-        // push a new row
-        setRows([...filterSaveMessage, row])
+        // see if this is a new version of an existing message
+        if (rows.find((row) => row.reference === newMessage.message.Reference)) {
+          // ok, it's an update
+          // remove the previous object of the save message
+          const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
+          const row = toRow(newMessage)
+          // push a new row
+          setRows([...filterSaveMessage, row])
+        } else {
+          // first row isn't an existing one
+          setMyMessages(myForceMessages)
+        }
       }
     }
-  }, [messages, playerForceId, playerRoleId])
+  }, [messages, playerForceId])
 
   useEffect(() => {
     const showOrdersForAllRoles = !onlyShowMyOrders
