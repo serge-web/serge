@@ -73,6 +73,10 @@ export default interface PropTypes {
    * in the wargame
    */
   mapPostBack?: AdjudicationPostBack
+  /** 
+   * the initial tab to show (useful for story testing)
+   */
+  initialTab?: string
 }
 
 export type TabPanelProps = {
