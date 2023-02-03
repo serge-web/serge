@@ -22,7 +22,7 @@ import { customiseActivities } from './helpers/customise-activities'
 import { customiseAssets } from './helpers/customise-assets'
 import { customiseLiveOrders } from './helpers/customise-live-orders'
 import { customiseLocation } from './helpers/customise-location'
-import TurnFilter, { SHOW_ALL_TURNS } from './helpers/TurnFilter'
+import TurnFilter from './helpers/TurnFilter'
 import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
@@ -136,8 +136,29 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }, [planningMessages, turnFilter])
 
   useEffect(() => {
-    const filtered = turnFilter === SHOW_ALL_TURNS ? interactionMessages : interactionMessages.filter((msg) => msg.details.turnNumber === turnFilter)
-    setFilteredInteractionMessages(filtered)
+    let filteredMessages: MessageInteraction[] | undefined
+    if (turnFilter) {
+      const thisTurn = allPeriods.find((turn) => turn.gameTurn === turnFilter)
+      if (thisTurn) {
+        const turnEnd = incrementGameTime(thisTurn.gameDate, gameTurnTime)
+        const turnStartTime = moment.utc(thisTurn.gameDate).valueOf()
+        const turnEndTime = moment.utc(turnEnd).valueOf()
+        filteredMessages = interactionMessages.filter((msg) => {
+          if (msg.details.interaction) {
+            const pStart = moment.utc(msg.details.interaction.startTime).valueOf()
+            const pEnd = moment.utc(msg.details.interaction.endTime).valueOf()
+            return pEnd >= turnStartTime && pStart < turnEndTime
+          } else {
+            console.log('interaction missing')
+            return false
+          }
+        })
+      }
+    }
+    if (filteredMessages === undefined) {
+      filteredMessages = interactionMessages
+    }
+    setFilteredInteractionMessages(filteredMessages)
   }, [interactionMessages, turnFilter])
 
   const TabPanelActions = ({ onChange, className }: PanelActionTabsProps): React.ReactElement => {
