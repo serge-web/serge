@@ -1,10 +1,11 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
-import { injectTimes, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
+import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
+import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
 
 const wargame = P9BMock.data
@@ -196,23 +197,7 @@ it('fixes geometry timings', () => {
   } else {
     expect('failed to find location').toBeFalsy()
   }
-}
-)
-
-const interactsWith = (first: PlanningActivity, second: PlanningActivity, throwErrorOnUnbalanced?: boolean): boolean => {
-  const firstId = first.actId
-  const secondId = second.actId
-  const firstInteracts = first.interactsWith ? first.interactsWith.includes(secondId): false
-  const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId): false
-  if (firstInteracts !== secondInteracts) {
-    if (throwErrorOnUnbalanced) {
-      throw Error('Unbalanced interacts')
-    } else {
-      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith )
-    }
-  }
-  return first.interactsWith ? first.interactsWith.includes(secondId): false
-}
+})
 
 it('observes interacts with', () => {
   console.clear()
@@ -246,4 +231,32 @@ it('observes interacts with', () => {
       expect(() => interactsWith(firstAct, secondAct, true)).toThrow()
     } 
   }
+})
+
+const testAct = (activities: PerForcePlanningActivitySet[]) => {
+  activities.forEach((force1) => {
+    force1.groupedActivities.forEach((group1) => {
+      group1.activities.forEach((act1) => {
+        activities.forEach((force2) => {
+          force2.groupedActivities.forEach((group2) => {
+            group2.activities.forEach((act2) => {
+              interactsWith(act1, act2, true)  
+            })
+          })
+        })
+      })
+    })
+  })  
+}
+
+
+it('interactionsWith is balanced for p9b activities', () => {
+  testAct(activities)
+})
+
+it('interactionsWith is balanced for activity generation', () => {
+  // first test the generated activities
+  const newActs = generateAllTemplates()
+  testAct(newActs.activities)
+  testAct(activities)
 })
