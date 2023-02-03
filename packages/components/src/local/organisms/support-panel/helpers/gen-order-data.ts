@@ -897,7 +897,7 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   }
                   interactionsTested[id] = contact
                 } else {
-                  console.log('not considering', first.activity.actId, second.activity.actId)
+                  // console.log('not considering', first.activity.actId, second.activity.actId)
                   // remember that this won't generate a contact
                   interactionsTested[id] = null
                 }
