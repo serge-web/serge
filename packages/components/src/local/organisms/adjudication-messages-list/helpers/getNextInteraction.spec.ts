@@ -1,11 +1,11 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { MessageDetails, MessageDetailsFrom, MessagePlanning, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
-import { deepCopy, findAsset, updateGeometryTimings } from '@serge/helpers'
-import { P9BMock, planningMessages } from '@serge/mocks'
+import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
+import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { injectTimes, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults } from './getNextInteraction'
+import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -13,9 +13,9 @@ const activities = P9BMock.data.activities ? P9BMock.data.activities.activities 
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
-// const messages = planningMessagesBulk
+const messages = planningMessagesBulk
 
-// const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
 !7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
@@ -216,8 +216,8 @@ it('observes interacts with', () => {
   })
 
   if (second) {
-    const m1Acts = activities.find((act) => act.force === first.activity.details.from.forceId)
-    const m2Acts = activities.find((act) => act.force === second.activity.details.from.forceId)
+    const m1Acts = activities.find((act) => act.force === first.plan.details.from.forceId)
+    const m2Acts = activities.find((act) => act.force === second.plan.details.from.forceId)
     if (m1Acts && m2Acts) {
       const firstAct = cloneDeep(m1Acts.groupedActivities[0].activities[0]) as PlanningActivity
       const SecondAct = cloneDeep(m2Acts.groupedActivities[0].activities[0]) as PlanningActivity

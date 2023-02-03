@@ -62,7 +62,7 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   /**
    *  the set of orders this geometry relates to
    */
-  activity: MessagePlanning
+  plan: MessagePlanning
   /**
    * the force these orders belong to
    */
@@ -557,7 +557,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         const fromBit = message.details.from
         const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
         const id = message.message.Reference + '//' + message.message.title + '//' + activity
-        const newItem: GeomWithOrders = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, id: id }
+        const newItem: GeomWithOrders = { ...plan, plan: message, force: fromBit.forceId || fromBit.force, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
