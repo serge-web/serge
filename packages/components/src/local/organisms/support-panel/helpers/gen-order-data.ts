@@ -888,11 +888,18 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   res.push(cachedResult)
                 }
               } else {
-                const contact = touches(me, other, id, Math.random, sensorRangeKm)
-                if (contact) {
-                  res.push(contact)
+                const interacts = interactsWith(first.activity, second.activity)
+                // see if they should interact with each other
+                if (interacts) {
+                  const contact = touches(me, other, id, Math.random, sensorRangeKm)
+                  if (contact) {
+                    res.push(contact)
+                  }
+                  interactionsTested[id] = contact  
+                } else {
+                  // remember that this won't generate a contact
+                  interactionsTested[id] = null 
                 }
-                interactionsTested[id] = contact || null
               }
             }
           }
