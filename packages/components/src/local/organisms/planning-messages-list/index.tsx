@@ -31,37 +31,39 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
-    if (myMessages.length === 0 || myForceMessages.length === 0) {
-      setMyMessages(myForceMessages)
+    const showOrdersForAllRoles = !onlyShowMyOrders
+    const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
+    if (myMessages.length === 0) {
+      // initial load, just load them
+      setMyMessages(myRoleMessages)
+    } else if (myRoleMessages.length === 0) {
+      // no messages, clear list
+      setMyMessages([])
     } else {
       // Note: we have an issue here.  If the player filters their orders, then we'll have a reduced set of orders
       // Note: but, the processing below will just inject the newest message.
       // Note: I "think" we only do this following processing if the new messages is one longer than the previous list, and that
       // Note: the first message has the reference of an existing message
-      const newMessage = myForceMessages[0]
+      const newMessage = myRoleMessages[0]
       if (newMessage) {
         // see if this is a new version of an existing message
-        if (rows.find((row) => row.reference === newMessage.message.Reference)) {
+        const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
+        console.log('row already present', rowAlreadyPresent)
+        rowAlreadyPresent && console.log('check message', rowAlreadyPresent.reference, rowAlreadyPresent.id, newMessage._id)
+        if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
           // ok, it's an update
           // remove the previous object of the save message
-          const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
+          const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
           const row = toRow(newMessage)
           // push a new row
-          setRows([...filterSaveMessage, row])
+          setRows([...otherMessage, row])
         } else {
           // first row isn't an existing one
-          setMyMessages(myForceMessages)
+          setMyMessages(myRoleMessages)
         }
       }
     }
-  }, [messages, playerForceId])
-
-  useEffect(() => {
-    const showOrdersForAllRoles = !onlyShowMyOrders
-    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
-    const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
-    setMyMessages(myRoleMessages)
-  }, [onlyShowMyOrders])
+  }, [messages, playerForceId, playerRoleId, onlyShowMyOrders])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
