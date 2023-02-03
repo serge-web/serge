@@ -39588,6 +39588,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -39600,7 +39601,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-blue-Land-EW Attack",
                                     "template": "Land--EWAttack",
@@ -39911,6 +39915,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -39923,7 +39928,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-blue-Maritime-EW Attack",
                                     "template": "Maritime--EWAttack",
@@ -40202,9 +40210,7 @@ const game: Wargame = {
                                     "name": "Air-Air Refuel",
                                     "actId": "AAR",
                                     "interactsWith": [
-                                        "STRIKE",
                                         "EW",
-                                        "ASW-B",
                                         "FIAC",
                                         "DCA",
                                         "OCA"
@@ -40240,6 +40246,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "DCA",
@@ -40281,6 +40288,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -40293,7 +40301,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-blue-Air-EW Attack",
                                     "template": "Air--EWAttack",
@@ -40381,6 +40392,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "DCA",
@@ -40692,6 +40704,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -40704,7 +40717,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-red-Land-EW Attack",
                                     "template": "Land--EWAttack",
@@ -41015,6 +41031,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -41027,7 +41044,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-red-Maritime-EW Attack",
                                     "template": "Maritime--EWAttack",
@@ -41323,9 +41343,7 @@ const game: Wargame = {
                                     "name": "Air-Air Refuel",
                                     "actId": "AAR",
                                     "interactsWith": [
-                                        "STRIKE",
                                         "EW",
-                                        "ASW-B",
                                         "FIAC",
                                         "DCA",
                                         "OCA"
@@ -41361,6 +41379,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "DCA",
@@ -41402,6 +41421,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -41414,7 +41434,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-red-Air-EW Attack",
                                     "template": "Air--EWAttack",
@@ -41502,6 +41525,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "DCA",
@@ -41813,6 +41837,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -41825,7 +41850,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-green-Land-EW Attack",
                                     "template": "Land--EWAttack",
@@ -42136,6 +42164,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -42148,7 +42177,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-green-Maritime-EW Attack",
                                     "template": "Maritime--EWAttack",
@@ -42427,9 +42459,7 @@ const game: Wargame = {
                                     "name": "Air-Air Refuel",
                                     "actId": "AAR",
                                     "interactsWith": [
-                                        "STRIKE",
                                         "EW",
-                                        "ASW-B",
                                         "FIAC",
                                         "DCA",
                                         "OCA"
@@ -42465,6 +42495,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "DCA",
@@ -42506,6 +42537,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "ASW-B",
@@ -42518,7 +42550,10 @@ const game: Wargame = {
                                         "SEAD",
                                         "TST",
                                         "CYB/SPA",
-                                        "SOF"
+                                        "SOF",
+                                        "Sea Denial",
+                                        "Raid",
+                                        "LAND"
                                     ],
                                     "uniqid": "f-green-Air-EW Attack",
                                     "template": "Air--EWAttack",
@@ -42606,6 +42641,7 @@ const game: Wargame = {
                                         "EW",
                                         "ISTAR",
                                         "PATRL",
+                                        "AAR",
                                         "RESUPP",
                                         "TRANSIT",
                                         "DCA",

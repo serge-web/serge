@@ -51,7 +51,7 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
         // check it's not me
         if (myIndex !== otherIndex) {
           // don't compare geometries that are part of the same activity
-          if (me.activity._id !== other.activity._id) {
+          if (me.plan._id !== other.plan._id) {
             // generate IDs, to ensure we don't compare shapes twice
             const meFirst = (me.id < other.id)
             const first = meFirst ? me : other
@@ -180,8 +180,8 @@ export const OrderPlotter: React.FC<OrderPlotterProps> = ({ orders, step, activi
   const summariseContact = (val: PlanningContact): any => {
     return {
       val: moment(val.timeStart).toISOString(),
-      a: val.first.activity.message.title + ' ' + val.first.id,
-      b: val.second ? val.second.activity.message.title + ' ' + val.second.id : ''
+      a: val.first.plan.message.title + ' ' + val.first.id,
+      b: val.second ? val.second.plan.message.title + ' ' + val.second.id : ''
     }
   }
   useEffect(() => {

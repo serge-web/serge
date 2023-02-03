@@ -120,7 +120,7 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
 
   // also generate perceptions for the op-for
   if (geom2) {
-    const oppAssets = geom2.activity.message.ownAssets
+    const oppAssets = geom2.plan.message.ownAssets
     if (oppAssets) {
       // ok, generate perceptions for them
       if (conductingObvs) {

@@ -50,7 +50,7 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
 export const shapeForGeomWithOrders = (geom: GeomWithOrders, forceCols: ForceStyle[],
   activities: PerForcePlanningActivitySet[], storeRef: { (polyline: Layer): void }, index: number): React.ReactElement => {
   const geometry = geom.geometry
-  const force = geom.activity.details.from.forceId
+  const force = geom.plan.details.from.forceId
   const activity = findPlanningGeometry(geom.uniqid, force || '', activities)
   const color = forceCols.find((value: ForceStyle) => value.forceId === force)
   console.log('force', force, color)
