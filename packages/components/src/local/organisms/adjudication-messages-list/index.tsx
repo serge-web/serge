@@ -43,9 +43,9 @@ type ManualInteractionResults = {
 }
 
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
-  forces, interactionMessages, planningMessages, template, gameDate,
+  forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
-  turnFilter, platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
+  platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
   gameTurnLength, onLocationEditorLoaded
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
@@ -53,9 +53,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(false)
   const [dialogMessage, setDialogMessage] = useState<string>('')
-  const [filteredInteractions, setFilteredInteractions] = useState<MessageInteraction[]>([])
-  const [filteredInteractionsRow, setFilteredInteractionsRow] = useState<MessageInteraction[]>([])
-  const [filteredPlans, setFilteredPlans] = useState<MessagePlanning[]>([])
+  // note: we don't work directly with the list of interactions, since we need some special processing to prevent
+  // note: interactions being edited from being wiped.  So we maintain an independent list
+  const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
   const [currentTime, setCurrentTime] = useState<string>('pending')
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
@@ -86,18 +86,26 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    const messages = turnFilter === SHOW_ALL_TURNS ? interactionMessages
-      : interactionMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-    setFilteredInteractions(messages)
-    if (filteredInteractionsRow.length === 0) {
-      setFilteredInteractionsRow(messages)
+    console.log('Adj Message List, updated interactions:', interactionMessages.length)
+    if (cachedInteractions.length === 0) {
+      setCachedInteractions(interactionMessages)
+    } else if (interactionMessages.length === 0) {
+      setCachedInteractions([])
     } else {
-      const newMessage = messages[0]
+      const newMessage = interactionMessages[0]
       if (newMessage) {
-        const row = toRow(newMessage)
-        const filterSaveMessage = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
-
-        setRows([...filterSaveMessage, row])
+        const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
+        if(existingRow) {
+          if (existingRow && existingRow.id !== newMessage._id) {
+            const row = toRow(newMessage)
+            const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+            setRows([...existingMessages, row])
+          } else {
+            setCachedInteractions(interactionMessages)
+          }
+        } else {
+          setCachedInteractions(interactionMessages)
+        }
       }
     }
     if (interactionMessages.length > 0) {
@@ -113,12 +121,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     })
     setInteractionIsOpen(!!openInteraction)
   }, [interactionMessages])
-
-  useEffect(() => {
-    const plans = turnFilter === SHOW_ALL_TURNS ? planningMessages
-      : planningMessages.filter((inter) => inter.details.turnNumber === turnFilter)
-    setFilteredPlans(plans)
-  }, [planningMessages])
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
@@ -190,7 +192,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (id === 'n/a') {
       return <span>n/a</span>
     } else {
-      const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
+      const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
       if (!plan) {
         console.warn('Failed to find message 1:', id)
         return <span>Order not found</span>
@@ -251,7 +253,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (id === 'n/a') {
       return <span>n/a</span>
     } else {
-      const plan: MessagePlanning | undefined = filteredPlans.find((val: MessagePlanning) => val._id === id)
+      const plan: MessagePlanning | undefined = planningMessages.find((val: MessagePlanning) => val._id === id)
       if (!plan) {
         console.warn('Failed to find message 2:', id)
         return <span>Order not found</span>
@@ -286,34 +288,48 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    // check we have our planning messages
-    if (filteredPlans.length > 0 && filteredInteractionsRow.length > 0) {
-      const dataTable = filteredInteractionsRow.map((message: MessageInteraction): AdjudicationRow => {
+    if (planningMessages.length > 0) {
+      const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
         return toRow(message)
       })
       setRows(dataTable)
-
-      const umpireForce = forces.find((force: ForceData) => force.umpire)
-      const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-      const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
-        { title: 'Reference', field: 'reference' },
-        { title: 'Complete', field: 'complete', render: renderBoolean },
-        { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
-        { title: 'Owner', field: 'owner' },
-        { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
-        { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
-        { title: 'Activity', field: 'Reference' },
-        { title: 'Duration', field: 'period' }
-      ]
-      if (turnFilter === SHOW_ALL_TURNS) {
-        const turnColumn: Column<AdjudicationRow> = { title: 'Turn', field: 'turn', type: 'numeric' }
-        columnsData.splice(1, 0, turnColumn)
-      }
+  
       if (columns.length === 0) {
+        console.time('collate')
+        const umpireForce = forces.find((force: ForceData) => force.umpire)
+        // TODO: the column definitions should use the data collated in the column summary (below)
+        // provide more sophisticated column definition lookups
+        const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+        const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+          { title: 'Reference', field: 'reference' },
+          { title: 'Turn', field: 'turn', type: 'numeric', hidden: true }, //turnFilter !== SHOW_ALL_TURNS },
+          { title: 'Complete', field: 'complete', render: renderBoolean },
+          { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
+          { title: 'Owner', field: 'owner' },
+          { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+          { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
+          { title: 'Activity', field: 'Reference' },
+          { title: 'Duration', field: 'period' }
+        ]
+        console.timeEnd('collate')
         setColumns(columnsData)
       }
+
+      const turnColumn = columns.find((col) => col.title === 'Turn')
+      if (turnColumn) {
+        const newVal = turnFilter !== SHOW_ALL_TURNS
+        if (turnColumn.hidden !== newVal) {
+          turnColumn.hidden = newVal
+        }
+      } else {
+        console.warn('Turn column not found in adj messages list')
+      }
+
+    } else {
+      console.log('no planning messages received')
+      setRows([])
     }
-  }, [filteredInteractionsRow])
+  }, [planningMessages, cachedInteractions, turnFilter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
@@ -352,7 +368,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (currentAdjudication.current) {
       // get current message
       const outcomes = currentAdjudication.current as any as MessageAdjudicationOutcomes
-      const document = filteredInteractions.find((msg) => msg.message.Reference === outcomes.Reference)
+      const document = interactionMessages.find((msg) => msg.message.Reference === outcomes.Reference)
       if (document) {
         const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
         const interaction = details.interaction
@@ -407,7 +423,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const countRemainingInteractions = (): void => {
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const contacts: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, true)
+    const contacts: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true)
     if (Array.isArray(contacts)) {
       const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
       setDialogMessage(message)
@@ -419,7 +435,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const getInteraction = (): void => {
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const results: InteractionResults = getNextInteraction2(filteredPlans, forcePlanningActivities || [], filteredInteractions, 0, 30, gameDate, gameTurnEnd, forces, false)
+    const results: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false)
     console.log('get next inter recieved:', results)
     if (results === undefined) {
       setDialogMessage('No interactions found')
@@ -437,7 +453,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
     // orders
     const forceMsgs: ForceMessages[] = []
-    filteredPlans.forEach((msg: MessagePlanning) => {
+    planningMessages.forEach((msg: MessagePlanning) => {
       const force = msg.details.from.force
       let forceData = forceMsgs.find((val: ForceMessages) => val.forceName === force)
       if (!forceData) {
@@ -517,7 +533,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     // retrieve the message & template
     const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
     if (!message) {
-      console.error('message not found, id:', rowData.id, 'messages:', filteredInteractions)
+      console.error('message not found, id:', rowData.id, 'messages:', interactionMessages.length)
     } else {
       if (!template) {
         console.log('template not found for', message.details.messageType, 'template:', template)
@@ -526,7 +542,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const msg = message.message
         const isComplete = message.details.interaction?.complete
         const interaction = message.details.interaction
-        const data = interaction && collateInteraction(message._id, interactionMessages, filteredPlans, forces, forceStyles, forcePlanningActivities)
+        const data = interaction && collateInteraction(message._id, interactionMessages, planningMessages, forces, forceStyles, forcePlanningActivities)
         if (!data) {
           return <span>Orders not found for interaction with id: {message._id}</span>
         } else {
@@ -764,7 +780,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           pageSizeOptions: [5, 10, 15, 20],
           filtering: filter,
           selection: true,
-          rowStyle: { fontSize: '80%' }
+          rowStyle: { fontSize: '80%' },
+          columnsButton: true
         }}
         detailPanel={detailPanel}
       />
