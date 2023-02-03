@@ -59,6 +59,10 @@ interface PerForceData {
  * a planned geometry
  */
 export interface GeomWithOrders extends PlannedActivityGeometry {
+  /** 
+   * the activity this geometry is part of
+   */
+  activity: PlanningActivity
   /**
    *  the set of orders this geometry relates to
    */
@@ -444,30 +448,19 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
   }
 }
 
-
 export const findPlanningActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
     console.log('activities', activities, forceId)
     throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
   }
-  const group = force.groupedActivities.find((val: GroupedActivitySet) => {
-    return !!findGeometryInGroup(id, val)
-  })
-  if (!group) {
-    console.log('Failed to find group in force 2', forceId, 'id:', id)
-    force.groupedActivities.forEach((group) => {
-      console.table(group.activities)
-    })
-    throw Error('Failed to find group activities for this activity:' + id)
-  }
-  const activity = group.activities.find((activ) => activ.uniqid === id)
+  // flatten the hierarchy, then do find
+  const activity = force.groupedActivities.map((group) => group.activities).flat().find((plan) => plan.template === id)
   if (!activity) {
     throw Error('Failed to find group activities for this activity 2:' + id)
   }
-  return activity
+  return activity as any as PlanningActivity
 }
-
 
 export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
@@ -555,14 +548,16 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
           geom.coordinates = fixPoly(geom.coordinates)
         }
         const fromBit = message.details.from
-        const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
-        const id = message.message.Reference + '//' + message.message.title + '//' + activity
-        const newItem: GeomWithOrders = { ...plan, plan: message, force: fromBit.forceId || fromBit.force, id: id }
+        const activity = findPlanningActivity(message.details.messageType, forceId, activities)
+        const geometry = findPlanningGeometry(plan.uniqid, forceId, activities) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
+        // findPlanningGeometry(plan.uniqid, forceId, activities)
+        const id = message.message.Reference + '//' + message.message.title + '//' + geometry
+        const newItem: GeomWithOrders = { ...plan, activity: activity, plan: message, force: fromBit.forceId || fromBit.force, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
         const props = newItem.geometry.properties as PlannedProps
-        props.name = message.details.from.force + '//' + message.message.title + '//' + activity
+        props.name = message.details.from.force + '//' + message.message.title + '//' + geometry
         props.geomId = plan.uniqid
         props.force = forceId
         // fill in date/time, if not present
