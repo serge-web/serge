@@ -80,7 +80,7 @@ const Template: Story<SupportPanelProps> = (args) => {
   const initialTab = args.initialTab
   const planningMessages = args.planningMessages
   const interactionMessages = args.interactionMessages
-  
+
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const forceStr = roleStr.substring(0, ind)
@@ -160,14 +160,19 @@ const newInter = cloneDeep(interactionMessages) as MessageInteraction[]
 const interToMove1 = newInter[2]
 const intertoMove2 = newInter[3]
 if (interToMove1.details.interaction) {
-  interToMove1.details.interaction = { ... interToMove1.details.interaction, startTime: moment.utc(midPoint).toISOString(),
-  endTime: moment.utc(midPoint + 500000).toISOString()}
+  interToMove1.details.interaction = {
+    ...interToMove1.details.interaction,
+    startTime: moment.utc(midPoint).toISOString(),
+    endTime: moment.utc(midPoint + 500000).toISOString()
+  }
 }
 if (intertoMove2.details.interaction) {
-  intertoMove2.details.interaction =  { ... intertoMove2.details.interaction, startTime:  moment.utc(startTime - 100000).toISOString(),
-    endTime:  moment.utc(midPoint + 500000).toISOString()} 
+  intertoMove2.details.interaction = {
+    ...intertoMove2.details.interaction,
+    startTime: moment.utc(startTime - 100000).toISOString(),
+    endTime: moment.utc(midPoint + 500000).toISOString()
+  }
 }
-
 
 export const Default = Template.bind({})
 Default.args = {

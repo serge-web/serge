@@ -95,7 +95,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const newMessage = interactionMessages[0]
       if (newMessage) {
         const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
-        if(existingRow) {
+        if (existingRow) {
           if (existingRow && existingRow.id !== newMessage._id) {
             const row = toRow(newMessage)
             const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
@@ -293,7 +293,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         return toRow(message)
       })
       setRows(dataTable)
-  
+
       if (columns.length === 0) {
         console.time('collate')
         const umpireForce = forces.find((force: ForceData) => force.umpire)
@@ -302,7 +302,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
         const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
           { title: 'Reference', field: 'reference' },
-          { title: 'Turn', field: 'turn', type: 'numeric', hidden: true }, //turnFilter !== SHOW_ALL_TURNS },
+          { title: 'Turn', field: 'turn', type: 'numeric', hidden: true }, // turnFilter !== SHOW_ALL_TURNS },
           { title: 'Complete', field: 'complete', render: renderBoolean },
           { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
           { title: 'Owner', field: 'owner' },
@@ -324,7 +324,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       } else {
         console.warn('Turn column not found in adj messages list')
       }
-
     } else {
       console.log('no planning messages received')
       setRows([])
