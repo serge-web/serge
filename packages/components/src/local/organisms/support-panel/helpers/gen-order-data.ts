@@ -444,6 +444,31 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
   }
 }
 
+
+export const findPlanningActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
+  const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+  if (!force) {
+    console.log('activities', activities, forceId)
+    throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
+  }
+  const group = force.groupedActivities.find((val: GroupedActivitySet) => {
+    return !!findGeometryInGroup(id, val)
+  })
+  if (!group) {
+    console.log('Failed to find group in force 2', forceId, 'id:', id)
+    force.groupedActivities.forEach((group) => {
+      console.table(group.activities)
+    })
+    throw Error('Failed to find group activities for this activity:' + id)
+  }
+  const activity = group.activities.find((activ) => activ.uniqid === id)
+  if (!activity) {
+    throw Error('Failed to find group activities for this activity 2:' + id)
+  }
+  return activity
+}
+
+
 export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
