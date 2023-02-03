@@ -1,10 +1,11 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
-import { P9BMock, planningMessagesBulk } from '@serge/mocks'
-import { sum } from 'lodash'
+import { MessageDetails, MessageDetailsFrom, MessagePlanning, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { deepCopy, findAsset, updateGeometryTimings } from '@serge/helpers'
+import { P9BMock, planningMessages } from '@serge/mocks'
+import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
-import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
+import { injectTimes, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
+import { CompositeInteractionResults } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -12,11 +13,12 @@ const activities = P9BMock.data.activities ? P9BMock.data.activities.activities 
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
-!7 && console.log('dummy', deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
+// const messages = planningMessagesBulk
 
-const messages = planningMessagesBulk
+// const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
 
 const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
   const selectedForce = P9BMock.data.forces.forces[1]
@@ -196,3 +198,51 @@ it('fixes geometry timings', () => {
   }
 }
 )
+
+
+it('observes interacts with', () => {
+  console.clear()
+  // find overlapping messages
+  const newGeometries = invertMessages(shortPlans, activities)
+  const withTimes = injectTimes(newGeometries)
+
+  // find overlap
+  const first = withTimes[0]
+  const second = withTimes.find((item) => {
+    if (item.id !== first.id) {
+      return  overlapsInTime(first, item)
+    }
+    return false
+  })
+
+  if (second) {
+    const m1Acts = activities.find((act) => act.force === first.activity.details.from.forceId)
+    const m2Acts = activities.find((act) => act.force === second.activity.details.from.forceId)
+    if (m1Acts && m2Acts) {
+      const firstAct = cloneDeep(m1Acts.groupedActivities[0].activities[0]) as PlanningActivity
+      const SecondAct = cloneDeep(m2Acts.groupedActivities[0].activities[0]) as PlanningActivity
+      console.log(first, !!firstAct, !!SecondAct)
+    }
+    
+  }
+
+
+  // const msg2 = planningMessages2[0]
+  // const redMsg = planningMessages2.find((msg) => msg.details.from.forceId === forces[2].uniqid)
+  // const blueMsg2 = cloneDeep(blueMsg)
+  // const redMsg2 = cloneDeep(redMsg) 
+  // console.log(msg, msg2)
+  // const blueActs = activities.find((act) => act.force === forces[1].uniqid)
+  // const redActs = activities.find((act) => act.force === forces[2].uniqid)
+
+
+  //  console.clear()
+    // const interactions: MessageInteraction[] = []
+    // const gameStartTimeLocal = P9BMock.data.overview.gameDate
+    // const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
+    // const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
+    // const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
+    // console.log('spec results', results1)
+    // expect(results1).toBeTruthy()
+    // expect(results1).toEqual([156, 345])
+  })
