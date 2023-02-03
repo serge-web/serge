@@ -54,7 +54,9 @@ export default {
 }
 const storeNewValue = (_value: { [property: string]: any }): void => {
   console.log('store test', _value)
-  generateAllTemplates()
+  const data = generateAllTemplates()
+  console.log('activities', data.activities)
+  console.log('templates', data.templates)
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
