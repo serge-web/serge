@@ -1,7 +1,7 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
-import { checkV3ParticipantStates, forceColors, incrementGameTime, platformIcons } from '@serge/helpers'
-import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
+import { forceColors, incrementGameTime, platformIcons } from '@serge/helpers'
+import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { cloneDeep, noop } from 'lodash'
@@ -19,6 +19,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const forces = P9BMock.data.forces.forces
+const templates = P9BMock.data.templates ? P9BMock.data.templates.templates : []
 
 const allRoles: string[] = []
 forces.forEach((force: ForceData) => {
@@ -84,12 +85,6 @@ const Template: Story<SupportPanelProps> = (args) => {
   const forceStr = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
 
-  const thisPart = checkV3ParticipantStates(planningChannel, forceStr, role, false)
-  const myTemplateIds = thisPart.templatesIDs
-  const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
-    myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
-  )
-
   const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
     return async (): Promise<void> => {
       console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
@@ -120,9 +115,9 @@ const Template: Story<SupportPanelProps> = (args) => {
     onRead={noop}
     phase={Phase.Planning}
     channel={planningChannel}
-    allTemplates={myTemplates}
+    allTemplates={templates}
     allPeriods={turnPeriod}
-    adjudicationTemplate={planningMessageTemplatesMock[0]}
+    adjudicationTemplate={templates[0]}
     activityTimeChanel={noop}
     allForces={P9BMock.data.forces.forces}
     gameDate={P9BMock.data.overview.gameDate}
@@ -162,6 +157,11 @@ msgToMove2.message.endDate = moment.utc(midPoint + 500000).toISOString()
 
 export const Default = Template.bind({})
 Default.args = {
+  planningMessages: newPlans
+}
+
+export const OrdersTab = Template.bind({})
+OrdersTab.args = {
   initialTab: TAB_MY_ORDERS,
   planningMessages: newPlans
 }
