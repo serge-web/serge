@@ -22,15 +22,16 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
+  const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
+
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
-  const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
-    if (myMessages.length === 0) {
+    if (myMessages.length === 0 || myForceMessages.length === 0) {
       setMyMessages(myForceMessages)
     } else {
       const newMessage = myForceMessages[0]
