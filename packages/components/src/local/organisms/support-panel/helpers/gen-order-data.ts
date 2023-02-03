@@ -59,7 +59,7 @@ interface PerForceData {
  * a planned geometry
  */
 export interface GeomWithOrders extends PlannedActivityGeometry {
-  /** 
+  /**
    * the activity this geometry is part of
    */
   activity: PlanningActivity
@@ -449,7 +449,7 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
 }
 
 /**
- * Decide if an interaction should be generated between two activities 
+ * Decide if an interaction should be generated between two activities
  * @param first the first activity
  * @param second the second activity
  * @param throwErrorOnUnbalanced whether to throw an error if the interactsWithRelationship is unbalanced
@@ -458,17 +458,17 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
 export const interactsWith = (first: PlanningActivity, second: PlanningActivity, throwErrorOnUnbalanced?: boolean): boolean => {
   const firstId = first.actId
   const secondId = second.actId
-  const firstInteracts = first.interactsWith ? first.interactsWith.includes(secondId): false
-  const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId): false
+  const firstInteracts = first.interactsWith ? first.interactsWith.includes(secondId) : false
+  const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId) : false
   if (firstInteracts !== secondInteracts) {
     if (throwErrorOnUnbalanced) {
-      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith )
+      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
       throw Error('Unbalanced interacts')
     } else {
-      console.error('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith )
+      console.error('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
     }
   }
-  return first.interactsWith ? first.interactsWith.includes(secondId): false
+  return first.interactsWith ? first.interactsWith.includes(secondId) : false
 }
 
 export const findPlanningActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
@@ -895,10 +895,11 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   if (contact) {
                     res.push(contact)
                   }
-                  interactionsTested[id] = contact  
+                  interactionsTested[id] = contact
                 } else {
+                  console.log('not considering', first.activity.actId, second.activity.actId)
                   // remember that this won't generate a contact
-                  interactionsTested[id] = null 
+                  interactionsTested[id] = null
                 }
               }
             }

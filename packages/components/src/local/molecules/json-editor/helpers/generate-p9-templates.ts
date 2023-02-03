@@ -333,5 +333,5 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   !7 && console.log('per force', res)
   !7 && console.log(Object.values(templates))
 
-  return {activities: res, templates: Object.values(templates) }
+  return { activities: res, templates: Object.values(templates) }
 }

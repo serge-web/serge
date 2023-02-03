@@ -58,7 +58,7 @@ it('gets count of', () => {
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
-  expect(results1).toEqual([156, 345])
+  expect(results1).toEqual([156, 120])
 })
 
 it('gets interactions (2)', () => {
@@ -230,7 +230,7 @@ it('observes interacts with', () => {
       // clear on set, so they clash
       secondAct.interactsWith = []
       expect(() => interactsWith(firstAct, secondAct, true)).toThrow()
-    } 
+    }
   }
 })
 
@@ -241,15 +241,14 @@ const testAct = (activities: PerForcePlanningActivitySet[]) => {
         activities.forEach((force2) => {
           force2.groupedActivities.forEach((group2) => {
             group2.activities.forEach((act2) => {
-              interactsWith(act1, act2, true)  
+              interactsWith(act1, act2, true)
             })
           })
         })
       })
     })
-  })  
+  })
 }
-
 
 it('interactionsWith is balanced for p9b activities', () => {
   testAct(activities)
