@@ -227,6 +227,7 @@ it('observes interacts with', () => {
       firstAct.interactsWith = [secondAct.actId]
       secondAct.interactsWith = [firstAct.actId]
       expect(interactsWith(firstAct, secondAct)).toBeTruthy()
+      // clear on set, so they clash
       secondAct.interactsWith = []
       expect(() => interactsWith(firstAct, secondAct, true)).toThrow()
     } 
