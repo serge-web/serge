@@ -1,4 +1,4 @@
-import { TextPathOptions } from 'leaflet'
+import { Pattern, Symbol, TextPathOptions } from 'leaflet'
 
 export const MapConstants = {
   TileLayer: {
@@ -6,6 +6,16 @@ export const MapConstants = {
     url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     maxNativeZoom: 17
   }
+}
+
+export const ArrowHeadPattern: Pattern = {
+  offset: '100',
+  repeat: '100',
+  symbol: Symbol.arrowHead({
+    pixelSize: 15,
+    polygon: false,
+    pathOptions: { stroke: true }
+  })
 }
 
 export const LeafletTextOption: TextPathOptions = {
