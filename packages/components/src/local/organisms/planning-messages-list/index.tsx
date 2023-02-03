@@ -45,22 +45,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // Note: I "think" we only do this following processing if the new messages is one longer than the previous list, and that
       // Note: the first message has the reference of an existing message
       const newMessage = myRoleMessages[0]
-      if (newMessage) {
-        // see if this is a new version of an existing message
-        const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
-        console.log('row already present', rowAlreadyPresent)
-        rowAlreadyPresent && console.log('check message', rowAlreadyPresent.reference, rowAlreadyPresent.id, newMessage._id)
-        if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
-          // ok, it's an update
-          // remove the previous object of the save message
-          const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-          const row = toRow(newMessage)
-          // push a new row
-          setRows([...otherMessage, row])
-        } else {
-          // first row isn't an existing one
-          setMyMessages(myRoleMessages)
-        }
+      // see if this is a new version of an existing message
+      const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
+      console.log('row already present', rowAlreadyPresent)
+      rowAlreadyPresent && console.log('check message', rowAlreadyPresent.reference, rowAlreadyPresent.id, newMessage._id)
+      if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
+        // ok, it's an update
+        // remove the previous object of the save message
+        const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
+        const row = toRow(newMessage)
+        // push a new row
+        setRows([...otherMessage, row])
+      } else {
+        // first row isn't an existing one
+        setMyMessages(myRoleMessages)
       }
     }
   }, [messages, playerForceId, playerRoleId, onlyShowMyOrders])

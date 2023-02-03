@@ -93,19 +93,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setCachedInteractions([])
     } else {
       const newMessage = interactionMessages[0]
-      if (newMessage) {
-        const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
-        if (existingRow) {
-          if (existingRow && existingRow.id !== newMessage._id) {
-            const row = toRow(newMessage)
-            const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
-            setRows([...existingMessages, row])
-          } else {
-            setCachedInteractions(interactionMessages)
-          }
-        } else {
-          setCachedInteractions(interactionMessages)
-        }
+      const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
+      if (existingRow && existingRow.id !== newMessage._id) {
+        const row = toRow(newMessage)
+        const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+        setRows([...existingMessages, row])
+      } else {
+        setCachedInteractions(interactionMessages)
       }
     }
     if (interactionMessages.length > 0) {
