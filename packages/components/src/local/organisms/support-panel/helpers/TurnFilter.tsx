@@ -35,7 +35,7 @@ const TurnFilter: React.FC<TurnFilterProps> = ({ label, allPeriods, value, onCha
         const turnEnd = incrementGameTime(period.gameDate, period.gameTurnTime)
         return {
           turn: period.gameTurn,
-          label: 'Turn: ' + period.gameTurn + ' ' + shortDate(period.gameDate) + '-' + shortDate(turnEnd)
+          label: 'Turn ' + period.gameTurn + ': ' + shortDate(period.gameDate) + '-' + shortDate(turnEnd)
         }
       })
       setLabelledTurns(turns)
