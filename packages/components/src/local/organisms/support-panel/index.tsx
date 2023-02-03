@@ -69,10 +69,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
   forcePlanningActivities,
   editLocation,
   attributeTypes,
-  handleAdjudication
+  handleAdjudication,
+  initialTab
 }) => {
   const umpireInAdjudication = selectedForce.umpire && (phase === ADJUDICATION_PHASE)
-  const [activeTab, setActiveTab] = useState<string>(umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE)
+  const [activeTab, setActiveTab] = useState<string>(initialTab || (umpireInAdjudication ? TAB_ADJUDICATE : TAB_MY_FORCE))
   const [isShowPanel, setShowPanel] = useState<boolean>(true)
   const [forceCols] = useState<ForceStyle[]>(forceColors(allForces))
   const [platIcons] = useState<PlatformStyle[]>(platformIcons(platformTypes))

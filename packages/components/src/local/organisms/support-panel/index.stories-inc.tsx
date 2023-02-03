@@ -1,13 +1,13 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
-import { fixPerForcePlanningActivities } from '../planning-channel/helpers/collate-plans-helper'
+import { TAB_MY_ORDERS } from './constants'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -65,6 +65,7 @@ export default {
 }
 
 const platformTypes = (P9BMock.data.platformTypes && P9BMock.data.platformTypes.platformTypes) || []
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 // produce the own and opp assets for this player force
 const forceCols = forceColors(forces)
@@ -74,6 +75,7 @@ const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes,
 
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
+  const initialTab = args.initialTab
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const forceStr = roleStr.substring(0, ind)
@@ -100,15 +102,11 @@ const Template: Story<SupportPanelProps> = (args) => {
     throw Error('can\'t find role')
   }
 
-  const planningActivities = MockPlanningActivities
-  const perForcePlanningActivities = MockPerForceActivities
-  const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
-
   return <SupportPanel
     platformTypes={platformTypes}
     planningMessages={planningMessages}
     interactionMessages={interactionMessages}
-    forcePlanningActivities={filledInPerForcePlanningActivities}
+    forcePlanningActivities={activities}
     onReadAll={noop}
     selectedAssets={[]}
     setSelectedAssets={noop}
@@ -138,10 +136,11 @@ const Template: Story<SupportPanelProps> = (args) => {
     setOwnForcesForParent={noop}
     allOppAssets={opp}
     allOwnAssets={own}
+    initialTab={initialTab}
   />
 }
 
 export const Default = Template.bind({})
 Default.args = {
-
+  initialTab: TAB_MY_ORDERS
 }
