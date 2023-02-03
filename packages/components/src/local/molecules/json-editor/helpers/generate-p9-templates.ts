@@ -328,6 +328,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
     return perForce
   })
 
+  // don't log the results to the console any more, the calling function
+  // will output them.
   !7 && console.log('per force', res)
   !7 && console.log(Object.values(templates))
 
