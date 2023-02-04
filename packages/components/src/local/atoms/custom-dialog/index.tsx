@@ -9,7 +9,6 @@ export const CustomDialog: React.FC<Props> = (props) => {
   const {
     isOpen,
     header,
-    content,
     onClose,
     onSave,
     modalStyle,
@@ -17,9 +16,10 @@ export const CustomDialog: React.FC<Props> = (props) => {
     bodyStyle,
     footerStyle,
     cancelBtnText = 'Cancel',
-    saveBtnText = 'Save'
+    saveBtnText = 'Save',
+    children,
+    errors
   } = props
-
   return (
     <Modal
       style={modalStyle}
@@ -32,7 +32,18 @@ export const CustomDialog: React.FC<Props> = (props) => {
       ariaHideApp={false}
     >
       <div style={headerStyle} className={localStyles.header}>{header}</div>
-      <div style={bodyStyle} className={localStyles.body} dangerouslySetInnerHTML={{ __html: content || '' }}></div>
+      <div style={bodyStyle} className={localStyles.body} >
+        {children}
+      </div>
+      {errors && errors.length > 0 &&
+      <div style={bodyStyle} className={localStyles.errors} >
+        <ul>
+          { errors.map((str: string, index:number) =>
+            <li key={index}>{str}</li>
+          )}
+        </ul>
+      </div>
+      }
       <div style={footerStyle} className={localStyles.footer}>
         {
           onClose &&
@@ -48,6 +59,7 @@ export const CustomDialog: React.FC<Props> = (props) => {
           onSave &&
           <Button
             variant="contained"
+            disabled={!!(errors && errors.length)}
             color="primary"
             onClick={onSave}
           >

@@ -115,6 +115,11 @@ export const ATTRIBUTE_VALUE_STRING = 'AttributeValueString'
 export const ATTRIBUTE_TYPE_ENUM = 'AttributeTypeEnum'
 export const ATTRIBUTE_VALUE_ENUM = 'AttributeValueEnum'
 
+/** when to generate interaction events for an activity */
+export const INTER_AT_START = 'i-start'
+export const INTER_AT_END = 'i-end'
+export const INTER_AT_RANDOM = 'i-random'
+
 // Chat template ID
 export const CHAT_MESSAGE_TEMPLATE_ID = 'k16eedkl'
 
@@ -185,6 +190,5 @@ export const CONTROL_ALL = 'control-all:'
  * @param role - current role id
  * @param event - name of event that just happened
  */
-export const UNSENT_PRIVATE_MESSAGE_TYPE = 'private'
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'

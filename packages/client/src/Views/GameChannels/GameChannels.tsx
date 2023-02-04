@@ -1,10 +1,12 @@
-import { faAddressBook, faBookOpen, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faAddressBook, faBookOpen, faFileExcel, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { ForceObjective, TurnProgression } from '@serge/components'
 import { CHANGE_TAB_INTERACTION } from '@serge/config'
 import { ChangeTabInteraction } from '@serge/custom-types'
 import classNames from 'classnames'
+import excellentExport, { SheetOptions } from 'excellentexport'
 import { TabNode } from 'flexlayout-react'
+import moment from 'moment'
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { saveNewActivityTimeMessage } from '../../ActionsAndReducers/PlayerLog/PlayerLog_ActionCreators'
@@ -20,6 +22,7 @@ import { usePlayerUiDispatch, usePlayerUiState } from '../../Store/PlayerUi'
 import AdminAndInsightsTabsContainer from '../AdminAndInsightsTabsContainer/AdminAndInsightsTabsContainer'
 import ChannelTabsContainer from '../ChannelTabsContainer/ChannelTabsContainer'
 import PlayerLog from '../PlayerLog'
+import handleExport from './handleExport'
 
 type GameChannelsProps = {
   onTabChange: (node: TabNode) => void
@@ -29,6 +32,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
   const {
     currentWargame,
     gameDate,
+    gameTurnTime,
     currentTurn,
     turnPresentation,
     wargameTitle,
@@ -42,10 +46,15 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     turnEndTime,
     selectedForce,
     wargameInitiated,
-    isUmpire
+    isUmpire,
+    allPlatformTypes, 
+    allForces,
+    channels
   } = usePlayerUiState()
   const [isPlayerlogOpen, togglePlayerLogModal] = useState<boolean>(false)
   const [selectedNode, setSelectedNode] = useState<string>('')
+
+  const hreflink = window.location.href
 
   if (selectedForce === undefined) {
     return (
@@ -94,6 +103,62 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     PlayerUiDispatch(markAllAsUnread(''))
   }, [])
 
+  const convertToXlsx = (res: Record<string, Record<string, any>>): SheetOptions[] => {
+    const data = Object.keys(res).map((key): SheetOptions => {
+      const tableData = res[key]
+      if (!Array.isArray(tableData) || !tableData.length) {
+        throw new Error('Table data should be a non-empty array of column/value rows')
+      }
+      
+      const colNames = Object.keys(tableData[0])
+      const rows = tableData.map(rowData => {
+        const row = []
+        for (const key in rowData) {
+          if (Array.isArray(rowData[key]) && rowData[key].length) {
+            row.push('"' + rowData[key].join(',') + '"')
+          } else {
+            row.push(rowData[key])
+          }
+        }
+        return row
+      })
+      rows.unshift(colNames)
+      return ({
+        name: key,
+        from: {
+          // @ts-ignore
+          arrayHasHeader: true,
+          array: rows
+        }
+      })
+    })
+
+    return data
+  }
+
+  const generateFile = () => {
+    const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
+    // const data = Object.keys(res).map((key): SheetOptions => {
+    //   const rows = res[key]
+    //   return ({
+    //     name: key,
+    //     from: {
+    //       arrayHasHeader: true,
+    //       array: rows
+    //     }
+    //   })
+    // })
+    console.log('about to export', res)
+    // todo - convert the data to expected arrays
+    const data: SheetOptions[] = convertToXlsx(res)
+    console.log('convert xlxs data:', data)
+    return excellentExport.convert({
+      anchor: 'export_button_xlsx',
+      filename: 'SERGE-' + moment().format('MMM DDHHmm[Z]') + '.xlsx',
+      format: 'xlsx'
+    }, data)
+  }
+ 
   return <div className='flex-content flex-content--row-wrap'>
     <PlayerLog isOpen={isPlayerlogOpen} onClose={closePlayerlogModal} handlePlayerlogsMarkAllAsRead={handlePlayerlogsMarkAllAsRead} handlePlayerlogsMarkAllAsUnread={handlePlayerlogsMarkAllAsUnread} playerLogsActivity={openPlayerlogModal} />
     <div className='message-feed in-game-feed' data-tour='fourth-step'>
@@ -116,6 +181,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         currentTurn={currentTurn}
         turnPresentation={turnPresentation}
         gameDate={gameDate}
+        gameTurnLength={gameTurnTime}
         phase={phase}
         timeWarning={timeWarning}
         isGameControl={isGameControl}
@@ -135,6 +201,13 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         { isUmpire && <span title='Show player log' className='playerlog'>
           <FontAwesomeIcon icon={faAddressBook} onClick={openPlayerlogModal} />
         </span> }
+        { isUmpire && <a
+          href={hreflink}
+          className='playerlog'
+          onClick={e => generateFile()}
+          id={'export_button_xlsx'}
+        >
+          <FontAwesomeIcon icon={faFileExcel}/></a> }
       </div>
       <AdminAndInsightsTabsContainer />
       {showObjective && <ForceObjective

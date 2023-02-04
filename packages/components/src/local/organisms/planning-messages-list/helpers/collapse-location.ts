@@ -35,6 +35,8 @@ export const collapseLocation = (document: Record<string, any>, activities?: Per
         }
         str = str + '* ' + name + '\n'
       })
+
+      // locetion is equals to  (str + '* ' + name + '\n')
       parent.location = str
       parent.hiddenStore = JSON.stringify(loc)
     }

@@ -1,12 +1,14 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
-import { INFO_MESSAGE_CLIPPED, Phase } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
+import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { P9BMock, planningMessages as PlanningChannelMessages, planningMessagesBulk } from '@serge/mocks'
+import { P9BMock, planningMessages as mockMessages, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { noop } from 'lodash'
+import { noop, uniqBy } from 'lodash'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
@@ -60,14 +62,13 @@ const wargame = P9BMock.data
 const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
-
 const templates = wargame.templates ? wargame.templates.templates : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook
 const planningChannelTmp = channels.find((channel) => channel.channelType === 'ChannelPlanning') as ChannelPlanning
 const planningChannel = deepCopy(planningChannelTmp) as ChannelPlanning
-if (planningChannel && planningChannel.channelType === 'ChannelPlanning') {
+if (planningChannel.channelType === 'ChannelPlanning') {
   if (planningChannel.constraints.tileLayer) {
     planningChannel.constraints.tileLayer.url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
   }
@@ -84,7 +85,7 @@ forces.forEach((force: ForceData) => {
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 export default {
-  title: 'local/organisms/PlanningChannelBravo',
+  title: 'local/organisms/PlanningChannel',
   component: PlanningChannel,
   decorators: [withKnobs, wrapper],
   parameters: {
@@ -103,22 +104,22 @@ export default {
   argTypes: {
     selectedRoleId: {
       name: 'View as',
+      options: allRoles,
       defaultValue: allRoles[1],
       control: {
-        type: 'select',
-        options: allRoles
+        type: 'select'
       }
     }
   },
   phase: {
     name: 'Game phase',
-    defaultValue: Phase.Planning,
+    options: [
+      Phase.Planning,
+      Phase.Adjudication
+    ],
+    defaultValue: Phase.Adjudication,
     control: {
-      type: 'radio',
-      options: [
-        Phase.Planning,
-        Phase.Adjudication
-      ]
+      type: 'radio'
     }
   },
   wargameInitiated: {
@@ -138,8 +139,15 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const {
     selectedRoleId,
     messages,
-    phase
+    phase,
+    allForces
   } = args
+
+  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
+
+  const forces1 = allForces || forces
+
+  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
@@ -151,27 +159,48 @@ const Template: Story<PlanningChannelProps> = (args) => {
   const ind = selectedRoleStr.indexOf(' ~ ')
   const forceStr = selectedRoleStr.substring(0, ind)
   const roleStr = selectedRoleStr.substring(ind + 3)
-  const force = forces.find((f: ForceData) => f.uniqid === forceStr)
+  const force = localForces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
-  const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
+  const [stateMessages, setStateMessages] = useState<Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>>(messages)
+
+  const saveMessage = (_dbName: string, details: MessageDetails, message: any) => {
+    console.warn('SAVE MESSAGE', details, message)
     return async (): Promise<void> => {
-      console.log('dbName: ', dbName, ', details: ', details, ', message: ', message)
+      const ref = message.Reference ? message.Reference : 'umpire-' + (stateMessages.length + 1)
+      const newMessage: MessageInteraction = {
+        _id: moment().toISOString(),
+        // defined constat for messages, it's not same as message.details.messageType,
+        // ex for all template based messages will be used CUSTOM_MESSAGE Type
+        messageType: 'InteractionMessage',
+        details,
+        message: { ...message, Reference: ref },
+        hasBeenRead: false
+      }
+      const newMessagesList = [...stateMessages, newMessage]
+      const nonInfoMessages = newMessagesList.filter((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessageInteraction | MessagePlanning>
+      const reverseMes = nonInfoMessages.reverse()
+      const deDupeInteractions = uniqBy(reverseMes, function (inter: MessageInteraction | MessagePlanning) {
+        return inter.message.Reference
+      })
+      const restoreOrder = deDupeInteractions.reverse()
+      setStateMessages(restoreOrder)
     }
   }
 
-  const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
   const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
   return <PlanningChannel
     channel={planningChannel}
-    messages={messages}
+    messages={stateMessages}
     allTemplates={templates}
+    allPeriods={turnPeriod}
     channelId={channels[0].uniqid}
     adjudicationTemplate={adjudicationTemplate}
     dispatch={noop}
     attributeTypes={attributeTypes}
     getAllWargameMessages={(): any => noop}
+    mapPostBack={(details, outcomes) => saveMessage('a', details, outcomes)()}
     markAllAsRead={mockFn}
     markUnread={mockFn}
     openMessage={mockFn}
@@ -182,17 +211,17 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleId={role?.roleId || ''}
     selectedRoleName={role?.name || ''}
     currentWargame={P9BMock.wargameTitle}
-    selectedForce={force || forces[1]}
+    selectedForce={force || localForces[1]}
     phase={phase}
-    allForces={forces}
+    allForces={localForces}
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
-    gameTurnTime={P9BMock.data.overview.gameTurnTime}
+    gameTurnLength={P9BMock.data.overview.gameTurnTime}
     forcePlanningActivities={activities}
   />
 }
 const doNotDoIt = 7 // don't transform the messages
-const channelMessages = PlanningChannelMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
+const channelMessages = mockMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 const planningMessages = channelMessages.filter((msg) => msg.details.interaction === undefined) as MessagePlanning[]
 const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlanning) => {
   const newMsg = { ...msg }
@@ -231,7 +260,7 @@ const fixedMessages = doNotDoIt ? [] : planningMessages.map((msg: MessagePlannin
   }
   if (otherForces) {
     const otherAssetIds = randomAssets(otherForces[Math.floor(Math.random() * otherForces.length)])
-    newMsg.message.otherAssets = otherAssetIds
+    newMsg.message.otherAssets = otherAssetIds.map((asset: string) => { return { asset: asset } })
   }
   return newMsg
 })
@@ -242,19 +271,84 @@ export const Default = Template.bind({})
 Default.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
-  phase: Phase.Planning
+  phase: Phase.Adjudication
 }
 
-export const BulkData = Template.bind({})
-BulkData.args = {
-  messages: planningMessagesBulk,
+const eventIdsOfInterest = ['Red-5']
+export const IstarEvent = Template.bind({})
+IstarEvent.args = {
+  messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
+  selectedRoleId: allRoles[1],
+  phase: Phase.Adjudication
+}
+
+const interactionIdsOfInterest = ['Red-5', 'Blue-17']
+const interMessages = channelMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
+  if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
+    return msg.details.messageType === 'p9adjudicate'
+  }
+  return false
+})
+const istarInterMessages = planningMessages.filter((msg: MessagePlanning) =>
+  interactionIdsOfInterest.includes(msg.message.Reference)) as Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped>
+// get an adjudication
+const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
+if (openInter2.details && openInter2.details.interaction) {
+  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
+  istarInterMessages.push(openInter2)
+}
+export const IstarInteraction = Template.bind({})
+IstarInteraction.args = {
+  messages: istarInterMessages,
+  selectedRoleId: allRoles[1],
+  phase: Phase.Adjudication
+}
+
+export const BulkForces = Template.bind({})
+BulkForces.args = {
+  messages: channelMessages,
   selectedRoleId: allRoles[5],
+  allForces: [],
   phase: Phase.Planning
 }
 
-export const BulkDataInAdjudication = Template.bind({})
-BulkDataInAdjudication.args = {
-  messages: planningMessagesBulk,
+export const StartOfAdjudication = Template.bind({})
+StartOfAdjudication.args = {
+  messages: channelMessages.filter((msg) => msg.details.interaction === undefined),
+  selectedRoleId: allRoles[1],
+  allForces: forces,
+  phase: Phase.Adjudication
+}
+
+// open an interaction, and make this role the owner - so we have an adjudication open
+const adjRole = forces[0].roles[1]
+const tmpMessages = [...mockMessages]
+const firstInter = mockMessages.find((msg: MessageInteraction | MessagePlanning | MessageInfoTypeClipped) => {
+  return (msg.messageType === INTERACTION_MESSAGE)
+}) as MessageInteraction
+let tmpPlans: Array<MessageInteraction | MessagePlanning | MessageInfoTypeClipped> = []
+if (firstInter) {
+  const inter = firstInter.details.interaction as InteractionDetails
+  if (inter) {
+    const items = inter.orders2 ? [inter.orders1, inter.orders2] : [inter.orders1]
+    const relevant = mockMessages.filter((msg) => msg._id && items.includes(msg._id))
+    const interCopy1 = JSON.parse(JSON.stringify(firstInter)) as MessageInteraction
+    const interCopy = { ...interCopy1, _id: moment().toISOString() }
+    // give it a new, unique id
+    const newFrom: MessageDetailsFrom = { ...firstInter.details.from, roleId: adjRole.roleId, roleName: adjRole.name }
+    interCopy.details.from = newFrom
+    if (interCopy.details.interaction) {
+      interCopy.details.interaction.complete = false
+    }
+    tmpMessages.push(interCopy)
+    tmpMessages.push(...relevant)
+    tmpPlans = tmpMessages
+  }
+}
+
+export const AdjudicationFormOpen = Template.bind({})
+AdjudicationFormOpen.args = {
+  messages: tmpPlans,
   selectedRoleId: allRoles[1],
   phase: Phase.Adjudication
 }

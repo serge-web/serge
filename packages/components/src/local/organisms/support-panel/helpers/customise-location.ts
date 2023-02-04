@@ -9,8 +9,10 @@ export const customiseLocation = (_document: MessageStructure | undefined, schem
       // location data while we mangle the data to make it easier to read
       schema.properties.hiddenStore = {
         type: 'string',
-        propertyOrder: 62,
         readonly: 'readonly',
+        options: {
+          hidden: true
+        },
         id: 'hiddenStore'
       }
     }

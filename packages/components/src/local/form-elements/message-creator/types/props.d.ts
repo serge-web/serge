@@ -1,5 +1,6 @@
-import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure, PlannedActivityGeometry } from '@serge/custom-types'
+import { ChannelTypes, CoreMessage, ForceData, MessageDetails, MessageStructure } from '@serge/custom-types'
 import { MouseEvent } from 'react'
+import { EditCallback } from 'src/local/molecules/json-editor/helpers/setupEditor'
 
 export default interface PropTypes {
   schema: any
@@ -14,12 +15,6 @@ export default interface PropTypes {
   // the template show
   messageOption: string
   currentTurn: number
-
-  // way to retrieve cached messages from the browser
-  getcachedCreatorMessageValue?: (value: string) => string
-
-  // the method of saving messages in the browser
-  createCachedCreatorMessage?: (message: any, messageOption: string) => void
 
   // method is way to clear cached messages from the browser
   clearCachedCreatorMessage?: (data: string[]) => void
@@ -49,5 +44,5 @@ export default interface PropTypes {
   /**
    *  user has clicked on custom edit button
    */
-  editCallback?: { (docId: string, geoms: PlannedActivityGeometry[]): void }
+  editCallback?: EditCallback
 }

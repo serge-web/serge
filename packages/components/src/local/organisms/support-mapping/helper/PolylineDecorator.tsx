@@ -1,5 +1,6 @@
 import L, { LatLng, Layer } from 'leaflet'
 import 'leaflet-textpath'
+import { cloneDeep } from 'lodash'
 import React, { useEffect } from 'react'
 import { useMap } from 'react-leaflet-v4'
 import { ArrowHeadPattern, LeafletTextOption } from './MapConstants'
@@ -32,7 +33,7 @@ const PolylineDecorator: React.FC<PolylineDecoratorProps> = ({ latlngs, layer, m
 
   useEffect(() => {
     const pathOpts: L.PolylineOptions = {}
-    const newArrow = { ...ArrowHeadPattern }
+    const newArrow = cloneDeep(ArrowHeadPattern)
     if (color) {
       pathOpts.color = color
       const arrowHead = newArrow.symbol as L.Symbol.ArrowHead

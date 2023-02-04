@@ -1,23 +1,25 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MaterialTable, { Column } from '@material-table/core'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import MaterialTable, { Column } from 'material-table'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
-import { collapseLocation, expandLocation } from './helpers/collapse-location'
+import { collapseLocation } from './helpers/collapse-location'
 import { toColumn, toRow } from './helpers/genData'
 import styles from './styles.module.scss'
 import PropTypes, { OrderRow } from './types/props'
+
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
   playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
-  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose
+  editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
+  modifyForSave
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
-  const [columns, setColumns] = useState<Column[]>([])
+  const [columns, setColumns] = useState<Column<OrderRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const messageValue = useRef<any>(null)
@@ -35,7 +37,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       if (newMessage) {
         // remove the previous object of the save message
         const filterSaveMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-        const row = toRow(newMessage, playerForceId)
+        const row = toRow(newMessage)
         // push a new row
         setRows([...filterSaveMessage, row])
       }
@@ -52,11 +54,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
     const dataTable: OrderRow[] = myMessages.map((message) => {
-      return toRow(message, playerForceId)
+      return toRow(message)
     })
     setRows(dataTable)
 
-    const columnData = toColumn(myMessages, playerForceId)
+    const columnData = toColumn(myMessages)
 
     if (columns.length === 0) {
       setColumns(columnData)
@@ -71,7 +73,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   //   editThisMessage && editThisMessage(docId)
   // }
 
-  const detailPanel = (rowData: OrderRow): any => {
+  const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
     const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
     if (!message) {
@@ -116,7 +118,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
               // clear the array
               while (pendingLocationData.length) { pendingLocationData.pop() }
             }
-
             postBack && postBack(details, messageValue.current)
             messageValue.current = ''
           }
@@ -167,7 +168,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             disabled={!canEdit}
             gameDate={gameDate}
             modifyForEdit={(document) => collapseLocation(document, activitiesForThisForce)}
-            modifyForSave={expandLocation}
+            modifyForSave={modifyForSave}
             editCallback={localEditLocation}
           />
         </>
@@ -182,22 +183,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setSelectedOrders(indices)
   }
 
-  // fix unit-test for MaterialTable
-  const jestWorkerId = process.env.JEST_WORKER_ID
-  // end
-
-  const extendProps = jestWorkerId ? {} : {
-    detailPanel: detailPanel
-  }
-
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       <MaterialTable
         title={'Orders'}
         columns={columns}
         data={rows}
-        icons={materialIcons}
-        actions={jestWorkerId ? [] : [
+        icons={materialIcons as any}
+        actions={[
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
@@ -214,15 +207,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           }
         ]}
         options={{
-          search: false,
-          paging: false,
-          sorting: true,
-          // defaultExpanded: true,
+          search: true,
+          paging: true,
+          pageSize: 20,
+          detailPanelType: 'single',
+          pageSizeOptions: [5, 10, 15, 20, 50],
           filtering: filter,
-          selection: !jestWorkerId // fix unit-test for material table
+          selection: true,
+          rowStyle: { fontSize: '80%' }
         }}
         onSelectionChange={onSelectionChange}
-        {...extendProps}
+        detailPanel={detailPanel}
       />
     </div>
   )

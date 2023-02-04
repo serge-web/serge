@@ -9,7 +9,7 @@ describe('Custom Dialog component:', () => {
   it('renders correctly', () => {
     const tree = renderer
       .create(
-        <CustomDialog isOpen={false} content='Content' />
+        <CustomDialog isOpen={false} />
       )
       .toJSON()
     expect(tree).toMatchSnapshot()

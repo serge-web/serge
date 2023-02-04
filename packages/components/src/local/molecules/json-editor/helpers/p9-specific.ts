@@ -42,10 +42,10 @@ export const tmplMissileStrike = {
           options: {
             grid_columns: 2,
             enum_titles: [
-              'Tank A',
-              'Tank B',
-              'Tank C',
-              'Plane A'
+              'Battery A',
+              'Battery B',
+              'Battery C',
+              'Battery D'
             ]
           }
         },
@@ -111,10 +111,10 @@ export const tmplMissileStrike = {
           options: {
             grid_columns: 2,
             enum_titles: [
-              'Tank A',
-              'Tank B',
-              'Tank C',
-              'Plane A'
+              'Opp Site A',
+              'Opp Site B',
+              'Opp Site C',
+              'Opp Site D'
             ]
           }
         },
@@ -122,11 +122,14 @@ export const tmplMissileStrike = {
           title: 'Missile Type',
           type: 'string',
           enum: [
+            '###Ballistic',
             'SRBM',
             'MRBM',
             'IRBM',
+            '###Cruise',
             'Standard Cruise',
             'Low Obs Cruise',
+            '###UAV',
             'Propellor OWA UAV',
             'Jet OWA UAV'
           ],
@@ -154,7 +157,8 @@ export const tmplPatrol = {
 export const tmplISTAR = {
   domain: multiSelectDropDownObject('Target Domain', ['Maritime', 'Air', 'Land'], 2, order++),
   covert: booleanObject('Covert', 1, order++),
-  method: textObject('Observation Method', 4, order++)
+  method: textObject('Observation Method', 4, order++),
+  searchRate: textObject('Search Rate (km2/hr)', 2, order++)
 }
 
 /** note: used for offensive and defensive operations */

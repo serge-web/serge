@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly SymbolAssetIcon 1`] = `
+<div
+  className="asset-icon-background"
+>
+  <div
+    className="asset-icon-with-image"
+  >
+    <img
+      className="img"
+      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMiIgYmFzZVByb2ZpbGU9InRpbnkiIHdpZHRoPSI4IiBoZWlnaHQ9IjgiIHZpZXdCb3g9Ijk2IDk2IDggOCI+PC9zdmc+"
+    />
+    <span>
+      
+    </span>
+  </div>
+</div>
+`;

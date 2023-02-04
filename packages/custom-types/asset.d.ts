@@ -24,7 +24,7 @@ export interface Asset {
   position?: string,
   /** the geographic position of an asset.
    * If it's not present, but a `position` is, then
-   * the location will be generated
+   * the location will be generated. Sequence is `Lat, Long`
    */
   location?: [number, number],
   /** how other forces perceive this asset

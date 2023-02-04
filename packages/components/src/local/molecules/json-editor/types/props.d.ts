@@ -1,5 +1,5 @@
 import { MessageCustom, MessageStructure, TemplateBody, TempletCreatorBody } from '@serge/custom-types'
-import { React } from 'react'
+import { EditCallback } from '../helpers/setupEditor'
 
 export default interface Props {
   onChange?: (nextMessage: MessageCustom) => void
@@ -23,8 +23,6 @@ export default interface Props {
    * title to display above the form
    */
   title?: string
-  cachedName?: string | boolean
-  clearCachedName?: React.Dispatch<string>
   saveMessage?: () => void
   confirmCancel?: boolean
   /**
@@ -66,7 +64,7 @@ export default interface Props {
   /**
    *  user has clicked on custom edit button
    */
-  editCallback?: { (): void }
+  editCallback?: EditCallback
 
   onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
 }

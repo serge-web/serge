@@ -1,9 +1,8 @@
 import { expect, it } from '@jest/globals'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
-import deepCopy from '../deep-copy'
-import findAsset from '../find-asset'
-import handleAdjudicationOutcomes from '../handle-adjudication-outcomes-helper'
+import { deepCopy, findAsset } from '@serge/helpers'
+import handleAdjudicationOutcomes from './handleAdjudicationOutcomes'
 
 const allForces: ForceData[] = [
   {
@@ -48,6 +47,7 @@ const emptyPayload: MessageAdjudicationOutcomes = {
   messageType: ADJUDICATION_OUTCOMES,
   Reference: 'umpire-234',
   healthOutcomes: [],
+  important: true,
   perceptionOutcomes: [],
   locationOutcomes: [],
   narrative: 'well done'
@@ -64,6 +64,7 @@ it('empty lists results in no change', () => {
 const validPayload: MessageAdjudicationOutcomes = {
   messageType: ADJUDICATION_OUTCOMES,
   Reference: 'umpire-234',
+  important: false,
   healthOutcomes: [{ asset: 'alpha', health: 34 }],
   perceptionOutcomes: [
     { force: 'f-Red', asset: 'alpha', perceivedHealth: 22, perceivedName: 'alfred', perceivedForce: 'f-Green' },

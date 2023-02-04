@@ -5,8 +5,6 @@ import {
   CHANNEL_COLLAB,
   CollaborativeMessageStates,
   InitialStates,
-  UNSENT_CHAT_MESSAGE_TYPE,
-  UNSENT_PRIVATE_MESSAGE_TYPE,
   UNSENT_SELECT_BY_DEFAULT_VALUE
 } from '@serge/config'
 import {
@@ -33,8 +31,6 @@ const MessageCreator: React.FC<PropTypes> = ({
   postBack,
   customiseTemplate,
   messageOption,
-  createCachedCreatorMessage,
-  getcachedCreatorMessageValue,
   clearCachedCreatorMessage,
   draftMessage,
   modifyForEdit,
@@ -44,14 +40,10 @@ const MessageCreator: React.FC<PropTypes> = ({
   const privateMessageRef = createRef<HTMLTextAreaElement>()
   const [formMessage, setFormMessage] = useState<any>()
   const [selectedSchema, setSelectedSchema] = useState<any>(schema)
-  const [clearName, setClearName] = useState<string>(messageOption)
   const [privateValue, setPrivateValue] = useState<string | undefined>('')
-  const [formValue, setFormValue] = useState<Record<string, any> | undefined>(undefined)
   const [confirmIsOpen, setConfirmIsOpen] = useState<boolean>(false)
   const [messageContent, setMessageContent] = useState<Record<string, unknown> | undefined>(undefined)
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
-  const privatMessageOption = `${messageOption}-${UNSENT_PRIVATE_MESSAGE_TYPE}`
-  const mainMessageOption = `${messageOption}-${UNSENT_CHAT_MESSAGE_TYPE}`
 
   const messageBeingEdited = useRef<Record<string, any> | string>('')
 
@@ -97,21 +89,12 @@ const MessageCreator: React.FC<PropTypes> = ({
 
     // send the data
     setPrivateValue('')
-    setFormValue(undefined)
     postBack && postBack(details, formMessage)
-    setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, mainMessageOption])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption])
     onMessageSend && onMessageSend(e)
   }
 
   useEffect(() => {
-    const privateValues: string | undefined = getcachedCreatorMessageValue && getcachedCreatorMessageValue(privatMessageOption)
-    setPrivateValue(privateValues)
-
-    const mainAny: any = getcachedCreatorMessageValue && getcachedCreatorMessageValue(mainMessageOption)
-    const mainForm = mainAny ? mainAny as Record<string, any> : undefined
-    setFormValue(mainForm)
-
     if (schema && (!selectedSchema || selectedSchema.title !== schema.title)) {
       setSelectedSchema(schema)
     }
@@ -132,32 +115,17 @@ const MessageCreator: React.FC<PropTypes> = ({
   const onPopupConfirm = (event: MouseEvent<HTMLButtonElement>): void => {
     setConfirmIsOpen(false)
     setPrivateValue('')
-    setClearName(messageOption)
-    clearCachedCreatorMessage && clearCachedCreatorMessage([mainMessageOption, messageOption, UNSENT_CHAT_MESSAGE_TYPE])
-    clearCachedCreatorMessage && clearCachedCreatorMessage([privatMessageOption, messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
     onCancel && onCancel(event)
   }
 
   const onChangePrivate = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     setPrivateValue(e.target.value)
-    createCachedCreatorMessage && createCachedCreatorMessage(e.target.value, privatMessageOption)
   }
 
   const responseHandler = (val: { [property: string]: any }): void => {
     setFormMessage(val)
     messageBeingEdited.current = val
-    createCachedCreatorMessage && createCachedCreatorMessage(val, mainMessageOption)
-  }
-
-  const localEditCallback = (): void => {
-    const current = messageBeingEdited.current
-    if (typeof (current) === 'string') {
-      console.warn('message edits contains string, not form contents')
-    } else {
-      const records = current as Record<string, any>
-      const ref = records.Reference
-      editCallback && editCallback(ref, records.location)
-    }
   }
 
   useEffect(() => {
@@ -165,12 +133,12 @@ const MessageCreator: React.FC<PropTypes> = ({
       const anyDraft = draftMessage as any
       if (anyDraft.message) {
         // store cached content, if we have any
-        setMessageContent(formValue || anyDraft.message)
+        setMessageContent(anyDraft.message)
       } else {
         setMessageContent(undefined)
       }
     }
-  }, [draftMessage, formValue])
+  }, [draftMessage])
 
   return (
     <>
@@ -185,19 +153,17 @@ const MessageCreator: React.FC<PropTypes> = ({
           details: selectedSchema,
           _id: channel.uniqid
         }}
-        clearCachedName={setClearName}
         customiseTemplate={customiseTemplate}
         messageId={messageOption}
         formClassName={'form-group message-creator'}
         title={messageOption}
-        cachedName={clearName}
         storeNewValue={responseHandler}
         disabled={false}
         gameDate={gameDate}
         messageContent={messageContent}
         modifyForEdit={modifyForEdit}
         modifyForSave={modifyForSave}
-        editCallback={localEditCallback}
+        editCallback={editCallback}
       />
       {privateMessage && (
         <div className="flex-content form-group">

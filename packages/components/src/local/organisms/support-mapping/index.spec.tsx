@@ -19,6 +19,7 @@ jest.mock('react-leaflet-v4', () => ({
     invalidateSize: jest.fn(),
     flyTo: jest.fn(),
     flyToBounds: jest.fn(),
+    eachLayer: jest.fn(),
     on: jest.fn(),
     addLayer: jest.fn()
   }),
@@ -29,7 +30,7 @@ jest.mock('react-leaflet-v4', () => ({
 
 describe('Support Mapping component: ', () => {
   it('renders component correctly', () => {
-    const tree = mount(<SupportMapping maxZoom={7} tileLayer={MapConstants.TileLayer}
+    const tree = mount(<SupportMapping tileLayer={MapConstants.TileLayer}
       position={[51.505, -0.09]} />)
     expect(tree).toMatchSnapshot()
   })

@@ -1,16 +1,20 @@
+import { Column } from '@material-table/core'
 import { ATTRIBUTE_TYPE_ENUM, ATTRIBUTE_TYPE_NUMBER, ATTRIBUTE_TYPE_STRING, UNKNOWN_TYPE } from '@serge/config'
 import { Asset, AttributeTypes, ForceData, MessagePlanning, NumberAttributeType, PerceivedTypes, PlatformTypeData, Role } from '@serge/custom-types'
-import { findPerceivedAsTypes, ForceStyle, PlatformStyle } from '@serge/helpers'
+import { findPerceivedAsTypes, ForceStyle, PlatformStyle, sortDictionaryByValue } from '@serge/helpers'
 import { latLng } from 'leaflet'
-import { Column } from 'material-table'
+import sortBy from 'lodash/sortBy'
+import LRUCache from 'lru-cache'
 import React from 'react'
 import AssetIcon from '../../../asset-icon'
+import SymbolAssetIcon from '../../../symbol-asset-icon'
 import styles from '../styles.module.scss'
 import { AssetRow } from '../types/props'
 
 type SummaryData = {
   roles: Record<Role['roleId'], Role['name']>
   platformTypes: Record<PlatformStyle['uniqid'], PlatformStyle['name']>
+  subTypes: string[]
   statuses: string[]
   conditions: string[]
   forces: string[]
@@ -49,11 +53,13 @@ export const getOppAssets = (forces: ForceData[], forceColors: ForceStyle[], pla
   attributeTypes: AttributeTypes): AssetRow[] => {
   const rows: AssetRow[] = []
   forces.forEach((force: ForceData) => {
-    force.assets && force.assets.forEach((asset: Asset) => {
-      const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
-      rows.push(...assets)
+    // don't generate op-for for umpire
+    if (!force.umpire) {
+      force.assets && force.assets.forEach((asset: Asset) => {
+        const assets = collateItem(true, asset, playerForce, force, forceColors, platformIcons, [], platformTypes, attributeTypes, undefined)
+        rows.push(...assets)
+      })
     }
-    )
   })
   return rows
 }
@@ -65,6 +71,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   const statuses: string[] = []
   const conditions: string[] = []
   const forcesNames: string[] = []
+  const subTypes: string[] = []
   const isUmpireForce = forces.find((force: ForceData) => force.uniqid === playerForce && force.umpire)
   forces.forEach((force: ForceData) => {
     if (opFor) {
@@ -112,14 +119,27 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               conditions.push(asset.condition)
             }
           }
+          if (asset.attributes) {
+            const subType = asset.attributes.a_Type as string
+            if (!subTypes.includes(subType)) {
+              subTypes.push(subType)
+            }
+          }
           storePlatformType(asset.platformTypeId, platformStyles, platformTypesDict)
         })
       }
     }
   })
+
+  // sort sub-types
+  const sortedSubTypes = subTypes.slice().sort()
+
+  const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
+
   const res: SummaryData = {
     roles: roleDict,
-    platformTypes: platformTypesDict,
+    platformTypes: sortedPlatforms,
+    subTypes: sortedSubTypes,
     conditions: conditions,
     statuses: statuses,
     forces: forcesNames
@@ -127,19 +147,28 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   return res
 }
 
-const renderIcon = (row: AssetRow): React.ReactElement => {
+const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, string>): React.ReactElement => {
   if (!row.icon) return <></>
   const icons = row.icon.split(',')
   if (icons.length === 3) {
     return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} color={icons[1]} health={+icons[3]} />{icons[2]}</span>
   }
-  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]}</span>
+
+  // test new asset icon component
+  if (row.sidc) {
+    // SGG*UCIN--
+    return <SymbolAssetIcon sidc={row.sidc} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />
+  }
+  // end
+
+  return <span><AssetIcon className={styles['cell-icon']} imageSrc={icons[0]} health={+icons[3]} />{icons[2]} <small>({row.id})</small></span>
 }
 
 export const arrToDict = (arr: string[]): any => {
   if (arr && arr.length > 0) {
     const res = {}
-    arr.forEach((item: string) => {
+    const sorted = sortBy(arr, function (name) { return name })
+    sorted.forEach((item: string) => {
       res[item] = item
     })
     return res
@@ -169,7 +198,8 @@ export const renderOwner = (row: AssetRow, roles: Record<string, string>): React
 export const collateActivities = (rows: MessagePlanning[]): string[] => {
   const activities: string[] = []
   rows.forEach((row: MessagePlanning) => {
-    const activity = row.message.activity
+    const force = row.details.from.forceId || ''
+    const activity = row.message.activity.slice(force.length + 1)
     if (!activities.includes(activity)) {
       activities.push(activity)
     }
@@ -181,7 +211,7 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
   const keys = Object.keys(row.attributes)
   if (keys.length) {
     return <ul>
-      { keys.map((key: string, index: number) => {
+      {keys.map((key: string, index: number) => {
         return <li key={index}>{key}: {row.attributes[key]}</li>
       })}
     </ul>
@@ -190,41 +220,50 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
   }
 }
 
+// type ColumnType = {
+//   title: string
+//   field: string
+//   render: any
+//   lookup: any
+// }
+
 /**
  * Helper function to provide the columns for the table
  * @param opFor whether we're displaying perceived other platforms
  * @param playerForce the force of the current player
  * @returns
  */
-export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[]): Column[] => {
+export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[], assetsCache: LRUCache<string, string>): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
+  const fixedColWidth = 100
 
-  const columns: Column[] = [
-    { title: 'Icon', field: 'icon', render: renderIcon },
-    { title: 'Force', field: 'force', lookup: arrToDict(summaryData.forces) },
-    { title: 'Type', field: 'platformType', render: (row): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
-    { title: 'Health', type: 'numeric', field: 'health' },
-    { title: 'Attributes', field: 'attributes', render: renderAttributes }
+  const ownAssets = !!(playerForce && !opFor)
+
+  const columns: Column<any>[] = [
+    { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
+    { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
+    { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
+    { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
+    { title: 'Health', type: 'numeric', field: 'health', width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'C4', type: 'string', field: 'c4', width: fixedColWidth, minWidth: fixedColWidth }
   ]
 
-  // don't need to show Force if we're just showing
-  // our own force
-  if (playerForce && !opFor) {
-    columns.splice(1, 1)
-  }
-
-  // don't show health or attributes for OpFor assets
-  if (opFor) {
-    columns.splice(3, 2)
+  // show attributes for own forces (or if we're umpire)
+  if (ownAssets) {
+    columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
   }
 
   return columns
 }
 
-const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes): Record<string, unknown> => {
+const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipThese: string[]): Record<string, unknown> => {
   const attrDict = {}
   const ids = asset.attributes || {}
   Object.keys(ids).forEach((attrId: string) => {
+    if (skipThese && skipThese.includes(attrId)) {
+      return
+    }
     const aType = attributeTypes.find((aType) => aType.attrId === attrId)
     if (aType) {
       switch (aType.attrType) {
@@ -282,27 +321,63 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   }
 
   const isUmpire = playerForce.umpire
+  const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
+
+  const domainFor = (travelMode?: string): string => {
+    if (travelMode) {
+      switch (travelMode) {
+        case 'sea':
+          return 'Maritime'
+        case 'air':
+          return 'Air'
+        case 'land':
+          return 'Land'
+        default:
+          console.warn('Unexpected travel mode encountered:', travelMode)
+          return 'ERR'
+      }
+    }
+    return 'Unk'
+  }
+  const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
+  const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
+  // we don't show some attributes, since they are shown in other columns
+  const attributesToSkip = ['a_Type', 'a_C4_Status']
 
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
     if (assetForce.uniqid !== playerForce.uniqid) {
       const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
-      const perception = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const perceptionTypes = findPerceivedAsTypes(playerForce.uniqid, asset.name, visibleToThisForce, asset.contactId, assetForce.uniqid, asset.platformTypeId || '', asset.perceptions)
+      const perception = asset.perceptions.find((perc) => perc.by === playerForce.uniqid)
+      // as a performance measure, we don't create attributes for OpFor assets
+      // const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
+      const modernAttrDict = {} // platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
       const health = asset.health === 0 ? 0 : (asset.health || 100)
-      if (perception) {
-        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perception.forceId)
+      const c4 = 'unk'
+      if (perceptionTypes) {
+        const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
         const res: AssetRow = {
           id: asset.uniqid,
-          icon: iconFor(perception.typeId) + ',' + colorFor(perception.forceId) + ',' + perception.name + ',' + health,
+          icon: iconFor(perceptionTypes.typeId) + ',' + colorFor(perceptionTypes.forceId) + ',' + perceptionTypes.name + ',' + health,
           force: forceStyle ? forceStyle.force : UNKNOWN_TYPE,
-          name: perception.name,
-          platformType: perception.typeId,
-          position: asset.location && latLng(asset.location[0], asset.location[1]),
+          name: perceptionTypes.name,
+          platformType: perceptionTypes.typeId,
+          subType: subType,
+          position: perception && perception.position && latLng(perception.position[0], perception.position[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
-          attributes: {}
+          c4: c4,
+          domain: domain,
+          attributes: modernAttrDict
         }
+
+        const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+        if (perceivedPlatformType && perceivedPlatformType.sidc) {
+          res.sidc = perceivedPlatformType.sidc
+        }
+
         itemRows.push(res)
       }
     }
@@ -310,9 +385,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const visibleToThisForce = !!(assetForce.visibleTo && assetForce.visibleTo.includes(playerForce.uniqid))
     const myForce = assetForce.uniqid === playerForce.uniqid
     const umpireInOwnFor = (isUmpire && !opFor)
-    const platformType = platformTypes && platformTypes.find((plat) => plat.uniqid === asset.platformTypeId)
-    const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes) : {}
+    const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
+    const c4 = asset.attributes ? asset.attributes.a_C4_Status : 'Unk'
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
@@ -320,12 +395,20 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         force: assetForce.name,
         name: asset.name,
         platformType: asset.platformTypeId || '',
+        subType: subType,
         owner: asset.owner ? asset.owner : '',
         position: asset.location && latLng(asset.location[0], asset.location[1]),
         tableData: { checked: selectedAssets.includes(asset.uniqid) },
         health: health,
+        c4: '' + c4,
+        domain: domain,
         attributes: modernAttrDict
       }
+
+      if (platformType && platformType.sidc) {
+        res.sidc = platformType.sidc
+      }
+
       // if we're handling the child of an asset, we need to specify the parent
       if (parentId) {
         res.parentId = parentId
@@ -341,24 +424,4 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     })
   }
   return itemRows
-}
-
-export const getRows = (opFor: boolean, forces: ForceData[], forceColors: ForceStyle[], platformIcons: PlatformStyle[],
-  playerForce: ForceData, selectedAssets: string[], platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): AssetRow[] => {
-  const rows: AssetRow[] = []
-
-  // ok, work through the assets
-  forces.forEach((force: ForceData) => {
-    if (force.assets) {
-      const handleThisOpFor = opFor && force.uniqid !== playerForce.uniqid
-      const handleThisOwnFor = !opFor && force.uniqid === playerForce.uniqid
-      const handleAllForces = (!opFor && playerForce.umpire)
-      if (handleThisOpFor || handleThisOwnFor || handleAllForces) {
-        force.assets.forEach((asset: Asset) => {
-          rows.push(...collateItem(opFor, asset, playerForce || '', force, forceColors, platformIcons, selectedAssets, platformTypes, attributeTypes, undefined))
-        })
-      }
-    }
-  })
-  return rows
 }

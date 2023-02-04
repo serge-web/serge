@@ -1,6 +1,6 @@
-import { GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
+import { ADJUDICATION_OUTCOMES, GeometryType, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import {
-  Asset, ForceData, GroupedActivitySet, MessageDetails, MessageDetailsFrom, MessagePlanning,
+  Asset, ForceData, GroupedActivitySet, INTERACTION_SHORT_CIRCUIT, MessageDetails, MessageDetailsFrom, MessagePlanning,
   PerceivedTypes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry, Role
 } from '@serge/custom-types'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -18,7 +18,9 @@ const msgContents: PlanningMessageStructureCore = {
   activity: 'point-recce',
   title: 'Operation Bravo-12',
   ownAssets: [],
-  otherAssets: []
+  otherAssets: [],
+  startDate: moment().toISOString(),
+  endDate: moment().toISOString()
 }
 
 const sample: MessagePlanning = {
@@ -58,9 +60,13 @@ interface PerForceData {
  */
 export interface GeomWithOrders extends PlannedActivityGeometry {
   /**
+   * the activity this geometry is part of
+   */
+  activity: PlanningActivity
+  /**
    *  the set of orders this geometry relates to
    */
-  activity: MessagePlanning
+  plan: MessagePlanning
   /**
    * the force these orders belong to
    */
@@ -71,6 +77,23 @@ export interface GeomWithOrders extends PlannedActivityGeometry {
   id: string
 }
 
+/** an event created from just one set of plans */
+export interface ShortCircuitEvent {
+  id: string
+  message: MessagePlanning
+  activity: PlanningActivity
+  // the type of event that triggered this
+  event: INTERACTION_SHORT_CIRCUIT
+  /** the specific geometry that relates to, if known */
+  geomId: PlannedActivityGeometry['uniqid'] | undefined
+  timeStart: number // unix millis
+  timeEnd: number // unix millis
+  intersection?: Geometry
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
+}
+
 /** an instance of one geometry interacting with another */
 export interface PlanningContact {
   id: string
@@ -79,6 +102,9 @@ export interface PlanningContact {
   intersection?: Geometry
   timeStart: number // unix millis
   timeEnd: number // unix millis
+  /** optional set of default adjud outcomes for this contact (typically
+   * used when we short-circuit interaction generation) */
+  outcomes?: MessageAdjudicationOutcomes
 }
 
 const collateForceData = (forces: ForceData[], createFor: string[]): PerForceData[] => {
@@ -130,7 +156,7 @@ const psora = (k: number): number => {
   return res
 }
 
-const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
+export const randomArrayItem = <Type>(arr: Type[], ctr: number): Type => {
   return arr[Math.floor(arr.length * psora(ctr))]
 }
 
@@ -263,8 +289,10 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
 }
 
 const createMessage = (channelId: string, force: PerForceData, ctr: number, orderTypes: PerForcePlanningActivitySet[], timeNow: moment.Moment): MessagePlanning => {
+  let localCtr = ctr
+
   // details first
-  const from = randomRole(force.roles, 4 + ctr)
+  const from = randomRole(force.roles, 4 + localCtr)
   const fromD: MessageDetailsFrom = {
     force: force.forceName,
     forceColor: force.forceColor,
@@ -274,38 +302,63 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
     forceId: force.forceId
   }
 
+  // get activities for this force
+  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
+  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
+  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
+  const activity = randomArrayItem(flatActivities, localCtr++)
+
+  const needsMissiles = (activity.template && activity.template.includes('Strike'))
+
+  const missileTypes = [
+    'SRBM',
+    'MRBM',
+    'IRBM',
+    'Standard Cruise',
+    'Low Obs Cruise',
+    'Propellor OWA UAV',
+    'Jet OWA UAV']
+
   // assets
-  const numAssets = randomArrayItem([1, 2, 3, 4], ctr + 5)
+  const numAssets = randomArrayItem([1, 2, 3, 4], localCtr + 5)
   const assets: Asset[] = []
   for (let k = 0; k < numAssets; k++) {
-    let possAsset = randomArrayItem(force.ownAssets, 1 + k + ctr + 3)
-    let ctr2 = ctr
+    let possAsset = randomArrayItem(force.ownAssets, 1 + k + localCtr + 3)
+    let ctr2 = localCtr
     while (assets.includes(possAsset)) {
       possAsset = randomArrayItem(force.ownAssets, ++ctr2)
     }
     assets.push(possAsset)
   }
-  const assetObj = assets.map((asset: Asset) => { return { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } })
+  const assetsArr = assets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid, number: Math.floor(Math.random() * 6) } as any
+    if (needsMissiles) {
+      res.missileType = randomArrayItem(missileTypes, ++localCtr)
+    }
+    return res
+  })
 
-  const numTargets = randomArrayItem([1, 2, 3], ++ctr * 1.4)
-  const targets: Asset['uniqid'][] = []
+  const numTargets = randomArrayItem([1, 2, 3], ++localCtr * 1.4)
+  const targets: Asset[] = []
   for (let m = 0; m < numTargets; m++) {
     let possTarget = randomArrayItem(force.otherAssets, m + 3)
-    let ctr2 = ctr
-    while (targets.includes(possTarget.uniqid)) {
+    let ctr2 = localCtr
+    while (targets.find((asset: Asset) => asset.uniqid === possTarget.uniqid)) {
       possTarget = randomArrayItem(force.otherAssets, ++ctr2)
     }
-    targets.push(possTarget.uniqid)
+    targets.push(possTarget)
   }
+  const targetsAarr = targets.map((asset: Asset) => {
+    const res = { asset: asset.uniqid } as any
+    if (needsMissiles) {
+      res.missileType = randomArrayItem(missileTypes, ++localCtr)
+      res.number = Math.floor(Math.random() * 6)
+    }
+    return res
+  })
 
-  // get activities for this force
-  const thisForceActivities = orderTypes.find((orders) => orders.force === force.forceId)
-  const flatArray = thisForceActivities && thisForceActivities.groupedActivities.map((group) => group.activities)
-  const flatActivities = thisForceActivities ? _.flatten(flatArray) as unknown as PlanningActivity[] : []
-  const activity = randomArrayItem(flatActivities, ctr++)
-
-  const geometries = geometriesFor([randomArrayItem(force.ownAssets, ctr++)], force.forceId, [randomArrayItem(force.otherAssets, ctr++)],
-    activity, 5 * psora(4 * ctr), timeNow)
+  const geometries = geometriesFor([randomArrayItem(force.ownAssets, localCtr++)], force.forceId, [randomArrayItem(force.otherAssets, localCtr++)],
+    activity, 5 * psora(4 * localCtr), timeNow)
 
   // sort out the overall time period
   let startDate: moment.Moment | undefined
@@ -326,32 +379,41 @@ const createMessage = (channelId: string, force: PerForceData, ctr: number, orde
 
   if (!startDate) {
     const timeStart = timeNow
-    const minsOffset = Math.floor(psora(2 * ctr) * 20) * 10
-    const timeEnd = timeStart.clone().add(minsOffset, 'm')
     startDate = timeStart
+  }
+
+  if (!endDate) {
+    const timeStart = timeNow
+    const minsOffset = Math.floor(psora(2 * localCtr) * 20) * 10
+    const timeEnd = timeStart.clone().add(minsOffset, 'm')
     endDate = timeEnd
   }
+
+  // sort out the start/stop time for the geometries
 
   const details: MessageDetails = {
     channel: channelId,
     from: fromD,
     messageType: activity.template,
-    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(ctr + 2) * 200, 'h').toISOString(),
+    timestamp: moment('2022-09-21T13:15:09.106Z').add(psora(localCtr + 2) * 200, 'h').toISOString(),
     turnNumber: 3
   }
 
   // create the message
   const message: PlanningMessageStructureCore = {
     Reference: force.forceName + '-' + ctr,
-    title: 'Order item ' + ctr,
+    title: 'Order item ' + localCtr,
     startDate: startDate && startDate.toISOString(),
     endDate: endDate && endDate.toISOString(),
-    location: geometries,
     activity: activity.uniqid,
-    ownAssets: assetObj,
-    otherAssets: targets
+    ownAssets: assetsArr,
+    otherAssets: targetsAarr
   }
 
+  // inject location, if necessary
+  if (geometries.length > 0) {
+    message.location = geometries
+  }
   return { ...sample, details: details, message: message, _id: 'm_' + force.forceId + '_' + ctr }
 }
 
@@ -386,6 +448,43 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
   }
 }
 
+/**
+ * Decide if an interaction should be generated between two activities
+ * @param first the first activity
+ * @param second the second activity
+ * @param throwErrorOnUnbalanced whether to throw an error if the interactsWithRelationship is unbalanced
+ * @returns whether we should generate interaction between two activities
+ */
+export const interactsWith = (first: PlanningActivity, second: PlanningActivity, throwErrorOnUnbalanced?: boolean): boolean => {
+  const firstId = first.actId
+  const secondId = second.actId
+  const firstInteracts = first.interactsWith ? first.interactsWith.includes(secondId) : false
+  const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId) : false
+  if (firstInteracts !== secondInteracts) {
+    if (throwErrorOnUnbalanced) {
+      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+      throw Error('Unbalanced interacts')
+    } else {
+      console.error('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+    }
+  }
+  return first.interactsWith ? first.interactsWith.includes(secondId) : false
+}
+
+export const findPlanningActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
+  const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+  if (!force) {
+    console.log('activities', activities, forceId)
+    throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
+  }
+  // flatten the hierarchy, then do find
+  const activity = force.groupedActivities.map((group) => group.activities).flat().find((plan) => plan.template === id)
+  if (!activity) {
+    throw Error('Failed to find group activities for this activity 2:' + id)
+  }
+  return activity as any as PlanningActivity
+}
+
 export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
@@ -404,7 +503,7 @@ export const findPlanningGeometry = (id: string, forceId: string, activities: Pe
   }
   const activity = findGeometryInGroup(id, group)
   if (!activity) {
-    throw Error('Failed to find group activities for this activity:' + id)
+    throw Error('Failed to find group activities for this activity 2:' + id)
   }
   return activity.name
 }
@@ -472,14 +571,16 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
           geom.coordinates = fixPoly(geom.coordinates)
         }
         const fromBit = message.details.from
-        const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
-        const id = message.message.title + '//' + activity + '//' + message._id
-        const newItem = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, pState: {}, id: id }
+        const activity = findPlanningActivity(message.details.messageType, forceId, activities)
+        const geometry = findPlanningGeometry(plan.uniqid, forceId, activities) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
+        // findPlanningGeometry(plan.uniqid, forceId, activities)
+        const id = message.message.Reference + '//' + message.message.title + '//' + geometry
+        const newItem: GeomWithOrders = { ...plan, activity: activity, plan: message, force: fromBit.forceId || fromBit.force, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
         const props = newItem.geometry.properties as PlannedProps
-        props.name = message.details.from.force + '//' + message.message.title + '//' + activity
+        props.name = message.details.from.force + '//' + message.message.title + '//' + geometry
         props.geomId = plan.uniqid
         props.force = forceId
         // fill in date/time, if not present
@@ -528,10 +629,10 @@ const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
 }
 
 export const randomOrdersDocs = (channelId: string, count: number, forces: ForceData[], createFor: string[], orderTypes: PerForcePlanningActivitySet[],
-  adjudicationTemplateId: string): Array<MessagePlanning | MessageInteraction> => {
+  adjudicationTemplateId: string, startTimeStr: string): Array<MessagePlanning | MessageInteraction> => {
   const res: Array<MessagePlanning | MessageInteraction> = []
   const perForce = collateForceData(forces, createFor)
-  let startTime = moment('2022-11-15T00:00:00.000Z')
+  let startTime = moment(startTimeStr)
   for (let i = 0; i < count; i++) {
     const willIncrement = psora(2 + i) > 0.5
     const minsOffset = willIncrement ? Math.floor(psora(1 + i) * 5) * 5 : 0
@@ -546,8 +647,9 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
   const justPlanning = deepCopy(res) as MessagePlanning[]
   const interactions: MessageInteraction[] = []
   let ctr = 0
+  const numInteractions = count > 40 ? 5 : 2
   umpireRoles.forEach((role) => {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < numInteractions; i++) {
       // find a force-1 doc
       const doc1 = getDocFromThisForce(justPlanning, createFor[0])
       const doc2 = getDocFromThisForce(justPlanning, createFor[1])
@@ -581,16 +683,17 @@ export const randomOrdersDocs = (channelId: string, count: number, forces: Force
       const msgBody: MessageAdjudicationOutcomes = {
         Reference: reference,
         healthOutcomes: [],
+        important: psora(3 + i) > 0.7,
         locationOutcomes: [],
         perceptionOutcomes: [],
         narrative: '',
-        messageType: 'AdjudicationOutcomes'
+        messageType: ADJUDICATION_OUTCOMES
       }
       const msgInt: MessageInteraction = {
         messageType: INTERACTION_MESSAGE,
         details: details,
         message: msgBody,
-        _id: moment().toISOString()
+        _id: moment().toISOString() + '//' + interactions.length
       }
       // check it's not already present
       if (!interactions.find((inter) => inter.message.Reference === msgInt.message.Reference)) {
@@ -616,6 +719,7 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
     if (order.geometry.properties) {
       const planned = order.geometry.properties as PlannedProps
       if (!planned.startTime) {
+        console.warn('Geometry time missing, injecting times for whole orders')
         planned.startTime = moment(planned.startDate).valueOf()
         planned.endTime = moment(planned.endDate).valueOf()
       }
@@ -766,32 +870,36 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
     geometries.forEach((other: GeomWithOrders, otherIndex: number) => {
       // check it's not me
       if (myIndex !== otherIndex) {
-        // don't compare geometries that are part of the same activity
-        if (me.activity._id !== other.activity._id) {
-          // generate IDs, to ensure we don't compare shapes twice
-          const meFirst = (me.id < other.id)
-          const first = meFirst ? me : other
-          const second = meFirst ? other : me
-          const id = createContactReference(first.id, second.id)
-
-          // have we already checked this permutation (maybe in another bin)?
-          if (!interactionsConsidered.includes(id)) {
-            // has it already been adjudicated
-            if (!interactionsProcessed.includes(id)) {
-              interactionsConsidered.push(id)
-              if (differentForces(me, other) && overlapsInTime(me, other)) {
-                // see if we have a cached contact
-                const cachedResult = interactionsTested[id]
-                if (cachedResult !== undefined) {
-                  if (cachedResult !== null) {
-                    res.push(cachedResult)
-                  }
-                } else {
+        // generate IDs, to ensure we don't compare shapes twice
+        const meFirst = (me.id < other.id)
+        const first = meFirst ? me : other
+        const second = meFirst ? other : me
+        const id = createContactReference(first.id, second.id)
+        // have we already checked this permutation (maybe in another bin)?
+        if (!interactionsConsidered.includes(id)) {
+          // has it already been adjudicated
+          if (!interactionsProcessed.includes(id)) {
+            interactionsConsidered.push(id)
+            if (differentForces(me, other) && overlapsInTime(me, other)) {
+              // see if we have a cached contact
+              const cachedResult = interactionsTested[id]
+              if (cachedResult !== undefined) {
+                if (cachedResult !== null) {
+                  res.push(cachedResult)
+                }
+              } else {
+                const interacts = interactsWith(first.activity, second.activity)
+                // see if they should interact with each other
+                if (interacts) {
                   const contact = touches(me, other, id, Math.random, sensorRangeKm)
                   if (contact) {
                     res.push(contact)
                   }
-                  interactionsTested[id] = contact || null
+                  interactionsTested[id] = contact
+                } else {
+                  // console.log('not considering', first.activity.actId, second.activity.actId)
+                  // remember that this won't generate a contact
+                  interactionsTested[id] = null
                 }
               }
             }
@@ -813,11 +921,17 @@ export const touches = (me: GeomWithOrders, other: GeomWithOrders, id: string, _
   let res: PlanningContact | boolean | undefined
   let intersection: ShapeInteraction | undefined
   const titles: string[] = []
-  const monitor = (titles.includes(me.activity.message.title) ||
-    titles.includes(other.activity.message.title))
+  const monitor = (titles.includes(me.id) && titles.includes(other.id))
   const intersectionTime = timeIntersect2(myTime, otherTime)
-  if (monitor) {
-    console.log('check', me, other)
+  if (titles.length > 0) {
+    // ok, we're looking for something.  If this permutation matches it, carry on - else
+    // return null.
+    if (monitor) {
+      console.log('touches', me.geometry.geometry.type, other.geometry.geometry.type)
+    } else {
+      console.log('TOUCHES didn\'t match specified IDs. Dropping out')
+      return null
+    }
   }
   switch (me.geometry.geometry.type) {
     case 'Point': {

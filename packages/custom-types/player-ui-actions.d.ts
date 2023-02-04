@@ -1,5 +1,6 @@
 import {
   SET_CURRENT_WARGAME_PLAYER,
+  SET_ALL_TURN_PERIOD,
   SET_FORCE,
   SET_ROLE,
   SET_ALL_TEMPLATES_PLAYERUI,
@@ -21,6 +22,7 @@ import {
 
 import {
   Wargame,
+  TurnPeriod,
   Role,
   MessageFeedback,
   MessageChannel,
@@ -29,14 +31,19 @@ import {
   ChatMessage
 } from '.'
 import { Dispatch } from 'react'
-import { TemplateBodysByKey } from './message-types';
-
+import { TemplateBodysByKey } from './message-types'
 export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 
 interface SetCurrentWargameAction {
   type: typeof SET_CURRENT_WARGAME_PLAYER,
   payload: Wargame
 }
+
+interface SetCurrentTurnPeriodAction {
+  type: typeof SET_ALL_TURN_PERIOD,
+  payload: Array<TurnPeriod>
+}
+
 interface SetForceAction {
   type: typeof SET_FORCE,
   payload: string
@@ -115,6 +122,7 @@ interface CloseModalAction {
 }
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |
+  SetCurrentTurnPeriodAction |
   SetForceAction |
   SetRoleAction |
   SetAllTemplatesAction |
@@ -131,4 +139,4 @@ export type PlayerUiActionTypes = SetCurrentWargameAction |
   MarkAllASUnReadAction |
   OpenTourAction |
   OpenModalAction |
-  CloseModalAction
+  CloseModalAction 

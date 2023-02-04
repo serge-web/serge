@@ -1,7 +1,7 @@
 /* global it expect */
 import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessageInteraction, MessagePlanning } from '@serge/custom-types'
-import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { noop } from 'lodash'
 import React from 'react'
 import renderer from 'react-test-renderer'
@@ -27,8 +27,9 @@ describe('Support Panel component: ', () => {
       .create(<SupportPanel
         platformTypes={platformTypes}
         allForces={P9BMock.data.forces.forces}
+        allPeriods={turnPeriod}
         gameDate={P9BMock.data.overview.gameDate}
-        gameTurnTime={P9BMock.data.overview.gameTurnTime}
+        gameTurnLength={P9BMock.data.overview.gameTurnTime}
         currentWargame={P9BMock.currentWargame || ''}
         selectedAssets={[]}
         attributeTypes={[]}

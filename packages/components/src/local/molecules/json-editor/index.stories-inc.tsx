@@ -1,3 +1,4 @@
+import * as turf from '@turf/turf'
 import React from 'react'
 
 // Import component files
@@ -53,7 +54,9 @@ export default {
 }
 const storeNewValue = (_value: { [property: string]: any }): void => {
   console.log('store test', _value)
-  generateAllTemplates()
+  const data = generateAllTemplates()
+  console.log('activities', data.activities)
+  console.log('templates', data.templates)
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
@@ -117,12 +120,16 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   const blueAssets = forces[1].assets ? forces[1].assets : []
   const redAssets = forces[2].assets ? forces[2].assets : []
   const toRow = (asset: Asset): AssetRow => {
+    const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
     const row: AssetRow = {
       id: asset.uniqid,
       icon: 'icon',
       name: asset.name,
       platformType: asset.platformTypeId,
+      subType: subType,
       health: 100,
+      c4: 'Operational',
+      domain: 'Land',
       attributes: { word: 'text', number: 123 }
     }
     return row
@@ -181,6 +188,40 @@ const maritime = generateTemplate('first', true, coreTemplate, otherTemplate, 'I
 // const other = generateTemplate('first', coreTemplate, otherTemplate, transit)
 
 // generateAllTemplates()
+
+// helper code to inject perceived locations, including some that aren't the actual locations
+const injectPerceivedLocations = !7
+if (injectPerceivedLocations) {
+  P9BMock.data.forces.forces.forEach((force) => {
+    if (force.assets) {
+      force.assets.forEach((asset) => {
+        const loc = asset.location
+        if (loc) {
+          const pers = asset.perceptions
+          pers.forEach((perc) => {
+            const rnd = Math.random()
+            if (rnd > 0.6) {
+              perc.position = deepCopy(loc)
+            } else if (rnd > 0.4) {
+              const randBrg = Math.random() * 360
+              const randDistKm = Math.random() * 50
+              const origin = turf.point([loc[1], loc[0]])
+              const newPt = turf.destination(origin, randDistKm, -180 + randBrg, { units: 'kilometers' })
+              const newLocation = newPt.geometry.coordinates
+              const newLat = Math.floor(newLocation[1] * 10000) / 10000
+              const newLong = Math.floor(newLocation[0] * 10000) / 10000
+              const newLoc: [number, number] = [newLat, newLong]
+              perc.position = newLoc
+            } else {
+              delete perc.position
+            }
+          })
+        }
+      })
+    }
+  })
+  console.log('force with percept', P9BMock.data.forces.forces)
+}
 
 export const P9Message = Template.bind({})
 P9Message.args = {

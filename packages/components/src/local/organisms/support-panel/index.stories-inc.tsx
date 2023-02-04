@@ -1,7 +1,7 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
 import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { noop } from 'lodash'
@@ -120,11 +120,12 @@ const Template: Story<SupportPanelProps> = (args) => {
     phase={Phase.Planning}
     channel={planningChannel}
     allTemplates={myTemplates}
+    allPeriods={turnPeriod}
     adjudicationTemplate={planningMessageTemplatesMock[0]}
     activityTimeChanel={noop}
     allForces={P9BMock.data.forces.forces}
     gameDate={P9BMock.data.overview.gameDate}
-    gameTurnTime={P9BMock.data.overview.gameTurnTime}
+    gameTurnLength={P9BMock.data.overview.gameTurnTime}
     currentWargame={P9BMock.currentWargame || ''}
     currentTurn={P9BMock.gameTurn}
     dispatch={noop}

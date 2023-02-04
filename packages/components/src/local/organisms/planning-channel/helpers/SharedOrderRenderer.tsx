@@ -16,7 +16,7 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
     case 'LineString': {
       const ls = feature.geometry as LineString
       const coords: LatLng[] = ls.coordinates.map((pos: Position) => latLng(pos[1], pos[0]))
-      res = <PolylineDecorator key={index} storeRef={storeRef} message={label} latlngs={coords} color={(color) || ''} />
+      res = <PolylineDecorator key={index} storeRef={storeRef} message={label} latlngs={coords} color={color || '#F0F'} />
       break
     }
     case 'Polygon': {
@@ -50,7 +50,7 @@ export const shapeFor = (feature: Feature, color: string, label: string, storeRe
 export const shapeForGeomWithOrders = (geom: GeomWithOrders, forceCols: ForceStyle[],
   activities: PerForcePlanningActivitySet[], storeRef: { (polyline: Layer): void }, index: number): React.ReactElement => {
   const geometry = geom.geometry
-  const force = geom.activity.details.from.forceId
+  const force = geom.plan.details.from.forceId
   const activity = findPlanningGeometry(geom.uniqid, force || '', activities)
   const color = forceCols.find((value: ForceStyle) => value.forceId === force)
   console.log('force', force, color)
