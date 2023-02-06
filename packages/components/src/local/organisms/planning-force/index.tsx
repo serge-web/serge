@@ -20,6 +20,8 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
 
+  const map = useMap()
+
   const createClusterIcon = () => {
     return {
       iconCreateFunction: function (cluster: MarkerCluster) {
@@ -39,7 +41,9 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
   useEffect(() => {
     if (clusterGroup === undefined) {
-      setClusterGroup(L.markerClusterGroup(createClusterIcon()))
+      const markerGroupLayer = L.markerClusterGroup(createClusterIcon())
+      setClusterGroup(markerGroupLayer)
+      map.addLayer(markerGroupLayer)
     }
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
@@ -75,14 +79,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   }
 
   const MarkerCluster = ({ markers }: { markers: AssetRow[] }) => {
-    const map = useMap()
-
-    useEffect(() => {
-      if (clusterGroup) {
-        map.addLayer(clusterGroup)
-      }
-    }, [clusterGroup])
-
 
     useEffect(() => {
       if (clusterGroup) {
