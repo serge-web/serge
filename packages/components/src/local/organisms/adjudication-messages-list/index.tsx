@@ -9,7 +9,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import { findForceAndAsset, forceColors, ForceStyle, incrementGameTime } from '@serge/helpers'
+import { findForceAndAsset, forceColors, ForceStyle, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import dayjs, { Dayjs } from 'dayjs'
 import _ from 'lodash'
 import moment from 'moment'
@@ -138,22 +138,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return healthStyle
   }
 
-  const hexToRGB = (hex: string, opacity: number): string => {
-    const formatHex = (hexStr: string): string => {
-      const c = hexStr.substring(1).split('')
-      if (c.length === 3) {
-        return `${c[0]}${c[0]}${c[1]}${c[1]}${c[2]}${c[2]}`
-      }
-      return `${c.join('')}`
-    }
-    const color = formatHex(hex)
-    const r = parseInt(color.slice(0, 2), 16)
-    const g = parseInt(color.slice(2, 4), 16)
-    const b = parseInt(color.slice(4, 6), 16)
-
-    return `rgba(${r}, ${g}, ${b}, ${opacity})`
-  }
-
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
     index: number, numberCol: boolean): React.ReactElement => {
     let asset: {force: ForceData, asset: Asset} | undefined
@@ -165,7 +149,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (asset) {
       const platformType = platformTypes.find((value) => asset && value.uniqid === asset.asset.platformTypeId)
       const numAssets = assetId.number || 0
-      const forceStyle = { backgroundColor: hexToRGB(asset.force.color, 0.4) }
+      const forceStyle = { backgroundColor: hexToRGBA(asset.force.color, 0.4) }
       const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
       const numDetails = assetId.missileType
         ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
@@ -215,7 +199,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const title = order1 ? 'Orders 1' : ' Orders 2'
       const orderTimings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
       const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
-      const forceStyle = { fontSize: '160%', backgroundColor: hexToRGB(force ? force.color : '#ddd', 0.4) }
+      const forceStyle = { fontSize: '160%', backgroundColor: hexToRGBA(force ? force.color : '#ddd', 0.4) }
       return <Box>
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
