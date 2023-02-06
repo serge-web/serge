@@ -45,8 +45,8 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       let existingCluster: MarkerClusterGroup | undefined
       map.eachLayer(function (layer) {
         if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
-          // yes, this is a marker cluster for this force 
-          existingCluster = layer  as MarkerClusterGroup
+          // yes, this is a marker cluster for this force
+          existingCluster = layer as MarkerClusterGroup
         }
       })
       if (!existingCluster) {
