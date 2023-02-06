@@ -7,8 +7,14 @@ export default interface PropTypes {
    * Will not be necessary once we have PHASE-2 icons
    */
   opFor: boolean
-  /** id of selected asset */
+  /** shade to use for clusters for this force */
+  forceColor: string
+  /** id of selected asset (not clustered, highlighted with pulsing) */
   selectedAssets: string[]
+  /** current assets (not clustered) */
+  currentAssets: string[]
   setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
   interactive?: boolean
+  /** name of this force */
+  label: string
 }
