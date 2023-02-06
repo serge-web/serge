@@ -1,4 +1,4 @@
-import { faEnvelopeOpen, faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
@@ -86,35 +86,42 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    console.log('Adj Message List, updated interactions:', interactionMessages.length)
+    // find list of messages that are open and assigned to me
+    const ownOpenMessages: MessageInteraction[] = interactionMessages.filter((msg) => {
+      const isMine = msg.details.from.roleId === playerRoleId
+      const isOpen = msg.details.interaction && msg.details.interaction.complete === false
+      return isMine && isOpen
+    })
+    // if filter is selected, only show own open messages
+    const ownMessages = onlyShowOpen ? ownOpenMessages : interactionMessages
     if (cachedInteractions.length === 0) {
-      setCachedInteractions(interactionMessages)
-    } else if (interactionMessages.length === 0) {
+      // application load. No interactions known about, so we can't lose
+      // any data - just take the value
+      setCachedInteractions(ownMessages)
+    } else if (ownMessages.length === 0) {
+      // no messages received. Clear list
       setCachedInteractions([])
     } else {
-      const newMessage = interactionMessages[0]
+      // check the first message - it may be an update
+      const newMessage = ownMessages[0]
       const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
       if (existingRow && existingRow.id !== newMessage._id) {
         const row = toRow(newMessage)
         const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
         setRows([...existingMessages, row])
       } else {
-        setCachedInteractions(interactionMessages)
+        setCachedInteractions(ownMessages)
       }
     }
+    // when determining the time of next adjudication, consider the full list
     if (interactionMessages.length > 0) {
       const lastMessage = interactionMessages[interactionMessages.length - 1]
       if (lastMessage.details.interaction) {
         setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
       }
     }
-    const openInteraction = interactionMessages.find((msg) => {
-      const isMine = msg.details.from.roleId === playerRoleId
-      const isOpen = msg.details.interaction && msg.details.interaction.complete === false
-      return isMine && isOpen
-    })
-    setInteractionIsOpen(!!openInteraction)
-  }, [interactionMessages])
+    setInteractionIsOpen(!!ownOpenMessages.length)
+  }, [interactionMessages, onlyShowOpen])
 
   const renderBoolean = (row: AdjudicationRow): React.ReactElement => {
     return <span>{row.complete ? 'Y' : 'N'}</span>
@@ -743,7 +750,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             onClick: (): void => setFilter(!filter)
           },
           {
-            icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faEnvelopeOpen} />,
+            icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faUser} />,
             iconProps: onlyShowOpen ? { color: 'action' } : { color: 'disabled' },
             tooltip: 'Only show open interactions',
             isFreeAction: true,
