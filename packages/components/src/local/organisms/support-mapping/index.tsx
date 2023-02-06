@@ -4,11 +4,12 @@ import 'leaflet/dist/leaflet.css'
 import React, { useEffect } from 'react'
 import { ScaleControl, TileLayer, useMap } from 'react-leaflet-v4'
 import MapControl from '../../map-control'
+import L from 'leaflet'
 import MapCoordinates from './helper/Coordinates'
 import PropTypes from './types/props'
 
 export const SupportMapping: React.FC<PropTypes> = ({
-  position, bounds, toolbarChildren, mapWidth, children, tileLayer
+  position, bounds, toolbarChildren, mapWidth, children, tileLayer, perForceAssetsLength
 }) => {
   if (!tileLayer) {
     console.warn('warning, using fallback tile layer')
@@ -27,6 +28,14 @@ export const SupportMapping: React.FC<PropTypes> = ({
       map.flyToBounds(bounds, { duration: 0.6 })
     }
   }, [bounds])
+
+  useEffect(() => {
+    map.eachLayer(function (layer) {
+      if (layer instanceof L.MarkerClusterGroup) {
+        map.removeLayer(layer)
+      }
+    })
+  }, [perForceAssetsLength])
 
   useEffect(() => {
     if (position && map) {
