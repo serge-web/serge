@@ -79,7 +79,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   }
 
   const MarkerCluster = ({ markers }: { markers: AssetRow[] }) => {
-
     useEffect(() => {
       if (clusterGroup) {
         clusterGroup.clearLayers()
