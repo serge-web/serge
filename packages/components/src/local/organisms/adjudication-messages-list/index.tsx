@@ -353,7 +353,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // get current message
       const current = currentAdjudication.current as any as MessageAdjudicationOutcomes
 
-      const document = filteredInteractions.find((msg) => msg.message.Reference === current.Reference)
+      const document = interactionMessages.find((msg) => msg.message.Reference === current.Reference)
       if (document) {
         // get current message
         const emptyOutcomes: MessageAdjudicationOutcomes = {
