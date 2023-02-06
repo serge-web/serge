@@ -5,7 +5,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
+import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
@@ -18,6 +18,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
+  const [rangeRings, setRangeRings] = useState<React.ReactElement[]>([])
 
   useEffect(() => {
     if (clusterGroup === undefined) {
@@ -38,6 +39,27 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
     setClusteredMarkers(clustered)
     setRawMarkers(raw)
   }, [assets])
+
+  useEffect(() => {
+    const rings: React.ReactElement[] = []
+    rawMarkers.forEach((asset: AssetRow) => {
+      const attrs = asset.attributes
+      // try for the two range attributes
+      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
+      // only plot range rings for SAM sites
+      const isSAM = asset.platformType.indexOf('sam') >= 0
+      if (range && isSAM) {
+        const index = range.indexOf(' km')
+        const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
+        const centre = asset.position ? asset.position : latLng([0, 0])
+        const rad = rangeKm * 1000
+        if (rad > 0) {
+          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor }} />)
+        }
+      }
+    })
+    setRangeRings(rings)
+  }, [rawMarkers])
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
@@ -88,7 +110,6 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   const getRawMarkerOption = (asset: AssetRow, index: number) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
-    console.log('asset', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
     return {
@@ -111,7 +132,6 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   const getClusteredMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
-    console.log('asset 2', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
 
@@ -153,6 +173,7 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
             <Tooltip>{asset.name}</Tooltip>
           </Marker>
         })}
+        {rangeRings}
       </LayerGroup >
     }
   </>
