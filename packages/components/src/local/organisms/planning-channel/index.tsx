@@ -197,7 +197,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           rows: [],
           color: force.color
         }
-        res.push(item)  
+        res.push(item)
       }
     })
     const doRows = (rows: AssetRow[]) => {
