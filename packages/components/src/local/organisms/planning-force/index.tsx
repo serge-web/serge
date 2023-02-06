@@ -41,9 +41,27 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
   useEffect(() => {
     if (clusterGroup === undefined) {
-      const markerGroupLayer = L.markerClusterGroup(createClusterIcon())
-      setClusterGroup(markerGroupLayer)
-      map.addLayer(markerGroupLayer)
+      // no cluster group. See if the map already has one for this force
+      let existingCluster: MarkerClusterGroup | undefined
+      map.eachLayer(function (layer) {
+        if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
+          // yes, this is a marker cluster for this force 
+          existingCluster = layer  as MarkerClusterGroup
+        }
+      })
+      if (!existingCluster) {
+        // no existing cluster found, generate one
+        existingCluster = L.markerClusterGroup(createClusterIcon())
+        const anyLayer = existingCluster as any
+        // store the force color in the cluster id
+        anyLayer.clusterId = forceColor
+        map.addLayer(existingCluster)
+      }
+      if (existingCluster) {
+        setClusterGroup(existingCluster)
+      } else {
+        console.warn('Failed to find or generate a cluster group')
+      }
     }
     const clustered: AssetRow[] = []
     const raw: AssetRow[] = []
@@ -84,7 +102,9 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
         clusterGroup.clearLayers()
         const markersWithLocation = markers.filter((row: AssetRow) => row.position)
         const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
-        clusterGroup.addLayers(markerList)
+        if (markerList.length) {
+          clusterGroup.addLayers(markerList)
+        }
       }
     }, [markers, map, clusterGroup])
 
