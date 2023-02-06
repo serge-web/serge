@@ -189,19 +189,22 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     const res: PerForceAssets[] = []
     // we need empty arrays (to clear existing icons), so pre-populate arrays
-    forceColors.forEach((style)=> {
-      const item: PerForceAssets = {
-        force: style.force,
-        rows: [],
-        color: style.color
+    allForces.forEach((force) => {
+      // only forces with assets
+      if (force.assets && force.assets.length) {
+        const item: PerForceAssets = {
+          force: force.name,
+          rows: [],
+          color: force.color
+        }
+        res.push(item)  
       }
-      res.push(item)
     })
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
         const forceToUse = force || UNKNOWN_TYPE
-        let thisA = res.find((force) => force.force === forceToUse)
+        const thisA = res.find((force) => force.force === forceToUse)
         if (thisA === undefined) {
           console.warn('Failed to find existing entry for', force)
         } else {
