@@ -13,7 +13,6 @@ export default interface PropTypes {
   bounds?: LatLngBounds
   position?: LatLngExpression
   mapWidth?: string
-  perForceAssetsLength?: number
   /** callback, for if a map action is clicked */
   actionCallback?: { (force: string, category: string, actionId: string): void }
   /**

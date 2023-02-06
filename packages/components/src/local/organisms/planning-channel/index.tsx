@@ -805,7 +805,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                   position={position}
                   actionCallback={mapActionCallback}
                   mapWidth={mapWidth}
-                  perForceAssetsLength={perForceAssets.length}
                   tileLayer={channel.constraints.tileLayer || duffDefinition}
                   toolbarChildren={
                     <>

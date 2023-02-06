@@ -38,7 +38,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   }
 
   useEffect(() => {
-    console.log('Planning force', label, assets.length)
     if (clusterGroup === undefined) {
       setClusterGroup(L.markerClusterGroup(createClusterIcon()))
     }
@@ -80,15 +79,17 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
     useEffect(() => {
       if (clusterGroup) {
+        map.addLayer(clusterGroup)
+      }
+    }, [clusterGroup])
+
+
+    useEffect(() => {
+      if (clusterGroup) {
         clusterGroup.clearLayers()
         const markersWithLocation = markers.filter((row: AssetRow) => row.position)
         const markerList = markersWithLocation.map((asset) => getClusteredMarkerOption(asset))
-        // const theMarker = markersWithLocation.find((asset) => asset.id === 'a111')
-        // console.log('render marker', theMarker && theMarker.position)
         clusterGroup.addLayers(markerList)
-
-        // add the marker cluster group to the map
-        map.addLayer(clusterGroup)
       }
     }, [markers, map, clusterGroup])
 
