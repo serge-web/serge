@@ -1,11 +1,11 @@
 import { CSSProperties } from '@material-ui/core/styles/withStyles'
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
-import { deepCopy } from '@serge/helpers'
+import { deepCopy, incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessages as mockMessages, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { noop, uniqBy } from 'lodash'
+import { cloneDeep, noop, uniqBy } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
@@ -350,5 +350,31 @@ export const AdjudicationFormOpen = Template.bind({})
 AdjudicationFormOpen.args = {
   messages: tmpPlans,
   selectedRoleId: allRoles[1],
+  phase: Phase.Adjudication
+}
+
+
+// mangle some dates
+const firstTurn = turnPeriod[0]
+const startTime = moment.utc(firstTurn.gameDate).valueOf()
+const secondTurn = turnPeriod[1]
+const secondEnd = incrementGameTime(secondTurn.gameDate, secondTurn.gameTurnTime)
+const secondEndTime = moment.utc(secondEnd).valueOf()
+const secondStartTime = moment.utc(secondTurn.gameDate).valueOf()
+const midPoint = secondStartTime + (secondEndTime - secondStartTime) / 2
+
+const newPlans = cloneDeep(planningMessages) as MessagePlanning[]
+const msgToMove1 = newPlans[4]
+msgToMove1.message.startDate = moment.utc(midPoint).toISOString()
+msgToMove1.message.endDate = moment.utc(midPoint + 500000).toISOString()
+const msgToMove2 = newPlans[5]
+msgToMove2.message.startDate = moment.utc(startTime - 100000).toISOString()
+msgToMove2.message.endDate = moment.utc(midPoint + 500000).toISOString()
+
+export const AdjudicateAcrossTurns = Template.bind({})
+AdjudicateAcrossTurns.args = {
+  messages: newPlans,
+  selectedRoleId: allRoles[1],
+  allForces: forces,
   phase: Phase.Adjudication
 }
