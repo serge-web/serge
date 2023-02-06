@@ -353,7 +353,6 @@ AdjudicationFormOpen.args = {
   phase: Phase.Adjudication
 }
 
-
 // mangle some dates
 const firstTurn = turnPeriod[0]
 const startTime = moment.utc(firstTurn.gameDate).valueOf()
