@@ -100,7 +100,7 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               if (!subTypes.includes(subType)) {
                 subTypes.push(subType)
               }
-            }  
+            }
           }
         })
       }
