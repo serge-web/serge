@@ -111,7 +111,6 @@ const PlanningForces: React.FC<PropTypes> = ({ assets, selectedAssets, currentAs
 
   const getClusteredMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
-    console.log('asset 2', forceColor, loc)
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
 
