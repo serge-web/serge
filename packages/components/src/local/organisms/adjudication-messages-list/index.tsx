@@ -350,12 +350,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const localSubmitSkip = (): void => {
     if (currentAdjudication.current) {
-      // get current message
       const current = currentAdjudication.current as any as MessageAdjudicationOutcomes
 
       const document = interactionMessages.find((msg) => msg.message.Reference === current.Reference)
       if (document) {
-        // get current message
+        // create empty version of outcomes
         const emptyOutcomes: MessageAdjudicationOutcomes = {
           messageType: ADJUDICATION_OUTCOMES,
           healthOutcomes: [],
@@ -372,8 +371,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           // mark as adjudicatead
           interaction.complete = true
         }
-
-        console.log('skipping adjudication', details, emptyOutcomes)
 
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
