@@ -616,8 +616,8 @@ const outerTimeFor = (docs: MessagePlanning[]): TimePeriod => {
   let res: TimePeriod | undefined
   docs.forEach((doc) => {
     const msg = doc.message
-    const tStart = moment(msg.startDate).utc().valueOf()
-    const tEnd = moment(msg.endDate).utc().valueOf()
+    const tStart = moment.utc(msg.startDate).valueOf()
+    const tEnd = moment.utc(msg.endDate).valueOf()
     const period: TimePeriod = [tStart, tEnd]
     if (!res) {
       res = period

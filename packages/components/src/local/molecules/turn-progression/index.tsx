@@ -3,7 +3,7 @@ import { ADJUDICATION_PHASE, PLANNING_PHASE } from '@serge/config'
 import { formatFullDate, formatTurn, incrementGameTime } from '@serge/helpers'
 import classNames from 'classnames'
 import { capitalize } from 'lodash'
-import momenttz from 'moment-timezone'
+import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import styles from './styles.module.scss'
 import Props from './types/props'
@@ -188,7 +188,7 @@ export const TurnProgression: React.FC<Props> = (props: Props) => {
             <GameControl onClick={(e): void => { onClickHandler(e) }} size="small" variant="contained" color="secondary">Start New Phase</GameControl>
           </Box>
         }
-        <time dateTime={formatFullDate(gameDate)} className={styles.time}>{momenttz(gameDate).utc().format('YYYY-MM-DD HH:mm')} - {momenttz(gameTurnEnd).utc().format('YYYY-MM-DD HH:mm')}</time>
+        <time dateTime={formatFullDate(gameDate)} className={styles.time}>{moment.utc(gameDate).format('YYYY-MM-DD HH:mm')} - {moment.utc(gameTurnEnd).format('YYYY-MM-DD HH:mm')}</time>
       </div>
     </div>
   )
