@@ -730,7 +730,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     _id: new Date().toISOString(),
     // defined constat for messages, it's not same as message.details.messageType,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
-    messageType: details.messageType,
+    messageType: CUSTOM_MESSAGE,
     details,
     message,
     isOpen: false,
