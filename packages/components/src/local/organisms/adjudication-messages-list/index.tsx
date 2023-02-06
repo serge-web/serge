@@ -365,7 +365,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           Reference: current.Reference,
           important: false
         }
-        
+
         const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
         const interaction = details.interaction
         if (interaction) {
