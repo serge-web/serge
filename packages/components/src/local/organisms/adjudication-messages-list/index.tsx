@@ -743,7 +743,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         ]}
         options={{
           paging: true,
-          detailPanelType: 'single',
           pageSize: 20,
           pageSizeOptions: [5, 10, 15, 20],
           filtering: filter,
