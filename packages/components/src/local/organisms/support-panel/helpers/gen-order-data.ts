@@ -60,9 +60,13 @@ interface PerForceData {
  */
 export interface GeomWithOrders extends PlannedActivityGeometry {
   /**
+   * the activity this geometry is part of
+   */
+  activity: PlanningActivity
+  /**
    *  the set of orders this geometry relates to
    */
-  activity: MessagePlanning
+  plan: MessagePlanning
   /**
    * the force these orders belong to
    */
@@ -444,6 +448,43 @@ export const findActivityInGroup = (activityId: string, group: GroupedActivitySe
   }
 }
 
+/**
+ * Decide if an interaction should be generated between two activities
+ * @param first the first activity
+ * @param second the second activity
+ * @param throwErrorOnUnbalanced whether to throw an error if the interactsWithRelationship is unbalanced
+ * @returns whether we should generate interaction between two activities
+ */
+export const interactsWith = (first: PlanningActivity, second: PlanningActivity, throwErrorOnUnbalanced?: boolean): boolean => {
+  const firstId = first.actId
+  const secondId = second.actId
+  const firstInteracts = first.interactsWith ? first.interactsWith.includes(secondId) : false
+  const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId) : false
+  if (firstInteracts !== secondInteracts) {
+    if (throwErrorOnUnbalanced) {
+      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+      throw Error('Unbalanced interacts')
+    } else {
+      console.error('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+    }
+  }
+  return first.interactsWith ? first.interactsWith.includes(secondId) : false
+}
+
+export const findPlanningActivity = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): PlanningActivity => {
+  const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
+  if (!force) {
+    console.log('activities', activities, forceId)
+    throw Error('Failed to find activities for this force:' + forceId + ' ' + activities.length)
+  }
+  // flatten the hierarchy, then do find
+  const activity = force.groupedActivities.map((group) => group.activities).flat().find((plan) => plan.template === id)
+  if (!activity) {
+    throw Error('Failed to find group activities for this activity 2:' + id)
+  }
+  return activity as any as PlanningActivity
+}
+
 export const findPlanningGeometry = (id: string, forceId: string, activities: PerForcePlanningActivitySet[]): string => {
   const force = activities.find((val: PerForcePlanningActivitySet) => val.force === forceId)
   if (!force) {
@@ -530,14 +571,16 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
           geom.coordinates = fixPoly(geom.coordinates)
         }
         const fromBit = message.details.from
-        const activity = findPlanningGeometry(plan.uniqid, forceId, activities)
-        const id = message.message.Reference + '//' + message.message.title + '//' + activity
-        const newItem: GeomWithOrders = { ...plan, activity: message, force: fromBit.forceId || fromBit.force, id: id }
+        const activity = findPlanningActivity(message.details.messageType, forceId, activities)
+        const geometry = findPlanningGeometry(plan.uniqid, forceId, activities) // activity.geometries && activity.geometries.find((geom) => geom.uniqid === plan.uniqid)
+        // findPlanningGeometry(plan.uniqid, forceId, activities)
+        const id = message.message.Reference + '//' + message.message.title + '//' + geometry
+        const newItem: GeomWithOrders = { ...plan, activity: activity, plan: message, force: fromBit.forceId || fromBit.force, id: id }
         if (!newItem.geometry.properties) {
           newItem.geometry.properties = {}
         }
         const props = newItem.geometry.properties as PlannedProps
-        props.name = message.details.from.force + '//' + message.message.title + '//' + activity
+        props.name = message.details.from.force + '//' + message.message.title + '//' + geometry
         props.geomId = plan.uniqid
         props.force = forceId
         // fill in date/time, if not present
@@ -845,11 +888,19 @@ export const findTouching = (geometries: GeomWithOrders[], interactionsConsidere
                   res.push(cachedResult)
                 }
               } else {
-                const contact = touches(me, other, id, Math.random, sensorRangeKm)
-                if (contact) {
-                  res.push(contact)
+                const interacts = interactsWith(first.activity, second.activity)
+                // see if they should interact with each other
+                if (interacts) {
+                  const contact = touches(me, other, id, Math.random, sensorRangeKm)
+                  if (contact) {
+                    res.push(contact)
+                  }
+                  interactionsTested[id] = contact
+                } else {
+                  // console.log('not considering', first.activity.actId, second.activity.actId)
+                  // remember that this won't generate a contact
+                  interactionsTested[id] = null
                 }
-                interactionsTested[id] = contact || null
               }
             }
           }

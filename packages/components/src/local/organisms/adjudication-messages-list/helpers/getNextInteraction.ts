@@ -712,9 +712,9 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
   const props2 = contact.second.geometry.properties as PlannedProps
   const res: InteractionDetails = {
     id: contact.id,
-    orders1: contact.first.activity._id,
+    orders1: contact.first.plan._id,
     orders1Geometry: props1.geomId,
-    orders2: contact.second.activity._id,
+    orders2: contact.second.plan._id,
     orders2Geometry: props2.geomId,
     startTime: moment(contact.timeStart).toISOString(),
     endTime: moment(contact.timeEnd).toISOString(),
@@ -732,7 +732,7 @@ const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, g
   const props = geom.geometry.properties as PlannedProps
   const activBlock = props.id
   const activeName = activBlock.substring(0, activBlock.indexOf('//'))
-  const forceId = geom.activity.details.from.forceId || ''
+  const forceId = geom.plan.details.from.forceId || ''
   const forceActs = activities.find((set) => set.force === forceId)
   if (!forceActs) {
     console.log('Failed to find force activities for', forceActs)

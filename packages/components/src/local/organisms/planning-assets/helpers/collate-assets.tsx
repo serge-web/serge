@@ -95,6 +95,12 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
               const pType = perception.typeId
               storePlatformType(pType, platformStyles, platformTypesDict)
             }
+            if (asset.attributes) {
+              const subType = asset.attributes.a_Type as string
+              if (!subTypes.includes(subType)) {
+                subTypes.push(subType)
+              }
+            }
           }
         })
       }
