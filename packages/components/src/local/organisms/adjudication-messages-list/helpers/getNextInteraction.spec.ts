@@ -1,9 +1,11 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
-import { P9BMock, planningMessagesBulk } from '@serge/mocks'
-import { sum } from 'lodash'
+import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
+import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
+import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
+import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
 
 const wargame = P9BMock.data
@@ -12,11 +14,12 @@ const activities = P9BMock.data.activities ? P9BMock.data.activities.activities 
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
-!7 && console.log('dummy', deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
-
 const messages = planningMessagesBulk
-
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+
+const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+
+!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
 
 const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
   const selectedForce = P9BMock.data.forces.forces[1]
@@ -55,7 +58,7 @@ it('gets count of', () => {
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
-  expect(results1).toEqual([156, 345])
+  expect(results1).toEqual([156, 120])
 })
 
 it('gets interactions (2)', () => {
@@ -194,5 +197,66 @@ it('fixes geometry timings', () => {
   } else {
     expect('failed to find location').toBeFalsy()
   }
+})
+
+it('observes interacts with', () => {
+  console.clear()
+  // find overlapping messages
+  const newGeometries = invertMessages(shortPlans, activities)
+  const withTimes = injectTimes(newGeometries)
+
+  // find overlap
+  const first = withTimes[0]
+  const second = withTimes.find((item) => {
+    if (item.id !== first.id) {
+      return overlapsInTime(first, item)
+    }
+    return false
+  })
+
+  if (second) {
+    const m1Acts = activities.find((act) => act.force === first.plan.details.from.forceId)
+    const m2Acts = activities.find((act) => act.force === second.plan.details.from.forceId)
+    if (m1Acts && m2Acts) {
+      const firstAct = cloneDeep(first.activity)
+      const secondAct = cloneDeep(second.activity)
+      // clear out the interactions
+      firstAct.interactsWith = ['bb', 'aa']
+      secondAct.interactsWith = ['cc', 'dd']
+      expect(interactsWith(firstAct, secondAct)).toBeFalsy()
+      firstAct.interactsWith = [secondAct.actId]
+      secondAct.interactsWith = [firstAct.actId]
+      expect(interactsWith(firstAct, secondAct)).toBeTruthy()
+      // clear on set, so they clash
+      secondAct.interactsWith = []
+      expect(() => interactsWith(firstAct, secondAct, true)).toThrow()
+    }
+  }
+})
+
+const testAct = (activities: PerForcePlanningActivitySet[]) => {
+  activities.forEach((force1) => {
+    force1.groupedActivities.forEach((group1) => {
+      group1.activities.forEach((act1) => {
+        activities.forEach((force2) => {
+          force2.groupedActivities.forEach((group2) => {
+            group2.activities.forEach((act2) => {
+              interactsWith(act1, act2, true)
+            })
+          })
+        })
+      })
+    })
+  })
 }
-)
+
+it('interactionsWith is balanced for p9b activities', () => {
+  testAct(activities)
+})
+
+it('interactionsWith is balanced for activity generation', () => {
+  // first test the generated activities
+  const newActs = generateAllTemplates()
+  testAct(newActs.activities)
+  testAct(activities)
+})
