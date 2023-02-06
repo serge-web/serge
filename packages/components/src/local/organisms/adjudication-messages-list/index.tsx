@@ -332,6 +332,40 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   //   }
   // }))
 
+  const localSubmitSkip = (): void => {
+    if (currentAdjudication.current) {
+      // get current message
+      const current = currentAdjudication.current as any as MessageAdjudicationOutcomes
+
+      const document = filteredInteractions.find((msg) => msg.message.Reference === current.Reference)
+      if (document) {
+        // get current message
+        const emptyOutcomes: MessageAdjudicationOutcomes = {
+          messageType: ADJUDICATION_OUTCOMES,
+          healthOutcomes: [],
+          locationOutcomes: [],
+          perceptionOutcomes: [],
+          narrative: 'Adjudication skipped by ' + document.details.from.roleName,
+          Reference: current.Reference,
+          important: false
+        }
+        
+        const details = JSON.parse(JSON.stringify(document.details)) as MessageDetails
+        const interaction = details.interaction
+        if (interaction) {
+          // mark as adjudicatead
+          interaction.complete = true
+        }
+
+        console.log('skipping adjudication', details, emptyOutcomes)
+
+        // postBack. note - we use the mapping post back handler, so it
+        // can modify the wargame, in addition to sending the message
+        mapPostBack && mapPostBack(details, emptyOutcomes)
+      }
+    }
+  }
+
   const localSubmitAdjudication = (): void => {
     if (currentAdjudication.current) {
       // get current message
@@ -519,6 +553,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <DetailPanelStateListener />
             {!isComplete &&
               <div className='button-wrap' >
+                <Button color='secondary' onClick={localSubmitSkip} icon='delete'>Skip Adjudication</Button>
                 <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
               </div>
             }
@@ -561,6 +596,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             />
             {!isComplete &&
               <div className='button-wrap' >
+                <Button color='secondary' onClick={localSubmitSkip} icon='delete'>Skip Adjudication</Button>
                 <Button color='secondary' onClick={localSubmitAdjudication} icon='save'>Submit Adjudication</Button>
               </div>
             }
