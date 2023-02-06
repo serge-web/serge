@@ -6,7 +6,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
-import { LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
+import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../asset-icon'
 import SymbolAssetIcon from '../../symbol-asset-icon'
 import { AssetRow } from '../planning-assets/types/props'
@@ -19,6 +19,8 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
   const { assetsCache } = useContext(SupportPanelContext)
+  const [rawRangeRings, setRawRangeRings] = useState<React.ReactElement[]>([])
+  const [clusteredRangeRings, setClusteredRangeRings] = useState<React.ReactElement[]>([])
 
   const map = useMap()
 
@@ -77,7 +79,51 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     })
     setClusteredMarkers(clustered)
     setRawMarkers(raw)
-  }, [assets])
+  }, [assets, selectedAssets, currentAssets])
+
+  useEffect(() => {
+    // create a ring for each clustered marker
+    const rings: React.ReactElement[] = []
+    clustereredMarkers.forEach((asset: AssetRow) => {
+      const attrs = asset.attributes
+      // try for the two range attributes
+      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
+      // only plot range rings for SAM sites
+      const isSAM = asset.platformType.indexOf('sam') >= 0
+      if (range && isSAM) {
+        const index = range.indexOf(' km')
+        const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
+        const centre = asset.position ? asset.position : latLng([0, 0])
+        const rad = rangeKm * 1000
+        if (rad > 0) {
+          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor }} />)
+        }
+      }
+    })
+    // show rings for all current assets
+    setClusteredRangeRings(rings)
+  }, [clustereredMarkers])
+
+  useEffect(() => {
+    const rings: React.ReactElement[] = []
+    rawMarkers.forEach((asset: AssetRow) => {
+      const attrs = asset.attributes
+      // try for the two range attributes
+      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
+      // only plot range rings for SAM sites
+      const isSAM = asset.platformType.indexOf('sam') >= 0
+      if (range && isSAM) {
+        const index = range.indexOf(' km')
+        const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
+        const centre = asset.position ? asset.position : latLng([0, 0])
+        const rad = rangeKm * 1000
+        if (rad > 0) {
+          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor }} />)
+        }
+      }
+    })
+    setRawRangeRings(rings)
+  }, [rawMarkers])
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
@@ -106,7 +152,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           clusterGroup.addLayers(markerList)
         }
       }
-    }, [markers, map, clusterGroup])
+    }, [markers, clusterGroup, clusteredRangeRings])
 
     return null
   }
@@ -186,6 +232,8 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
             <Tooltip>{asset.name}</Tooltip>
           </Marker>
         })}
+        {rawRangeRings}
+        {clusteredRangeRings}
       </LayerGroup >
     }
   </>
