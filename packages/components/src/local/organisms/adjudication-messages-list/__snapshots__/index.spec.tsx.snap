@@ -353,7 +353,7 @@ exports[`AdjudicationMessagesList component:  renders component correctly 1`] = 
                   type="button"
                 >
                   <svg
-                    className="svg-inline--fa fa-envelope-open"
+                    className="svg-inline--fa fa-user"
                   />
                   <span
                     className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
