@@ -298,9 +298,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         ]
         console.timeEnd('collate')
         setColumns(columnsData)
-      }
-
-      if (columns.length) {
+      } else {
+        // ok, we can only show/hide the turn column once the columns have been defined
         const turnColumn = columns.find((col) => col.title === 'Turn')
         if (turnColumn) {
           const newVal = turnFilter !== SHOW_ALL_TURNS
