@@ -10,7 +10,6 @@ export interface AreaPlotterProps {
 }
 
 export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
-
   const positionsFor = (coords: Position[]): LatLng[] => {
     return coords.map((pt: number[]) => latLng(pt[1], pt[0]))
   }
@@ -21,7 +20,7 @@ export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
   }
 
   const polygonNameIcon = (name: string) => {
-    return divIcon({ iconSize: [60, 20],  html: `<div>${name}</div>`, className: styles['area-name'] })
+    return divIcon({ iconSize: [60, 20], html: `<div>${name}</div>`, className: styles['area-name'] })
   }
 
   const polyStyle: PathOptions = {
