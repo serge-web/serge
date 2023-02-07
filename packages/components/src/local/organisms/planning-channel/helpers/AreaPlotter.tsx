@@ -1,61 +1,15 @@
 import { Area } from '@serge/custom-types'
-import { Feature, GeoJsonObject, Position } from 'geojson'
-import { divIcon, latLng, LatLng, Layer, PathOptions, polygon, StyleFunction } from 'leaflet'
-import React, { useEffect, useState } from 'react'
-import { GeoJSON, LayerGroup, Marker, Polygon } from 'react-leaflet-v4'
+import { Position } from 'geojson'
+import { divIcon, latLng, LatLng, PathOptions, polygon } from 'leaflet'
+import React from 'react'
+import { LayerGroup, Marker, Polygon } from 'react-leaflet-v4'
 import styles from '../styles.module.scss'
-import { shapeFor } from './SharedOrderRenderer'
 
 export interface AreaPlotterProps {
   areas: Area[]
 }
 
 export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
-  const [layersToDelete] = useState<Layer[]>([])
-  const [geometries, setGeometries] = useState<GeoJsonObject | undefined>(undefined)
-
-  console.log('area plotter', areas.length, geometries)
-
-  useEffect(() => {
-    const hightlightColor = '#0f0'
-    // flush any existing layers
-    while (layersToDelete.length > 0) {
-      const layer = layersToDelete.shift()
-      layer && layer.remove()
-    }
-
-    // handler to store layer references
-    const storeRef = (polyline: Layer): void => {
-      layersToDelete.push(polyline)
-    }
-
-    const geoms = areas.map((area, index) => {
-      const feature: Feature = {
-        geometry: area.polygon,
-        type: 'Feature',
-        properties: {}
-      }
-      return shapeFor(feature as Feature, hightlightColor, area.name, storeRef, index)
-    })
-    if (geoms.length) {
-      const geoJson = {
-        type: 'FeatureCollection',
-        features: geoms
-      }
-      setGeometries(geoJson as GeoJsonObject)
-    }
-    console.log('geoms', geoms)
-  }, [areas])
-
-  const styleForFeatures: StyleFunction<any> = (): PathOptions => {
-    return {
-      color: '#f00',
-      weight: 3,
-      fillColor: '#00f',
-      fillOpacity: 0.5,
-      className: 'leaflet-default-icon-path'
-    }
-  }
 
   const positionsFor = (coords: Position[]): LatLng[] => {
     return coords.map((pt: number[]) => latLng(pt[1], pt[0]))
@@ -67,17 +21,22 @@ export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
   }
 
   const polygonNameIcon = (name: string) => {
-    return divIcon({ iconSize: [60, 20], html: `<div style="transform: translateX(0%);padding-top:14px;font-size: 14px;">${name}</div>`, className: styles['polygon-name'] })
+    return divIcon({ iconSize: [60, 20],  html: `<div>${name}</div>`, className: styles['area-name'] })
+  }
+
+  const polyStyle: PathOptions = {
+    fillColor: '#666',
+    color: '#333',
+    opacity: 0.7
   }
 
   return <>
     {
-      geometries !== undefined &&
+      areas.length &&
       <LayerGroup key={'standard-areas'}>
-        <GeoJSON style={styleForFeatures} data={geometries} key={'feature_no_contact' + Math.random()} />
         {areas.map((area, index) =>
-          <Polygon key={index} positions={positionsFor(area.polygon.coordinates[0])} >
-            <Marker position={centreFor(area.polygon.coordinates[0])} icon={polygonNameIcon(area.name)} />
+          <Polygon key={'p_' + index} pathOptions={polyStyle} positions={positionsFor(area.polygon.coordinates[0])} >
+            <Marker key={'k_' + index} position={centreFor(area.polygon.coordinates[0])} icon={polygonNameIcon(area.name)} />
           </Polygon>
         )}
       </LayerGroup >
