@@ -212,6 +212,7 @@ const p9StockTemplates: TemplateBody[] = [
                 propertyOrder: 25,
                 type: 'string',
                 enum: [
+                  'Unchanged',
                   'None',
                   'Degraded',
                   'Operational'
