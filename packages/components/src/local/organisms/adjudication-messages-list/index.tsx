@@ -300,14 +300,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         setColumns(columnsData)
       }
 
-      const turnColumn = columns.find((col) => col.title === 'Turn')
-      if (turnColumn) {
-        const newVal = turnFilter !== SHOW_ALL_TURNS
-        if (turnColumn.hidden !== newVal) {
-          turnColumn.hidden = newVal
-        }
-      } else {
-        console.warn('Turn column not found in adj messages list')
+      if (columns.length) {
+        const turnColumn = columns.find((col) => col.title === 'Turn')
+        if (turnColumn) {
+          const newVal = turnFilter !== SHOW_ALL_TURNS
+          if (turnColumn.hidden !== newVal) {
+            turnColumn.hidden = newVal
+          }
+        } else {
+          console.warn('Turn column not found in adj messages list')
+        }  
       }
     } else {
       console.log('no planning messages received')
