@@ -280,7 +280,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setRows(dataTable)
 
       if (columns.length === 0) {
-        console.time('collate')
         const umpireForce = forces.find((force: ForceData) => force.umpire)
         // TODO: the column definitions should use the data collated in the column summary (below)
         // provide more sophisticated column definition lookups
@@ -296,7 +295,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           { title: 'Activity', field: 'Reference' },
           { title: 'Duration', field: 'period' }
         ]
-        console.timeEnd('collate')
         setColumns(columnsData)
       } else {
         // ok, we can only show/hide the turn column once the columns have been defined
@@ -308,10 +306,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           }
         } else {
           console.warn('Turn column not found in adj messages list')
-        }  
+        }
       }
     } else {
-      console.log('no planning messages received')
       setRows([])
     }
   }, [planningMessages, cachedInteractions, turnFilter])
@@ -548,8 +545,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return <></>
     }
 
-    // retrieve the message & template
-    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
+    // retrieve the message & template. Note: we match by reference, rather than id, since if adj submitted, it's actually a newer doucment.
+    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value.message.Reference === rowData.reference)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', interactionMessages.length)
     } else {
