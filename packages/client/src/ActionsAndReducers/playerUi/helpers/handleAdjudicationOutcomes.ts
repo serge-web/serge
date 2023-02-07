@@ -1,9 +1,10 @@
-import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
+import { ForceData, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
+import moment from 'moment'
 /** apply the adjudication outcomes to the game data
  * 
  */
-export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): ForceData[] => {
+export default (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[]): ForceData[] => {
   // NOTE: I originally wrote this as a helper function, but it wouldn't compile
   // NOTE: so, I copied the implementation into here.  If updates are necessary
   // NOTE: I suggest fixing the helper, covering it with the helper test 
@@ -12,10 +13,20 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   payload.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
     asset.health = health.health
-    if (health.c4) {
+    if (health.c4 && health.c4 !== 'Unchanged') {
       const attrs = asset.attributes
       if (attrs) {
         attrs.a_C4_Status = health.c4
+      }
+    }
+    if (health.repairComplete && health.repairComplete !== 'n/a') {
+      const attrs = asset.attributes
+      if (attrs) {
+        const days = parseInt(health.repairComplete)
+        const completionDate = moment.utc(interaction.endTime).add(days, 'd').toISOString()
+        console.log('repair complete', interaction.endTime, days, completionDate)
+        attrs.a_Repair_Complete = completionDate
+        console.log('repair complete', interaction.endTime, days, completionDate, attrs)
       }
     }
   })

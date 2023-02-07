@@ -1,6 +1,6 @@
 import { expect, it } from '@jest/globals'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
-import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
+import { ForceData, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import { deepCopy, findAsset } from '@serge/helpers'
 import handleAdjudicationOutcomes from './handleAdjudicationOutcomes'
 
@@ -13,6 +13,7 @@ const allForces: ForceData[] = [
         contactId: 'C1334',
         platformTypeId: 'p12',
         condition: 'some-cond',
+        health: 100,
         name: 'alpha',
         perceptions: [{
           by: 'f-Red',
@@ -27,6 +28,7 @@ const allForces: ForceData[] = [
       {
         uniqid: 'bravo',
         name: 'Big Brravo',
+        health: 95,
         contactId: 'C154',
         platformTypeId: 'p12',
         condition: 'some-cond',
@@ -56,7 +58,8 @@ const emptyPayload: MessageAdjudicationOutcomes = {
 it('empty lists results in no change', () => {
   const forces = deepCopy(allForces)
   const beforeStr = JSON.stringify(forces)
-  const updated = handleAdjudicationOutcomes(emptyPayload, forces)
+  const interaction = {} as InteractionDetails
+  const updated = handleAdjudicationOutcomes(interaction, emptyPayload, forces)
   const afterStr = JSON.stringify(updated)
   expect(beforeStr).toEqual(afterStr)
 })
@@ -65,7 +68,10 @@ const validPayload: MessageAdjudicationOutcomes = {
   messageType: ADJUDICATION_OUTCOMES,
   Reference: 'umpire-234',
   important: false,
-  healthOutcomes: [{ asset: 'alpha', health: 34 }],
+  healthOutcomes: [
+    { asset: 'alpha', c4: 'Degraded', health: 34, repairComplete: 'n/a' },
+    { asset: 'bravo', c4: 'Degraded', health: 0, repairComplete: '2' }
+  ],
   perceptionOutcomes: [
     { force: 'f-Red', asset: 'alpha', perceivedHealth: 22, perceivedName: 'alfred', perceivedForce: 'f-Green' },
     { force: 'f-Green', asset: 'bravo', perceivedForce: 'f-Orange' }
@@ -77,10 +83,14 @@ const validPayload: MessageAdjudicationOutcomes = {
 it('correctly updates perception with perception entry not present', () => {
   const forces = deepCopy(allForces)
   const beforeStr = JSON.stringify(forces)
-  const updated = handleAdjudicationOutcomes(validPayload, forces)
+  const interaction = {
+    endTime: ''
+  } as InteractionDetails
+  const updated = handleAdjudicationOutcomes(interaction, validPayload, forces)
   const afterStr = JSON.stringify(updated)
   expect(beforeStr).not.toEqual(afterStr)
   const one = findAsset(updated, 'alpha')
+  expect(one.health).toEqual(34)
   expect(one.perceptions).toBeTruthy()
   expect(one.perceptions.length).toEqual(2)
   expect(one.perceptions[1].by).toEqual('f-Red')
@@ -89,6 +99,7 @@ it('correctly updates perception with perception entry not present', () => {
   expect(one.perceptions[1].force).toEqual('f-Green')
   expect(one.perceptions[1].health).toEqual(22)
   const two = findAsset(updated, 'bravo')
+  expect(two.health).toEqual(0)
   expect(two.perceptions).toBeTruthy()
   expect(two.perceptions.length).toEqual(1)
   expect(two.perceptions[0].by).toEqual('f-Green')
