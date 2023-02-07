@@ -210,6 +210,7 @@ const factory = (state: PlayerUi): Factory => {
             reduxDispatch={reduxDisplatch}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             forcePlanningActivities={state.perForceActivities}
+            areas={state.areas}
           />
         default:
           console.log('not yet handling', channelData)
