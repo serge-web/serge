@@ -224,7 +224,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // also ditch the lines
       const layers = map.pm.getGeomanDrawLayers()
       if (layers.length) {
-        // there won't be a remove method if it's our 
+        // there won't be a remove method if it's our
         // standard reference area
         layers.forEach((layer: Layer) => layer.remove && layer.remove())
       }
@@ -248,7 +248,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         setLastPendingGeometry(e)
         setPendingGeometry(e)
       }
-    } else {      
+    } else {
       setLastPendingGeometry(e)
       setPendingGeometry(e)
     }
@@ -264,7 +264,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // cancel drawing
 
     // simulate playe completing shape
-    onCreate({shape:'polygon', layer: res as Layer})
+    onCreate({ shape: 'polygon', layer: res as Layer })
   }
 
   return (
@@ -274,7 +274,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
           </div>
-          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} /> 
+          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} />
         </div>
         <GeomanControls
           options={drawOptions}

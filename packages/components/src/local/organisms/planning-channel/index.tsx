@@ -177,7 +177,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       // produce a list of standard areas for a player of this force
       const filtered = areas.filter((area: Area) => area.usedBy.includes(selectedForce.uniqid))
       setMyAreas(filtered)
-    } 
+    }
   }, [areas, selectedForce])
 
   useEffect(() => {

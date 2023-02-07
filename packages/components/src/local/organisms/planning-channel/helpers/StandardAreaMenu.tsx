@@ -42,7 +42,7 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
     return areas.map((area: Area) => {
       return {
         label: area.name,
-        value: area.name,
+        value: area.name
       }
     })
   }
