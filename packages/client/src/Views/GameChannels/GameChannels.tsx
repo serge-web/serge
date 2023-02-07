@@ -204,6 +204,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
         { isUmpire && <a
           href={hreflink}
           className='playerlog'
+          title='Export game data to Excel'
           onClick={e => generateFile()}
           id={'export_button_xlsx'}
         >
