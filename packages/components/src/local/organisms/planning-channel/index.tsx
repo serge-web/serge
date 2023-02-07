@@ -712,8 +712,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
-  console.log('standard areas', areas?.length, showStandardAreas)
-
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -842,7 +840,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             </div>
                           }
                           {
-                            umpireInAdjudication &&
+                          umpireInAdjudication &&
                             <div className={cx('leaflet-control')}>
                               <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
                                 onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
