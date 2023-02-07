@@ -3,6 +3,7 @@ import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy, incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessages as mockMessages, turnPeriod } from '@serge/mocks'
+import mockAreas from '@serge/mocks/areas.mock'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { cloneDeep, noop, uniqBy } from 'lodash'
@@ -140,7 +141,8 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleId,
     messages,
     phase,
-    allForces
+    allForces,
+    areas
   } = args
 
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
@@ -218,6 +220,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     currentTurn={P9BMock.gameTurn}
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
     forcePlanningActivities={activities}
+    areas={areas}
   />
 }
 const doNotDoIt = 7 // don't transform the messages
@@ -272,6 +275,14 @@ Default.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
   phase: Phase.Adjudication
+}
+
+export const WithAreas = Template.bind({})
+WithAreas.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[5],
+  phase: Phase.Planning,
+  areas: mockAreas
 }
 
 const eventIdsOfInterest = ['Red-5']

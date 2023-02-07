@@ -1,5 +1,5 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Area, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
@@ -75,12 +75,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   gameTurnLength,
   currentTurn,
   forcePlanningActivities,
-  attributeTypes
+  attributeTypes,
+  areas
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>(7)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
+
+  const [myAreas, setMyAreas] = useState<Array<Area>>([])
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
@@ -168,6 +171,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // game date has changed, get updated periods
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
   }, [gameDate])
+
+  useEffect(() => {
+    if (areas) {
+      // produce a list of standard areas for a player of this force
+      const filtered = areas.filter((area: Area) => area.usedBy.includes(selectedForce.uniqid))
+      setMyAreas(filtered)
+    } 
+  }, [areas, selectedForce])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -719,8 +730,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               </LayerGroup>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             </Fragment>
-            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
-            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} areas={myAreas} saved={(activity) => saveEditedOrderGeometries(activity)} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </Fragment>
         }
       </>
