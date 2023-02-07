@@ -1,8 +1,8 @@
 import {
   ADJUDICATION_OUTCOMES,
-  ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
+  ADJUDICATION_PHASE, allDbs, clearAll, CLONE_MARKER, COUNTER_MESSAGE, CUSTOM_MESSAGE, databasePath, DELETE_MARKER, FEEDBACK_MESSAGE, FORCE_MESSAGE, Force_Settings, hiddenPrefix, INFO_MESSAGE, MSG_STORE,
   MSG_TYPE_STORE,
-  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings, FORCE_MESSAGE, Force_Settings
+  PLANNING_PHASE, SERGE_INFO, serverPath, STATE_OF_WORLD, UPDATE_MARKER, wargameSettings
 } from '@serge/config'
 import { deleteRoleAndParts, duplicateThisForce, handleCloneMarker, handleDeleteMarker, handleUpdateMarker } from '@serge/helpers'
 import _ from 'lodash'
@@ -10,7 +10,7 @@ import moment from 'moment'
 import fetch from 'node-fetch'
 import uniqid from 'uniqid'
 import handleForceDelta from '../../ActionsAndReducers/playerUi/helpers/handleForceDelta'
-import { dbDefaultSettings, dbDefaultForceSettings } from '../../consts'
+import { dbDefaultForceSettings, dbDefaultSettings } from '../../consts'
 import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
@@ -18,7 +18,11 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, Forces, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, PlatformType, ParticipantChat, ParticipantTypes, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, Wargame, WargameOverview, WargameRevision
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, Forces,
+  GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes,
+  MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails,
+  MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld,
+  MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
@@ -825,7 +829,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
     _id: new Date().toISOString(),
     // defined constat for messages, it's not same as message.details.messageType,
     // ex for all template based messages will be used CUSTOM_MESSAGE Type
-    messageType: details.messageType,
+    messageType: CUSTOM_MESSAGE,
     details,
     message,
     isOpen: false,
@@ -876,7 +880,6 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === ADJUDICATION_OUTCOMES) {
           const validMessage: MessageAdjudicationOutcomes = message
-          console.log('handling outcomes')
           res.data.forces.forces = handleAdjudicationOutcomes(validMessage, res.data.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
@@ -984,4 +987,12 @@ export const duplicateAnnotation = (dbName: string, currentAnnation: IconOption)
   
     return updateWargame({ ...res, data: updatedData }, dbName)
   })
+}
+
+export const getTurnPeriodsList = (dbName: string): Promise<TurnPeriod[]> => {
+  const { db } = getWargameDbByName(dbName)
+
+  return db.getTurnPeriods()
+    .then((res) => res)
+    .catch(rejectDefault)
 }

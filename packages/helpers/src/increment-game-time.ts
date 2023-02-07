@@ -7,7 +7,7 @@ import { GameTurnLength, MilliTurns, MonthTurns, TurnLengthType } from '@serge/c
  * @param turnLength the size to step forward
  */
 const incrementGameTime = (gameTime: string, turnLength: GameTurnLength): string => {
-  const asTime: Moment = moment(gameTime).utc()
+  const asTime: Moment = moment.utc(gameTime)
   if (typeof turnLength === 'number') {
     // turn length in legacy format, plain millis
     return asTime.add(turnLength, 'ms').toISOString()

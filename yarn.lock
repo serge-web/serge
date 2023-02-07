@@ -5975,6 +5975,13 @@
     "@types/leaflet" "*"
     "@types/react" "*"
 
+"@types/leaflet.markercluster@*":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@types/leaflet.markercluster/-/leaflet.markercluster-1.5.1.tgz#d039ada408a30bda733b19a24cba89b81f0ace4b"
+  integrity sha512-gzJzP10qO6Zkts5QNVmSAEDLYicQHTEBLT9HZpFrJiSww9eDAs5OWHvIskldf41MvDv1gbMukuEBQEawHn+wtA==
+  dependencies:
+    "@types/leaflet" "*"
+
 "@types/leaflet@*":
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.9.0.tgz#8caf452255e16cb15e0eabcb0d2a26793da0a6a2"
@@ -6137,6 +6144,15 @@
   resolved "https://registry.yarnpkg.com/@types/react-is/-/react-is-17.0.3.tgz#2d855ba575f2fc8d17ef9861f084acc4b90a137a"
   integrity sha512-aBTIWg1emtu95bLTLx0cpkxwGW3ueZv71nE2YFBpL8k/z5czEW8yYpOo8Dp+UUAFAtKwNaOsh/ioSeQnWlZcfw==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-leaflet-markercluster@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@types/react-leaflet-markercluster/-/react-leaflet-markercluster-3.0.0.tgz#2a11d52481836d025f3b22b187c260a28393a51b"
+  integrity sha512-yJpaoo7sOexrnniD6McdOOJF8FXEzA5G6s+bBk8Ed7XzhqcLVb84MXCbY/3ed81xY2DYQG4PHTOaXhIEHOxXqg==
+  dependencies:
+    "@types/leaflet" "*"
+    "@types/leaflet.markercluster" "*"
     "@types/react" "*"
 
 "@types/react-leaflet@^2.5.1":
@@ -16828,6 +16844,11 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
+lru-cache@^7.14.1:
+  version "7.14.1"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.1.tgz#8da8d2f5f59827edb388e63e459ac23d6d408fea"
+  integrity sha512-ysxwsnTKdAx96aTRdhDOCQfDgbHnt8SK0KY8SEjO0wHinhWOFTESbjVCMPbU1uGXg/ch4lifqx0wfjOawU2+WA==
+
 lru-cache@^7.4.4, lru-cache@^7.5.1, lru-cache@^7.7.1:
   version "7.14.0"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-7.14.0.tgz#21be64954a4680e303a09e9468f880b98a0b3c7f"
@@ -17253,6 +17274,11 @@ miller-rabin@^4.0.0:
   dependencies:
     bn.js "^4.0.0"
     brorand "^1.0.1"
+
+milsymbol@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/milsymbol/-/milsymbol-2.0.0.tgz#7084027b7c19de0f087a26238a713b6db6def6ac"
+  integrity sha512-GcBFrcIUr8jScaZqZb0SI2W6AbnUrPCTHu2kqHxduQjN2DIN8q5pY6ksSWfnJ4HlcIAWQhyotbdPIr1bBxFbwQ==
 
 mime-db@1.52.0, "mime-db@>= 1.43.0 < 2":
   version "1.52.0"

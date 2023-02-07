@@ -28,7 +28,7 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
     if (!timelineControl) {
       const timelineControl = L.timelineSliderControl({
         formatOutput: function (date: string | number | Date) {
-          return moment(date).utc().format(DATE_FORMAT)
+          return moment.utc(date).format(DATE_FORMAT)
         }
       })
       setTimelineControl(timelineControl)

@@ -8,7 +8,7 @@ import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import React from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 
 import { useDispatch } from 'react-redux'
@@ -31,7 +31,7 @@ const phaseFor = (phase: string): Phase => {
 const factory = (state: PlayerUi): Factory => {
   const dispatch = usePlayerUiDispatch()
   const reduxDisplatch = useDispatch()
-
+  
   const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
     saveMapMessage(state.currentWargame, details, outcomes)
   }
@@ -194,10 +194,12 @@ const factory = (state: PlayerUi): Factory => {
             isUmpire={state.isUmpire}
             phase={state.phase}
             allForces={state.allForces}
+            allPeriods={state.allPeriods}
             platformTypes={state.allPlatformTypes}
             gameDate={state.gameDate}
             currentTurn={state.currentTurn}
             gameTurnLength={state.gameTurnTime}
+            onTurnPeriods={turnPeriods}
             dispatch={dispatch}
             mapPostBack={adjudicatePostBack}
             getAllWargameMessages={getAllWargameMessages}

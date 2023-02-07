@@ -123,7 +123,7 @@ const p9StockTemplates: TemplateBody[] = [
                   grid_columns: 3
                 }
               },
-              health: {
+              perceivedHealth: {
                 title: 'Health',
                 propertyOrder: 50,
                 type: 'string',
@@ -144,15 +144,14 @@ const p9StockTemplates: TemplateBody[] = [
                 propertyOrder: 60,
                 type: 'string'
               },
+              perceivedLocation: {
+                title: 'Location t/[1,2]/x',
+                propertyOrder: 65,
+                type: 'string'
+              },
               narrative: {
                 title: 'Comment',
                 propertyOrder: 70,
-                type: 'string',
-                format: 'textarea'
-              },
-              private: {
-                title: 'Private',
-                propertyOrder: 80,
                 type: 'string',
                 format: 'textarea'
               }
@@ -175,6 +174,7 @@ const p9StockTemplates: TemplateBody[] = [
             properties: {
               asset: {
                 title: 'Asset',
+                propertyOrder: 10,
                 type: 'string',
                 enum: [
                   'ta',
@@ -194,6 +194,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               health: {
                 title: 'Condition',
+                propertyOrder: 20,
                 type: 'string',
                 enum: [
                   '100',
@@ -206,8 +207,22 @@ const p9StockTemplates: TemplateBody[] = [
                   grid_columns: 2
                 }
               },
+              c4: {
+                title: 'C4 Ability',
+                propertyOrder: 25,
+                type: 'string',
+                enum: [
+                  'None',
+                  'Degraded',
+                  'Operational'
+                ],
+                options: {
+                  grid_columns: 2
+                }
+              },
               repairComplete: {
                 title: 'Repair in (days)',
+                propertyOrder: 40,
                 type: 'string',
                 enum: [
                   'n/a',
@@ -221,11 +236,13 @@ const p9StockTemplates: TemplateBody[] = [
               },
               narrative: {
                 title: 'Comment',
+                propertyOrder: 50,
                 type: 'string',
                 format: 'textarea'
               },
               private: {
                 title: 'Private',
+                propertyOrder: 60,
                 type: 'string',
                 format: 'textarea'
               }
@@ -248,6 +265,7 @@ const p9StockTemplates: TemplateBody[] = [
             properties: {
               asset: {
                 title: 'Asset',
+                propertyOrder: 30,
                 type: 'string',
                 enum: [
                   'ta',
@@ -267,6 +285,7 @@ const p9StockTemplates: TemplateBody[] = [
               },
               location: {
                 title: 'Location [2.4, 4.2]',
+                propertyOrder: 40,
                 type: 'string',
                 options: {
                   grid_columns: 3
@@ -274,11 +293,13 @@ const p9StockTemplates: TemplateBody[] = [
               },
               narrative: {
                 title: 'Comment',
+                propertyOrder: 50,
                 type: 'string',
                 format: 'textarea'
               },
               private: {
                 title: 'Private',
+                propertyOrder: 60,
                 type: 'string',
                 format: 'textarea'
               }

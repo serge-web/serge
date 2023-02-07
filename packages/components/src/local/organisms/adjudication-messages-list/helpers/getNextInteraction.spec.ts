@@ -1,36 +1,25 @@
 import { PLANNING_MESSAGE } from '@serge/config'
-import { ForceData, GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PlannedActivityGeometry, PlannedProps, Role } from '@serge/custom-types'
+import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
-import { P9BMock, planningMessagesBulk } from '@serge/mocks'
-import { sum } from 'lodash'
+import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
+import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
+import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
+import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
-// generate list of roles, for dropdown control
-const allRoles: string[] = []
-forces.forEach((force: ForceData) => {
-  force.roles.forEach((role: Role) => {
-    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
-  })
-})
+let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
 const messages = planningMessagesBulk
-
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-// it('gets all interactions (2)', () => {
-//   const interactions: MessageInteraction[] = []
-//   console.log('game start time', gameStartTime)
-//   const contacts: PlanningContact[] | ShortCircuitInteraction = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTime, turnEnd, true)
-//   if (contacts && Array.isArray(contacts)) {
-//     expect(contacts.length).toEqual(0)
-//   }
-// }
-// )
+const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+
+!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
 
 const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
   const selectedForce = P9BMock.data.forces.forces[1]
@@ -60,18 +49,19 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
-!7 && it('gets count of', () => {
+it('gets count of', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
-  const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
+  const gameStartTimeLocal = P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
+  console.log('spec results', results1)
   expect(results1).toBeTruthy()
-  expect(results1).toEqual(267)
+  expect(results1).toEqual([156, 120])
 })
 
-7 && it('gets interactions (2)', () => {
+it('gets interactions (2)', () => {
   console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-05-01T00:00:00.000Z' // P9BMock.data.overview.gameDate
@@ -79,7 +69,7 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
   expect(results1).toBeTruthy()
-  if (results1 !== undefined && typeof results1 === 'object') {
+  if (results1 !== undefined && !Array.isArray(results1)) {
     const res1Msg = results1 as CompositeInteractionResults
     const newTime = res1Msg.details.startTime
     console.log('new time', gameStartTimeLocal, newTime)
@@ -93,24 +83,24 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
     const res3Msg = results3 as CompositeInteractionResults
     interactions.push(interactionFor(res3Msg))
   }
-  console.log('listing interactions')
-  console.table(interactions.map((msg: MessageInteraction) => {
-    const details = msg.details.interaction
-    return details && {
-      id: msg._id,
-      start: details.startTime
-    }
-  }))
+  // console.log('listing interactions')
+  // console.table(interactions.map((msg: MessageInteraction) => {
+  //   const details = msg.details.interaction
+  //   return details && {
+  //     id: msg._id,
+  //     start: details.startTime
+  //   }
+  // }))
 })
 
-!7 && it('avoids existing interactions', () => {
+it('avoids existing interactions', () => {
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
   const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
   expect(results1).toBeTruthy()
-  if (results1 !== undefined && typeof results1 === 'object') {
+  if (results1 !== undefined) {
     const res1Msg = results1 as CompositeInteractionResults
     const res1Id = res1Msg.details.id
     const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
@@ -127,40 +117,6 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
     expect(res3Msg.details.id).not.toEqual(res1Id)
   }
 })
-
-// it('process successive interactions', () => {
-//   const interactions: MessageInteraction[] = []
-//   let contacts: PlanningContact[] = []
-//   for (let ctr = 0; ctr < 20 && contacts.length > 0; ctr++) {
-//     contacts = getNextInteraction(planningMessages2, activities, interactions, ctr, 30)
-//     if (contacts) {
-//       const newInteractions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
-//         return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-//       })
-//       interactions.push(...newInteractions)
-//     }
-//   }
-//   !7 && console.table(interactions.map((inter) => {
-//     const interact = inter.details.interaction
-//     if (interact) {
-//       return { id: interact.id, start: interact.startTime, end: interact.endTime }
-//     } else {
-//       return { id: 'n/a' }
-//     }
-//   }))
-// })
-
-// it('gets all interactions', () => {
-//   const interactions: MessageInteraction[] = []
-//   const contacts: PlanningContact[] = getNextInteraction(planningMessages2, activities, interactions, 0, 30, true)
-//   if (contacts) {
-//     const interactions: MessageInteraction[] = contacts.map((contact): MessageInteraction => {
-//       return interactionFor(contact, forces[1], forces[1].roles[0].roleId, forces[1].roles[0].name, 4, 'channelId', 'adj-template')
-//     })
-//     expect(interactions.length).toEqual(201)
-//   }
-// }
-// )
 
 it('fixes geometry timings', () => {
   const msgWithLocation = planningMessages2.find((msg: MessagePlanning) => {
@@ -241,5 +197,66 @@ it('fixes geometry timings', () => {
   } else {
     expect('failed to find location').toBeFalsy()
   }
+})
+
+it('observes interacts with', () => {
+  console.clear()
+  // find overlapping messages
+  const newGeometries = invertMessages(shortPlans, activities)
+  const withTimes = injectTimes(newGeometries)
+
+  // find overlap
+  const first = withTimes[0]
+  const second = withTimes.find((item) => {
+    if (item.id !== first.id) {
+      return overlapsInTime(first, item)
+    }
+    return false
+  })
+
+  if (second) {
+    const m1Acts = activities.find((act) => act.force === first.plan.details.from.forceId)
+    const m2Acts = activities.find((act) => act.force === second.plan.details.from.forceId)
+    if (m1Acts && m2Acts) {
+      const firstAct = cloneDeep(first.activity)
+      const secondAct = cloneDeep(second.activity)
+      // clear out the interactions
+      firstAct.interactsWith = ['bb', 'aa']
+      secondAct.interactsWith = ['cc', 'dd']
+      expect(interactsWith(firstAct, secondAct)).toBeFalsy()
+      firstAct.interactsWith = [secondAct.actId]
+      secondAct.interactsWith = [firstAct.actId]
+      expect(interactsWith(firstAct, secondAct)).toBeTruthy()
+      // clear on set, so they clash
+      secondAct.interactsWith = []
+      expect(() => interactsWith(firstAct, secondAct, true)).toThrow()
+    }
+  }
+})
+
+const testAct = (activities: PerForcePlanningActivitySet[]) => {
+  activities.forEach((force1) => {
+    force1.groupedActivities.forEach((group1) => {
+      group1.activities.forEach((act1) => {
+        activities.forEach((force2) => {
+          force2.groupedActivities.forEach((group2) => {
+            group2.activities.forEach((act2) => {
+              interactsWith(act1, act2, true)
+            })
+          })
+        })
+      })
+    })
+  })
 }
-)
+
+it('interactionsWith is balanced for p9b activities', () => {
+  testAct(activities)
+})
+
+it('interactionsWith is balanced for activity generation', () => {
+  // first test the generated activities
+  const newActs = generateAllTemplates()
+  testAct(newActs.activities)
+  testAct(activities)
+})

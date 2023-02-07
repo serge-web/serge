@@ -65,6 +65,7 @@ export const createPerceptions = (asset: Asset, assetForce: ForceData['uniqid'],
           typeId: asset.platformTypeId,
           force: correctForce ? assetForce : randomForce(force.uniqid, forces)
         }
+        injectPerceivedPosition(newP, asset.location)
         if (!tester()) delete newP.typeId
         if (!tester()) delete newP.condition
         if (!tester()) delete newP.force
@@ -204,14 +205,14 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
     console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
   } else {
     // get the first instance
-    const groups = assets.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
+    const groups = res.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
     if (groups.length > 0) {
       // ok, get some child classes
       const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
         return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
       })
       const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
-      const children = assets.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
+      const children = res.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
 
       // track the assets that have been moved to task groups, so we can later remove them
       const movedToGroup: string[] = []
@@ -229,13 +230,9 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
           newParent.comprising.push(asset)
           // remember the id
           movedToGroup.push(asset.uniqid)
-        } else {
-          // put it back in the results
-          res.push(asset)
         }
       })
-
-      // remove the children from the top level
+      // remove children that were moved to task groups
       res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
     }
   }
@@ -259,7 +256,8 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
     const statuses = platformType.states
 
-    const health = 5 * Math.floor(Math.random() * 20)
+    const healthValues = [100, 75, 50, 25, 0]
+    const health = randomArrayItem(healthValues, Math.random() * ctr)
 
     const asset: Asset = {
       uniqid: uniqueId('a'),
@@ -299,7 +297,9 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       const airLoc = airfield.location || [0, 0]
 
       const origin = turf.point([airLoc[1], airLoc[0]])
-      const newPt = turf.destination(origin, 20, -180 + Math.random() * 360, { units: 'kilometers' })
+      // code to spread out assets at airfield. Note: real data won't have this, so we won't either
+      // const newPt = turf.destination(origin, 20, -180 + Math.random() * 360, { units: 'kilometers' })
+      const newPt = origin
       const behindCoords = newPt.geometry.coordinates
       const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
       asset.location = newLoc
@@ -311,11 +311,47 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   return assetsWithTGs
 }
 
-export const generateTestData2 = (constraints: MappingConstraints, forces: ForceData[],
+const injectPerceivedPosition = (perception: Perception, location: [number, number] | undefined): void => {
+  if (location) {
+    const rnd = Math.random()
+    if (rnd > 0.95) {
+      // don't provide perceived position
+    } else if (rnd > 0.7) {
+      // shift position
+      const rndDegs = 0.1
+      const factor = 10000
+      const rndLat = -rndDegs + Math.random() * rndDegs * 2
+      const newLat = location[0] + rndLat
+      const roundedLat = Math.floor(newLat * factor) / factor
+      const rndLng = -rndDegs + Math.random() * rndDegs * 2
+      const newLng = location[1] + rndLng
+      const roundedLong = Math.floor(newLng * factor) / factor
+      const pos: [number, number] = [roundedLat, roundedLong]
+      perception.position = pos
+    } else {
+      // real position
+      perception.position = location
+    }
+  }
+}
+
+export const fixPerceivedPositions = (forces: ForceData[]): ForceData[] => {
+  forces.forEach((force) => {
+    if (force.assets) {
+      force.assets.forEach((asset) => {
+        asset.perceptions.forEach((perception) => {
+          injectPerceivedPosition(perception, asset.location)
+        })
+      })
+    }
+  })
+  return forces
+}
+
+export const generateTestData2 = (count: number, constraints: MappingConstraints, forces: ForceData[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
-
   // regions
   const bounds = L.latLngBounds(constraints.bounds)
   const centre = bounds.getCenter()
@@ -327,8 +363,8 @@ export const generateTestData2 = (constraints: MappingConstraints, forces: Force
   const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
 
   const newForces: ForceData[] = deepCopy(forces)
-  newForces[1].assets = createInBounds(newForces[1], bluePoly, 100, undefined, bluePlatforms, forces, attributeTypes, true)
-  newForces[2].assets = createInBounds(newForces[2], redPoly, 100, undefined, redPlatforms, forces, attributeTypes, true)
+  newForces[1].assets = createInBounds(newForces[1], bluePoly, count, undefined, bluePlatforms, forces, attributeTypes, true)
+  newForces[2].assets = createInBounds(newForces[2], redPoly, count, undefined, redPlatforms, forces, attributeTypes, true)
   console.log('blue', newForces[1].assets)
   console.log('res', newForces[2].assets)
   return newForces

@@ -1,7 +1,7 @@
 import { Phase } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ChatMessage, ForceData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
-  MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody
+  MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
 
@@ -25,6 +25,7 @@ export default interface PropTypes {
   /** which phase game is currently in */
   phase: Phase
   allForces: ForceData[]
+  allPeriods: TurnPeriods
   gameDate: string
   currentTurn: number
   gameTurnLength: GameTurnLength
@@ -36,6 +37,7 @@ export default interface PropTypes {
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
   openMessage: (channel: string, message: MessageChannel) => PlayerUiActionTypes
   saveMessage: (dbName: string, details: MessageDetails, message: any) => {(): void}
+  onTurnPeriods?: (currentWargame: string) => (dispatch: React.Dispatch<PlayerUiActionTypes>) => void
 
   /**
    * The method for posting messages out of the mapping components. They have

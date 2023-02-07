@@ -8,7 +8,7 @@ export const roles: string[] = []
 
 /** custom date formatter, for compact date/time display */
 
-const shortDate = (value?: string): string => {
+export const shortDate = (value?: string): string => {
   return value ? moment.utc(value).format('MMM DDHHmm[Z]').toUpperCase() : ''
 }
 

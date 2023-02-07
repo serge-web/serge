@@ -1,13 +1,14 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, ParticipantTemplate, Role, TemplateBody } from '@serge/custom-types'
-import { checkV3ParticipantStates, forceColors, platformIcons } from '@serge/helpers'
-import { MockPerForceActivities, MockPlanningActivities, P9BMock, planningMessages as planningChannelMessages, planningMessageTemplatesMock } from '@serge/mocks'
+import { ChannelPlanning, ForceData, MessageDetails, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
+import { forceColors, incrementGameTime, platformIcons } from '@serge/helpers'
+import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
-import { noop } from 'lodash'
+import { cloneDeep, noop } from 'lodash'
+import moment from 'moment'
 import React from 'react'
 import { getOppAssets, getOwnAssets } from '../planning-assets/helpers/collate-assets'
-import { fixPerForcePlanningActivities } from '../planning-channel/helpers/collate-plans-helper'
+import { TAB_ADJUDICATE, TAB_MY_ORDERS } from './constants'
 import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
@@ -18,6 +19,7 @@ const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{st
 
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const forces = P9BMock.data.forces.forces
+const templates = P9BMock.data.templates ? P9BMock.data.templates.templates : []
 
 const allRoles: string[] = []
 forces.forEach((force: ForceData) => {
@@ -65,6 +67,7 @@ export default {
 }
 
 const platformTypes = (P9BMock.data.platformTypes && P9BMock.data.platformTypes.platformTypes) || []
+const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 // produce the own and opp assets for this player force
 const forceCols = forceColors(forces)
@@ -74,16 +77,14 @@ const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes,
 
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
+  const initialTab = args.initialTab
+  const planningMessages = args.planningMessages
+  const interactionMessages = args.interactionMessages
+
   // separate out the two elements of the combined role
   const ind = roleStr.indexOf(' ~ ')
   const forceStr = roleStr.substring(0, ind)
   const role = roleStr.substring(ind + 3)
-
-  const thisPart = checkV3ParticipantStates(planningChannel, forceStr, role, false)
-  const myTemplateIds = thisPart.templatesIDs
-  const myTemplates = planningMessageTemplatesMock.filter((value: TemplateBody) =>
-    myTemplateIds.find((id: ParticipantTemplate) => id._id === value._id)
-  )
 
   const saveMessage = (dbName: string, details: MessageDetails, message: any) => {
     return async (): Promise<void> => {
@@ -100,15 +101,11 @@ const Template: Story<SupportPanelProps> = (args) => {
     throw Error('can\'t find role')
   }
 
-  const planningActivities = MockPlanningActivities
-  const perForcePlanningActivities = MockPerForceActivities
-  const filledInPerForcePlanningActivities = fixPerForcePlanningActivities(perForcePlanningActivities, planningActivities)
-
   return <SupportPanel
     platformTypes={platformTypes}
     planningMessages={planningMessages}
     interactionMessages={interactionMessages}
-    forcePlanningActivities={filledInPerForcePlanningActivities}
+    forcePlanningActivities={activities}
     onReadAll={noop}
     selectedAssets={[]}
     setSelectedAssets={noop}
@@ -119,8 +116,9 @@ const Template: Story<SupportPanelProps> = (args) => {
     onRead={noop}
     phase={Phase.Planning}
     channel={planningChannel}
-    allTemplates={myTemplates}
-    adjudicationTemplate={planningMessageTemplatesMock[0]}
+    allTemplates={templates}
+    allPeriods={turnPeriod}
+    adjudicationTemplate={templates[0]}
     activityTimeChanel={noop}
     allForces={P9BMock.data.forces.forces}
     gameDate={P9BMock.data.overview.gameDate}
@@ -137,10 +135,62 @@ const Template: Story<SupportPanelProps> = (args) => {
     setOwnForcesForParent={noop}
     allOppAssets={opp}
     allOwnAssets={own}
+    initialTab={initialTab}
   />
+}
+
+// mangle some dates
+const firstTurn = turnPeriod[0]
+const startTime = moment.utc(firstTurn.gameDate).valueOf()
+const secondTurn = turnPeriod[1]
+const secondEnd = incrementGameTime(secondTurn.gameDate, secondTurn.gameTurnTime)
+const secondEndTime = moment.utc(secondEnd).valueOf()
+const secondStartTime = moment.utc(secondTurn.gameDate).valueOf()
+const midPoint = secondStartTime + (secondEndTime - secondStartTime) / 2
+
+const newPlans = cloneDeep(planningMessages) as MessagePlanning[]
+const msgToMove1 = newPlans[4]
+msgToMove1.message.startDate = moment.utc(midPoint).toISOString()
+msgToMove1.message.endDate = moment.utc(midPoint + 500000).toISOString()
+const msgToMove2 = newPlans[5]
+msgToMove2.message.startDate = moment.utc(startTime - 100000).toISOString()
+msgToMove2.message.endDate = moment.utc(midPoint + 500000).toISOString()
+
+const newInter = cloneDeep(interactionMessages) as MessageInteraction[]
+const interToMove1 = newInter[2]
+const intertoMove2 = newInter[3]
+if (interToMove1.details.interaction) {
+  interToMove1.details.interaction = {
+    ...interToMove1.details.interaction,
+    startTime: moment.utc(midPoint).toISOString(),
+    endTime: moment.utc(midPoint + 500000).toISOString()
+  }
+}
+if (intertoMove2.details.interaction) {
+  intertoMove2.details.interaction = {
+    ...intertoMove2.details.interaction,
+    startTime: moment.utc(startTime - 100000).toISOString(),
+    endTime: moment.utc(midPoint + 500000).toISOString()
+  }
 }
 
 export const Default = Template.bind({})
 Default.args = {
+  planningMessages: planningMessages,
+  interactionMessages: newInter
+}
 
+export const OrdersTab = Template.bind({})
+OrdersTab.args = {
+  initialTab: TAB_MY_ORDERS,
+  planningMessages: newPlans,
+  interactionMessages: newInter
+}
+
+export const AdjudicationTab = Template.bind({})
+AdjudicationTab.args = {
+  initialTab: TAB_ADJUDICATE,
+  planningMessages: newPlans,
+  interactionMessages: newInter,
+  selectedRoleName: allRoles[1]
 }

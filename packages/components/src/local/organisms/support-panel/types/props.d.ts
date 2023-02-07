@@ -1,14 +1,14 @@
 import { TurnFormats } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
-  PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody
+  PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import { MessageInteraction } from '@serge/custom-types/message'
+import LRUCache from 'lru-cache'
 import React, { Dispatch } from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 import { AdjudicationPostBack } from '../../planning-channel/types/props'
 import { LocationEditCallbackHandler } from '../../planning-messages-list/types/props'
-
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
   interactionMessages: MessageInteraction[]
@@ -40,6 +40,7 @@ export default interface PropTypes {
   selectedRoleId: Role['roleId']
   selectedForce: ForceData
   allForces: ForceData[]
+  allPeriods: TurnPeriods
   gameDate: string
   phase: Phase
   currentTurn: number
@@ -65,13 +66,17 @@ export default interface PropTypes {
   /**
    * there is a new interaction to adjudicate
    */
-  handleAdjudication: {(details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
+  handleAdjudication: { (details: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void }
   /**
    * The method for posting messages out of the mapping components. They have
    * special handlers since the message may involve making changes to the forces
    * in the wargame
    */
   mapPostBack?: AdjudicationPostBack
+  /**
+   * the initial tab to show (useful for story testing)
+   */
+  initialTab?: string
 }
 
 export type TabPanelProps = {
@@ -88,6 +93,7 @@ export type PanelActionTabsProps = {
 
 export type SupportPanelContextInterface = {
   selectedAssets: string[]
+  assetsCache: LRUCache<string, string>
   setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>

@@ -1,4 +1,4 @@
-import { ForceData, MessageAdjudicationOutcomes, Perception } from '@serge/custom-types'
+import { ForceData, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import { findAsset } from '@serge/helpers'
 /** apply the adjudication outcomes to the game data
  * 
@@ -12,6 +12,12 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   payload.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
     asset.health = health.health
+    if (health.c4) {
+      const attrs = asset.attributes
+      if (attrs) {
+        attrs.a_C4_Status = health.c4
+      }
+    }
   })
 
   payload.locationOutcomes.forEach((movement) => {
@@ -27,13 +33,15 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
   payload.perceptionOutcomes.forEach((perception) => {
     const asset = findAsset(allForces, perception.asset)
     const by = perception.force
-    // drop the existing perception
-    asset.perceptions = asset.perceptions.filter((percept) => percept.by !== by)
 
-    // generate new perception
-    const res: Perception = {
-      by: by
+    // find/generate the perception for this force
+    let res = asset.perceptions.find((item) => item.by === by)
+    if (!res) {
+      // not found, create new perception
+      res = { by: by }
+      asset.perceptions.push(res)
     }
+
     if (perception.perceivedForce) {
       res.force = perception.perceivedForce
     }
@@ -46,8 +54,26 @@ export default (payload: MessageAdjudicationOutcomes, allForces: ForceData[]): F
     if (perception.perceivedName) {
       res.name = perception.perceivedName
     }
-    // store the perception
-    asset.perceptions.push(res)
+    if (perception.perceivedLocation) {
+      if (perception.perceivedLocation.toLowerCase() === 't') {
+        if (asset.location) {
+          res.position = asset.location
+        }
+      } else if (perception.perceivedLocation.toLowerCase() === 'x') {
+        delete res.position
+      } else {
+        try {
+          const parsedStr = JSON.parse(perception.perceivedLocation)
+          if (Array.isArray(parsedStr)) {
+            res.position = parsedStr as [number, number]       
+          }
+        } catch (err) {
+          console.warn('Failed to parse location for', asset.uniqid, perception.perceivedLocation)
+          // clear location
+          delete res.position 
+        }  
+      }
+    }
   })
   return allForces
 }
