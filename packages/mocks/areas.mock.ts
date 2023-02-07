@@ -95,7 +95,7 @@ const mockAreas: Area[] = [
     }
   },
   {
-    name: "area-3",
+    name: "area-4",
     usedBy: ["f-blue"],
     polygon: {
       "type": "Polygon",
@@ -126,30 +126,30 @@ const mockAreas: Area[] = [
     },
   },
   {
-    name: "area-4",
+    name: "area-5",
     usedBy: ["f-blue"],
     polygon: {
       "type": "Polygon",
       "coordinates": [
         [
           [
-            34.342709,
+            44.342709,
             41.454939
           ],
           [
-            34.342709,
+            44.342709,
             35.227080
           ],
           [
-            42.319515,
+            52.319515,
             35.227080
           ],
           [
-            42.319515,
+            52.319515,
             41.454939
           ],
           [
-            34.342709,
+            44.342709,
             41.454939
           ]
         ]
