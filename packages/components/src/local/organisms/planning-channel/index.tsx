@@ -6,7 +6,7 @@ import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, P
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
-import { faCalculator, faHistory } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faHistory, faShapes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -28,6 +28,7 @@ import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { LRU_CACHE_OPTION } from '../support-panel/constants'
 import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
+import AreaPlotter from './helpers/AreaPlotter'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
@@ -135,6 +136,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<PlannedActivityGeometryCallback | undefined>(undefined)
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
+
+  const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
@@ -709,12 +712,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
+  console.log('standard areas', areas?.length, showStandardAreas)
+
   const mapChildren = useMemo(() => {
     return (
       <>
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+        { showStandardAreas && <AreaPlotter areas={myAreas} /> }
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <Fragment>
@@ -738,7 +744,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -828,6 +834,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                     <>
                       {!activityBeingPlanned &&
                         <>
+                          {
+                            myAreas && myAreas.length &&
+                            <div className={cx('leaflet-control')}>
+                              <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
+                                onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
+                            </div>
+                          }
                           {
                             umpireInAdjudication &&
                             <div className={cx('leaflet-control')}>
