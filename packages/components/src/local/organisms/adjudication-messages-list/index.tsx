@@ -423,6 +423,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           }
         })
 
+        console.log('Adj Message List, submitting', details, outcomes)
+
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
         mapPostBack && mapPostBack(details, outcomes)
