@@ -299,6 +299,16 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipT
           console.warn('Haven\'t handled attribute', attrId)
         }
       }
+    } else {
+      // just shoe-horn the value in
+      const name = attrId
+      const prefix = name.indexOf('a_') 
+      if (prefix === 0) {
+        const name2 = name.substring('a_'.length)
+        const name3 = name2.replace('_', ' ')
+        // yes, it's an attribute
+        attrDict[name3] = ids[attrId]
+      }
     }
   })
   return attrDict
@@ -394,6 +404,9 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
     const c4 = asset.attributes ? asset.attributes.a_C4_Status : 'Unk'
+    if (asset.uniqid === 'a423') {
+      console.log('collate assets', modernAttrDict)
+    }
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
