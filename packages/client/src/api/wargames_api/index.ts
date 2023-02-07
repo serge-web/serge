@@ -18,7 +18,7 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
@@ -781,7 +781,8 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
         } else if (message.messageType === ADJUDICATION_OUTCOMES) {
           const validMessage: MessageAdjudicationOutcomes = message
-          res.data.forces.forces = handleAdjudicationOutcomes(validMessage, res.data.forces.forces)
+          const interaction = details.interaction as InteractionDetails
+          res.data.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.data.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
