@@ -168,7 +168,9 @@ export interface HealthOutcome extends CoreOutcome  {
   /** new health */
   health: number
   /** c4 ability */
-  c4: 'None' | 'Degraded' | 'Operational'
+  c4: 'Unchanged' | 'None' | 'Degraded' | 'Operational'
+  /** when repair will be complete by */
+  repairComplete?: 'n/a' | '1' | '2' | '3'
 }
 
 export type LocationOutcomes = LocationOutcome[]
