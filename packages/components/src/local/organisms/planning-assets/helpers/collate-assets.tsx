@@ -404,9 +404,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
     const c4 = asset.attributes ? asset.attributes.a_C4_Status : 'Unk'
-    if (asset.uniqid === 'a423') {
-      console.log('collate assets', modernAttrDict)
-    }
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
