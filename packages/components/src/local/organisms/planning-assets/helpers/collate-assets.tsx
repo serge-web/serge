@@ -302,7 +302,7 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipT
     } else {
       // just shoe-horn the value in
       const name = attrId
-      const prefix = name.indexOf('a_') 
+      const prefix = name.indexOf('a_')
       if (prefix === 0) {
         const name2 = name.substring('a_'.length)
         const name3 = name2.replace('_', ' ')
