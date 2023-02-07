@@ -50,6 +50,8 @@ export default interface PropTypes {
   phase: Phase
   /** generic descriptions of attributes */
   attributeTypes?: AttributeTypes
+  /** set of standard areas */
+  areas?: Area[]
 }
 
 export type PlanningActitivityMenuType = {
