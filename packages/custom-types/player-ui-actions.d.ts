@@ -1,5 +1,6 @@
 import {
   SET_CURRENT_WARGAME_PLAYER,
+  SET_CURRENT_FORCE_PLAYER,
   SET_ALL_TURN_PERIOD,
   SET_FORCE,
   SET_ROLE,
@@ -28,7 +29,8 @@ import {
   MessageChannel,
   MessageCustom,
   MessageInfoType,
-  ChatMessage
+  ChatMessage,
+  Forces
 } from '.'
 import { Dispatch } from 'react'
 import { TemplateBodysByKey } from './message-types'
@@ -37,6 +39,11 @@ export type PlayerUiDispatch = Dispatch<PlayerUiActionTypes>
 interface SetCurrentWargameAction {
   type: typeof SET_CURRENT_WARGAME_PLAYER,
   payload: Wargame
+}
+
+interface SetCurrentForceAction {
+  type: typeof SET_CURRENT_FORCE_PLAYER,
+  payload: Forces
 }
 
 interface SetCurrentTurnPeriodAction {
@@ -122,6 +129,7 @@ interface CloseModalAction {
 }
 
 export type PlayerUiActionTypes = SetCurrentWargameAction |
+  SetCurrentForceAction |
   SetCurrentTurnPeriodAction |
   SetForceAction |
   SetRoleAction |

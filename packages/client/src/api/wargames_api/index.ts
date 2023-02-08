@@ -14,6 +14,7 @@ import { dbDefaultForceSettings, dbDefaultSettings } from '../../consts'
 import deepCopy from '../../Helpers/copyStateHelper'
 
 import {
+  setCurrentForce,
   setCurrentWargame, setLatestFeedbackMessage, setLatestWargameMessage
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
@@ -81,6 +82,7 @@ export const deleteWargame = (wargamePath: string): void => {
 export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
   db.changes((msg) => {
     const doc = msg as Message
+    console.log('msg', msg.messageType)
     if (doc === undefined) return
     if (doc.messageType === INFO_MESSAGE) {
       const infoM = doc as MessageInfoType
@@ -88,6 +90,11 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
       const asAny = infoM as any
       const asMsg = asAny as MessageChannel
       dispatch(setLatestWargameMessage(asMsg))
+      return
+    }
+
+    if (msg.messageType === Force_Settings) {
+      dispatch(setCurrentForce(msg as any))
       return
     }
 
@@ -714,6 +721,13 @@ export const getWargame = (gamePath: string): Promise<Wargame> => {
   })()
 }
 
+export const getForce = (gamePath: string): Promise<Forces> => {
+  return (async () => {
+    const name = getNameFromPath(gamePath)
+    return await getLatestForceRevision(name)
+  })()
+}
+
 export const createLatestWargameRevision = (dbName: string, wargame: Wargame): Promise<Wargame> => {
   const copiedData = deepCopy(wargame)
   const { db } = getWargameDbByName(dbName)
@@ -821,7 +835,7 @@ export const postNewMessage = async (dbName: string, details: MessageDetails, me
 // Copied from postNewMessage cgange and add new logic for Mapping
 // console logs will not works there
 // @ts-ignore
-export const postNewMapMessage = (dbName, details, message: MessageMap) => {
+export const postNewMapMessage = (dbName, details, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
 
@@ -858,7 +872,7 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
   return new Promise((resolve, reject) => {
     getLatestWargameRevision(dbName)
       .then((res) => {
-        if (!res.data.platformTypes) {
+        if (!platformType) {
           throw new Error('Cannot handle force delta without platform types')
         }
 
@@ -878,32 +892,89 @@ export const postNewMapMessage = (dbName, details, message: MessageMap) => {
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageDeleteMarker = message
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
-        } else if (message.messageType === ADJUDICATION_OUTCOMES) {
-          const validMessage: MessageAdjudicationOutcomes = message
-          res.data.forces.forces = handleAdjudicationOutcomes(validMessage, res.data.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
-          res.data.forces.forces = handleStateOfWorldChanges(validMessage, res.data.forces.forces)
           // initialise annotations, if necessary
           res.data.annotations = checkAnnotations(res.data.annotations)
           // we can just copy in the new markers
           res.data.annotations.annotations = validMessage.state.mapAnnotations
-        } else {
-          // apply the reducer to this wargame
-          res.data.forces.forces = handleForceDelta(message, details, res.data.forces.forces, res.data.platformTypes.platformTypes)
         }
 
         const copiedData = deepCopy(res)
-        const newId = res.wargameInitiated ? new Date().toISOString() : res._id
-        const rev = res.wargameInitiated ? undefined : res._rev
+        const newId = wargameInitiated ? new Date().toISOString() : res._id
+        const rev = wargameInitiated ? undefined : res._rev
         // TODO: this method returns the inserted wargame.  I believe we could
         // return that, instead of `getLatestWargameRevisiion`
         return db.put({
           ...copiedData,
           _rev: rev,
           _id: newId,
-          messageType: INFO_MESSAGE
+          messageType: Force_Settings
+        }).then(() => {
+          return getLatestWargameRevision(dbName)
+        }).catch(rejectDefault)
+      }).then((res) => {
+        resolve(res)
+      }).catch((err) => {
+        console.log(err)
+        reject(err)
+      })
+  })
+}
+
+// Copied from postNewMessage cgange and add new logic for Mapping
+// console logs will not works there
+// @ts-ignore
+export const postNewMapForceMessage = (dbName, details, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean) => {
+  // first, send the message
+  const { db } = getWargameDbByName(dbName)
+  const customMessage: MessageCustom = {
+    _id: new Date().toISOString(),
+    // defined constat for messages, it's not same as message.details.messageType,
+    // ex for all template based messages will be used CUSTOM_MESSAGE Type
+    messageType: CUSTOM_MESSAGE,
+    details,
+    message,
+    isOpen: false,
+    hasBeenRead: false
+  }
+  db.put(customMessage).catch((err) => {
+    console.log(err)
+    return err
+  })
+
+  // also make the modification to the wargame
+  return new Promise((resolve, reject) => {
+    getLatestForceRevision(dbName)
+      .then((res) => {
+        if (!platformType) {
+          throw new Error('Cannot handle force delta without platform types')
+        }
+
+        if (message.messageType === ADJUDICATION_OUTCOMES) {
+          const validMessage: MessageAdjudicationOutcomes = message
+          res.forces.forces = handleAdjudicationOutcomes(validMessage, res.forces.forces)
+        } else if (message.messageType === STATE_OF_WORLD) {
+          // ok, this needs to work on force AND info markers
+          const validMessage: MessageStateOfWorld = message
+          res.forces.forces = handleStateOfWorldChanges(validMessage, res.forces.forces)
+          // initialise annotations, if necessary
+        } else {
+          // apply the reducer to this wargame
+          res.forces.forces = handleForceDelta(message, details, res.forces.forces, platformType)
+        }
+
+        const copiedData = deepCopy(res)
+        const newId = wargameInitiated ? new Date().toISOString() : res._id
+        const rev = wargameInitiated ? undefined : res._rev
+        // TODO: this method returns the inserted wargame.  I believe we could
+        // return that, instead of `getLatestWargameRevisiion`
+        return db.put({
+          ...copiedData,
+          _rev: rev,
+          _id: newId,
+          messageType: Force_Settings
         }).then(() => {
           return getLatestWargameRevision(dbName)
         }).catch(rejectDefault)

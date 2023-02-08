@@ -1,6 +1,6 @@
 import {
   CLOSE_MESSAGE, CLOSE_MODAL, FEEDBACK_MESSAGE, MARK_ALL_AS_READ, MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, UPDATE_MESSAGE_STATE
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, UPDATE_MESSAGE_STATE, SET_CURRENT_FORCE_PLAYER
 } from '@serge/config'
 import React from 'react'
 import * as wargamesApi from '../../api/wargames_api'
@@ -9,12 +9,17 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
   ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame, PlatformTypeData, Forces
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
   type: SET_CURRENT_WARGAME_PLAYER,
   payload: wargame
+})
+
+export const setCurrentForce = (forces: Forces): PlayerUiActionTypes => ({
+  type: SET_CURRENT_FORCE_PLAYER,
+  payload: forces
 })
 
 export const setForce = (forceName: string): PlayerUiActionTypes => ({
@@ -114,12 +119,14 @@ export const initiateGame = (dbName: string): Function => {
 }
 export const getWargame = (gamePath: string): Function => {
   return async (dispatch: React.Dispatch<PlayerUiActionTypes>): Promise<void> => {
+    const forces = await wargamesApi.getForce(gamePath)
     const wargame = await wargamesApi.getWargame(gamePath)
     if (isError(wargame)) {
       // @ts-ignore
       dispatch(addNotification('Serge disconnected', 'error'))
     } else {
-      dispatch(setCurrentWargame(wargame))
+      await dispatch(setCurrentWargame(wargame))
+      await dispatch(setCurrentForce(forces))
     }
   }
 }
@@ -191,9 +198,14 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean): Promise<Message> => {
   // @ts-ignore
-  return wargamesApi.postNewMapMessage(dbName, details, message)
+  return wargamesApi.postNewMapForceMessage(dbName, details, message, platformType, wargameInitiated)
+}
+
+export const saveMapAnnotationMessage = (dbName: string, details: MessageDetails, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean): Promise<Message> => {
+  // @ts-ignore
+  return wargamesApi.postNewMapMessage(dbName, details, message, platformType, wargameInitiated)
 }
 
 /** get all messages (documents) from the database (except counter messages) */

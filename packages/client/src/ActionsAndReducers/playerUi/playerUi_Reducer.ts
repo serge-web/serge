@@ -1,6 +1,6 @@
 import {
   CHANNEL_MAPPING, CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ,
-  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_CURRENT_FORCE_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE, SET_ALL_TURN_PERIOD
 } from '@serge/config'
 import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
@@ -121,7 +121,6 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       const mapChannel = allChannels.find((channel: ChannelTypes) => channel.channelType === CHANNEL_MAPPING) as ChannelMapping
       newState.mappingConstraints = mapChannel ? mapChannel.constraints : undefined
 
-      newState.allForces = action.payload.data.forces.forces
       newState.infoMarkers = (data.annotations && data.annotations.annotations) || []
       newState.markerIcons = (data.annotationIcons && data.annotationIcons.markers) || []
       // legacy versions of the wargame used platform_types instead of
@@ -138,7 +137,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       }
       getRoleParamsByForceAndRole(state.selectedForce, state.selectedRole, newState)
       break
-
+      
+    case SET_CURRENT_FORCE_PLAYER:
+      newState.allForces = action.payload.forces.forces    
+      break   
     case SET_FORCE:
       newState.selectedForce = newState.allForces.find((force) => force.uniqid === action.payload)
       newState.isUmpire = !!(newState.selectedForce && newState.selectedForce.umpire)

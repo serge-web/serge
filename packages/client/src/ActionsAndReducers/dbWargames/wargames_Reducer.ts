@@ -52,9 +52,13 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
       })
       newState.wargameList = safeList
       return newState
+     
+    case ActionConstant.SET_CURRENT_FORCES:
+      newState.data.forces = action.payload.forces
+      return newState  
 
     case ActionConstant.SET_CURRENT_WARGAME:
-
+      
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.data = action.payload.data
@@ -62,12 +66,6 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
 
       return newState
       
-    case ActionConstant.SET_CURRENT_FORCES:
-      if (action.payload.forces) {
-        newState.data.forces = action.payload.forces
-      }
-      return newState
-
     case ActionConstant.SET_EXPORT_WARGAME:
 
       newState.data = action.payload.data

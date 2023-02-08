@@ -98,7 +98,7 @@ const PlayerUi = ({ gameInfo, wargame, messageTypes, checkPasswordFail, wargameI
       setScreen(Room.player)
     } else checkPasswordFail()
   }
-
+  
   // show the relevant screen
   switch (screen) {
     case Room.landing:

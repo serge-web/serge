@@ -1,4 +1,4 @@
-import { ForceData, Message, MessageDetails, MessageMap, Role } from '@serge/custom-types'
+import { ForceData, Message, MessageDetails, MessageMap, Role, PlatformTypeData } from '@serge/custom-types'
 
 /**
  * @param mType message type
@@ -10,8 +10,8 @@ import { ForceData, Message, MessageDetails, MessageMap, Role } from '@serge/cus
  * @param saveMapMessage callback to actually store message
  */
 const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | undefined,
-  channelID: string, role: Role['roleId'], roleName: Role['name'], currentWargame: string, turnNumber: number,
-  saveMapMessage: {(dbName: string, details: MessageDetails, message: MessageMap): Promise<Message>}): void => {
+  channelID: string, role: Role['roleId'], roleName: Role['name'], currentWargame: string, turnNumber: number, platformType: PlatformTypeData[], Initiated: boolean,
+  saveMapMessage: {(dbName: string, details: MessageDetails, message: MessageMap, platformType: PlatformTypeData[], Initiated: boolean): Promise<Message>}): void => {
   if (force) {
     const { name, color, iconURL } = force
 
@@ -28,7 +28,7 @@ const sendMapMessage = (mType: string, message: MessageMap, force: ForceData | u
       timestamp: new Date().toISOString(),
       turnNumber: turnNumber
     }
-    saveMapMessage(currentWargame, details, message)
+    saveMapMessage(currentWargame, details, message, platformType, Initiated)
   } else {
     console.error('Cannot send map message, force is missing')
   }

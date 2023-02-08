@@ -8,7 +8,7 @@ import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import React from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveMapAnnotationMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 
 import { useDispatch } from 'react-redux'
@@ -33,7 +33,7 @@ const factory = (state: PlayerUi): Factory => {
   const reduxDisplatch = useDispatch()
   
   const adjudicatePostBack = (details: MessageDetails, outcomes: MessageAdjudicationOutcomes): void => {
-    saveMapMessage(state.currentWargame, details, outcomes)
+    saveMapMessage(state.currentWargame, details, outcomes, state.allPlatformTypes, state.wargameInitiated)
   }
 
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
@@ -43,43 +43,45 @@ const factory = (state: PlayerUi): Factory => {
 
     switch (form) {
       case UPDATE_MARKER:
-        sendMapMessage(UPDATE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(UPDATE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapAnnotationMessage)
         break
       case DELETE_MARKER:
-        sendMapMessage(DELETE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(DELETE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapAnnotationMessage)
         break
       case CLONE_MARKER:
-        sendMapMessage(CLONE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(CLONE_MARKER, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapAnnotationMessage)
         break
       case UMPIRE_LAYDOWN:
-        sendMapMessage(UMPIRE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(UMPIRE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case FORCE_LAYDOWN:
-        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(FORCE_LAYDOWN, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case VISIBILITY_CHANGES:
-        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(VISIBILITY_CHANGES, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case PERCEPTION_OF_CONTACT:
-        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(PERCEPTION_OF_CONTACT, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case SUBMIT_PLANS:
-        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case STATE_OF_WORLD:
-        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        const sendAnnotetion = sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapAnnotationMessage)
+        const sendForce = sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
+        Promise.all([sendForce, sendAnnotetion])
         break
       case CREATE_TASK_GROUP:
-        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case LEAVE_TASK_GROUP:
-        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(LEAVE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case HOST_PLATFORM:
-        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(HOST_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case DELETE_PLATFORM:
-        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, saveMapMessage)
+        sendMapMessage(DELETE_PLATFORM, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       default:
         console.log('Handler not created for', form)
