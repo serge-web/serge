@@ -158,8 +158,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         // const forces = fixPerceivedPositions(allForces)
         console.log('forces', forces)
       } else {
+        const allForceIds = [allForces[1].uniqid, allForces[2].uniqid, allForces[3].uniqid, allForces[4].uniqid]
         console.log(randomOrdersDocs(channelId, 200, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
-        console.log(randomOrdersDocs(channelId, 30, allForces, [allForces[1].uniqid, allForces[2].uniqid], forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
+        console.log(randomOrdersDocs(channelId, 30, allForces, allForceIds, forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
       }
     }
   }
