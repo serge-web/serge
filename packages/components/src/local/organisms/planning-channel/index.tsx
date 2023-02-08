@@ -179,9 +179,25 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setThisForcePlanningActivities(force)
 
       // produce flattened set of activities, for convenience
-      if (force) {
-        const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
-        setFlattenedPlanningActivities(_.flatten(activities))
+      if (selectedForce.umpire) {
+        // special case - need a unique set of all activities, to plot orders from all forces
+        const activities: Record<string, PlanningActivity> = {}
+        forcePlanningActivities.forEach((val: PerForcePlanningActivitySet) => {
+          val.groupedActivities.forEach((act: GroupedActivitySet) => {
+            act.activities.forEach((activ) => {
+              const id = activ.actId
+              activities[id] = activ
+            })
+          })
+        })
+        const flatActivities = Object.values(activities)
+        setFlattenedPlanningActivities(flatActivities)
+      } else {
+        if (force) {
+          const activities: Array<PlanningActivity[]> = force.groupedActivities.map((val: GroupedActivitySet) => val.activities as PlanningActivity[])
+          const flatActivities = _.flatten(activities)
+          setFlattenedPlanningActivities(flatActivities)
+        }
       }
     }
   }, [selectedForce, forcePlanningActivities])
