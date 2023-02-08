@@ -157,13 +157,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const numDetails = assetId.missileType
         ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
         : <td>{alive + ' of ' + numAssets}</td>
+      const repairDue = asset.asset.attributes && asset.asset.attributes.a_Repair_Complete as string
+      const readableDue = repairDue && shortDate(repairDue)  
       const aHealth = asset.asset.health
       const healthStyle = healthStyleFor(asset.asset.health)
       return <tr key={asset.asset.uniqid}>
         <td style={forceStyle}>{asset.asset.name}</td>
         { numberCol && numDetails }
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
-        <td className={healthStyle}>{aHealth || 'unk'}</td>
+        <td className={healthStyle}>{aHealth || 'unk'}<br/>{readableDue}</td>
         <td>{asset.asset.attributes?.a_C4_Status}</td>
       </tr>
     } else {
