@@ -4335,7 +4335,7 @@ const game: Wargame = {
             "platformTypes": [
                 {
                     "name": "Fast Jet Squadron ",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*A*MFF---",
                     "conditions": [],
                     "states": [],
@@ -4352,7 +4352,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Bomber Squadron",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*A*MFB---",
                     "attributeTypeIds": [
                         "a_Type",
@@ -4369,7 +4369,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "SAM",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*G*UCDMM-",
                     "attributeTypeIds": [
                         "a_Number_Missiles",
@@ -4386,7 +4386,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "MTG",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*S*GT----",
                     "attributeTypeIds": [
                         "a_Speed",
@@ -4401,7 +4401,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Ship",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*S*CLDD--",
                     "attributeTypeIds": [
                         "a_Speed",
@@ -4417,7 +4417,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Submarine",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*U*S-----",
                     "attributeTypeIds": [
                         "a_Speed",
@@ -4432,7 +4432,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Land Unit",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*G*UCIZ--",
                     "attributeTypeIds": [
                         "a_Speed",
@@ -4448,7 +4448,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Fixed Asset",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "G*M*SF----",
                     "attributeTypeIds": [
                         "a_C4_Status",
@@ -4461,7 +4461,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "SSM",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*A*WMSS--",
                     "attributeTypeIds": [
                         "a_Speed",
@@ -4478,7 +4478,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "ISTAR",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*A*MFR---",
                     "attributeTypeIds": [
                         "a_Speed",
@@ -4495,7 +4495,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Air LOGS",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*A*MFC---",
                     "attributeTypeIds": [
                         "a_Type",
@@ -4512,7 +4512,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "C2 Node",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*G*UH----",
                     "attributeTypeIds": [
                         "a_Type",
@@ -4527,7 +4527,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "FIAC",
-                    "icon": "",
+                    "icon": "n_",
                     "sidc": "S*S*CPSUG-",
                     "attributeTypeIds": [
                         "a_Type",
@@ -4542,7 +4542,7 @@ const game: Wargame = {
                 },
                 {
                     "name": "Maritime Minefield",
-                    "icon": "n_blue_maritime_minefield.svg",
+                    "icon": "n_",
                     "sidc": "S*U*WM----",
                     "attributeTypeIds": [
                         "a_Density",
