@@ -275,7 +275,7 @@ Default.args = {
 }
 
 const istarEvent = planningMessages.find((msg) => {
-  return  msg.message.activity.includes('ISTAR')
+  return msg.message.activity.includes('ISTAR')
 })
 const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const IstarEvent = Template.bind({})

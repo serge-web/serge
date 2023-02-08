@@ -113,7 +113,7 @@ interface Activity {
   // any short-circuit this activity generates
   shortCircuits?: Array<INTERACTION_SHORT_CIRCUIT>
   // whether to generate per-force versions of the template (for subsequent editing)
-  pfTmpl?: boolean 
+  pfTmpl?: boolean
 }
 
 /** collated data on what this activity interacts with  */

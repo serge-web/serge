@@ -361,16 +361,16 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
 
   const centreLat = centre.lat
   const centreLng = centre.lng
-  
+
   const tCentre = L.latLng(bounds.getNorth(), centreLng)
   const bCentre = L.latLng(bounds.getSouth(), centreLng)
   const lCentre = L.latLng(centreLat, bounds.getWest())
   const rCentre = L.latLng(centreLat, bounds.getEast())
 
   const bluePoly = L.polygon([bounds.getNorthWest(), tCentre, centre, lCentre, bounds.getNorthWest()])
-  const redPoly =  L.polygon([bounds.getNorthEast(), tCentre, centre, rCentre, bounds.getNorthEast()])
+  const redPoly = L.polygon([bounds.getNorthEast(), tCentre, centre, rCentre, bounds.getNorthEast()])
   const greenPoly = L.polygon([bounds.getSouthWest(), bCentre, centre, lCentre, bounds.getSouthWest()])
-  const whitePoly =  L.polygon([bounds.getSouthEast(), bCentre, centre, rCentre, bounds.getSouthEast()])
+  const whitePoly = L.polygon([bounds.getSouthEast(), bCentre, centre, rCentre, bounds.getSouthEast()])
 
   const newForces: ForceData[] = deepCopy(forces)
   newForces[1].assets = createInBounds(newForces[1], bluePoly, count, undefined, bluePlatforms, forces, attributeTypes, true)
@@ -388,7 +388,7 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const aus = [L.latLng(-22, 150), L.latLng(-12, 131), L.latLng(-22, 115), L.latLng(-22, 150)]
   const ausCoast = aus.slice(0, aus.length - 1)
   const nGuinea = [L.latLng(-1.62575, 137.5048), L.latLng(-3.9080, 135.3955), L.latLng(-8.2767, 138.4277),
-  L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
+    L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
   const nGuineaCoast = nGuinea.slice(0, nGuinea.length - 1)
   const ausCoastBuffer = L.polygon(leafletBufferLine(ausCoast, 30))
   const ausBuffer = L.polygon(aus)
