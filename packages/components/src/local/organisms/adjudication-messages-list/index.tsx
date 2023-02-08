@@ -158,7 +158,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
         : <td>{alive + ' of ' + numAssets}</td>
       const repairDue = asset.asset.attributes && asset.asset.attributes.a_Repair_Complete as string
-      const readableDue = repairDue && shortDate(repairDue)  
+      const readableDue = repairDue && shortDate(repairDue)
       const aHealth = asset.asset.health
       const healthStyle = healthStyleFor(asset.asset.health)
       return <tr key={asset.asset.uniqid}>
