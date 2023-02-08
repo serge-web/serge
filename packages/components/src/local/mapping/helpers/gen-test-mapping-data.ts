@@ -350,8 +350,9 @@ export const fixPerceivedPositions = (forces: ForceData[]): ForceData[] => {
 
 export const generateTestData2 = (count: number, constraints: MappingConstraints, forces: ForceData[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
-  const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_'))
-  const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_'))
+  const genericPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('_'))
+  const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_')).concat(genericPlatforms)
+  const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_')).concat(genericPlatforms)
   // regions
   const bounds = L.latLngBounds(constraints.bounds)
   const centre = bounds.getCenter()
@@ -378,7 +379,7 @@ const generateTestData = (constraints: MappingConstraints, forces: ForceData[],
   const aus = [L.latLng(-22, 150), L.latLng(-12, 131), L.latLng(-22, 115), L.latLng(-22, 150)]
   const ausCoast = aus.slice(0, aus.length - 1)
   const nGuinea = [L.latLng(-1.62575, 137.5048), L.latLng(-3.9080, 135.3955), L.latLng(-8.2767, 138.4277),
-    L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
+  L.latLng(-10.6606, 150.029), L.latLng(-4.4778, 145.81), L.latLng(-1.62575, 137.5048)]
   const nGuineaCoast = nGuinea.slice(0, nGuinea.length - 1)
   const ausCoastBuffer = L.polygon(leafletBufferLine(ausCoast, 30))
   const ausBuffer = L.polygon(aus)
