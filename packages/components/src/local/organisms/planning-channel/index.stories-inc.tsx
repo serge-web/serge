@@ -274,7 +274,10 @@ Default.args = {
   phase: Phase.Adjudication
 }
 
-const eventIdsOfInterest = ['Red-5']
+const istarEvent = planningMessages.find((msg) => {
+  return  msg.message.activity.includes('ISTAR')
+})
+const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const IstarEvent = Template.bind({})
 IstarEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
@@ -282,7 +285,10 @@ IstarEvent.args = {
   phase: Phase.Adjudication
 }
 
-const interactionIdsOfInterest = ['Red-5', 'Blue-17']
+const otherForceEvent = planningMessages.find((msg) => {
+  return istarEvent && (msg.details.from.forceId !== istarEvent.details.from.forceId)
+})
+const interactionIdsOfInterest = istarEvent && otherForceEvent ? [istarEvent.message.Reference, otherForceEvent.details.from.forceId] : []
 const interMessages = channelMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
   if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
     return msg.details.messageType === 'p9adjudicate'
