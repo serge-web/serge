@@ -58,7 +58,7 @@ export interface PlannedActivityGeometry {
   geometry: GeoJSON.Feature
 }
 
-/** structure for how we store date in props */
+/** structure for how we store data in props */
 export interface PlannedProps {
   // combination of activity name & geometry name
   id: string
