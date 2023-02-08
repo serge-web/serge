@@ -38896,12 +38896,12 @@ const game: Wargame = {
                     "dirty": false,
                     "iconURL": "default_img/umpireDefault.png",
                     "name": "White",
-                    "overview": "Umpire force.",
+                    "overview": "White force.",
                     "roles": [
                         {
-                            "isGameControl": true,
-                            "isInsightViewer": true,
-                            "isObserver": true,
+                            "isGameControl": false,
+                            "isInsightViewer": false,
+                            "isObserver": false,
                             "name": "CO",
                             "roleId": "white-co"
                         }
