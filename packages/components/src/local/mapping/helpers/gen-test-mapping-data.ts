@@ -199,7 +199,7 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
   // find mtg
   let res: Asset[] = [...assets]
   const mtg = platformTypes.find((pType: PlatformTypeData) => {
-    return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') !== -1
+    return pType.uniqid.indexOf('mtg') !== -1
   })
   if (!mtg) {
     console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
@@ -353,21 +353,30 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   const genericPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('_'))
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_')).concat(genericPlatforms)
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_')).concat(genericPlatforms)
+  const greenPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('green_')).concat(genericPlatforms)
+  const whitePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('white_')).concat(genericPlatforms)
   // regions
   const bounds = L.latLngBounds(constraints.bounds)
   const centre = bounds.getCenter()
-  const east = bounds.getEast()
-  const br = L.latLngBounds(bounds.getNorthWest(), L.latLng(centre.lat, east))
-  const rr = L.latLngBounds(bounds.getSouthWest(), L.latLng(centre.lat, east))
 
-  const bluePoly = L.polygon([br.getNorthWest(), br.getNorthEast(), br.getSouthEast(), br.getSouthWest(), br.getNorthWest()])
-  const redPoly = L.polygon([rr.getNorthWest(), rr.getNorthEast(), rr.getSouthEast(), rr.getSouthWest(), rr.getNorthWest()])
+  const centreLat = centre.lat
+  const centreLng = centre.lng
+  
+  const tCentre = L.latLng(bounds.getNorth(), centreLng)
+  const bCentre = L.latLng(bounds.getSouth(), centreLng)
+  const lCentre = L.latLng(centreLat, bounds.getWest())
+  const rCentre = L.latLng(centreLat, bounds.getEast())
+
+  const bluePoly = L.polygon([bounds.getNorthWest(), tCentre, centre, lCentre, bounds.getNorthWest()])
+  const redPoly =  L.polygon([bounds.getNorthEast(), tCentre, centre, rCentre, bounds.getNorthEast()])
+  const greenPoly = L.polygon([bounds.getSouthWest(), bCentre, centre, lCentre, bounds.getSouthWest()])
+  const whitePoly =  L.polygon([bounds.getSouthEast(), bCentre, centre, rCentre, bounds.getSouthEast()])
 
   const newForces: ForceData[] = deepCopy(forces)
   newForces[1].assets = createInBounds(newForces[1], bluePoly, count, undefined, bluePlatforms, forces, attributeTypes, true)
   newForces[2].assets = createInBounds(newForces[2], redPoly, count, undefined, redPlatforms, forces, attributeTypes, true)
-  console.log('blue', newForces[1].assets)
-  console.log('res', newForces[2].assets)
+  newForces[3].assets = createInBounds(newForces[3], greenPoly, count, undefined, greenPlatforms, forces, attributeTypes, true)
+  newForces[4].assets = createInBounds(newForces[4], whitePoly, count, undefined, whitePlatforms, forces, attributeTypes, true)
   return newForces
 }
 
