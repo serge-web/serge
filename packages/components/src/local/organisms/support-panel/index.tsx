@@ -258,14 +258,18 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     })
 
+    // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
     const plan = document as PlanningMessageStructureCore
-    if (gameDate) {
-      if (!plan.startDate) {
-        plan.startDate = gameDate
-      }
-      if (!plan.endDate) {
-        plan.endDate = gameDate
+    const schemaTitle: string = schema.title || 'unknown'
+    if (!schemaTitle.startsWith('Adjudicat')) {
+      if (gameDate) {
+        if (!plan.startDate) {
+          plan.startDate = gameDate
+        }
+        if (!plan.endDate) {
+          plan.endDate = gameDate
+        }
       }
     }
 
