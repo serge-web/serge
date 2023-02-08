@@ -61,14 +61,22 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
         attrs.a_C4_Status = health.c4
       }
     }
-    if (health.repairComplete && health.repairComplete !== 'I/R') {
+    if (health.repairComplete) {
       if (!asset.attributes) {
         asset.attributes = {}
       }
       const attrs = asset.attributes
-      const days = parseInt(health.repairComplete)
-      const completionDate = moment.utc(interaction.startTime).add(days, 'd').toISOString()
-      attrs.a_Repair_Complete = completionDate
+      if (health.repairComplete === 'I/R') {
+        // ok, cannot be repaired. Clear the repair complete flag, if there is one
+        if (attrs.a_Repair_Complete) {
+          delete attrs.a_Repair_Complete
+        }
+      } else {
+        // can be repaired, insert the time the repairs will be complete
+        const days = parseInt(health.repairComplete)
+        const completionDate = moment.utc(interaction.startTime).add(days, 'd').toISOString()
+        attrs.a_Repair_Complete = completionDate
+      }
     }
   })
 

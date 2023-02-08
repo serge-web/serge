@@ -82,6 +82,39 @@ const validPayload: MessageAdjudicationOutcomes = {
   narrative: 'well done'
 }
 
+it('correctly handles asset marked as irrepairable', () => {
+  const forces = deepCopy(allForces)
+  const beforeStr = JSON.stringify(forces)
+  const interaction = {
+    startTime: '2022-05-01T00:55:00.000Z'
+  } as InteractionDetails
+  const updated = handleOutcomes(interaction, validPayload, forces)
+  const afterStr = JSON.stringify(updated)
+  expect(beforeStr).not.toEqual(afterStr)
+  const one = findAsset(updated, 'bravo')
+  expect(one).toBeTruthy()
+  const attrs = one.attributes
+  expect(attrs).toBeTruthy()
+  if (attrs) {
+    // now check repair event created
+    const repairDate = attrs.a_Repair_Complete
+    expect(repairDate).toBeTruthy()
+
+    // ok, new update that marks asset as irrepairable
+    const newPayload = deepCopy(validPayload) as MessageAdjudicationOutcomes
+    newPayload.healthOutcomes[1].repairComplete = 'I/R'
+    const updated2 = handleOutcomes(interaction, newPayload, updated)
+    const one2 = findAsset(updated2, 'bravo')
+    const attrs2 = one2.attributes
+    expect(attrs2).toBeTruthy()
+    if (attrs2) {
+      expect(attrs.a_Repair_Complete).toBeUndefined()
+    } else {
+      expect(false).toBeTruthy() // should not go down this path
+    }
+  }
+})
+
 it('correctly handles repairs', () => {
   const forces = deepCopy(allForces)
   const beforeStr = JSON.stringify(forces)
