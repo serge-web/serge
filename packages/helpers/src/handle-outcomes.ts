@@ -61,7 +61,7 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
         attrs.a_C4_Status = health.c4
       }
     }
-    if (health.repairComplete && health.repairComplete !== 'n/a') {
+    if (health.repairComplete && health.repairComplete !== 'I/R') {
       if (!asset.attributes) {
         asset.attributes = {}
       }

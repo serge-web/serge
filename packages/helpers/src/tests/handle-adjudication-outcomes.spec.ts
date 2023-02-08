@@ -71,7 +71,7 @@ const validPayload: MessageAdjudicationOutcomes = {
   Reference: 'umpire-234',
   important: false,
   healthOutcomes: [
-    { asset: 'alpha', c4: 'Degraded', health: 34, repairComplete: 'n/a' },
+    { asset: 'alpha', c4: 'Degraded', health: 34, repairComplete: 'I/R' },
     { asset: 'bravo', c4: 'Degraded', health: 0, repairComplete: '2' }
   ],
   perceptionOutcomes: [

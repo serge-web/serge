@@ -170,7 +170,7 @@ export interface HealthOutcome extends CoreOutcome  {
   /** c4 ability */
   c4: 'Unchanged' | 'None' | 'Degraded' | 'Operational'
   /** when repair will be complete by */
-  repairComplete?: 'n/a' | '1' | '2' | '3'
+  repairComplete?: 'I/R' | '1' | '2' | '3'
 }
 
 export type LocationOutcomes = LocationOutcome[]
