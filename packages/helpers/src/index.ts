@@ -34,6 +34,7 @@ export {
   clipInfoMEssage
 } from './handle-channel-updates'
 export { default as handleVisibilityAndConditionChanges } from './handle-visibility-condition-changes'
+export { default as handleOutcomes } from './handle-outcomes'
 export { default as handleUpdateMarker } from './handle-update-marker'
 export { default as handleDeleteMarker } from './handle-delete-marker'
 export { default as handleCloneMarker } from './handle-clone-marker'
