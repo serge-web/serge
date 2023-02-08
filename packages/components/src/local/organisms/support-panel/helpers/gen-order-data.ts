@@ -582,6 +582,7 @@ export const invertMessages = (messages: MessagePlanning[], activities: PerForce
         const props = newItem.geometry.properties as PlannedProps
         props.name = message.details.from.force + '//' + message.message.title + '//' + geometry
         props.geomId = plan.uniqid
+        props.id = activity.name + '//' + geometry
         props.force = forceId
         // fill in date/time, if not present
         if (!props.startDate) {
