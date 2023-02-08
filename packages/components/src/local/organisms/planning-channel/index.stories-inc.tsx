@@ -147,7 +147,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   const forces1 = allForces || forces
 
-  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
+  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(800, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
@@ -307,7 +307,7 @@ IstarInteraction.args = {
 export const BulkForces = Template.bind({})
 BulkForces.args = {
   messages: channelMessages,
-  selectedRoleId: allRoles[5],
+  selectedRoleId: allRoles[1],
   allForces: [],
   phase: Phase.Planning
 }

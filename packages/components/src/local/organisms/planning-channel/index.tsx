@@ -152,9 +152,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const newPlan = forcePlanningActivities && forcePlanningActivities[0].groupedActivities[0].activities[1] as PlanningActivity
       setActivityBeingPlanned(newPlan)
     } else {
-      const createAssets = true
+      const createAssets = false
       if (createAssets) {
-        const forces = generateTestData2(400, channel.constraints, allForces, platformTypes, attributeTypes || [])
+        const forces = generateTestData2(300, channel.constraints, allForces, platformTypes, attributeTypes || [])
         // const forces = fixPerceivedPositions(allForces)
         console.log('forces', forces)
       } else {
