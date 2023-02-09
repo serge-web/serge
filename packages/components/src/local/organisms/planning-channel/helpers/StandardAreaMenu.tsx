@@ -62,7 +62,8 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           onSelect: (item: any) => {
             handleClick(item)
           },
-          additionalClass: 'select-control-custom'
+          additionalClass: 'select-control-custom',
+          preventClickThrough: true
         })
         setControlButton(selectControl)
       }
@@ -73,6 +74,24 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           controlButton.remove()
         }
       }
+      // const elm = document.getElementById('standardAreaMenu');
+      // if (elm) {
+      //   const aTags = elm.getElementsByTagName('a');
+      //   if (aTags && aTags.length) {
+      //     const btn = aTags[0]
+      //     btn.addEventListener('click', () => {
+      //       setTimeout(() => {
+      //         const divTags = elm.getElementsByTagName('div');
+      //         Array.from(divTags).forEach(divTag => {
+      //           divTag.addEventListener('click', e => {
+      //             console.log('xx> click eee')
+      //             e.stopPropagation()
+      //           })
+      //         })
+      //       }, 1000)
+      //     })
+      //   }
+      // }
     }
   }, [areas, showControl, controlButton])
 
