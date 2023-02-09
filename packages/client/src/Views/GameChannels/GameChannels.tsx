@@ -138,23 +138,11 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
 
   const generateFile = () => {
     const res = handleExport(gameDate, gameTurnTime, allPlatformTypes, allForces, currentTurn, channels)
-    // const data = Object.keys(res).map((key): SheetOptions => {
-    //   const rows = res[key]
-    //   return ({
-    //     name: key,
-    //     from: {
-    //       arrayHasHeader: true,
-    //       array: rows
-    //     }
-    //   })
-    // })
-    console.log('about to export', res)
     // todo - convert the data to expected arrays
     const data: SheetOptions[] = convertToXlsx(res)
-    console.log('convert xlxs data:', data)
     return excellentExport.convert({
       anchor: 'export_button_xlsx',
-      filename: 'SERGE-' + moment().format('MMM DDHHmm[Z]') + '.xlsx',
+      filename: 'SERGE-' + moment(gameDate).format('MMM DDHHmm[Z]'),
       format: 'xlsx'
     }, data)
   }
