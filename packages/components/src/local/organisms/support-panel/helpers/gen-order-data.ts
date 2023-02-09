@@ -269,18 +269,22 @@ export const geometriesFor = (ownAssets: Asset[], ownForce: ForceData['uniqid'],
   const other = randomArrayItem(targets, ctr++)
   const geoms = activity.geometries
   if (geoms) {
+    let lastEnd: moment.Moment = timeNow
+    let lastPlanning: PlanningActivityGeometry | undefined
     const res: PlannedActivityGeometry[] = geoms.map((plan: PlanningActivityGeometry, index: number): PlannedActivityGeometry => {
-      const timeStart = timeNow
+      const secondPoly = lastPlanning && lastPlanning.aType === GeometryType.polygon && plan.aType === GeometryType.polygon
+      timeNow = secondPoly ? timeNow : lastEnd
       const minsOffset = Math.floor(psora(1 + index * ctr) * 20) * 10
-      const timeEnd = timeStart.clone().add(minsOffset, 'm')
+      const timeEnd = secondPoly ? lastEnd as moment.Moment : timeNow.clone().add(minsOffset, 'm')
       const lastItemIsLeg = geoms.length > 1 && index === geoms.length - 1 && GeometryType.polyline
       const assetToUseAsOwn = lastItemIsLeg ? other : own
       const assetToUseAsOther = lastItemIsLeg ? own : other
       const planned: PlannedActivityGeometry = {
         uniqid: plan.uniqid,
-        geometry: geometryFor(assetToUseAsOwn, ownForce, assetToUseAsOther, plan, ctr * (1 + index), timeStart.toISOString(), timeEnd.toISOString(), activity)
+        geometry: geometryFor(assetToUseAsOwn, ownForce, assetToUseAsOther, plan, ctr * (1 + index), timeNow.toISOString(), timeEnd.toISOString(), activity)
       }
-      timeNow = timeEnd
+      lastEnd = timeEnd
+      lastPlanning = plan
       return planned
     })
     return res
@@ -462,10 +466,10 @@ export const interactsWith = (first: PlanningActivity, second: PlanningActivity,
   const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId) : false
   if (firstInteracts !== secondInteracts) {
     if (throwErrorOnUnbalanced) {
-      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+      console.warn('Warning: Unbalanced interacts. Potentially valid if called from test-spec.', firstId, first.uniqid, secondId, second.uniqid, first.interactsWith, second.interactsWith)
       throw Error('Unbalanced interacts')
     } else {
-      console.error('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+      console.error('Warning: Unbalanced interacts. Valid if called from test-spec.', firstId, secondId, first.interactsWith, second.interactsWith)
     }
   }
   return first.interactsWith ? first.interactsWith.includes(secondId) : false

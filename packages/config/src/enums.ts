@@ -195,5 +195,6 @@ export enum AdminTabs {
 export enum SymbolForces {
   Friend = 'F',
   Hostile = 'H',
-  Neutral = 'N'
+  Neutral = 'N',
+  Unknown = 'U'
 }
