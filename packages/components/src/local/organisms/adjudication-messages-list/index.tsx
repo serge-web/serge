@@ -487,14 +487,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
     })
 
-    const data: ManualInteractionData = {
-      forceMessages: forceMsgs,
-      otherAssets: otherAssets
-    }
+    if (forceMsgs.length) {
+      const data: ManualInteractionData = {
+        forceMessages: forceMsgs,
+        otherAssets: otherAssets
+      }
 
-    validateManualForm()
-    // popup the form
-    setManualDialog(data)
+      validateManualForm()
+      // popup the form
+      setManualDialog(data)
+    } else {
+      window.alert('No plans available for manual interaction. Invalid turn filter?')
+    }
   }
 
   const handleManualInteraction = (): void => {
