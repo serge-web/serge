@@ -143,6 +143,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
 
+  // note: this uses interaction refernence, not id. That means we will still show the interaction after the document updates
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
 

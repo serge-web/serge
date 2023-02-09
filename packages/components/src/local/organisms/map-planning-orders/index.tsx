@@ -66,14 +66,14 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
       if (!selectedInteraction) {
         setInteractionGeometries([])
       } else {
-        const interMsg = interactions.find((val: MessageInteraction) => val._id === selectedInteraction)
+        const interMsg = interactions.find((val: MessageInteraction) => val.message.Reference === selectedInteraction)
         if (!interMsg) {
-          console.warn('failed to find interaction with id:', selectedInteraction)
+          console.warn('failed to find interaction with reference:', selectedInteraction)
           return
         }
         const details = interMsg.details.interaction
         if (!details) {
-          console.warn('Failed to find interaction details for id:', selectedInteraction)
+          console.warn('Failed to find interaction details for reference:', selectedInteraction)
           return
         }
         // get the ids

@@ -8,7 +8,7 @@ export default interface PropTypes {
   interactions?: MessageInteraction[]
   /** the currently selected set of ordres */
   selectedOrders?: string[]
-  /** currently selected interaction */
+  /** currently selected interaction (Reference, not _id) */
   selectedInteraction?: string | undefined
   /** a reference list of plannign activiites (used to get color/styling) */
   activities: PlanningActivity[]
