@@ -562,12 +562,11 @@ export const saveForce = (dbName: string, newData: ForceData, Initiated?: boolea
   })
 }
 
-export const removeChannels = (dbName: string, forceId: string): Promise<Wargame> => {
-  console.log('removeChannels')
+export const removeChannels = (dbName: string, forceId: string, forces: ForceData[]): Promise<Wargame> => {
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data
- 
+
     // remove participations for this force
     updatedData.channels.channels.forEach((channel: ChannelTypes) => {
       // in the next time we're 'tricking' the compiler into accepting the
@@ -582,7 +581,7 @@ export const removeChannels = (dbName: string, forceId: string): Promise<Wargame
     // now delete channels with zero participations
     updatedData.channels.channels = updatedData.channels.channels.filter((channel: ChannelTypes) => channel.participants.length > 0)
 
-    if (updatedData.forces.forces.length === 0) {
+    if (forces.length === 0) {
       updatedData.channels = {
         name: 'Channels',
         channels: [],
@@ -602,7 +601,7 @@ export const deleteForce = (dbName: string, forceId: string, Initiated?: boolean
     // remove the indicated force
     updatedData.forces.forces = forces.filter((force: ForceData) => force.uniqid !== forceId)
 
-    removeChannels(dbName, forceId)
+    removeChannels(dbName, forceId, forces)
     return updateForceByDb(updatedData, dbName, Initiated)
   })
 }
