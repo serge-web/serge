@@ -462,10 +462,10 @@ export const interactsWith = (first: PlanningActivity, second: PlanningActivity,
   const secondInteracts = second.interactsWith ? second.interactsWith.includes(firstId) : false
   if (firstInteracts !== secondInteracts) {
     if (throwErrorOnUnbalanced) {
-      console.warn('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+      console.warn('Warning: Unbalanced interacts. Potentially valid if called from test-spec.', firstId, first.uniqid, secondId, second.uniqid, first.interactsWith, second.interactsWith)
       throw Error('Unbalanced interacts')
     } else {
-      console.error('Warning: Unbalanced interacts', firstId, secondId, first.interactsWith, second.interactsWith)
+      console.error('Warning: Unbalanced interacts. Valid if called from test-spec.', firstId, secondId, first.interactsWith, second.interactsWith)
     }
   }
   return first.interactsWith ? first.interactsWith.includes(secondId) : false
