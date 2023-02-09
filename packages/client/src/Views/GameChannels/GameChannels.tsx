@@ -110,7 +110,7 @@ const GameChannels: React.FC<GameChannelsProps> = ({ onTabChange }): React.React
     }
     const items = Object.keys(res).map((key): SheetItem => {
       return {
-        key: key,
+        key,
         data: res[key]
       }
     })
