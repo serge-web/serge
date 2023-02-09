@@ -31,7 +31,7 @@ export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
 
   return <>
     {
-      areas.length &&
+      areas.length > 0 &&
       <LayerGroup key={'standard-areas'}>
         {areas.map((area, index) =>
           <Polygon key={'p_' + index} pathOptions={polyStyle} positions={positionsFor(area.polygon.coordinates[0])} >

@@ -833,7 +833,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                       {!activityBeingPlanned &&
                         <>
                           {
-                            myAreas && myAreas.length &&
+                            myAreas && myAreas.length > 0 &&
                             <div className={cx('leaflet-control')}>
                               <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
