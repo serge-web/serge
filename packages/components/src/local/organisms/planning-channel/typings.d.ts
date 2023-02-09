@@ -22,6 +22,7 @@ type SelectOption = {
   onClose?: () => void
   onSelect?: (item: any) => void
   onGroupOpen?: (groupItem: any) => void
+  additionalClass?: string
 }
 
 type RulerOption = {

@@ -54,14 +54,15 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
         const selectControl = L.control.select({
           // TODO: we need to move this to the top-left, but put it beneath the `Cancel planning` controls
           // TODO: if we set it to top-left, one gets presented over the top of the other.
-          position: 'bottomleft',
+          position: 'topleft',
           iconMain: '📝',
           iconGroupChecked: '⊳',
           iconGroupUnchecked: '⊳',
           items: items,
           onSelect: (item: any) => {
             handleClick(item)
-          }
+          },
+          additionalClass: 'select-control-custom'
         })
         setControlButton(selectControl)
       }
