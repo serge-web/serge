@@ -1,6 +1,7 @@
 import { CHANNEL_PLANNING, INFO_MESSAGE_CLIPPED } from '@serge/config'
 import { Asset, ChannelUI, ForceData, GameTurnLength, MessageChannel, MessageCustom, MessageInteraction, MessagePlanning, PlatformTypeData, PlayerUiChannels } from '@serge/custom-types'
 import { incrementGameTime } from '@serge/helpers'
+import { cloneDeep } from 'lodash'
 
 export const FORCES = 'forces'
 export const INTERACTIONS = 'interactions'
@@ -113,7 +114,14 @@ const exportMessages = (channels: PlayerUiChannels, res: Record<string, Record<s
           time: msg.details.timestamp,
           turnNumber: msg.details.turnNumber
         }
-        const combined = Object.assign({}, core, msg.message)
+        const msgAny = cloneDeep(msg.message)
+        const unpack = ['location', 'ownAssets', 'otherAssets', 'domain', 'synchronisedWith']
+        unpack.forEach((item) => {
+          if (msgAny[item]) {
+            msgAny[item] = JSON.stringify(msgAny[item])
+          }
+        })
+        const combined = Object.assign({}, core, msgAny)
         if (!res[msgLabel]) {
           res[msgLabel] = []
         }
