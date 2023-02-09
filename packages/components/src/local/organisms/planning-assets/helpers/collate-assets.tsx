@@ -299,6 +299,16 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipT
           console.warn('Haven\'t handled attribute', attrId)
         }
       }
+    } else {
+      // just shoe-horn the value in
+      const name = attrId
+      const prefix = name.indexOf('a_')
+      if (prefix === 0) {
+        const name2 = name.substring('a_'.length)
+        const name3 = name2.replace('_', ' ')
+        // yes, it's an attribute
+        attrDict[name3] = ids[attrId]
+      }
     }
   })
   return attrDict

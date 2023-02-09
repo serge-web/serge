@@ -157,13 +157,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const numDetails = assetId.missileType
         ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
         : <td>{alive + ' of ' + numAssets}</td>
+      const repairDue = asset.asset.attributes && asset.asset.attributes.a_Repair_Complete as string
+      const readableDue = repairDue && shortDate(repairDue)
       const aHealth = asset.asset.health
       const healthStyle = healthStyleFor(asset.asset.health)
       return <tr key={asset.asset.uniqid}>
         <td style={forceStyle}>{asset.asset.name}</td>
         { numberCol && numDetails }
         <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
-        <td className={healthStyle}>{aHealth || 'unk'}</td>
+        <td className={healthStyle}>{aHealth || 'unk'}<br/>{readableDue}</td>
         <td>{asset.asset.attributes?.a_C4_Status}</td>
       </tr>
     } else {
@@ -280,7 +282,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       setRows(dataTable)
 
       if (columns.length === 0) {
-        console.time('collate')
         const umpireForce = forces.find((force: ForceData) => force.umpire)
         // TODO: the column definitions should use the data collated in the column summary (below)
         // provide more sophisticated column definition lookups
@@ -296,21 +297,20 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           { title: 'Activity', field: 'Reference' },
           { title: 'Duration', field: 'period' }
         ]
-        console.timeEnd('collate')
         setColumns(columnsData)
-      }
-
-      const turnColumn = columns.find((col) => col.title === 'Turn')
-      if (turnColumn) {
-        const newVal = turnFilter !== SHOW_ALL_TURNS
-        if (turnColumn.hidden !== newVal) {
-          turnColumn.hidden = newVal
-        }
       } else {
-        console.warn('Turn column not found in adj messages list')
+        // ok, we can only show/hide the turn column once the columns have been defined
+        const turnColumn = columns.find((col) => col.title === 'Turn')
+        if (turnColumn) {
+          const newVal = turnFilter !== SHOW_ALL_TURNS
+          if (turnColumn.hidden !== newVal) {
+            turnColumn.hidden = newVal
+          }
+        } else {
+          console.warn('Turn column not found in adj messages list')
+        }
       }
     } else {
-      console.log('no planning messages received')
       setRows([])
     }
   }, [planningMessages, cachedInteractions, turnFilter])
@@ -422,6 +422,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             console.error('Unexpected location outcome format:', value.location)
           }
         })
+
+        console.log('Adj Message List, submitting', details, outcomes)
 
         // postBack. note - we use the mapping post back handler, so it
         // can modify the wargame, in addition to sending the message
@@ -545,8 +547,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       return <></>
     }
 
-    // retrieve the message & template
-    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value._id === rowData.id)
+    // retrieve the message & template. Note: we match by reference, rather than id, since if adj submitted, it's actually a newer doucment.
+    const message: MessageInteraction | undefined = interactionMessages.find((value: MessageInteraction) => value.message.Reference === rowData.reference)
     if (!message) {
       console.error('message not found, id:', rowData.id, 'messages:', interactionMessages.length)
     } else {

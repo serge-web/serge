@@ -43154,6 +43154,7 @@ const game: Wargame = {
                                             "propertyOrder": 25,
                                             "type": "string",
                                             "enum": [
+                                                "Unchanged",
                                                 "None",
                                                 "Degraded",
                                                 "Operational"
@@ -43167,7 +43168,7 @@ const game: Wargame = {
                                             "propertyOrder": 40,
                                             "type": "string",
                                             "enum": [
-                                                "n/a",
+                                                "I/R",
                                                 "1",
                                                 "2",
                                                 "3"
