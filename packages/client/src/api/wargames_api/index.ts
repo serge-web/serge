@@ -19,15 +19,7 @@ import {
 } from '../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 
 import {
-<<<<<<< HEAD
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, Forces,
-  GameTurnLength, IconOption, MapAnnotationData, Message, MessageAdjudicationOutcomes,
-  MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails,
-  MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld,
-  MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
-=======
-  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
->>>>>>> f9635f26a4592114c2c3f9c0a6642cb90215acce
+  ActivityLogsInterface, AnnotationMarkerData, ChannelTypes, ForceData, Forces, GameTurnLength, IconOption, InteractionDetails, MapAnnotationData, Message, MessageAdjudicationOutcomes, MessageChannel, MessageCloneMarker, MessageCustom, MessageDeleteMarker, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, MessageStateOfWorld, MessageStructure, MessageUpdateMarker, ParticipantChat, ParticipantTypes, PlatformType, PlatformTypeData, PlayerLogEntries, PlayerUiDispatch, Role, TurnPeriod, Wargame, WargameOverview, WargameRevision
 } from '@serge/custom-types'
 
 import {
@@ -86,7 +78,6 @@ export const deleteWargame = (wargamePath: string): void => {
 export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void => {
   db.changes((msg) => {
     const doc = msg as Message
-    console.log('msg', msg.messageType)
     if (doc === undefined) return
     if (doc.messageType === INFO_MESSAGE) {
       const infoM = doc as MessageInfoType
@@ -896,13 +887,6 @@ export const postNewMapMessage = (dbName, details, message: MessageMap, platform
           res.data.annotations = checkAnnotations(res.data.annotations)
           const validMessage: MessageDeleteMarker = message
           res.data.annotations.annotations = handleDeleteMarker(validMessage, res.data.annotations.annotations)
-<<<<<<< HEAD
-=======
-        } else if (message.messageType === ADJUDICATION_OUTCOMES) {
-          const validMessage: MessageAdjudicationOutcomes = message
-          const interaction = details.interaction as InteractionDetails
-          res.data.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.data.forces.forces)
->>>>>>> f9635f26a4592114c2c3f9c0a6642cb90215acce
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message
@@ -940,20 +924,22 @@ export const postNewMapMessage = (dbName, details, message: MessageMap, platform
 export const postNewMapForceMessage = (dbName, details, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean) => {
   // first, send the message
   const { db } = getWargameDbByName(dbName)
-  const customMessage: MessageCustom = {
-    _id: new Date().toISOString(),
-    // defined constat for messages, it's not same as message.details.messageType,
-    // ex for all template based messages will be used CUSTOM_MESSAGE Type
-    messageType: CUSTOM_MESSAGE,
-    details,
-    message,
-    isOpen: false,
-    hasBeenRead: false
+  if (message.messageType !== STATE_OF_WORLD) {
+    const customMessage: MessageCustom = {
+      _id: new Date().toISOString(),
+      // defined constat for messages, it's not same as message.details.messageType,
+      // ex for all template based messages will be used CUSTOM_MESSAGE Type
+      messageType: CUSTOM_MESSAGE,
+      details,
+      message,
+      isOpen: false,
+      hasBeenRead: false
+    }
+    db.put(customMessage).catch((err) => {
+      console.log(err)
+      return err
+    })
   }
-  db.put(customMessage).catch((err) => {
-    console.log(err)
-    return err
-  })
 
   // also make the modification to the wargame
   return new Promise((resolve, reject) => {
@@ -965,7 +951,8 @@ export const postNewMapForceMessage = (dbName, details, message: MessageMap, pla
 
         if (message.messageType === ADJUDICATION_OUTCOMES) {
           const validMessage: MessageAdjudicationOutcomes = message
-          res.forces.forces = handleAdjudicationOutcomes(validMessage, res.forces.forces)
+          const interaction = details.interaction as InteractionDetails
+          res.forces.forces = handleAdjudicationOutcomes(interaction, validMessage, res.forces.forces)
         } else if (message.messageType === STATE_OF_WORLD) {
           // ok, this needs to work on force AND info markers
           const validMessage: MessageStateOfWorld = message

@@ -67,9 +67,8 @@ const factory = (state: PlayerUi): Factory => {
         sendMapMessage(SUBMIT_PLANS, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case STATE_OF_WORLD:
-        const sendAnnotetion = sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapAnnotationMessage)
-        const sendForce = sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
-        Promise.all([sendForce, sendAnnotetion])
+        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapAnnotationMessage)
+        sendMapMessage(STATE_OF_WORLD, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
         break
       case CREATE_TASK_GROUP:
         sendMapMessage(CREATE_TASK_GROUP, payload, state.selectedForce, channelID, state.selectedRole, state.selectedRoleName, state.currentWargame, turnNumber, state.allPlatformTypes, state.wargameInitiated, saveMapMessage)
