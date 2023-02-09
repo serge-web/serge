@@ -176,10 +176,9 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const red = 'f-red'
   const blue = 'f-blue'
   const green = 'f-green'
-  const white = 'f-white'
 
   const redBlue = [blue, red]
-  const allForces = [blue, red, green, white]
+  const allForces = [blue, red, green]
 
   const land = 'Land'
   const mar = 'Maritime'
@@ -220,10 +219,10 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const rndEnd: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_RANDOM]
 
   const acts: Activity[] = []
-  acts.push({ uniqid: 'STRIKE', title: 'Strike', shortCircuits: end, forces: redBlue, domains: landMar, acts: undefined, specific: 'MissileStrike', pfTmpl: true })
+  acts.push({ uniqid: 'STRIKE', title: 'Strike', shortCircuits: end, forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike', pfTmpl: true })
   acts.push({ uniqid: 'EW', title: 'EW Attack', shortCircuits: both, forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', provideSpatialAssets: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', shortCircuits: rndEnd, forces: redBlue, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', provideSpatialAssets: true })
-  acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
+  acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
   acts.push({ uniqid: 'AAR', title: 'Air-Air Refuel', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['AAR at this location'] })
   acts.push({ uniqid: 'RESUPP', title: 'Resupply', forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply at this location'] })
   acts.push({ uniqid: 'TRANSIT', title: 'Transit', shortCircuits: end, forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
