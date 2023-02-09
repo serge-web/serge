@@ -1,11 +1,11 @@
 import {
   ADJUDICATION_OUTCOMES,
   CHAT_MESSAGE, CLONE_MARKER, CollaborativeMessageStates,
-  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
+  COUNTER_MESSAGE, CREATE_TASK_GROUP, CUSTOM_MESSAGE, DELETE_MARKER, DELETE_PLATFORM, FEEDBACK_MESSAGE, FORCE_LAYDOWN, Force_Settings, HOST_PLATFORM, INFO_MESSAGE, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, LEAVE_TASK_GROUP, PERCEPTION_OF_CONTACT, PLANNING_MESSAGE, STATE_OF_WORLD, SUBMIT_PLANS, UPDATE_MARKER, VISIBILITY_CHANGES
 } from '@serge/config'
 
 import { Geometry } from 'geojson'
-import { Asset, ChannelCore, ForceData, ForceRole, HealthOutcomes, INTERACTION_SHORT_CIRCUIT, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
+import { Asset, ChannelCore, ForceData, ForceRole, Forces, HealthOutcomes, INTERACTION_SHORT_CIRCUIT, LocationOutcomes, PerceptionOutcomes, PlannedActivityGeometry, PlanningActivity, StateOfWorld, TemplateBody } from '.'
 import { MapAnnotation } from './map-annotation'
 import Perception from './perception'
 import PlannedRoute from './planned-route'
@@ -279,6 +279,10 @@ export interface MessageInfoType extends Wargame {
   gameTurn: number
 }
 
+export interface MessageForceTypes extends Forces {
+  readonly messageType: typeof Force_Settings,
+}
+
 /**
   * Mapped/Clipped version of MessageInfoType for channel
   */
@@ -390,6 +394,7 @@ type Message = MessageCustom |
   MessageInfoTypeClipped |
   MessageMap |
   MessageInfoType |
+  MessageForceTypes |
   MessageCounter
 
 export default Message

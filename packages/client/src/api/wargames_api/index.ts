@@ -89,7 +89,7 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
     }
 
     if (msg.messageType === Force_Settings) {
-      dispatch(setCurrentForce(msg as any))
+      dispatch(setCurrentForce(doc as Forces))
       return
     }
 
