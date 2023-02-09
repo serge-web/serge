@@ -42,6 +42,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
 
   const [standardPolygons, setStandardPolygons] = useState<Area[] | undefined>(undefined)
 
+  const [workingLayer, setWorkingLayer] = useState<L.Layer>()
+
   // this next state is a workaround, to prevent GeoMan calling
   // onCreate multiple times
   const [lastPendingGeometry, setLastPendingGeometry] = useState<PendingItem | undefined>(undefined)
@@ -238,6 +240,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // note: this workaround prevents successive create events
     // note: propagating
     console.log('on create', e.shape, e.layer)
+    setWorkingLayer(undefined);
+
     if (lastPendingGeometry) {
       const layer = lastPendingGeometry.layer as any
       const oldLatLngs = layer._latlngs
@@ -262,9 +266,17 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     }
     // TODO: we need to cancel the current polygon editing, but now the whole set of shapes
     // cancel drawing
+    if (workingLayer) {
+      workingLayer.remove()
+      map.pm.disableDraw()
+    }
 
     // simulate playe completing shape
     onCreate({ shape: 'polygon', layer: res as Layer })
+  }
+
+  const onDrawStart = (e: { shape: string; workingLayer: Layer; }) => {
+    setWorkingLayer(e.workingLayer);
   }
 
   return (
@@ -279,6 +291,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         <GeomanControls
           options={drawOptions}
           globalOptions={globalOptions}
+          onDrawStart={onDrawStart}
           onCreate={onCreate}
         />
       </>
