@@ -24,7 +24,6 @@ const DeleteModal = () => {
   const dispatch = useDispatch()
   const currentModal = useSelector((state: RootState) => state.currentModal)
   const wargame = useSelector((state: RootState) => state.wargame)
-
   // check we have necessary data nugget
   if (!currentModal.data) {
     console.warn('Warning: Delete Confirmation form lacks ModalData data element')
@@ -101,7 +100,7 @@ const DeleteModal = () => {
             newForce.assets = item.force.assets?.filter(a => a.platformTypeId !== item.asset.platformTypeId)
             forces[forceIdx] = newForce
           }
-          dispatch(updateForcesAndDeletePlatformType(wargame.currentWargame, forces, data as PlatformType))
+          dispatch(updateForcesAndDeletePlatformType(wargame.currentWargame, forces, data as PlatformType, wargame.wargameInitiated as boolean))
         }
         break
       }

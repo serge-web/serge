@@ -279,7 +279,7 @@ export interface MessageInfoType extends Wargame {
   gameTurn: number
 }
 
-export interface MessageForceTypes extends Forces {
+export interface MessageForceType extends Forces {
   readonly messageType: typeof Force_Settings,
 }
 
@@ -394,7 +394,7 @@ type Message = MessageCustom |
   MessageInfoTypeClipped |
   MessageMap |
   MessageInfoType |
-  MessageForceTypes |
+  MessageForceType |
   MessageCounter
 
 export default Message

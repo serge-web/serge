@@ -26,7 +26,7 @@ export const usePlayerUiState = (): PlayerUi => {
   }
   // process roleid for the legacy data
   const needUpdate = false
-  const { currentWargame, allForces } = context
+  const { currentWargame, allForces, wargameInitiated } = context
   allForces.forEach(force => {
     force.roles = force.roles.map((role: Role): Role => {
       return {
@@ -37,7 +37,7 @@ export const usePlayerUiState = (): PlayerUi => {
   })
   if (needUpdate) {
     const dispatch = useDispatch()
-    dispatch(updateForces(currentWargame, allForces))
+    dispatch(updateForces(currentWargame, allForces, wargameInitiated))
   }
   return context
 }

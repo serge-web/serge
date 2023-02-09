@@ -89,7 +89,11 @@ export const listenNewMessage = ({ db, dispatch }: ListenNewMessageType): void =
     }
 
     if (msg.messageType === Force_Settings) {
+      // const infoM = doc as any
       dispatch(setCurrentForce(doc as Forces))
+      // const asAny = infoM as any
+      // const asMsg = asAny as MessageChannel
+      // dispatch(setLatestWargameMessage(asMsg))
       return
     }
 
@@ -472,12 +476,12 @@ export const deleteChannel = (dbName: string, channelUniqid: string): Promise<Wa
   })
 }
 
-export const saveForces = (dbName: string, newData: ForceData[]) => {
-  return getLatestWargameRevision(dbName).then((res) => {
-    const newDoc: Wargame = deepCopy(res)
-    const updatedData = newDoc.data
+export const saveForces = (dbName: string, newData: ForceData[], wargameInitiated: boolean): Promise<Forces> => {
+  return getLatestForceRevision(dbName).then((res) => {
+    const newDoc: Forces = deepCopy(res)
+    const updatedData = newDoc
     updatedData.forces.forces = newData
-    return updateWargame({ ...res, data: updatedData }, dbName)
+    return updateForceByDb(updatedData, dbName, wargameInitiated)
   })
 }
 
@@ -559,6 +563,7 @@ export const saveForce = (dbName: string, newData: ForceData, Initiated?: boolea
 }
 
 export const removeChannels = (dbName: string, forceId: string): Promise<Wargame> => {
+  console.log('removeChannels')
   return getLatestWargameRevision(dbName).then((res) => {
     const newDoc: Wargame = deepCopy(res)
     const updatedData = newDoc.data

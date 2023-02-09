@@ -312,18 +312,18 @@ export const saveAnnotation = (dbName: string, data: AnnotationMarkerData) => {
   }
 }
 
-export const updateForces = (dbName: string, newData: ForceData[]) => {
+export const updateForces = (dbName: string, newData: ForceData[], Initiated: boolean) => {
   return async (dispatch: WargameDispatch) => {
-    await wargamesApi.saveForces(dbName, newData)
+    await wargamesApi.saveForces(dbName, newData, Initiated)
     const games = await wargamesApi.getAllWargames()
     dispatch(saveAllWargameNames(games))
   }
 }
 
-export const updateForcesAndDeletePlatformType = (dbName: string, newData: ForceData[], platformType: PlatformType) => {
+export const updateForcesAndDeletePlatformType = (dbName: string, newData: ForceData[], platformType: PlatformType, Initiated: boolean) => {
   return async (dispatch: WargameDispatch) => {
     if (newData.length) {
-      await updateForces(dbName, newData)(dispatch)
+      await updateForces(dbName, newData, Initiated)(dispatch)
     }
     await deletePlatformType(dbName, platformType)(dispatch)
   }
