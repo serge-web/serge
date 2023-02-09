@@ -1,5 +1,5 @@
 import {
-  ForceData, MessageAdjudicationOutcomes, MessageCreateTaskGroup, MessageDeletePlatform, MessageDetails,
+  ForceData, InteractionDetails, MessageAdjudicationOutcomes, MessageCreateTaskGroup, MessageDeletePlatform, MessageDetails,
   MessageForceLaydown, MessageHostPlatform, MessageLeaveTaskGroup, MessageMap, MessagePerceptionOfContact,
   MessageSubmitPlans, MessageVisibilityChanges, PlatformTypeData
 } from '@serge/custom-types'
@@ -50,7 +50,7 @@ export default (message: MessageMap, details: MessageDetails, allForces: ForceDa
     case DELETE_PLATFORM:
       return handleDeletePlatform(message as MessageDeletePlatform, allForces)
     case ADJUDICATION_OUTCOMES:
-      return handleAdjudicationOutcomes(message as MessageAdjudicationOutcomes, allForces)
+      return handleAdjudicationOutcomes(details.interaction as InteractionDetails, message as MessageAdjudicationOutcomes, allForces)
     default:
       console.error(`failed to create player reducer handler for: ${message!.messageType}`)
       return allForces
