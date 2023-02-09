@@ -3,7 +3,6 @@ import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, Phase } from '@serge/config'
 import { ChannelPlanning, ForceData, InteractionDetails, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlanningActivity, PlayerUiActionTypes, Role, TemplateBody } from '@serge/custom-types'
 import { deepCopy, incrementGameTime } from '@serge/helpers'
 import { P9BMock, planningMessages as mockMessages, turnPeriod } from '@serge/mocks'
-import mockAreas from '@serge/mocks/areas.mock'
 import { withKnobs } from '@storybook/addon-knobs'
 import { Story } from '@storybook/react/types-6-0'
 import { cloneDeep, noop, uniqBy } from 'lodash'
@@ -64,6 +63,7 @@ const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 const templates = wargame.templates ? wargame.templates.templates : []
+const areas = wargame.areas ? wargame.areas.areas : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook
@@ -149,7 +149,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
 
   const forces1 = allForces || forces
 
-  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(1000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
+  const localForces = forces1.length !== 0 ? forces1 : generateTestData2(800, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
 
   const mockFn = (): PlayerUiActionTypes => ({
     type: 'mock' as any,
@@ -282,10 +282,13 @@ WithAreas.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
   phase: Phase.Planning,
-  areas: mockAreas
+  areas: areas
 }
 
-const eventIdsOfInterest = ['Red-5']
+const istarEvent = planningMessages.find((msg) => {
+  return msg.message.activity.includes('ISTAR')
+})
+const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const IstarEvent = Template.bind({})
 IstarEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference)),
@@ -293,7 +296,10 @@ IstarEvent.args = {
   phase: Phase.Adjudication
 }
 
-const interactionIdsOfInterest = ['Red-5', 'Blue-17']
+const otherForceEvent = planningMessages.find((msg) => {
+  return istarEvent && (msg.details.from.forceId !== istarEvent.details.from.forceId)
+})
+const interactionIdsOfInterest = istarEvent && otherForceEvent ? [istarEvent.message.Reference, otherForceEvent.details.from.forceId] : []
 const interMessages = channelMessages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => {
   if (msg.messageType !== INFO_MESSAGE_CLIPPED) {
     return msg.details.messageType === 'p9adjudicate'
@@ -318,7 +324,7 @@ IstarInteraction.args = {
 export const BulkForces = Template.bind({})
 BulkForces.args = {
   messages: channelMessages,
-  selectedRoleId: allRoles[5],
+  selectedRoleId: allRoles[1],
   allForces: [],
   phase: Phase.Planning
 }
