@@ -240,7 +240,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // note: this workaround prevents successive create events
     // note: propagating
     console.log('on create', e.shape, e.layer)
-    setWorkingLayer(undefined);
+    setWorkingLayer(undefined)
 
     if (lastPendingGeometry) {
       const layer = lastPendingGeometry.layer as any
@@ -275,8 +275,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     onCreate({ shape: 'polygon', layer: res as Layer })
   }
 
-  const onDrawStart = (e: { shape: string; workingLayer: Layer; }) => {
-    setWorkingLayer(e.workingLayer);
+  const onDrawStart = (e: { shape: string, workingLayer: Layer }) => {
+    setWorkingLayer(e.workingLayer)
   }
 
   return (
