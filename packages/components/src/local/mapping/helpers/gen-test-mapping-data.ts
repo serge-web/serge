@@ -354,7 +354,6 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   const bluePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('blue_')).concat(genericPlatforms)
   const redPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('red_')).concat(genericPlatforms)
   const greenPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('green_')).concat(genericPlatforms)
-  const whitePlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('white_')).concat(genericPlatforms)
   // regions
   const bounds = L.latLngBounds(constraints.bounds)
   const centre = bounds.getCenter()
@@ -370,13 +369,11 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   const bluePoly = L.polygon([bounds.getNorthWest(), tCentre, centre, lCentre, bounds.getNorthWest()])
   const redPoly = L.polygon([bounds.getNorthEast(), tCentre, centre, rCentre, bounds.getNorthEast()])
   const greenPoly = L.polygon([bounds.getSouthWest(), bCentre, centre, lCentre, bounds.getSouthWest()])
-  const whitePoly = L.polygon([bounds.getSouthEast(), bCentre, centre, rCentre, bounds.getSouthEast()])
 
   const newForces: ForceData[] = deepCopy(forces)
   newForces[1].assets = createInBounds(newForces[1], bluePoly, count, undefined, bluePlatforms, forces, attributeTypes, true)
   newForces[2].assets = createInBounds(newForces[2], redPoly, count, undefined, redPlatforms, forces, attributeTypes, true)
   newForces[3].assets = createInBounds(newForces[3], greenPoly, count, undefined, greenPlatforms, forces, attributeTypes, true)
-  newForces[4].assets = createInBounds(newForces[4], whitePoly, count, undefined, whitePlatforms, forces, attributeTypes, true)
   return newForces
 }
 
