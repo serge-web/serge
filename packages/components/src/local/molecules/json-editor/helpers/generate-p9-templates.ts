@@ -98,7 +98,7 @@ interface Activity {
   title: string
   // forces we generate this activity for
   forces: string[]
-  // domains where this is present
+  // domains where this activity is present for
   domains: string[]
   // specific child activities (geometries)
   acts?: string[]
