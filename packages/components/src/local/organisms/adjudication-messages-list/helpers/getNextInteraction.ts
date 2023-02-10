@@ -345,7 +345,7 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   return outcomes
 }
 
-const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>): AssetWithForce[] => {
+const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>, special?: string): AssetWithForce[] => {
   const assets: AssetWithForce[] = []
   const opFor = forces.filter((force) => force.assets && force.uniqid !== forceId)
   opFor.forEach((force) => {
@@ -353,6 +353,7 @@ const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: 
       if (asset.location) {
         if(checkInArea(mePoly, asset.location)) {
           assets.push({force, asset})
+          special && asset.name === special && console.log(asset.name, asset.location, !!special)
         }
       }
     })
@@ -385,13 +386,23 @@ activity: PlanningActivity, forces: ForceData[]): void => {
         const mePoly = turf.polygon(coords)
       
         // find opFor assets within poly
-        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly)
+        const special = undefined // 'Green:4'
+        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, special)
+
+        special && console.table(assets.map((fAsset) => {
+          const asset = fAsset.asset
+          return {
+            name: asset.name,
+            id: asset.uniqid,
+            loc: asset.location ? asset.location.join(':') : ''
+          }
+        }))
 
         const notPresent = (asset: Asset['uniqid'], outcomes: CoreOutcome[] ): boolean => {
           return !outcomes.find((outcome) => outcome.asset === asset)
         }
         if (assets.length) {
-          assets.forEach((asset) => {
+          assets.forEach((asset, index) => {
             const uniqid = asset.asset.uniqid
             if(activity.spatialHealth) {
               if (notPresent(uniqid, outcomes.healthOutcomes)){
@@ -403,6 +414,7 @@ activity: PlanningActivity, forces: ForceData[]): void => {
                   c4: newC4,
                   narrative: 'Asset in area for ' + activity.uniqid
                 })
+                asset.asset.name === 'Green:4' && console.log('health', asset.asset, index)
               }
             }
             if (activity.spatialPerception) {
