@@ -1,12 +1,12 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Area, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
-import { faCalculator, faHistory } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faHistory, faShapes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -28,6 +28,7 @@ import SupportPanel, { SupportPanelContext } from '../support-panel'
 import { LRU_CACHE_OPTION } from '../support-panel/constants'
 import { findActivity, randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import ViewAs from '../view-as'
+import AreaPlotter from './helpers/AreaPlotter'
 import OrderDrawing from './helpers/OrderDrawing'
 import OrderEditing from './helpers/OrderEditing'
 import OrderPlotter from './helpers/OrderPlotter'
@@ -75,12 +76,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   gameTurnLength,
   currentTurn,
   forcePlanningActivities,
-  attributeTypes
+  attributeTypes,
+  areas
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
   const [zoom] = useState<number>(7)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
+
+  const [myAreas, setMyAreas] = useState<Array<Area>>([])
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
@@ -133,6 +137,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
+  const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
+
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
   const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
@@ -169,6 +175,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // game date has changed, get updated periods
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
   }, [gameDate])
+
+  useEffect(() => {
+    if (areas) {
+      // produce a list of standard areas for a player of this force
+      const filtered = areas.filter((area: Area) => area.usedBy.includes(selectedForce.uniqid))
+      setMyAreas(filtered)
+    }
+  }, [areas, selectedForce])
 
   useEffect(() => {
     if (forcePlanningActivities) {
@@ -721,6 +735,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
+        { showStandardAreas && <AreaPlotter areas={myAreas} /> }
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <Fragment>
@@ -736,15 +751,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               </LayerGroup>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             </Fragment>
-            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
-            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} areas={myAreas} saved={(activity) => saveEditedOrderGeometries(activity)} />}
+            {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </Fragment>
         }
       </>
     )
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -834,6 +849,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                     <>
                       {!activityBeingPlanned &&
                         <>
+                          {
+                            myAreas && myAreas.length > 0 &&
+                            <div className={cx('leaflet-control')}>
+                              <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
+                                onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
+                            </div>
+                          }
                           {
                             umpireInAdjudication &&
                             <div className={cx('leaflet-control')}>

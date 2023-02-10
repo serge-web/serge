@@ -1,6 +1,6 @@
 import { Phase } from '@serge/config'
 import {
-  AttributeTypes, ChannelPlanning, ChatMessage, ForceData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
+  Area, AttributeTypes, ChannelPlanning, ChatMessage, ForceData, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageInfoTypeClipped,
   MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlatformTypeData, PlayerUiActionTypes, Role, TemplateBody, TurnPeriods
 } from '@serge/custom-types'
 import React, { Dispatch } from 'react'
@@ -50,6 +50,8 @@ export default interface PropTypes {
   phase: Phase
   /** generic descriptions of attributes */
   attributeTypes?: AttributeTypes
+  /** set of standard areas */
+  areas?: Area[]
 }
 
 export type PlanningActitivityMenuType = {
