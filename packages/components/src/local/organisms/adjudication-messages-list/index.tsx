@@ -115,10 +115,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     // when determining the time of next adjudication, consider the full list
     if (interactionMessages.length > 0) {
-      const lastMessage = interactionMessages[interactionMessages.length - 1]
-      if (lastMessage.details.interaction) {
-        setCurrentTime('Time now: ' + moment.utc(lastMessage.details.interaction.startTime).format('MMM DDHHmm[Z]').toUpperCase())
-      }
+      // find the latest start time we've processed
+      const interTimes = interactionMessages.map((inter) => inter.details.interaction && inter.details.interaction.startTime)
+      const sortedTimes = interTimes.sort()
+      const firstOne = sortedTimes[sortedTimes.length - 1]
+      setCurrentTime('Time now: ' + moment.utc(firstOne).format('MMM DDHHmm[Z]').toUpperCase())
     }
     setInteractionIsOpen(!!ownOpenMessages.length)
   }, [interactionMessages, onlyShowOpen])
@@ -487,14 +488,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
     })
 
-    const data: ManualInteractionData = {
-      forceMessages: forceMsgs,
-      otherAssets: otherAssets
-    }
+    if (forceMsgs.length) {
+      const data: ManualInteractionData = {
+        forceMessages: forceMsgs,
+        otherAssets: otherAssets
+      }
 
-    validateManualForm()
-    // popup the form
-    setManualDialog(data)
+      validateManualForm()
+      // popup the form
+      setManualDialog(data)
+    } else {
+      window.alert('No plans available for manual interaction. Invalid turn filter?')
+    }
   }
 
   const handleManualInteraction = (): void => {

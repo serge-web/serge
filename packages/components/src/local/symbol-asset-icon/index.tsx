@@ -18,8 +18,9 @@ const forceFor = (force?: string): SymbolForces | undefined => {
       case 'Red':
         return SymbolForces.Hostile
       case 'Green':
-      default:
         return SymbolForces.Neutral
+      default:
+        return SymbolForces.Unknown
     }
   } else {
     return undefined
@@ -36,7 +37,6 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
   let iconDataUrl = assetsCache.get(key)
 
   if (!iconDataUrl) {
-    console.log('sym', sidc, sidc2, force)
     const icon = new ms.Symbol(sidc2).setOptions(options)
     iconDataUrl = icon.toDataURL()
     assetsCache.set(key, iconDataUrl)

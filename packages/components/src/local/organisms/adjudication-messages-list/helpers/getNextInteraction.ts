@@ -24,7 +24,7 @@ export const timeOfLatestInteraction = (interactions: MessageInteraction[]): num
   }
   const sorted = _.sortBy(interactions, useDate) as MessageInteraction[]
   const date = useDate(sorted[sorted.length - 1])
-  return moment(date).valueOf()
+  return moment.utc(date).valueOf()
 }
 
 export const createSpecialOrders = (gameTime: number, orders: MessagePlanning[], interactions: MessageInteraction[]): MessagePlanning[] => {
