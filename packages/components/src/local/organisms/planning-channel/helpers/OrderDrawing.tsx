@@ -1,7 +1,7 @@
 import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
-import { PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Area, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { Geometry } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
@@ -15,11 +15,14 @@ import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
 import styles from '../styles.module.scss'
 import { CustomTranslation } from './CustomTranslation'
+import StandardAreaMenu from './StandardAreaMenu'
 
 interface OrderDrawingProps {
   activity: PlanningActivity | undefined
   cancelled: { (): void }
   planned: { (geometries: PlannedActivityGeometry[]): void }
+  // set of standard areas
+  areas?: Area[]
 }
 
 interface PendingItem {
@@ -28,7 +31,7 @@ interface PendingItem {
 }
 
 /* Render component */
-export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, cancelled }) => {
+export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, cancelled, areas }) => {
   const [plannedGeometries, setPlannedGeometries] = useState<Geometry[]>([])
   const [geoLayers, setGeoLayers] = useState<Layer[]>([])
   const [currentGeometry, setCurrentGeometry] = useState<number>(-1)
@@ -36,6 +39,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [pendingGeometry, setPendingGeometry] = useState<PendingItem | undefined>(undefined)
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
+
+  const [standardPolygons, setStandardPolygons] = useState<Area[] | undefined>(undefined)
+
+  const [workingLayer, setWorkingLayer] = useState<L.Layer>()
 
   // this next state is a workaround, to prevent GeoMan calling
   // onCreate multiple times
@@ -77,8 +84,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           // if GeoMan hasn't closed the poly, do it for it
           const data = longLats[0]
           if (!_.isEqual(data[0], data[data.length - 1])) {
+            console.log('closing poly')
             data.push(data[0])
           }
+          console.log('store polygon', longLats)
           res = {
             type: 'Polygon',
             coordinates: longLats
@@ -111,7 +120,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // cancel drawing
     map.pm.disableDraw()
 
-    // note: we may have empty planning geometries for non-spatial
+    // note: we may have empty planning geometries for non-spatial activities
     if (activity && currentGeometry >= 0 && planningGeometries.length > 0) {
       // configure the drawing tool
       const current = planningGeometries[currentGeometry]
@@ -155,6 +164,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           map.pm.setGlobalOptions({ markerStyle: { icon } })
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Marker')
+          setStandardPolygons(undefined)
           break
         }
         case GeometryType.polyline: {
@@ -163,6 +173,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           newTranslations.tooltips.finishLine = header + 'Click existing route point to complete <b>[' + current.name + ']</b>'
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Line')
+          setStandardPolygons(undefined)
           break
         }
         case GeometryType.polygon: {
@@ -171,6 +182,11 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           newTranslations.tooltips.finishPoly = header + 'Click existing marker to complete <b>[' + current.name + ']</b>'
           map.pm.setLang('en', newTranslations, 'en')
           map.pm.enableDraw('Polygon')
+          if (areas && areas.length) {
+            setStandardPolygons(areas)
+          } else {
+            setStandardPolygons(undefined)
+          }
           break
         }
       }
@@ -196,7 +212,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       planned(plannedGeoms)
 
       // now delete the GeoMan layer
-      geoLayers.forEach((layer: Layer) => layer.remove())
+      geoLayers.forEach((layer: Layer) => layer.remove && layer.remove())
       setGeoLayers([])
     } else if (plannedGeometries.length > 0) {
       // move forward one
@@ -210,7 +226,9 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
       // also ditch the lines
       const layers = map.pm.getGeomanDrawLayers()
       if (layers.length) {
-        layers.forEach((layer: Layer) => layer.remove())
+        // there won't be a remove method if it's our
+        // standard reference area
+        layers.forEach((layer: Layer) => layer.remove && layer.remove())
       }
     }
     cancelled()
@@ -221,10 +239,14 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // note: it appears that another `onCreate` handler gets declared
     // note: this workaround prevents successive create events
     // note: propagating
+    console.log('on create', e.shape, e.layer)
+    setWorkingLayer(undefined)
+
     if (lastPendingGeometry) {
       const layer = lastPendingGeometry.layer as any
       const oldLatLngs = layer._latlngs
-      const newE = layer as any
+      // TODO: this looks like a bug. I thing it should look at `e.layer`, not `layer
+      const newE = e.layer as any
       const newLatLngs = newE._latlngs
       if (!_.isEqual(oldLatLngs, newLatLngs)) {
         setLastPendingGeometry(e)
@@ -236,6 +258,27 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     }
   }
 
+  /** handler for player selecting a standard area */
+  const useStandardArea = (area: Area) => {
+    const coords = area.polygon.coordinates
+    const res: any = {
+      _latLngs: coords[0]
+    }
+    // TODO: we need to cancel the current polygon editing, but now the whole set of shapes
+    // cancel drawing
+    if (workingLayer) {
+      workingLayer.remove()
+      map.pm.disableDraw()
+    }
+
+    // simulate playe completing shape
+    onCreate({ shape: 'polygon', layer: res as Layer })
+  }
+
+  const onDrawStart = (e: { shape: string, workingLayer: Layer }) => {
+    setWorkingLayer(e.workingLayer)
+  }
+
   return (
     <> {(activity) &&
       <>
@@ -243,10 +286,12 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
           </div>
+          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} />
         </div>
         <GeomanControls
           options={drawOptions}
           globalOptions={globalOptions}
+          onDrawStart={onDrawStart}
           onCreate={onCreate}
         />
       </>

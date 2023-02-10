@@ -1,7 +1,7 @@
 import {
   CHANNEL_MAPPING, CLOSE_MESSAGE, CLOSE_MODAL, MARK_ALL_AS_READ,
-  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
-  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE, SET_ALL_TURN_PERIOD
+  MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
+  SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from '@serge/config'
 import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
 import _ from 'lodash'
@@ -62,7 +62,8 @@ export const initialState: PlayerUi = {
   logPlayerActivity: true,
   isInsightViewer: false,
   isRFIManager: false,
-  playerMessageLog: {}
+  playerMessageLog: {},
+  areas: []
 }
 
 export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUiActionTypes): PlayerUi => {
@@ -99,6 +100,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
       newState.attributeTypes = attributeTypes ? attributeTypes.attributes : []
       const perForceActivities = action.payload.data.activities
       newState.perForceActivities = perForceActivities ? perForceActivities.activities : []
+      const areas = action.payload.data.areas
+      newState.areas = areas ? areas.areas : []
 
       // temporary workaround to get templates from warga
       const allTemplates = action.payload.data.templates ? action.payload.data.templates.templates : []
