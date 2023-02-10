@@ -206,6 +206,14 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
+    console.log('template.details && editor', editor)
+    console.log('template.details && editor', template.details)
+    if (template.details && editor) return initEditor()
+
+    return (): void => destroyEditor(editor)
+  }, [template.details])
+
+  useEffect(() => {
     if (editor) {
       setTimeout(() => {
         try {
