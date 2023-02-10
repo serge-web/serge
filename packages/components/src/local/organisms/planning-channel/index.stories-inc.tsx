@@ -63,6 +63,7 @@ const channels = wargame.channels.channels
 const forces = wargame.forces.forces
 const platformTypes = wargame.platformTypes ? wargame.platformTypes.platformTypes : []
 const templates = wargame.templates ? wargame.templates.templates : []
+const areas = wargame.areas ? wargame.areas.areas : []
 
 // fix the URL for the openstreetmap mapping, because we don't have arabian
 // sea in StoryBook
@@ -140,7 +141,8 @@ const Template: Story<PlanningChannelProps> = (args) => {
     selectedRoleId,
     messages,
     phase,
-    allForces
+    allForces,
+    areas
   } = args
 
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
@@ -218,6 +220,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     currentTurn={P9BMock.gameTurn}
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
     forcePlanningActivities={activities}
+    areas={areas}
   />
 }
 const doNotDoIt = 7 // don't transform the messages
@@ -272,6 +275,14 @@ Default.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
   phase: Phase.Adjudication
+}
+
+export const WithAreas = Template.bind({})
+WithAreas.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[5],
+  phase: Phase.Planning,
+  areas: areas
 }
 
 const istarEvent = planningMessages.find((msg) => {

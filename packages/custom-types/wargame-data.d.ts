@@ -1,3 +1,4 @@
+import AreaData from './area-data'
 import { AttributeTypeData } from './attributes'
 import Channel from './channel'
 import Force from './force'
@@ -17,4 +18,5 @@ export default interface WargameData {
   attributeTypes?: AttributeTypeData
   activities?: ActivityTypeData
   templates?: TemplateData
+  areas?: AreaData
 }

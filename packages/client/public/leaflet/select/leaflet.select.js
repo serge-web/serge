@@ -14,6 +14,7 @@ L.Control.Select = L.Control.extend({
     id: '',
     selectedDefault: false,
     additionalClass: '',
+    preventClickThrough: false,
 
     onOpen: () => { },
     onClose: () => { },
@@ -280,10 +281,13 @@ L.Control.Select = L.Control.extend({
     // }
 
     L.DomEvent.addListener(pContent, 'click', (e) => {
-      if (this._isGroup(item)) {
+      if (this._isGroup(item) || this.options.preventClickThrough) {
         e.stopPropagation()
       }
       this._itemClicked(item)
+      if (this.options.preventClickThrough) {
+        this._hideMenu()
+      }
     })
 
     return p
