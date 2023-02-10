@@ -55,7 +55,7 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           // TODO: we need to move this to the top-left, but put it beneath the `Cancel planning` controls
           // TODO: if we set it to top-left, one gets presented over the top of the other.
           position: 'topleft',
-          iconMain: '📝',
+          iconMain: '☰',
           iconGroupChecked: '⊳',
           iconGroupUnchecked: '⊳',
           items: items,
