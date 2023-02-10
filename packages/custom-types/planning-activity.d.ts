@@ -115,9 +115,13 @@ export interface PlanningActivity {
    */
   color?: ForceData['color']
   /**
-   * for interaction, return all OpFor assets contained within Geometries for this activity
+   * for interaction/event, generate perception outcomes OpFor assets contained within area of this activity
    */
-  provideSpatialAssets?: boolean
+  provideSpatialPerception?: boolean
+  /**
+   * for interaction/event, generate health outcomes OpFor assets contained within area of this activity
+   */
+  provideSpatialHealth?: boolean
   /** 
    * list of activity types that this activity interacts with
    */
