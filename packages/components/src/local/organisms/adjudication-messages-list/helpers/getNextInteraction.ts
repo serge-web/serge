@@ -351,19 +351,18 @@ const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: 
   opFor.forEach((force) => {
     force.assets && force.assets.forEach((asset) => {
       if (asset.location) {
-        if(checkInArea(mePoly, asset.location)) {
-          assets.push({force, asset})
+        if (checkInArea(mePoly, asset.location)) {
+          assets.push({ force, asset })
           special && asset.name === special && console.log(asset.name, asset.location, !!special)
         }
       }
     })
   })
-  return assets  
+  return assets
 }
 
-
-export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
-activity: PlanningActivity, forces: ForceData[]): void => {
+export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
+  activity: PlanningActivity, forces: ForceData[]): void => {
   const aGeoms = activity.geometries
   if (!aGeoms) {
     console.warn('Warning: orders have location, but not activity', plan._id, activity.uniqid)
@@ -384,7 +383,7 @@ activity: PlanningActivity, forces: ForceData[]): void => {
         // calculate prob of detecting sometghing
         // convert the boundary to a turn object
         const mePoly = turf.polygon(coords)
-      
+
         // find opFor assets within poly
         const special = undefined // 'Green:4'
         const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, special)
@@ -398,14 +397,14 @@ activity: PlanningActivity, forces: ForceData[]): void => {
           }
         }))
 
-        const notPresent = (asset: Asset['uniqid'], outcomes: CoreOutcome[] ): boolean => {
+        const notPresent = (asset: Asset['uniqid'], outcomes: CoreOutcome[]): boolean => {
           return !outcomes.find((outcome) => outcome.asset === asset)
         }
         if (assets.length) {
           assets.forEach((asset, index) => {
             const uniqid = asset.asset.uniqid
-            if(activity.spatialHealth) {
-              if (notPresent(uniqid, outcomes.healthOutcomes)){
+            if (activity.spatialHealth) {
+              if (notPresent(uniqid, outcomes.healthOutcomes)) {
                 const existingC4 = (asset.asset.attributes && asset.asset.attributes.a_C4_Status as string) || undefined
                 const newC4 = alterC4(existingC4, false)
                 outcomes.healthOutcomes.push({
@@ -418,7 +417,7 @@ activity: PlanningActivity, forces: ForceData[]): void => {
               }
             }
             if (activity.spatialPerception) {
-              if (notPresent(uniqid, outcomes.perceptionOutcomes)){
+              if (notPresent(uniqid, outcomes.perceptionOutcomes)) {
                 outcomes.perceptionOutcomes.push({
                   asset: uniqid,
                   force: plan.details.from.forceId || '',
@@ -437,7 +436,7 @@ activity: PlanningActivity, forces: ForceData[]): void => {
     }
   }
 }
-const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
+const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   switch (activity.actId) {
     case 'STRIKE': {
@@ -458,7 +457,7 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
     }
   }
   // do we also have to insert assets in the target polygon?
-  if((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
+  if ((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
     insertSpatialOutcomesFor(plan, outcomes, activity, forces)
   }
   return outcomes
@@ -611,7 +610,6 @@ const listPlans = (orders: MessagePlanning[], gameTime: string): void => {
     return colsFor(plan)
   }))
 }
-
 
 const contactDetails = (contact: PlanningContact): InteractionDetails => {
   const props1 = contact.first.geometry.properties as PlannedProps
@@ -869,4 +867,3 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
     }
   }
 }
-
