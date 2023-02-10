@@ -2,7 +2,7 @@ import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INT
 import { Asset, AssetWithForce, CoreOutcome, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { Geometry, LineString, Polygon } from 'geojson'
+import { Feature, Geometry, LineString, Polygon } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
@@ -198,8 +198,8 @@ const strikeEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudica
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
       return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
-    })
-    outcomes.narrative += message
+    }).join(', ')
+    outcomes.narrative = outcomes.narrative ? (outcomes.narrative + message) : message
 
     // store the other assets
     const otherAssets: Array<Asset['uniqid']> = []
@@ -345,8 +345,24 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   return outcomes
 }
 
+const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>): AssetWithForce[] => {
+  const assets: AssetWithForce[] = []
+  const opFor = forces.filter((force) => force.assets && force.uniqid !== forceId)
+  opFor.forEach((force) => {
+    force.assets && force.assets.forEach((asset) => {
+      if (asset.location) {
+        if(checkInArea(mePoly, asset.location)) {
+          assets.push({force, asset})
+        }
+      }
+    })
+  })
+  return assets  
+}
+
+
 export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, 
-activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): void => {
+activity: PlanningActivity, forces: ForceData[]): void => {
   const aGeoms = activity.geometries
   if (!aGeoms) {
     console.warn('Warning: orders have location, but not activity', plan._id, activity.uniqid)
@@ -369,17 +385,7 @@ activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUI
         const mePoly = turf.polygon(coords)
       
         // find opFor assets within poly
-        const assets: AssetWithForce[] = []
-        const opFor = forces.filter((force) => force.assets && force.uniqid !== plan.details.from.forceId)
-        opFor.forEach((force) => {
-          force.assets && force.assets.forEach((asset) => {
-            if (asset.location) {
-              if(checkInArea(mePoly, asset.location)) {
-                assets.push({force, asset})
-              }
-            }
-          })
-        })
+        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly)
 
         const notPresent = (asset: Asset['uniqid'], outcomes: CoreOutcome[] ): boolean => {
           return !outcomes.find((outcome) => outcome.asset === asset)
@@ -441,7 +447,7 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
   }
   // do we also have to insert assets in the target polygon?
   if((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
-    insertSpatialOutcomesFor(plan, outcomes, activity, forces, event)
+    insertSpatialOutcomesFor(plan, outcomes, activity, forces)
   }
   return outcomes
 }
