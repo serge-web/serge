@@ -4,7 +4,7 @@ import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
-import { generateAllTemplates } from 'src/local/molecules/json-editor/helpers/generate-p9-templates'
+import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
 import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults } from './getNextInteraction'
 
@@ -62,7 +62,7 @@ it('handles spatial outcomes', () => {
       }
     }))
   })
-  expect (dca).toBeTruthy()
+  expect(dca).toBeTruthy()
   const outcomes: MessageAdjudicationOutcomes = {
     messageType: ADJUDICATION_OUTCOMES,
     healthOutcomes: [],
