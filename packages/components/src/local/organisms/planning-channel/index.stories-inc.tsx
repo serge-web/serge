@@ -357,9 +357,11 @@ if (firstInter) {
     if (interCopy.details.interaction) {
       interCopy.details.interaction.complete = false
     }
-    tmpMessages.push(interCopy)
-    tmpMessages.push(...relevant)
-    tmpPlans = tmpMessages
+    // drop the message we are mangling 
+    const cleanMessages = tmpMessages.filter((msg) => msg._id !== firstInter._id)
+    cleanMessages.push(interCopy)
+    cleanMessages.push(...relevant)
+    tmpPlans = cleanMessages
   }
 }
 
