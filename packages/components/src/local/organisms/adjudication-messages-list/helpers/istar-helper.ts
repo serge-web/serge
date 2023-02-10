@@ -7,7 +7,7 @@ import { shuffle } from 'lodash'
 import moment from 'moment'
 import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
 
-const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
+export const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
   const otherPt = turf.point([point[1], point[0]])
   return booleanPointInPolygon(otherPt, area)
 }
