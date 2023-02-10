@@ -24,6 +24,7 @@ export const JsonEditor: React.FC<Props> = ({
   expandHeight = true,
   gameDate,
   disableArrayToolsWithEditor = true,
+  clearForm,
   saveMessage,
   modifyForSave,
   confirmCancel = false,
@@ -204,13 +205,15 @@ export const JsonEditor: React.FC<Props> = ({
       }
     }
   }
-
+  
   useEffect(() => {
-    if (template.details && editor) return initEditor()
+    if (template.details && editor) { 
+      return initEditor()
+    }
 
     return (): void => destroyEditor(editor)
-  }, [template.details])
-
+  }, [template.details, clearForm])
+  
   useEffect(() => {
     if (editor) {
       setTimeout(() => {

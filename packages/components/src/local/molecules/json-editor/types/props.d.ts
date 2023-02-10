@@ -39,6 +39,7 @@ export default interface Props {
    * in read view (disabled) make textarea items tall enough to view all contents
    */
   expandHeight?: boolean
+  clearForm?: boolean,
   /** current game time, used for initialising date-time controls */
   gameDate: string
   /** disable/enable Array tools with form */
