@@ -43,7 +43,7 @@ export default interface Props {
    * send or cancel. The value toggles between states on update,
    * rather than requiring a specific true/false value
    */
-  clearForm?: boolean,
+  clearForm?: boolean
   /** current game time, used for initialising date-time controls */
   gameDate: string
   /** disable/enable Array tools with form */
