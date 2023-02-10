@@ -60091,7 +60091,8 @@ const game: Wargame = {
                                             "uniqid": "EW Attack-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "ISTAR",
@@ -60141,7 +60142,7 @@ const game: Wargame = {
                                             "uniqid": "ISTAR-3"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -60173,7 +60174,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Land Close Combat-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -60243,7 +60246,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Raid-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Resupply",
@@ -60417,7 +60422,8 @@ const game: Wargame = {
                                             "uniqid": "EW Attack-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "ISTAR",
@@ -60467,7 +60473,7 @@ const game: Wargame = {
                                             "uniqid": "ISTAR-3"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true
                                 },
                                 {
                                     "name": "Mine Clearance",
@@ -60503,7 +60509,8 @@ const game: Wargame = {
                                             "uniqid": "Mine Clearance-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Mine Laying",
@@ -60539,7 +60546,8 @@ const game: Wargame = {
                                             "uniqid": "Mine Laying-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -60734,7 +60742,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Defensive Counter Air-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "EW Attack",
@@ -60789,7 +60799,8 @@ const game: Wargame = {
                                             "uniqid": "EW Attack-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "ISTAR",
@@ -60839,7 +60850,7 @@ const game: Wargame = {
                                             "uniqid": "ISTAR-3"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -60879,7 +60890,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Offensive Counter Air-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -61056,7 +61069,7 @@ const game: Wargame = {
                                             "uniqid": "Time Sensitive Targeting (TST)-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Transit",
@@ -61137,7 +61150,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "SOF Activity-3"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 }
                             ]
                         }
@@ -61202,7 +61217,8 @@ const game: Wargame = {
                                             "uniqid": "EW Attack-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "ISTAR",
@@ -61252,7 +61268,7 @@ const game: Wargame = {
                                             "uniqid": "ISTAR-3"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true
                                 },
                                 {
                                     "name": "Land Close Combat",
@@ -61284,7 +61300,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Land Close Combat-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -61354,7 +61372,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Raid-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Resupply",
@@ -61528,7 +61548,8 @@ const game: Wargame = {
                                             "uniqid": "EW Attack-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "ISTAR",
@@ -61578,7 +61599,7 @@ const game: Wargame = {
                                             "uniqid": "ISTAR-3"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true
                                 },
                                 {
                                     "name": "Mine Clearance",
@@ -61614,7 +61635,8 @@ const game: Wargame = {
                                             "uniqid": "Mine Clearance-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Mine Laying",
@@ -61650,7 +61672,8 @@ const game: Wargame = {
                                             "uniqid": "Mine Laying-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -61862,7 +61885,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Defensive Counter Air-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "EW Attack",
@@ -61917,7 +61942,8 @@ const game: Wargame = {
                                             "uniqid": "EW Attack-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "ISTAR",
@@ -61967,7 +61993,7 @@ const game: Wargame = {
                                             "uniqid": "ISTAR-3"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialPerception": true
                                 },
                                 {
                                     "name": "Offensive Counter Air",
@@ -62007,7 +62033,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Offensive Counter Air-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -62184,7 +62212,7 @@ const game: Wargame = {
                                             "uniqid": "Time Sensitive Targeting (TST)-2"
                                         }
                                     ],
-                                    "provideSpatialAssets": true
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Transit",
@@ -62265,7 +62293,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "SOF Activity-3"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 }
                             ]
                         }
@@ -62307,7 +62337,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Land Close Combat-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Patrol",
@@ -62377,7 +62409,9 @@ const game: Wargame = {
                                             "optional": false,
                                             "uniqid": "Raid-2"
                                         }
-                                    ]
+                                    ],
+                                    "spatialPerception": true,
+                                    "spatialHealth": true
                                 },
                                 {
                                     "name": "Strike",

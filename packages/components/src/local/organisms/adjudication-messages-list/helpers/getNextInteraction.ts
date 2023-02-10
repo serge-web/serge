@@ -387,7 +387,7 @@ activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUI
         if (assets.length) {
           assets.forEach((asset) => {
             const uniqid = asset.asset.uniqid
-            if(activity.provideSpatialHealth) {
+            if(activity.spatialHealth) {
               if (notPresent(uniqid, outcomes.healthOutcomes)){
                 const existingC4 = (asset.asset.attributes && asset.asset.attributes.a_C4_Status as string) || undefined
                 const newC4 = alterC4(existingC4, false)
@@ -399,7 +399,7 @@ activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUI
                 })
               }
             }
-            if (activity.provideSpatialPerception) {
+            if (activity.spatialPerception) {
               if (notPresent(uniqid, outcomes.perceptionOutcomes)){
                 outcomes.perceptionOutcomes.push({
                   asset: uniqid,
@@ -440,7 +440,7 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
     }
   }
   // do we also have to insert assets in the target polygon?
-  if((activity.provideSpatialPerception || activity.provideSpatialPerception) && plan.message.location && plan.message.location.length) {
+  if((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
     insertSpatialOutcomesFor(plan, outcomes, activity, forces, event)
   }
   return outcomes

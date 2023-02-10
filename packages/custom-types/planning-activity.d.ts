@@ -117,11 +117,11 @@ export interface PlanningActivity {
   /**
    * for interaction/event, generate perception outcomes OpFor assets contained within area of this activity
    */
-  provideSpatialPerception?: boolean
+  spatialPerception?: boolean
   /**
    * for interaction/event, generate health outcomes OpFor assets contained within area of this activity
    */
-  provideSpatialHealth?: boolean
+  spatialHealth?: boolean
   /** 
    * list of activity types that this activity interacts with
    */

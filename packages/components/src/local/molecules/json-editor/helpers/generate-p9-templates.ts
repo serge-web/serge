@@ -316,10 +316,10 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           activity.geometries = activityGeometriesFor(act.title, act.acts, act.actDesc || [])
         }
         if (act.spatialP) {
-          activity.provideSpatialPerception = act.spatialP
+          activity.spatialPerception = act.spatialP
         }
         if (act.spatialH) {
-          activity.provideSpatialHealth = act.spatialH
+          activity.spatialHealth = act.spatialH
         }
         category.activities.push(activity)
       })
