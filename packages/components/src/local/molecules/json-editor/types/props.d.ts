@@ -39,6 +39,10 @@ export default interface Props {
    * in read view (disabled) make textarea items tall enough to view all contents
    */
   expandHeight?: boolean
+  /** flag from parent class to clear the form, possibly on
+   * send or cancel. The value toggles between states on update,
+   * rather than requiring a specific true/false value
+   */
   clearForm?: boolean,
   /** current game time, used for initialising date-time controls */
   gameDate: string

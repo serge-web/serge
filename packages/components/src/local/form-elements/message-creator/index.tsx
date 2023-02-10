@@ -118,6 +118,7 @@ const MessageCreator: React.FC<PropTypes> = ({
     setConfirmIsOpen(false)
     setPrivateValue('')
     clearCachedCreatorMessage && clearCachedCreatorMessage([messageOption, UNSENT_SELECT_BY_DEFAULT_VALUE])
+    setClearForm(!clearForm)
     onCancel && onCancel(event)
   }
 
