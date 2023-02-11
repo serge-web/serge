@@ -10,7 +10,7 @@ export const updateLocationTimings = (planId: string, plans: PlannedActivityGeom
     const asset = findAsset(forces, id)
     const attributes = asset.attributes
     if (attributes) {
-      const spdVal = attributes['a_Speed']
+      const spdVal = attributes.a_Speed
       if (spdVal) {
         speeds.push(spdVal as number)
       }
