@@ -52,7 +52,7 @@ export const updateGeometryTimings = (geometries: PlannedActivityGeometry[], sta
   let remaining = endVal - startVal
   // note: we only update timings if there is more than one leg.  With a single leg
   // we give it all of the time allowed
-  if (geometries.length > 1) {
+  if (res.length > 1) {
     const legOut = updateLeg(res[0], startVal, endVal, speedKts, remaining, true)
     if (legOut[1]) {
       res[0] = legOut[0]
@@ -60,21 +60,27 @@ export const updateGeometryTimings = (geometries: PlannedActivityGeometry[], sta
       const legOutProps = legOut[0].geometry.properties as PlannedProps
       startVal = moment.utc(legOutProps.endDate).valueOf()
     }
-    const legBack = updateLeg(res[geometries.length - 1], startVal, endVal, speedKts, remaining, false)
+    const legBack = updateLeg(res[res.length - 1], startVal, endVal, speedKts, remaining, false)
     if (legBack[1]) {
-      res[geometries.length - 1] = legBack[0]
+      res[res.length - 1] = legBack[0]
       const legOutProps = legBack[0].geometry.properties as PlannedProps
       endVal = moment.utc(legOutProps.startDate).valueOf()
     }
+    // give all the remaining non-string goemetries this time period
+    res.forEach((plan: PlannedActivityGeometry) => {
+      if (plan.geometry.geometry.type !== 'LineString') {
+        const props = plan.geometry.properties as PlannedProps
+        props.startDate = moment.utc(startVal).toISOString()
+        props.endDate = moment.utc(endVal).toISOString()
+      }
+    })
+  } else if (res.length === 1) {
+    // give this leg all of the time allowed
+    const geom = res[0]
+    const props = geom.geometry.properties || {}
+    props.startDate = startTime
+    props.endDate = endTime
+    geom.geometry.properties = props
   }
-
-  // give all the remaining non-string goemetries this time period
-  res.forEach((plan: PlannedActivityGeometry) => {
-    if (plan.geometry.geometry.type !== 'LineString') {
-      const props = plan.geometry.properties as PlannedProps
-      props.startDate = moment.utc(startVal).toISOString()
-      props.endDate = moment.utc(endVal).toISOString()
-    }
-  })
   return res
 }
