@@ -42,13 +42,17 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
     assetsCache.set(key, iconDataUrl)
   }
 
+  // note: health may (mistakenly) be a string
+  const healthAny = health as any
+  const healthNum = +healthAny
+
   return <div className={cx({ [styles['asset-icon-background']]: true, [styles.selected]: isSelected })} onClick={onClick}>
     <div className={styles['asset-icon-with-image']}>
       <img src={iconDataUrl} className={styles.img} />
       <span>{iconName}</span>
     </div>
     {
-      health === 0
+      healthNum === 0
         ? <span className={styles['corner-line']} /> : null
     }
   </div>
