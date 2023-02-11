@@ -27,7 +27,7 @@ const forceFor = (force?: string): SymbolForces | undefined => {
   }
 }
 
-const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, force, isSelected, assetsCache }) => {
+const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, health, force, isSelected, assetsCache }) => {
   // update the forc color, if we know it
   const forceVal = forceFor(force)
   const sidc2 = forceVal ? setCharAt(sidc, 1, forceVal) : sidc
@@ -47,6 +47,10 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
       <img src={iconDataUrl} className={styles.img} />
       <span>{iconName}</span>
     </div>
+    {
+      health === 0
+        ? <span className={styles['corner-line']} /> : null
+    }
   </div>
 }
 
