@@ -157,7 +157,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <></>
         }
         const editorRightValue = message.message ? message.message : undefined
-        console.log('plan mess list', editorRightValue)
         return <>
 
           <DetailPanelStateListener />

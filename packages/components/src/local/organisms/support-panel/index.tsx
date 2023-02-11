@@ -254,7 +254,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const endD = moment(endDate)
         return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
       } else {
-        console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan)
+        console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan.message.Reference, plan)
         return true
       }
     })
