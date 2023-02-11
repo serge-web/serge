@@ -139,9 +139,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const localEditLocation = (): void => {
           if (message.message.location) {
             const localCallback = (newValue: PlannedActivityGeometry[]): void => {
-              console.log('push pending location 1', newValue, pendingLocationData.length)
               pendingLocationData.push(newValue)
-              console.log('push pending location 2', pendingLocationData.length)
             }
             // pass the location data object
             canEdit && editLocation && editLocation(message.message.location, localCallback)
@@ -160,7 +158,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <></>
         }
         const editorRightValue = message.message ? message.message : undefined
-
+        console.log('plan mess list', editorRightValue)
         return <>
 
           <DetailPanelStateListener />
