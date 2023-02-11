@@ -149,6 +149,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showTimeControl, setShowTimeControl] = useState<boolean>(false)
   const [timeControlEvents, setTimeControlEvents] = useState<FeatureCollection | undefined>(undefined)
 
+  /** note we store the interaction reference here, not the id, to allow for the
+   * document being updated
+   */
   const [currentInteraction, setCurrentInteraction] = useState<string | undefined>(undefined)
   const [assetsCache] = useState<LRU<string, string>>(new LRU(LRU_CACHE_OPTION))
 

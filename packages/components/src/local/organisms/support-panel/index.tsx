@@ -335,7 +335,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             const assets3 = inter.otherAssets || []
             const allAssets = assets1.concat(assets2).concat(assets3)
             setCurrentAssets(allAssets)
-            setCurrentInteraction(adj.id)
+            setCurrentInteraction(adj.reference)
           }
         }
       }
