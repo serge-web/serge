@@ -47,8 +47,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const newMessage = myRoleMessages[0]
       // see if this is a new version of an existing message
       const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
-      console.log('row already present', rowAlreadyPresent)
-      rowAlreadyPresent && console.log('check message', rowAlreadyPresent.reference, rowAlreadyPresent.id, newMessage._id)
       if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
         // ok, it's an update
         // remove the previous object of the save message

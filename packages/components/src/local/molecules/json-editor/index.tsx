@@ -262,7 +262,6 @@ export const JsonEditor: React.FC<Props> = ({
   }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
 
   useLayoutEffect(() => {
-    console.log('destoy', editor)
     if (editor) editor.destroy()
   }, [disableArrayToolsWithEditor && disabled])
 
