@@ -25,6 +25,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
 
+  const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
+
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
@@ -96,7 +98,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.warn('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
-        const pendingLocationData: Array<PlannedActivityGeometry[]> = []
 
         const saveMessage = () => {
           if (messageValue.current) {
@@ -138,7 +139,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const localEditLocation = (): void => {
           if (message.message.location) {
             const localCallback = (newValue: PlannedActivityGeometry[]): void => {
+              console.log('push pending location 1', newValue, pendingLocationData.length)
               pendingLocationData.push(newValue)
+              console.log('push pending location 2', pendingLocationData.length)
             }
             // pass the location data object
             canEdit && editLocation && editLocation(message.message.location, localCallback)
