@@ -85,9 +85,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
-    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
+    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value.message.Reference === rowData.rawRef)
     if (!message) {
-      console.error('message not found, id:', rowData.id, 'messages:', messages)
+      console.error('planning message not found, id:', rowData.reference, 'messages:', messages)
     } else {
       // check if message is being edited
       const localTemplates = allTemplates || []
