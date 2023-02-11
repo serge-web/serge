@@ -187,11 +187,14 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       }
       const done = ['title', 'activity', 'location', 'ownAssets', 'otherAssets', 'startDate', 'endDate', 'Reference']
       const items = Object.keys(plan.message).map((item, index): React.ReactElement => {
-        if (done.includes(item)) {
+        const value = plan.message[item]
+        const isEmptyString = (typeof value === 'string' && (value as string).length === 0)
+        const isEmptyArray = (Array.isArray(value) && (value as any[]).length === 0)
+        if (done.includes(item) || isEmptyString || isEmptyArray) {
           return <Fragment key={index} />
         } else {
           const name = _.kebabCase(item)
-          return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + plan.message[item]}</span><br /></Fragment>
+          return <Fragment key={index}><span key={index}><b>{name}: </b>{'' + value}</span><br /></Fragment>
         }
       })
       let geomTimings: string | undefined

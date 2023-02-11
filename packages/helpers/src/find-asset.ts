@@ -1,4 +1,4 @@
-import { Asset, ForceData } from '@serge/custom-types'
+import { Asset, AssetWithForce, ForceData } from '@serge/custom-types'
 
 /** recursive helper function - checks inside
  * comprising and hosting lists
@@ -28,8 +28,8 @@ export const isAsset = (asset: Asset, assetId: string | undefined, assetName?: s
 }
 
 /** find the asset with the provided id, and it's parent force */
-export const findForceAndAsset = (allForces: ForceData[], assetId: string): {force: ForceData, asset: Asset} => {
-  let res: {force: ForceData, asset: Asset} | undefined
+export const findForceAndAsset = (allForces: ForceData[], assetId: string): AssetWithForce => {
+  let res: AssetWithForce | undefined
   allForces.find((force) => {
     const assets: Asset[] | undefined = force.assets
     if (Array.isArray(assets)) {

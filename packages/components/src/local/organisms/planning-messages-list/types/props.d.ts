@@ -7,6 +7,9 @@ import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/pro
 
 export type OrderRow = {
   id: string
+  // the raw reference value
+  rawRef: string
+  // the combined reference and turn number
   reference: string
   title: string
   role: string

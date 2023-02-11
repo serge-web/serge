@@ -30,6 +30,7 @@ export const toRow = (message: MessagePlanning): OrderRow => {
 
   const row: OrderRow = {
     id: message._id,
+    rawRef: message.message.Reference,
     reference: message.message.Reference + ' (Turn ' + message.details.turnNumber + ')',
     title: plan.title,
     role: author,

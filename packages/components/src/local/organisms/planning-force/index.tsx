@@ -212,7 +212,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           })
         })
         .addTo(clusterGroup as MarkerClusterGroup)
-        .bindPopup(asset.name)
+        .bindPopup(asset.name + ', ' + asset.id)
         .on('click', interactiveIcon)
         .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
     )

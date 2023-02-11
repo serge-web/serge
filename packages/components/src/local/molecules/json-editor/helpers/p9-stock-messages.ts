@@ -195,13 +195,13 @@ const p9StockTemplates: TemplateBody[] = [
               health: {
                 title: 'Condition',
                 propertyOrder: 20,
-                type: 'string',
+                type: 'number',
                 enum: [
-                  '100',
-                  '75',
-                  '50',
-                  '25',
-                  '0'
+                  100,
+                  75,
+                  50,
+                  25,
+                  0
                 ],
                 options: {
                   grid_columns: 2

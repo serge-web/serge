@@ -1,12 +1,12 @@
 import { ADJUDICATION_OUTCOMES, GeometryType, INTER_AT_END, INTER_AT_RANDOM, INTER_AT_START } from '@serge/config'
-import { Asset, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Asset, AssetWithForce, CoreOutcome, ForceData, GroupedActivitySet, HealthOutcome, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageInteraction, MessagePlanning, PerceptionOutcome, PerceptionOutcomes, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { findAsset, findForceAndAsset } from '@serge/helpers'
 import * as turf from '@turf/turf'
-import { LineString } from 'geojson'
+import { Feature, Geometry, LineString, Polygon } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
-import { calculateDetections, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
+import { calculateDetections, checkInArea, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
 
 type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
 
@@ -198,8 +198,8 @@ const strikeEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudica
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
       return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
-    })
-    outcomes.narrative += message
+    }).join(', ')
+    outcomes.narrative = outcomes.narrative ? (outcomes.narrative + message) : message
 
     // store the other assets
     const otherAssets: Array<Asset['uniqid']> = []
@@ -345,24 +345,126 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   return outcomes
 }
 
-const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>, special?: string): AssetWithForce[] => {
+  const assets: AssetWithForce[] = []
+  const opFor = forces.filter((force) => force.assets && force.uniqid !== forceId)
+  opFor.forEach((force) => {
+    force.assets && force.assets.forEach((asset) => {
+      if (asset.location) {
+        if (checkInArea(mePoly, asset.location)) {
+          assets.push({ force, asset })
+          special && asset.name === special && console.log(asset.name, asset.location, !!special)
+        }
+      }
+    })
+  })
+  return assets
+}
+
+export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
+  activity: PlanningActivity, forces: ForceData[]): void => {
+  const aGeoms = activity.geometries
+  if (!aGeoms) {
+    console.warn('Warning: orders have location, but not activity', plan._id, activity.uniqid)
+  } else {
+    // find the polys
+    const polys = aGeoms.filter((geom) => geom.aType === GeometryType.polygon)
+    if (polys.length) {
+      // find the last poly
+      const poly = polys[polys.length - 1]
+      const polyIndex = aGeoms.indexOf(poly)
+      const geom = plan.message.location && plan.message.location[polyIndex]
+      if (!geom) {
+        console.warn('Failed to find matching geometry')
+      } else {
+        // generate the shape
+        const box = geom.geometry.geometry as Geometry as Polygon
+        const coords = box.coordinates
+        // calculate prob of detecting sometghing
+        // convert the boundary to a turn object
+        const mePoly = turf.polygon(coords)
+
+        // find opFor assets within poly
+        const special = undefined // 'Green:4'
+        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, special)
+
+        special && console.table(assets.map((fAsset) => {
+          const asset = fAsset.asset
+          return {
+            name: asset.name,
+            id: asset.uniqid,
+            loc: asset.location ? asset.location.join(':') : ''
+          }
+        }))
+
+        const notPresent = (asset: Asset['uniqid'], outcomes: CoreOutcome[]): boolean => {
+          return !outcomes.find((outcome) => outcome.asset === asset)
+        }
+        if (assets.length) {
+          assets.forEach((asset, index) => {
+            const uniqid = asset.asset.uniqid
+            if (activity.spatialHealth) {
+              if (notPresent(uniqid, outcomes.healthOutcomes)) {
+                const existingC4 = (asset.asset.attributes && asset.asset.attributes.a_C4_Status as string) || undefined
+                const newC4 = alterC4(existingC4, false)
+                outcomes.healthOutcomes.push({
+                  asset: uniqid,
+                  health: asset.asset.health || 50,
+                  c4: newC4,
+                  narrative: 'Asset in area for ' + activity.uniqid
+                })
+                asset.asset.name === 'Green:4' && console.log('health', asset.asset, index)
+              }
+            }
+            if (activity.spatialPerception) {
+              if (notPresent(uniqid, outcomes.perceptionOutcomes)) {
+                outcomes.perceptionOutcomes.push({
+                  asset: uniqid,
+                  force: plan.details.from.forceId || '',
+                  perceivedLocation: 't', // true location
+                  perceivedForce: asset.force.uniqid,
+                  perceivedName: asset.asset.name,
+                  perceivedType: asset.asset.platformTypeId,
+                  perceivedHealth: asset.asset.health,
+                  narrative: 'Asset in area for ' + activity.uniqid
+                })
+              }
+            }
+          })
+        }
+      }
+    }
+  }
+}
+const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
+  activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+  console.log('handle outcomes')
   switch (activity.actId) {
     case 'STRIKE': {
-      return strikeEventOutcomesFor(plan, outcomes, forces)
+      strikeEventOutcomesFor(plan, outcomes, forces)
+      break
     }
     case 'TRANSIT': {
-      return transitEventOutcomesFor(plan, outcomes, event)
+      transitEventOutcomesFor(plan, outcomes, event)
+      break
     }
     case 'ISTAR': {
-      return istarEventOutcomesFor(plan, outcomes, forces)
+      istarEventOutcomesFor(plan, outcomes, forces)
+      break
     }
     case 'CYB/SPA':
     case 'EW': {
-      return ewEventOutcomesFor(plan, outcomes, event, forces)
+      ewEventOutcomesFor(plan, outcomes, event, forces)
+      break
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
     }
+  }
+  // do we also have to insert assets in the target polygon?
+  console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
+  if ((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
+    insertSpatialOutcomesFor(plan, outcomes, activity, forces)
   }
   return outcomes
 }
@@ -513,6 +615,71 @@ const listPlans = (orders: MessagePlanning[], gameTime: string): void => {
   console.table(sortAsc.map((plan: MessagePlanning) => {
     return colsFor(plan)
   }))
+}
+
+const contactDetails = (contact: PlanningContact): InteractionDetails => {
+  const props1 = contact.first.geometry.properties as PlannedProps
+  const props2 = contact.second.geometry.properties as PlannedProps
+  const res: InteractionDetails = {
+    id: contact.id,
+    orders1: contact.first.plan._id,
+    orders1Geometry: props1.geomId,
+    orders2: contact.second.plan._id,
+    orders2Geometry: props2.geomId,
+    startTime: moment(contact.timeStart).toISOString(),
+    endTime: moment(contact.timeEnd).toISOString(),
+    geometry: contact.intersection,
+    otherAssets: [],
+    complete: false
+  }
+  return res
+}
+
+const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, geom2: GeomWithOrders | undefined, outcomes: MessageAdjudicationOutcomes, activities: PerForcePlanningActivitySet[],
+  forces: ForceData[]) => {
+//  console.log('insert outcomes', geom, outcomes)
+  // get the activity
+  const props = geom.geometry.properties as PlannedProps
+  const activBlock = props.id
+  const activeName = activBlock.substring(0, activBlock.indexOf('//'))
+  const forceId = geom.plan.details.from.forceId || ''
+  const forceActs = activities.find((set) => set.force === forceId)
+  if (!forceActs) {
+    console.log('Failed to find force activities for', forceActs)
+    return
+  }
+  const activity = findActivity(activeName, forceActs)
+  if (!activity) {
+    console.log('Failed to find activity for', activeName)
+    return
+  }
+  const thisG = activity.geometries && activity.geometries.find((geo) => geo.uniqid === props.geomId)
+  switch (activeName) {
+    case 'ISTAR': {
+      insertIstarInteractionOutcomes(interaction, geom, geom2, outcomes, thisG, activity, forces)
+    }
+  }
+}
+
+const contactOutcomes = (interaction: InteractionDetails, contact: PlanningContact, activities: PerForcePlanningActivitySet[],
+  forces: ForceData[]): MessageAdjudicationOutcomes => {
+  const res: MessageAdjudicationOutcomes = contact.outcomes || {
+    messageType: ADJUDICATION_OUTCOMES,
+    Reference: '', // leave blank, so backend creates it
+    narrative: '',
+    important: false,
+    perceptionOutcomes: [],
+    locationOutcomes: [],
+    healthOutcomes: []
+  }
+  const orders1 = contact.first
+  const orders2 = contact.second
+  insertOutcomes(interaction, orders1, orders2, res, activities, forces)
+
+  if (orders2) {
+    insertOutcomes(interaction, orders2, orders1, res, activities, forces)
+  }
+  return res
 }
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
@@ -705,69 +872,4 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       return undefined
     }
   }
-}
-
-const contactDetails = (contact: PlanningContact): InteractionDetails => {
-  const props1 = contact.first.geometry.properties as PlannedProps
-  const props2 = contact.second.geometry.properties as PlannedProps
-  const res: InteractionDetails = {
-    id: contact.id,
-    orders1: contact.first.plan._id,
-    orders1Geometry: props1.geomId,
-    orders2: contact.second.plan._id,
-    orders2Geometry: props2.geomId,
-    startTime: moment(contact.timeStart).toISOString(),
-    endTime: moment(contact.timeEnd).toISOString(),
-    geometry: contact.intersection,
-    otherAssets: [],
-    complete: false
-  }
-  return res
-}
-
-const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, geom2: GeomWithOrders | undefined, outcomes: MessageAdjudicationOutcomes, activities: PerForcePlanningActivitySet[],
-  forces: ForceData[]) => {
-//  console.log('insert outcomes', geom, outcomes)
-  // get the activity
-  const props = geom.geometry.properties as PlannedProps
-  const activBlock = props.id
-  const activeName = activBlock.substring(0, activBlock.indexOf('//'))
-  const forceId = geom.plan.details.from.forceId || ''
-  const forceActs = activities.find((set) => set.force === forceId)
-  if (!forceActs) {
-    console.log('Failed to find force activities for', forceActs)
-    return
-  }
-  const activity = findActivity(activeName, forceActs)
-  if (!activity) {
-    console.log('Failed to find activity for', activeName)
-    return
-  }
-  const thisG = activity.geometries && activity.geometries.find((geo) => geo.uniqid === props.geomId)
-  switch (activeName) {
-    case 'ISTAR': {
-      insertIstarInteractionOutcomes(interaction, geom, geom2, outcomes, thisG, activity, forces)
-    }
-  }
-}
-
-const contactOutcomes = (interaction: InteractionDetails, contact: PlanningContact, activities: PerForcePlanningActivitySet[],
-  forces: ForceData[]): MessageAdjudicationOutcomes => {
-  const res: MessageAdjudicationOutcomes = contact.outcomes || {
-    messageType: ADJUDICATION_OUTCOMES,
-    Reference: '', // leave blank, so backend creates it
-    narrative: '',
-    important: false,
-    perceptionOutcomes: [],
-    locationOutcomes: [],
-    healthOutcomes: []
-  }
-  const orders1 = contact.first
-  const orders2 = contact.second
-  insertOutcomes(interaction, orders1, orders2, res, activities, forces)
-
-  if (orders2) {
-    insertOutcomes(interaction, orders2, orders1, res, activities, forces)
-  }
-  return res
 }

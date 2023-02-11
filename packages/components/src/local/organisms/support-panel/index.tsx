@@ -3,6 +3,7 @@ import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
+import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
 import LRU from 'lru-cache'
@@ -253,8 +254,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const endD = moment(endDate)
         return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
       } else {
-        console.warn('Support panel. Orders start/end missing for', plan)
-        return false
+        console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan.message.Reference, plan)
+        return true
       }
     })
 
@@ -335,7 +336,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
             const assets3 = inter.otherAssets || []
             const allAssets = assets1.concat(assets2).concat(assets3)
             setCurrentAssets(allAssets)
-            setCurrentInteraction(adj.id)
+            setCurrentInteraction(adj.reference)
           }
         }
       }
@@ -390,11 +391,14 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const planDoc = fixedLocation as PlanningMessageStructureCore
     if (planDoc.location && planDoc.ownAssets) {
       const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
+      // update the start/end time in the props
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
       !7 && summariseLocations('before', planDoc.location)
       !7 && summariseLocations('after', updatedLocations)
       planDoc.location = updatedLocations
     }
+    // also try to fix the names
+    planDoc.location = planDoc.location ? updateLocationNames(planDoc.location, activitiesForThisForce) : undefined
     return planDoc
   }
 
