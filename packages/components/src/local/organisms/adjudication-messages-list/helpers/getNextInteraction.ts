@@ -361,6 +361,34 @@ const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: 
   return assets
 }
 
+export const insertMovementOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): void => {
+  if (plan.message.ownAssets) {
+    const assetIds = plan.message.ownAssets
+    const assetsWithoutMovementOutcome = assetIds.filter((item) => !outcomes.locationOutcomes.some((outcome) => outcome.asset === item.asset))
+    const assets = assetsWithoutMovementOutcome.map((item) => findAsset(forces, item.asset))
+    const assetsWithLoc = assets.filter((asset) => asset.location)
+
+    if (plan.message.location && plan.message.location.length > 0) {
+      const lastGeom = plan.message.location[plan.message.location.length - 1].geometry.geometry as LineString
+      const coords = lastGeom.coordinates[lastGeom.coordinates.length - 1]
+      // swap the coords to lat/long we're expeting
+      const loc: [number, number] = [coords[1], coords[0]]
+      const movements = assetsWithLoc.map((asset): LocationOutcome => {
+        if (!asset.location) {
+          console.warn('Should not encounter asset without location')
+        }
+        const outcome: LocationOutcome = {
+          asset: asset.uniqid,
+          location: loc,
+          narrative: 'End of order involving movement'
+        }
+        return outcome
+      })
+      outcomes.locationOutcomes.push(...movements)
+    }
+  }
+}
+
 export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[]): void => {
   const aGeoms = activity.geometries
@@ -436,7 +464,8 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
     }
   }
 }
-const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
+
+export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   console.log('handle outcomes')
   switch (activity.actId) {
@@ -458,18 +487,22 @@ const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOu
       break
     }
     default: {
-      console.warn('outcomes not generated for activity', activity.actId)
+      console.log('Specific event outcomes not generated for activity', activity.actId)
     }
   }
+  // console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
   // do we also have to insert assets in the target polygon?
-  console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
   if ((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
     insertSpatialOutcomesFor(plan, outcomes, activity, forces)
+  }
+  // do we also have to update asset locations
+  if (event === INTER_AT_END && endsWithMovement(plan.message.location)) {
+    insertMovementOutcomesFor(plan, outcomes, forces)
   }
   return outcomes
 }
 
-interface TimedIntervention {
+export interface TimedIntervention {
   // id of the interaction (composite of planning message & event)
   id: string
   time: number
@@ -480,7 +513,16 @@ interface TimedIntervention {
   geomId: PlannedActivityGeometry['uniqid'] | undefined
 }
 
-const getEventList = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
+const endsWithMovement = (activity?: PlannedActivityGeometry[]): boolean => {
+  if (activity && activity.length > 0) {
+    const lastLeg = activity[activity.length - 1]
+    return lastLeg.geometry.geometry.type === 'LineString'
+  } else {
+    return false
+  }
+}
+
+export const getEventList = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
   activities: PerForcePlanningActivitySet[]): TimedIntervention[] => {
   // loop through plans
   const eventList: TimedIntervention[] = []
@@ -492,6 +534,7 @@ const getEventList = (cutoffTime: number, orders: MessagePlanning[], interaction
       const activity = findActivity(actName, forceActivities)
       if (activity) {
         const activityEvents = activity.events
+        let endActivityGenerated = false
         if (activityEvents) {
           activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {
             const thisTime = timeFor(plan, activity, event)
@@ -500,9 +543,13 @@ const getEventList = (cutoffTime: number, orders: MessagePlanning[], interaction
               // check this hasn't been processed already
               if (interactionIDs.find((id: string) => id === interactionId)) {
                 console.log('Skipping this event, already processed', interactionId)
+                endActivityGenerated = true
               } else {
                 // check the time of this event has passed
                 if (thisTime.time <= cutoffTime) {
+                  if (event === 'i-end') {
+                    endActivityGenerated = true
+                  }
                   eventList.push({
                     id: interactionId,
                     event: event,
@@ -517,13 +564,40 @@ const getEventList = (cutoffTime: number, orders: MessagePlanning[], interaction
             }
           })
         }
+        if (!endActivityGenerated) {
+          // does this activity end in a line-string?
+          const locData = plan.message.location
+          if (locData && endsWithMovement(locData)) {
+            const interactionId = plan._id + '  ' + INTER_AT_END
+            if (locData && locData.length > 0) {
+              const planned = locData[locData.length - 1]
+              if (planned) {
+                // note: since it's the end of the last leg, it's actually the end of the orders, too
+                const endDate = plan.message.endDate
+                const endTime = moment(endDate).valueOf()
+                if (endTime) {
+                  // ok - generate a movement outcome
+                  eventList.push({
+                    id: interactionId,
+                    event: 'i-end',
+                    message: plan,
+                    time: endTime,
+                    timeStr: endDate,
+                    activity: activity,
+                    geomId: planned.uniqid
+                  })
+                }
+              }
+            }
+          }
+        }
       }
     }
   })
   return eventList
 }
 
-const emptyOutcomes = (): MessageAdjudicationOutcomes => {
+export const emptyOutcomes = (): MessageAdjudicationOutcomes => {
   return {
     healthOutcomes: [],
     locationOutcomes: [],
@@ -637,7 +711,7 @@ const contactDetails = (contact: PlanningContact): InteractionDetails => {
 
 const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, geom2: GeomWithOrders | undefined, outcomes: MessageAdjudicationOutcomes, activities: PerForcePlanningActivitySet[],
   forces: ForceData[]) => {
-//  console.log('insert outcomes', geom, outcomes)
+  //  console.log('insert outcomes', geom, outcomes)
   // get the activity
   const props = geom.geometry.properties as PlannedProps
   const activBlock = props.id
@@ -748,7 +822,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities)
       } else {
         eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
-        console.log('found event in window?:', !!eventInWindow, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
+        console.log('found event in window?:', !!eventInWindow, eventInWindow && eventInWindow.id, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
       }
 
       // trim for 'live' orders
