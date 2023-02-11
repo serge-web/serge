@@ -438,25 +438,31 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
 }
 const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
+  console.log('handle outcomes')
   switch (activity.actId) {
     case 'STRIKE': {
-      return strikeEventOutcomesFor(plan, outcomes, forces)
+      strikeEventOutcomesFor(plan, outcomes, forces)
+      break
     }
     case 'TRANSIT': {
-      return transitEventOutcomesFor(plan, outcomes, event)
+      transitEventOutcomesFor(plan, outcomes, event)
+      break
     }
     case 'ISTAR': {
-      return istarEventOutcomesFor(plan, outcomes, forces)
+      istarEventOutcomesFor(plan, outcomes, forces)
+      break
     }
     case 'CYB/SPA':
     case 'EW': {
-      return ewEventOutcomesFor(plan, outcomes, event, forces)
+      ewEventOutcomesFor(plan, outcomes, event, forces)
+      break
     }
     default: {
       console.warn('outcomes not generated for activity', activity.actId)
     }
   }
   // do we also have to insert assets in the target polygon?
+  console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
   if ((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
     insertSpatialOutcomesFor(plan, outcomes, activity, forces)
   }
