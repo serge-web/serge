@@ -541,7 +541,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
             if (thisTime) {
               const interactionId = plan._id + ' ' + event
               // check this hasn't been processed already
-              if (interactionIDs.find((id: string) => id === interactionId)) {
+              if (interactionIDs.includes(interactionId)) {
                 console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
@@ -569,7 +569,8 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
           const locData = plan.message.location
           if (locData && locData.length > 0 && endsWithMovement(locData)) {
             const interactionId = plan._id + ' ' + INTER_AT_END
-            if (interactionIDs.includes(interactionId)) {
+            // check it hasn't already been processed
+            if (!interactionIDs.includes(interactionId)) {
               const planned = locData[locData.length - 1]
               if (planned) {
                 // note: since it's the end of the last leg, it's actually the end of the orders, too
