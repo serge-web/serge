@@ -98,7 +98,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.warn('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
-
         const saveMessage = () => {
           if (messageValue.current) {
             const details: MessageDetails = {
