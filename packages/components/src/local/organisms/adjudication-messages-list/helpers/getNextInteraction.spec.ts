@@ -64,15 +64,24 @@ it('generates movement outcomes', () => {
       return false
     }
   })
-  const cutOffTime = moment().valueOf()
-  const list: TimedIntervention[] = getEventList(cutOffTime, planWithReturn ? [planWithReturn] : [], [], activities)
-  expect(list).toBeTruthy()
-  expect(list.length).toBeGreaterThan(0)
-  const firstEvent = list[0]
   if (planWithReturn) {
-    const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
-    expect(outcomes).toBeTruthy()
+    const cutOffTime = moment().valueOf()
+    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities)
+    expect(list).toBeTruthy()
+    expect(list.length).toBeGreaterThan(0)
+    const firstEvent = list[0]
+    if (planWithReturn) {
+      const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
+      expect(outcomes).toBeTruthy()
+    }
+  
+    const listWithInteraction = [firstEvent.id]
+    const list2: TimedIntervention[] = getEventList(cutOffTime,  [planWithReturn] , listWithInteraction, activities)
+    expect(list2.length).toEqual(0)
+  } else {
+    expect(false).toBeTruthy() // should have found plan to test
   }
+
 })
 
 it('handles spatial outcomes', () => {
