@@ -54,7 +54,10 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
 it('generates movement outcomes', () => {
   const planWithReturn = shortPlanningMessages.find((plan) => {
     const loc = plan.message.location
-    if ((plan.message.activity.indexOf('ASW') !== -1) && loc && loc.length > 0) {
+    const act = plan.message.activity
+    const goodies = ['ASW', 'Patrol', 'Refuel']
+    const goodPlan = goodies.some((item) => act.indexOf(item) !== -1)
+    if (goodPlan && loc && loc.length > 0) {
       const lastLeg = loc[loc.length - 1]
       return (lastLeg.geometry.geometry.type === 'LineString')
     } else {
@@ -64,6 +67,7 @@ it('generates movement outcomes', () => {
   const cutOffTime = moment().valueOf()
   const list: TimedIntervention[] = getEventList(cutOffTime, planWithReturn ? [planWithReturn] : [], [], activities)
   expect(list).toBeTruthy()
+  expect(list.length).toBeGreaterThan(0)
   const firstEvent = list[0]
   if (planWithReturn) {
     const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
