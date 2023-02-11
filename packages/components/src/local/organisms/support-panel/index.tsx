@@ -3,6 +3,7 @@ import MoreVert from '@material-ui/icons/MoreVert'
 import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
+import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
 import { noop } from 'lodash'
 import LRU from 'lru-cache'
@@ -390,10 +391,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
     const planDoc = fixedLocation as PlanningMessageStructureCore
     if (planDoc.location && planDoc.ownAssets) {
       const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
+      // update the start/end time in the props
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
+      // also insert the activity name as props
+      const geometriesWithNames = updateLocationNames(updatedLocations, activitiesForThisForce)
       !7 && summariseLocations('before', planDoc.location)
-      !7 && summariseLocations('after', updatedLocations)
-      planDoc.location = updatedLocations
+      !7 && summariseLocations('after', geometriesWithNames)
+      planDoc.location = geometriesWithNames
     }
     return planDoc
   }

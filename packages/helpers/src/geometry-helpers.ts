@@ -1,4 +1,4 @@
-import { PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivityGeometry } from '@serge/custom-types'
 import * as turf from '@turf/turf'
 import { Feature, LineString } from 'geojson'
 import moment from 'moment'
@@ -42,6 +42,31 @@ const updateLeg = (leg: PlannedActivityGeometry, startT: number, endT: number, s
     }
   }
   return [leg, 0]
+}
+
+export const updateLocationNames = (planned: PlannedActivityGeometry[], activities?: PerForcePlanningActivitySet): PlannedActivityGeometry[] => {
+  const updatedNames = planned.map((plan) => {
+    const id = plan.uniqid
+    let activity: PlanningActivityGeometry | undefined
+    activities && activities.groupedActivities.some((group) => {
+      return group.activities.some((planA) => {
+        return planA.geometries && planA.geometries.some((geom) => {
+          if (geom.uniqid === id) {
+            activity = geom
+            return true
+          } else {
+            return false
+          }
+        })
+      })
+    })
+    const props = plan.geometry.properties as PlannedProps
+    if (activity) {
+      props.name = activity.name
+    }
+    return plan
+  })
+  return updatedNames
 }
 
 /** utility method to correct the timings for planned legs, according to platform speed */
