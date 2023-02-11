@@ -254,8 +254,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
         const endD = moment(endDate)
         return startD.isBefore(turnEnd) && endD.isAfter(turnStart)
       } else {
-        console.warn('Support panel. Orders start/end missing for', plan)
-        return false
+        console.log('Support panel. Orders start/end missing, so cannot offer for live orders', plan)
+        return true
       }
     })
 
@@ -393,12 +393,12 @@ export const SupportPanel: React.FC<PropTypes> = ({
       const ownAssets = planDoc.ownAssets.map((item: { asset: string }) => item.asset)
       // update the start/end time in the props
       const updatedLocations = updateLocationTimings(planDoc.Reference, planDoc.location, ownAssets, allForces, planDoc.startDate, planDoc.endDate)
-      // also insert the activity name as props
-      const geometriesWithNames = updateLocationNames(updatedLocations, activitiesForThisForce)
       !7 && summariseLocations('before', planDoc.location)
-      !7 && summariseLocations('after', geometriesWithNames)
-      planDoc.location = geometriesWithNames
+      !7 && summariseLocations('after', updatedLocations)
+      planDoc.location = updatedLocations
     }
+    // also try to fix the names
+    planDoc.location = planDoc.location ? updateLocationNames(planDoc.location, activitiesForThisForce) : undefined
     return planDoc
   }
 
