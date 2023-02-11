@@ -62556,7 +62556,7 @@ const game: Wargame = {
                                     "geometries": [
                                         {
                                             "aType": "Polygon",
-                                            "name": "Sea Denial Area",
+                                            "name": "Area",
                                             "optional": false,
                                             "uniqid": "Sea Denial-0"
                                         }
