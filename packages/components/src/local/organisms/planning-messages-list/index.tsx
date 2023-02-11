@@ -143,7 +143,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             // pass the location data object
             canEdit && editLocation && editLocation(message.message.location, localCallback)
           }
-        }
+      }
 
         const activitiesForThisForce = forcePlanningActivities && forcePlanningActivities.find((act: PerForcePlanningActivitySet) => act.force === message.details.from.forceId)
 
