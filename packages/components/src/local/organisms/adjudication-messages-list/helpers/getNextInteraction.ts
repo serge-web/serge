@@ -568,23 +568,25 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
           // does this activity end in a line-string?
           const locData = plan.message.location
           if (locData && locData.length > 0 && endsWithMovement(locData)) {
-            const interactionId = plan._id + '  ' + INTER_AT_END
-            const planned = locData[locData.length - 1]
-            if (planned) {
-              // note: since it's the end of the last leg, it's actually the end of the orders, too
-              const endDate = plan.message.endDate
-              const endTime = moment(endDate).valueOf()
-              if (endTime) {
-                // ok - generate a movement outcome
-                eventList.push({
-                  id: interactionId,
-                  event: 'i-end',
-                  message: plan,
-                  time: endTime,
-                  timeStr: endDate,
-                  activity: activity,
-                  geomId: planned.uniqid
-                })
+            const interactionId = plan._id + ' ' + INTER_AT_END
+            if (interactionIDs.includes(interactionId)) {
+              const planned = locData[locData.length - 1]
+              if (planned) {
+                // note: since it's the end of the last leg, it's actually the end of the orders, too
+                const endDate = plan.message.endDate
+                const endTime = moment(endDate).valueOf()
+                if (endTime) {
+                  // ok - generate a movement outcome
+                  eventList.push({
+                    id: interactionId,
+                    event: 'i-end',
+                    message: plan,
+                    time: endTime,
+                    timeStr: endDate,
+                    activity: activity,
+                    geomId: planned.uniqid
+                  })
+                }
               }
             }
           }
