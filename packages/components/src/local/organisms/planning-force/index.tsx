@@ -133,7 +133,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       */
     const shadeBackground = !imageSrc.startsWith('n_')
     const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
-
+    console.log('get icon', asset.name, asset.health)
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
@@ -221,19 +221,19 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   return <>
     {
       <LayerGroup key={'force-' + label}>
+        {rawRangeRings}
+        {clusteredRangeRings}
         <MarkerCluster markers={clustereredMarkers} />
         {rawMarkers && rawMarkers.map((asset: AssetRow) => {
           const markerOption = getRawMarkerOption(asset)
           return <Marker
             pmIgnore
-            interactive={false}
+            interactive={true}
             {...markerOption}
           >
             <Tooltip>{asset.name}</Tooltip>
           </Marker>
         })}
-        {rawRangeRings}
-        {clusteredRangeRings}
       </LayerGroup >
     }
   </>
