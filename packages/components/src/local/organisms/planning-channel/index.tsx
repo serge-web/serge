@@ -163,6 +163,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     } else {
       const createAssets = false
       if (createAssets) {
+        // const forces = updateBounds(channel.constraints, allForces)
         const forces = generateTestData2(400, channel.constraints, allForces, platformTypes, attributeTypes || [])
         // const forces = fixPerceivedPositions(allForces)
         console.log('forces', forces)
