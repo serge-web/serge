@@ -114,8 +114,15 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   // NOTE: for now, this is fixed
   const searchRateKm2perHour = 200000
 
+  // find the number of friendly assets involved
+  const ownAssets = geom.plan.message.ownAssets
+  // in the next line we handle num assets potentially being a sting by use of '+' operator, which forces to number
+  const numAssets = (ownAssets && ownAssets.length) ? ownAssets.map((item) => +item.number).reduce((a: number, b: number) => a + b, 0) : 1
+
+  const combinedSearchRate = searchRateKm2perHour * numAssets
+
   // run the calculator
-  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, searchRateKm2perHour, 'In interaction area')
+  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area')
 
   const targetPerceptions: PerceptionOutcomes = []
 
