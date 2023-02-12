@@ -49,7 +49,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   // onCreate multiple times
   const [lastPendingGeometry, setLastPendingGeometry] = useState<PendingItem | undefined>(undefined)
 
-  const standardAreaBtn = useRef<Select>();
+  const standardAreaBtn = useRef<Select>()
 
   const map = useMap()
 

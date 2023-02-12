@@ -78,7 +78,7 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
   const [editLayer, setEditLayer] = useState<Layer | undefined>(undefined)
 
-  const standardAreaBtn = useRef<Select>();
+  const standardAreaBtn = useRef<Select>()
 
   const map = useMap()
 
