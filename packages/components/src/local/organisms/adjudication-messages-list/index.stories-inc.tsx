@@ -147,6 +147,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     forces={forces}
     periods={turnPeriod}
     platformTypes={platformTypes}
+    currentTurn={1}
     interactionMessages={interactionMessages}
     planningMessages={planningMessages}
     forceColors={forceColors(forces)}
