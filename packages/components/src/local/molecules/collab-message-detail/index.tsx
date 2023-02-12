@@ -6,22 +6,22 @@ import Props, { DialogModalStatus } from './types/props'
 import styles from './styles.module.scss'
 
 /* Import Components */
-import Textarea from '../../atoms/textarea'
 import Button from '../../atoms/button'
 import DialogModal from '../../atoms/dialog'
 import SplitButton from '../../atoms/split-button'
+import Textarea from '../../atoms/textarea'
 
 /* Import Icons */
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { CollaborativeMessageStates, CollaborativePermission, expiredStorage } from '@serge/config'
-import JsonEditor from '../json-editor'
 import { ChannelCollab, ChannelTypes, ChannelUI, FeedbackItem, ForceRole, MessageCustom } from '@serge/custom-types'
+import { formatFullDate } from '@serge/helpers'
 import Collapsible from '../../helper-elements/collapsible'
+import JsonEditor from '../json-editor'
 import { Action, actionsFor, ActionTable, ASSIGN_MESSAGE, createActionTable } from './helpers/actions-for'
 import { ClaimFunc, CLAIM_HANDLER, CoreFunc, CORE_HANDLER, SubmitFunc, SUBMIT_HANDLER } from './helpers/handlers'
-import { formatFullDate } from '@serge/helpers'
 
 const labelFactory = (id: string, label: string): React.ReactNode => (
   <label htmlFor={id}><FontAwesomeIcon size='1x' icon={faUserSecret} /> {label}</label>
@@ -358,11 +358,14 @@ export const CollabMessageDetail: React.FC<Props> = ({
 
     // sort out the template for the JSON editor
     let templateId: string | undefined
+    let responseId: string | undefined
     if (isResponse) {
       if (canSeeResponse) {
-        templateId = channelCollab.responseTemplate?._id
+        templateId = channelCollab.newMessageTemplate?._id
+        responseId = channelCollab.responseTemplate?._id
       } else {
         templateId = channelCollab.newMessageTemplate?._id
+        responseId = channelCollab.responseTemplate?._id
       }
     } else {
       templateId = channelCollab.newMessageTemplate?._id
@@ -372,6 +375,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
     }
 
     const template = templates[templateId]
+    const responseTemplate = responseId ? templates[responseId] : undefined
 
     return (
       <>
@@ -395,7 +399,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
               feedbackBlock
             }
             {
-              isResponse && <JsonEditor
+              !isResponse && <JsonEditor
                 messageContent={message.message}
                 messageId={`${message._id}_${message.message.Reference}`}
                 template={template}
@@ -407,7 +411,7 @@ export const CollabMessageDetail: React.FC<Props> = ({
             {isResponse && canSeeResponse && <JsonEditor
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={collaboration.response || {}}
-              template={template}
+              template={responseTemplate}
               storeNewValue={responseHandler}
               disabled={!formIsEditable}
               title={'Response'}
@@ -415,11 +419,12 @@ export const CollabMessageDetail: React.FC<Props> = ({
             />
             }
             {!isResponse && <JsonEditor
-              template={template}
+              template={responseTemplate}
               messageId={`${message._id}_${message.message.Reference}`}
               messageContent={message.message}
               storeNewValue={newMessageHandler}
               disabled={!formIsEditable}
+              title={'Response'}
               gameDate={gameDate} />
             }
             { // only show private field for umpire force(s)
