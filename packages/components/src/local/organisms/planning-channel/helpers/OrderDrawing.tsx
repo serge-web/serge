@@ -3,17 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { Area, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { Geometry } from 'geojson'
+import { Geometry, Position } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
 import styles from '../styles.module.scss'
+import { Select } from '../typings'
 import { CustomTranslation } from './CustomTranslation'
 import StandardAreaMenu from './StandardAreaMenu'
 
@@ -47,6 +48,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   // this next state is a workaround, to prevent GeoMan calling
   // onCreate multiple times
   const [lastPendingGeometry, setLastPendingGeometry] = useState<PendingItem | undefined>(undefined)
+
+  const standardAreaBtn = useRef<Select>()
 
   const map = useMap()
 
@@ -229,6 +232,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         layers.forEach((layer: Layer) => layer.remove && layer.remove())
       }
     }
+    // when we cancel drawing, this component is unmount => we should remove the Standard Area Menu also
+    if (standardAreaBtn.current) {
+      standardAreaBtn.current.remove()
+    }
     cancelled()
   }
 
@@ -237,7 +244,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // note: it appears that another `onCreate` handler gets declared
     // note: this workaround prevents successive create events
     // note: propagating
-    console.log('on create', e.shape, e.layer)
     setWorkingLayer(undefined)
 
     if (lastPendingGeometry) {
@@ -259,10 +265,15 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   /** handler for player selecting a standard area */
   const useStandardArea = (area: Area) => {
     const coords = area.polygon.coordinates
+    // processing is expecting Leaflet lat-longs not number coords.
+    const lCoords: LatLng[][] = coords.map((item: Position[]) => {
+      return item.map((pos: Position) => {
+        return L.latLng(pos[1], pos[0])
+      })
+    })
     const res: any = {
-      _latLngs: coords[0]
+      _latlngs: lCoords
     }
-    // TODO: we need to cancel the current polygon editing, but now the whole set of shapes
     // cancel drawing
     if (workingLayer) {
       workingLayer.remove()
@@ -270,21 +281,31 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     }
 
     // simulate playe completing shape
-    onCreate({ shape: 'polygon', layer: res as Layer })
+    onCreate({ shape: 'Polygon', layer: res as Layer })
   }
 
   const onDrawStart = (e: { shape: string, workingLayer: Layer }) => {
     setWorkingLayer(e.workingLayer)
   }
 
+  const onMount = (controlButton: Select) => {
+    standardAreaBtn.current = controlButton
+  }
+
   return (
-    <> {(activity) &&
+    <> {activity &&
       <>
         <div className='leaflet-top leaflet-left'>
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
           </div>
-          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} />
+          <StandardAreaMenu
+            areas={standardPolygons}
+            showControl={!!(standardPolygons && standardPolygons.length > 0)}
+            handler={useStandardArea}
+            onMount={onMount}
+            additionalClass='select-control-order-drawing'
+          />
         </div>
         <GeomanControls
           options={drawOptions}

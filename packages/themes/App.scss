@@ -148,7 +148,12 @@ td[data-schemapath*="root."] {
   padding-right: 2px !important;
 }
 
-.select-control-custom {
+.select-control-order-drawing {
   margin-top: 50px !important;
+  position: absolute !important;
+}
+
+.select-control-order-editing {
+  margin-top: 75px !important;
   position: absolute !important;
 }
