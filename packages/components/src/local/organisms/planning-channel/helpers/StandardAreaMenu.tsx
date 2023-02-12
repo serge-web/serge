@@ -23,9 +23,11 @@ type StandardAreaMenuProps = {
   showControl: boolean
 
   onMount: (control: Select) => void
+
+  additionalClass?: string
 }
 
-const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, showControl, onMount }) => {
+const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, showControl, onMount, additionalClass }) => {
   const map = useMap()
 
   const [controlButton, setControlButton] = useState<Select | undefined>(undefined)
@@ -64,7 +66,7 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           onSelect: (item: any) => {
             handleClick(item)
           },
-          additionalClass: 'select-control-custom',
+          additionalClass,
           preventClickThrough: true
         })
         setControlButton(selectControl)

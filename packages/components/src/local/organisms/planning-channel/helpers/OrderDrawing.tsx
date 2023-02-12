@@ -296,7 +296,13 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
           </div>
-          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} onMount={onMount} />
+          <StandardAreaMenu
+            areas={standardPolygons}
+            showControl={!!(standardPolygons && standardPolygons.length > 0)}
+            handler={useStandardArea}
+            onMount={onMount}
+            additionalClass='select-control-order-drawing'
+          />
         </div>
         <GeomanControls
           options={drawOptions}
