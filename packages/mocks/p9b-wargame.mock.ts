@@ -1113,7 +1113,8 @@ const game: Wargame = {
                                 "a_Equipment": "_6",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2008",
@@ -2018,7 +2019,8 @@ const game: Wargame = {
                                 "a_Equipment": "_16",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2241",
@@ -4127,7 +4129,8 @@ const game: Wargame = {
                                 "a_Equipment": "_38",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3182",
@@ -4379,7 +4382,8 @@ const game: Wargame = {
                                 "a_Equipment": "_6",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1487",
@@ -4729,7 +4733,8 @@ const game: Wargame = {
                                 "a_Equipment": "_36",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA311",
@@ -5434,7 +5439,8 @@ const game: Wargame = {
                                 "a_Equipment": "_3",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1014",
@@ -6138,7 +6144,8 @@ const game: Wargame = {
                                 "a_Equipment": "_33",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2718",
@@ -6641,7 +6648,8 @@ const game: Wargame = {
                                 "a_Equipment": "_42",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1974",
@@ -7243,7 +7251,8 @@ const game: Wargame = {
                                 "a_Equipment": "_23",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA687",
@@ -7345,7 +7354,8 @@ const game: Wargame = {
                                 "a_Equipment": "_18",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1925",
@@ -7700,7 +7710,8 @@ const game: Wargame = {
                                 "a_Equipment": "_30",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA157",
@@ -12663,7 +12674,8 @@ const game: Wargame = {
                                 "a_Equipment": "_12",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2739",
@@ -12865,7 +12877,8 @@ const game: Wargame = {
                                 "a_Equipment": "_1",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA86",
@@ -14612,7 +14625,8 @@ const game: Wargame = {
                                 "a_Equipment": "_45",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2786",
@@ -14768,7 +14782,8 @@ const game: Wargame = {
                                 "a_Equipment": "_34",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3075",
@@ -15067,7 +15082,8 @@ const game: Wargame = {
                                 "a_Equipment": "_11",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA147",
@@ -15264,7 +15280,8 @@ const game: Wargame = {
                                 "a_Equipment": "_13",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1857",
@@ -15416,7 +15433,8 @@ const game: Wargame = {
                                 "a_Equipment": "_9",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1535",
@@ -18451,7 +18469,8 @@ const game: Wargame = {
                                 "a_Equipment": "_9",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1449",
@@ -19462,7 +19481,8 @@ const game: Wargame = {
                                 "a_Equipment": "_8",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2859",
@@ -19562,7 +19582,8 @@ const game: Wargame = {
                                 "a_Equipment": "_39",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA544",
@@ -19614,7 +19635,8 @@ const game: Wargame = {
                                 "a_Equipment": "_22",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1013",
@@ -20320,7 +20342,8 @@ const game: Wargame = {
                                 "a_Equipment": "_46",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3190",
@@ -20471,7 +20494,8 @@ const game: Wargame = {
                                 "a_Equipment": "_19",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA400",
@@ -21018,7 +21042,8 @@ const game: Wargame = {
                                 "a_Equipment": "_1",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA747",
@@ -21222,7 +21247,8 @@ const game: Wargame = {
                                 "a_Equipment": "_20",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA518",
@@ -21376,7 +21402,8 @@ const game: Wargame = {
                                 "a_Equipment": "_21",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA917",
@@ -21580,7 +21607,8 @@ const game: Wargame = {
                                 "a_Equipment": "_9",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA540",
@@ -21984,7 +22012,8 @@ const game: Wargame = {
                                 "a_Equipment": "_5",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2068",
@@ -22288,7 +22317,8 @@ const game: Wargame = {
                                 "a_Equipment": "_33",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA702",
@@ -24749,7 +24779,8 @@ const game: Wargame = {
                                 "a_Equipment": "_30",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1427",
@@ -25101,7 +25132,8 @@ const game: Wargame = {
                                 "a_Equipment": "_24",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2744",
@@ -25551,7 +25583,8 @@ const game: Wargame = {
                                 "a_Equipment": "_17",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2186",
@@ -26798,7 +26831,8 @@ const game: Wargame = {
                                 "a_Equipment": "_13",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3003",
@@ -26950,7 +26984,8 @@ const game: Wargame = {
                                 "a_Equipment": "_24",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2779",
@@ -28453,7 +28488,8 @@ const game: Wargame = {
                                 "a_Equipment": "_25",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1819",
@@ -29296,7 +29332,8 @@ const game: Wargame = {
                                 "a_Equipment": "_28",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1499",
@@ -30854,7 +30891,8 @@ const game: Wargame = {
                                 "a_Equipment": "_11",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2444",
@@ -30906,7 +30944,8 @@ const game: Wargame = {
                                 "a_Equipment": "_13",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2129",
@@ -31613,7 +31652,8 @@ const game: Wargame = {
                                 "a_Equipment": "_15",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3355",
@@ -32307,7 +32347,8 @@ const game: Wargame = {
                                 "a_Equipment": "_46",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA69",
@@ -34863,7 +34904,8 @@ const game: Wargame = {
                                 "a_Equipment": "_28",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2639",
@@ -35310,7 +35352,8 @@ const game: Wargame = {
                                 "a_Equipment": "_24",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2307",
@@ -36568,7 +36611,8 @@ const game: Wargame = {
                                 "a_Equipment": "_18",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3195",
@@ -36969,7 +37013,8 @@ const game: Wargame = {
                                 "a_Equipment": "_22",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3129",
@@ -37124,7 +37169,8 @@ const game: Wargame = {
                                 "a_Equipment": "_47",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1390",
@@ -40544,7 +40590,8 @@ const game: Wargame = {
                                 "a_Equipment": "_9",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1608",
@@ -42190,7 +42237,8 @@ const game: Wargame = {
                                 "a_Equipment": "_25",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3172",
@@ -43349,7 +43397,8 @@ const game: Wargame = {
                                 "a_Equipment": "_21",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2028",
@@ -46192,7 +46241,8 @@ const game: Wargame = {
                                 "a_Equipment": "_44",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_1"
+                                "a_Type": "ISTAR_1",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2847",
@@ -46244,7 +46294,8 @@ const game: Wargame = {
                                 "a_Equipment": "_6",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1960",
@@ -48235,7 +48286,8 @@ const game: Wargame = {
                                 "a_Equipment": "_33",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1844",
@@ -48689,7 +48741,8 @@ const game: Wargame = {
                                 "a_Equipment": "_31",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1899",
@@ -50420,7 +50473,8 @@ const game: Wargame = {
                                 "a_Equipment": "_40",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2359",
@@ -51282,7 +51336,8 @@ const game: Wargame = {
                                 "a_Equipment": "_32",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2349",
@@ -51780,7 +51835,8 @@ const game: Wargame = {
                                 "a_Equipment": "_39",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2155",
@@ -51933,7 +51989,8 @@ const game: Wargame = {
                                 "a_Equipment": "_7",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1492",
@@ -53132,7 +53189,8 @@ const game: Wargame = {
                                 "a_Equipment": "_37",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA188",
@@ -53677,7 +53735,8 @@ const game: Wargame = {
                                 "a_Equipment": "_15",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA78",
@@ -54780,7 +54839,8 @@ const game: Wargame = {
                                 "a_Equipment": "_36",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA774",
@@ -54884,7 +54944,8 @@ const game: Wargame = {
                                 "a_Equipment": "_47",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 260,
-                                "a_Type": "ISTAR_5"
+                                "a_Type": "ISTAR_5",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA1094",
@@ -55679,7 +55740,8 @@ const game: Wargame = {
                                 "a_Equipment": "_8",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 280,
-                                "a_Type": "ISTAR_6"
+                                "a_Type": "ISTAR_6",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA234",
@@ -55829,7 +55891,8 @@ const game: Wargame = {
                                 "a_Equipment": "_47",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 240,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA871",
@@ -56183,7 +56246,8 @@ const game: Wargame = {
                                 "a_Equipment": "_17",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_2"
+                                "a_Type": "ISTAR_2",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA415",
@@ -56335,7 +56399,8 @@ const game: Wargame = {
                                 "a_Equipment": "_47",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA2138",
@@ -58136,7 +58201,8 @@ const game: Wargame = {
                                 "a_Equipment": "_27",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 220,
-                                "a_Type": "ISTAR_4"
+                                "a_Type": "ISTAR_4",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA3091",
@@ -58593,7 +58659,8 @@ const game: Wargame = {
                                 "a_Equipment": "_36",
                                 "a_Number_Aircraft": 10,
                                 "a_Speed": 200,
-                                "a_Type": "ISTAR_3"
+                                "a_Type": "ISTAR_3",
+                                "a_Search_Rate": 110
                             },
                             "condition": "working",
                             "contactId": "CA812",
@@ -60630,7 +60697,8 @@ const game: Wargame = {
                         "a_C4_Status",
                         "a_Type",
                         "a_Airfield",
-                        "a_Equipment"
+                        "a_Equipment",
+                        "a_Search_Rate"
                     ],
                     "conditions": [],
                     "states": [],
@@ -60825,6 +60893,14 @@ const game: Wargame = {
                     "description": "Host airfield (id)",
                     "editableByPlayer": false,
                     "name": "Airfield"
+                },
+                {
+                    "attrId": "a_Search_Rate",
+                    "attrType": "AttributeTypeNumber",
+                    "description": "Search rate km2/aircraft/hr",
+                    "editableByPlayer": false,
+                    "defaultValue": 100,
+                    "name": "SearchRate"
                 }
             ]
         },
