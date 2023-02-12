@@ -510,6 +510,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   interactionMessages={filteredInteractionMessages}
                   planningMessages={filteredPlanningMessages}
                   forces={allForces}
+                  currentTurn={currentTurn}
                   periods={allPeriods}
                   gameDate={gameDate}
                   gameTurnLength={gameTurnTime}

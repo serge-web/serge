@@ -46,7 +46,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,
   platformTypes, onDetailPanelOpen, onDetailPanelClose, mapPostBack,
-  gameTurnLength, onLocationEditorLoaded
+  gameTurnLength, onLocationEditorLoaded, currentTurn
 }: PropTypes) => {
   const [rows, setRows] = useState<AdjudicationRow[]>([])
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
@@ -444,7 +444,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const countRemainingInteractions = (): void => {
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const contacts: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true)
+    const contacts: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
     if (Array.isArray(contacts)) {
       const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
       setDialogMessage(message)
@@ -456,7 +456,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const getInteraction = (): void => {
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const results: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false)
+    const results: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
     console.log('get next inter recieved:', results)
     if (results === undefined) {
       setDialogMessage('No interactions found')

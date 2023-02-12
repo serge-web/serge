@@ -781,7 +781,7 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): t
     })
   })
   const boxes: turf.Feature[] = []
-  if (bounds) {
+  if (bounds && bounds.isValid()) {
     const height = bounds.getNorth() - bounds.getSouth()
     const width = bounds.getEast() - bounds.getWest()
     const heightDelta = height / binsPerSide
