@@ -7,7 +7,7 @@ export interface Area {
   name: string,
   // which forces use this area
   usedBy: Array<ForceData['uniqid']>
-  // the bounds of the area
+  // the bounds of the area. Note that GeoJSON stores them in lng/lat order
   polygon: GeoJSON.Polygon
 }
 
