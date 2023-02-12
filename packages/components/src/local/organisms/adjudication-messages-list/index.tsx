@@ -552,7 +552,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const descriptionFor = (geometry?: Geometry): string => {
     if (geometry) {
-      console.log('geom', geometry)
       switch (geometry.type) {
         case 'LineString': {
           const box = geometry as LineString
