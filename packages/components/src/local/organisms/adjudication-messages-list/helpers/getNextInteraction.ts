@@ -132,7 +132,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
       return { time: tStart, geometry: undefined }
     case INTER_AT_RANDOM:
       // trim the period to the current turn period
-      const period = { start:  tStart, end: tEnd}
+      const period = { start: tStart, end: tEnd }
       const trimmed = trimPeriod(period, turn)
       return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: undefined }
   }
@@ -561,7 +561,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
         const activityEvents = activity.events
         let endActivityGenerated = false
         if (activityEvents) {
-          activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {            
+          activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {
             const thisTime = timeFor(plan, activity, event, turn)
             if (thisTime) {
               const interactionId = generateEventId(plan._id, event, turnNumber)
