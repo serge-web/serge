@@ -70,8 +70,8 @@ const roundedRandomTime = (start: number, end: number): number => {
   return start + rounded
 }
 
-export const trimPeriod = (period: TurnTimes, turn: TurnTimes ): TurnTimes => {
-  return { start: Math.max(period.start, turn.start), end: Math.min(period.end, turn.end) } 
+export const trimPeriod = (period: TurnTimes, turn: TurnTimes): TurnTimes => {
+  return { start: Math.max(period.start, turn.start), end: Math.min(period.end, turn.end) }
 }
 
 const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT, turn: TurnTimes): TimePlusGeometry => {
@@ -89,7 +89,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
         const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === lastPolygon.uniqid)
         if (plannedActivity) {
           const props = plannedActivity.geometry.properties as PlannedProps
-          period = { start: props.startTime, end:props.endTime }
+          period = { start: props.startTime, end: props.endTime }
           geomName = lastPolygon.uniqid
         }
       }
@@ -110,13 +110,12 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
           return { time: period.end, geometry: geomName }
         case INTER_AT_START:
           return { time: period.start, geometry: geomName }
-        case INTER_AT_RANDOM: 
+        case INTER_AT_RANDOM:
         {
           // trim the period to the current turn period
           const trimmed = trimPeriod(period, turn)
-          return { time: roundedRandomTime(trimmed[0], trimmed[1]), geometry: geomName }
-        } 
-        
+          return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: geomName }
+        }
       }
     } else {
       console.warn('Cannot breakdown activity, locations missing')
@@ -132,7 +131,10 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
     case INTER_AT_START:
       return { time: tStart, geometry: undefined }
     case INTER_AT_RANDOM:
-      return { time: roundedRandomTime(tStart[0], tEnd[1]), geometry: undefined }
+      // trim the period to the current turn period
+      const period = { start:  tStart, end: tEnd}
+      const trimmed = trimPeriod(period, turn)
+      return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: undefined }
   }
 }
 
@@ -538,8 +540,11 @@ const endsWithMovement = (activity?: PlannedActivityGeometry[]): boolean => {
   }
 }
 
-const generateInteractionId = (planId: string, event: INTERACTION_SHORT_CIRCUIT, turn: number) => {
-  return planId + '_' + event + '_' + turn
+const generateEventId = (planId: string, event: INTERACTION_SHORT_CIRCUIT, turn: number) => {
+  // note: if this is a random marker we include the turn number in the id,
+  // note: so that we can create interaction in each turn
+  const useTurn = event === INTER_AT_RANDOM ? '_' + turn : ''
+  return planId + '_' + event + useTurn
 }
 
 export const getEventList = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
@@ -556,17 +561,17 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
         const activityEvents = activity.events
         let endActivityGenerated = false
         if (activityEvents) {
-          activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {
+          activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {            
             const thisTime = timeFor(plan, activity, event, turn)
             if (thisTime) {
-              const interactionId = generateInteractionId(plan._id, event, turnNumber)
+              const interactionId = generateEventId(plan._id, event, turnNumber)
               // check this hasn't been processed already
               if (interactionIDs.includes(interactionId)) {
                 console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
                 // check the time of this event has passed
-                if (thisTime.time <= cutoffTime) {
+                if (thisTime.time < cutoffTime) {
                   if (event === 'i-end') {
                     endActivityGenerated = true
                   }
@@ -588,7 +593,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
           // does this activity end in a line-string?
           const locData = plan.message.location
           if (locData && locData.length > 0 && endsWithMovement(locData)) {
-            const interactionId = generateInteractionId(plan._id, INTER_AT_END, turnNumber)
+            const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
             if (!interactionIDs.includes(interactionId)) {
               const planned = locData[locData.length - 1]
@@ -779,12 +784,12 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
-  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, 
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
   forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
 
-  const turnPeriod: TurnTimes = { start: gameTimeVal, end: gameTurnEndVal}
+  const turnPeriod: TurnTimes = { start: gameTimeVal, end: gameTurnEndVal }
 
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : gameTimeVal
 
@@ -842,7 +847,6 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const windowEnd = gameTimeVal + currentWindowMillis
 
       // if we're doing get-all, don't bother with shortcircuits
-
       if (getAll) {
         allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
       } else {
