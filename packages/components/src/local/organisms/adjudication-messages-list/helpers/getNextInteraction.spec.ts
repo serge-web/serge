@@ -1,12 +1,12 @@
 import { ADJUDICATION_OUTCOMES, INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
-import { GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { Asset, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
 import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
+import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -51,7 +51,31 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
-!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
+!7 && console.log('dummy',overview, turn, shortPlanningMessages, forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
+
+it('calculates search rate', () => {
+  const istarAssets: Asset[] = []
+  forces.some((force) => {
+    if(force.assets) {
+      const istar = force.assets.filter((asset) => asset.platformTypeId.toLowerCase().includes('istar'))
+      if (istar.length){
+        istarAssets.push(...istar)
+      }
+    } 
+  })
+  const list = istarAssets.slice(0, 4)
+  let ctr = 2
+  const items: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }> = list.map((item) => {
+    return {
+      asset: item.uniqid,
+      number: ctr++
+    }
+  })
+  const emptyRate = istarSearchRate([], forces, 1000)
+  expect(emptyRate).toEqual(1000)
+  const rate = istarSearchRate(items, forces, 1000)
+  expect(rate).toEqual(1540)
+})
 
 it('generates movement outcomes', () => {
   const planWithReturn = shortPlanningMessages.find((plan) => {
