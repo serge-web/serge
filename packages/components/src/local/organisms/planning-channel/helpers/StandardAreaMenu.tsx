@@ -21,9 +21,11 @@ type StandardAreaMenuProps = {
    * Note: control from the map
    * */
   showControl: boolean
+
+  onMount: (control: Select) => void
 }
 
-const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, showControl }) => {
+const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, showControl, onMount }) => {
   const map = useMap()
 
   const [controlButton, setControlButton] = useState<Select | undefined>(undefined)
@@ -70,6 +72,7 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
       if (controlButton) {
         if (showControl) {
           controlButton.addTo(map)
+          onMount(controlButton)
         } else {
           controlButton.remove()
         }

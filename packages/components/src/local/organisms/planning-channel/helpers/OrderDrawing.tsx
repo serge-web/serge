@@ -7,13 +7,14 @@ import { Geometry } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import _ from 'lodash'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
 import styles from '../styles.module.scss'
+import { Select } from '../typings'
 import { CustomTranslation } from './CustomTranslation'
 import StandardAreaMenu from './StandardAreaMenu'
 
@@ -47,6 +48,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   // this next state is a workaround, to prevent GeoMan calling
   // onCreate multiple times
   const [lastPendingGeometry, setLastPendingGeometry] = useState<PendingItem | undefined>(undefined)
+
+  const standardAreaBtn = useRef<Select>();
 
   const map = useMap()
 
@@ -84,8 +87,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           // if GeoMan hasn't closed the poly, do it for it
           const data = longLats[0]
           if (!_.isEqual(data[0], data[data.length - 1])) {
+            console.log('closing poly')
             data.push(data[0])
           }
+          console.log('store polygon', longLats)
           res = {
             type: 'Polygon',
             coordinates: longLats
@@ -229,6 +234,10 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
         layers.forEach((layer: Layer) => layer.remove && layer.remove())
       }
     }
+    // when we cancel drawing, this component is unmount => we should remove the Standard Area Menu also
+    if (standardAreaBtn.current) {
+      standardAreaBtn.current.remove()
+    }
     cancelled()
   }
 
@@ -262,7 +271,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     const res: any = {
       _latLngs: coords[0]
     }
-    // TODO: we need to cancel the current polygon editing, but now the whole set of shapes
     // cancel drawing
     if (workingLayer) {
       workingLayer.remove()
@@ -277,14 +285,18 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     setWorkingLayer(e.workingLayer)
   }
 
+  const onMount = (controlButton: Select) => {
+    standardAreaBtn.current = controlButton
+  }
+
   return (
-    <> {(activity) &&
+    <> {activity &&
       <>
         <div className='leaflet-top leaflet-left'>
           <div className='leaflet-control'>
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
           </div>
-          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} />
+          <StandardAreaMenu areas={standardPolygons} showControl={!!(standardPolygons && standardPolygons.length > 0)} handler={useStandardArea} onMount={onMount} />
         </div>
         <GeomanControls
           options={drawOptions}
