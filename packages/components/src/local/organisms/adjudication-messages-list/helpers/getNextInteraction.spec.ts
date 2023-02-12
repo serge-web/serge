@@ -6,11 +6,12 @@ import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
 import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, TimedIntervention } from './getNextInteraction'
+import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
+const overview = P9BMock.data.overview
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
@@ -66,14 +67,17 @@ it('generates movement outcomes', () => {
   })
   if (planWithReturn) {
     const cutOffTime = moment().valueOf()
-    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities)
+    const turnEnd = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+    const turnEndVal = moment.utc(turnEnd).valueOf()
+    const turnPeriod: TurnTimes = { start: moment.utc(overview.gameDate).valueOf(), end: turnEndVal}
+    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities, turnPeriod)
     expect(list).toBeTruthy()
     expect(list.length).toBeGreaterThan(0)
     const firstEvent = list[0]
     const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
     expect(outcomes).toBeTruthy()
     const listWithInteraction = [firstEvent.id]
-    const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities)
+    const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities, turnPeriod)
     expect(list2.length).toEqual(0)
   } else {
     expect(false).toBeTruthy() // should have found plan to test
@@ -111,6 +115,19 @@ it('handles spatial outcomes', () => {
   } else {
     expect(false).toBeTruthy() // failed to find plan and activity
   }
+})
+
+it('trims period', () => {
+  const p1: TurnTimes = { start: 100, end: 200}
+  const p2: TurnTimes = { start: 50, end: 250}
+  const p3: TurnTimes = { start: 150, end: 180}
+  const t1 = trimPeriod(p1, p2)
+  expect(t1.start).toEqual(100)
+  expect(t1.end).toEqual(200)
+
+  const t2 = trimPeriod(p1, p3)
+  expect(t2.start).toEqual(150)
+  expect(t2.end).toEqual(180)
 })
 
 it('gets count of', () => {
