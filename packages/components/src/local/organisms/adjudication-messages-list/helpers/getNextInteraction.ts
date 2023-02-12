@@ -130,11 +130,12 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
       return { time: tEnd, geometry: undefined }
     case INTER_AT_START:
       return { time: tStart, geometry: undefined }
-    case INTER_AT_RANDOM:
+    case INTER_AT_RANDOM: {
       // trim the period to the current turn period
       const period = { start: tStart, end: tEnd }
       const trimmed = trimPeriod(period, turn)
       return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: undefined }
+    }
   }
 }
 
