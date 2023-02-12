@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
 import { Area, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
-import { Geometry } from 'geojson'
+import { Geometry, Position } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
 import 'leaflet-notifications'
 import _ from 'lodash'
@@ -87,10 +87,8 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
           // if GeoMan hasn't closed the poly, do it for it
           const data = longLats[0]
           if (!_.isEqual(data[0], data[data.length - 1])) {
-            console.log('closing poly')
             data.push(data[0])
           }
-          console.log('store polygon', longLats)
           res = {
             type: 'Polygon',
             coordinates: longLats
@@ -246,7 +244,6 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // note: it appears that another `onCreate` handler gets declared
     // note: this workaround prevents successive create events
     // note: propagating
-    console.log('on create', e.shape, e.layer)
     setWorkingLayer(undefined)
 
     if (lastPendingGeometry) {
@@ -268,8 +265,14 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   /** handler for player selecting a standard area */
   const useStandardArea = (area: Area) => {
     const coords = area.polygon.coordinates
+    // processing is expecting Leaflet lat-longs not number coords.
+    const lCoords: LatLng[][] = coords.map((item: Position[]) => {
+      return item.map((pos: Position) => {
+        return L.latLng(pos[0], pos[1])
+      })
+    })
     const res: any = {
-      _latLngs: coords[0]
+      _latlngs: lCoords
     }
     // cancel drawing
     if (workingLayer) {
@@ -278,7 +281,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     }
 
     // simulate playe completing shape
-    onCreate({ shape: 'polygon', layer: res as Layer })
+    onCreate({ shape: 'Polygon', layer: res as Layer })
   }
 
   const onDrawStart = (e: { shape: string, workingLayer: Layer }) => {
