@@ -294,13 +294,13 @@ export const istarSearchRate = (own: Array<{ asset: Asset['uniqid'], number: num
       count: number
       rate: number
     }
-    const assetsWithCount = own.map((item): AssetWithCount => { 
+    const assetsWithCount = own.map((item): AssetWithCount => {
       const asset = findAsset(forces, item.asset)
       const attrs = asset.attributes
       const rate = (attrs && attrs.a_Search_Rate) ? attrs.a_Search_Rate as number : defaultRate
-      return {asset: asset, count: item.number, rate: rate}
+      return { asset: asset, count: item.number, rate: rate }
     })
-    const searchRates = assetsWithCount.map((item): number => { 
+    const searchRates = assetsWithCount.map((item): number => {
       const rate = (item.asset.attributes && item.asset.attributes.a_Search_Rate) ? item.asset.attributes.a_Search_Rate as number : defaultRate
       const assetRate = item.count > 0 ? item.count * rate : rate
       return assetRate

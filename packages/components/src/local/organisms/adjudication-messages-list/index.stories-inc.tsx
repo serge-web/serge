@@ -222,7 +222,6 @@ ZeroInteractions.args = {
   messages: planningMessages as CoreMessage[]
 }
 
-
 // find an istar asset
 let istarAsset: Asset | undefined
 forces.some((force) => {
@@ -237,7 +236,7 @@ forces.some((force) => {
 })
 const istarEvent = planningMessages.find((msg) => msg.message.activity.includes('ISTAR') && msg.message.ownAssets && msg.message.ownAssets.length > 0)
 if (istarAsset && istarEvent && istarEvent.message.ownAssets) {
-  istarEvent.message.ownAssets.push({asset: istarAsset.uniqid, number: 4})
+  istarEvent.message.ownAssets.push({ asset: istarAsset.uniqid, number: 4 })
 }
 const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const TestIstar = Template.bind({})

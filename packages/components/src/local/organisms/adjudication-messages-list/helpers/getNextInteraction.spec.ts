@@ -51,17 +51,17 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
-!7 && console.log('dummy',overview, turn, shortPlanningMessages, forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
+!7 && console.log('dummy', overview, turn, shortPlanningMessages, forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
 
 it('calculates search rate', () => {
   const istarAssets: Asset[] = []
   forces.some((force) => {
-    if(force.assets) {
+    if (force.assets) {
       const istar = force.assets.filter((asset) => asset.platformTypeId.toLowerCase().includes('istar'))
-      if (istar.length){
+      if (istar.length) {
         istarAssets.push(...istar)
       }
-    } 
+    }
   })
   const list = istarAssets.slice(0, 4)
   let ctr = 2

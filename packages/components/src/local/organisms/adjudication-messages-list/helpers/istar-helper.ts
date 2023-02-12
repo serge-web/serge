@@ -63,9 +63,9 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
   const twoDP = (val: number) => {
     return Math.floor(val * 100) / 100
   }
-  const timePeriod = '[' + shortDate(moment.utc(startD).toISOString()) + ' - ' +  shortDate(moment.utc(endD).toISOString()) + ']'
-  console.log('ISTAR detection calc', ' area (km2):', twoDP(areaKM2), ' time:', timePeriod, ' duration (hrs):', twoDP(durationHrs), 
-  ' rate:', twoDP(searchRateKm2perHour), ' prob:', twoDP(searchProb), ' in area:', assetsInArea.length, ' detected:', numToTake)
+  const timePeriod = '[' + shortDate(moment.utc(startD).toISOString()) + ' - ' + shortDate(moment.utc(endD).toISOString()) + ']'
+  console.log('ISTAR detection calc', ' area (km2):', twoDP(areaKM2), ' time:', timePeriod, ' duration (hrs):', twoDP(durationHrs),
+    ' rate:', twoDP(searchRateKm2perHour), ' prob:', twoDP(searchProb), ' in area:', assetsInArea.length, ' detected:', numToTake)
 
   // create the perceptions
   const perceptions = observedAssets.map((item: {force: ForceData, asset: Asset}): PerceptionOutcome => {
