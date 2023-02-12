@@ -1,8 +1,8 @@
 import { CollabStatusBoard, NewMessage } from '@serge/components'
 import { CHANNEL_COLLAB, MESSAGE_SENT_INTERACTION, PLAIN_INTERACTION } from '@serge/config'
-import { ChannelCollab, MessageChannel, MessageCustom, ParticipantCollab } from '@serge/custom-types'
-import { getUnsentMessage, saveUnsentMessage, clearUnsentMessage } from '@serge/helpers'
+import { ChannelCollab, MessageChannel, MessageCustom, MessageDetails, ParticipantCollab } from '@serge/custom-types'
 import { MessageSentInteraction, PlainInteraction } from '@serge/custom-types/player-log'
+import { clearUnsentMessage, getUnsentMessage, saveUnsentMessage } from '@serge/helpers'
 import '@serge/themes/App.scss'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
@@ -100,6 +100,15 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
     saveNewActivityTimeMessage(roleId, newMessage, state.currentWargame)(dispatch)
   }
 
+  const messageHandler = (details: MessageDetails, message: Object): void => {
+    console.log('message', message)
+    const sendMessage: MessageSentInteraction = {
+      aType: MESSAGE_SENT_INTERACTION
+    }
+    saveNewActivityTimeMessage(details.from.roleId, sendMessage, state.currentWargame)(dispatch)
+    saveMessage(state.currentWargame, details, message)()
+  }
+
   const cacheMessage = (value: string | any, messageType: string): void | string => {
     return value && saveUnsentMessage(value, state.currentWargame, selectedForceId, state.selectedRole, channelId, messageType)
   }
@@ -158,7 +167,7 @@ const CollabChannel: React.FC<{ channelId: string }> = ({ channelId }) => {
           saveNewActivityTimeMessage={saveNewActivityTimeMessage}
           selectedForce={state.selectedForce}
           selectedRoleName={state.selectedRoleName}
-          dispatch={dispatch}
+          postBack={messageHandler}
         />
       }
     </div>
