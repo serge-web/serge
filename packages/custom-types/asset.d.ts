@@ -1,5 +1,11 @@
 import { LaydownTypes } from '@serge/config'
-import { AttributeValues, AttributeValues2, Perception, PlatformTypeData, Role, RouteStatus, RouteTurn } from '.'
+import { AttributeValues, AttributeValues2, ForceData, Perception, PlatformTypeData, Role, RouteStatus, RouteTurn } from '.'
+
+export type AssetWithForce = {
+  force: ForceData
+  asset: Asset
+}
+
 export interface Asset {
   /**
    * the name of this asset

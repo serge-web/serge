@@ -9,4 +9,5 @@ export default interface PropTypes {
   isSelected?: boolean
   assetsCache: LRUCache<string, string>
   force?: string
+  health?: number
 }

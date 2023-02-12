@@ -133,11 +133,10 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       */
     const shadeBackground = !imageSrc.startsWith('n_')
     const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
-
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
-        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} isSelected={isSelected} assetsCache={assetsCache} />}
+        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} health={asset.health} isSelected={isSelected} assetsCache={assetsCache} />}
       </div>)
     )
   }
@@ -212,7 +211,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           })
         })
         .addTo(clusterGroup as MarkerClusterGroup)
-        .bindPopup(asset.name)
+        .bindPopup(asset.name + ', ' + asset.id)
         .on('click', interactiveIcon)
         .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
     )
@@ -221,19 +220,19 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   return <>
     {
       <LayerGroup key={'force-' + label}>
+        {rawRangeRings}
+        {clusteredRangeRings}
         <MarkerCluster markers={clustereredMarkers} />
         {rawMarkers && rawMarkers.map((asset: AssetRow) => {
           const markerOption = getRawMarkerOption(asset)
           return <Marker
             pmIgnore
-            interactive={false}
+            interactive={true}
             {...markerOption}
           >
             <Tooltip>{asset.name}</Tooltip>
           </Marker>
         })}
-        {rawRangeRings}
-        {clusteredRangeRings}
       </LayerGroup >
     }
   </>

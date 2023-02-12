@@ -3,7 +3,7 @@
 * To generate an updated version, please run `yarn genreg`
 ***/
 
-export { default as Asset } from './asset.d'
+export * from './asset.d'
 export * from './area-data.d'
 export * from './attributes'
 export * from './channel-data.d'

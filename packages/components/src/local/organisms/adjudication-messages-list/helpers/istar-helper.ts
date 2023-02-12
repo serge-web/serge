@@ -7,7 +7,8 @@ import { shuffle } from 'lodash'
 import moment from 'moment'
 import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
 
-const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
+/** check if the point provided is in the polygon provided */
+export const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
   const otherPt = turf.point([point[1], point[0]])
   return booleanPointInPolygon(otherPt, area)
 }
@@ -113,8 +114,15 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   // NOTE: for now, this is fixed
   const searchRateKm2perHour = 200000
 
+  // find the number of friendly assets involved
+  const ownAssets = geom.plan.message.ownAssets
+  // in the next line we handle num assets potentially being a sting by use of '+' operator, which forces to number
+  const numAssets = (ownAssets && ownAssets.length) ? ownAssets.map((item) => +item.number).reduce((a: number, b: number) => a + b, 0) : 1
+
+  const combinedSearchRate = searchRateKm2perHour * numAssets
+
   // run the calculator
-  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, searchRateKm2perHour, 'In interaction area')
+  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area')
 
   const targetPerceptions: PerceptionOutcomes = []
 

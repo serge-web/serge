@@ -6,7 +6,7 @@ import {
 import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
-import L from 'leaflet'
+import L, { Polygon } from 'leaflet'
 import { uniqueId } from 'lodash'
 import { randomArrayItem } from '../../organisms/support-panel/helpers/gen-order-data'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
@@ -239,6 +239,8 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
   return res
 }
 
+export const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
+
 const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res: number | undefined,
   platformTypes: PlatformTypeData[], forces: ForceData[], attributeTypes: AttributeTypes, withComprising: boolean): Asset[] => {
   const assets: Asset[] = []
@@ -253,7 +255,6 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       console.warn('failed to find platform type with index', platformTypeCtr, platformTypes.length)
       continue
     }
-    const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
     const statuses = platformType.states
 
     const healthValues = [100, 75, 50, 25, 0]
@@ -348,6 +349,42 @@ export const fixPerceivedPositions = (forces: ForceData[]): ForceData[] => {
   return forces
 }
 
+export const updateBounds = (constraints: MappingConstraints, forces: ForceData[]): ForceData[] => {
+  const updateInBounds = (assets: Asset[] | undefined, bounds: Polygon): Asset[] | undefined => {
+    assets && assets.forEach((asset) => {
+      if (asset.location) {
+        const posit: [number, number] = randomPointInPoly(bounds).geometry.coordinates
+        asset.location = [fourDecimalTrunc(posit[1]), fourDecimalTrunc(posit[0])]
+        asset.perceptions.forEach((per) => {
+          injectPerceivedPosition(per, asset.location)
+        })
+      }
+    })
+    return assets
+  }
+
+  const bounds = L.latLngBounds(constraints.bounds)
+  const centre = bounds.getCenter()
+
+  const centreLat = centre.lat
+  const centreLng = centre.lng
+
+  const tCentre = L.latLng(bounds.getNorth(), centreLng)
+  const bCentre = L.latLng(bounds.getSouth(), centreLng)
+  const lCentre = L.latLng(centreLat, bounds.getWest())
+  // const rCentre = L.latLng(centreLat, bounds.getEast())
+
+  const bluePoly = L.polygon([bounds.getNorthWest(), tCentre, centre, lCentre, bounds.getNorthWest()])
+  const redPoly = L.polygon([bounds.getNorthEast(), tCentre, bCentre, bounds.getSouthEast(), bounds.getNorthEast()])
+  const greenPoly = L.polygon([bounds.getSouthWest(), bCentre, centre, lCentre, bounds.getSouthWest()])
+
+  forces[1].assets = updateInBounds(forces[1].assets, bluePoly)
+  forces[2].assets = updateInBounds(forces[2].assets, redPoly)
+  forces[3].assets = updateInBounds(forces[3].assets, greenPoly)
+
+  return forces
+}
+
 export const generateTestData2 = (count: number, constraints: MappingConstraints, forces: ForceData[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes): ForceData[] => {
   const genericPlatforms = platformTypes.filter((pType) => pType.uniqid.startsWith('_'))
@@ -364,10 +401,10 @@ export const generateTestData2 = (count: number, constraints: MappingConstraints
   const tCentre = L.latLng(bounds.getNorth(), centreLng)
   const bCentre = L.latLng(bounds.getSouth(), centreLng)
   const lCentre = L.latLng(centreLat, bounds.getWest())
-  const rCentre = L.latLng(centreLat, bounds.getEast())
+  // const rCentre = L.latLng(centreLat, bounds.getEast())
 
   const bluePoly = L.polygon([bounds.getNorthWest(), tCentre, centre, lCentre, bounds.getNorthWest()])
-  const redPoly = L.polygon([bounds.getNorthEast(), tCentre, centre, rCentre, bounds.getNorthEast()])
+  const redPoly = L.polygon([bounds.getNorthEast(), tCentre, bCentre, bounds.getSouthEast(), bounds.getNorthEast()])
   const greenPoly = L.polygon([bounds.getSouthWest(), bCentre, centre, lCentre, bounds.getSouthWest()])
 
   const newForces: ForceData[] = deepCopy(forces)

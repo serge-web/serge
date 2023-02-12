@@ -1,12 +1,12 @@
-import { PLANNING_MESSAGE } from '@serge/config'
-import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { ADJUDICATION_OUTCOMES, INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
 import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
+import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, TimedIntervention } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
@@ -17,9 +17,9 @@ let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | Plan
 const messages = planningMessagesBulk
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+const shortPlanningMessages = planningMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED && !msg.details.interaction) as MessagePlanning[]
 
-!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
+const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
 const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
   const selectedForce = P9BMock.data.forces.forces[1]
@@ -48,6 +48,70 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   }
   return msg
 }
+
+!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
+
+it('generates movement outcomes', () => {
+  const planWithReturn = shortPlanningMessages.find((plan) => {
+    const loc = plan.message.location
+    const act = plan.message.activity
+    const goodies = ['ASW', 'Patrol', 'Refuel']
+    const goodPlan = goodies.some((item) => act.indexOf(item) !== -1)
+    if (goodPlan && loc && loc.length > 0) {
+      const lastLeg = loc[loc.length - 1]
+      return (lastLeg.geometry.geometry.type === 'LineString')
+    } else {
+      return false
+    }
+  })
+  if (planWithReturn) {
+    const cutOffTime = moment().valueOf()
+    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities)
+    expect(list).toBeTruthy()
+    expect(list.length).toBeGreaterThan(0)
+    const firstEvent = list[0]
+    const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
+    expect(outcomes).toBeTruthy()
+    const listWithInteraction = [firstEvent.id]
+    const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities)
+    expect(list2.length).toEqual(0)
+  } else {
+    expect(false).toBeTruthy() // should have found plan to test
+  }
+})
+
+it('handles spatial outcomes', () => {
+  let dca: PlanningActivity | undefined
+  const plan = planningMessages2.find((plan) => plan.message.activity === 'f-green-Land-Land Close Combat')
+  activities.find((force) => {
+    return force.groupedActivities.find((group) => group.activities.find((act) => {
+      if (act.uniqid === 'f-green-Land-Land Close Combat') {
+        dca = act
+        return true
+      } else {
+        return false
+      }
+    }))
+  })
+  expect(dca).toBeTruthy()
+  const outcomes: MessageAdjudicationOutcomes = {
+    messageType: ADJUDICATION_OUTCOMES,
+    healthOutcomes: [],
+    locationOutcomes: [],
+    perceptionOutcomes: [],
+    narrative: '',
+    Reference: plan ? plan.message.Reference : 'bb',
+    important: false
+  }
+  // find a plan using this activity
+  if (plan && dca) {
+    insertSpatialOutcomesFor(plan, outcomes, dca, forces)
+    expect(outcomes.healthOutcomes.length).toBeTruthy()
+    expect(outcomes.perceptionOutcomes.length).toBeTruthy()
+  } else {
+    expect(false).toBeTruthy() // failed to find plan and activity
+  }
+})
 
 it('gets count of', () => {
 //  console.clear()

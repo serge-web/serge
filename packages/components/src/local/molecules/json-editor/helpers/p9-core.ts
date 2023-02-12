@@ -118,7 +118,7 @@ export const coreTemplate = {
         },
         number: {
           title: 'Quantity',
-          type: 'string',
+          type: 'number',
           options: {
             grid_columns: 2
           },

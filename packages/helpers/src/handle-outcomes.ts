@@ -54,7 +54,8 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
 
   withRepairs.healthOutcomes.forEach((health) => {
     const asset = findAsset(allForces, health.asset)
-    asset.health = health.health
+    // note: next line converts possible string to number
+    asset.health = +health.health
     if (health.c4 && health.c4 !== 'Unchanged') {
       const attrs = asset.attributes
       if (attrs) {
