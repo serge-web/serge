@@ -268,7 +268,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
     // processing is expecting Leaflet lat-longs not number coords.
     const lCoords: LatLng[][] = coords.map((item: Position[]) => {
       return item.map((pos: Position) => {
-        return L.latLng(pos[0], pos[1])
+        return L.latLng(pos[1], pos[0])
       })
     })
     const res: any = {
