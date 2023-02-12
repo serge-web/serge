@@ -5,6 +5,7 @@ import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
+import { DEFAULT_SEARCH_RATE } from '..'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 import { calculateDetections, checkInArea, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
 
@@ -287,6 +288,39 @@ const ewEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudication
   return outcomes
 }
 
+export const istarSearchRate = (own: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }>, forces: ForceData[], defaultRate: number): number => {
+  if (own && own.length > 0) {
+    interface AssetWithCount {
+      asset: Asset
+      count: number
+      rate: number
+    }
+    const assetsWithCount = own.map((item): AssetWithCount => {
+      const asset = findAsset(forces, item.asset)
+      const attrs = asset.attributes
+      const rate = (attrs && attrs.a_Search_Rate) ? attrs.a_Search_Rate as number : defaultRate
+      return { asset: asset, count: item.number, rate: rate }
+    })
+    const searchRates = assetsWithCount.map((item): number => {
+      const rate = (item.asset.attributes && item.asset.attributes.a_Search_Rate) ? item.asset.attributes.a_Search_Rate as number : defaultRate
+      const assetRate = item.count > 0 ? item.count * rate : rate
+      return assetRate
+    })
+    const res = searchRates.reduce((a: number, b:number) => a + b, 0)
+    console.table(assetsWithCount.map((item) => {
+      return {
+        id: item.asset.uniqid,
+        name: item.asset.name,
+        count: item.count,
+        rate: (item.asset.attributes && item.asset.attributes.a_Search_Rate) || 'Default:' + defaultRate
+      }
+    }))
+    console.log('ISTAR Calculated search rate:' + res)
+    return res
+  }
+  return defaultRate
+}
+
 const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
   if (!plan.message.location) {
     console.warn('ISTAR plan doesn\'t have location data')
@@ -309,8 +343,8 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   const endTime = props.endTime || moment.utc(props.endDate).valueOf()
 
   // calculate the search rate
-  // NOTE: for now, this is fixed
-  const searchRateKm2perHour = 200000
+  const defaultSearchRateKm2perHour = DEFAULT_SEARCH_RATE
+  const searchRateKm2perHour = istarSearchRate(plan.message.ownAssets || [], forces, defaultSearchRateKm2perHour)
 
   // run the calculator
   const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry, startTime, endTime, searchRateKm2perHour, 'In observation area')

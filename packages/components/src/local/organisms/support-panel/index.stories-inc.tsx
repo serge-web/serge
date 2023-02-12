@@ -194,3 +194,20 @@ AdjudicationTab.args = {
   interactionMessages: newInter,
   selectedRoleName: allRoles[1]
 }
+
+// console.log('fixing data')
+// forces.forEach((force) => {
+//   if (force.assets) {
+//     force.assets.forEach((asset) => {
+//       if (asset.platformTypeId.includes('istar')) {
+//         if (asset.attributes) {
+//           asset.attributes.a_Search_Rate = 110
+//           console.log('updated')
+//         } else {
+//           console.warn('found asset without attributes')
+//         }
+//       }
+//     })
+//   }
+// })
+// console.log('updated', forces)

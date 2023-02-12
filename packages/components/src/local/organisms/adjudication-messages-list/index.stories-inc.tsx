@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
+import { Asset, ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
@@ -222,11 +222,27 @@ ZeroInteractions.args = {
   messages: planningMessages as CoreMessage[]
 }
 
-const istarIdsOfInterest = ['Red-5']
+// find an istar asset
+let istarAsset: Asset | undefined
+forces.some((force) => {
+  return force.assets && force.assets.some((asset) => {
+    if (asset.platformTypeId.toLowerCase().includes('istar')) {
+      istarAsset = asset
+      return true
+    } else {
+      return false
+    }
+  })
+})
+const istarEvent = planningMessages.find((msg) => msg.message.activity.includes('ISTAR') && msg.message.ownAssets && msg.message.ownAssets.length > 0)
+if (istarAsset && istarEvent && istarEvent.message.ownAssets) {
+  istarEvent.message.ownAssets.push({ asset: istarAsset.uniqid, number: 4 })
+}
+const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const TestIstar = Template.bind({})
 TestIstar.args = {
   playerRoleId: umpireFole.roleId,
-  messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+  messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference))
 }
 
 const interactionIdsOfInterest = ['Red-5', 'Blue-17']
