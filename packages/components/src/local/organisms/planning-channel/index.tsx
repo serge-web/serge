@@ -143,6 +143,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [draftMessage, setDraftMessage] = useState<MessagePlanning | undefined>(undefined)
 
+  const [isUmpire, setIsUmpire] = useState<boolean>(false)
   const [playerInPlanning, setPlayerInPlanning] = useState<boolean>(false)
   const [umpireInAdjudication, setUmpireInAdjudication] = useState<boolean>(false)
 
@@ -271,10 +272,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [currentAssetIds])
 
   useEffect(() => {
-    const isUmpire = !!selectedForce.umpire
+    const isUmpireForce = !!selectedForce.umpire
+    setIsUmpire(isUmpireForce)
     const planningPhase = phase === PLANNING_PHASE
-    setPlayerInPlanning(!isUmpire && planningPhase)
-    setUmpireInAdjudication(isUmpire && !planningPhase)
+    setPlayerInPlanning(!isUmpireForce && planningPhase)
+    setUmpireInAdjudication(isUmpireForce && !planningPhase)
   }, [selectedForce, phase])
 
   useEffect(() => {
@@ -873,9 +875,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             : <>
                               <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                               <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                              {7 && // don't bother with this, but keep it in case we want to gen more data
+                              { isUmpire && // don't bother with this, but keep it in case we want to gen more data
                                 <div className={cx('leaflet-control')}>
-                                  <Item onClick={genData}>gen data</Item>
+                                  <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
                                 </div>
                               }
                             </>

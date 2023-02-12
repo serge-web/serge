@@ -225,6 +225,10 @@ L.Control.Select = L.Control.extend({
   },
 
   _iconClicked() {
+    const openingMenus = document.getElementsByClassName('leaflet-control-select-menu')
+    Array.from(openingMenus).forEach(menu => {
+      menu.parentElement.removeChild(menu)
+    })
     this._emit('MENU_OPEN', {})
   },
 

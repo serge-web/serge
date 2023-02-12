@@ -21,9 +21,13 @@ type StandardAreaMenuProps = {
    * Note: control from the map
    * */
   showControl: boolean
+
+  onMount: (control: Select) => void
+
+  additionalClass?: string
 }
 
-const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, showControl }) => {
+const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, showControl, onMount, additionalClass }) => {
   const map = useMap()
 
   const [controlButton, setControlButton] = useState<Select | undefined>(undefined)
@@ -55,14 +59,14 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           // TODO: we need to move this to the top-left, but put it beneath the `Cancel planning` controls
           // TODO: if we set it to top-left, one gets presented over the top of the other.
           position: 'topleft',
-          iconMain: '📝',
+          iconMain: '☰',
           iconGroupChecked: '⊳',
           iconGroupUnchecked: '⊳',
           items: items,
           onSelect: (item: any) => {
             handleClick(item)
           },
-          additionalClass: 'select-control-custom',
+          additionalClass,
           preventClickThrough: true
         })
         setControlButton(selectControl)
@@ -70,6 +74,7 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
       if (controlButton) {
         if (showControl) {
           controlButton.addTo(map)
+          onMount(controlButton)
         } else {
           controlButton.remove()
         }
