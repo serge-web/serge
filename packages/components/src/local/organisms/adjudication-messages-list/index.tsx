@@ -10,7 +10,9 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
 import { findForceAndAsset, forceColors, ForceStyle, hexToRGBA, incrementGameTime } from '@serge/helpers'
+import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
 import dayjs, { Dayjs } from 'dayjs'
+import { Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { Fragment, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -548,6 +550,36 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  const descriptionFor = (geometry?: Geometry): string => {
+    if (geometry) {
+      console.log('geom', geometry)
+      switch (geometry.type) {
+        case 'LineString': {
+          const box = geometry as LineString
+          const coords = box.coordinates
+          // calculate prob of detecting sometghing
+          // convert the boundary to a turn object
+          const mePoly = lineString(coords)
+          const len = length(mePoly)
+          return Math.floor(len) + ' km'
+        }
+        case 'Polygon': {
+          const box = geometry as Polygon
+          const coords = box.coordinates
+          // calculate prob of detecting sometghing
+          // convert the boundary to a turn object
+          const mePoly = polygon(coords)
+          const areaM2 = area(mePoly)
+          const areaKM2 = areaM2 / 1000000
+          return Math.floor(areaKM2) + ' km2'
+        }
+        default: return geometry.type + ' not yet handled'
+      }
+    } else {
+      return ''
+    }
+  }
+
   const detailPanel = ({ rowData }: { rowData: AdjudicationRow }): any => {
     const DetailPanelStateListener = () => {
       useEffect(() => {
@@ -587,7 +619,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Box><b>Interaction details:</b><br />
               <ul>
                 <li><b>Date/time: </b>{time}</li>
-                <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes' : 'No'}</li>
+                <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes (' + descriptionFor(interaction.geometry) + ')' : 'No'}</li>
                 { interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li> }
                 <li><b>Other assets: </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
