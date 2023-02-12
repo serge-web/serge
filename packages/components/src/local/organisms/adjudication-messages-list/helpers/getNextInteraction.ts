@@ -10,6 +10,12 @@ import { calculateDetections, checkInArea, insertIstarInteractionOutcomes, istar
 
 type TimePlusGeometry = { time: number, geometry: PlannedActivityGeometry['uniqid'] | undefined }
 
+/** the start and end time for a turn */
+export type TurnTimes = {
+  start: number
+  end: number
+}
+
 const useDate = (msg: MessageInteraction): string => {
   const inter = msg.details.interaction
   if (!inter) {
@@ -64,14 +70,18 @@ const roundedRandomTime = (start: number, end: number): number => {
   return start + rounded
 }
 
-const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT): TimePlusGeometry => {
+export const trimPeriod = (period: TurnTimes, turn: TurnTimes): TurnTimes => {
+  return { start: Math.max(period.start, turn.start), end: Math.min(period.end, turn.end) }
+}
+
+const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTERACTION_SHORT_CIRCUIT, turn: TurnTimes): TimePlusGeometry => {
   // do we have routing?
   if (activity.geometries && activity.geometries.length > 0) {
     // for `first`, use end-time of route-out (first line geometry)
     // for `last`, use start-time of route-back (last line geometry)
     // for `random` create period between `first` and `last`
     if (plan.message.location) {
-      let period: [number, number] | undefined
+      let period: TurnTimes | undefined
       let geomName: string | undefined
       const allPolygons = activity.geometries.filter((plan: PlanningActivityGeometry) => plan.aType === GeometryType.polygon)
       const lastPolygon = allPolygons.length && allPolygons[allPolygons.length - 1]
@@ -79,7 +89,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
         const plannedActivity = plan.message.location.find((planned: PlannedActivityGeometry) => planned.uniqid === lastPolygon.uniqid)
         if (plannedActivity) {
           const props = plannedActivity.geometry.properties as PlannedProps
-          period = [props.startTime, props.endTime]
+          period = { start: props.startTime, end: props.endTime }
           geomName = lastPolygon.uniqid
         }
       }
@@ -91,16 +101,21 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
         }
         const firstPeriod = timeFor(plan.message.location[0])
         const lastPeriod = timeFor(plan.message.location[plan.message.location.length - 1])
-        period = [firstPeriod[0], lastPeriod[1]]
+        period = { start: firstPeriod[0], end: lastPeriod[1] }
       }
+
       // work out the active time period
       switch (iType) {
         case INTER_AT_END:
-          return { time: period[1], geometry: geomName }
+          return { time: period.end, geometry: geomName }
         case INTER_AT_START:
-          return { time: period[0], geometry: geomName }
+          return { time: period.start, geometry: geomName }
         case INTER_AT_RANDOM:
-          return { time: roundedRandomTime(period[0], period[1]), geometry: geomName }
+        {
+          // trim the period to the current turn period
+          const trimmed = trimPeriod(period, turn)
+          return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: geomName }
+        }
       }
     } else {
       console.warn('Cannot breakdown activity, locations missing')
@@ -115,8 +130,12 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
       return { time: tEnd, geometry: undefined }
     case INTER_AT_START:
       return { time: tStart, geometry: undefined }
-    case INTER_AT_RANDOM:
-      return { time: roundedRandomTime(tStart[0], tEnd[1]), geometry: undefined }
+    case INTER_AT_RANDOM: {
+      // trim the period to the current turn period
+      const period = { start: tStart, end: tEnd }
+      const trimmed = trimPeriod(period, turn)
+      return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: undefined }
+    }
   }
 }
 
@@ -522,8 +541,15 @@ const endsWithMovement = (activity?: PlannedActivityGeometry[]): boolean => {
   }
 }
 
+const generateEventId = (planId: string, event: INTERACTION_SHORT_CIRCUIT, turn: number) => {
+  // note: if this is a random marker we include the turn number in the id,
+  // note: so that we can create interaction in each turn
+  const useTurn = event === INTER_AT_RANDOM ? '_' + turn : ''
+  return planId + '_' + event + useTurn
+}
+
 export const getEventList = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
-  activities: PerForcePlanningActivitySet[]): TimedIntervention[] => {
+  activities: PerForcePlanningActivitySet[], turn: TurnTimes, turnNumber: number): TimedIntervention[] => {
   // loop through plans
   const eventList: TimedIntervention[] = []
   orders.forEach((plan: MessagePlanning) => {
@@ -537,16 +563,16 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
         let endActivityGenerated = false
         if (activityEvents) {
           activityEvents.forEach((event: INTERACTION_SHORT_CIRCUIT) => {
-            const thisTime = timeFor(plan, activity, event)
+            const thisTime = timeFor(plan, activity, event, turn)
             if (thisTime) {
-              const interactionId = plan._id + ' ' + event
+              const interactionId = generateEventId(plan._id, event, turnNumber)
               // check this hasn't been processed already
               if (interactionIDs.includes(interactionId)) {
                 console.log('Skipping this event, already processed', interactionId)
                 endActivityGenerated = true
               } else {
                 // check the time of this event has passed
-                if (thisTime.time <= cutoffTime) {
+                if (thisTime.time < cutoffTime) {
                   if (event === 'i-end') {
                     endActivityGenerated = true
                   }
@@ -568,7 +594,7 @@ export const getEventList = (cutoffTime: number, orders: MessagePlanning[], inte
           // does this activity end in a line-string?
           const locData = plan.message.location
           if (locData && locData.length > 0 && endsWithMovement(locData)) {
-            const interactionId = plan._id + ' ' + INTER_AT_END
+            const interactionId = generateEventId(plan._id, INTER_AT_END, turnNumber)
             // check it hasn't already been processed
             if (!interactionIDs.includes(interactionId)) {
               const planned = locData[locData.length - 1]
@@ -611,10 +637,10 @@ export const emptyOutcomes = (): MessageAdjudicationOutcomes => {
 }
 
 export const checkForEvent = (cutoffTime: number, orders: MessagePlanning[], interactionIDs: string[],
-  activities: PerForcePlanningActivitySet[], forces: ForceData[]): ShortCircuitEvent | undefined => {
+  activities: PerForcePlanningActivitySet[], forces: ForceData[], turn: TurnTimes, turnNumber: number): ShortCircuitEvent | undefined => {
   console.log('look for event before', moment.utc(cutoffTime).toISOString())
 
-  const eventList = getEventList(cutoffTime, orders, interactionIDs, activities)
+  const eventList = getEventList(cutoffTime, orders, interactionIDs, activities, turn, turnNumber)
 
   if (eventList.length) {
     // sort in ascending
@@ -759,9 +785,13 @@ const contactOutcomes = (interaction: InteractionDetails, contact: PlanningConta
 
 export const getNextInteraction2 = (orders: MessagePlanning[],
   activities: PerForcePlanningActivitySet[], interactions: MessageInteraction[],
-  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string, forces: ForceData[], getAll: boolean): InteractionResults => {
+  _ctr: number, sensorRangeKm: number, gameTime: string, gameTurnEnd: string,
+  forces: ForceData[], getAll: boolean, turnNumber: number): InteractionResults => {
   const gameTimeVal = moment(gameTime).valueOf()
   const gameTurnEndVal = moment(gameTurnEnd).valueOf()
+
+  const turnPeriod: TurnTimes = { start: gameTimeVal, end: gameTurnEndVal }
+
   const earliestTime = interactions.length ? timeOfLatestInteraction(interactions) : gameTimeVal
 
   const existingInteractionIDs = interactions.map((val) => {
@@ -778,7 +808,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
   !7 && console.log(orders, activities, sensorRangeKm, getAll, earliestTime)
 
   // see if a short-circuit is overdue
-  const event = !getAll && checkForEvent(gameTimeVal, orders, existingInteractionIDs, activities, forces)
+  const event = !getAll && checkForEvent(gameTimeVal, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
   console.log('event found?', !!event)
 
   if (event && event.timeStart <= gameTimeVal) {
@@ -818,11 +848,10 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       const windowEnd = gameTimeVal + currentWindowMillis
 
       // if we're doing get-all, don't bother with shortcircuits
-
       if (getAll) {
-        allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities)
+        allRemainingEvents = getEventList(windowEnd, orders, existingInteractionIDs, activities, turnPeriod, turnNumber)
       } else {
-        eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces)
+        eventInWindow = checkForEvent(windowEnd, orders, existingInteractionIDs, activities, forces, turnPeriod, turnNumber)
         console.log('found event in window?:', !!eventInWindow, eventInWindow && eventInWindow.id, moment(windowEnd).toISOString(), eventInWindow && moment(eventInWindow.timeStart).toISOString())
       }
 

@@ -6,11 +6,13 @@ import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
 import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, TimedIntervention } from './getNextInteraction'
+import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
+const overview = P9BMock.data.overview
+const turn = P9BMock.gameTurn
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
@@ -66,14 +68,17 @@ it('generates movement outcomes', () => {
   })
   if (planWithReturn) {
     const cutOffTime = moment().valueOf()
-    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities)
+    const turnEnd = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+    const turnEndVal = moment.utc(turnEnd).valueOf()
+    const turnPeriod: TurnTimes = { start: moment.utc(overview.gameDate).valueOf(), end: turnEndVal }
+    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities, turnPeriod, turn)
     expect(list).toBeTruthy()
     expect(list.length).toBeGreaterThan(0)
     const firstEvent = list[0]
     const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
     expect(outcomes).toBeTruthy()
     const listWithInteraction = [firstEvent.id]
-    const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities)
+    const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities, turnPeriod, turn)
     expect(list2.length).toEqual(0)
   } else {
     expect(false).toBeTruthy() // should have found plan to test
@@ -113,13 +118,26 @@ it('handles spatial outcomes', () => {
   }
 })
 
+it('trims period', () => {
+  const p1: TurnTimes = { start: 100, end: 200 }
+  const p2: TurnTimes = { start: 50, end: 250 }
+  const p3: TurnTimes = { start: 150, end: 180 }
+  const t1 = trimPeriod(p1, p2)
+  expect(t1.start).toEqual(100)
+  expect(t1.end).toEqual(200)
+
+  const t2 = trimPeriod(p1, p3)
+  expect(t2.start).toEqual(150)
+  expect(t2.end).toEqual(180)
+})
+
 it('gets count of', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true, turn)
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
   expect(Array.isArray(results1)).toBeTruthy()
@@ -136,18 +154,18 @@ it('gets interactions (2)', () => {
   const gameStartTimeLocal = '2022-05-01T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
   expect(results1).toBeTruthy()
   if (results1 !== undefined && !Array.isArray(results1)) {
     const res1Msg = results1 as CompositeInteractionResults
     const newTime = res1Msg.details.startTime
     console.log('new time', gameStartTimeLocal, newTime)
     interactions.push(interactionFor(res1Msg))
-    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
+    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false, turn)
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
     interactions.push(interactionFor(res2Msg))
-    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
+    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false, turn)
     expect(results3).toBeTruthy()
     const res3Msg = results3 as CompositeInteractionResults
     interactions.push(interactionFor(res3Msg))
@@ -167,19 +185,19 @@ it('avoids existing interactions', () => {
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
   expect(results1).toBeTruthy()
   if (results1 !== undefined) {
     const res1Msg = results1 as CompositeInteractionResults
     const res1Id = res1Msg.details.id
-    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
     // we haven't stored interaction, so it should return the same one
     expect(res2Msg.details.id).toEqual(res1Id)
     // now push the interaction and try again
     interactions.push(interactionFor(res1Msg))
-    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
     expect(results3).toBeTruthy()
     const res3Msg = results3 as CompositeInteractionResults
     // ok, this should not match the original one

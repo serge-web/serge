@@ -116,4 +116,8 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   mapPostBack?: AdjudicationPostBack
 
   onLocationEditorLoaded?: (editorElm: HTMLDivElement) => void
+
+  /** the current turn for the game */
+  currentTurn: number
+
 }
