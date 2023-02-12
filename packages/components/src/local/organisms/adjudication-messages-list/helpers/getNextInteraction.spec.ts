@@ -70,7 +70,7 @@ it('generates movement outcomes', () => {
     const cutOffTime = moment().valueOf()
     const turnEnd = incrementGameTime(overview.gameDate, overview.gameTurnTime)
     const turnEndVal = moment.utc(turnEnd).valueOf()
-    const turnPeriod: TurnTimes = { start: moment.utc(overview.gameDate).valueOf(), end: turnEndVal}
+    const turnPeriod: TurnTimes = { start: moment.utc(overview.gameDate).valueOf(), end: turnEndVal }
     const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities, turnPeriod, turn)
     expect(list).toBeTruthy()
     expect(list.length).toBeGreaterThan(0)
@@ -119,9 +119,9 @@ it('handles spatial outcomes', () => {
 })
 
 it('trims period', () => {
-  const p1: TurnTimes = { start: 100, end: 200}
-  const p2: TurnTimes = { start: 50, end: 250}
-  const p3: TurnTimes = { start: 150, end: 180}
+  const p1: TurnTimes = { start: 100, end: 200 }
+  const p2: TurnTimes = { start: 50, end: 250 }
+  const p3: TurnTimes = { start: 150, end: 180 }
   const t1 = trimPeriod(p1, p2)
   expect(t1.start).toEqual(100)
   expect(t1.end).toEqual(200)
