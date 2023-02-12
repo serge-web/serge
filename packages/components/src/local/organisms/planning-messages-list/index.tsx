@@ -65,14 +65,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
+    if (!myMessages.length) {
+      return
+    }
+
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message)
     })
     setRows(dataTable)
 
     const columnData = toColumn(myMessages)
-
-    if (columns.length === 0) {
+    if (!columns.length) {
       setColumns(columnData)
     }
   }, [myMessages, turnFilter])
