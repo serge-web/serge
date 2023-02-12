@@ -42,6 +42,10 @@ type ManualInteractionResults = {
   endDate: string
 }
 
+/** fallback for if we don't know search rate for ISTAR platforms .
+ * Value expected to be in km2/hour */
+export const DEFAULT_SEARCH_RATE = 2000
+
 export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   forces, interactionMessages, planningMessages, template, gameDate, turnFilter,
   customiseTemplate, playerRoleId, forcePlanningActivities, handleAdjudication,

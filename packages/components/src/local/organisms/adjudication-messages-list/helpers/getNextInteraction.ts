@@ -5,6 +5,7 @@ import * as turf from '@turf/turf'
 import { Feature, Geometry, LineString, Polygon } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
+import { DEFAULT_SEARCH_RATE } from '..'
 import { findTouching, GeomWithOrders, injectTimes, invertMessages, PlanningContact, putInBin, ShortCircuitEvent, SpatialBin, spatialBinning } from '../../support-panel/helpers/gen-order-data'
 import { calculateDetections, checkInArea, insertIstarInteractionOutcomes, istarBoundingBox } from './istar-helper'
 
@@ -342,7 +343,7 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   const endTime = props.endTime || moment.utc(props.endDate).valueOf()
 
   // calculate the search rate
-  const defaultSearchRateKm2perHour = 2000
+  const defaultSearchRateKm2perHour = DEFAULT_SEARCH_RATE
   const searchRateKm2perHour = istarSearchRate(plan.message.ownAssets || [], forces, defaultSearchRateKm2perHour)
 
   // run the calculator

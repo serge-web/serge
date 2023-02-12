@@ -5,8 +5,10 @@ import { booleanPointInPolygon, buffer } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import { shuffle } from 'lodash'
 import moment from 'moment'
+import { DEFAULT_SEARCH_RATE } from '..'
 import { shortDate } from '../../planning-messages-list/helpers/genData'
 import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
+import { istarSearchRate } from './getNextInteraction'
 
 /** check if the point provided is in the polygon provided */
 export const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
@@ -118,15 +120,8 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   const ownFor = geom.force
 
   // calculate the search rate
-  // NOTE: for now, this is fixed
-  const searchRateKm2perHour = 200000
+  const combinedSearchRate = istarSearchRate(geom.plan.message.ownAssets || [], forces, DEFAULT_SEARCH_RATE)
 
-  // find the number of friendly assets involved
-  const ownAssets = geom.plan.message.ownAssets
-  // in the next line we handle num assets potentially being a sting by use of '+' operator, which forces to number
-  const numAssets = (ownAssets && ownAssets.length) ? ownAssets.map((item) => +item.number).reduce((a: number, b: number) => a + b, 0) : 1
-
-  const combinedSearchRate = searchRateKm2perHour * numAssets
 
   // run the calculator
   const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area')
