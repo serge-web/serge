@@ -615,7 +615,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Box><b>Interaction details:</b><br />
               <ul>
                 <li><b>Date/time: </b>{time}</li>
-                <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes (' + descriptionFor(interaction.geometry) + ')'  : 'No'}</li>
+                <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes (' + descriptionFor(interaction.geometry) + ')' : 'No'}</li>
                 { interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li> }
                 <li><b>Other assets: </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
