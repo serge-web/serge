@@ -122,7 +122,6 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   // calculate the search rate
   const combinedSearchRate = istarSearchRate(geom.plan.message.ownAssets || [], forces, DEFAULT_SEARCH_RATE)
 
-
   // run the calculator
   const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area')
 
