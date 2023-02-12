@@ -5,6 +5,7 @@ import { booleanPointInPolygon, buffer } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import { shuffle } from 'lodash'
 import moment from 'moment'
+import { shortDate } from '../../planning-messages-list/helpers/genData'
 import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
 
 /** check if the point provided is in the polygon provided */
@@ -59,6 +60,12 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
   const randomised = shuffle(assetsInArea)
   const numToTake = Math.floor(randomised.length * searchProb)
   const observedAssets = randomised.slice(0, numToTake)
+  const twoDP = (val: number) => {
+    return Math.floor(val * 100) / 100
+  }
+  const timePeriod = '[' + shortDate(moment.utc(startD).toISOString()) + ' - ' +  shortDate(moment.utc(endD).toISOString()) + ']'
+  console.log('ISTAR detection calc', ' area (km2):', twoDP(areaKM2), ' time:', timePeriod, ' duration (hrs):', twoDP(durationHrs), 
+  ' rate:', twoDP(searchRateKm2perHour), ' prob:', twoDP(searchProb), ' in area:', assetsInArea.length, ' detected:', numToTake)
 
   // create the perceptions
   const perceptions = observedAssets.map((item: {force: ForceData, asset: Asset}): PerceptionOutcome => {
