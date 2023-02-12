@@ -877,7 +877,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                               <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
                               { isUmpire && // don't bother with this, but keep it in case we want to gen more data
                                 <div className={cx('leaflet-control')}>
-                                  <Item onClick={genData}>gen data</Item>
+                                  <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
                                 </div>
                               }
                             </>
