@@ -185,7 +185,10 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const land = 'Land'
   const mar = 'Maritime'
   const air = 'Air'
-  const other = 'Other'
+  const sof = 'SOF'
+  const cyber = 'Cyber'
+  const space = 'Space'
+  const info = 'Info Ops'
 
   const landMar = [land, mar]
   const seaAirLand = [land, mar, air]
@@ -212,13 +215,16 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'Raid', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'LAND', interactsWith: ['EW'] })
+  actInteracts.push({ uniqid: 'SOF Activity', interactsWith: [] })
+  actInteracts.push({ uniqid: 'Activity', interactsWith: [] })
 
   // const strt = INTER_AT_START
   // const rnd = INTER_AT_RANDOM
   const end: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_END]
   const both: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_START, INTER_AT_END]
+  const all: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_START, INTER_AT_RANDOM, INTER_AT_END]
   const rnd: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_RANDOM]
-  const rndEnd: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_RANDOM]
+  const rndEnd: INTERACTION_SHORT_CIRCUIT[] = [INTER_AT_RANDOM, INTER_AT_END]
 
   const acts: Activity[] = []
   acts.push({ uniqid: 'STRIKE', title: 'Strike', events: end, forces: allForces, domains: landMar, acts: undefined, specific: 'MissileStrike', pfTmpl: true })
@@ -236,8 +242,8 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike', pfTmpl: true })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
-  acts.push({ uniqid: 'CYB/SPA', title: 'Cyber/Space Activity', events: both, forces: redBlue, domains: [other], specific: 'Cyber' })
-  acts.push({ uniqid: 'SOF', title: 'SOF Activity', events: end, forces: redBlue, domains: [other], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'SOFAttack', spatialP: true, spatialH: true })
+  acts.push({ uniqid: 'Activity', title: 'Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Cyber' })
+  acts.push({ uniqid: 'SOF Activity', title: 'SOF Activity', events: end, forces: redBlue, domains: [sof], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'SOFAttack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] })
   acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], specific: 'SOFAttack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'LAND', title: 'Land Close Combat', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Combat Location'], spatialP: true, spatialH: true })
