@@ -1,19 +1,17 @@
 import { faPlaneSlash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Area, PlannedActivityGeometry } from '@serge/custom-types'
+import { PlannedActivityGeometry } from '@serge/custom-types'
 import { Feature } from 'geojson'
 import L, { LatLng, Layer, PM, Point } from 'leaflet'
 import 'leaflet-notifications'
 import _, { get } from 'lodash'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { GeomanControls } from 'react-leaflet-geoman-v2'
 import { useMap } from 'react-leaflet-v4'
 import AssetIcon from '../../../asset-icon'
 import Item from '../../../map-control/helpers/item'
 import styles from '../styles.module.scss'
-import { Select } from '../typings'
-import StandardAreaMenu from './StandardAreaMenu'
 
 interface OrderEditingProps {
   /** user has finished. Undefined value
@@ -22,8 +20,6 @@ interface OrderEditingProps {
   saved: { (activity: PlannedActivityGeometry[] | undefined): void }
   /** the activity to edit */
   activityBeingEdited: PlannedActivityGeometry[] | undefined
-  // set of standard areas
-  areas?: Area[]
 }
 
 interface GLayerObject {
@@ -73,12 +69,10 @@ const layerToGeoJSON = (layer: GLayerObject): Feature | undefined => {
 }
 
 /* Render component */
-export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeingEdited, areas }) => {
+export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeingEdited }) => {
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
   const [editLayer, setEditLayer] = useState<Layer | undefined>(undefined)
-
-  const standardAreaBtn = useRef<Select>()
 
   const map = useMap()
 
@@ -194,29 +188,12 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
       if (layers.length) {
         layers.forEach((layer: Layer) => layer.remove())
       }
-      if (standardAreaBtn.current) {
-        standardAreaBtn.current.remove()
-      }
     }
   }
 
   const cancelDrawing = (): void => {
     cleanUp()
     saved(undefined)
-  }
-
-  const useStandardArea = (area: Area) => {
-    const coords = area.polygon.coordinates
-    const res: any = {
-      _latLngs: coords[0]
-    }
-
-    // TODO with res
-    console.log(res)
-  }
-
-  const onMount = (controlButton: Select) => {
-    standardAreaBtn.current = controlButton
   }
 
   return (
@@ -227,13 +204,6 @@ export const OrderEditing: React.FC<OrderEditingProps> = ({ saved, activityBeing
             <Item onClick={cancelDrawing}><FontAwesomeIcon title='Cancel editing' size={'lg'} icon={faPlaneSlash} /></Item>
             <Item onClick={saveDrawing}><FontAwesomeIcon title='Save locations' size={'lg'} icon={faSave} /></Item>
           </div>
-          <StandardAreaMenu
-            areas={areas}
-            showControl={!!(areas && areas.length > 0)}
-            handler={useStandardArea}
-            onMount={onMount}
-            additionalClass='select-control-order-editing'
-          />
         </div>
         <GeomanControls
           options={drawOptions}

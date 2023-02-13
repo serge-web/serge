@@ -1,7 +1,7 @@
 import { faPlaneSlash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { GeometryType } from '@serge/config'
-import { Area, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
+import { Area, AreaCategory, PlannedActivityGeometry, PlanningActivity, PlanningActivityGeometry } from '@serge/custom-types'
 import { deepCopy } from '@serge/helpers'
 import { Geometry, Position } from 'geojson'
 import L, { LatLng, Layer, PM } from 'leaflet'
@@ -23,7 +23,7 @@ interface OrderDrawingProps {
   cancelled: { (): void }
   planned: { (geometries: PlannedActivityGeometry[]): void }
   // set of standard areas
-  areas?: Area[]
+  areas?: AreaCategory[]
 }
 
 interface PendingItem {
@@ -41,7 +41,7 @@ export const OrderDrawing: React.FC<OrderDrawingProps> = ({ activity, planned, c
   const [drawOptions, setDrawOptions] = useState<PM.ToolbarOptions>({})
   const [globalOptions, setGlobalOptions] = useState<PM.GlobalOptions>({})
 
-  const [standardPolygons, setStandardPolygons] = useState<Area[] | undefined>(undefined)
+  const [standardPolygons, setStandardPolygons] = useState<AreaCategory[] | undefined>(undefined)
 
   const [workingLayer, setWorkingLayer] = useState<L.Layer>()
 

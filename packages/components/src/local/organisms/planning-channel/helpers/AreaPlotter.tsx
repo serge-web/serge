@@ -1,4 +1,4 @@
-import { Area } from '@serge/custom-types'
+import { AreaCategory } from '@serge/custom-types'
 import { Position } from 'geojson'
 import { divIcon, latLng, LatLng, PathOptions, polygon } from 'leaflet'
 import React from 'react'
@@ -6,7 +6,7 @@ import { LayerGroup, Marker, Polygon } from 'react-leaflet-v4'
 import styles from '../styles.module.scss'
 
 export interface AreaPlotterProps {
-  areas: Area[]
+  areas: AreaCategory[]
 }
 
 export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
@@ -24,7 +24,6 @@ export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
   }
 
   const polyStyle: PathOptions = {
-    fillColor: '#666',
     color: '#333',
     opacity: 0.7
   }
@@ -33,11 +32,13 @@ export const AreaPlotter: React.FC<AreaPlotterProps> = ({ areas }) => {
     {
       areas.length > 0 &&
       <LayerGroup key={'standard-areas'}>
-        {areas.map((area, index) =>
-          <Polygon key={'p_' + index} pathOptions={polyStyle} positions={positionsFor(area.polygon.coordinates[0])} >
-            <Marker key={'k_' + index} position={centreFor(area.polygon.coordinates[0])} icon={polygonNameIcon(area.name)} />
-          </Polygon>
-        )}
+        {areas.map((category, index1) =>
+          category.areas.map((area, index2) =>
+            <Polygon key={'p_' + index1 + '_' + index2} pathOptions={{ ...polyStyle, fillColor: category.color }} positions={positionsFor(area.polygon.coordinates[0])} >
+              <Marker key={'k_' + index1 + '_' + index2} position={centreFor(area.polygon.coordinates[0])} icon={polygonNameIcon(area.name)} />
+            </Polygon>
+          ))
+        }
       </LayerGroup >
     }
 

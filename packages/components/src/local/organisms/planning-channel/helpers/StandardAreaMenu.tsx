@@ -1,4 +1,4 @@
-import { Area } from '@serge/custom-types'
+import { Area, AreaCategory } from '@serge/custom-types'
 import L from 'leaflet'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
@@ -8,7 +8,7 @@ type StandardAreaMenuProps = {
   /**
    * the set of standard areas
    */
-  areas?: Area[]
+  areas?: AreaCategory[]
   /**
    * handler for new orders being selected
    */
@@ -34,21 +34,45 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
 
   const handleClick = (value: string): void => {
     if (areas) {
-      const theArea = areas.find((area) => area.name === value)
-      theArea && handler && handler(theArea)
-    } else {
-      console.warn('Should have list of areas')
+      const [catName, areaName] = value.split('~')
+      if (catName && areaName) {
+        const theCat = areas.find((cat) => cat.name === catName)
+        if (theCat) {
+          const theArea = theCat.areas.find((area) => area.name === areaName)
+          theArea && handler && handler(theArea)
+          return
+        }
+      }
+      console.warn('Failed to find area for', value, areas)
     }
   }
 
   /** generate the tree of activities */
-  const getItems = (areas: Area[]): SelectItem[] => {
-    return areas.map((area: Area) => {
-      return {
-        label: area.name,
-        value: area.name
-      }
+  const getItems = (areas: AreaCategory[]): SelectItem[] => {
+
+    // TODO: this produces nested list, but I can't click them :-(
+    // const aItems = areas.map((category) => {
+    //   return {
+    //     label: category.name,
+    //     value: category.name,
+    //     items: category.areas.map((area) => {
+    //       return {
+    //         label: area.name, value: category.name + '~' + area.name
+    //       }})
+    //   }
+    // })
+    // return aItems
+
+    const flatList: SelectItem[] = []
+    areas.forEach((category) => {
+      category.areas.forEach((area) => {
+        flatList.push({
+          label: category.name + ' - ' + area.name,
+          value: category.name + '~' + area.name
+        })
+      })
     })
+    return flatList
   }
 
   useEffect(() => {
