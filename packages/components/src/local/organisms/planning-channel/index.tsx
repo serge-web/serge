@@ -6,7 +6,7 @@ import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, P
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
-import { faCalculator, faHistory, faShapes } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faHistory, faObjectUngroup, faShapes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -138,6 +138,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
   const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
+  const [toggleIcons, setToggleIcons] = useState<boolean>(true)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
@@ -860,6 +861,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             <div className={cx('leaflet-control')}>
                               <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
+                            </div>
+                          }
+                          {
+                            <div className={cx('leaflet-control')}>
+                              <Item title='Toggle clustering of icons' contentTheme={toggleIcons ? 'light' : 'dark'}
+                                onClick={() => setToggleIcons(!toggleIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
                             </div>
                           }
                           {
