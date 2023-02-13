@@ -193,6 +193,20 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], outcomes: MessageAdj
       narrative: 'Damage by ' + activity.name
     }
     outcomes.healthOutcomes.push(health)
+    // also for child assets
+    console.log('child assets', asset.asset.comprising && asset.asset.comprising.map((item) => item.name + '/' + item.uniqid).join(', '))
+    if (asset.asset.comprising && asset.asset.comprising.length) {
+      asset.asset.comprising.forEach((asset2) => {
+        const existingC42: 'None' | 'Degraded' | 'Operational' = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
+        const health2: HealthOutcome = {
+          asset: asset2.uniqid,
+          health: 50,
+          c4: existingC42,
+          narrative: 'Task Group Member damage by ' + activity.name
+        }
+        outcomes.healthOutcomes.push(health2)
+      })
+    }
   })
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
@@ -388,6 +402,13 @@ const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: 
           if (checkInArea(mePoly, asset.location)) {
             assets.push({ force, asset })
             special && asset.name === special && console.log(asset.name, asset.location, !!special)
+            if (asset.comprising && asset.comprising.length) {
+              console.log('@@ check comprising')
+              asset.comprising.forEach((item) => {
+                const fAsset: AssetWithForce = { force: force, asset: item }
+                assets.push(fAsset)
+              })
+            }
           }
         }
       }
