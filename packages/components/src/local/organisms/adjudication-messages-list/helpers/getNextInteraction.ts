@@ -111,8 +111,7 @@ const timeFor = (plan: MessagePlanning, activity: PlanningActivity, iType: INTER
           return { time: period.end, geometry: geomName }
         case INTER_AT_START:
           return { time: period.start, geometry: geomName }
-        case INTER_AT_RANDOM:
-        {
+        case INTER_AT_RANDOM: {
           // trim the period to the current turn period
           const trimmed = trimPeriod(period, turn)
           return { time: roundedRandomTime(trimmed.start, trimmed.end), geometry: geomName }
@@ -150,71 +149,51 @@ interface ProtectedTarget {
   protectedBy: Asset[]
 }
 
-const strikeEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes, forces: ForceData[]): MessageAdjudicationOutcomes => {
+const kineticEventOutcomesFor = (targets: AssetWithForce[], outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
+  console.log('kinetic', targets.length)
   // loop through targets
-  if (plan.message.otherAssets) {
-    const ownForce = plan.details.from.forceId
-    plan.message.otherAssets.forEach((target: { asset: string }) => {
-      let tgtForce: ForceData | undefined
-      let tgtAsset: Asset | undefined
-      forces.find((force: ForceData) => {
-        if (force.uniqid === ownForce) {
-          return false
-        } else {
-          force.assets && force.assets.some((assetVal: Asset) => {
-            if (assetVal.uniqid === target.asset) {
-              tgtForce = force
-              tgtAsset = assetVal
+  targets.forEach((asset: AssetWithForce) => {
+    const tgtAsset = asset.asset
+    const tgtForce = asset.force
+    if (tgtAsset.location !== undefined) {
+      const tgtPoint = turf.point([tgtAsset.location[1], tgtAsset.location[0]])
+      // loop through other assets of that force
+      tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
+        // see if this has MEZ range
+        const attrs = oppAsset.attributes
+        if (attrs && attrs.a_MEZ_range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
+          // ok, it has a MEZ range
+          const mezAsset = oppAsset
+          // generate
+          const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
+          const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
+          if (distanceApart < attrs.a_MEZ_range && tgtForce && tgtAsset) {
+            // ok, it's covered.
+            let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
+            if (!protTarget) {
+              protTarget = {
+                force: tgtForce.uniqid,
+                target: tgtAsset,
+                protectedBy: []
+              }
+              protectedTargets.push(protTarget)
             }
-            return tgtForce
-          })
-          return tgtForce
+            protTarget.protectedBy.push(mezAsset)
+          }
         }
       })
-      if (tgtForce && tgtAsset) {
-        if (tgtAsset.location !== undefined) {
-          const tgtPoint = turf.point([tgtAsset.location[1], tgtAsset.location[0]])
-          // loop through other assets of that force
-          tgtForce.assets && tgtForce.assets.forEach((oppAsset: Asset) => {
-            // see if this has MEZ range
-            const attrs = oppAsset.attributes
-            if (attrs && attrs.a_MEZ_range && oppAsset.location && (oppAsset.health && oppAsset.health > 0)) {
-              // ok, it has a MEZ range
-              const mezAsset = oppAsset
-              // generate
-              const mezPoint = turf.point([oppAsset.location[1], oppAsset.location[0]])
-              const distanceApart = turf.distance(tgtPoint, mezPoint, { units: 'kilometers' })
-              if (distanceApart < attrs.a_MEZ_range && tgtForce && tgtAsset) {
-                // ok, it's covered.
-                let protTarget = protectedTargets.find((target: ProtectedTarget) => tgtAsset && target.target.uniqid === tgtAsset.uniqid)
-                if (!protTarget) {
-                  protTarget = {
-                    force: tgtForce.uniqid,
-                    target: tgtAsset,
-                    protectedBy: []
-                  }
-                  protectedTargets.push(protTarget)
-                }
-                protTarget.protectedBy.push(mezAsset)
-              }
-            }
-          })
-        } else {
-          console.warn('Asset missing location')
-        }
-      }
-      // create damage outcome for this asset
-      const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
-      const health: HealthOutcome = {
-        asset: target.asset,
-        health: 50,
-        c4: existingC4
-      }
-      outcomes.healthOutcomes.push(health)
-    })
-    !7 && console.log(plan, forces)
-  }
+    }
+    // create damage outcome for this asset
+    const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
+    const health: HealthOutcome = {
+      asset: tgtAsset.uniqid,
+      health: 50,
+      c4: existingC4,
+      narrative: 'Damage by ' + activity.name
+    }
+    outcomes.healthOutcomes.push(health)
+  })
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
       return prot.target.name + ' protected by ' + prot.protectedBy.map((asset: Asset) => '' + asset.name + ' (' + asset.uniqid + ')').join(', ') + '\n'
@@ -280,7 +259,8 @@ const ewEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudication
       const outCome: HealthOutcome = {
         asset: target.asset,
         health: currentHealth,
-        c4: newC4
+        c4: newC4,
+        narrative: 'Damage by ' + plan.message.activity
       }
       outcomes.healthOutcomes.push(outCome)
     })
@@ -306,7 +286,7 @@ export const istarSearchRate = (own: Array<{ asset: Asset['uniqid'], number: num
       const assetRate = item.count > 0 ? item.count * rate : rate
       return assetRate
     })
-    const res = searchRates.reduce((a: number, b:number) => a + b, 0)
+    const res = searchRates.reduce((a: number, b: number) => a + b, 0)
     console.table(assetsWithCount.map((item) => {
       return {
         id: item.asset.uniqid,
@@ -398,15 +378,17 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   return outcomes
 }
 
-const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>, special?: string): AssetWithForce[] => {
+const opForInArea = (forceId: ForceData['uniqid'], forces: ForceData[], mePoly: Feature<Polygon>, existingOutcomes: Asset['uniqid'][], special?: string): AssetWithForce[] => {
   const assets: AssetWithForce[] = []
   const opFor = forces.filter((force) => force.assets && force.uniqid !== forceId)
   opFor.forEach((force) => {
     force.assets && force.assets.forEach((asset) => {
-      if (asset.location) {
-        if (checkInArea(mePoly, asset.location)) {
-          assets.push({ force, asset })
-          special && asset.name === special && console.log(asset.name, asset.location, !!special)
+      if (!existingOutcomes.includes(asset.uniqid)) {
+        if (asset.location) {
+          if (checkInArea(mePoly, asset.location)) {
+            assets.push({ force, asset })
+            special && asset.name === special && console.log(asset.name, asset.location, !!special)
+          }
         }
       }
     })
@@ -444,30 +426,34 @@ export const insertMovementOutcomesFor = (plan: MessagePlanning, outcomes: Messa
 
 export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[]): void => {
-  const aGeoms = activity.geometries
-  if (!aGeoms) {
+  const location = plan.message.location
+  if (!location) {
     console.warn('Warning: orders have location, but not activity', plan._id, activity.uniqid)
   } else {
     // find the polys
-    const polys = aGeoms.filter((geom) => geom.aType === GeometryType.polygon)
+    const polys = location.filter((geom) => geom.geometry.geometry.type === GeometryType.polygon)
+    if (!polys) {
+      console.log('failed to find last polygon')
+    }
     if (polys.length) {
       // find the last poly
       const poly = polys[polys.length - 1]
-      const polyIndex = aGeoms.indexOf(poly)
-      const geom = plan.message.location && plan.message.location[polyIndex]
-      if (!geom) {
+      if (!poly) {
         console.warn('Failed to find matching geometry')
       } else {
         // generate the shape
-        const box = geom.geometry.geometry as Geometry as Polygon
+        const box = poly.geometry.geometry as Geometry as Polygon
         const coords = box.coordinates
         // calculate prob of detecting sometghing
         // convert the boundary to a turn object
         const mePoly = turf.polygon(coords)
 
         // find opFor assets within poly
+        const existingOutcomes = outcomes.healthOutcomes.map((item) => item.asset)
+        console.log('TST existing outcomes', existingOutcomes)
         const special = undefined // 'Green:4'
-        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, special)
+        const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, existingOutcomes, special)
+        console.log('TST detections', assets)
 
         special && console.table(assets.map((fAsset) => {
           const asset = fAsset.asset
@@ -495,6 +481,12 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
                   narrative: 'Asset in area for ' + activity.uniqid
                 })
                 asset.asset.name === 'Green:4' && console.log('health', asset.asset, index)
+                if (!outcomes.otherAssets) {
+                  outcomes.otherAssets = []
+                }
+                if (!outcomes.otherAssets.includes(uniqid)) {
+                  outcomes.otherAssets.push(asset.asset.uniqid)
+                }
               }
             }
             if (activity.spatialPerception) {
@@ -509,6 +501,12 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
                   perceivedHealth: asset.asset.health,
                   narrative: 'Asset in area for ' + activity.uniqid
                 })
+                if (!outcomes.otherAssets) {
+                  outcomes.otherAssets = []
+                }
+                if (!outcomes.otherAssets.includes(uniqid)) {
+                  outcomes.otherAssets.push(asset.asset.uniqid)
+                }
               }
             }
           })
@@ -518,12 +516,45 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
   }
 }
 
+export const assetsInArea = (plan: MessagePlanning, forces: ForceData[]): AssetWithForce[] => {
+  const area = plan.message.location
+  const targets: AssetWithForce[] = []
+  if (area) {
+    const poly = area.find((geom) => geom.geometry.geometry.type === 'Polygon')
+    if (poly) {
+      const geom = poly.geometry as Feature<Polygon>
+      const ownForce = plan.details.from.forceId
+      forces.forEach((force) => {
+        if (force.assets && force.uniqid !== ownForce) {
+          force.assets.forEach((asset) => {
+            if (asset.location) {
+              if (checkInArea(geom, asset.location)) {
+                targets.push({ asset: asset, force: force })
+              }
+            }
+          })
+        }
+      })
+    }
+  }
+  return targets
+}
+
 export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
-  console.log('handle outcomes')
+  console.log('handle outcomes', activity.actId)
   switch (activity.actId) {
     case 'STRIKE': {
-      strikeEventOutcomesFor(plan, outcomes, forces)
+      const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
+      kineticEventOutcomesFor(targetAssets, outcomes, activity)
+      break
+    }
+    case 'TST': {
+      // find all op-for assets in the box
+      const targetAssets = assetsInArea(plan, forces)
+      console.log('TST assets in area', targetAssets)
+      kineticEventOutcomesFor(targetAssets, outcomes, activity)
+      console.log('TST outcomes', outcomes)
       break
     }
     case 'TRANSIT': {
@@ -545,7 +576,7 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   }
   // console.log('%c event outcomes, spatial?', 'color: blue', activity.actId, activity.spatialHealth, activity.spatialPerception, !!plan.message.location)
   // do we also have to insert assets in the target polygon?
-  if ((activity.spatialPerception || activity.spatialPerception) && plan.message.location && plan.message.location.length) {
+  if ((activity.spatialPerception || activity.spatialHealth) && plan.message.location && plan.message.location.length) {
     insertSpatialOutcomesFor(plan, outcomes, activity, forces)
   }
   // do we also have to update asset locations
@@ -556,15 +587,15 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
 }
 
 export interface TimedIntervention {
-  // id of the interaction (composite of planning message & event)
-  id: string
-  time: number
-  timeStr: string
-  event: INTERACTION_SHORT_CIRCUIT
-  message: MessagePlanning
-  activity: PlanningActivity
-  geomId: PlannedActivityGeometry['uniqid'] | undefined
-}
+    // id of the interaction (composite of planning message & event)
+    id: string
+    time: number
+    timeStr: string
+    event: INTERACTION_SHORT_CIRCUIT
+    message: MessagePlanning
+    activity: PlanningActivity
+    geomId: PlannedActivityGeometry['uniqid'] | undefined
+  }
 
 const endsWithMovement = (activity?: PlannedActivityGeometry[]): boolean => {
   if (activity && activity.length > 0) {
