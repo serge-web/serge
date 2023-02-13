@@ -49,7 +49,6 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
 
   /** generate the tree of activities */
   const getItems = (areas: AreaCategory[]): SelectItem[] => {
-
     // TODO: this produces nested list, but I can't click them :-(
     // const aItems = areas.map((category) => {
     //   return {
