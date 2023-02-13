@@ -461,8 +461,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const getInteraction = (): void => {
+    const special: string | undefined = undefined // 'tst'
+    const trimmedPlanningMessages = special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const results: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
+    const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
     console.log('get next inter recieved:', results)
     if (results === undefined) {
       setDialogMessage('No interactions found')
