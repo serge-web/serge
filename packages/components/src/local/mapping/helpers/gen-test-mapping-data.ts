@@ -206,10 +206,12 @@ const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: Platfor
   } else {
     // get the first instance
     const groups = res.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
-    if (groups.length > 0) {
+    if (groups.length === 0) {
+      console.warn('Failed to find TG')
+    } else {
       // ok, get some child classes
       const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
-        return pType.uniqid.indexOf(force.name.toLowerCase()) !== -1 && pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
+        return pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
       })
       const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
       const children = res.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
