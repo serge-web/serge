@@ -14,6 +14,20 @@ import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
+/**
+ * organise assets into buckets, by location
+ */
+interface LocationBucket {
+  /**
+   * the location
+   */
+  index: L.LatLng
+  /**
+   *  assets at this location
+   */
+  assets: AssetRow[]
+}
+
 const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
@@ -109,11 +123,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     const fullBuckets = buckets.filter((bucket) => bucket.assets.length > 1)
     const toCluster = fullBuckets.map((bucket): AssetRow[] => bucket.assets).flat() as AssetRow[]
     return toCluster
-  }
-
-  interface LocationBucket {
-    index: L.LatLng
-    assets: AssetRow[]
   }
 
   useEffect(() => {
