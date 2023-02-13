@@ -24,8 +24,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
   const map = useMap()
 
-  console.log('planning forces, cluster', clusterIcons)
-
   const createClusterIcon = () => {
     return {
       iconCreateFunction: function (cluster: MarkerCluster) {
@@ -45,7 +43,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
   useEffect(() => {
     if (!clusterIcons) {
-      console.log('raw markers', assets.length)
       setClusteredMarkers([])
       setRawMarkers([...assets])
     } else {
@@ -85,7 +82,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
         }
       })
       setClusteredMarkers(clustered)
-      setRawMarkers(raw)  
+      setRawMarkers(raw)
     }
   }, [assets, selectedAssets, currentAssets, clusterIcons])
 
