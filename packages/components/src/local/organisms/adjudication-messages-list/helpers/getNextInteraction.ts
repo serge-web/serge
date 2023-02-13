@@ -185,7 +185,7 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], outcomes: MessageAdj
       })
     }
     // create damage outcome for this asset
-    const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
+    const existingC4: 'None' | 'Degraded' | 'Operational' = (tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
     const health: HealthOutcome = {
       asset: tgtAsset.uniqid,
       health: 50,
