@@ -90,7 +90,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const shortDate = (date: string): string => {
     return moment.utc(date).format('MMM DDHHmm[Z]').toUpperCase()
   }
-
+ 
   useEffect(() => {
     // find list of messages that are open and assigned to me
     const ownOpenMessages: MessageInteraction[] = interactionMessages.filter((msg) => {
@@ -110,13 +110,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       // check the first message - it may be an update
       const newMessage = ownMessages[0]
+      const row = toRow(newMessage)
       const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
       if (existingRow && existingRow.id !== newMessage._id) {
-        const row = toRow(newMessage)
         const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
         setRows([...existingMessages, row])
       } else {
-        setCachedInteractions(ownMessages)
+        setRows([...rows, row])
       }
     }
     // when determining the time of next adjudication, consider the full list
@@ -285,44 +285,45 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    if (planningMessages.length > 0) {
-      const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
-        return toRow(message)
-      })
-      setRows(dataTable)
-
-      if (columns.length === 0) {
-        const umpireForce = forces.find((force: ForceData) => force.umpire)
-        // TODO: the column definitions should use the data collated in the column summary (below)
-        // provide more sophisticated column definition lookups
-        const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
-        const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
-          { title: 'Reference', field: 'reference' },
-          { title: 'Turn', field: 'turn', type: 'numeric', hidden: true }, // turnFilter !== SHOW_ALL_TURNS },
-          { title: 'Complete', field: 'complete', render: renderBoolean },
-          { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
-          { title: 'Owner', field: 'owner' },
-          { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
-          { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
-          { title: 'Activity', field: 'Reference' },
-          { title: 'Duration', field: 'period' }
-        ]
-        setColumns(columnsData)
-      } else {
-        // ok, we can only show/hide the turn column once the columns have been defined
-        const turnColumn = columns.find((col) => col.title === 'Turn')
-        if (turnColumn) {
-          const newVal = turnFilter !== SHOW_ALL_TURNS
-          if (turnColumn.hidden !== newVal) {
-            turnColumn.hidden = newVal
-          }
-        } else {
-          console.warn('Turn column not found in adj messages list')
+      if (planningMessages.length > 0) {
+       if (rows.length === 0) {
+          const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
+            return toRow(message)
+          })
+          setRows(dataTable)
         }
+        if (columns.length === 0) {
+          const umpireForce = forces.find((force: ForceData) => force.umpire)
+          // TODO: the column definitions should use the data collated in the column summary (below)
+          // provide more sophisticated column definition lookups
+          const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+          const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
+            { title: 'Reference', field: 'reference' },
+            { title: 'Turn', field: 'turn', type: 'numeric', hidden: true }, // turnFilter !== SHOW_ALL_TURNS },
+            { title: 'Complete', field: 'complete', render: renderBoolean },
+            { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
+            { title: 'Owner', field: 'owner' },
+            { title: 'Order 1', field: 'order1', render: (row: AdjudicationRow) => renderOrderTitle(true, row) },
+            { title: 'Order 2', field: 'order2', render: (row: AdjudicationRow) => renderOrderTitle(false, row) },
+            { title: 'Activity', field: 'Reference' },
+            { title: 'Duration', field: 'period' }
+          ]
+          setColumns(columnsData)
+        } else {
+          // ok, we can only show/hide the turn column once the columns have been defined
+          const turnColumn = columns.find((col) => col.title === 'Turn')
+          if (turnColumn) {
+            const newVal = turnFilter !== SHOW_ALL_TURNS
+            if (turnColumn.hidden !== newVal) {
+              turnColumn.hidden = newVal
+            }
+          } else {
+            console.warn('Turn column not found in adj messages list')
+          }
+        }
+      } else {
+        setRows([])
       }
-    } else {
-      setRows([])
-    }
   }, [planningMessages, cachedInteractions, turnFilter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
@@ -688,7 +689,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   type MessageValue = {id: string, label: string}
-
+  
   return (
     <div className={styles['messages-list']}>
       { manualDialog && <CustomDialog
@@ -793,7 +794,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           </div>
         </div>
       </CustomDialog>
-      }
+      } 
 
       {dialogMessage.length > 0 &&
         <CustomDialog
