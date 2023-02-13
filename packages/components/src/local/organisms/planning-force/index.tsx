@@ -98,9 +98,9 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     assets.forEach((asset: AssetRow) => {
       const pos = asset.position
       if (pos) {
-        let bucket = buckets.find((bucket) => bucket.index.equals(pos))
+        const bucket = buckets.find((bucket) => bucket.index.equals(pos))
         if (!bucket) {
-          buckets.push({index: pos, assets: [asset]})
+          buckets.push({ index: pos, assets: [asset] })
         } else {
           bucket.assets.push(asset)
         }
@@ -265,7 +265,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
             interactive={true}
             {...markerOption}
           >
-            <Tooltip>{asset.name}</Tooltip>
+            <Tooltip>{asset.name + ', ' + asset.id}</Tooltip>
           </Marker>
         })}
       </LayerGroup >
