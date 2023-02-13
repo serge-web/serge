@@ -14,7 +14,7 @@ import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
@@ -23,6 +23,8 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   const [clusteredRangeRings, setClusteredRangeRings] = useState<React.ReactElement[]>([])
 
   const map = useMap()
+
+  console.log('planning forces, cluster', clusterIcons)
 
   const createClusterIcon = () => {
     return {
@@ -42,44 +44,50 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   }
 
   useEffect(() => {
-    if (clusterGroup === undefined) {
-      // no cluster group. See if the map already has one for this force
-      let existingCluster: MarkerClusterGroup | undefined
-      map.eachLayer(function (layer) {
-        if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
-          // yes, this is a marker cluster for this force
-          existingCluster = layer as MarkerClusterGroup
+    if (!clusterIcons) {
+      console.log('raw markers', assets.length)
+      setClusteredMarkers([])
+      setRawMarkers([...assets])
+    } else {
+      if (clusterGroup === undefined) {
+        // no cluster group. See if the map already has one for this force
+        let existingCluster: MarkerClusterGroup | undefined
+        map.eachLayer(function (layer) {
+          if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
+            // yes, this is a marker cluster for this force
+            existingCluster = layer as MarkerClusterGroup
+          }
+        })
+        if (!existingCluster) {
+          // no existing cluster found, generate one
+          existingCluster = L.markerClusterGroup(createClusterIcon())
+          const anyLayer = existingCluster as any
+          // store the force color in the cluster id
+          anyLayer.clusterId = forceColor
+          map.addLayer(existingCluster)
+        }
+        if (existingCluster) {
+          setClusterGroup(existingCluster)
+        } else {
+          console.warn('Failed to find or generate a cluster group')
+        }
+      }
+      const clustered: AssetRow[] = []
+      const raw: AssetRow[] = []
+      assets.forEach((asset) => {
+        // check we have position
+        if (asset.position) {
+          if (selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
+            raw.push(asset)
+          } else {
+            clustered.push(asset)
+          }
         }
       })
-      if (!existingCluster) {
-        // no existing cluster found, generate one
-        existingCluster = L.markerClusterGroup(createClusterIcon())
-        const anyLayer = existingCluster as any
-        // store the force color in the cluster id
-        anyLayer.clusterId = forceColor
-        map.addLayer(existingCluster)
-      }
-      if (existingCluster) {
-        setClusterGroup(existingCluster)
-      } else {
-        console.warn('Failed to find or generate a cluster group')
-      }
+      setClusteredMarkers(clustered)
+      setRawMarkers(raw)  
     }
-    const clustered: AssetRow[] = []
-    const raw: AssetRow[] = []
-    assets.forEach((asset) => {
-      // check we have position
-      if (asset.position) {
-        if (selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
-          raw.push(asset)
-        } else {
-          clustered.push(asset)
-        }
-      }
-    })
-    setClusteredMarkers(clustered)
-    setRawMarkers(raw)
-  }, [assets, selectedAssets, currentAssets])
+  }, [assets, selectedAssets, currentAssets, clusterIcons])
 
   useEffect(() => {
     // create a ring for each clustered marker
