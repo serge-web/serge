@@ -111,9 +111,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       // check the first message - it may be an update
       const newMessage = ownMessages[0]
       const row = toRow(newMessage)
-      const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
-      if (existingRow && existingRow.id !== newMessage._id) {
-        const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+       const existingRow = rows.some(row => row.reference === newMessage.message.Reference)
+      if (existingRow) {
+        const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
         setRows([...existingMessages, row])
       } else {
         setRows([...rows, row])
