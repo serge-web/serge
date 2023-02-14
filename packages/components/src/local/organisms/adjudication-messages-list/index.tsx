@@ -38,7 +38,7 @@ type ManualInteractionData = {
 }
 
 type ManualInteractionResults = {
-  orders: MessagePlanning []
+  orders: MessagePlanning[]
   otherAssets: Asset[]
   startDate: string
   endDate: string
@@ -150,7 +150,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
     index: number, numberCol: boolean): React.ReactElement => {
-    let asset: {force: ForceData, asset: Asset} | undefined
+    let asset: { force: ForceData, asset: Asset } | undefined
     try {
       asset = findForceAndAsset(forces, assetId.asset)
     } catch (e) {
@@ -162,7 +162,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const forceStyle = { backgroundColor: hexToRGBA(asset.force.color, 0.4) }
       const alive = asset.asset.health ? Math.floor(numAssets * asset.asset.health / 100) : 0
       const numDetails = assetId.missileType
-        ? <td>{alive + ' of ' + numAssets}<br/>{assetId.missileType }</td>
+        ? <td>{alive + ' of ' + numAssets}<br />{assetId.missileType}</td>
         : <td>{alive + ' of ' + numAssets}</td>
       const repairDue = asset.asset.attributes && asset.asset.attributes.a_Repair_Complete as string
       const readableDue = repairDue && shortDate(repairDue)
@@ -170,9 +170,9 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const healthStyle = healthStyleFor(asset.asset.health)
       return <tr key={asset.asset.uniqid}>
         <td style={forceStyle}>{asset.asset.name}</td>
-        { numberCol && numDetails }
-        <td>{platformType ? platformType.name : 'n/a'}<br/>{asset.asset.attributes?.a_Type}</td>
-        <td className={healthStyle}>{aHealth || 'unk'}<br/>{readableDue}</td>
+        {numberCol && numDetails}
+        <td>{platformType ? platformType.name : 'n/a'}<br />{asset.asset.attributes?.a_Type}</td>
+        <td className={healthStyle}>{aHealth || 'unk'}<br />{readableDue}</td>
         <td>{asset.asset.attributes?.a_C4_Status}</td>
       </tr>
     } else {
@@ -221,7 +221,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <span><b>Reference: </b> {plan.message.Reference} </span>
         <span><b>Activity: </b> {activity || 'n/a'}: {geometry || ''}</span><br />
         <span><b>Order Time: </b> {orderTimings} </span><br />
-        { geomTimings && <><span><b>Activity Time: </b> {geomTimings} </span><br /></>
+        {geomTimings && <><span><b>Activity Time: </b> {geomTimings} </span><br /></>
         }
         <span><b>Own: </b> {plan.message.ownAssets && plan.message.ownAssets.length > 0 &&
           <table className={styles.assets}>
@@ -239,7 +239,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             </tbody>
           </table>}
         </span>
-        <hr/>
+        <hr />
         {items}
       </Box>
     }
@@ -461,9 +461,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     console.timeLog('count interactions')
   }
 
+  // find plan with task group
+  // const withTg = planningMessages.find((message) => {
+  //   return message.message.Reference === 'Red-7'
+  // })
+
   const getInteraction = (): void => {
+    // const special: string | undefined = withTg && withTg.message.activity // undefined // 'tst'
+    const trimmedPlanningMessages = planningMessages // [withTg as MessagePlanning] // || special ? planningMessages.filter((msg) => msg.message.activity.toLowerCase().includes(special)) : planningMessages
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
-    const results: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
+    const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
     console.log('get next inter recieved:', results)
     if (results === undefined) {
       setDialogMessage('No interactions found')
@@ -620,7 +627,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
               <ul>
                 <li><b>Date/time: </b>{time}</li>
                 <li><b>Geometry provided: </b>{interaction.geometry ? 'Yes (' + descriptionFor(interaction.geometry) + ')' : 'No'}</li>
-                { interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li> }
+                {interaction.event && <li><b>Event: </b>{translateEvent(interaction.event)}</li>}
                 <li><b>Other assets: </b>
                   <span>{data.otherAssets && data.otherAssets.length > 0
                     ? <table className={styles.assets}>
@@ -673,7 +680,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const modalStyle = useMemo(() => ({ content: { width: '850px' } }), [])
 
-  const validateManualForm = ():void => {
+  const validateManualForm = (): void => {
     const res = []
     const orderLen = manuallyData.current.orders.length
     if (orderLen === 0) {
@@ -688,11 +695,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     setValidationErrors(res)
   }
 
-  type MessageValue = {id: string, label: string}
-  
+  type MessageValue = { id: string, label: string }
+
   return (
     <div className={styles['messages-list']}>
-      { manualDialog && <CustomDialog
+      {manualDialog && <CustomDialog
         isOpen={true}
         header={'Create Manual Interaction'}
         cancelBtnText={'Cancel'}

@@ -17,4 +17,6 @@ export default interface PropTypes {
   interactive?: boolean
   /** name of this force */
   label: string
+  /** whether to cluster icons */
+  clusterIcons: boolean
 }

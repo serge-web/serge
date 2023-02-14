@@ -1,12 +1,12 @@
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { Area, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import { AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
-import { faCalculator, faHistory, faShapes } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faHistory, faObjectUngroup, faShapes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -84,7 +84,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [zoom] = useState<number>(7)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
-  const [myAreas, setMyAreas] = useState<Array<Area>>([])
+  const [myAreas, setMyAreas] = useState<Array<AreaCategory>>([])
 
   // which force to view the data as
   const [viewAsForce, setViewAsForce] = useState<ForceData['uniqid']>(selectedForce.uniqid)
@@ -138,6 +138,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
   const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
+  const [clusterIcons, setClusterIcons] = useState<boolean>(true)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
@@ -184,7 +185,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     if (areas) {
       // produce a list of standard areas for a player of this force
-      const filtered = areas.filter((area: Area) => area.usedBy.includes(selectedForce.uniqid))
+      const filtered = areas.filter((area: AreaCategory) => area.usedBy.includes(selectedForce.uniqid))
       setMyAreas(filtered)
     }
   }, [areas, selectedForce])
@@ -749,7 +750,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 { perForceAssets.map((force) => {
-                  return <PlanningForces label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                  return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
                     assets={force.rows} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
                 })
                 }
@@ -757,7 +758,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               </LayerGroup>
               <MapPlanningOrders forceColors={forceColors} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={currentOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             </Fragment>
-            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} areas={myAreas} saved={(activity) => saveEditedOrderGeometries(activity)} />}
+            {activityBeingEdited && <OrderEditing activityBeingEdited={activityBeingEdited} saved={(activity) => saveEditedOrderGeometries(activity)} />}
             {activityBeingPlanned && <OrderDrawing activity={activityBeingPlanned} areas={myAreas} planned={(geoms) => setActivityPlanned(geoms)} cancelled={() => setActivityBeingPlanned(undefined)} />}
           </Fragment>
         }
@@ -765,7 +766,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -860,6 +861,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             <div className={cx('leaflet-control')}>
                               <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
+                            </div>
+                          }
+                          {
+                            <div className={cx('leaflet-control')}>
+                              <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
+                                onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
                             </div>
                           }
                           {

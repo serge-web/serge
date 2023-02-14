@@ -1,6 +1,6 @@
 import { hexToRGBA } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup } from 'leaflet'
+import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
@@ -14,7 +14,21 @@ import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
+/**
+ * organise assets into buckets, by location
+ */
+interface LocationBucket {
+  /**
+   * the location
+   */
+  index: L.LatLng
+  /**
+   *  assets at this location
+   */
+  assets: AssetRow[]
+}
+
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
@@ -24,9 +38,9 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
   const map = useMap()
 
-  const createClusterIcon = () => {
+  const createClusterIcon = (): MarkerClusterGroupOptions => {
     return {
-      iconCreateFunction: function (cluster: MarkerCluster) {
+      iconCreateFunction: function (cluster: MarkerCluster): L.DivIcon {
         const markers = cluster.getAllChildMarkers()
         const size = markers.length / 5 + 40
         const color = styles.circle
@@ -37,7 +51,9 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: true,
       zoomToBoundsOnClick: true,
-      removeOutsideVisibleBounds: true
+      removeOutsideVisibleBounds: true,
+      spiderfyDistanceMultiplier: 4,
+      animate: true
     }
   }
 
@@ -66,20 +82,48 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       }
     }
     const clustered: AssetRow[] = []
-    const raw: AssetRow[] = []
+    let raw: AssetRow[] = []
     assets.forEach((asset) => {
       // check we have position
       if (asset.position) {
-        if (selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
+        if (!clusterIcons || selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
           raw.push(asset)
         } else {
           clustered.push(asset)
         }
       }
     })
+    // special processing. If there aren't too may assets, cluster any that share a location
+    if (raw.length < 2000) {
+      const cluster2 = clusterRawIcons(raw)
+      // pull the clustered ones out of the raw listing
+      raw = raw.filter((item) => !cluster2.includes(item))
+      // and add them to the clustered list
+      clustered.push(...cluster2)
+    }
     setClusteredMarkers(clustered)
     setRawMarkers(raw)
-  }, [assets, selectedAssets, currentAssets])
+  }, [assets, selectedAssets, currentAssets, clusterIcons])
+
+  /** utility method to find assets at the same location, and cluster them */
+  const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
+    const buckets: LocationBucket[] = []
+    // first put them into buckets
+    assets.forEach((asset: AssetRow) => {
+      const pos = asset.position
+      if (pos) {
+        const bucket = buckets.find((bucket) => bucket.index.equals(pos))
+        if (!bucket) {
+          buckets.push({ index: pos, assets: [asset] })
+        } else {
+          bucket.assets.push(asset)
+        }
+      }
+    })
+    const fullBuckets = buckets.filter((bucket) => bucket.assets.length > 1)
+    const toCluster = fullBuckets.map((bucket): AssetRow[] => bucket.assets).flat() as AssetRow[]
+    return toCluster
+  }
 
   useEffect(() => {
     // create a ring for each clustered marker
@@ -230,7 +274,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
             interactive={true}
             {...markerOption}
           >
-            <Tooltip>{asset.name}</Tooltip>
+            <Tooltip>{asset.name + ', ' + asset.id}</Tooltip>
           </Marker>
         })}
       </LayerGroup >
