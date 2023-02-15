@@ -70,9 +70,9 @@ describe('check collating assets', () => {
   it('handles own-forces tab', () => {
     const umpireColumns = getColumns(false, forces, blueForce.uniqid, platformStyles, assetsCache)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(8)
+    expect(umpireColumns.length).toEqual(9)
 
-    const pTypeCol = umpireColumns[2]
+    const pTypeCol = umpireColumns[3]
     expect(pTypeCol.lookup).toBeTruthy()
     expect(pTypeCol.lookup && Object.keys(pTypeCol.lookup).length).toEqual(10)
 
@@ -114,11 +114,11 @@ describe('check collating assets', () => {
   it('handles opFor tab', () => {
     const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles, assetsCache)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(7)
+    expect(umpireColumns.length).toEqual(8)
 
     const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles, assetsCache)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(7)
+    expect(blueColumns.length).toEqual(8)
 
     const umpireRows = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes)
     expect(umpireRows).toBeTruthy()
