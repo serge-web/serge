@@ -239,7 +239,7 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
         const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
         // do we have location?
         if (!groupLocations[group]) {
-          groupLocations[group] = {...asset.location}
+          groupLocations[group] = [asset.location[0], asset.location[1]]
         }
         asset.location = groupLocations[group]
         if (!asset.attributes) {
@@ -306,7 +306,8 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   })
   const airAsset = assetsWithTGs.filter((asset: Asset) => asset.platformTypeId.indexOf('air') > 0)
   airAsset.forEach((asset: Asset) => {
-    if (asset.attributes) {
+    // note: don't assign an airfield if it's in atask group
+    if (asset.attributes && !asset.attributes.a_TaskGroup) {
       const airfield = airfields[Math.floor(Math.random() * airfields.length)]
       asset.attributes.a_Airfield = airfield.uniqid
       const airLoc = airfield.location || [0, 0]
@@ -318,8 +319,6 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       const behindCoords = newPt.geometry.coordinates
       const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
       asset.location = newLoc
-    } else {
-      console.warn('Not found assets for this aircraft')
     }
   })
 
