@@ -64,7 +64,9 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
 
     const flatList: SelectItem[] = []
     areas.forEach((category) => {
-      category.areas.forEach((area) => {
+      // note: we had a crash when Serge encountered an areas block in the "old" structure.
+      // note: so, check the areas element exists
+      category.areas && category.areas.forEach((area) => {
         flatList.push({
           label: category.name + ' - ' + area.name,
           value: category.name + '~' + area.name
