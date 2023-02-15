@@ -744,10 +744,16 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   type MessageValue = { id: string, label: string }
 
-  const eventList: CSSProperties = {
-    height: '700px',
-    overflowY: 'scroll'
-  } as CSSProperties
+  // linter warned that this object was being created on each render, so use a useMemo
+  const eventList = useMemo(() => {
+    const eventList: CSSProperties = {
+      height: '700px',
+      overflowY: 'scroll'
+    } as CSSProperties
+    return eventList
+  }, [gameTurnLength])
+
+
 
   return (
     <div className={styles['messages-list']}>
