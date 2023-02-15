@@ -9,13 +9,13 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import { findForceAndAsset, forceColors, ForceStyle, hexToRGBA, incrementGameTime } from '@serge/helpers'
+import { findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
 import _ from 'lodash'
 import moment from 'moment'
-import React, { Fragment, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, Fragment, SyntheticEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Button from '../../atoms/button'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
@@ -58,7 +58,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   const [columns, setColumns] = useState<Column<AdjudicationRow>[]>([])
   const [filter, setFilter] = useState<boolean>(false)
   const [onlyShowOpen, setOnlyShowOpwn] = useState<boolean>(false)
-  const [dialogMessage, setDialogMessage] = useState<string>('')
+  const [dialogMessage, setDialogMessage] = useState<React.ReactElement | undefined>()
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
   const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
@@ -447,15 +447,63 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     currentAdjudication.current = value as MessageAdjudicationOutcomes
   }
 
+  const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
+    if (data.length) {
+      return <table className={styles.assets}>
+        <thead>
+          <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
+        </thead>
+        <tbody>
+          { data.map((row, index) =>
+            <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
+        </tbody>
+      </table>
+    }
+    return <></>
+  }
+
   const countRemainingInteractions = (): void => {
     console.time('count interactions')
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
     if (Array.isArray(contacts)) {
-      const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
-      setDialogMessage(message)
+      const events = contacts[0]
+      const interactions = contacts[1]
+      // put contents of results into console
+      const sortedEvents = _.sortBy(events, o => o.time)
+      const eventMap: Record<string, string>[] = sortedEvents.map((event): Record<string, string> => {
+        const message = event.message.message
+        const own = message.ownAssets ? message.ownAssets.map((item) => item.asset).join(', ') : ''
+        const other = message.otherAssets ? message.otherAssets.map((item) => item.asset).join(', ') : ''
+        return {
+          ref: message.Reference,
+          title: message.title,
+          time: formatMilitaryDate(moment.utc(event.time).toISOString()),
+          event: event.event,
+          activity: message.activity,
+          own: own,
+          other: other
+        }
+      })
+      console.table(eventMap)
+      const sortedInteractions = _.sortBy(interactions, o => o.timeStart)
+      const interactionMap = sortedInteractions.map((interv) => {
+        const m1 = interv.first.plan.message
+        const m2 = interv.second.plan.message
+        return {
+          time: formatMilitaryDate(moment.utc(interv.timeStart).toISOString()),
+          first: m1.Reference,
+          tFirst: m1.title,
+          second: m2.Reference,
+          tSecond: m2.title
+        }
+      })
+      console.table(interactionMap)
+      const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
+      //
+      setDialogMessage(<>{message}{arrayToTable(eventMap)}{arrayToTable(interactionMap)}</>)
     } else {
-      setDialogMessage('No events or interactions remaining')
+      setDialogMessage(<>No events or interactions remaining</>)
     }
     console.timeLog('count interactions')
   }
@@ -472,7 +520,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const results: InteractionResults = getNextInteraction2(trimmedPlanningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, false, currentTurn)
     console.log('get next inter recieved:', results)
     if (results === undefined) {
-      setDialogMessage('No interactions found')
+      setDialogMessage(<>No interactions found</>)
       // fine, ignore it
     } else if (!Array.isArray(results) && results !== undefined) {
       const outcomes = results as { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
@@ -673,7 +721,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const closeDialogCallback = useCallback(() => setDialogMessage(''), [])
+  const closeDialogCallback = useCallback(() => setDialogMessage(undefined), [])
   const closeManualCallback = useCallback(() => setManualDialog(undefined), [])
   const handleManualCallback = useCallback(handleManualInteraction, [])
 
@@ -695,6 +743,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   type MessageValue = { id: string, label: string }
+
+  // linter warned that this object was being created on each render, so use a useMemo
+  const eventList = useMemo(() => {
+    const eventList: CSSProperties = {
+      height: '700px',
+      overflowY: 'scroll'
+    } as CSSProperties
+    return eventList
+  }, [gameTurnLength])
 
   return (
     <div className={styles['messages-list']}>
@@ -802,12 +859,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       </CustomDialog>
       }
 
-      {dialogMessage.length > 0 &&
+      {dialogMessage !== undefined &&
         <CustomDialog
-          isOpen={dialogMessage.length > 0}
+          isOpen={dialogMessage !== undefined}
           header={'Generate interactions'}
           cancelBtnText={'OK'}
           onClose={closeDialogCallback}
+          bodyStyle={eventList}
         >
           <>{dialogMessage}</>
         </CustomDialog>
