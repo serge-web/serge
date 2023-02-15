@@ -194,7 +194,7 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
   return attrVals
 }
 
-const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
+const makeTaskGroup = (assets: Asset[], platformTypes: PlatformTypeData[]): Asset[] => {
   // generate some task group names
   const numGroups = 5
   const ctgNames: string[] = []
@@ -295,7 +295,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   }
 
   // make the first unit a composite one
-  const assetsWithTGs = withComprising ? makeTaskGroup(assets, force, platformTypes) : assets
+  const assetsWithTGs = withComprising ? makeTaskGroup(assets, platformTypes) : assets
 
   // put aircraft onto airfields
   const airfields = assetsWithTGs.filter((asset: Asset) => {
