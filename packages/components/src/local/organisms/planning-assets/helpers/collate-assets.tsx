@@ -253,8 +253,6 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   const ownAssets = !!(playerForce && !opFor)
 
-  console.log('cols', ownAssets, playerForce, opFor)
-
   const columns: Column<any>[] = [
     { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
