@@ -7,7 +7,6 @@ import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
 import L, { Polygon } from 'leaflet'
-import { uniqueId } from 'lodash'
 import { randomArrayItem } from '../../organisms/support-panel/helpers/gen-order-data'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
@@ -275,9 +274,9 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const health = randomArrayItem(healthValues, Math.random() * ctr)
 
     const asset: Asset = {
-      uniqid: uniqueId('a'),
+      uniqid: force.name + '.' + (platformTypeCtr + 1) + '.' + (i+1),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
-      name: force.name + ':' + i,
+      name: force.name + ':' + platformType.name + ':' + i,
       perceptions: [],
       health: health,
       platformTypeId: platformType.uniqid,
