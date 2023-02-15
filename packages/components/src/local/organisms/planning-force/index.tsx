@@ -125,16 +125,16 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     return toCluster
   }
 
-  useEffect(() => {
+  const getRingsFor = (assets: AssetRow[]): React.ReactElement[] => {
     // create a ring for each clustered marker
     const rings: React.ReactElement[] = []
-    clustereredMarkers.forEach((asset: AssetRow) => {
+    assets.forEach((asset: AssetRow) => {
       const attrs = asset.attributes
       // try for the two range attributes
       const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
       // only plot range rings for SAM sites
-      const isSAM = asset.platformType.indexOf('sam') >= 0
-      if (range && isSAM) {
+      // const isSAM = asset.platformType.indexOf('sam') >= 0
+      if (range) {
         const index = range.indexOf(' km')
         const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
         const centre = asset.position ? asset.position : latLng([0, 0])
@@ -144,29 +144,16 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
         }
       }
     })
+    return rings
+  }
+
+  useEffect(() => {
     // show rings for all current assets
-    setClusteredRangeRings(rings)
+    setClusteredRangeRings(getRingsFor(clustereredMarkers))
   }, [clustereredMarkers])
 
   useEffect(() => {
-    const rings: React.ReactElement[] = []
-    rawMarkers.forEach((asset: AssetRow) => {
-      const attrs = asset.attributes
-      // try for the two range attributes
-      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
-      // only plot range rings for SAM sites
-      const isSAM = asset.platformType.indexOf('sam') >= 0
-      if (range && isSAM) {
-        const index = range.indexOf(' km')
-        const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
-        const centre = asset.position ? asset.position : latLng([0, 0])
-        const rad = rangeKm * 1000
-        if (rad > 0) {
-          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor }} />)
-        }
-      }
-    })
-    setRawRangeRings(rings)
+    setRawRangeRings(getRingsFor(rawMarkers))
   }, [rawMarkers])
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
