@@ -1,9 +1,10 @@
-import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faFilter, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
@@ -24,6 +25,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
+  const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
 
@@ -190,6 +192,35 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  const archiveConfirmed = (): void => {
+    if (pendingArchive) {
+      const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
+      if (actualMessages.length !== pendingArchive.length) {
+        console.warn('failed to find actual version of some messages', rows, actualMessages)
+      }
+      const foundMessaes = actualMessages.filter((msg) => msg !== undefined) as MessagePlanning[]
+      const markArchived = foundMessaes.map((msg): MessagePlanning => {
+        // mark as archived
+        msg.details.archived = true
+        return msg
+      })
+      console.log('Archiving:', markArchived)
+      // TODO: submit these new messages  
+      setPendingArchive([])
+    }
+  }
+
+  const archiveCancelled = (): void => {
+    setPendingArchive([])
+  }
+
+
+  const archiveSelected = (_event: any, data: OrderRow | OrderRow[]): void => {
+    const rows: OrderRow[] = Array.isArray(data) ? data : [data]
+    setPendingArchive(rows)
+
+  }
+
   const onSelectionChange = (rows: OrderRow[]): void => {
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
@@ -197,12 +228,31 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
+      {pendingArchive.length > 0 &&
+        <CustomDialog
+          isOpen={pendingArchive.length > 0}
+          header={'Archive orders'}
+          cancelBtnText={'Cancel'}
+          saveBtnText={'Archive'}
+          onClose={archiveCancelled}
+          onSave={archiveConfirmed}
+        >
+          <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
+        </CustomDialog>
+      }
       <MaterialTable
         title={'Orders'}
         columns={columns}
         data={rows}
         icons={materialIcons as any}
         actions={[
+          {
+            icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
+            iconProps: filter ? { color: 'error' } : { color: 'action' },
+            tooltip: 'Archive messages',
+            isFreeAction: false,
+            onClick: (event, data): void => archiveSelected(event, data)
+          },
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
