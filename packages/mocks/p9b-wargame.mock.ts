@@ -19,7 +19,7 @@ const game: Wargame = {
         "forces": {
             "selectedForce": "f-blue",
             "name": "Forces",
-            "forces":[
+            "forces": [
                 {
                     "color": "#000000",
                     "dirty": false,
@@ -60095,14 +60095,7 @@ const game: Wargame = {
                     "name": "Planning",
                     "constraints": {
                         "bounds": [
-                            [
-                                55,
-                                -10
-                            ],
-                            [
-                                2,
-                                86
-                            ]
+                            [75, -20], [-10, 140]
                         ],
                         "maxZoom": 7,
                         "minZoom": 3,
