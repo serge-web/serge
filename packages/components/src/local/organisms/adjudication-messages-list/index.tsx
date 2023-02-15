@@ -753,8 +753,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return eventList
   }, [gameTurnLength])
 
-
-
   return (
     <div className={styles['messages-list']}>
       {manualDialog && <CustomDialog
