@@ -195,50 +195,61 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
   return attrVals
 }
 
-const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
-  // find mtg
-  let res: Asset[] = [...assets]
-  const mtg = platformTypes.find((pType: PlatformTypeData) => {
-    return pType.uniqid.indexOf('mtg') !== -1
-  })
-  if (!mtg) {
-    console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
-  } else {
-    // get the first instance
-    const groups = res.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
-    if (groups.length === 0) {
-      console.warn('Failed to find TG')
-    } else {
-      // ok, get some child classes
-      const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
-        return pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
-      })
-      const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
-      const children = res.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
-
-      // track the assets that have been moved to task groups, so we can later remove them
-      const movedToGroup: string[] = []
-
-      children.forEach((asset: Asset, index: number) => {
-        if (Math.random() > 0.4) {
-          // pick a task group parent
-          const newParent = randomArrayItem(groups, index)
-          // remove the location, we take it from the parent
-          delete asset.location
-          // store it
-          if (!newParent.comprising) {
-            newParent.comprising = []
-          }
-          newParent.comprising.push(asset)
-          // remember the id
-          movedToGroup.push(asset.uniqid)
-        }
-      })
-      // remove children that were moved to task groups
-      res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
-    }
+const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
+  // generate some task group names
+  const numGroups = 5
+  const ctgNames: string[] = []
+  for (let i=0;i<numGroups;i++) {
+    const randNum = Math.floor(Math.random() * 1000)
+    ctgNames.push('CTF-' + randNum)
   }
-  return res
+  
+  // find maritime assets
+  const marPlats = platformTypes.filter((ptype) => ptype.travelMode === 'sea' && ptype.uniqid !== '_maritime_mine').map((pType) => pType.uniqid) 
+  const marAssets = assets.filter((asset) => marPlats.includes(asset.platformTypeId))
+
+  // find fighter aircraft
+  const airAssets = assets.filter((asset) => asset.platformTypeId === '_air_fighter')
+
+  // randomly assign task group membership
+  const groupLocations = {}
+  marAssets.forEach((asset) => {
+    asset.attributes && delete asset.attributes['a_TaskGroup']
+    if (asset.location) {
+      if (Math.random() * 10 > 3) {
+        const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
+        // do we have location?
+        if (!groupLocations[group]) {
+          groupLocations[group] = {...asset.location}
+        }
+        asset.location = groupLocations[group]
+        if (!asset.attributes) {
+          asset.attributes = {}
+        }
+        asset.attributes['a_TaskGroup'] = group
+      }  
+    }
+  })
+
+  // randomly assign task group membership
+  airAssets.forEach((asset) => {
+    if (asset.location) {
+      if (Math.random() * 10 > 7) {
+        const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
+        // do we have location?
+        if (!groupLocations[group]) {
+          groupLocations[group] = {...asset.location}
+        }
+        asset.location = groupLocations[group]
+        if (!asset.attributes) {
+          asset.attributes = {}
+        }
+        asset.attributes['a_TaskGroup'] = group
+      }  
+    }
+  })
+
+  return assets
 }
 
 export const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
