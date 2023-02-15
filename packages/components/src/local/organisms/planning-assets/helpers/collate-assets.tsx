@@ -253,10 +253,11 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   const ownAssets = !!(playerForce && !opFor)
 
+  console.log('cols', ownAssets, playerForce, opFor)
+
   const columns: Column<any>[] = [
     { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: fixedColWidth, minWidth: fixedColWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
-    { title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: true, lookup: arrToDict(summaryData.taskGroups) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
     { title: 'Domain', type: 'string', field: 'domain', width: fixedColWidth, minWidth: fixedColWidth, lookup: arrToDict(['Land', 'Maritime', 'Air']) },
@@ -266,6 +267,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
 
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
+    columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
     columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
   }
 
