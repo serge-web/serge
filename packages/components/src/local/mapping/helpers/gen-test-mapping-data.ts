@@ -274,7 +274,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const health = randomArrayItem(healthValues, Math.random() * ctr)
 
     const asset: Asset = {
-      uniqid: force.name + '.' + (platformTypeCtr + 1) + '.' + (i+1),
+      uniqid: force.name + '.' + (platformTypeCtr + 1) + '.' + (i + 1),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
       name: force.name + ':' + platformType.name + ':' + i,
       perceptions: [],
