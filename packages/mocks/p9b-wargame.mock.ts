@@ -59498,7 +59498,8 @@ const game: Wargame = {
                         "a_Number_Aircraft",
                         "a_C4_Status",
                         "a_Airfield",
-                        "a_Equipment"
+                        "a_Equipment",
+                        "a_TaskGroup"
                     ],
                     "travelMode": "air"
                 },
@@ -59537,21 +59538,6 @@ const game: Wargame = {
                     "travelMode": "land"
                 },
                 {
-                    "name": "MTG",
-                    "icon": "n_",
-                    "sidc": "S*S*GT----",
-                    "attributeTypeIds": [
-                        "a_Speed",
-                        "a_C4_Status",
-                        "a_MEZ_range",
-                        "a_Type"
-                    ],
-                    "conditions": [],
-                    "states": [],
-                    "uniqid": "_maritime_mtg",
-                    "travelMode": "sea"
-                },
-                {
                     "name": "Ship",
                     "icon": "n_",
                     "sidc": "S*S*CLDD--",
@@ -59560,7 +59546,8 @@ const game: Wargame = {
                         "a_Type",
                         "a_C4_Status",
                         "a_MEZ_range",
-                        "a_Equipment"
+                        "a_Equipment",
+                        "a_TaskGroup"
                     ],
                     "conditions": [],
                     "states": [],
@@ -59575,7 +59562,8 @@ const game: Wargame = {
                         "a_Speed",
                         "a_Type",
                         "a_C4_Status",
-                        "a_Equipment"
+                        "a_Equipment",
+                        "a_TaskGroup"
                     ],
                     "conditions": [],
                     "states": [],
@@ -59827,6 +59815,13 @@ const game: Wargame = {
                     "description": "Child units",
                     "editableByPlayer": false,
                     "name": "Units"
+                },
+                {
+                    "attrId": "a_TaskGroup",
+                    "attrType": "AttributeTypeString",
+                    "description": "Host Task Group",
+                    "editableByPlayer": false,
+                    "name": "Task Group"
                 },
                 {
                     "attrId": "a_Airfield",
