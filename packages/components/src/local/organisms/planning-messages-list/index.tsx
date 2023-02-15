@@ -75,10 +75,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setRows(dataTable)
 
     const columnData = toColumn(myMessages)
-    if (!columns.length) {
+    if (!columns.length || !filter) {
       setColumns(columnData)
     }
-  }, [myMessages, turnFilter])
+  }, [myMessages, turnFilter, filter])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
@@ -206,7 +206,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Show filter controls',
+            tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
           },

@@ -21,17 +21,19 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const { selectedAssets, assetsCache } = useContext(SupportPanelContext)
 
   useEffect(() => {
-    if (!columns.length) {
+    if (!columns.length || !filter) {
       setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache))
     }
-  }, [playerForce, forces])
+  }, [playerForce, forces, filter])
 
   useEffect(() => {
     // const newRows = getRows(opFor, forces, forceColors, platformStyles, playerForce, selectedAssets, platformTypes, attributeTypes)
     // setRows(newRows)
     // TODO - swap next line for
-    setRows(assets)
-  }, [assets])
+    if (!filter) {
+      setRows(assets)
+    }
+  }, [assets, filter])
 
   useEffect(() => {
     if (selectedAssets.length) {
@@ -59,7 +61,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       {
         icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
         iconProps: filter ? { color: 'action' } : { color: 'disabled' },
-        tooltip: 'Show filter controls',
+        tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
         isFreeAction: true,
         onClick: (): void => setFilter(!filter)
       }
