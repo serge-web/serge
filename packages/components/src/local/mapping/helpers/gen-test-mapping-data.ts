@@ -199,13 +199,13 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
   // generate some task group names
   const numGroups = 5
   const ctgNames: string[] = []
-  for (let i=0;i<numGroups;i++) {
+  for (let i = 0; i < numGroups; i++) {
     const randNum = Math.floor(Math.random() * 1000)
     ctgNames.push('CTF-' + randNum)
   }
-  
+
   // find maritime assets
-  const marPlats = platformTypes.filter((ptype) => ptype.travelMode === 'sea' && ptype.uniqid !== '_maritime_mine').map((pType) => pType.uniqid) 
+  const marPlats = platformTypes.filter((ptype) => ptype.travelMode === 'sea' && ptype.uniqid !== '_maritime_mine').map((pType) => pType.uniqid)
   const marAssets = assets.filter((asset) => marPlats.includes(asset.platformTypeId))
 
   // find fighter aircraft
@@ -214,7 +214,7 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
   // randomly assign task group membership
   const groupLocations = {}
   marAssets.forEach((asset) => {
-    asset.attributes && delete asset.attributes['a_TaskGroup']
+    asset.attributes && delete asset.attributes.a_TaskGroup
     if (asset.location) {
       if (Math.random() * 10 > 3) {
         const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
@@ -226,14 +226,14 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
         if (!asset.attributes) {
           asset.attributes = {}
         }
-        asset.attributes['a_TaskGroup'] = group
-      }  
+        asset.attributes.a_TaskGroup = group
+      }
     }
   })
 
   // randomly assign task group membership
   airAssets.forEach((asset) => {
-    asset.attributes && delete asset.attributes['a_TaskGroup']
+    asset.attributes && delete asset.attributes.a_TaskGroup
     if (asset.location) {
       if (Math.random() * 10 > 7) {
         const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
@@ -245,8 +245,8 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
         if (!asset.attributes) {
           asset.attributes = {}
         }
-        asset.attributes['a_TaskGroup'] = group
-      }  
+        asset.attributes.a_TaskGroup = group
+      }
     }
   })
 
