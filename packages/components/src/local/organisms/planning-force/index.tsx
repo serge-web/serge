@@ -258,7 +258,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           const markerOption = getRawMarkerOption(asset)
           return <Marker
             pmIgnore
-            interactive={true}
+            interactive={interactive}
             {...markerOption}
           >
             <Tooltip>{asset.name + ', ' + asset.id}</Tooltip>
