@@ -258,6 +258,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
   // show attributes for own forces (or if we're umpire)
   if (ownAssets) {
     columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
+    columns.push({ title: 'Group', field: 'taskGroup', width: 'auto', hidden: false })
   }
 
   return columns
@@ -358,7 +359,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const domain = platformType ? domainFor(platformType.travelMode) : 'Unk'
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   // we don't show some attributes, since they are shown in other columns
-  const attributesToSkip = ['a_Type', 'a_C4_Status']
+  const attributesToSkip = ['a_Type', 'a_C4_Status', 'a_TaskGroup']
 
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
@@ -386,7 +387,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           health: health,
           c4: c4,
           domain: domain,
-          attributes: modernAttrDict
+          attributes: modernAttrDict,
+          taskGroup: ''
         }
 
         const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
@@ -404,6 +406,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
     const modernAttrDict = platformType ? getModernAttributes(asset, attributeTypes, attributesToSkip) : {}
     const health = asset.health === 0 ? 0 : (asset.health || 100)
     const c4 = asset.attributes ? asset.attributes.a_C4_Status : 'Unk'
+    const tg = asset.attributes ? asset.attributes.a_TaskGroup as string : ''
     if (umpireInOwnFor || myForce || visibleToThisForce) {
       const res: AssetRow = {
         id: asset.uniqid,
@@ -418,7 +421,8 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
         health: health,
         c4: '' + c4,
         domain: domain,
-        attributes: modernAttrDict
+        attributes: modernAttrDict,
+        taskGroup: tg
       }
 
       if (platformType && platformType.sidc) {
