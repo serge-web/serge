@@ -41,7 +41,7 @@ const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactEle
         turnNumber: state.currentTurn
       }
 
-      if (message === '') return
+      if (!message.content) return
 
       saveMessage(state.currentWargame, messageDetails, message)()
       saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
