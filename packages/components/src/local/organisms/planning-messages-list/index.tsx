@@ -205,7 +205,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         return msg
       })
       console.log('Archiving:', markArchived)
-      // TODO: submit these new messages  
+      // TODO: submit these new messages
       setPendingArchive([])
     }
   }
@@ -214,11 +214,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setPendingArchive([])
   }
 
-
   const archiveSelected = (_event: any, data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     setPendingArchive(rows)
-
   }
 
   const onSelectionChange = (rows: OrderRow[]): void => {
