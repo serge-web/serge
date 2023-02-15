@@ -103,7 +103,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
           health: 100,
           c4: 'Operational',
           domain: 'Air',
-          attributes: { word: 'text', number: 123 }
+          attributes: { word: 'text', number: 123 },
+          taskGroup: ''
         }
         return row
       })
