@@ -130,7 +130,8 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       health: 100,
       c4: 'Operational',
       domain: 'Land',
-      attributes: { word: 'text', number: 123 }
+      attributes: { word: 'text', number: 123 },
+      taskGroup: ''
     }
     return row
   }
