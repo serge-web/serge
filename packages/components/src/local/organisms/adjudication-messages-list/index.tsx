@@ -9,7 +9,7 @@ import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { ADJUDICATION_OUTCOMES } from '@serge/config'
 import { Asset, ForceData, InteractionDetails, INTERACTION_SHORT_CIRCUIT, LocationOutcome, MessageAdjudicationOutcomes, MessageDetails, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
-import { findForceAndAsset, forceColors, ForceStyle, hexToRGBA, incrementGameTime } from '@serge/helpers'
+import { findForceAndAsset, forceColors, ForceStyle, formatMilitaryDate, hexToRGBA, incrementGameTime } from '@serge/helpers'
 import { area, length, lineString, LineString, polygon, Polygon } from '@turf/turf'
 import dayjs, { Dayjs } from 'dayjs'
 import { Geometry } from 'geojson'
@@ -452,7 +452,37 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     const gameTurnEnd = incrementGameTime(gameDate, gameTurnLength)
     const contacts: InteractionResults = getNextInteraction2(planningMessages, forcePlanningActivities || [], interactionMessages, 0, 30, gameDate, gameTurnEnd, forces, true, currentTurn)
     if (Array.isArray(contacts)) {
-      const message = '' + contacts[0] + ' events remaining' + ', ' + contacts[1] + ' interactions remaining'
+      const events = contacts[0]
+      const interactions = contacts[1]
+      // put contents of results into console
+      const sortedEvents = _.sortBy(events, o => o.time)
+      console.table(sortedEvents.map((event) => {
+        const message = event.message.message
+        const own = message.ownAssets ? message.ownAssets.map((item) => item.asset).join(', ') : ''
+        const other = message.otherAssets ? message.otherAssets.map((item) => item.asset).join(', ') : ''
+        return {
+          ref: message.Reference,
+          title: message.title,
+          time: formatMilitaryDate(moment.utc(event.time).toISOString()),
+          event: event.event,
+          activity: message.activity,
+          own: own,
+          other: other
+        }
+      }))
+      const sortedInteractions = _.sortBy(interactions, o => o.timeStart)
+      console.table(sortedInteractions.map((interv) => {
+        const m1 = interv.first.plan.message
+        const m2 = interv.second.plan.message
+        return {
+          time: formatMilitaryDate(moment.utc(interv.timeStart).toISOString()),
+          first: m1.Reference,
+          tFirst: m1.title,
+          second: m2.Reference,
+          tSecond: m2.title
+        }
+      }))
+      const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
       setDialogMessage(message)
     } else {
       setDialogMessage('No events or interactions remaining')

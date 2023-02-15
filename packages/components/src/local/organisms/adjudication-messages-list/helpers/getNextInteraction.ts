@@ -771,7 +771,7 @@ const ordersLiveIn = (orders: MessagePlanning[], gameTimeVal: number, gameTurnEn
 }
 
 export type CompositeInteractionResults = { details: InteractionDetails, outcomes: MessageAdjudicationOutcomes }
-export type InteractionResults = CompositeInteractionResults | [number, number] | undefined
+export type InteractionResults = CompositeInteractionResults | [TimedIntervention[], PlanningContact[]] | undefined
 
 const startBeforeTime = (msg: GeomWithOrders, time: number) => {
   const props = msg.geometry.properties as PlannedProps
@@ -1034,7 +1034,7 @@ export const getNextInteraction2 = (orders: MessagePlanning[],
       } else {
         console.log('Gen 3 - Have contacts, but no event found', firstContact.id)
         if (getAll) {
-          return [allRemainingEvents.length, contacts.length]
+          return [allRemainingEvents, contacts]
         } else {
           const details = contactDetails(firstContact)
           const outcomes = contactOutcomes(details, firstContact, activities, forces)
