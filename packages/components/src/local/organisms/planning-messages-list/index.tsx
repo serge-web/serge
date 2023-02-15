@@ -1,4 +1,4 @@
-import { faFilter, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
@@ -247,19 +247,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           {
             icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Archive messages',
+            tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
+            disabled: !isUmpire,
             isFreeAction: false,
             onClick: (event, data): void => archiveSelected(event, data)
           },
           {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
+            icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
             tooltip: 'Show filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
           },
           {
-            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
             iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
             tooltip: 'Only show orders created by me',
             isFreeAction: true,
