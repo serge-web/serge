@@ -291,7 +291,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       setRows(dataTable)
 
-      if (columns.length === 0) {
+      if (!columns.length || !filter) {
         const umpireForce = forces.find((force: ForceData) => force.umpire)
         // TODO: the column definitions should use the data collated in the column summary (below)
         // provide more sophisticated column definition lookups
@@ -323,7 +323,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       setRows([])
     }
-  }, [planningMessages, cachedInteractions, turnFilter])
+  }, [planningMessages, cachedInteractions, turnFilter, filter])
 
   const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>, interaction: InteractionData): Record<string, any> => {
     // run the parent first
