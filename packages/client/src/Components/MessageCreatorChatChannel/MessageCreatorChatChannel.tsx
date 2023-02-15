@@ -18,37 +18,36 @@ const styles: { [x: string]: CSSProperties | {} } = {
 }
 
 const MessageCreatorChatChannel = React.memo(({ schema }: Props): React.ReactElement => {
-  const [message, setMessage] = useState<any>({})
+  const [message, setMessage] = useState<{ content: string }>({ content: '' })
   const state = usePlayerUiState()
   const dispatch = useDispatch()
   const { selectedForce } = state
   if (selectedForce === undefined) throw new Error('selectedForce is undefined')
 
   const sendMessage = (): void => {
-    if (message) {
-      const messageDetails: MessageDetails = {
-        channel: state.chatChannel.name,
-        from: {
-          force: selectedForce.name,
-          forceColor: selectedForce.color,
-          forceId: selectedForce.uniqid,
-          roleId: state.selectedRole,
-          roleName: state.selectedRoleName,
-          iconURL: selectedForce.iconURL || (selectedForce.icon || '')
-        },
-        messageType: schema.title,
-        timestamp: new Date().toISOString(),
-        turnNumber: state.currentTurn
-      }
-
-      if (!message.content) return
-
-      saveMessage(state.currentWargame, messageDetails, message)()
-      saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
-      setMessage({
-        content: ''
-      })
+    if (!message.content) {
+      return
     }
+    const messageDetails: MessageDetails = {
+      channel: state.chatChannel.name,
+      from: {
+        force: selectedForce.name,
+        forceColor: selectedForce.color,
+        forceId: selectedForce.uniqid,
+        roleId: state.selectedRole,
+        roleName: state.selectedRoleName,
+        iconURL: selectedForce.iconURL || (selectedForce.icon || '')
+      },
+      messageType: schema.title,
+      timestamp: new Date().toISOString(),
+      turnNumber: state.currentTurn
+    }
+
+    saveMessage(state.currentWargame, messageDetails, message)()
+    saveNewActivityTimeMessage(state.selectedRole, { aType: 'send message' }, state.currentWargame)(dispatch)
+    setMessage({
+      content: ''
+    })
   }
 
   const getMessageValue = (e: ChangeEvent<HTMLTextAreaElement>): void => {
