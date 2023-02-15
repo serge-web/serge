@@ -449,7 +449,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   const arrayToTable = (data: Record<string, string>[]): React.ReactElement => {
     if (data.length) {
-      console.log('items', data.length, data, data[0])
       return <table className={styles.assets}>
         <thead>
           <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>          
