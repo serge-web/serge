@@ -451,11 +451,11 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     if (data.length) {
       return <table className={styles.assets}>
         <thead>
-          <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>          
+          <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
         </thead>
         <tbody>
-        { data.map((row, index) => 
-          <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr> )}
+          { data.map((row, index) =>
+            <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
         </tbody>
       </table>
     }
@@ -500,7 +500,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       })
       console.table(interactionMap)
       const message = '' + events.length + ' events remaining' + ', ' + interactions.length + ' interactions remaining'
-      // 
+      //
       setDialogMessage(<>{message}{arrayToTable(eventMap)}{arrayToTable(interactionMap)}</>)
     } else {
       setDialogMessage(<>No events or interactions remaining</>)
@@ -749,7 +749,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     overflowY: 'scroll'
   } as CSSProperties
 
-
   return (
     <div className={styles['messages-list']}>
       {manualDialog && <CustomDialog
@@ -858,7 +857,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
       {dialogMessage !== undefined &&
         <CustomDialog
-          isOpen={dialogMessage != undefined}
+          isOpen={dialogMessage !== undefined}
           header={'Generate interactions'}
           cancelBtnText={'OK'}
           onClose={closeDialogCallback}
