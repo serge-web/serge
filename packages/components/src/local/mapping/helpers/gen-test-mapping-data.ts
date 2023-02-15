@@ -220,7 +220,7 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
         const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
         // do we have location?
         if (!groupLocations[group]) {
-          groupLocations[group] = {...asset.location}
+          groupLocations[group] = [asset.location[0], asset.location[1]]
         }
         asset.location = groupLocations[group]
         if (!asset.attributes) {
@@ -233,6 +233,7 @@ const makeTaskGroup = (assets: Asset[], _force: ForceData, platformTypes: Platfo
 
   // randomly assign task group membership
   airAssets.forEach((asset) => {
+    asset.attributes && delete asset.attributes['a_TaskGroup']
     if (asset.location) {
       if (Math.random() * 10 > 7) {
         const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
