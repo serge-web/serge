@@ -203,8 +203,6 @@ const makeTaskGroup = (assets: Asset[], platformTypes: PlatformTypeData[]): Asse
     ctgNames.push('CTF-' + randNum)
   }
 
-
-
   // find maritime assets
   const marPlats = platformTypes.filter((ptype) => ptype.travelMode === 'sea' && ptype.uniqid !== '_maritime_mine').map((pType) => pType.uniqid)
   const marAssets = assets.filter((asset) => marPlats.includes(asset.platformTypeId))
