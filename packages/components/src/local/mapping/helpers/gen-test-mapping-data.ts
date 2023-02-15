@@ -203,12 +203,14 @@ const makeTaskGroup = (assets: Asset[], platformTypes: PlatformTypeData[]): Asse
     ctgNames.push('CTF-' + randNum)
   }
 
+
+
   // find maritime assets
   const marPlats = platformTypes.filter((ptype) => ptype.travelMode === 'sea' && ptype.uniqid !== '_maritime_mine').map((pType) => pType.uniqid)
   const marAssets = assets.filter((asset) => marPlats.includes(asset.platformTypeId))
 
   // find fighter aircraft
-  const airAssets = assets.filter((asset) => asset.platformTypeId === '_air_fighter')
+  const airAssets = assets.filter((asset) => asset.platformTypeId.includes('air') && asset.attributes && asset.attributes.a_TaskGroup)
 
   // randomly assign task group membership
   const groupLocations = {}
