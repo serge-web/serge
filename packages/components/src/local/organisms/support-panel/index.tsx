@@ -34,7 +34,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
   planningMessages,
   interactionMessages,
-  turnPresentation,
   onRead,
   onUnread,
   onReadAll,
