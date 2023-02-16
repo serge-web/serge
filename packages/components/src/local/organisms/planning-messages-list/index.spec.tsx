@@ -1,5 +1,5 @@
 /* global it expect */
-import { PLANNING_MESSAGE } from '@serge/config'
+import { Phase, PLANNING_MESSAGE } from '@serge/config'
 import { ChannelPlanning, MessagePlanning } from '@serge/custom-types'
 import moment from 'moment-timezone'
 import React from 'react'
@@ -58,7 +58,7 @@ describe('ChannelMessagesList component: ', () => {
         gameTurnEndDate={turnEndDate} channel={planningChannel}
         hideForcesInChannel={false} selectedOrders={[]} setSelectedOrders={(): any => noop}
         messages={messages} onRead={undefined} onUnread={undefined} isUmpire={true} playerRoleId={blueRole.roleId}
-        phase={'planning'} editLocation={noop} onMarkAllAsRead={markAllAsRead} />, {
+        phase={Phase.Planning} editLocation={noop} onMarkAllAsRead={markAllAsRead} />, {
         createNodeMock: node => {
           return document.createElement(node.type as string)
         }

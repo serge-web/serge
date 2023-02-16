@@ -1,4 +1,4 @@
-import { TurnFormats } from '@serge/config'
+import { Phase } from '@serge/config'
 import {
   ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, Role, TemplateBody
 } from '@serge/custom-types'
@@ -57,9 +57,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
    */
   playerRoleId: Role['roleId']
 
-  /** how to render the game turn  */
-  turnPresentation?: TurnFormats
-
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
   confirmCancel?: boolean
@@ -70,7 +67,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   currentTurn: number
 
   /** current game phase */
-  phase: typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE
+  phase: typeof Phase.Planning | typeof Phase.Adjudication
 
   isUmpire: boolean
   /** whether to hide the forces in the channel

@@ -1,6 +1,7 @@
 import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
+import { Phase } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
@@ -96,8 +97,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       console.error('planning message not found, id:', rowData.reference, 'messages:', messages)
     } else {
       // sort out if editable
-      const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === 'planning'
-      const adjInAdjuPhase = isUmpire && phase === 'adjudication'
+      const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === Phase.Planning
+      const adjInAdjuPhase = isUmpire && phase === Phase.Adjudication
       const canEdit = myMessageInPlanning || adjInAdjuPhase
 
       // check if message is being edited
@@ -128,7 +129,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             if (adjInAdjuPhase) {
               let privMsg = message.details.privateMessage || ''
               const roleName = selectedForce.roles.find((role) => role.roleId === playerRoleId)
-              privMsg += '[Edited by ' + (roleName && roleName.name || playerRoleId) + ' ' + moment.utc().toISOString() + ']'
+              privMsg += '[Edited by ' + ((roleName && roleName.name) || playerRoleId) + ' ' + moment.utc().toISOString() + ']'
               details.privateMessage = privMsg
             }
 
