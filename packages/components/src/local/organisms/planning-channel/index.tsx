@@ -370,9 +370,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     setAllOwnAssets(own)
-    setOwnAssetsFiltered([])
     setAllOppAssets(opp)
-    setOpAssetsFiltered([])
     setForceColors(forceCols)
   }, [allForces, currentForce])
 
