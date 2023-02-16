@@ -362,7 +362,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setSelectedAssets(localSelectedAssets)
     }
   }, [localSelectedAssets])
-
+  
   useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
@@ -370,7 +370,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     setAllOwnAssets(own)
+    setOwnAssetsFiltered([])
     setAllOppAssets(opp)
+    setOpAssetsFiltered([])
     setForceColors(forceCols)
   }, [allForces, currentForce])
 
@@ -908,4 +910,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 }
 
-export default PlanningChannel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => JSON.stringify(prevProps) === JSON.stringify(nextProps)
+
+export default React.memo(PlanningChannel, areEqual)
