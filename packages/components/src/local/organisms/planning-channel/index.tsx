@@ -306,13 +306,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
           })
         }
+        // also see if there are asset locations we should include in viewport
+        const own = plan.message.ownAssets || []
+        const other = plan.message.otherAssets || []
+        const allAssets = own.map((item) => item.asset).concat(other.map((item) => item.asset))
+        if (allAssets) {
+          allAssets.forEach((uniqid) => {
+            const asset = findAsset(allForces, uniqid)
+            const loc = asset.location
+            if (loc) {
+              const coords = L.latLng(loc[0], loc[1])
+              workingBounds = workingBounds ? workingBounds.extend(coords) : L.latLngBounds(coords, coords)
+            }
+          })
+        }
       }
     })
-    if (workingBounds) {
-      setBounds(workingBounds)
-    } else {
-      setBounds(undefined)
-    }
+    setBounds(workingBounds)
 
     // update map bounds
   }, [currentAssetIds, currentOrders])
@@ -744,14 +754,14 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
-        { showStandardAreas && <AreaPlotter areas={myAreas} /> }
+        {showStandardAreas && <AreaPlotter areas={myAreas} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <Fragment>
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                { perForceAssets.map((force) => {
+                {perForceAssets.map((force) => {
                   return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
                     assets={force.rows} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
                 })
@@ -884,7 +894,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             : <>
                               <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
                               <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                              { isUmpire && // don't bother with this, but keep it in case we want to gen more data
+                              {isUmpire && // don't bother with this, but keep it in case we want to gen more data
                                 <div className={cx('leaflet-control')}>
                                   <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
                                 </div>
