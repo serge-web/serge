@@ -286,14 +286,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (planningMessages.length > 0) {
-      if (rows.length === 0) {
-        const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
-          const res = toRow(message)
-          console.log(res)
-          return res
-        })
-        setRows(dataTable)
-      }
+      const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
+        return toRow(message)
+      })
+      setRows(dataTable)
 
       if (!columns.length || !filter) {
         const umpireForce = forces.find((force: ForceData) => force.umpire)
