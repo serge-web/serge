@@ -3,8 +3,8 @@ import { Story } from '@storybook/react/types-6-0'
 import React, { useState } from 'react'
 
 // Import component files
-import { INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
-import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
+import { INFO_MESSAGE_CLIPPED, Phase, PLANNING_MESSAGE } from '@serge/config'
+import { Asset, ChannelPlanning, ForceData, MessageInteraction, MessagePlanning, MessageStructure, PlannedActivityGeometry, Role, TemplateBody } from '@serge/custom-types'
 import { incrementGameTime, mostRecentPlanningOnly } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages } from '@serge/mocks'
 import { noop } from 'lodash'
@@ -23,6 +23,14 @@ const forces = P9BMock.data.forces.forces
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 const templates = wargame.templates ? wargame.templates.templates : []
 
+// generate list of roles, for dropdown control
+const allRoles: string[] = []
+forces.forEach((force: ForceData) => {
+  force.roles.forEach((role: Role) => {
+    allRoles.push(force.uniqid + ' ~ ' + role.roleId)
+  })
+})
+
 export default {
   title: 'local/organisms/PlanningMessagesList',
   component: PlanningMessagesList,
@@ -34,16 +42,23 @@ export default {
     }
   },
   argTypes: {
-    playerForceId: {
-      name: 'Player force',
-      defaultValue: 'Blue',
+    phase: {
+      name: 'Game phase',
+      options: [
+        Phase.Planning,
+        Phase.Adjudication
+      ],
+      defaultValue: Phase.Adjudication,
       control: {
-        type: 'radio',
-        options: [
-          'White',
-          'Blue',
-          'Red'
-        ]
+        type: 'radio'
+      }
+    },
+    selectedRoleName: {
+      name: 'View as',
+      options: allRoles,
+      defaultValue: allRoles[1],
+      control: {
+        type: 'select'
       }
     }
   }
@@ -64,8 +79,16 @@ const turnEndDate = incrementGameTime(overview.gameDate, overview.gameTurnTime)
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
 
 const Template: Story<MessageListPropTypes> = (args) => {
-  const { messages, playerForceId, currentTurn, playerRoleId, hideForcesInChannel, selectedRoleName, selectedForce, turnFilter } = args
+  const { phase, messages, currentTurn, hideForcesInChannel, turnFilter, selectedRoleName } = args
   const [isRead, setIsRead] = useState([true, false])
+
+  const selectedRoleStr: string = selectedRoleName
+  // separate out the two elements of the combined role
+  const ind = selectedRoleStr.indexOf(' ~ ')
+  const forceStr = selectedRoleStr.substring(0, ind)
+  const roleStr = selectedRoleStr.substring(ind + 3)
+  const force = forces.find((f: ForceData) => f.uniqid === forceStr)
+  const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
 
   let localMessages
   if (messages.length) {
@@ -117,12 +140,15 @@ const Template: Story<MessageListPropTypes> = (args) => {
     const oppForce = blueForce ? forces[2] : forces[1]
     return customiseAssets(document, schema, makeList(ownForce.assets || []), makeList(oppForce.assets || []))
   }
+  if (!force || !role) {
+    return <></>
+  }
 
   // remove later versions
   const newestMessages = mostRecentPlanningOnly(localMessages)
   return <PlanningMessagesList
     selectedRoleName={selectedRoleName}
-    selectedForce={selectedForce}
+    selectedForce={force}
     currentTurn={currentTurn}
     messages={newestMessages}
     channel={planningChannel}
@@ -130,11 +156,11 @@ const Template: Story<MessageListPropTypes> = (args) => {
     gameDate={P9BMock.data.overview.gameDate}
     gameTurnEndDate={turnEndDate}
     allTemplates={templates}
-    playerForceId={playerForceId}
-    playerRoleId={playerRoleId}
+    playerRoleId={role.roleId}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
     isUmpire={true}
+    phase={phase}
     hideForcesInChannel={hideForcesInChannel}
     selectedOrders={[]}
     setSelectedOrders={(): any => noop}
@@ -144,31 +170,17 @@ const Template: Story<MessageListPropTypes> = (args) => {
   />
 }
 
-const randomMessage = planningMessages[Math.floor(Math.random() * planningMessages.length)]
-const randomFrom = randomMessage.details.from
-const randomForce = forces.find((force: ForceData) => force.uniqid === randomFrom.forceId)
-
 export const Default = Template.bind({})
 Default.args = {
   messages: planningMessages,
-  playerForceId: randomFrom.forceId,
-  selectedRoleName: randomFrom.roleName,
-  selectedForce: randomForce,
-  playerRoleId: randomFrom.roleId,
   hideForcesInChannel: true,
   currentTurn: P9BMock.gameTurn,
   turnFilter: -1
 }
 
-const blueForce = forces[1]
-const blueRole = blueForce.roles[0]
-
 export const Bulk = Template.bind({})
 Bulk.args = {
   messages: [],
-  playerForceId: blueForce.uniqid,
-  selectedForce: blueForce,
-  playerRoleId: blueRole.roleId,
   hideForcesInChannel: true,
   currentTurn: P9BMock.gameTurn,
   turnFilter: -1

@@ -362,7 +362,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setSelectedAssets(localSelectedAssets)
     }
   }, [localSelectedAssets])
-  
+
   useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
