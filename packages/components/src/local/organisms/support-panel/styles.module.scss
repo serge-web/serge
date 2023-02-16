@@ -54,6 +54,14 @@
   width: 100%;
   color: #000;
   overflow-y: auto;
+
+  div {
+    &:nth-child(2) {
+      div > div > div {
+        overflow-y: hidden;
+      }
+    }
+  }
 }
 
 .panel {
