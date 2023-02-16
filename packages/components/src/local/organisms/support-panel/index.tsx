@@ -441,7 +441,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   gameTurnEndDate={gameTurnEndDate}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
-                  turnPresentation={turnPresentation}
                   selectedForce={selectedForce}
                   selectedRoleName={selectedRoleName}
                   currentTurn={currentTurn}

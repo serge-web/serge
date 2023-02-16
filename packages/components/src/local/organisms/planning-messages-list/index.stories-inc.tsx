@@ -156,7 +156,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     gameDate={P9BMock.data.overview.gameDate}
     gameTurnEndDate={turnEndDate}
     allTemplates={templates}
-    playerRoleId={role?.roleId}
+    playerRoleId={role.roleId}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
     isUmpire={true}
