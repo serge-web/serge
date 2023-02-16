@@ -214,7 +214,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setPendingArchive([])
   }
 
-  const archiveSelected = (_event: any, data: OrderRow | OrderRow[]): void => {
+  const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     setPendingArchive(rows)
   }
@@ -232,8 +232,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           header={'Archive orders'}
           cancelBtnText={'Cancel'}
           saveBtnText={'Archive'}
-          onClose={archiveCancelled}
-          onSave={archiveConfirmed}
+          onClose={() => archiveCancelled()}
+          onSave={() => archiveConfirmed()}
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
@@ -250,7 +250,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
             disabled: !isUmpire,
             isFreeAction: false,
-            onClick: (event, data): void => archiveSelected(event, data)
+            onClick: (_event, data): void => archiveSelected( data)
           },
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
