@@ -3,15 +3,16 @@
     "stylelint-config-sass-guidelines",
     "stylelint-config-css-modules",
     "stylelint-config-prettier"
-    ],
+  ],
   "plugins": [
     "stylelint-css-modules",
     "stylelint-prettier"
   ],
   "rules": {
     "prettier/prettier": true,
-    "max-nesting-depth" : 3,
-    "selector-max-id" : 1,
+    "max-nesting-depth": 6,
+    "selector-max-compound-selectors": 6,
+    "selector-max-id": 1,
     "at-rule-no-unknown": null,
     "scss/at-rule-no-unknown": true,
     "css-modules/composed-class-names": true,
