@@ -5,7 +5,7 @@ import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
-import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
+import { injectTimes, interactsWith, invertMessages, overlapsInTime, PlanningContact } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
@@ -165,11 +165,11 @@ it('gets count of', () => {
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
   expect(Array.isArray(results1)).toBeTruthy()
-  const resArr = results1 as [number, number]
-  expect(resArr[0]).toBeGreaterThan(0)
-  expect(resArr[1]).toBeGreaterThan(0)
+  const resArr = results1 as [TimedIntervention[], PlanningContact[]]
+  expect(resArr[0].length).toBeGreaterThan(0)
+  expect(resArr[1].length).toBeGreaterThan(0)
   // should be more events than interactions
-  expect(resArr[0]).toBeGreaterThan(resArr[1])
+  expect(resArr[0].length).toBeGreaterThan(resArr[1].length)
 })
 
 it('gets interactions (2)', () => {

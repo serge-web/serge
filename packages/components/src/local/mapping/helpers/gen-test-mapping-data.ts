@@ -7,7 +7,6 @@ import { deepCopy } from '@serge/helpers'
 import * as turf from '@turf/turf'
 import * as h3 from 'h3-js'
 import L, { Polygon } from 'leaflet'
-import { uniqueId } from 'lodash'
 import { randomArrayItem } from '../../organisms/support-panel/helpers/gen-order-data'
 import { leafletBuffer, leafletBufferLine } from './h3-helpers'
 
@@ -195,50 +194,62 @@ export const createLegacyAttributesFor = (platformType: PlatformTypeData): Attri
   return attrVals
 }
 
-const makeTaskGroup = (assets: Asset[], force: ForceData, platformTypes: PlatformTypeData[]): Asset[] => {
-  // find mtg
-  let res: Asset[] = [...assets]
-  const mtg = platformTypes.find((pType: PlatformTypeData) => {
-    return pType.uniqid.indexOf('mtg') !== -1
-  })
-  if (!mtg) {
-    console.warn('Dummy data generator, failed to find task group for force', force.uniqid)
-  } else {
-    // get the first instance
-    const groups = res.filter((asset: Asset) => asset.platformTypeId === mtg.uniqid)
-    if (groups.length === 0) {
-      console.warn('Failed to find TG')
-    } else {
-      // ok, get some child classes
-      const childTypes = platformTypes.filter((pType: PlatformTypeData) => {
-        return pType.uniqid.indexOf('mtg') === -1 && pType.uniqid.indexOf('maritime') !== -1 && pType.uniqid.indexOf('mine') === -1
-      })
-      const childTypeIds = childTypes.map((pType: PlatformTypeData) => pType.uniqid)
-      const children = res.filter((asset: Asset) => childTypeIds.includes(asset.platformTypeId))
-
-      // track the assets that have been moved to task groups, so we can later remove them
-      const movedToGroup: string[] = []
-
-      children.forEach((asset: Asset, index: number) => {
-        if (Math.random() > 0.4) {
-          // pick a task group parent
-          const newParent = randomArrayItem(groups, index)
-          // remove the location, we take it from the parent
-          delete asset.location
-          // store it
-          if (!newParent.comprising) {
-            newParent.comprising = []
-          }
-          newParent.comprising.push(asset)
-          // remember the id
-          movedToGroup.push(asset.uniqid)
-        }
-      })
-      // remove children that were moved to task groups
-      res = res.filter((asset: Asset) => !movedToGroup.includes(asset.uniqid))
-    }
+const makeTaskGroup = (assets: Asset[], platformTypes: PlatformTypeData[]): Asset[] => {
+  // generate some task group names
+  const numGroups = 5
+  const ctgNames: string[] = []
+  for (let i = 0; i < numGroups; i++) {
+    const randNum = Math.floor(Math.random() * 1000)
+    ctgNames.push('CTF-' + randNum)
   }
-  return res
+
+  // find maritime assets
+  const marPlats = platformTypes.filter((ptype) => ptype.travelMode === 'sea' && ptype.uniqid !== '_maritime_mine').map((pType) => pType.uniqid)
+  const marAssets = assets.filter((asset) => marPlats.includes(asset.platformTypeId))
+
+  // find fighter aircraft
+  const airAssets = assets.filter((asset) => asset.platformTypeId.includes('air') && asset.attributes && asset.attributes.a_TaskGroup)
+
+  // randomly assign task group membership
+  const groupLocations = {}
+  marAssets.forEach((asset) => {
+    asset.attributes && delete asset.attributes.a_TaskGroup
+    if (asset.location) {
+      if (Math.random() * 10 > 3) {
+        const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
+        // do we have location?
+        if (!groupLocations[group]) {
+          groupLocations[group] = [asset.location[0], asset.location[1]]
+        }
+        asset.location = groupLocations[group]
+        if (!asset.attributes) {
+          asset.attributes = {}
+        }
+        asset.attributes.a_TaskGroup = group
+      }
+    }
+  })
+
+  // randomly assign task group membership
+  airAssets.forEach((asset) => {
+    asset.attributes && delete asset.attributes.a_TaskGroup
+    if (asset.location) {
+      if (Math.random() * 10 > 7) {
+        const group = ctgNames[Math.floor(Math.random() * ctgNames.length)]
+        // do we have location?
+        if (!groupLocations[group]) {
+          groupLocations[group] = [asset.location[0], asset.location[1]]
+        }
+        asset.location = groupLocations[group]
+        if (!asset.attributes) {
+          asset.attributes = {}
+        }
+        asset.attributes.a_TaskGroup = group
+      }
+    }
+  })
+
+  return assets
 }
 
 export const fourDecimalTrunc = (num: number): number => Math.trunc(num * 10000) / 10000
@@ -263,9 +274,9 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
     const health = randomArrayItem(healthValues, Math.random() * ctr)
 
     const asset: Asset = {
-      uniqid: uniqueId('a'),
+      uniqid: force.name + '.' + (platformTypeCtr + 1) + '.' + (i + 1),
       contactId: 'CA' + Math.floor(Math.random() * 3400),
-      name: force.name + ':' + i,
+      name: force.name + ':' + platformType.name + ':' + i,
       perceptions: [],
       health: health,
       platformTypeId: platformType.uniqid,
@@ -284,7 +295,7 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   }
 
   // make the first unit a composite one
-  const assetsWithTGs = withComprising ? makeTaskGroup(assets, force, platformTypes) : assets
+  const assetsWithTGs = withComprising ? makeTaskGroup(assets, platformTypes) : assets
 
   // put aircraft onto airfields
   const airfields = assetsWithTGs.filter((asset: Asset) => {
@@ -294,7 +305,8 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
   })
   const airAsset = assetsWithTGs.filter((asset: Asset) => asset.platformTypeId.indexOf('air') > 0)
   airAsset.forEach((asset: Asset) => {
-    if (asset.attributes) {
+    // note: don't assign an airfield if it's in atask group
+    if (asset.attributes && !asset.attributes.a_TaskGroup) {
       const airfield = airfields[Math.floor(Math.random() * airfields.length)]
       asset.attributes.a_Airfield = airfield.uniqid
       const airLoc = airfield.location || [0, 0]
@@ -306,8 +318,6 @@ const createInBounds = (force: ForceData, polygon: L.Polygon, ctr: number, h3Res
       const behindCoords = newPt.geometry.coordinates
       const newLoc: [number, number] = [behindCoords[1], behindCoords[0]]
       asset.location = newLoc
-    } else {
-      console.warn('Not found assets for this aircraft')
     }
   })
 

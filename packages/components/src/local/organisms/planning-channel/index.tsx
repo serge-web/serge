@@ -185,7 +185,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     if (areas) {
       // produce a list of standard areas for a player of this force
-      const filtered = areas.filter((area: AreaCategory) => area.usedBy.includes(selectedForce.uniqid))
+      const filtered = areas.filter((area: AreaCategory) => area.usedBy && area.usedBy.includes(selectedForce.uniqid))
       setMyAreas(filtered)
     }
   }, [areas, selectedForce])
@@ -910,4 +910,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 }
 
-export default PlanningChannel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => JSON.stringify(prevProps) === JSON.stringify(nextProps)
+
+export default React.memo(PlanningChannel, areEqual)

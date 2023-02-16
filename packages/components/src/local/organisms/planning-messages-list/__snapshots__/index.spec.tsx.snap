@@ -148,7 +148,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                   type="button"
                 >
                   <svg
-                    className="svg-inline--fa fa-filter"
+                    className="svg-inline--fa fa-magnifying-glass-plus"
                   />
                   <span
                     className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
@@ -178,7 +178,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                   type="button"
                 >
                   <svg
-                    className="svg-inline--fa fa-user"
+                    className="svg-inline--fa fa-user-lock"
                   />
                   <span
                     className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
