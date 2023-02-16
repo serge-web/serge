@@ -1,4 +1,4 @@
-import { faFilter } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column, MTableBody, MTableBodyRow } from '@material-table/core'
 import cx from 'classnames'
@@ -59,7 +59,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
     actions={[
       {
-        icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
+        icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
         iconProps: filter ? { color: 'action' } : { color: 'disabled' },
         tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
         isFreeAction: true,
