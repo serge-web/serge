@@ -266,7 +266,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     const myMessage = message.details.from.roleId === playerRoleId
     const incompleteMessageFromMe = (myMessage && !interaction.complete)
-    console.log('activity', message.message.Reference)
     const row: AdjudicationRow = {
       id: message._id,
       reference: message.message.Reference,
