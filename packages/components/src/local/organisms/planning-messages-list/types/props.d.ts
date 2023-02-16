@@ -1,4 +1,4 @@
-import { TurnFormats } from '@serge/config'
+import { Phase } from '@serge/config'
 import {
   ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, Role, TemplateBody
 } from '@serge/custom-types'
@@ -53,25 +53,21 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onUnread?: (message: MessagePlanning) => void
 
   /**
-   * force for player
-   */
-  playerForceId: ForceData['uniqid']
-  /**
    * role of current player
    */
   playerRoleId: Role['roleId']
-
-  /** how to render the game turn  */
-  turnPresentation?: TurnFormats
 
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
 
-  selectedForce?: ForceData
+  selectedForce: ForceData
   selectedRoleName: string
   currentTurn: number
+
+  /** current game phase */
+  phase: typeof Phase.Planning | typeof Phase.Adjudication
 
   isUmpire: boolean
   /** whether to hide the forces in the channel

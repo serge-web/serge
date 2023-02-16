@@ -1,7 +1,7 @@
-import WargameList from './wargame-list'
-import WargameData from './wargame-data'
-import Message from './message'
 import { ADJUDICATION_PHASE, PLANNING_PHASE, TurnFormats } from '@serge/config'
+import Message from './message'
+import WargameData from './wargame-data'
+import WargameList from './wargame-list'
 
 export default interface Wargame {
   _id?: string,
@@ -11,7 +11,7 @@ export default interface Wargame {
   /** metadata created for sending wargame message */
   messageType?: string
   name: string,
-  phase: typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE ,
+  phase: typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE,
   gameTurn: number,
   /** format for displaying turn number */
   turnPresentation?: TurnFormats,

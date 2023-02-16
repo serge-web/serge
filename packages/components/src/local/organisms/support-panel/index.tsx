@@ -34,7 +34,6 @@ export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
   planningMessages,
   interactionMessages,
-  turnPresentation,
   onRead,
   onUnread,
   onReadAll,
@@ -437,11 +436,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
+                  phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
-                  playerForceId={selectedForce.uniqid}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
-                  turnPresentation={turnPresentation}
                   selectedForce={selectedForce}
                   selectedRoleName={selectedRoleName}
                   currentTurn={currentTurn}
