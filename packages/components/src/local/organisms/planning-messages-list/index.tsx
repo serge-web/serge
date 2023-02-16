@@ -77,10 +77,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setRows(dataTable)
 
     const columnData = toColumn(myMessages)
-    if (!columns.length) {
+    if (!columns.length || !filter) {
       setColumns(columnData)
     }
-  }, [myMessages, turnFilter])
+  }, [myMessages, turnFilter, filter])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
@@ -255,14 +255,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Show filter controls',
+            tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
           },
           {
             icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
             iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Only show orders created by me',
+            tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
             isFreeAction: true,
             onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
           }

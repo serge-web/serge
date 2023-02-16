@@ -19,6 +19,7 @@ export type AssetRow = {
   c4: string
   attributes: Record<string, any>
   domain: string
+  taskGroup: string
 }
 
 export default interface PropTypes {
