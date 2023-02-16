@@ -1,4 +1,4 @@
-import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Phase } from '@serge/config'
@@ -217,16 +217,16 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         icons={materialIcons as any}
         actions={[
           {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
+            icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
             iconProps: filter ? { color: 'error' } : { color: 'action' },
             tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
             isFreeAction: true,
             onClick: (): void => setFilter(!filter)
           },
           {
-            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
             iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Only show orders created by me',
+            tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
             isFreeAction: true,
             onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
           }
