@@ -109,6 +109,8 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
       res = { by: by }
       asset.perceptions.push(res)
     }
+    // store the last observed time
+    res.lastUpdate = observationTime
 
     if (perception.perceivedForce) {
       res.force = perception.perceivedForce
