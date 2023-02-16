@@ -320,7 +320,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             }
           })
         }
-        console.log('working bounds for non-geometric orders', workingBounds)
       }
     })
     setBounds(workingBounds)
