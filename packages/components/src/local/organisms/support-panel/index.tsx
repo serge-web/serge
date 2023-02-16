@@ -437,8 +437,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
                 <PlanningMessagesList
                   messages={filteredPlanningMessages}
                   gameDate={gameDate}
+                  phase={phase}
                   gameTurnEndDate={gameTurnEndDate}
-                  playerForceId={selectedForce.uniqid}
                   playerRoleId={selectedRoleId}
                   isUmpire={!!selectedForce.umpire}
                   turnPresentation={turnPresentation}

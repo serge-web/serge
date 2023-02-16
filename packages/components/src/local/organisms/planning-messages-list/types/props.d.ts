@@ -53,10 +53,6 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onUnread?: (message: MessagePlanning) => void
 
   /**
-   * force for player
-   */
-  playerForceId: ForceData['uniqid']
-  /**
    * role of current player
    */
   playerRoleId: Role['roleId']
@@ -69,9 +65,12 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
 
-  selectedForce?: ForceData
+  selectedForce: ForceData
   selectedRoleName: string
   currentTurn: number
+
+  /** current game phase */
+  phase:  typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE
 
   isUmpire: boolean
   /** whether to hide the forces in the channel
