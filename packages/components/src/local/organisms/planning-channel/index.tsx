@@ -362,7 +362,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       setSelectedAssets(localSelectedAssets)
     }
   }, [localSelectedAssets])
-
+  
   useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
@@ -910,4 +910,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 }
 
-export default PlanningChannel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => JSON.stringify(prevProps) === JSON.stringify(nextProps)
+
+export default React.memo(PlanningChannel, areEqual)
