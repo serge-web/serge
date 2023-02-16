@@ -20,6 +20,27 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const preventScroll = useRef<boolean>(false)
   const { selectedAssets, assetsCache } = useContext(SupportPanelContext)
 
+  const [visibleRows, setVisibleRows] = useState<AssetRow[]>([])
+  const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
+
+  useEffect(() => {
+    // we're getting too many visibleRows updates, plus
+    // the content of visible rows will change if
+    // a row gets selected.  Our use of this callback however
+    // is to update the map if the page is changed or if a filter
+    // is applied
+    //
+    // So, cache the current ids, and compare that to the new
+    // set of ids
+    const visibleRowIds = visibleRows.map((item) => item.id)
+    if (visibleRowIds !== visibleRowsCache) {
+      // fire the change
+      setVisibleRowsCache(visibleRowIds)
+      // fire the change
+      onVisibleRowsChange && onVisibleRowsChange(visibleRows)
+    }
+  }, [visibleRows])
+
   useEffect(() => {
     if (!columns.length || !filter) {
       setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache))
@@ -69,8 +90,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     icons={materialIcons as any}
     options={{
       paging: true,
-      pageSize: 20,
-      pageSizeOptions: [5, 10, 15, 20, 50, 100],
+      pageSize: 200,
+      pageSizeOptions: [5, 10, 15, 20, 50, 100, 200, 500],
       filtering: filter,
       selection: true,
       rowStyle: { fontSize: '80%' },
@@ -81,7 +102,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       Body: (props): React.ReactElement => {
         if (props.columns.length && onVisibleRowsChange) {
           setTimeout(() => {
-            onVisibleRowsChange(props.renderData)
+            setVisibleRows(props.renderData)
           })
         }
         return (<MTableBody
