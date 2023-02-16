@@ -263,7 +263,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
             disabled: !isUmpire,
             isFreeAction: false,
-            onClick: (_event, data): void => archiveSelected( data)
+            onClick: (_event, data): void => archiveSelected(data)
           },
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
