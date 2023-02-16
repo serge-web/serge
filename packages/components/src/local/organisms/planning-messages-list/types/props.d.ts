@@ -70,7 +70,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   currentTurn: number
 
   /** current game phase */
-  phase:  typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE
+  phase: typeof ADJUDICATION_PHASE | typeof PLANNING_PHASE
 
   isUmpire: boolean
   /** whether to hide the forces in the channel

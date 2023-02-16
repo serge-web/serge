@@ -95,9 +95,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (!message) {
       console.error('planning message not found, id:', rowData.reference, 'messages:', messages)
     } else {
-
       // sort out if editable
-      const myMessageInPlanning =  message.details.from.roleId === playerRoleId && phase === 'planning'
+      const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === 'planning'
       const adjInAdjuPhase = isUmpire && phase === 'adjudication'
       const canEdit = myMessageInPlanning || adjInAdjuPhase
 
