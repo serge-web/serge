@@ -110,13 +110,13 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     } else {
       // check the first message - it may be an update
       const newMessage = ownMessages[0]
-      const existingRow = rows.find((row) => row.reference === newMessage.message.Reference)
-      if (existingRow && existingRow.id !== newMessage._id) {
-        const row = toRow(newMessage)
-        const existingMessages = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
+      const row = toRow(newMessage)
+      const existingRow = rows.some(row => row.reference === newMessage.message.Reference)
+      if (existingRow) {
+        const existingMessages: AdjudicationRow[] = rows.filter(filter => !filter.activity.includes(newMessage.message.Reference))
         setRows([...existingMessages, row])
       } else {
-        setCachedInteractions(ownMessages)
+        setRows([...rows, row])
       }
     }
     // when determining the time of next adjudication, consider the full list
@@ -266,7 +266,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
     const myMessage = message.details.from.roleId === playerRoleId
     const incompleteMessageFromMe = (myMessage && !interaction.complete)
-
+    console.log('activity', message.message.Reference)
     const row: AdjudicationRow = {
       id: message._id,
       reference: message.message.Reference,
@@ -281,24 +281,30 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined },
       owner: message.details.from.roleName
     }
+    console.log('row', row)
     return row
   }
 
   useEffect(() => {
     if (planningMessages.length > 0) {
-      const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
-        return toRow(message)
-      })
-      setRows(dataTable)
+      if (rows.length === 0) {
+        const dataTable = cachedInteractions.map((message: MessageInteraction): AdjudicationRow => {
+          const res = toRow(message)
+          console.log(res)
+          return res
+        })
+        setRows(dataTable)
+      }
 
       if (!columns.length || !filter) {
         const umpireForce = forces.find((force: ForceData) => force.umpire)
         // TODO: the column definitions should use the data collated in the column summary (below)
         // provide more sophisticated column definition lookups
         const summaryData = umpireForce && getColumnSummary(forces, umpireForce.uniqid, false, [])
+        const hideTurnColumn = turnFilter !== SHOW_ALL_TURNS
         const columnsData: Column<AdjudicationRow>[] = !summaryData ? [] : [
           { title: 'Reference', field: 'reference' },
-          { title: 'Turn', field: 'turn', type: 'numeric', hidden: true }, // turnFilter !== SHOW_ALL_TURNS },
+          { title: 'Turn', field: 'turn', type: 'numeric', hidden: hideTurnColumn }, //  },
           { title: 'Complete', field: 'complete', render: renderBoolean },
           { title: 'Important', field: 'important', lookup: { Y: 'Y', N: 'N' } },
           { title: 'Owner', field: 'owner' },
@@ -308,17 +314,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           { title: 'Duration', field: 'period' }
         ]
         setColumns(columnsData)
-      } else {
-        // ok, we can only show/hide the turn column once the columns have been defined
-        const turnColumn = columns.find((col) => col.title === 'Turn')
-        if (turnColumn) {
-          const newVal = turnFilter !== SHOW_ALL_TURNS
-          if (turnColumn.hidden !== newVal) {
-            turnColumn.hidden = newVal
-          }
-        } else {
-          console.warn('Turn column not found in adj messages list')
-        }
       }
     } else {
       setRows([])
@@ -454,7 +449,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
         </thead>
         <tbody>
-          { data.map((row, index) =>
+          {data.map((row, index) =>
             <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
         </tbody>
       </table>
