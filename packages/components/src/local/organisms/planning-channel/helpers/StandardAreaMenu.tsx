@@ -49,31 +49,17 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
 
   /** generate the tree of activities */
   const getItems = (areas: AreaCategory[]): SelectItem[] => {
-    // TODO: this produces nested list, but I can't click them :-(
-    // const aItems = areas.map((category) => {
-    //   return {
-    //     label: category.name,
-    //     value: category.name,
-    //     items: category.areas.map((area) => {
-    //       return {
-    //         label: area.name, value: category.name + '~' + area.name
-    //       }})
-    //   }
-    // })
-    // return aItems
-
-    const flatList: SelectItem[] = []
-    areas.forEach((category) => {
-      // note: we had a crash when Serge encountered an areas block in the "old" structure.
-      // note: so, check the areas element exists
-      category.areas && category.areas.forEach((area) => {
-        flatList.push({
-          label: category.name + ' - ' + area.name,
-          value: category.name + '~' + area.name
+    return areas.map((category) => {
+      return {
+        label: category.name,
+        value: category.name,
+        items: category.areas.map((area) => {
+          return {
+            label: area.name, value: category.name + '~' + area.name
+          }
         })
-      })
+      }
     })
-    return flatList
   }
 
   useEffect(() => {
@@ -81,8 +67,6 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
       if (!controlButton) {
         const items = getItems(areas)
         const selectControl = L.control.select({
-          // TODO: we need to move this to the top-left, but put it beneath the `Cancel planning` controls
-          // TODO: if we set it to top-left, one gets presented over the top of the other.
           position: 'topleft',
           iconMain: '☰',
           iconGroupChecked: '⊳',
@@ -91,8 +75,7 @@ const StandardAreaMenu: React.FC<StandardAreaMenuProps> = ({ areas, handler, sho
           onSelect: (item: any) => {
             handleClick(item)
           },
-          additionalClass,
-          preventClickThrough: true
+          additionalClass
         })
         setControlButton(selectControl)
       }
