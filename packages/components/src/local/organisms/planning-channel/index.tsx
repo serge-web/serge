@@ -4,7 +4,7 @@ import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyl
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 
 import { faCalculator, faHistory, faObjectUngroup, faShapes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -97,15 +97,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
   const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
 
-  const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
-  const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
+  const ownAssetsFiltered = useRef<AssetRow[]>([])
+  const opAssetsFiltered = useRef<AssetRow[]>([])
 
   // handle selections from asset tables
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
 
   // have `local` selected assets handler, since we don't always want to
   // propagate changes to selected assets
-  const [localSelectedAssets, setLocalSelectedAssets] = useState<string[]>([])
+  const localSelectedAssets = useRef<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   // we need to break down assets by force, so they can be plotted (clustered) by color
@@ -177,6 +177,47 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }
 
+  const buildForceAsssets = () => {
+    const res: PerForceAssets[] = []
+    // we need empty arrays (to clear existing icons), so pre-populate arrays
+    allForces.forEach((force) => {
+      // only forces with assets
+      if (force.assets && force.assets.length) {
+        const item: PerForceAssets = {
+          force: force.name,
+          rows: [],
+          color: force.color
+        }
+        res.push(item)
+      }
+    })
+    const doRows = (rows: AssetRow[]) => {
+      rows.forEach((row) => {
+        const force = row.force
+        const forceToUse = force || UNKNOWN_TYPE
+        const thisA = res.find((force) => force.force === forceToUse)
+        if (thisA === undefined) {
+          console.warn('Failed to find existing entry for', force)
+        } else {
+          thisA.rows.push(row)
+        }
+      })
+    }
+    if (currentAssets.length) {
+      // just group by force
+      doRows(currentAssets)
+    } else {
+      if (filterApplied) {
+        doRows(ownAssetsFiltered.current)
+        doRows(opAssetsFiltered.current)
+      } else {
+        doRows(allOwnAssets)
+        doRows(allOppAssets)
+      }
+    }
+    setPerForceAssets(res)
+  }
+
   useEffect(() => {
     // game date has changed, get updated periods
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
@@ -224,45 +265,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [selectedForce, forcePlanningActivities])
 
   useEffect(() => {
-    const res: PerForceAssets[] = []
-    // we need empty arrays (to clear existing icons), so pre-populate arrays
-    allForces.forEach((force) => {
-      // only forces with assets
-      if (force.assets && force.assets.length) {
-        const item: PerForceAssets = {
-          force: force.name,
-          rows: [],
-          color: force.color
-        }
-        res.push(item)
-      }
-    })
-    const doRows = (rows: AssetRow[]) => {
-      rows.forEach((row) => {
-        const force = row.force
-        const forceToUse = force || UNKNOWN_TYPE
-        const thisA = res.find((force) => force.force === forceToUse)
-        if (thisA === undefined) {
-          console.warn('Failed to find existing entry for', force)
-        } else {
-          thisA.rows.push(row)
-        }
-      })
-    }
-    if (currentAssets.length) {
-      // just group by force
-      doRows(currentAssets)
-    } else {
-      if (filterApplied) {
-        doRows(ownAssetsFiltered)
-        doRows(opAssetsFiltered)
-      } else {
-        doRows(allOwnAssets)
-        doRows(allOppAssets)
-      }
-    }
-    setPerForceAssets(res)
-  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied])
+    buildForceAsssets()
+  }, [currentAssets, allOppAssets, allOwnAssets, filterApplied])
 
   /** we get current asset IDs, but having the rows would be more useful */
   useEffect(() => {
@@ -357,22 +361,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce])
 
   useEffect(() => {
-    // only update selected assets if we're not planning an activity
-    if (!activityBeingPlanned) {
-      setSelectedAssets(localSelectedAssets)
-    }
-  }, [localSelectedAssets])
-
-  useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
+    ownAssetsFiltered.current = []
+    opAssetsFiltered.current = []
     setAllOwnAssets(own)
-    setOwnAssetsFiltered([])
     setAllOppAssets(opp)
-    setOpAssetsFiltered([])
     setForceColors(forceCols)
   }, [allForces, currentForce])
 
@@ -469,9 +466,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
-  const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
-  ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
+  const supportPanelContext = useMemo(() => {
+    return { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
+  }, [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
   const incrementDebugStep = (): void => {
     // do something
@@ -742,16 +739,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         <Ruler showControl={true} />
         <Timeline pointToLayer={timelinePointToLayer} style={timelineStyle} onEachFeature={timelineOnEachFeature} showControl={showTimeControl} data={timeControlEvents} />
         <PlanningActitivityMenu showControl={playerInPlanning && !showInteractionGenerator && !activityBeingPlanned && !showTimeControl} handler={planNewActivity} planningActivities={thisForcePlanningActivities} />
-        { showStandardAreas && <AreaPlotter areas={myAreas} /> }
+        {showStandardAreas && <AreaPlotter areas={myAreas} />}
         {showInteractionGenerator
           ? <OrderPlotter forceCols={forceColors} orders={planningMessages} step={debugStep} activities={forcePlanningActivities || []} handleAdjudication={handleAdjudication} />
           : <Fragment>
             <Fragment key='selectedObjects'>
               <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
-                { perForceAssets.map((force) => {
+                {perForceAssets.map((force) => {
                   return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                    assets={force.rows} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                    assets={force.rows} setSelectedAssets={onSetSelectedAssets} currentAssets={currentAssetIds} />
                 })
                 }
                 {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
@@ -764,9 +761,25 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       </>
     )
-  }, [selectedAssets, debugStep,
-    showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+  }, [debugStep, showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons])
+
+  const onSetSelectedAssets = (assets: string[]) => {
+    localSelectedAssets.current = assets
+    if (!activityBeingPlanned) {
+      setSelectedAssets(assets)
+    }
+  }
+
+  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
+    opAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
+  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
+    ownAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -778,136 +791,135 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return (
       <div>Warning - PlanningChannel must now include mapping constraints</div>
     )
-  } else {
-    const boundsToUse = channel.constraints.bounds
-    const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
-
-    // constraints actually contains the max
-    const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 4 : 7
-
-    return (
-      <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
-        <SupportPanelContext.Provider value={supportPanelContext}>
-          <SupportPanel
-            channel={channel}
-            platformTypes={platformTypes}
-            planningMessages={planningMessages}
-            interactionMessages={interactionMessages}
-            attributeTypes={attributeTypes || []}
-            onReadAll={onReadAll}
-            onUnread={onUnread}
-            onRead={onRead}
-            allTemplates={allTemplates}
-            adjudicationTemplate={adjudicationTemplate}
-            activityTimeChanel={newActiveMessage}
-            saveMessage={saveMessageLocal}
-            mapPostBack={mapPostBack}
-            saveNewActivityTimeMessage={saveNewActivityTimeMessage}
-            dispatch={reduxDispatch}
-            currentWargame={currentWargame}
-            selectedRoleName={selectedRoleName}
-            selectedRoleId={selectedRoleId}
-            selectedForce={currentForce}
-            allForces={allForces}
-            allPeriods={allPeriods}
-            gameDate={gameDate}
-            gameTurnLength={gameTurnLength}
-            currentTurn={currentTurn}
-            phase={phase}
-            selectedAssets={selectedAssets}
-            setSelectedAssets={setLocalSelectedAssets}
-            selectedOrders={selectedOrders}
-            saveCachedNewMessageValue={cacheMessage}
-            getCachedNewMessagevalue={getCachedMessage}
-            clearCachedNewMessage={clearCachedMessage}
-            setSelectedOrders={setSelectedOrders}
-            setOpForcesForParent={setOpAssetsFiltered}
-            setOwnForcesForParent={setOwnAssetsFiltered}
-            allOwnAssets={allOwnAssets}
-            allOppAssets={allOppAssets}
-            onPanelWidthChange={onPanelWidthChange}
-            draftMessage={draftMessage}
-            onCancelDraftMessage={cancelDraftMessage}
-            forcePlanningActivities={forcePlanningActivities}
-            editLocation={editOrderGeometries}
-            handleAdjudication={handleAdjudication}
-          />
-          <div className={styles['map-container']}>
-            <div style={{ width: mapWidth }}>
-              <MapContainer
-                className={styles.map}
-                zoomControl={false}
-                center={centerToUse}
-                bounds={boundsToUse}
-                maxBounds={boundsToUse}
-                zoom={zoom}
-                minZoom={channel.constraints.minZoom}
-                maxBoundsViscosity={1.0}
-                maxZoom={maxZoom}
-                zoomSnap={0.5}
-              >
-                <SupportMapping
-                  bounds={bounds}
-                  position={position}
-                  actionCallback={mapActionCallback}
-                  mapWidth={mapWidth}
-                  tileLayer={channel.constraints.tileLayer || duffDefinition}
-                  toolbarChildren={
-                    <>
-                      {!activityBeingPlanned &&
-                        <>
-                          {
-                            myAreas && myAreas.length > 0 &&
-                            <div className={cx('leaflet-control')}>
-                              <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
-                                onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
-                            </div>
-                          }
-                          {
-                            <div className={cx('leaflet-control')}>
-                              <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
-                                onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
-                            </div>
-                          }
-                          {
-                            umpireInAdjudication &&
-                            <div className={cx('leaflet-control')}>
-                              <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                                onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
-                            </div>
-                          }
-                          {showInteractionGenerator ? <div className={cx('leaflet-control')}>
-                            <Item onClick={incrementDebugStep}>Step</Item>
-                          </div>
-                            : <>
-                              <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
-                              <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
-                              { isUmpire && // don't bother with this, but keep it in case we want to gen more data
-                                <div className={cx('leaflet-control')}>
-                                  <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
-                                </div>
-                              }
-                            </>
-                          }
-                          <div className={cx('leaflet-control')}>
-                            <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
-                              onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
-                          </div>
-                        </>
-                      }
-                    </>
-                  }>
-                  <>
-                    {mapChildren}
-                  </>
-                </SupportMapping>
-              </MapContainer>
-            </div>
-          </div>
-        </SupportPanelContext.Provider>
-      </div>
-    )
   }
+
+  const boundsToUse = channel.constraints.bounds
+  const centerToUse = L.latLngBounds(channel.constraints.bounds).getCenter()
+
+  // constraints actually contains the max
+  const maxZoom = channel.constraints.maxZoom ? channel.constraints.maxZoom + 4 : 7
+
+  return (
+    <div className={cx(channelTabClass, styles.root)} data-channel-id={channel.uniqid}>
+      <SupportPanelContext.Provider value={supportPanelContext}>
+        <SupportPanel
+          channel={channel}
+          platformTypes={platformTypes}
+          planningMessages={planningMessages}
+          interactionMessages={interactionMessages}
+          attributeTypes={attributeTypes || []}
+          onReadAll={onReadAll}
+          onUnread={onUnread}
+          onRead={onRead}
+          allTemplates={allTemplates}
+          adjudicationTemplate={adjudicationTemplate}
+          activityTimeChanel={newActiveMessage}
+          saveMessage={saveMessageLocal}
+          mapPostBack={mapPostBack}
+          saveNewActivityTimeMessage={saveNewActivityTimeMessage}
+          dispatch={reduxDispatch}
+          currentWargame={currentWargame}
+          selectedRoleName={selectedRoleName}
+          selectedRoleId={selectedRoleId}
+          selectedForce={currentForce}
+          allForces={allForces}
+          allPeriods={allPeriods}
+          gameDate={gameDate}
+          gameTurnLength={gameTurnLength}
+          currentTurn={currentTurn}
+          phase={phase}
+          setSelectedAssets={onSetSelectedAssets}
+          selectedOrders={selectedOrders}
+          saveCachedNewMessageValue={cacheMessage}
+          getCachedNewMessagevalue={getCachedMessage}
+          clearCachedNewMessage={clearCachedMessage}
+          setSelectedOrders={setSelectedOrders}
+          setOpForcesForParent={setOpAssetsFiltered}
+          setOwnForcesForParent={setOwnAssetsFiltered}
+          allOwnAssets={allOwnAssets}
+          allOppAssets={allOppAssets}
+          onPanelWidthChange={onPanelWidthChange}
+          draftMessage={draftMessage}
+          onCancelDraftMessage={cancelDraftMessage}
+          forcePlanningActivities={forcePlanningActivities}
+          editLocation={editOrderGeometries}
+          handleAdjudication={handleAdjudication}
+        />
+        <div className={styles['map-container']}>
+          <div style={{ width: mapWidth }}>
+            <MapContainer
+              className={styles.map}
+              zoomControl={false}
+              center={centerToUse}
+              bounds={boundsToUse}
+              maxBounds={boundsToUse}
+              zoom={zoom}
+              minZoom={channel.constraints.minZoom}
+              maxBoundsViscosity={1.0}
+              maxZoom={maxZoom}
+              zoomSnap={0.5}
+            >
+              <SupportMapping
+                bounds={bounds}
+                position={position}
+                actionCallback={mapActionCallback}
+                mapWidth={mapWidth}
+                tileLayer={channel.constraints.tileLayer || duffDefinition}
+                toolbarChildren={
+                  <>
+                    {!activityBeingPlanned &&
+                      <>
+                        {
+                          myAreas && myAreas.length > 0 &&
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Toggle display of standard areas' contentTheme={showStandardAreas ? 'light' : 'dark'}
+                              onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
+                          </div>
+                        }
+                        {
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
+                              onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
+                          </div>
+                        }
+                        {
+                          umpireInAdjudication &&
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
+                              onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
+                          </div>
+                        }
+                        {showInteractionGenerator ? <div className={cx('leaflet-control')}>
+                          <Item onClick={incrementDebugStep}>Step</Item>
+                        </div>
+                          : <>
+                            <ApplyFilter filterApplied={filterApplied} setFilterApplied={setFilterApplied} />
+                            <ViewAs isUmpire={!!selectedForce.umpire} forces={allForces} viewAsCallback={setViewAsForce} viewAsForce={viewAsForce} />
+                            {isUmpire && // don't bother with this, but keep it in case we want to gen more data
+                              <div className={cx('leaflet-control')}>
+                                <Item title={'Generate dummy data (dev only)'} onClick={genData}>gen data</Item>
+                              </div>
+                            }
+                          </>
+                        }
+                        <div className={cx('leaflet-control')}>
+                          <Item title='Toggle timeline' contentTheme={showTimeControl ? 'light' : 'dark'}
+                            onClick={() => setShowTimeControl(!showTimeControl)}><FontAwesomeIcon size={'lg'} icon={faHistory} /></Item>
+                        </div>
+                      </>
+                    }
+                  </>
+                }>
+                <>
+                  {mapChildren}
+                </>
+              </SupportMapping>
+            </MapContainer>
+          </div>
+        </div>
+      </SupportPanelContext.Provider>
+    </div>
+  )
 }
 
 export default PlanningChannel

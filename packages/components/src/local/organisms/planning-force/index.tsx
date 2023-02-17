@@ -28,11 +28,11 @@ interface LocationBucket {
   assets: AssetRow[]
 }
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons }) => {
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
-  const { assetsCache } = useContext(SupportPanelContext)
+  const { assetsCache, selectedAssets } = useContext(SupportPanelContext)
   const [rawRangeRings, setRawRangeRings] = useState<React.ReactElement[]>([])
   const [clusteredRangeRings, setClusteredRangeRings] = useState<React.ReactElement[]>([])
 
@@ -158,7 +158,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
-
+    console.log('xx> asset: ', asset)
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
       * that begin with `n_` don't require background shading
       */

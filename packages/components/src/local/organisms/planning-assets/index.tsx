@@ -2,7 +2,7 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column, MTableBody, MTableBodyRow } from '@material-table/core'
 import cx from 'classnames'
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { getColumns } from './helpers/collate-assets'
@@ -52,46 +52,50 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     onSelectionChange && onSelectionChange(rows)
   }
 
-  return <MaterialTable
-    title={opFor ? 'Other force assets' : 'Own force Assets'}
-    columns={columns}
-    data={rows}
-    parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
-    actions={[
-      {
-        icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
-        iconProps: filter ? { color: 'action' } : { color: 'disabled' },
-        tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
-        isFreeAction: true,
-        onClick: (): void => setFilter(!filter)
-      }
-    ]}
-    icons={materialIcons as any}
-    options={{
-      paging: true,
-      pageSize: 20,
-      pageSizeOptions: [5, 10, 15, 20, 50, 100],
-      filtering: filter,
-      selection: true,
-      rowStyle: { fontSize: '80%' },
-      columnsButton: true
-    }}
-    onSelectionChange={onSelectionChangeLocal}
-    components={{
-      Body: (props): React.ReactElement => {
-        if (props.columns.length && onVisibleRowsChange) {
-          setTimeout(() => {
-            onVisibleRowsChange(props.renderData)
-          })
+  const TableData = useMemo(() => {
+    return <MaterialTable
+      title={opFor ? 'Other force assets' : 'Own force Assets'}
+      columns={columns}
+      data={rows}
+      parentChildData={(row, rows): any => rows.find((a: AssetRow): any => a.id === row.parentId)}
+      actions={[
+        {
+          icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
+          iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+          tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+          isFreeAction: true,
+          onClick: (): void => setFilter(!filter)
         }
-        return (<MTableBody
-          {...props}
-        />)
-      },
-      Row: props => <MTableBodyRow id={props.data.id} {...props} />,
-      FilterRow: props => <CustomFilterRow {...props} forces={forces} />
-    }}
-  />
+      ]}
+      icons={materialIcons as any}
+      options={{
+        paging: true,
+        pageSize: 20,
+        pageSizeOptions: [5, 10, 15, 20, 50, 100, 200, 250, 500],
+        filtering: filter,
+        selection: true,
+        rowStyle: { fontSize: '80%' },
+        columnsButton: true
+      }}
+      onSelectionChange={onSelectionChangeLocal}
+      components={{
+        Body: (props): React.ReactElement => {
+          if (props.columns.length && onVisibleRowsChange) {
+            setTimeout(() => {
+              onVisibleRowsChange(props.renderData)
+            })
+          }
+          return (<MTableBody
+            {...props}
+          />)
+        },
+        Row: props => <MTableBodyRow id={props.data.id} {...props} />,
+        FilterRow: props => <CustomFilterRow {...props} forces={forces} />
+      }}
+    />
+  }, [rows, filter])
+
+  return TableData
 }
 
 export default PlanningAssets

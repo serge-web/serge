@@ -107,7 +107,6 @@ const Template: Story<SupportPanelProps> = (args) => {
     interactionMessages={interactionMessages}
     forcePlanningActivities={activities}
     onReadAll={noop}
-    selectedAssets={[]}
     setSelectedAssets={noop}
     selectedOrders={[]}
     attributeTypes={attributeTypes}

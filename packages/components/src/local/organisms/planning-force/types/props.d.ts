@@ -1,4 +1,3 @@
-import React from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {
@@ -9,11 +8,9 @@ export default interface PropTypes {
   opFor: boolean
   /** shade to use for clusters for this force */
   forceColor: string
-  /** id of selected asset (not clustered, highlighted with pulsing) */
-  selectedAssets: string[]
   /** current assets (not clustered) */
   currentAssets: string[]
-  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setSelectedAssets: (assets: string[]) => void
   interactive?: boolean
   /** name of this force */
   label: string

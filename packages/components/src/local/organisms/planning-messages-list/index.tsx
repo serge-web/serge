@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
@@ -195,41 +195,45 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setSelectedOrders(indices)
   }
 
+  const TableData = useMemo(() => {
+    return <MaterialTable
+      title={'Orders'}
+      columns={columns}
+      data={rows}
+      icons={materialIcons as any}
+      actions={[
+        {
+          icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
+          iconProps: filter ? { color: 'error' } : { color: 'action' },
+          tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+          isFreeAction: true,
+          onClick: (): void => setFilter(!filter)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+          iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+          tooltip: 'Only show orders created by me',
+          isFreeAction: true,
+          onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
+        }
+      ]}
+      options={{
+        search: true,
+        paging: true,
+        pageSize: 20,
+        pageSizeOptions: [5, 10, 15, 20, 50],
+        filtering: filter,
+        selection: true,
+        rowStyle: { fontSize: '80%' }
+      }}
+      onSelectionChange={onSelectionChange}
+      detailPanel={detailPanel}
+    />
+  }, [rows, filter])
+
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
-      <MaterialTable
-        title={'Orders'}
-        columns={columns}
-        data={rows}
-        icons={materialIcons as any}
-        actions={[
-          {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
-            iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
-            isFreeAction: true,
-            onClick: (): void => setFilter(!filter)
-          },
-          {
-            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
-            iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Only show orders created by me',
-            isFreeAction: true,
-            onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
-          }
-        ]}
-        options={{
-          search: true,
-          paging: true,
-          pageSize: 20,
-          pageSizeOptions: [5, 10, 15, 20, 50],
-          filtering: filter,
-          selection: true,
-          rowStyle: { fontSize: '80%' }
-        }}
-        onSelectionChange={onSelectionChange}
-        detailPanel={detailPanel}
-      />
+      {TableData}
     </div>
   )
 }

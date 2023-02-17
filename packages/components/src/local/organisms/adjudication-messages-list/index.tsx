@@ -454,7 +454,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <tr>{Object.keys(data[0]).map((name, index) => <th key={index}>{name}</th>)}</tr>
         </thead>
         <tbody>
-          { data.map((row, index) =>
+          {data.map((row, index) =>
             <tr key={index}>{Object.keys(row).map((field, index) => <td key={index}>{row[field]}</td>)}</tr>)}
         </tbody>
       </table>
@@ -753,6 +753,41 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     return eventList
   }, [gameTurnLength])
 
+  const TableData = useMemo(() => {
+    return <MaterialTable
+      title={'Adjudication'}
+      columns={columns}
+      data={rows}
+      icons={materialIcons as any}
+      actions={[
+        {
+          icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
+          iconProps: filter ? { color: 'action' } : { color: 'disabled' },
+          tooltip: 'Show filter controls',
+          isFreeAction: true,
+          onClick: (): void => setFilter(!filter)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faUser} />,
+          iconProps: onlyShowOpen ? { color: 'action' } : { color: 'disabled' },
+          tooltip: 'Only show open interactions',
+          isFreeAction: true,
+          onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
+        }
+      ]}
+      options={{
+        paging: true,
+        pageSize: 20,
+        pageSizeOptions: [5, 10, 15, 20],
+        filtering: filter,
+        selection: true,
+        rowStyle: { fontSize: '80%' },
+        columnsButton: true
+      }}
+      detailPanel={detailPanel}
+    />
+  }, [rows, filter])
+
   return (
     <div className={styles['messages-list']}>
       {manualDialog && <CustomDialog
@@ -879,38 +914,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <Chip label={currentTime} />
       </div>
 
-      <MaterialTable
-        title={'Adjudication'}
-        columns={columns}
-        data={rows}
-        icons={materialIcons as any}
-        actions={[
-          {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
-            iconProps: filter ? { color: 'action' } : { color: 'disabled' },
-            tooltip: 'Show filter controls',
-            isFreeAction: true,
-            onClick: (): void => setFilter(!filter)
-          },
-          {
-            icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faUser} />,
-            iconProps: onlyShowOpen ? { color: 'action' } : { color: 'disabled' },
-            tooltip: 'Only show open interactions',
-            isFreeAction: true,
-            onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
-          }
-        ]}
-        options={{
-          paging: true,
-          pageSize: 20,
-          pageSizeOptions: [5, 10, 15, 20],
-          filtering: filter,
-          selection: true,
-          rowStyle: { fontSize: '80%' },
-          columnsButton: true
-        }}
-        detailPanel={detailPanel}
-      />
+      {TableData}
     </div>
   )
 }
