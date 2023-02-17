@@ -269,7 +269,7 @@ export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: For
     columns.push({ title: 'Task Group', field: 'taskGroup', width: 'auto', hidden: false, lookup: arrToDict(summaryData.taskGroups) })
     columns.push({ title: 'Attributes', field: 'attributes', width: 'auto', render: renderAttributes })
   } else {
-    columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string'})
+    columns.push({ title: 'Age', field: 'lastUpdated', width: 'auto', type: 'string' })
   }
 
   return columns
@@ -336,7 +336,7 @@ const getModernAttributes = (asset: Asset, attributeTypes: AttributeTypes, skipT
  * @returns a list of rows, representing the asset and it's children
  */
 export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData, assetForce: ForceData,
-  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[], 
+  forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes, gameTime: number, parentId?: string): AssetRow[] => {
   const itemRows: AssetRow[] = []
 
