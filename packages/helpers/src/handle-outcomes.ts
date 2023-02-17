@@ -48,8 +48,8 @@ export const injectRepairs = (interaction: InteractionDetails, payload: MessageA
 /** apply the adjudication outcomes to the game data
  *
  */
-export default (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[], observationTime: number): ForceData[] => {
-  // start off by injecting any repair outcomes
+export default (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[]): ForceData[] => {
+  // start off by injecting any repair outcomes in the rest of the assets
   const withRepairs = injectRepairs(interaction, payload, allForces)
 
   // we may apply observations to an asset in multiple lists. Cache the assets we find
@@ -110,7 +110,9 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
       asset.perceptions.push(res)
     }
     // store the last observed time
-    res.lastUpdate = observationTime
+    if (interaction.endTime && interaction.endTime.length > 0) {
+      res.lastUpdate = moment.utc(interaction.endTime).valueOf()
+    }
 
     if (perception.perceivedForce) {
       res.force = perception.perceivedForce
