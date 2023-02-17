@@ -62,7 +62,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   // note: we don't work directly with the list of interactions, since we need some special processing to prevent
   // note: interactions being edited from being wiped.  So we maintain an independent list
   const [cachedInteractions, setCachedInteractions] = useState<MessageInteraction[]>([])
+  // note: this time is in military presentation
   const [currentTime, setCurrentTime] = useState<string>('pending')
+  const [adjudicationTime, setAdjudicationTime] = useState<number | undefined>(undefined)
+
   const [manualDialog, setManualDialog] = useState<ManualInteractionData | undefined>(undefined)
   const [startTime, setStartTime] = useState<Dayjs | null>(dayjs(gameDate))
   const [endTime, setEndTime] = useState<Dayjs | null>(dayjs(gameDate))
@@ -125,6 +128,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const interTimes = interactionMessages.map((inter) => inter.details.interaction && inter.details.interaction.startTime)
       const sortedTimes = interTimes.sort()
       const firstOne = sortedTimes[sortedTimes.length - 1]
+      setAdjudicationTime(moment.utc(firstOne).valueOf())
       setCurrentTime('Time now: ' + moment.utc(firstOne).format('MMM DDHHmm[Z]').toUpperCase())
     }
     setInteractionIsOpen(!!ownOpenMessages.length)
@@ -149,7 +153,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
   }
 
   const renderAsset = (assetId: { asset: Asset['uniqid'], number?: number, missileType?: string }, forces: ForceData[],
-    index: number, numberCol: boolean): React.ReactElement => {
+    index: number, numberCol: boolean, opFor: boolean, playerForce: ForceData['uniqid'], gameTime: number | undefined): React.ReactElement => {
     let asset: { force: ForceData, asset: Asset } | undefined
     try {
       asset = findForceAndAsset(forces, assetId.asset)
@@ -157,6 +161,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       console.warn('can\'t find asset for render asset', e)
     }
     if (asset) {
+      let lastKnown: string | undefined
+      if (opFor && playerForce && gameTime) {
+        const percept = asset.asset.perceptions.find((per) => per.by === playerForce)
+        if (percept && percept.lastUpdate) {
+          const tThen = moment(percept.lastUpdate)
+          const tNow = moment(gameTime)
+          lastKnown = moment.duration(tNow.diff(tThen)).humanize()
+        }
+      }
       const platformType = platformTypes.find((value) => asset && value.uniqid === asset.asset.platformTypeId)
       const numAssets = assetId.number || 0
       const forceStyle = { backgroundColor: hexToRGBA(asset.force.color, 0.4) }
@@ -174,6 +187,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <td>{platformType ? platformType.name : 'n/a'}<br />{asset.asset.attributes?.a_Type}</td>
         <td className={healthStyle}>{aHealth || 'unk'}<br />{readableDue}</td>
         <td>{asset.asset.attributes?.a_C4_Status}</td>
+        {opFor && <td>{lastKnown}</td>}
       </tr>
     } else {
       console.warn('Failed to find asset:' + assetId)
@@ -214,7 +228,10 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const title = order1 ? 'Orders 1' : ' Orders 2'
       const orderTimings = shortDate(plan.message.startDate) + ' - ' + shortDate(plan.message.endDate)
       const force = forces.find((force: ForceData) => force.uniqid === plan.details.from.forceId)
+      const forceId = force ? force.uniqid : ''
       const forceStyle = { fontSize: '160%', backgroundColor: hexToRGBA(force ? force.color : '#ddd', 0.4) }
+      const gameTime = adjudicationTime
+      console.log('m-time', currentTime, gameTime)
       return <Box>
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
@@ -227,15 +244,15 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
           <table className={styles.assets}>
             <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
             <tbody>
-              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index, true))}
+              {plan.message.ownAssets.map((str, index) => renderAsset(str, forces, index, true, false, forceId, gameTime))}
             </tbody>
           </table>}
         </span>
         <span><b>Other: </b> {plan.message.otherAssets && plan.message.otherAssets.length > 0 &&
           <table className={styles.assets}>
-            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
+            <thead><tr><th>Name</th><th>Number</th><th>Type</th><th>Health</th><th>C4</th><th>Age</th></tr></thead>
             <tbody>
-              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index, true))}
+              {plan.message.otherAssets.map((str, index) => renderAsset(str, forces, index, true, true, forceId, gameTime))}
             </tbody>
           </table>}
         </span>
@@ -280,7 +297,6 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       tableData: { showDetailPanel: incompleteMessageFromMe ? detailPanel : undefined },
       owner: message.details.from.roleName
     }
-    console.log('row', row)
     return row
   }
 
@@ -670,7 +686,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
                     ? <table className={styles.assets}>
                       <thead><tr><th>Name</th><th>Type</th><th>Health</th><th>C4</th></tr></thead>
                       <tbody>
-                        {data.otherAssets.map((asset, index) => renderAsset({ asset: asset.uniqid }, forces, index, false))}
+                        {data.otherAssets.map((asset, index) => renderAsset({ asset: asset.uniqid }, forces, index, false, false, '', 0))}
                       </tbody>
                     </table> : ' None'}
                   </span>
