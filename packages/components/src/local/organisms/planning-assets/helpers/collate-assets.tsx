@@ -339,7 +339,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   forceColors: ForceStyle[], platformIcons: PlatformStyle[], selectedAssets: string[],
   platformTypes: PlatformTypeData[], attributeTypes: AttributeTypes, gameTime: number, parentId?: string): AssetRow[] => {
   const itemRows: AssetRow[] = []
-
   const iconFor = (platformType: string): string => {
     const pType = platformIcons.find((value: PlatformStyle) => value.uniqid === platformType)
     return (platformType === UNKNOWN_TYPE) ? 'unknown.svg' : (pType && pType.icon) || ''
@@ -372,7 +371,6 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
   const subType = asset.attributes ? asset.attributes.a_Type as string : 'n/a'
   // we don't show some attributes, since they are shown in other columns
   const attributesToSkip = ['a_Type', 'a_C4_Status', 'a_TaskGroup']
-
   if (opFor && !isUmpire) {
     // all assets of this force may be visible to player, or player
     // may be from umpire force (so no player force shown)
@@ -394,10 +392,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           const diff = moment.duration(tNow.diff(tThen))
           updatePeriod = diff.humanize()
         } else {
-          const tNow = moment.utc(gameTime)
-          const tThen = moment.utc('2022-03-01T00:55:00.000Z')
-          const diff = moment.duration(tNow.diff(tThen))
-          updatePeriod = diff.humanize() + ' (dummy)'
+          updatePeriod = 'unk'
         }
         const forceStyle = forceColors.find((value: ForceStyle) => value.forceId === perceptionTypes.forceId)
         const res: AssetRow = {
