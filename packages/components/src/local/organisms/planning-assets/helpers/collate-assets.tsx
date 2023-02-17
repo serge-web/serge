@@ -402,7 +402,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           name: perceptionTypes.name,
           platformType: perceptionTypes.typeId,
           subType: subType,
-          position: perception && perception.position && latLng(perception.position[0], perception.position[1]),
+          position: perception.position && latLng(perception.position[0], perception.position[1]),
           tableData: { checked: selectedAssets.includes(asset.uniqid) },
           health: health,
           c4: c4,
@@ -412,7 +412,7 @@ export const collateItem = (opFor: boolean, asset: Asset, playerForce: ForceData
           lastUpdated: updatePeriod
         }
 
-        const perceivedPlatformType = perception && perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
+        const perceivedPlatformType = perception.typeId && platformTypes.find((pType: PlatformTypeData) => pType.uniqid === perception.typeId)
         if (perceivedPlatformType && perceivedPlatformType.sidc) {
           res.sidc = perceivedPlatformType.sidc
         }
