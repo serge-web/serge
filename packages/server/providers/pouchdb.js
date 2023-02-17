@@ -66,6 +66,12 @@ const pouchDb = (app, io, pouchOptions) => {
           res.send({ msg: 'Updated', data: doc })
         })
       }).catch(err => {
+        if (Array.isArray(doc)) {
+          return db.bulkDocs(doc).then(async () => {
+            await db.compact()
+            res.send({ msg: 'OK' })
+          })
+        }
         if (err.status === 409) {
           return retryUntilWritten(db, doc)
         } else { // new doc

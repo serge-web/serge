@@ -701,8 +701,11 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
 }
 
 export const PostBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {
-  console.log('dbName', dbName)
-  console.log('archiveMark', archiveMark)
+  const { db } = getWargameDbByName(dbName)
+
+  const customMessage: any = archiveMark
+
+  return db.put(customMessage).catch(rejectDefault)
 }
 
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {
