@@ -20,10 +20,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const preventScroll = useRef<boolean>(false)
   const { selectedAssets, assetsCache } = useContext(SupportPanelContext)
 
-  /**
-   * I'm not sure do we need it? the visibleRows does not set in anywhere
-   */
-  const [visibleRows] = useState<AssetRow[]>([])
+  const [visibleRows, setVisibleRows] = useState<AssetRow[]>([])
   const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
 
   useEffect(() => {
@@ -106,7 +103,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         Body: (props): React.ReactElement => {
           if (props.columns.length && onVisibleRowsChange) {
             setTimeout(() => {
-              onVisibleRowsChange(props.renderData)
+              setVisibleRows(props.renderData)
             })
           }
           return (<MTableBody
