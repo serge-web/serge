@@ -16,7 +16,7 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
-  playerRoleId, selectedOrders, postBack, setSelectedOrders,
+  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
   modifyForSave, phase
@@ -207,7 +207,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const archiveConfirmed = (): void => {
     if (pendingArchive) {
+      console.log('actualMessages', pendingArchive)
       const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
+      console.log('actualMessages', actualMessages)
       if (actualMessages.length !== pendingArchive.length) {
         console.warn('failed to find actual version of some messages', rows, actualMessages)
       }
@@ -218,6 +220,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         return msg
       })
       console.log('Archiving:', markArchived)
+      // if (markArchived.length === 0) return null
+      postBackArchive && postBackArchive(markArchived)
       // TODO: submit these new messages
       setPendingArchive([])
     }
@@ -261,8 +265,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             iconProps: filter ? { color: 'error' } : { color: 'action' },
             tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
             disabled: !isUmpire,
-            isFreeAction: false,
-            onClick: (_event, data): void => archiveSelected(data)
+            isFreeAction: true,
+            onClick: (_event, data): void => {
+              console.log('arciveMessage', data)
+              console.log('_event', _event)
+              archiveSelected(data)
+            }
           },
           {
             icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,

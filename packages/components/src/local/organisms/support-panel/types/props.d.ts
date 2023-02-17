@@ -29,6 +29,7 @@ export default interface PropTypes {
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => { (): void }
+  postBackArchive?: { (archiveMark: MessagePlanning[]): void }
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
   getCachedNewMessagevalue?: (value: string) => string

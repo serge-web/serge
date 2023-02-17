@@ -9,7 +9,7 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
   ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessagePlanning, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -189,6 +189,10 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
     // actually post the message
     await wargamesApi.postNewMessage(dbName, details, message)
   }
+}
+
+export const saveArchiveMessage = (dbName: string, archiveMark: MessagePlanning[]) => {
+  return wargamesApi.PostArchiveMessage(dbName, archiveMark)
 }
 
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
