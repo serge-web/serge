@@ -158,7 +158,6 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, for
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
-    console.log('xx> asset: ', asset)
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
       * that begin with `n_` don't require background shading
       */
