@@ -207,9 +207,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const archiveConfirmed = (): void => {
     if (pendingArchive) {
-      console.log('actualMessages', pendingArchive)
       const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
-      console.log('actualMessages', actualMessages)
       if (actualMessages.length !== pendingArchive.length) {
         console.warn('failed to find actual version of some messages', rows, actualMessages)
       }
