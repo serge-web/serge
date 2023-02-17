@@ -1,9 +1,12 @@
-import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
+import { Phase } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import moment from 'moment'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
@@ -13,10 +16,10 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
+  playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  modifyForSave
+  modifyForSave, phase
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
@@ -24,6 +27,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
+  const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
 
@@ -32,7 +36,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   useEffect(() => {
-    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
+    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     if (myMessages.length === 0) {
@@ -61,7 +65,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         setMyMessages(myRoleMessages)
       }
     }
-  }, [messages, playerForceId, playerRoleId, onlyShowMyOrders])
+  }, [messages, selectedForce.uniqid, playerRoleId, onlyShowMyOrders])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
@@ -94,6 +98,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (!message) {
       console.error('planning message not found, id:', rowData.reference, 'messages:', messages)
     } else {
+      // sort out if editable
+      const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === Phase.Planning
+      const adjInAdjuPhase = isUmpire && phase === Phase.Adjudication
+      const canEdit = myMessageInPlanning || adjInAdjuPhase
+
       // check if message is being edited
       const localTemplates = allTemplates || []
       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
@@ -109,13 +118,21 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                 force: selectedForce.name,
                 forceColor: selectedForce.color,
                 roleName: selectedRoleName,
-                forceId: playerForceId,
+                forceId: selectedForce.uniqid,
                 roleId: playerRoleId,
                 iconURL: selectedForce.iconURL || selectedForce.icon || ''
               },
               messageType: message.details.messageType,
               timestamp: new Date().toISOString(),
               turnNumber: currentTurn
+            }
+
+            // special: if this is an edit from adju in adju phase, insert special note
+            if (adjInAdjuPhase) {
+              let privMsg = message.details.privateMessage || ''
+              const roleName = selectedForce.roles.find((role) => role.roleId === playerRoleId)
+              privMsg += '[Edited by ' + ((roleName && roleName.name) || playerRoleId) + ' ' + moment.utc().toISOString() + ']'
+              details.privateMessage = privMsg
             }
 
             if (messageValue.current.content === '') return
@@ -135,8 +152,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             messageValue.current = ''
           }
         }
-
-        const canEdit = message.details.from.roleId === playerRoleId
 
         const localEditLocation = (): void => {
           if (message.message.location) {
@@ -190,6 +205,32 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  const archiveConfirmed = (): void => {
+    if (pendingArchive) {
+      const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
+      if (actualMessages.length !== pendingArchive.length) {
+        console.warn('failed to find actual version of some messages', rows, actualMessages)
+      }
+      const foundMessaes = actualMessages.filter((msg) => msg !== undefined) as MessagePlanning[]
+      const markArchived = foundMessaes.map((msg): MessagePlanning => {
+        // mark as archived
+        msg.details.archived = true
+        return msg
+      })
+      console.log('Archiving:', markArchived)
+      // TODO: submit these new messages
+      setPendingArchive([])
+    }
+  }
+
+  const archiveCancelledCallback = useCallback(() => setPendingArchive([]), [])
+  const archiveConfirmedCallback = useCallback(() => archiveConfirmed(), [])
+
+  // const archiveSelected = (data: OrderRow | OrderRow[]): void => {
+  //   const rows: OrderRow[] = Array.isArray(data) ? data : [data]
+  //   setPendingArchive(rows)
+  // }
+
   const onSelectionChange = (rows: OrderRow[]): void => {
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
@@ -233,6 +274,18 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
+      {pendingArchive.length > 0 &&
+        <CustomDialog
+          isOpen={pendingArchive.length > 0}
+          header={'Archive orders'}
+          cancelBtnText={'Cancel'}
+          saveBtnText={'Archive'}
+          onClose={archiveCancelledCallback}
+          onSave={archiveConfirmedCallback}
+        >
+          <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
+        </CustomDialog>
+      }
       {TableData}
     </div>
   )

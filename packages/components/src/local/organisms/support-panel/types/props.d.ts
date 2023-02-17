@@ -1,4 +1,3 @@
-import { TurnFormats } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
@@ -12,7 +11,6 @@ import { LocationEditCallbackHandler } from '../../planning-messages-list/types/
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
   interactionMessages: MessageInteraction[]
-  turnPresentation?: TurnFormats
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessagePlanning) => void
   onReadAll: () => void

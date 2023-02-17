@@ -226,7 +226,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   useEffect(() => {
     if (areas) {
       // produce a list of standard areas for a player of this force
-      const filtered = areas.filter((area: AreaCategory) => area.usedBy.includes(selectedForce.uniqid))
+      const filtered = areas.filter((area: AreaCategory) => area.usedBy && area.usedBy.includes(selectedForce.uniqid))
       setMyAreas(filtered)
     }
   }, [areas, selectedForce])
@@ -310,13 +310,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             workingBounds = boundsForGeometry(act.geometry.geometry, workingBounds)
           })
         }
+        // also see if there are asset locations we should include in viewport
+        const own = plan.message.ownAssets || []
+        const other = plan.message.otherAssets || []
+        const allAssets = own.map((item) => item.asset).concat(other.map((item) => item.asset))
+        if (allAssets) {
+          allAssets.forEach((uniqid) => {
+            const asset = findAsset(allForces, uniqid)
+            const loc = asset.location
+            if (loc) {
+              const coords = L.latLng(loc[0], loc[1])
+              workingBounds = workingBounds ? workingBounds.extend(coords) : L.latLngBounds(coords, coords)
+            }
+          })
+        }
       }
     })
-    if (workingBounds) {
-      setBounds(workingBounds)
-    } else {
-      setBounds(undefined)
-    }
+    setBounds(workingBounds)
 
     // update map bounds
   }, [currentAssetIds, currentOrders])
@@ -424,10 +434,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // drop the turn markers
     const nonTurnMessages: Array<MessagePlanning | MessageInteraction> = messages.filter((msg: MessagePlanning | MessageInteraction | MessageInfoTypeClipped) => msg.messageType !== INFO_MESSAGE_CLIPPED) as Array<MessagePlanning | MessageInteraction>
 
+    const unArchivedMessages: Array<MessagePlanning | MessageInteraction> = nonTurnMessages.filter((message) => !message.details.archived)
+
     // TODO: these filters should just use `messageType` to get the correct data, but currently
     // all messages have "CUSTOM_MESSAGE". So the filters fall back on other `tell-tales`.
-    const myPlanningMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
-    const myInteractionMessages = nonTurnMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
+    const myPlanningMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === PLANNING_MESSAGE || (!msg.details.interaction)) as MessagePlanning[]
+    const myInteractionMessages = unArchivedMessages.filter((msg: MessagePlanning | MessageInteraction) => msg.messageType === INTERACTION_MESSAGE || msg.details.interaction) as MessageInteraction[]
 
     // log of number of message ids and forces, used to config interactions
     !7 && console.table(myPlanningMessages.map((plan) => { return { id: plan._id, force: plan.details.from.forceId } }))
@@ -922,4 +934,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   )
 }
 
-export default PlanningChannel
+const areEqual = (prevProps: PropTypes, nextProps: PropTypes): boolean => JSON.stringify(prevProps) === JSON.stringify(nextProps)
+
+export default React.memo(PlanningChannel, areEqual)

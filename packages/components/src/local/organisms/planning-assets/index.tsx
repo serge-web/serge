@@ -20,6 +20,30 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const preventScroll = useRef<boolean>(false)
   const { selectedAssets, assetsCache } = useContext(SupportPanelContext)
 
+  /**
+   * I'm not sure do we need it? the visibleRows does not set in anywhere
+   */
+  const [visibleRows] = useState<AssetRow[]>([])
+  const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
+
+  useEffect(() => {
+    // we're getting too many visibleRows updates, plus
+    // the content of visible rows will change if
+    // a row gets selected.  Our use of this callback however
+    // is to update the map if the page is changed or if a filter
+    // is applied
+    //
+    // So, cache the current ids, and compare that to the new
+    // set of ids
+    const visibleRowIds = visibleRows.map((item) => item.id)
+    if (visibleRowIds !== visibleRowsCache) {
+      // fire the change
+      setVisibleRowsCache(visibleRowIds)
+      // fire the change
+      onVisibleRowsChange && onVisibleRowsChange(visibleRows)
+    }
+  }, [visibleRows])
+
   useEffect(() => {
     if (!columns.length || !filter) {
       setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache))
