@@ -90,7 +90,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     icons={materialIcons as any}
     options={{
       paging: true,
-      pageSize: 200,
+      pageSize: 50,
       pageSizeOptions: [5, 10, 15, 20, 50, 100, 200, 500],
       filtering: filter,
       selection: true,

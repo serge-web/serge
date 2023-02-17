@@ -65,6 +65,7 @@ const game: Wargame = {
                                     "by": "f-red",
                                     "name": "Blue:Fast Jet Squadron :0",
                                     "typeId": "_air_fighter",
+                                    "lastUpdate":1651363200000,
                                     "force": "f-blue",
                                     "position": [
                                         40.2121,
@@ -119,6 +120,7 @@ const game: Wargame = {
                                     "name": "Blue:Air LOGS:1",
                                     "typeId": "_air_logs",
                                     "force": "f-blue",
+                                    "lastUpdate":1646092800000,
                                     "position": [
                                         35.4442,
                                         41.5128
@@ -23888,7 +23890,8 @@ const game: Wargame = {
                                 {
                                     "by": "f-blue",
                                     "name": "Red:SAM:77",
-                                    "typeId": "_land_sam",
+                                    "typeId": "_land_sam",                                    
+                                    "lastUpdate": 1651263200000,
                                     "force": "f-red",
                                     "position": [
                                         24.8411,

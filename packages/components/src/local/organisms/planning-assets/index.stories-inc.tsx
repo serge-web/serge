@@ -7,15 +7,17 @@ import { deepCopy, forceColors, platformIcons } from '@serge/helpers'
 import { P9BMock } from '@serge/mocks'
 import { noop } from 'lodash'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
-import { getOwnAssets } from './helpers/collate-assets'
+import { getOppAssets, getOwnAssets } from './helpers/collate-assets'
 import PlanningAssets from './index'
 import docs from './README.md'
 import MessageListPropTypes from './types/props'
+import moment from 'moment'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 const game = P9BMock.data
-
+const gameDate = game.overview.gameDate
+const gameTime = moment(gameDate).valueOf()
 const forces = game.forces.forces
 
 const forceIds = forces.map((force: ForceData): string => force.uniqid)
@@ -71,7 +73,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   } else {
     // put data generation into this `if` side to only generate it if necessary
     const bulkData = generateTestData2(2000, planningChannel.constraints, forces, platformTypes, attributeTypes || [])
-    assetsToUse = getOwnAssets(bulkData, forceCols, platIcons, bulkData[1], platformTypes, attributeTypes)
+    assetsToUse = getOwnAssets(bulkData, forceCols, platIcons, bulkData[1], platformTypes, attributeTypes, gameTime)
     forcesToUse = bulkData
   }
 
@@ -91,16 +93,16 @@ const Template: Story<MessageListPropTypes> = (args) => {
 export const Default = Template.bind({})
 Default.args = {
   forces: forces,
-  assets: getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes),
+  assets: getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime),
   playerForce: forces[0],
   render: noop,
   opFor: false
 }
-
+console.log('index opp', gameTime)
 export const OpFor = Template.bind({})
 OpFor.args = {
   forces: forces,
-  assets: getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes),
+  assets: getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime),
   playerForce: forces[0],
   render: noop,
   opFor: true

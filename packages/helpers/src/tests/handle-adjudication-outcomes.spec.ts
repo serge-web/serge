@@ -173,9 +173,16 @@ it('correctly handles repairs', () => {
 it('correctly updates perception with perception entry not present', () => {
   const forces = deepCopy(allForces)
   const beforeStr = JSON.stringify(forces)
+  const endTime = moment.utc().toISOString()
   const interaction = {
-    endTime: ''
+    endTime: endTime
   } as InteractionDetails
+  // check we start off with last updated undefined
+  const oneBefore = findAsset(forces, 'alpha')
+  oneBefore.perceptions.forEach((perc) => {
+    expect(perc.lastUpdate).toBeUndefined()
+  })
+
   const updated = handleOutcomes(interaction, validPayload, forces)
   const afterStr = JSON.stringify(updated)
   expect(beforeStr).not.toEqual(afterStr)
@@ -190,6 +197,7 @@ it('correctly updates perception with perception entry not present', () => {
   expect(one.perceptions[0].typeId).toBeUndefined()
   expect(one.perceptions[0].force).toEqual('f-Green')
   expect(one.perceptions[0].health).toEqual(22)
+  expect(one.perceptions[0].lastUpdate).toEqual(moment(endTime).valueOf())
   const two = findAsset(updated, 'bravo')
   expect(two.health).toEqual(0)
   expect(two.perceptions).toBeTruthy()
@@ -199,4 +207,5 @@ it('correctly updates perception with perception entry not present', () => {
   expect(two.perceptions[0].name).toBeUndefined()
   expect(two.perceptions[0].typeId).toBeUndefined()
   expect(two.perceptions[0].health).toBeUndefined()
+  expect(two.perceptions[0].lastUpdate).toEqual(moment(endTime).valueOf())
 })
