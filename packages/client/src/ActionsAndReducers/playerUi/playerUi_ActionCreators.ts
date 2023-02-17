@@ -191,8 +191,8 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveArchiveMessage = (dbName: string, archiveMark: MessagePlanning[]) => {
-  return wargamesApi.PostArchiveMessage(dbName, archiveMark)
+export const saveBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {
+  return wargamesApi.PostBulkMessages(dbName, archiveMark)
 }
 
 export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {

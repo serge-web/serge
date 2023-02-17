@@ -700,7 +700,7 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
   })
 }
 
-export const PostArchiveMessage = (dbName: string, archiveMark: MessagePlanning[]) => {
+export const PostBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {
   console.log('dbName', dbName)
   console.log('archiveMark', archiveMark)
 }

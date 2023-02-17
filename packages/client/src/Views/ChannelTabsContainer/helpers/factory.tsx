@@ -8,7 +8,7 @@ import { sendMapMessage } from '@serge/helpers'
 import { TabNode, TabSetNode } from 'flexlayout-react'
 import _ from 'lodash'
 import React from 'react'
-import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveArchiveMessage, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
+import { getAllWargameMessages, markAllAsRead, markUnread, openMessage, saveMapMessage, saveBulkMessages, saveMessage, turnPeriods } from '../../../ActionsAndReducers/playerUi/playerUi_ActionCreators'
 import ChatChannel from '../../../Components/ChatChannel'
 
 import { useDispatch } from 'react-redux'
@@ -37,7 +37,7 @@ const factory = (state: PlayerUi): Factory => {
   }
 
   const ArchivePostBack = (archiveMark: MessagePlanning[]): void => {
-    saveArchiveMessage(state.currentWargame, archiveMark)
+    saveBulkMessages(state.currentWargame, archiveMark)
   }
 
   const mapPostBack = (form: string, payload: MessageMap, channelID: string | number = ''): void => {
