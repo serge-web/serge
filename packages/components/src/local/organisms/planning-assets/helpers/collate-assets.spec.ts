@@ -32,7 +32,7 @@ const attributeTypes = P9Mock.data.attributeTypes ? P9Mock.data.attributeTypes.a
 
 const assetsCache = new LRUCache<string, string>(LRU_CACHE_OPTION)
 
-const tNow =  moment.utc('2022-05-01T00:55:00.000Z').valueOf()
+const tNow = moment.utc('2022-05-01T00:55:00.000Z').valueOf()
 
 describe('check collating assets', () => {
   it('handles collate item for opfor', () => {
@@ -117,11 +117,11 @@ describe('check collating assets', () => {
   it('handles opFor tab', () => {
     const umpireColumns = getColumns(true, [], umpireForce.uniqid, platformStyles, assetsCache)
     expect(umpireColumns).toBeTruthy()
-    expect(umpireColumns.length).toEqual(7)
+    expect(umpireColumns.length).toEqual(8)
 
     const blueColumns = getColumns(true, [], blueForce.uniqid, platformStyles, assetsCache)
     expect(blueColumns).toBeTruthy()
-    expect(blueColumns.length).toEqual(7)
+    expect(blueColumns.length).toEqual(8)
 
     const umpireRows = getOppAssets(forces, forceCols, platformStyles, umpireForce, platformTypes, attributeTypes, tNow)
     expect(umpireRows).toBeTruthy()
