@@ -104,7 +104,7 @@ const templates = generateAllTemplates().templates
 
 export const P9Dynamic = Template.bind({})
 P9Dynamic.args = {
-  templates: templates || []
+  templates: templates
 }
 
 const cyberTemplate = templates.find((template) => template._id === 'Cyber--Effects')
