@@ -484,6 +484,7 @@ export const findPlanningActivity = (id: string, forceId: string, activities: Pe
   // flatten the hierarchy, then do find
   const activity = force.groupedActivities.map((group) => group.activities).flat().find((plan) => plan.template === id)
   if (!activity) {
+    console.log('grouped activities', force.groupedActivities, forceId)
     throw Error('Failed to find group activities for this activity 2:' + id)
   }
   return activity as any as PlanningActivity
