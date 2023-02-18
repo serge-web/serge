@@ -12,13 +12,17 @@ const p9StockTemplates: TemplateBody[] = [
       title: 'Adjudication Outcomes',
       format: 'grid',
       required: [
-        'narrative', 'Reference', 'important'
+        'narrative', 'Reference', 'important', 'perForceNarratives'
       ],
       properties: {
         Reference: {
           title: 'Reference',
           propertyOrder: 10,
-          readonly: true
+          readonly: true,
+          type: 'string',
+          options: {
+            grid_columns: 3
+          }
         },
         messageType: {
           options: {
@@ -28,23 +32,29 @@ const p9StockTemplates: TemplateBody[] = [
         },
         important: {
           type: 'boolean',
-          propertyOrder: 15,
+          propertyOrder: 5,
           title: 'Important (high profile adjudication)',
-          format: 'checkbox'
+          format: 'checkbox',
+          options: {
+            grid_columns: 3
+          }
         },
         narrative: {
           title: 'General Summary',
           propertyOrder: 20,
           type: 'string',
-          format: 'textarea'
+          format: 'textarea',
+          options: {
+            grid_columns: 3
+          }
         },
         perForceNarratives: {
           type: 'array',
-          title: 'Feedback',
+          title: 'Per-force feedback',
           propertyOrder: 25,
           format: 'table',
           options: {
-            grid_columns: 6
+            grid_columns: 5
           },
           additionalProperties: false,
           items: {
