@@ -1,15 +1,13 @@
-import { ChannelPlanning, ForceData, MessageDetails, MessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
+import { CUSTOM_MESSAGE } from '@serge/config'
+import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
 import {  } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
-import moment from 'moment'
 import React from 'react'
 import { generateAllTemplates } from '../../molecules/json-editor/helpers/generate-p9-templates'
 import NewMessage from './index'
 import docs from './README.md'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
-
-console.clear()
 
 export default {
   title: 'local/form-elements/DynamicNewMessage',
@@ -53,6 +51,7 @@ interface StoryPropTypes {
   orderableChannel: boolean
   confirmCancel: boolean
   templates: TemplateBody[]
+  draftMessage: MessageCustom
 }
 
 const fixDate = (element: any, gameDate: string): any => {
@@ -76,6 +75,7 @@ const localCustomiseTemplate = (_document: MessageStructure | undefined, schema:
   }
   return schema
 }
+const mockMesage = {messageType: CUSTOM_MESSAGE, details: {messageType: 'Cyber--activity'}} as MessageCustom
 
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel, ...props } = args
@@ -107,13 +107,18 @@ P9Dynamic.args = {
   templates: templates || []
 }
 
-const marIstarTemplate = templates.find((template) => template._id === 'Maritime--ISTAR')
+const marIstarTemplate = templates.find((template) => template._id === 'Cyber--Effects')
 export const MaritimeIstar = Template.bind({})
 MaritimeIstar.args = {
   templates: marIstarTemplate ? [marIstarTemplate] : []
 }
 
-console.log('mar a2', marIstarTemplate)
+export const cyberOpen = Template.bind({})
+cyberOpen.args = {
+  templates: marIstarTemplate ? [marIstarTemplate] : [],
+  draftMessage: mockMesage
+}
+
 if (marIstarTemplate) {
   const fields = marIstarTemplate.details['properties']
   const fieldArr = Object.values(fields)
