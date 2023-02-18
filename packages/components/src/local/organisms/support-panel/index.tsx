@@ -259,7 +259,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
     })
 
     const fixDate = (element: any, gameDate: string): any => {
-      if(element && element.options && element.options.flatpickr) {
+      if (element && element.options && element.options.flatpickr) {
         element.options.flatpickr.defaultDate = gameDate
       }
       return element

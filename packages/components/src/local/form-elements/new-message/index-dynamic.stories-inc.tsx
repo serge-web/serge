@@ -1,6 +1,6 @@
 import { CUSTOM_MESSAGE } from '@serge/config'
 import { ChannelPlanning, ForceData, MessageCustom, MessageDetails, MessageStructure, TemplateBody } from '@serge/custom-types'
-import {  } from '@serge/mocks'
+import { } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
 import React from 'react'
 import { generateAllTemplates } from '../../molecules/json-editor/helpers/generate-p9-templates'
@@ -55,7 +55,7 @@ interface StoryPropTypes {
 }
 
 const fixDate = (element: any, gameDate: string): any => {
-  if(element && element.options && element.options.flatpickr) {
+  if (element && element.options && element.options.flatpickr) {
     element.options.flatpickr.defaultDate = gameDate
   }
   return element
@@ -75,7 +75,7 @@ const localCustomiseTemplate = (_document: MessageStructure | undefined, schema:
   }
   return schema
 }
-const mockMesage = {messageType: CUSTOM_MESSAGE, details: {messageType: 'Cyber--activity'}} as MessageCustom
+const mockMesage = { messageType: CUSTOM_MESSAGE, details: { messageType: 'Cyber--activity' } } as MessageCustom
 
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel, ...props } = args
@@ -120,7 +120,7 @@ cyberOpen.args = {
 }
 
 if (marIstarTemplate) {
-  const fields = marIstarTemplate.details['properties']
+  const fields = marIstarTemplate.details.properties
   const fieldArr = Object.values(fields)
   console.table(fieldArr.map((field: any) => {
     return {

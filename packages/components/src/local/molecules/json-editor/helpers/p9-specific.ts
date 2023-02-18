@@ -155,7 +155,7 @@ export const tmplPatrol = {
 }
 
 export const tmplISTAR = {
-  domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++),  
+  domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++),
   covert: booleanObject('Covert', 1, order++),
   method: textObject('Observation Method', 4, order++)
 }

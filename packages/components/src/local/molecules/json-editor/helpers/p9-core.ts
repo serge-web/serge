@@ -1,4 +1,4 @@
-import { dropDownObject } from "./p9-helpers"
+import { dropDownObject } from './p9-helpers'
 
 export const emconState = dropDownObject('Emcon State', ['Electronic Silence', 'Radio Silence', 'Normal Operations', 'No restrictions'], 3, 220)
 export const rulesOfEngagement = dropDownObject('Rules of Engagement', ['Weapons Free', 'Weapons Tight', 'Weapons Held'], 3, 210)
@@ -7,8 +7,8 @@ const flatpickrOptions = {
   time_24hr: true,
   enableTime: true,
   altInput: true,
-  altFormat: "M dHi\\Z",
-  dateFormat: "Z",
+  altFormat: 'M dHi\\Z',
+  dateFormat: 'Z'
 }
 
 export const coreTemplate = {
@@ -238,7 +238,7 @@ export const coreTemplate = {
       'Card - 3'
     ],
     options: {
-      grid_columns: 3,
+      grid_columns: 3
     }
   }
 }

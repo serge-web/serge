@@ -1,4 +1,4 @@
-import { emconState, rulesOfEngagement } from "./p9-core";
+import { emconState, rulesOfEngagement } from './p9-core'
 
 export const airTemplate = {
   rulesOfEngagement: rulesOfEngagement,
