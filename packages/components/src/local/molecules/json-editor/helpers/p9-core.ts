@@ -3,6 +3,14 @@ import { dropDownObject } from "./p9-helpers"
 export const emconState = dropDownObject('Emcon State', ['Electronic Silence', 'Radio Silence', 'Normal Operations', 'No restrictions'], 3, 220)
 export const rulesOfEngagement = dropDownObject('Rules of Engagement', ['Weapons Free', 'Weapons Tight', 'Weapons Held'], 3, 210)
 
+const flatpickrOptions = {
+  time_24hr: true,
+  enableTime: true,
+  altInput: true,
+  altFormat: "M dHi\\Z",
+  dateFormat: "Z",
+}
+
 export const coreTemplate = {
   Reference: {
     type: 'string',
@@ -30,13 +38,9 @@ export const coreTemplate = {
     options: {
       grid_columns: 4,
       inputAttributes: {
-        placeholder: 'Enter date'
+        placeholder: 'Enter start date'
       },
-      flatpickr: {
-        time_24hr: true,
-        dateFormat: 'Z',
-        enableTime: true
-      }
+      flatpickr: flatpickrOptions
     }
   },
   endDate: {
@@ -47,13 +51,9 @@ export const coreTemplate = {
     options: {
       grid_columns: 4,
       inputAttributes: {
-        placeholder: 'Enter date'
+        placeholder: 'Enter end date'
       },
-      flatpickr: {
-        time_24hr: true,
-        dateFormat: 'Z',
-        enableTime: true
-      }
+      flatpickr: flatpickrOptions
     }
   },
   activity: {
