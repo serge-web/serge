@@ -32,7 +32,7 @@ const templateDict = {
   ASWBarrier: tmplASWBarrier,
   EWAttack: tmplEWAttack,
   Attack: tmplSOFAttack,
-  Activity: tmplActivity,
+  Effects: tmplActivity,
   AirToAir: tmplAirToAir
 }
 
@@ -51,6 +51,9 @@ export const generateTemplate = (title: string, location: boolean, core: Record<
   let specTemplate
   const coreTemplate = { ...core }
   if (specific) {
+    if (templateDict[specific] === undefined) {
+      console.warn('Failed to find specific template for ', specific, templateDict)
+    }
     specTemplate = { ...templateDict[specific] }
     // ok, check if it has custom ownAssets and oppForAssets
     if (specTemplate.ownAssets) {
@@ -242,7 +245,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike', pfTmpl: true })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
-  acts.push({ uniqid: 'Activity', title: 'Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: activity })
+  acts.push({ uniqid: 'Activity', title: 'Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Effects' })
   acts.push({ uniqid: 'SOF Activity', title: 'SOF Activity', events: end, forces: redBlue, domains: [sof], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'Attack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] })
   acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], spatialP: true, spatialH: true })

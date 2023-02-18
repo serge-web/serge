@@ -182,9 +182,13 @@ export const tmplSOFAttack = {
   intendedEffect: textAreaObject('Intended Effect', 4, order++)
 }
 
+// for generic cyber activities
 export const tmplActivity = {
-  activityType: textObject('Activity Type', 4, order++),
-  intendedEffect: textAreaObject('Intended Effect', 4, order++)
+  discussedWithSMEs: booleanObject('Has this been discussed with SMEs?', 3, order++),
+  isPreadjudicated: booleanObject('Is this pre-adjudicated?', 3, order++),
+  standaloneActivity: booleanObject('Stand-Alone Activity?', 3, order++),
+  requiresAS: booleanObject('Does this require AS Discussion?', 3, order++),
+  effectDesc: textAreaObject('Effect Description', 6, order++)
 }
 
 export const tmplAirToAir = {
