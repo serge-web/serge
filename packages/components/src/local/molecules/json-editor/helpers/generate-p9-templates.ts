@@ -47,12 +47,12 @@ const templateDict = {
  * @returns
  */
 export const generateTemplate = (title: string, location: boolean, core: Record<string, any>,
-  domain: Record<string, any>, specific?: string): Record<string, any> => {
+  domain: Record<string, any>, specific?: Readonly<string>): Record<string, any> => {
   let specTemplate
   const coreTemplate = { ...core }
   if (specific) {
     if (templateDict[specific] === undefined) {
-      console.warn('Failed to find specific template for ', specific, templateDict)
+      console.warn('Failed to find specific template for ', title, specific, templateDict)
     }
     specTemplate = { ...templateDict[specific] }
     // ok, check if it has custom ownAssets and oppForAssets

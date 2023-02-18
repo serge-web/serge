@@ -54,7 +54,7 @@ export const JsonEditor: React.FC<Props> = ({
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
 
-  console.log('ignoring game date', gameDate)
+  console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
 
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {

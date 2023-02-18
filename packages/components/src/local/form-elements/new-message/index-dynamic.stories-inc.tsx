@@ -107,26 +107,21 @@ P9Dynamic.args = {
   templates: templates || []
 }
 
-const marIstarTemplate = templates.find((template) => template._id === 'Cyber--Effects')
-export const MaritimeIstar = Template.bind({})
-MaritimeIstar.args = {
-  templates: marIstarTemplate ? [marIstarTemplate] : []
-}
-
+const cyberTemplate = templates.find((template) => template._id === 'Cyber--Effects')
 export const cyberOpen = Template.bind({})
 cyberOpen.args = {
-  templates: marIstarTemplate ? [marIstarTemplate] : [],
+  templates: cyberTemplate ? [cyberTemplate] : [],
   draftMessage: mockMesage
 }
 
-if (marIstarTemplate) {
-  const fields = marIstarTemplate.details.properties
-  const fieldArr = Object.values(fields)
-  console.table(fieldArr.map((field: any) => {
-    return {
-      title: field.title,
-      order: field.propertyOrder,
-      cols: field.options ? field.options.grid_columns : 'n/a'
-    }
-  }))
-}
+// if (marIstarTemplate) {
+//   const fields = marIstarTemplate.details.properties
+//   const fieldArr = Object.values(fields)
+//   console.table(fieldArr.map((field: any) => {
+//     return {
+//       title: field.title,
+//       order: field.propertyOrder,
+//       cols: field.options ? field.options.grid_columns : 'n/a'
+//     }
+//   }))
+// }
