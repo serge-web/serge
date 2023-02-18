@@ -8,6 +8,8 @@ import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
 
+const alwaysShowEditorErrors = 'always'
+
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
 /* Render component */
@@ -131,7 +133,7 @@ export const JsonEditor: React.FC<Props> = ({
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded, alwaysShowEditorErrors)
 
     const changeListenter = (): void => {
       if (nextEditor) {
