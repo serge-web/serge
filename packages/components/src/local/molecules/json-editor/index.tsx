@@ -1,5 +1,5 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
-import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
+import { deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -126,7 +126,7 @@ export const JsonEditor: React.FC<Props> = ({
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
     // initialise date editors
-    const modSchema = configDateTimeLocal(template.details, gameDate)
+    const modSchema = template.details // configDateTimeLocal(template.details, gameDate)
 
     // apply any other template modifications
     const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
