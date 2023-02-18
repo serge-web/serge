@@ -1,11 +1,6 @@
 import { booleanObject, dropDownObject, multiSelectDropDownObject, numberObject, textAreaObject, textObject } from './p9-helpers'
 
 let order = 300
-export const tmplTransit = {
-  transitSpeed: numberObject('Transit Speed', 3, order++),
-  transitDuration: textObject('Transit Duration', 3, order++),
-  transitPosture: dropDownObject('Transit Posture', ['Rapid', 'Standard', 'Slow'], 4, order++)
-}
 
 // note: this template is used for a range of types of strike
 export const tmplMissileStrike = {
@@ -155,10 +150,9 @@ export const tmplPatrol = {
 }
 
 export const tmplISTAR = {
-  domain: multiSelectDropDownObject('Target Domain', ['Maritime', 'Air', 'Land'], 2, order++),
+  domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++),
   covert: booleanObject('Covert', 1, order++),
-  method: textObject('Observation Method', 4, order++),
-  searchRate: textObject('Search Rate (km2/hr)', 2, order++)
+  method: textObject('Observation Method', 4, order++)
 }
 
 /** note: used for offensive and defensive operations */
@@ -170,11 +164,6 @@ export const tmplTST = {
   targetPriority: textAreaObject('Target Type Priority', 4, order++)
 }
 
-export const tmplMineLaying = {
-  density: numberObject('Minefield Density', 4, order++),
-  covert: booleanObject('Covert', 4, order++)
-}
-
 export const tmplASWBarrier = {
   active: booleanObject('Active?', 4, order++)
 }
@@ -184,11 +173,26 @@ export const tmplEWAttack = {
 }
 
 export const tmplSOFAttack = {
-  activityType: dropDownObject('Activity Type', ['Raid', 'Capture/Kill', 'Gather Int', 'Deliver Effect'], 4, order++),
+  activityType: dropDownObject('Activity Type', ['Support & Influence', 'Special Reconnaisance', 'Direct Action'], 4, order++),
   intendedEffect: textAreaObject('Intended Effect', 4, order++)
 }
 
-export const tmplCyber = {
-  activityType: textObject('Activity Type', 4, order++),
-  intendedEffect: textAreaObject('Intended Effect', 4, order++)
+// for generic cyber activities
+export const tmplActivity = {
+  discussedWithSMEs: booleanObject('Has this been discussed with SMEs?', 3, order++),
+  isPreadjudicated: booleanObject('Is this pre-adjudicated?', 3, order++),
+  standaloneActivity: booleanObject('Stand-Alone Activity?', 3, order++),
+  requiresAS: booleanObject('Does this require AS Discussion?', 3, order++),
+  effectDesc: textAreaObject('Effect Description', 6, order++)
+}
+
+export const tmplAirToAir = {
+  otherAssets: {
+    type: 'array',
+    readonly: 'readonly',
+    options: {
+      hidden: true
+    },
+    id: 'hiddenAssets'
+  }
 }

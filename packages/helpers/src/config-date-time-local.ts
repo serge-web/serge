@@ -6,13 +6,16 @@ import deepCopy from './deep-copy'
  */
 const configCommonProps = (propIn: Record<string, unknown>, gameDate: string): Record<string, unknown> => {
   const prop = deepCopy(propIn)
+  console.log('config common props')
   switch (prop.format) {
     case 'datetime-local':
       prop.default = moment(gameDate).toISOString()
-      prop.options = {
-        flatpickr: {
-          time_24hr: true,
-          dateFormat: 'Z'
+      if (!prop.options.flatpickr) {
+        prop.options = {
+          flatpickr: {
+            time_24hr: true,
+            dateFormat: 'Z'
+          }
         }
       }
       return prop

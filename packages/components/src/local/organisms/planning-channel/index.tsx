@@ -569,7 +569,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const timeBounds = activityBounds(activityPlanned)
       const plans: PlanningMessageStructureCore = {
         Reference: '',
-        title: 'Pending',
+        title: '',
         activity: activityBeingPlanned.uniqid,
         startDate: timeBounds ? timeBounds[0] : '',
         endDate: timeBounds ? timeBounds[1] : ''

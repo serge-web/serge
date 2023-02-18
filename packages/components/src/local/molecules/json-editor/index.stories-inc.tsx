@@ -32,8 +32,6 @@ import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-console.clear()
-
 export default {
   title: 'local/molecules/JsonEditor',
   component: JsonEditor,
