@@ -18,8 +18,7 @@ const p9StockTemplates: TemplateBody[] = [
         Reference: {
           title: 'Reference',
           propertyOrder: 10,
-          readonly: true,
-          type: 'string'
+          readonly: true
         },
         messageType: {
           options: {
@@ -38,6 +37,52 @@ const p9StockTemplates: TemplateBody[] = [
           propertyOrder: 20,
           type: 'string',
           format: 'textarea'
+        },
+        perForceNarratives:  {
+          type: 'array',
+          title: 'Feedback',
+          propertyOrder: 25,
+          format: 'table',    
+          options: {
+            grid_columns: 6
+          },
+          additionalProperties: false,
+          items: {
+            title: 'Feedback',
+            type: 'object',
+            required: [
+              'force',
+              'feedback'
+            ],
+            properties: {
+              force: {
+                title: 'Force',
+                propertyOrder: 10,
+                type: 'string',
+                enum: [
+                  'f-a',
+                  'f-b',
+                  'f-c',
+                  'f-d'
+                ],
+                options: {
+                  enum_titles: [
+                    'Red',
+                    'Blue',
+                    'White',
+                    'Green'
+                  ],
+                  grid_columns: 3
+                }
+              },
+              feedback: {
+                title: 'Feedback',
+                propertyOrder: 20,
+                type: 'string',
+                format: 'textarea'
+              }
+            }
+          }
         },
         perceptionOutcomes: {
           type: 'array',
