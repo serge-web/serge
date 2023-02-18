@@ -126,15 +126,7 @@ const p9StockTemplates: TemplateBody[] = [
               perceivedHealth: {
                 title: 'Health',
                 propertyOrder: 50,
-                type: 'string',
-                enum: [
-                  'Unknown',
-                  '100',
-                  '75',
-                  '50',
-                  '25',
-                  '0'
-                ],
+                type: 'number',
                 options: {
                   grid_columns: 3
                 }
@@ -193,7 +185,7 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               health: {
-                title: 'Condition',
+                title: 'Health',
                 propertyOrder: 20,
                 type: 'number',
                 options: {
