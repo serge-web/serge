@@ -1,3 +1,8 @@
+import { dropDownObject } from "./p9-helpers"
+
+export const emconState = dropDownObject('Emcon State', ['Electronic Silence', 'Radio Silence', 'Normal Operations', 'No restrictions'], 3, 220)
+export const rulesOfEngagement = dropDownObject('Rules of Engagement', ['Weapons Free', 'Weapons Tight', 'Weapons Held'], 3, 210)
+
 export const coreTemplate = {
   Reference: {
     type: 'string',
@@ -69,6 +74,15 @@ export const coreTemplate = {
       ]
     }
   },
+  activityDescription: {
+    format: 'textarea',
+    title: 'Activity Description',
+    propertyOrder: 55,
+    options: {
+      grid_columns: 8
+    },
+    type: 'string'
+  },
   intent: {
     format: 'textarea',
     title: 'Intent',
@@ -85,7 +99,7 @@ export const coreTemplate = {
     propertyOrder: 70,
     title: 'Own Assets',
     options: {
-      grid_columns: 5,
+      grid_columns: 6,
       disable_array_reorder: true
     },
     items: {
@@ -134,7 +148,7 @@ export const coreTemplate = {
     minItems: 0,
     title: 'Subject(s) of orders',
     options: {
-      grid_columns: 5,
+      grid_columns: 6,
       disable_array_reorder: true
     },
     items: {
@@ -206,7 +220,7 @@ export const coreTemplate = {
   },
   supports: {
     format: 'textarea',
-    title: 'Supports High-Level',
+    title: 'High-level Activity Supported',
     propertyOrder: 110,
     options: {
       grid_columns: 6
@@ -214,21 +228,16 @@ export const coreTemplate = {
     type: 'string'
   },
   activityCard: {
-    format: 'text',
-    title: 'Activity Card',
+    title: 'Associated Cyber/Space Activity Ref#',
     propertyOrder: 120,
+    type: 'string',
+    enum: [
+      'Card - 1',
+      'Card - 2',
+      'Card - 3'
+    ],
     options: {
-      grid_columns: 4
-    },
-    type: 'string'
-  },
-  activityDescription: {
-    format: 'textarea',
-    title: 'Activity Description',
-    propertyOrder: 130,
-    options: {
-      grid_columns: 8
-    },
-    type: 'string'
+      grid_columns: 3,
+    }
   }
 }

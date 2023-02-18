@@ -155,10 +155,9 @@ export const tmplPatrol = {
 }
 
 export const tmplISTAR = {
-  domain: multiSelectDropDownObject('Target Domain', ['Maritime', 'Air', 'Land'], 2, order++),
+  domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++),  
   covert: booleanObject('Covert', 1, order++),
-  method: textObject('Observation Method', 4, order++),
-  searchRate: textObject('Search Rate (km2/hr)', 2, order++)
+  method: textObject('Observation Method', 4, order++)
 }
 
 /** note: used for offensive and defensive operations */
@@ -170,11 +169,6 @@ export const tmplTST = {
   targetPriority: textAreaObject('Target Type Priority', 4, order++)
 }
 
-export const tmplMineLaying = {
-  density: numberObject('Minefield Density', 4, order++),
-  covert: booleanObject('Covert', 4, order++)
-}
-
 export const tmplASWBarrier = {
   active: booleanObject('Active?', 4, order++)
 }
@@ -184,11 +178,22 @@ export const tmplEWAttack = {
 }
 
 export const tmplSOFAttack = {
-  activityType: dropDownObject('Activity Type', ['Raid', 'Capture/Kill', 'Gather Int', 'Deliver Effect'], 4, order++),
+  activityType: dropDownObject('Activity Type', ['Support & Influence', 'Special Reconnaisance', 'Direct Action'], 4, order++),
   intendedEffect: textAreaObject('Intended Effect', 4, order++)
 }
 
-export const tmplCyber = {
+export const tmplActivity = {
   activityType: textObject('Activity Type', 4, order++),
   intendedEffect: textAreaObject('Intended Effect', 4, order++)
+}
+
+export const tmplAirToAir = {
+  otherAssets: {
+    type: 'array',
+    readonly: 'readonly',
+    options: {
+      hidden: true
+    },
+    id: 'hiddenAssets'
+  }
 }
