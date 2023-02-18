@@ -1,12 +1,15 @@
-import { ChannelPlanning, ForceData, MessageDetails, TemplateBody } from '@serge/custom-types'
+import { ChannelPlanning, ForceData, MessageDetails, MessageStructure, PlanningMessageStructureCore, TemplateBody } from '@serge/custom-types'
 import {  } from '@serge/mocks'
 import { Story } from '@storybook/react/types-6-0'
+import moment from 'moment'
 import React from 'react'
 import { generateAllTemplates } from '../../molecules/json-editor/helpers/generate-p9-templates'
 import NewMessage from './index'
 import docs from './README.md'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '700px' }}>{storyFn()}</div>
+
+console.clear()
 
 export default {
   title: 'local/form-elements/DynamicNewMessage',
@@ -52,6 +55,29 @@ interface StoryPropTypes {
   templates: TemplateBody[]
 }
 
+const fixDate = (element: any, gameDate: string): any => {
+  if(element && element.options && element.options.flatpickr) {
+    element.options.flatpickr.defaultDate = gameDate
+  }
+  return element
+}
+
+const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+  // sort out which orders are currently "live"
+  const gameDate = '2024-05-01T00:00:00Z'
+  console.log('doc ', document)
+  // check this isn't an adjudication message, since we only
+  // set the default dates, if this is a planning message
+  const schemaTitle: string = schema.title || 'unknown'
+  if (!schemaTitle.startsWith('Adjudicat')) {
+    if (gameDate) {
+      fixDate(schema.properties.startDate, gameDate)
+      fixDate(schema.properties.endDate, gameDate)
+    }
+  }
+  return schema
+}
+
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel, ...props } = args
 
@@ -64,6 +90,7 @@ const Template: Story<StoryPropTypes> = (args) => {
     privateMessage={privateMessage}
     orderableChannel={orderableChannel}
     channel={{} as ChannelPlanning}
+    customiseTemplate={localCustomiseTemplate}
     confirmCancel={confirmCancel}
     currentTurn={0}
     selectedForce={{} as ForceData}
