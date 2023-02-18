@@ -13,8 +13,6 @@ import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
 
-console.clear()
-
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
