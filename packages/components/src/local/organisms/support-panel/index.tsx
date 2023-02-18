@@ -258,18 +258,20 @@ export const SupportPanel: React.FC<PropTypes> = ({
       }
     })
 
+    const fixDate = (element: any, gameDate: string): any => {
+      if(element && element.options && element.options.flatpickr) {
+        element.options.flatpickr.defaultDate = gameDate
+      }
+      return element
+    }
+
     // check this isn't an adjudication message, since we only
     // set the default dates, if this is a planning message
-    const plan = document as PlanningMessageStructureCore
     const schemaTitle: string = schema.title || 'unknown'
     if (!schemaTitle.startsWith('Adjudicat')) {
-      if (gameDate) {
-        if (!plan.startDate) {
-          plan.startDate = gameDate
-        }
-        if (!plan.endDate) {
-          plan.endDate = gameDate
-        }
+      if (gameDate && schema.properties) {
+        fixDate(schema.properties.startDate, gameDate)
+        fixDate(schema.properties.endDate, gameDate)
       }
     }
 
