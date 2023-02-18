@@ -62,10 +62,9 @@ const fixDate = (element: any, gameDate: string): any => {
   return element
 }
 
-const localCustomiseTemplate = (document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
+const localCustomiseTemplate = (_document: MessageStructure | undefined, schema: Record<string, any>): Record<string, any> => {
   // sort out which orders are currently "live"
   const gameDate = '2024-05-01T00:00:00Z'
-  console.log('doc ', document)
   // check this isn't an adjudication message, since we only
   // set the default dates, if this is a planning message
   const schemaTitle: string = schema.title || 'unknown'
