@@ -1,11 +1,6 @@
 import { booleanObject, dropDownObject, multiSelectDropDownObject, numberObject, textAreaObject, textObject } from './p9-helpers'
 
 let order = 300
-export const tmplTransit = {
-  transitSpeed: numberObject('Transit Speed', 3, order++),
-  transitDuration: textObject('Transit Duration', 3, order++),
-  transitPosture: dropDownObject('Transit Posture', ['Rapid', 'Standard', 'Slow'], 4, order++)
-}
 
 // note: this template is used for a range of types of strike
 export const tmplMissileStrike = {

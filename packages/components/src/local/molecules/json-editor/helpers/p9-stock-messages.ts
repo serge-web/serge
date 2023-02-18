@@ -33,16 +33,16 @@ const p9StockTemplates: TemplateBody[] = [
           format: 'checkbox'
         },
         narrative: {
-          title: 'General Feedback',
+          title: 'General Summary',
           propertyOrder: 20,
           type: 'string',
           format: 'textarea'
         },
-        perForceNarratives:  {
+        perForceNarratives: {
           type: 'array',
           title: 'Feedback',
           propertyOrder: 25,
-          format: 'table',    
+          format: 'table',
           options: {
             grid_columns: 6
           },

@@ -60873,7 +60873,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Land-Transit",
-                                    "template": "Land--Transit",
+                                    "template": "Land--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -61213,7 +61213,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Maritime-Transit",
-                                    "template": "Maritime--Transit",
+                                    "template": "Maritime--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -61645,7 +61645,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-blue-Air-Transit",
-                                    "template": "Air--Transit",
+                                    "template": "Air--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -62042,7 +62042,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Land-Transit",
-                                    "template": "Land--Transit",
+                                    "template": "Land--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -62399,7 +62399,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Maritime-Transit",
-                                    "template": "Maritime--Transit",
+                                    "template": "Maritime--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -62831,7 +62831,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-red-Air-Transit",
-                                    "template": "Air--Transit",
+                                    "template": "Air--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -63087,7 +63087,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Land-Transit",
-                                    "template": "Land--Transit",
+                                    "template": "Land--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -63176,7 +63176,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Maritime-Transit",
-                                    "template": "Maritime--Transit",
+                                    "template": "Maritime--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -63246,7 +63246,7 @@ const game: Wargame = {
                                         "OCA"
                                     ],
                                     "uniqid": "f-green-Air-Transit",
-                                    "template": "Air--Transit",
+                                    "template": "Air--Activity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -63286,8 +63286,7 @@ const game: Wargame = {
                             "Reference": {
                                 "title": "Reference",
                                 "propertyOrder": 10,
-                                "readonly": true,
-                                "type": "string"
+                                "readonly": true
                             },
                             "messageType": {
                                 "options": {
@@ -63306,6 +63305,52 @@ const game: Wargame = {
                                 "propertyOrder": 20,
                                 "type": "string",
                                 "format": "textarea"
+                            },
+                            "perForceNarratives": {
+                                "type": "array",
+                                "title": "Feedback",
+                                "propertyOrder": 25,
+                                "format": "table",
+                                "options": {
+                                    "grid_columns": 6
+                                },
+                                "additionalProperties": false,
+                                "items": {
+                                    "title": "Feedback",
+                                    "type": "object",
+                                    "required": [
+                                        "force",
+                                        "feedback"
+                                    ],
+                                    "properties": {
+                                        "force": {
+                                            "title": "Force",
+                                            "propertyOrder": 10,
+                                            "type": "string",
+                                            "enum": [
+                                                "f-a",
+                                                "f-b",
+                                                "f-c",
+                                                "f-d"
+                                            ],
+                                            "options": {
+                                                "enum_titles": [
+                                                    "Red",
+                                                    "Blue",
+                                                    "White",
+                                                    "Green"
+                                                ],
+                                                "grid_columns": 3
+                                            }
+                                        },
+                                        "feedback": {
+                                            "title": "Feedback",
+                                            "propertyOrder": 20,
+                                            "type": "string",
+                                            "format": "textarea"
+                                        }
+                                    }
+                                }
                             },
                             "perceptionOutcomes": {
                                 "type": "array",
@@ -63394,15 +63439,7 @@ const game: Wargame = {
                                         "perceivedHealth": {
                                             "title": "Health",
                                             "propertyOrder": 50,
-                                            "type": "string",
-                                            "enum": [
-                                                "Unknown",
-                                                "100",
-                                                "75",
-                                                "50",
-                                                "25",
-                                                "0"
-                                            ],
+                                            "type": "number",
                                             "options": {
                                                 "grid_columns": 3
                                             }
@@ -63461,16 +63498,9 @@ const game: Wargame = {
                                             }
                                         },
                                         "health": {
-                                            "title": "Condition",
+                                            "title": "Health",
                                             "propertyOrder": 20,
                                             "type": "number",
-                                            "enum": [
-                                                100,
-                                                75,
-                                                50,
-                                                25,
-                                                0
-                                            ],
                                             "options": {
                                                 "grid_columns": 2
                                             }
@@ -63605,7 +63635,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "f-blue--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -63661,8 +63691,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -63681,8 +63710,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -63812,7 +63840,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -63961,10 +63989,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Land--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "f-blue--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64020,8 +64048,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64040,8 +64067,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64171,7 +64197,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -64320,10 +64346,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Maritime--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "f-red--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64379,8 +64405,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64399,8 +64424,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64530,7 +64554,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -64679,10 +64703,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Land--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "f-red--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64738,8 +64762,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64758,8 +64781,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -64889,7 +64911,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -65038,10 +65060,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Maritime--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "f-green--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65097,8 +65119,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65117,8 +65138,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65248,7 +65268,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -65397,10 +65417,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-green--Land--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "f-green--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65456,8 +65476,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65476,8 +65495,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65607,7 +65625,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -65756,10 +65774,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-green--Maritime--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -65816,8 +65834,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -65836,8 +65853,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66056,7 +66072,7 @@ const game: Wargame = {
                             "effect": {
                                 "type": "string",
                                 "title": "Effect Type",
-                                "propertyOrder": 311,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -66078,10 +66094,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66138,8 +66154,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66158,8 +66173,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66378,7 +66392,7 @@ const game: Wargame = {
                             "effect": {
                                 "type": "string",
                                 "title": "Effect Type",
-                                "propertyOrder": 311,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -66400,10 +66414,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66461,8 +66475,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66481,8 +66494,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66710,7 +66722,7 @@ const game: Wargame = {
                             "effect": {
                                 "type": "string",
                                 "title": "Effect Type",
-                                "propertyOrder": 311,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -66732,10 +66744,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -66794,8 +66806,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -66814,8 +66825,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67035,7 +67045,7 @@ const game: Wargame = {
                                 "type": "array",
                                 "uniqueItems": true,
                                 "title": "Target Domains",
-                                "propertyOrder": 305,
+                                "propertyOrder": 302,
                                 "options": {
                                     "grid_columns": 2
                                 },
@@ -67052,7 +67062,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Covert",
                                 "format": "checkbox",
-                                "propertyOrder": 306,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 1
                                 }
@@ -67060,7 +67070,7 @@ const game: Wargame = {
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 307,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -67082,10 +67092,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67144,8 +67154,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67164,8 +67173,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67385,7 +67393,7 @@ const game: Wargame = {
                                 "type": "array",
                                 "uniqueItems": true,
                                 "title": "Target Domains",
-                                "propertyOrder": 305,
+                                "propertyOrder": 302,
                                 "options": {
                                     "grid_columns": 2
                                 },
@@ -67402,7 +67410,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Covert",
                                 "format": "checkbox",
-                                "propertyOrder": 306,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 1
                                 }
@@ -67410,7 +67418,7 @@ const game: Wargame = {
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 307,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -67432,10 +67440,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67495,8 +67503,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67515,8 +67522,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67745,7 +67751,7 @@ const game: Wargame = {
                                 "type": "array",
                                 "uniqueItems": true,
                                 "title": "Target Domains",
-                                "propertyOrder": 305,
+                                "propertyOrder": 302,
                                 "options": {
                                     "grid_columns": 2
                                 },
@@ -67762,7 +67768,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Covert",
                                 "format": "checkbox",
-                                "propertyOrder": 306,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 1
                                 }
@@ -67770,7 +67776,7 @@ const game: Wargame = {
                             "method": {
                                 "type": "string",
                                 "title": "Observation Method",
-                                "propertyOrder": 307,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -67792,10 +67798,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -67852,8 +67858,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -67872,8 +67877,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68092,7 +68096,7 @@ const game: Wargame = {
                             "patrolType": {
                                 "type": "string",
                                 "title": "Patrol Type",
-                                "propertyOrder": 304,
+                                "propertyOrder": 301,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -68114,10 +68118,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -68174,8 +68178,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68194,8 +68197,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68414,7 +68416,7 @@ const game: Wargame = {
                             "patrolType": {
                                 "type": "string",
                                 "title": "Patrol Type",
-                                "propertyOrder": 304,
+                                "propertyOrder": 301,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -68436,10 +68438,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Air--Patrol",
                     "details": {
                         "format": "grid",
@@ -68497,8 +68499,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68517,8 +68518,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68746,7 +68746,7 @@ const game: Wargame = {
                             "patrolType": {
                                 "type": "string",
                                 "title": "Patrol Type",
-                                "propertyOrder": 304,
+                                "propertyOrder": 301,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -68768,10 +68768,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Patrol",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Air--AirToAir",
                     "details": {
                         "format": "grid",
@@ -68828,8 +68828,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -68848,8 +68847,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69059,10 +69057,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--AirToAir",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Land--Activity",
                     "details": {
                         "format": "grid",
@@ -69118,8 +69116,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69138,8 +69135,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69372,10 +69368,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Activity",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Maritime--Activity",
                     "details": {
                         "format": "grid",
@@ -69431,8 +69427,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69451,8 +69446,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69685,10 +69679,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Activity",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.060Z",
                     "title": "Air--Activity",
                     "details": {
                         "format": "grid",
@@ -69745,8 +69739,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -69765,8 +69758,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -70008,1055 +70000,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Activity",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.060Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
-                    "title": "Land--Transit",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "transitSpeed",
-                            "transitDuration",
-                            "transitPosture",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 4,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "number",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Tank A",
-                                                    "Opp Tank B",
-                                                    "Opp Tank C",
-                                                    "Opp Plane A"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
-                                ],
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitSpeed": {
-                                "type": "integer",
-                                "title": "Transit Speed",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitDuration": {
-                                "type": "string",
-                                "title": "Transit Duration",
-                                "propertyOrder": 301,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitPosture": {
-                                "enum": [
-                                    "Rapid",
-                                    "Standard",
-                                    "Slow"
-                                ],
-                                "title": "Transit Posture",
-                                "type": "string",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 53,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Land--Transit",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Land--Transit",
-                    "_rev": "2023-02-18T14:38:14.570Z"
-                },
-                {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
-                    "title": "Maritime--Transit",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "transitSpeed",
-                            "transitDuration",
-                            "transitPosture",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 4,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "number",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Tank A",
-                                                    "Opp Tank B",
-                                                    "Opp Tank C",
-                                                    "Opp Plane A"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
-                                ],
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitSpeed": {
-                                "type": "integer",
-                                "title": "Transit Speed",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitDuration": {
-                                "type": "string",
-                                "title": "Transit Duration",
-                                "propertyOrder": 301,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitPosture": {
-                                "enum": [
-                                    "Rapid",
-                                    "Standard",
-                                    "Slow"
-                                ],
-                                "title": "Transit Posture",
-                                "type": "string",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 53,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Maritime--Transit",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Maritime--Transit",
-                    "_rev": "2023-02-18T14:38:14.570Z"
-                },
-                {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
-                    "title": "Air--Transit",
-                    "details": {
-                        "format": "grid",
-                        "required": [
-                            "Reference",
-                            "title",
-                            "startDate",
-                            "endDate",
-                            "activity",
-                            "activityDescription",
-                            "intent",
-                            "ownAssets",
-                            "otherAssets",
-                            "actionsOn",
-                            "synchronisedWith",
-                            "supports",
-                            "activityCard",
-                            "rulesOfEngagement",
-                            "emconState",
-                            "requiresAirToAir",
-                            "transitSpeed",
-                            "transitDuration",
-                            "transitPosture",
-                            "location"
-                        ],
-                        "properties": {
-                            "Reference": {
-                                "type": "string",
-                                "title": "Reference (locked)",
-                                "readonly": "readonly",
-                                "propertyOrder": 10,
-                                "options": {
-                                    "grid_columns": 2
-                                }
-                            },
-                            "title": {
-                                "type": "string",
-                                "title": "Title",
-                                "propertyOrder": 20,
-                                "minLength": 10,
-                                "options": {
-                                    "grid_columns": 10
-                                }
-                            },
-                            "startDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 40,
-                                "title": "Start Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter start date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
-                                    }
-                                }
-                            },
-                            "endDate": {
-                                "format": "datetime-local",
-                                "type": "string",
-                                "propertyOrder": 45,
-                                "title": "End Date",
-                                "options": {
-                                    "grid_columns": 4,
-                                    "inputAttributes": {
-                                        "placeholder": "Enter end date"
-                                    },
-                                    "flatpickr": {
-                                        "time_24hr": true,
-                                        "enableTime": true,
-                                        "altInput": true,
-                                        "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
-                                    }
-                                }
-                            },
-                            "activity": {
-                                "title": "Activity",
-                                "propertyOrder": 50,
-                                "readonly": "readonly",
-                                "type": "string",
-                                "enum": [
-                                    "transit",
-                                    "kinetic",
-                                    "asymmetric"
-                                ],
-                                "options": {
-                                    "grid_columns": 4,
-                                    "enum_titles": [
-                                        "Transit1",
-                                        "Kinetic1",
-                                        "Asymmetric1"
-                                    ]
-                                }
-                            },
-                            "activityDescription": {
-                                "format": "textarea",
-                                "title": "Activity Description",
-                                "propertyOrder": 55,
-                                "options": {
-                                    "grid_columns": 8
-                                },
-                                "type": "string"
-                            },
-                            "intent": {
-                                "format": "textarea",
-                                "title": "Intent",
-                                "propertyOrder": 60,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "ownAssets": {
-                                "type": "array",
-                                "format": "table",
-                                "minItems": 0,
-                                "propertyOrder": 70,
-                                "title": "Own Assets",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset",
-                                        "number"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Asset",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Tank A",
-                                                    "Tank B",
-                                                    "Tank C",
-                                                    "Plane A"
-                                                ]
-                                            }
-                                        },
-                                        "number": {
-                                            "title": "Quantity",
-                                            "type": "number",
-                                            "options": {
-                                                "grid_columns": 2
-                                            },
-                                            "format": "number"
-                                        }
-                                    }
-                                }
-                            },
-                            "otherAssets": {
-                                "type": "array",
-                                "propertyOrder": 80,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Subject(s) of orders",
-                                "options": {
-                                    "grid_columns": 6,
-                                    "disable_array_reorder": true
-                                },
-                                "items": {
-                                    "type": "object",
-                                    "format": "grid",
-                                    "title": "Asset",
-                                    "required": [
-                                        "asset"
-                                    ],
-                                    "properties": {
-                                        "asset": {
-                                            "title": "Target",
-                                            "type": "string",
-                                            "enum": [
-                                                "ta",
-                                                "tb",
-                                                "tc",
-                                                "pa"
-                                            ],
-                                            "options": {
-                                                "grid_columns": 2,
-                                                "enum_titles": [
-                                                    "Opp Tank A",
-                                                    "Opp Tank B",
-                                                    "Opp Tank C",
-                                                    "Opp Plane A"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            },
-                            "actionsOn": {
-                                "format": "textarea",
-                                "title": "Actions on",
-                                "propertyOrder": 90,
-                                "options": {
-                                    "grid_columns": 12
-                                },
-                                "type": "string"
-                            },
-                            "synchronisedWith": {
-                                "type": "array",
-                                "propertyOrder": 100,
-                                "format": "table",
-                                "minItems": 0,
-                                "title": "Synchronised with",
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "items": {
-                                    "title": "Order",
-                                    "type": "string",
-                                    "enum": [
-                                        "o-a",
-                                        "o-b",
-                                        "o-c",
-                                        "o-d"
-                                    ],
-                                    "options": {
-                                        "enum_titles": [
-                                            "Orders A",
-                                            "Orders B",
-                                            "Orders C",
-                                            "Orders D"
-                                        ]
-                                    }
-                                }
-                            },
-                            "supports": {
-                                "format": "textarea",
-                                "title": "High-level Activity Supported",
-                                "propertyOrder": 110,
-                                "options": {
-                                    "grid_columns": 6
-                                },
-                                "type": "string"
-                            },
-                            "activityCard": {
-                                "title": "Associated Cyber/Space Activity Ref#",
-                                "propertyOrder": 120,
-                                "type": "string",
-                                "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
-                                ],
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "rulesOfEngagement": {
-                                "enum": [
-                                    "Weapons Free",
-                                    "Weapons Tight",
-                                    "Weapons Held"
-                                ],
-                                "title": "Rules of Engagement",
-                                "type": "string",
-                                "propertyOrder": 210,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "emconState": {
-                                "enum": [
-                                    "Electronic Silence",
-                                    "Radio Silence",
-                                    "Normal Operations",
-                                    "No restrictions"
-                                ],
-                                "title": "Emcon State",
-                                "type": "string",
-                                "propertyOrder": 220,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "requiresAirToAir": {
-                                "type": "boolean",
-                                "title": "Requires Air to Air refuelling",
-                                "format": "checkbox",
-                                "propertyOrder": 230,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "transitSpeed": {
-                                "type": "integer",
-                                "title": "Transit Speed",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitDuration": {
-                                "type": "string",
-                                "title": "Transit Duration",
-                                "propertyOrder": 301,
-                                "options": {
-                                    "grid_columns": 3
-                                }
-                            },
-                            "transitPosture": {
-                                "enum": [
-                                    "Rapid",
-                                    "Standard",
-                                    "Slow"
-                                ],
-                                "title": "Transit Posture",
-                                "type": "string",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "location": {
-                                "format": "location",
-                                "title": "Location",
-                                "id": "locationArea",
-                                "type": "string",
-                                "readonly": "readonly",
-                                "propertyOrder": 53,
-                                "options": {
-                                    "grid_columns": 6
-                                }
-                            }
-                        },
-                        "title": "Air--Transit",
-                        "type": "object"
-                    },
-                    "completed": true,
-                    "_id": "Air--Transit",
-                    "_rev": "2023-02-18T14:38:14.570Z"
-                },
-                {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "Maritime--ASWBarrier",
                     "details": {
                         "format": "grid",
@@ -71113,8 +70060,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71133,8 +70079,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71354,7 +70299,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Active?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -71376,10 +70321,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ASWBarrier",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "f-blue--Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -71437,8 +70382,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71457,8 +70401,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71597,7 +70540,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -71757,10 +70700,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Air--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.570Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "f-red--Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -71818,8 +70761,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71838,8 +70780,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -71978,7 +70919,7 @@ const game: Wargame = {
                             "targetType": {
                                 "type": "string",
                                 "title": "Target Type",
-                                "propertyOrder": 303,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -72138,10 +71079,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Air--MissileStrike",
-                    "_rev": "2023-02-18T14:38:14.570Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.571Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -72199,8 +71140,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72219,8 +71159,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72449,7 +71388,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Target Type Priority",
-                                "propertyOrder": 309,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -72471,10 +71410,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-02-18T14:38:14.571Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.571Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "Cyber--Effects",
                     "details": {
                         "format": "grid",
@@ -72532,8 +71471,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72552,8 +71490,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72746,7 +71683,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 314,
+                                "propertyOrder": 311,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72755,7 +71692,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 315,
+                                "propertyOrder": 312,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72764,7 +71701,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 316,
+                                "propertyOrder": 313,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72773,7 +71710,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 317,
+                                "propertyOrder": 314,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72782,7 +71719,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 318,
+                                "propertyOrder": 315,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -72793,10 +71730,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--Effects",
-                    "_rev": "2023-02-18T14:38:14.571Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.571Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "Space--Effects",
                     "details": {
                         "format": "grid",
@@ -72854,8 +71791,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -72874,8 +71810,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73068,7 +72003,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 314,
+                                "propertyOrder": 311,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73077,7 +72012,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 315,
+                                "propertyOrder": 312,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73086,7 +72021,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 316,
+                                "propertyOrder": 313,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73095,7 +72030,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 317,
+                                "propertyOrder": 314,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73104,7 +72039,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 318,
+                                "propertyOrder": 315,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -73115,10 +72050,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--Effects",
-                    "_rev": "2023-02-18T14:38:14.571Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.571Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "Info Ops--Effects",
                     "details": {
                         "format": "grid",
@@ -73176,8 +72111,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73196,8 +72130,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73390,7 +72323,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 314,
+                                "propertyOrder": 311,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73399,7 +72332,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 315,
+                                "propertyOrder": 312,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73408,7 +72341,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 316,
+                                "propertyOrder": 313,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73417,7 +72350,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 317,
+                                "propertyOrder": 314,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73426,7 +72359,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 318,
+                                "propertyOrder": 315,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -73437,10 +72370,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--Effects",
-                    "_rev": "2023-02-18T14:38:14.571Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 },
                 {
-                    "lastUpdated": "2023-02-18T14:38:14.571Z",
+                    "lastUpdated": "2023-02-18T15:33:52.061Z",
                     "title": "SOF--Attack",
                     "details": {
                         "format": "grid",
@@ -73496,8 +72429,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73516,8 +72448,7 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z",
-                                        "defaultDate": "2024-05-01T00:00:00Z"
+                                        "dateFormat": "Z"
                                     }
                                 }
                             },
@@ -73714,7 +72645,7 @@ const game: Wargame = {
                                 ],
                                 "title": "Activity Type",
                                 "type": "string",
-                                "propertyOrder": 312,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -73723,7 +72654,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Intended Effect",
-                                "propertyOrder": 313,
+                                "propertyOrder": 310,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -73745,7 +72676,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "SOF--Attack",
-                    "_rev": "2023-02-18T14:38:14.571Z"
+                    "_rev": "2023-02-18T15:33:52.061Z"
                 }
             ]
         },

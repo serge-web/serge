@@ -7,7 +7,7 @@ import { coreTemplate } from './p9-core'
 import { landTemplate } from './p9-land'
 import { maritimeTemplate } from './p9-maritime'
 import { otherTemplate } from './p9-other'
-import { tmplASWBarrier, tmplActivity, tmplDuration, tmplEWAttack, tmplISTAR, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTransit, tmplTST, tmplAirToAir } from './p9-specific'
+import { tmplASWBarrier, tmplActivity, tmplDuration, tmplEWAttack, tmplISTAR, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTST, tmplAirToAir } from './p9-specific'
 import p9StockTemplates from './p9-stock-messages'
 
 const locationComponent = {
@@ -23,7 +23,6 @@ const locationComponent = {
 }
 
 const templateDict = {
-  Transit: tmplTransit,
   MissileStrike: tmplMissileStrike,
   Patrol: tmplPatrol,
   ISTAR: tmplISTAR,
@@ -236,7 +235,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
   acts.push({ uniqid: 'AAR', title: 'Air-Air Refuel', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['AAR at this location'], specific: 'AirToAir' })
   acts.push({ uniqid: 'RESUPP', title: 'Resupply', forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply at this location'] })
-  acts.push({ uniqid: 'TRANSIT', title: 'Transit', events: end, forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
+  acts.push({ uniqid: 'TRANSIT', title: 'Transit', events: end, forces: allForces, domains: seaAirLand, acts: oneWay })
   acts.push({ uniqid: 'ASW-B', title: 'ASW Barrier', forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'ASWBarrier' })
   acts.push({ uniqid: 'M-Clr', title: 'Mine Clearance', events: rndEnd, forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'M-Lay', title: 'Mine Laying', events: rndEnd, forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], spatialP: true, spatialH: true })
