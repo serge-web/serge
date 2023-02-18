@@ -17,6 +17,7 @@ export const coreTemplate = {
     type: 'string',
     title: 'Title',
     propertyOrder: 20,
+    minLength: 10,
     options: {
       grid_columns: 10
     }
