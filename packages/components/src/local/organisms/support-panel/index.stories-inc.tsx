@@ -13,13 +13,13 @@ import SupportPanel from './index'
 import docs from './README.md'
 import SupportPanelProps from './types/props'
 
-console.clear()
-
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const forces = P9BMock.data.forces.forces
 const templates = P9BMock.data.templates ? P9BMock.data.templates.templates : []
+const gameDate = P9BMock.data.overview.gameDate
+const gameTime = moment(gameDate).valueOf()
 
 const allRoles: string[] = []
 forces.forEach((force: ForceData) => {
@@ -72,8 +72,8 @@ const activities = P9BMock.data.activities ? P9BMock.data.activities.activities 
 // produce the own and opp assets for this player force
 const forceCols = forceColors(forces)
 const platIcons = platformIcons(platformTypes)
-const own = getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes)
-const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes)
+const own = getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime)
+const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime)
 
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName

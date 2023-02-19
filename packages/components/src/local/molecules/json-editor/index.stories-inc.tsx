@@ -32,8 +32,6 @@ import Props from './types/props'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 
-console.clear()
-
 export default {
   title: 'local/molecules/JsonEditor',
   component: JsonEditor,
@@ -131,7 +129,8 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       c4: 'Operational',
       domain: 'Land',
       attributes: { word: 'text', number: 123 },
-      taskGroup: ''
+      taskGroup: '',
+      lastUpdated: 'unk'
     }
     return row
   }

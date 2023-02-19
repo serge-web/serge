@@ -471,10 +471,10 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
 
         // find opFor assets within poly
         const existingOutcomes = outcomes.healthOutcomes.map((item) => item.asset)
-        console.log('TST existing outcomes', existingOutcomes)
+        // console.log('TST existing outcomes', existingOutcomes)
         const special = undefined // 'Green:4'
         const assets = opForInArea(plan.details.from.forceId || '', forces, mePoly, existingOutcomes, special)
-        console.log('TST detections', assets)
+        /// console.log('TST detections', assets)
 
         special && console.table(assets.map((fAsset) => {
           const asset = fAsset.asset

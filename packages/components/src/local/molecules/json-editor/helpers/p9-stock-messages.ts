@@ -12,14 +12,17 @@ const p9StockTemplates: TemplateBody[] = [
       title: 'Adjudication Outcomes',
       format: 'grid',
       required: [
-        'narrative', 'Reference', 'important'
+        'narrative', 'Reference', 'important', 'perForceNarratives'
       ],
       properties: {
         Reference: {
           title: 'Reference',
           propertyOrder: 10,
           readonly: true,
-          type: 'string'
+          type: 'string',
+          options: {
+            grid_columns: 3
+          }
         },
         messageType: {
           options: {
@@ -29,15 +32,67 @@ const p9StockTemplates: TemplateBody[] = [
         },
         important: {
           type: 'boolean',
-          propertyOrder: 15,
+          propertyOrder: 5,
           title: 'Important (high profile adjudication)',
-          format: 'checkbox'
+          format: 'checkbox',
+          options: {
+            grid_columns: 3
+          }
         },
         narrative: {
-          title: 'General Feedback',
+          title: 'General Summary',
           propertyOrder: 20,
           type: 'string',
-          format: 'textarea'
+          format: 'textarea',
+          options: {
+            grid_columns: 3
+          }
+        },
+        perForceNarratives: {
+          type: 'array',
+          title: 'Per-force feedback',
+          propertyOrder: 25,
+          format: 'table',
+          options: {
+            grid_columns: 5
+          },
+          additionalProperties: false,
+          items: {
+            title: 'Feedback',
+            type: 'object',
+            required: [
+              'force',
+              'feedback'
+            ],
+            properties: {
+              force: {
+                title: 'Force',
+                propertyOrder: 10,
+                type: 'string',
+                enum: [
+                  'f-a',
+                  'f-b',
+                  'f-c',
+                  'f-d'
+                ],
+                options: {
+                  enum_titles: [
+                    'Red',
+                    'Blue',
+                    'White',
+                    'Green'
+                  ],
+                  grid_columns: 3
+                }
+              },
+              feedback: {
+                title: 'Feedback',
+                propertyOrder: 20,
+                type: 'string',
+                format: 'textarea'
+              }
+            }
+          }
         },
         perceptionOutcomes: {
           type: 'array',
@@ -126,15 +181,7 @@ const p9StockTemplates: TemplateBody[] = [
               perceivedHealth: {
                 title: 'Health',
                 propertyOrder: 50,
-                type: 'string',
-                enum: [
-                  'Unknown',
-                  '100',
-                  '75',
-                  '50',
-                  '25',
-                  '0'
-                ],
+                type: 'number',
                 options: {
                   grid_columns: 3
                 }
@@ -193,16 +240,9 @@ const p9StockTemplates: TemplateBody[] = [
                 }
               },
               health: {
-                title: 'Condition',
+                title: 'Health',
                 propertyOrder: 20,
                 type: 'number',
-                enum: [
-                  100,
-                  75,
-                  50,
-                  25,
-                  0
-                ],
                 options: {
                   grid_columns: 2
                 }
