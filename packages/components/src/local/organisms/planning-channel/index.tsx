@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
+import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import { AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
@@ -241,6 +241,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
+        // check selected status
+        const selected = selectedAssets.includes(row.id)
+        if (row.tableData) {
+          row.tableData.checked = selected
+        }
         const forceToUse = force || UNKNOWN_TYPE
         const thisA = res.find((force) => force.force === forceToUse)
         if (thisA === undefined) {
@@ -267,7 +272,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     buildForceAsssets()
-  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied])
+  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied, selectedAssets])
 
   /** we get current asset IDs, but having the rows would be more useful */
   useEffect(() => {
@@ -479,8 +484,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
+  const onSupportPanelLayoutChange = (key: string, value: string) => {
+    expiredStorage.setItem(key, value)
+  }
+
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
   const incrementDebugStep = (): void => {
@@ -746,6 +755,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
+  const onSetSelectedAssets = (selected: string[]) => {
+    localSelectedAssets.current = selected
+    if (!activityBeingPlanned) {
+      setSelectedAssets(selected)
+    }
+  }
+
+  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
+    opAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
+  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
+    ownAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -777,23 +803,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
-
-  const onSetSelectedAssets = (assets: string[]) => {
-    localSelectedAssets.current = assets
-    if (!activityBeingPlanned) {
-      setSelectedAssets(assets)
-    }
-  }
-
-  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
-    opAssetsFiltered.current = assetRows
-    buildForceAsssets()
-  }
-
-  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
-    ownAssetsFiltered.current = assetRows
-    buildForceAsssets()
-  }
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',

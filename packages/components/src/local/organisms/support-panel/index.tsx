@@ -1,10 +1,11 @@
 import Slide from '@material-ui/core/Slide'
 import MoreVert from '@material-ui/icons/MoreVert'
-import { ADJUDICATION_PHASE, MESSAGE_SENT_INTERACTION } from '@serge/config'
+import { ADJUDICATION_PHASE, expiredStorage, MESSAGE_SENT_INTERACTION, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessageInteraction, MessagePlanning, MessageSentInteraction, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningMessageStructureCore } from '@serge/custom-types'
 import { forceColors, ForceStyle, incrementGameTime, platformIcons, PlatformStyle } from '@serge/helpers'
 import { updateLocationNames } from '@serge/helpers/build/geometry-helpers'
 import cx from 'classnames'
+import { Column } from '@material-table/core'
 import { noop } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
@@ -28,7 +29,7 @@ import { updateLocationTimings } from './helpers/update-location-timings'
 import styles from './styles.module.scss'
 import PropTypes, { PanelActionTabsProps, SupportPanelContextInterface } from './types/props'
 
-export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION) })
+export const SupportPanelContext = createContext<SupportPanelContextInterface>({ selectedAssets: [], setCurrentAssets: noop, setCurrentOrders: noop, setCurrentInteraction: noop, assetsCache: new LRU<string, string>(LRU_CACHE_OPTION), onSupportPanelLayoutChange: noop })
 
 export const SupportPanel: React.FC<PropTypes> = ({
   platformTypes,
@@ -89,15 +90,42 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [localDraftMessage, setLocalDraftMessage] = useState<MessagePlanning | undefined>(undefined)
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
-  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction } = useContext(SupportPanelContext)
+  const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange } = useContext(SupportPanelContext)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
     setActiveTab(tab)
+    onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.OPENING_TAB, tab)
+  }
+
+  const getPanelWidthFromCache = () => {
+    const panelWidth = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH)
+    if (panelWidth && !isNaN(parseInt(panelWidth))) {
+      return parseInt(panelWidth)
+    }
+    return MIN_PANEL_WIDTH
   }
 
   useEffect(() => {
+    const openingTab = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.OPENING_TAB)
+    if (openingTab) {
+      setActiveTab(openingTab)
+    }
+    setTimeout(() => {
+      const panelWidth = getPanelWidthFromCache()
+      if (panelWidth !== MIN_PANEL_WIDTH) {
+        onPanelWidthChange && onPanelWidthChange(panelWidth)
+      } else {
+        onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH, '' + panelWidth)
+      }
+    })
+  }, [])
+
+  useEffect(() => {
     setLocalDraftMessage(draftMessage)
+    if (draftMessage) {
+      setActiveTab(TAB_MY_ORDERS)
+    }
   }, [draftMessage])
 
   useEffect(() => {
@@ -189,14 +217,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    // if there is a draft message, open the `my orders` tab
-    if (draftMessage) {
-      setActiveTab(TAB_MY_ORDERS)
-    }
-  }, [draftMessage])
-
-  useEffect(() => {
-    onPanelWidthChange && onPanelWidthChange(isShowPanel ? 330 : 0)
+    onPanelWidthChange && onPanelWidthChange(isShowPanel ? MIN_PANEL_WIDTH : 0)
   }, [isShowPanel])
 
   const onVisibleRowsChange = (opFor: boolean, data: AssetRow[]): void => {
@@ -235,6 +256,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onSizeChange = (_: MouseEvent | TouchEvent, __: any, elementRef: HTMLElement): void => {
+    onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.SUPPORT_PANEL_WIDTH, '' + elementRef.offsetWidth)
     onPanelWidthChange && onPanelWidthChange(elementRef.offsetWidth)
   }
 
@@ -404,6 +426,25 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return planDoc
   }
 
+  const mapColumnState = (activeTab: string, columns: Column<any>[]): string => {
+    const mapCols = columns.map(col => ({ field: col.field, hidden: col.hidden || false }))
+    const objRes = {}
+    objRes[activeTab] = mapCols
+    return JSON.stringify(objRes)
+  }
+
+  const onMyForceTableColumnChange = (columns: Column<any>[]) => {
+    if (activeTab === TAB_MY_FORCE) {
+      onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS, mapColumnState(activeTab, columns))
+    }
+  }
+
+  const onOtherForceTableColumnChange = (columns: Column<any>[]) => {
+    if (activeTab === TAB_OPP_FOR) {
+      onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS, mapColumnState(activeTab, columns))
+    }
+  }
+
   return (
     <div className={styles.root}>
       <Slide direction="right" in={isShowPanel}>
@@ -411,7 +452,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
           <Rnd
             disableDragging
             style={PANEL_STYLES}
-            default={DEFAULT_SIZE}
+            default={{ ...DEFAULT_SIZE, width: getPanelWidthFromCache() }}
             minWidth={MIN_PANEL_WIDTH}
             maxWidth={MAX_PANEL_WIDTH}
             minHeight={MIN_PANEL_HEIGHT}
@@ -435,6 +476,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     handleSelectedAssetChange()
                   }}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
+                  onVisibleColumnsChange={onMyForceTableColumnChange}
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_MY_ORDERS })}>
@@ -509,6 +551,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                     handleSelectedAssetChange()
                   }}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
+                  onVisibleColumnsChange={onOtherForceTableColumnChange}
                 />
               </div>
               <div className={cx({ [styles['tab-panel']]: true, [styles.hide]: activeTab !== TAB_ADJUDICATE })}>

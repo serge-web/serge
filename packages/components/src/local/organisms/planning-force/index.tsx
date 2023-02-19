@@ -195,7 +195,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, for
     } else {
       selectedAssets.push(assetId)
     }
-    setSelectedAssets([...selectedAssets])
+    setSelectedAssets && setSelectedAssets([...selectedAssets])
   }
 
   const getRawMarkerOption = (asset: AssetRow) => {

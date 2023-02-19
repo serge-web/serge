@@ -94,4 +94,5 @@ export type SupportPanelContextInterface = {
   setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>
+  onSupportPanelLayoutChange: (key: string, value: string) => void
 }
