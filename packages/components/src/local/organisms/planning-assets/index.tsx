@@ -91,8 +91,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       icons={materialIcons as any}
       options={{
         paging: true,
-        pageSize: 50,
-        pageSizeOptions: [5, 10, 15, 20, 50, 100, 200, 500],
+        pageSize: 200,
+        pageSizeOptions: [50, 100, 200, 500, 1000, 2000],
         filtering: filter,
         selection: true,
         rowStyle: { fontSize: '80%' },
