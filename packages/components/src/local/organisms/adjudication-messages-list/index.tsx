@@ -236,7 +236,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Reference: </b> {plan.message.Reference} </span>
-        <span><b>Activity: </b> {plan.message.activity || 'n/a'}: {geometry || ''}</span><br />
+        <span><b>Activity: </b> {plan.message.activity || 'n/a'}: <i>{geometry || ''}</i></span><br />
         <span><b>Order Time: </b> {orderTimings} </span><br />
         {geomTimings && <><span><b>Activity Time: </b> {geomTimings} </span><br /></>
         }
