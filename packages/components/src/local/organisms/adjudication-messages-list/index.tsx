@@ -498,10 +498,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
         const m2 = interv.second.plan.message
         return {
           time: formatMilitaryDate(moment.utc(interv.timeStart).toISOString()),
-          first: m1.Reference,
-          tFirst: m1.title,
-          second: m2.Reference,
-          tSecond: m2.title
+          firstRef: m1.Reference,
+          firstTitle: m1.title,
+          firstActivity: interv.first.activity.name,
+          secondRef: m2.Reference,
+          secondTitle: m2.title,
+          secondActivity: interv.second.activity.name
         }
       })
       console.table(interactionMap)
