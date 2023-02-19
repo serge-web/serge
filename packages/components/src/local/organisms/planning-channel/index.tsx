@@ -241,6 +241,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
+        // check selected status 
+        const selected = selectedAssets.includes(row.id)
+        if (row.tableData) {
+          row.tableData.checked = selected
+        }
         const forceToUse = force || UNKNOWN_TYPE
         const thisA = res.find((force) => force.force === forceToUse)
         if (thisA === undefined) {
@@ -267,7 +272,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     buildForceAsssets()
-  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied])
+  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied, selectedAssets])
 
   /** we get current asset IDs, but having the rows would be more useful */
   useEffect(() => {
@@ -746,11 +751,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
-  const onSetSelectedAssets = (assets: string[]) => {
-    console.log('set selected assets', assets)
-    localSelectedAssets.current = assets
+  const onSetSelectedAssets = (selected: string[]) => {
+    localSelectedAssets.current = selected
     if (!activityBeingPlanned) {
-      setSelectedAssets(assets)
+      setSelectedAssets(selected)
     }
   }
 
