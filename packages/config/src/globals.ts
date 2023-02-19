@@ -192,3 +192,11 @@ export const CONTROL_ALL = 'control-all:'
  */
 export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
+
+export const SUPPORT_PANEL_LAYOUT = {
+  OPENING_TAB: 'opening_tab',
+  SUPPORT_PANEL_WIDTH: 'support_panel_width',
+  VISIBLE_COLUMNS: 'visible_columns',
+  FILTERING: 'filtering',
+  SORT_COLUMNS: 'sort_columns'
+}

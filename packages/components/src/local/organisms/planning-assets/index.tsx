@@ -9,10 +9,12 @@ import { getColumns } from './helpers/collate-assets'
 import CustomFilterRow from './helpers/custom-filter-row'
 import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
+import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
+import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
-  onSelectionChange, onVisibleRowsChange
+  onSelectionChange, onVisibleRowsChange, onVisibleColumnsChange
 }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column<any>[]>([])
@@ -43,7 +45,22 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (!columns.length || !filter) {
-      setColumns(getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache))
+      const columns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
+      const cachedColumns = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS)
+      if (cachedColumns) {
+        const parsedCols: { [x: string]: { field: string, hidden: string }[] } = JSON.parse(cachedColumns)
+        const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE;
+        (parsedCols[key] || []).map(mapCol => {
+          columns.some(col => {
+            if (col.field === mapCol.field) {
+              col.hidden = Boolean(mapCol.hidden)
+              return true
+            }
+            return false
+          })
+        })
+      }
+      setColumns(columns)
     }
   }, [playerForce, forces, filter])
 
@@ -100,9 +117,10 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     onSelectionChange={onSelectionChangeLocal}
     components={{
       Body: (props): React.ReactElement => {
-        if (props.columns.length && onVisibleRowsChange) {
+        if (props.columns.length) {
           setTimeout(() => {
             setVisibleRows(props.renderData)
+            onVisibleColumnsChange && onVisibleColumnsChange(props.columns)
           })
         }
         return (<MTableBody
