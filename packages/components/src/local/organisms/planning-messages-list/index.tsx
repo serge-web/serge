@@ -5,7 +5,7 @@ import { Phase } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
-import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -236,6 +236,50 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     setSelectedOrders(indices)
   }
 
+  const TableData = useMemo(() => {
+    return <MaterialTable
+      title={'Orders'}
+      columns={columns}
+      data={rows}
+      icons={materialIcons as any}
+      actions={[
+        {
+          icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
+          iconProps: filter ? { color: 'error' } : { color: 'action' },
+          tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
+          disabled: !isUmpire,
+          isFreeAction: false,
+          onClick: (_event, data): void => archiveSelected(data)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
+          iconProps: filter ? { color: 'error' } : { color: 'action' },
+          tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+          isFreeAction: true,
+          onClick: (): void => setFilter(!filter)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+          iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+          tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
+          isFreeAction: true,
+          onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
+        }
+      ]}
+      options={{
+        search: true,
+        paging: true,
+        pageSize: 20,
+        pageSizeOptions: [5, 10, 15, 20, 50],
+        filtering: filter,
+        selection: true,
+        rowStyle: { fontSize: '80%' }
+      }}
+      onSelectionChange={onSelectionChange}
+      detailPanel={detailPanel}
+    />
+  }, [rows, filter])
+
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
       {pendingArchive.length > 0 &&
@@ -250,47 +294,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
       }
-      <MaterialTable
-        title={'Orders'}
-        columns={columns}
-        data={rows}
-        icons={materialIcons as any}
-        actions={[
-          {
-            icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
-            iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
-            disabled: !isUmpire,
-            isFreeAction: false,
-            onClick: (_event, data): void => archiveSelected(data)
-          },
-          {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
-            iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
-            isFreeAction: true,
-            onClick: (): void => setFilter(!filter)
-          },
-          {
-            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
-            iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-            tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
-            isFreeAction: true,
-            onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
-          }
-        ]}
-        options={{
-          search: true,
-          paging: true,
-          pageSize: 20,
-          pageSizeOptions: [5, 10, 15, 20, 50],
-          filtering: filter,
-          selection: true,
-          rowStyle: { fontSize: '80%' }
-        }}
-        onSelectionChange={onSelectionChange}
-        detailPanel={detailPanel}
-      />
+      {TableData}
     </div>
   )
 }

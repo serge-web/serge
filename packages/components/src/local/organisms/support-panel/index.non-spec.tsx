@@ -31,7 +31,6 @@ describe('Support Panel component: ', () => {
         gameDate={P9BMock.data.overview.gameDate}
         gameTurnLength={P9BMock.data.overview.gameTurnTime}
         currentWargame={P9BMock.currentWargame || ''}
-        selectedAssets={[]}
         attributeTypes={[]}
         handleAdjudication={handler}
         setSelectedAssets={noop}
