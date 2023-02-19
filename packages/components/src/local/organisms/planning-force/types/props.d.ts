@@ -18,4 +18,6 @@ export default interface PropTypes {
   label: string
   /** whether to cluster icons */
   clusterIcons: boolean
+  /** whether to hide asset name for icon */
+  hideName?: boolean
 }
