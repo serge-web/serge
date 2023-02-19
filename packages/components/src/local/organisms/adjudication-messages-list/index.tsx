@@ -699,7 +699,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(true, rowData, forces,data.order1Geometry, data.order1GeometryID)}</td>
+                  <td>{renderOrderDetail(true, rowData, forces, data.order1Geometry, data.order1GeometryID)}</td>
                   <td>{renderOrderDetail(false, rowData, forces, data.order2Geometry, data.order2GeometryID)}</td>
                 </tr>
               </tbody>
