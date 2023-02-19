@@ -1,4 +1,3 @@
-import React from 'react'
 import { AssetRow } from '../../planning-assets/types/props'
 
 export default interface PropTypes {
@@ -13,7 +12,7 @@ export default interface PropTypes {
   selectedAssets: string[]
   /** current assets (not clustered) */
   currentAssets: string[]
-  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setSelectedAssets: (assets: string[]) => void
   interactive?: boolean
   /** name of this force */
   label: string

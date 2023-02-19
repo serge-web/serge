@@ -44,12 +44,11 @@ export default interface PropTypes {
   currentTurn: number
   gameTurnLength: GameTurnLength
   currentWargame: string
-  selectedAssets: string[]
-  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setSelectedAssets: (assets: string[]) => void
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
-  setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
-  setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
+  setOpForcesForParent: (assetRows: AssetRow[]) => void
+  setOwnForcesForParent: (assetRows: AssetRow[]) => void
   allOwnAssets: AssetRow[]
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
