@@ -57,7 +57,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     if (!showColumnFilters) {
       setRows(assetsOfInterest)
     }
-//    console.log('assets updated', assets.length && assets[0].tableData)
   }, [assets, showColumnFilters, showDead, selectedAssets])
 
   useEffect(() => {
