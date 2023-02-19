@@ -1,5 +1,6 @@
 import { AttributeTypes, ForceData, PlatformTypeData } from '@serge/custom-types'
 import { ForceStyle, PlatformStyle } from '@serge/helpers'
+import { Column } from '@material-table/core'
 import { LatLng } from 'leaflet'
 
 export type AssetRow = {
@@ -41,6 +42,8 @@ export default interface PropTypes {
   onSelectionChange?: (rows: AssetRow[]) => void
   /** visible rows change callback */
   onVisibleRowsChange?: (row: AssetRow[]) => void
+
+  onVisibleColumnsChange?: (columns: Column<any>[]) => void
   /**
    *  set of assets visible to me
    */

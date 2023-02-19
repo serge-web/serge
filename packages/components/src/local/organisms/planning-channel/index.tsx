@@ -1,4 +1,4 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
+import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import { AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
@@ -46,6 +46,14 @@ type PerForceAssets = {
   force: ForceData['uniqid']
   color: string
   rows: AssetRow[]
+}
+
+export const SUPPORT_PANEL_LAYOUT = {
+  OPENING_TAB: 'opening_tab',
+  SUPPORT_PANEL_WIDTH: 'support_panel_width',
+  VISIBLE_COLUMNS: 'visible_columns',
+  FILTERING: 'filtering',
+  SORT_COLUMNS: 'sort_columns'
 }
 
 export const PlanningChannel: React.FC<PropTypes> = ({
@@ -481,8 +489,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
+  const onSupportPanelLayoutChange = (key: string, value: string) => {
+    expiredStorage.setItem(key, value)
+  }
+
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
   const incrementDebugStep = (): void => {
