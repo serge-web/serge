@@ -49,7 +49,7 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
   return <div className={cx({ [styles['asset-icon-background']]: true, [styles.selected]: isSelected })} onClick={onClick}>
     <div className={styles['asset-icon-with-image']}>
       <img src={iconDataUrl} className={styles.img} />
-      {!hideName && <span>{iconName}</span>}
+      {(!hideName || isSelected) && <span>{iconName}</span>}
     </div>
     {
       healthNum === 0

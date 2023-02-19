@@ -156,7 +156,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     setRawRangeRings(getRingsFor(rawMarkers))
   }, [rawMarkers])
 
-  const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
+  const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean, hideNameVal: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
 
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
@@ -167,7 +167,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
-        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} health={asset.health} isSelected={isSelected} hideName={hideName} assetsCache={assetsCache} />}
+        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} health={asset.health} isSelected={isSelected} hideName={hideNameVal} assetsCache={assetsCache} />}
       </div>)
     )
   }
@@ -200,6 +200,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   const getRawMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
+    const isCurrent = currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
     return {
       eventHandlers: {
@@ -213,7 +214,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
-        html: getAssetIcon(asset, isSelected, !!isDestroyed),
+        html: getAssetIcon(asset, isSelected, !!isDestroyed, isCurrent ? false : !!hideName),
         className: styles['map-icon']
       })
     }
@@ -223,6 +224,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
+    const isCurrent = currentAssets.includes(asset.id)
 
     const interactiveIcon = (): void => {
       if (interactive) {
@@ -237,7 +239,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           interactive: interactive,
           icon: L.divIcon({
             iconSize: [30, 30],
-            html: getAssetIcon(asset, isSelected, !!isDestroyed),
+            html: getAssetIcon(asset, isSelected, !!isDestroyed, isCurrent ? false : !!hideName),
             className: styles['map-icon']
           })
         })
