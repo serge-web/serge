@@ -327,7 +327,7 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   const searchRateKm2perHour = istarSearchRate(plan.message.ownAssets || [], forces, defaultSearchRateKm2perHour)
 
   // run the calculator
-  const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry, 
+  const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry,
     startTime, endTime, searchRateKm2perHour, 'ISTAR: Asset detected in observation area')
 
   // start off with the selected op-for assets
