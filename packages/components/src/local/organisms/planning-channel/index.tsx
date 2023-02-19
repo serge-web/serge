@@ -746,6 +746,24 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
+  const onSetSelectedAssets = (assets: string[]) => {
+    console.log('set selected assets', assets)
+    localSelectedAssets.current = assets
+    if (!activityBeingPlanned) {
+      setSelectedAssets(assets)
+    }
+  }
+
+  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
+    opAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
+  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
+    ownAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -777,23 +795,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
-
-  const onSetSelectedAssets = (assets: string[]) => {
-    localSelectedAssets.current = assets
-    if (!activityBeingPlanned) {
-      setSelectedAssets(assets)
-    }
-  }
-
-  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
-    opAssetsFiltered.current = assetRows
-    buildForceAsssets()
-  }
-
-  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
-    ownAssetsFiltered.current = assetRows
-    buildForceAsssets()
-  }
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
