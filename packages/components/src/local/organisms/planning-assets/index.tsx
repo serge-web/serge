@@ -25,8 +25,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
 
   // reference to table, we use it to clear the selection
-  const tableRef = useRef<typeof MaterialTable | undefined>(null);
-
+  const tableRef = useRef<typeof MaterialTable | undefined>(null)
 
   useEffect(() => {
     // we're getting too many visibleRows updates, plus
@@ -131,11 +130,10 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         },
         Toolbar: props => (
           <div>
-            <MTableToolbar {...props} /> { selectedAssets.length > 0 &&
-              <div>
-                <FontAwesomeIcon size='2x' title='Clear selection'  onClick={clearSelectedAssets} icon={faBan} />
-              </div>
-          }
+            { selectedAssets.length > 0 && showProps(props) &&
+                <FontAwesomeIcon size='2x' title='Clear selection' onClick={clearSelectedAssets} icon={faBan} border />
+            }
+            <MTableToolbar {...props} /> 
           </div>
         ),
         Row: props => <MTableBodyRow id={props.data.id} {...props} />,
