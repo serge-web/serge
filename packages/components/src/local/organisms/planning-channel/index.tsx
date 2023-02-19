@@ -241,7 +241,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
-        // check selected status 
+        // check selected status
         const selected = selectedAssets.includes(row.id)
         if (row.tableData) {
           row.tableData.checked = selected
