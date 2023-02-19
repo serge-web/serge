@@ -242,10 +242,22 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           })
         })
         .addTo(clusterGroup as MarkerClusterGroup)
-        .bindPopup(asset.name + ', ' + asset.id)
+        .bindPopup(labelFor(asset))
         .on('click', interactiveIcon)
         .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
     )
+  }
+
+  const elapsed = (lastUpdate?: string): string => {
+    if (lastUpdate && lastUpdate != 'unk') {
+      return '\n (' + lastUpdate + ')'
+    } else {
+      return ''
+    }
+  }
+
+  const labelFor = (asset: AssetRow): string => {
+    return asset.name + ', ' + asset.id + elapsed(asset.lastUpdated)
   }
 
   return <>
@@ -261,7 +273,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
             interactive={interactive}
             {...markerOption}
           >
-            <Tooltip>{asset.name + ', ' + asset.id}</Tooltip>
+            <Tooltip>{labelFor(asset)}</Tooltip>
           </Marker>
         })}
       </LayerGroup >
