@@ -130,10 +130,10 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         },
         Toolbar: props => (
           <div>
-            { selectedAssets.length > 0 && showProps(props) &&
+            { selectedAssets.length > 0 &&
                 <FontAwesomeIcon size='2x' title='Clear selection' onClick={clearSelectedAssets} icon={faBan} border />
             }
-            <MTableToolbar {...props} /> 
+            <MTableToolbar {...props} />
           </div>
         ),
         Row: props => <MTableBodyRow id={props.data.id} {...props} />,
