@@ -195,7 +195,7 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], activity: string | undefined, geometry: string | undefined, geometryID: string | undefined): React.ReactElement => {
+  const renderOrderDetail = (order1: boolean, row: AdjudicationRow, forces: ForceData[], geometry: string | undefined, geometryID: string | undefined): React.ReactElement => {
     const id = order1 ? row.order1 : row.order2
     if (id === 'n/a') {
       return <span>n/a</span>
@@ -231,12 +231,12 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       const forceId = force ? force.uniqid : ''
       const forceStyle = { fontSize: '160%', backgroundColor: hexToRGBA(force ? force.color : '#ddd', 0.4) }
       const gameTime = adjudicationTime
-      console.log('m-time', currentTime, gameTime)
+      // console.log('m-time', currentTime, gameTime, activity, geometry, plan)
       return <Box>
         <div style={forceStyle}><b>{title}</b></div>
         <span><b>Title: </b> {plan.message.title} </span>
         <span><b>Reference: </b> {plan.message.Reference} </span>
-        <span><b>Activity: </b> {activity || 'n/a'}: {geometry || ''}</span><br />
+        <span><b>Activity: </b> {plan.message.activity || 'n/a'}: {geometry || ''}</span><br />
         <span><b>Order Time: </b> {orderTimings} </span><br />
         {geomTimings && <><span><b>Activity Time: </b> {geomTimings} </span><br /></>
         }
@@ -699,8 +699,8 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
             <Table>
               <tbody>
                 <tr>
-                  <td>{renderOrderDetail(true, rowData, forces, data.order1Activity, data.order1Geometry, data.order1GeometryID)}</td>
-                  <td>{renderOrderDetail(false, rowData, forces, data.order2Activity, data.order2Geometry, data.order2GeometryID)}</td>
+                  <td>{renderOrderDetail(true, rowData, forces,data.order1Geometry, data.order1GeometryID)}</td>
+                  <td>{renderOrderDetail(false, rowData, forces, data.order2Geometry, data.order2GeometryID)}</td>
                 </tr>
               </tbody>
             </Table>
