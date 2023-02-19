@@ -193,20 +193,6 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], outcomes: MessageAdj
       narrative: 'Damage by ' + activity.name
     }
     outcomes.healthOutcomes.push(health)
-    // also for child assets
-    console.log('child assets', asset.asset.comprising && asset.asset.comprising.map((item) => item.name + '/' + item.uniqid).join(', '))
-    if (asset.asset.comprising && asset.asset.comprising.length) {
-      asset.asset.comprising.forEach((asset2) => {
-        const existingC42: 'None' | 'Degraded' | 'Operational' = (tgtAsset && tgtAsset.attributes && tgtAsset.attributes.a_C4_Status as 'None' | 'Degraded' | 'Operational') || 'Degraded'
-        const health2: HealthOutcome = {
-          asset: asset2.uniqid,
-          health: 50,
-          c4: existingC42,
-          narrative: 'Task Group Member damage by ' + activity.name
-        }
-        outcomes.healthOutcomes.push(health2)
-      })
-    }
   })
   if (protectedTargets.length) {
     const message = protectedTargets.map((prot: ProtectedTarget) => {
@@ -341,7 +327,8 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   const searchRateKm2perHour = istarSearchRate(plan.message.ownAssets || [], forces, defaultSearchRateKm2perHour)
 
   // run the calculator
-  const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry, startTime, endTime, searchRateKm2perHour, 'In observation area')
+  const inAreaPerceptions = calculateDetections(ownFor, forces, boxGeometry.geometry.geometry, 
+    startTime, endTime, searchRateKm2perHour, 'ISTAR: Asset detected in observation area')
 
   // start off with the selected op-for assets
   const perceptions: PerceptionOutcomes = []
@@ -357,7 +344,7 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
       return {
         force: plan.details.from.forceId || '',
         asset: item.asset.uniqid,
-        perceivedLocation: JSON.stringify(item.asset.location),
+        perceivedLocation: 't',
         perceivedType: item.asset.platformTypeId,
         perceivedHealth: item.asset.health,
         perceivedName: item.asset.name,
@@ -495,9 +482,10 @@ export const insertSpatialOutcomesFor = (plan: MessagePlanning, outcomes: Messag
               if (notPresent(uniqid, outcomes.healthOutcomes)) {
                 const existingC4 = (asset.asset.attributes && asset.asset.attributes.a_C4_Status as string) || undefined
                 const newC4 = alterC4(existingC4, false)
+                const assetHealth = asset.asset.health
                 outcomes.healthOutcomes.push({
                   asset: uniqid,
-                  health: asset.asset.health || 50,
+                  health: assetHealth === undefined ? 50 : assetHealth,
                   c4: newC4,
                   narrative: 'Asset in area for ' + activity.uniqid
                 })
