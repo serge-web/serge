@@ -228,6 +228,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, for
         handleAssetClick(asset.id)
       }
     }
+    asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', asset.id)
 
     return (
       L.marker(new L.LatLng(loc.lat, loc.lng),
@@ -255,6 +256,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, for
         <MarkerCluster markers={clustereredMarkers} />
         {rawMarkers && rawMarkers.map((asset: AssetRow) => {
           const markerOption = getRawMarkerOption(asset)
+          console.log('raw marker id', asset.id)
           return <Marker
             pmIgnore
             interactive={interactive}
