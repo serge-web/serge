@@ -251,7 +251,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
   }
 
   const elapsed = (lastUpdate?: string): string => {
-    if (lastUpdate && lastUpdate != 'unk') {
+    if (lastUpdate && lastUpdate !== 'unk') {
       return '\n (' + lastUpdate + ')'
     } else {
       return ''
