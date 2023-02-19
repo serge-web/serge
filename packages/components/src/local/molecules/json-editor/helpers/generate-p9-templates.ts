@@ -7,7 +7,7 @@ import { coreTemplate } from './p9-core'
 import { landTemplate } from './p9-land'
 import { maritimeTemplate } from './p9-maritime'
 import { otherTemplate } from './p9-other'
-import { tmplASWBarrier, tmplCyber, tmplDuration, tmplEWAttack, tmplISTAR, tmplMineLaying, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTransit, tmplTST } from './p9-specific'
+import { tmplASWBarrier, tmplActivity, tmplDuration, tmplEWAttack, tmplISTAR, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTST, tmplAirToAir } from './p9-specific'
 import p9StockTemplates from './p9-stock-messages'
 
 const locationComponent = {
@@ -16,24 +16,23 @@ const locationComponent = {
   id: 'locationArea',
   type: 'string',
   readonly: 'readonly',
-  propertyOrder: 55,
+  propertyOrder: 53,
   options: {
     grid_columns: 6
   }
 }
 
 const templateDict = {
-  Transit: tmplTransit,
   MissileStrike: tmplMissileStrike,
   Patrol: tmplPatrol,
   ISTAR: tmplISTAR,
   Duration: tmplDuration,
   TST: tmplTST,
-  MineLaying: tmplMineLaying,
   ASWBarrier: tmplASWBarrier,
   EWAttack: tmplEWAttack,
-  SOFAttack: tmplSOFAttack,
-  Cyber: tmplCyber
+  Attack: tmplSOFAttack,
+  Effects: tmplActivity,
+  AirToAir: tmplAirToAir
 }
 
 /**
@@ -47,10 +46,13 @@ const templateDict = {
  * @returns
  */
 export const generateTemplate = (title: string, location: boolean, core: Record<string, any>,
-  domain: Record<string, any>, specific?: string): Record<string, any> => {
+  domain: Record<string, any>, specific?: Readonly<string>): Record<string, any> => {
   let specTemplate
   const coreTemplate = { ...core }
   if (specific) {
+    if (templateDict[specific] === undefined) {
+      console.warn('Failed to find specific template for ', title, specific, templateDict)
+    }
     specTemplate = { ...templateDict[specific] }
     // ok, check if it has custom ownAssets and oppForAssets
     if (specTemplate.ownAssets) {
@@ -231,21 +233,21 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'EW', title: 'EW Attack', events: both, forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['EW Area of Effect'], specific: 'EWAttack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'ISTAR', title: 'ISTAR', events: rndEnd, forces: redBlue, domains: seaAirLand, acts: thereBackTwoActivities, actDesc: ['Patrol Area', 'Observation Area'], specific: 'ISTAR', spatialP: true })
   acts.push({ uniqid: 'PATRL', title: 'Patrol', forces: allForces, domains: seaAirLand, acts: thereBack, actDesc: ['Patrol Area'], specific: 'Patrol' })
-  acts.push({ uniqid: 'AAR', title: 'Air-Air Refuel', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['AAR at this location'] })
+  acts.push({ uniqid: 'AAR', title: 'Air-Air Refuel', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['AAR at this location'], specific: 'AirToAir' })
   acts.push({ uniqid: 'RESUPP', title: 'Resupply', forces: redBlue, domains: seaAirLand, acts: thereBack, actDesc: ['Resupply at this location'] })
-  acts.push({ uniqid: 'TRANSIT', title: 'Transit', events: end, forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
+  acts.push({ uniqid: 'TRANSIT', title: 'Transit', events: end, forces: allForces, domains: seaAirLand, acts: oneWay })
   acts.push({ uniqid: 'ASW-B', title: 'ASW Barrier', forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['ASW Area'], specific: 'ASWBarrier' })
   acts.push({ uniqid: 'M-Clr', title: 'Mine Clearance', events: rndEnd, forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['Mine Clearance Area Area'], spatialP: true, spatialH: true })
-  acts.push({ uniqid: 'M-Lay', title: 'Mine Laying', events: rndEnd, forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], specific: 'MineLaying', spatialP: true, spatialH: true })
+  acts.push({ uniqid: 'M-Lay', title: 'Mine Laying', events: rndEnd, forces: redBlue, domains: [mar], acts: thereBack, actDesc: ['Mine Area'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'DCA', title: 'Defensive Counter Air', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['DCA Area'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'OCA', title: 'Offensive Counter Air', forces: redBlue, domains: [air], acts: thereBack, actDesc: ['OCA Area'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'SoffS', title: 'Stand Off Strike', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['Launch Location'], specific: 'MissileStrike', pfTmpl: true })
   acts.push({ uniqid: 'SEAD', title: 'Suppression of Air Defences (SEAD)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['SEAD Area'] })
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
-  acts.push({ uniqid: 'Activity', title: 'Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Cyber' })
-  acts.push({ uniqid: 'SOF Activity', title: 'SOF Activity', events: end, forces: redBlue, domains: [sof], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'SOFAttack', spatialP: true, spatialH: true })
+  acts.push({ uniqid: 'Activity', title: 'Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Effects' })
+  acts.push({ uniqid: 'SOF Activity', title: 'SOF Activity', events: end, forces: redBlue, domains: [sof], acts: thereBackTwoActivities, actDesc: ['Activity Location', 'Effect Location'], specific: 'Attack', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] })
-  acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], specific: 'SOFAttack', spatialP: true, spatialH: true })
+  acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'LAND', title: 'Land Close Combat', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Combat Location'], spatialP: true, spatialH: true })
 
   // do some sanity testing
@@ -302,7 +304,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
           groupedActs.push(category)
         }
         // create template
-        const specificMarker = act.specific || 'Standard'
+        const specificMarker = act.specific || 'Activity'
         const templateName = act.pfTmpl ? [force, domain, specificMarker].join('--') : [domain, specificMarker].join('--')
         const template = generateTemplate(templateName, !!act.acts, coreTemplate, domainTemplates[domain], act.specific)
         if (!templates[templateName]) {
@@ -347,6 +349,5 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   // will output them.
   !7 && console.log('per force', res)
   !7 && console.log(Object.values(templates))
-
   return { activities: res, templates: Object.values(templates) }
 }

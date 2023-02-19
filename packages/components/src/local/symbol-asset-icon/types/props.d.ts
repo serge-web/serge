@@ -10,4 +10,5 @@ export default interface PropTypes {
   assetsCache: LRUCache<string, string>
   force?: string
   health?: number
+  hideName?: boolean
 }

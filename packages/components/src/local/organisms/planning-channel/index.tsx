@@ -6,7 +6,7 @@ import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, P
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState } from 'react'
 
-import { faCalculator, faHistory, faObjectUngroup, faShapes } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faHistory, faObjectUngroup, faShapes, faTag } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -138,6 +138,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const [showInteractionGenerator, setShowIntegrationGenerator] = useState<boolean>(false)
 
+  const [hideIconName, setHideIconName] = useState<boolean>(false)
   const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
   const [clusterIcons, setClusterIcons] = useState<boolean>(true)
 
@@ -378,8 +379,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
-    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
-    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [])
+    const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
+    const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
     setAllOwnAssets(own)
     setOwnAssetsFiltered([])
     setAllOppAssets(opp)
@@ -570,7 +571,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       const timeBounds = activityBounds(activityPlanned)
       const plans: PlanningMessageStructureCore = {
         Reference: '',
-        title: 'Pending',
+        title: '',
         activity: activityBeingPlanned.uniqid,
         startDate: timeBounds ? timeBounds[0] : '',
         endDate: timeBounds ? timeBounds[1] : ''
@@ -764,7 +765,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {perForceAssets.map((force) => {
                   return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                    assets={force.rows} setSelectedAssets={setLocalSelectedAssets} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                    assets={force.rows} setSelectedAssets={setLocalSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
                 })
                 }
                 {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
@@ -779,7 +780,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     )
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -877,6 +878,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                                 onClick={() => setShowStandardAreas(!showStandardAreas)}><FontAwesomeIcon size={'lg'} icon={faShapes} /></Item>
                             </div>
                           }
+                          <div className={cx('leaflet-control')}>
+                            <Item title='Hide asset names' contentTheme={hideIconName ? 'light' : 'dark'}
+                              onClick={() => setHideIconName(!hideIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
+                          </div>
                           {
                             <div className={cx('leaflet-control')}>
                               <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}

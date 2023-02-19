@@ -277,6 +277,13 @@ Default.args = {
   phase: Phase.Adjudication
 }
 
+export const Planning = Template.bind({})
+Planning.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[5],
+  phase: Phase.Planning
+}
+
 export const WithAreas = Template.bind({})
 WithAreas.args = {
   messages: channelMessages,

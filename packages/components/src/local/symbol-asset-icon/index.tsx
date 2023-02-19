@@ -27,7 +27,7 @@ const forceFor = (force?: string): SymbolForces | undefined => {
   }
 }
 
-const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, health, force, isSelected, assetsCache }) => {
+const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}, iconName, health, force, isSelected, assetsCache, hideName }) => {
   // update the forc color, if we know it
   const forceVal = forceFor(force)
   const sidc2 = forceVal ? setCharAt(sidc, 1, forceVal) : sidc
@@ -49,7 +49,7 @@ const SymbolAssetIcon: React.FC<AssetIconProps> = ({ onClick, sidc, options = {}
   return <div className={cx({ [styles['asset-icon-background']]: true, [styles.selected]: isSelected })} onClick={onClick}>
     <div className={styles['asset-icon-with-image']}>
       <img src={iconDataUrl} className={styles.img} />
-      <span>{iconName}</span>
+      {(!hideName || isSelected) && <span>{iconName}</span>}
     </div>
     {
       healthNum === 0
