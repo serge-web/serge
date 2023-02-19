@@ -9,7 +9,7 @@ import { Column } from '@material-table/core'
 import { noop } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -81,8 +81,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
 
   const [gameTurnEndDate, setGameTurnEndDate] = useState<string>('')
 
-  const [selectedOwnAssets, setSelectedOwnAssets] = useState<AssetRow[]>([])
-  const [selectedOpAssets, setSelectedOpAssets] = useState<AssetRow[]>([])
+  const selectedOwnAssets = useRef<AssetRow[]>([])
+  const selectedOpAssets = useRef<AssetRow[]>([])
+
   const [filteredPlanningMessages, setFilteredPlanningMessages] = useState<MessagePlanning[]>([])
   const [filteredInteractionMessages, setFilteredInteractionMessages] = useState<MessageInteraction[]>([])
   const [turnFilter, setTurnFilter] = useState<number>(-1)
@@ -209,11 +210,11 @@ export const SupportPanel: React.FC<PropTypes> = ({
     console.log('=> render')
   }
 
-  useEffect(() => {
-    const allSelectedAssets = selectedOwnAssets.concat(selectedOpAssets)
+  const handleSelectedAssetChange = () => {
+    const allSelectedAssets = selectedOwnAssets.current.concat(selectedOpAssets.current)
     const selectedAssetIDs = allSelectedAssets.map((row: AssetRow) => row.id)
     setSelectedAssets(selectedAssetIDs)
-  }, [selectedOwnAssets, selectedOpAssets])
+  }
 
   useEffect(() => {
     onPanelWidthChange && onPanelWidthChange(isShowPanel ? MIN_PANEL_WIDTH : 0)
@@ -470,7 +471,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   platformTypes={platformTypes}
                   render={onRender}
                   opFor={false}
-                  onSelectionChange={setSelectedOwnAssets}
+                  onSelectionChange={ownAssets => {
+                    selectedOwnAssets.current = ownAssets
+                    handleSelectedAssetChange()
+                  }}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(false, data)}
                   onVisibleColumnsChange={onMyForceTableColumnChange}
                 />
@@ -542,7 +546,10 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   playerForce={selectedForce}
                   render={onRender}
                   opFor={true}
-                  onSelectionChange={setSelectedOpAssets}
+                  onSelectionChange={opAssets => {
+                    selectedOpAssets.current = opAssets
+                    handleSelectedAssetChange()
+                  }}
                   onVisibleRowsChange={(data): void => onVisibleRowsChange(true, data)}
                   onVisibleColumnsChange={onOtherForceTableColumnChange}
                 />

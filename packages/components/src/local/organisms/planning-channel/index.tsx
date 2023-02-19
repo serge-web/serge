@@ -4,7 +4,7 @@ import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyl
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
 import { faCalculator, faHistory, faObjectUngroup, faShapes, faTag } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -97,15 +97,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
   const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
 
-  const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
-  const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
+  const ownAssetsFiltered = useRef<AssetRow[]>([])
+  const opAssetsFiltered = useRef<AssetRow[]>([])
 
   // handle selections from asset tables
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
 
   // have `local` selected assets handler, since we don't always want to
   // propagate changes to selected assets
-  const [localSelectedAssets, setLocalSelectedAssets] = useState<string[]>([])
+  const localSelectedAssets = useRef<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   // we need to break down assets by force, so they can be plotted (clustered) by color
@@ -224,7 +224,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }, [selectedForce, forcePlanningActivities])
 
-  useEffect(() => {
+  const buildForceAsssets = () => {
     const res: PerForceAssets[] = []
     // we need empty arrays (to clear existing icons), so pre-populate arrays
     allForces.forEach((force) => {
@@ -255,14 +255,18 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       doRows(currentAssets)
     } else {
       if (filterApplied) {
-        doRows(ownAssetsFiltered)
-        doRows(opAssetsFiltered)
+        doRows(ownAssetsFiltered.current)
+        doRows(opAssetsFiltered.current)
       } else {
         doRows(allOwnAssets)
         doRows(allOppAssets)
       }
     }
     setPerForceAssets(res)
+  }
+
+  useEffect(() => {
+    buildForceAsssets()
   }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied])
 
   /** we get current asset IDs, but having the rows would be more useful */
@@ -368,22 +372,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce])
 
   useEffect(() => {
-    // only update selected assets if we're not planning an activity
-    if (!activityBeingPlanned) {
-      setSelectedAssets(localSelectedAssets)
-    }
-  }, [localSelectedAssets])
-
-  useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
+    ownAssetsFiltered.current = []
+    opAssetsFiltered.current = []
     setAllOwnAssets(own)
-    setOwnAssetsFiltered([])
     setAllOppAssets(opp)
-    setOpAssetsFiltered([])
     setForceColors(forceCols)
   }, [allForces, currentForce])
 
@@ -768,7 +765,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {perForceAssets.map((force) => {
                   return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                    assets={force.rows} setSelectedAssets={setLocalSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                    assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
                 })
                 }
                 {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
@@ -784,6 +781,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [selectedAssets, debugStep,
     showInteractionGenerator, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
+
+  const onSetSelectedAssets = (assets: string[]) => {
+    localSelectedAssets.current = assets
+    if (!activityBeingPlanned) {
+      setSelectedAssets(assets)
+    }
+  }
+
+  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
+    opAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
+  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
+    ownAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -831,8 +845,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
-            selectedAssets={selectedAssets}
-            setSelectedAssets={setLocalSelectedAssets}
+            setSelectedAssets={onSetSelectedAssets}
             selectedOrders={selectedOrders}
             saveCachedNewMessageValue={cacheMessage}
             getCachedNewMessagevalue={getCachedMessage}
