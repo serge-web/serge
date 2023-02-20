@@ -28,8 +28,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
+  const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
 
-  const [localSelectedOrders, setLocalSelectedOrders] = useState<OrderRow[]>([])
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -67,6 +67,36 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
     }
   }, [messages, selectedForce.uniqid, playerRoleId, onlyShowMyOrders])
+
+  useEffect(() => {
+    const res: Action<OrderRow>[] = [
+      {
+        icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
+        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+        isFreeAction: true,
+        onClick: (): void => setFilter(!filter)
+      },
+      {
+        icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+        iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+        tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
+        isFreeAction: true,
+        onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
+      }
+    ]
+    if (isUmpire) {
+      // also provide the `achive` button
+      res.unshift({
+        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
+        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        tooltip: 'Archive messages',
+        isFreeAction: false,
+        onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
+      })
+    }
+    setToolbarActions(res)
+  }, [isUmpire])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
@@ -237,49 +267,17 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const onSelectionChange = (rows: OrderRow[]): void => {
-    setLocalSelectedOrders(rows)
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
   }
 
-  const tableActions = ():Action<OrderRow>[] => {
-    const res: Action<OrderRow>[] = [
-      {
-        icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
-        iconProps: filter ? { color: 'error' } : { color: 'action' },
-        tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
-        isFreeAction: true,
-        onClick: (): void => setFilter(!filter)
-      },
-      {
-        icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
-        iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-        tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
-        isFreeAction: true,
-        onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
-      }
-    ]
-    if (isUmpire) {
-      // also provide the `achive` button
-      res.unshift({
-        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
-        iconProps: filter ? { color: 'error' } : { color: 'action' },
-        tooltip: 'Archive messages',
-        isFreeAction: false,
-        onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
-      })
-    }
-    return res
-  } 
-
-  console.log('is umpire', isUmpire)
   const TableData = useMemo(() => {
     return <MaterialTable
       title={'Orders'}
       columns={columns}
       data={rows}
       icons={materialIcons as any}
-      actions={tableActions()}
+      actions={toolbarActions}
       options={{
         search: true,
         paging: true,
@@ -292,7 +290,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       onSelectionChange={onSelectionChange}
       detailPanel={detailPanel}
     />
-  }, [rows, filter])
+  }, [rows, filter, toolbarActions])
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
