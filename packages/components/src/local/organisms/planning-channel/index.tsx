@@ -1,10 +1,10 @@
-import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
+import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import { AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
 import _, { noop } from 'lodash'
-import React, { Fragment, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
 import { faCalculator, faHistory, faObjectUngroup, faShapes, faTag } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -98,15 +98,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [allOwnAssets, setAllOwnAssets] = useState<AssetRow[]>([])
   const [allOppAssets, setAllOppAssets] = useState<AssetRow[]>([])
 
-  const [ownAssetsFiltered, setOwnAssetsFiltered] = useState<AssetRow[]>([])
-  const [opAssetsFiltered, setOpAssetsFiltered] = useState<AssetRow[]>([])
+  const ownAssetsFiltered = useRef<AssetRow[]>([])
+  const opAssetsFiltered = useRef<AssetRow[]>([])
 
   // handle selections from asset tables
   const [selectedAssets, setSelectedAssets] = useState<string[]>([])
 
   // have `local` selected assets handler, since we don't always want to
   // propagate changes to selected assets
-  const [localSelectedAssets, setLocalSelectedAssets] = useState<string[]>([])
+  const localSelectedAssets = useRef<string[]>([])
   const [selectedOrders, setSelectedOrders] = useState<string[]>([])
 
   // we need to break down assets by force, so they can be plotted (clustered) by color
@@ -225,7 +225,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     }
   }, [selectedForce, forcePlanningActivities])
 
-  useEffect(() => {
+  const buildForceAsssets = () => {
     const res: PerForceAssets[] = []
     // we need empty arrays (to clear existing icons), so pre-populate arrays
     allForces.forEach((force) => {
@@ -242,6 +242,11 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const doRows = (rows: AssetRow[]) => {
       rows.forEach((row) => {
         const force = row.force
+        // check selected status
+        const selected = selectedAssets.includes(row.id)
+        if (row.tableData) {
+          row.tableData.checked = selected
+        }
         const forceToUse = force || UNKNOWN_TYPE
         const thisA = res.find((force) => force.force === forceToUse)
         if (thisA === undefined) {
@@ -256,15 +261,19 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       doRows(currentAssets)
     } else {
       if (filterApplied) {
-        doRows(ownAssetsFiltered)
-        doRows(opAssetsFiltered)
+        doRows(ownAssetsFiltered.current)
+        doRows(opAssetsFiltered.current)
       } else {
         doRows(allOwnAssets)
         doRows(allOppAssets)
       }
     }
     setPerForceAssets(res)
-  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied])
+  }
+
+  useEffect(() => {
+    buildForceAsssets()
+  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied, selectedAssets])
 
   /** we get current asset IDs, but having the rows would be more useful */
   useEffect(() => {
@@ -369,22 +378,15 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }, [viewAsForce])
 
   useEffect(() => {
-    // only update selected assets if we're not planning an activity
-    if (!activityBeingPlanned) {
-      setSelectedAssets(localSelectedAssets)
-    }
-  }, [localSelectedAssets])
-
-  useEffect(() => {
     // produce the own and opp assets for this player force
     const forceCols = getForceColors(allForces)
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
+    ownAssetsFiltered.current = []
+    opAssetsFiltered.current = []
     setAllOwnAssets(own)
-    setOwnAssetsFiltered([])
     setAllOppAssets(opp)
-    setOpAssetsFiltered([])
     setForceColors(forceCols)
   }, [allForces, currentForce])
 
@@ -483,8 +485,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     console.log('action clicked', force, category, actionId)
   }
 
+  const onSupportPanelLayoutChange = (key: string, value: string) => {
+    expiredStorage.setItem(key, value)
+  }
+
   const supportPanelContext = useMemo(() => (
-    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache }
+    { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
   const incrementDebugStep = (): void => {
@@ -750,6 +756,23 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     return circleMarker(latlng, geojsonMarkerOptions)
   }
 
+  const onSetSelectedAssets = (selected: string[]) => {
+    localSelectedAssets.current = selected
+    if (!activityBeingPlanned) {
+      setSelectedAssets(selected)
+    }
+  }
+
+  const setOpAssetsFiltered = (assetRows: AssetRow[]) => {
+    opAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
+  const setOwnAssetsFiltered = (assetRows: AssetRow[]) => {
+    ownAssetsFiltered.current = assetRows
+    buildForceAsssets()
+  }
+
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -765,7 +788,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
                 {perForceAssets.map((force) => {
                   return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                    assets={force.rows} setSelectedAssets={setLocalSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                    assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
                 })
                 }
                 {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
@@ -829,8 +852,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             gameTurnLength={gameTurnLength}
             currentTurn={currentTurn}
             phase={phase}
-            selectedAssets={selectedAssets}
-            setSelectedAssets={setLocalSelectedAssets}
+            setSelectedAssets={onSetSelectedAssets}
             selectedOrders={selectedOrders}
             saveCachedNewMessageValue={cacheMessage}
             getCachedNewMessagevalue={getCachedMessage}

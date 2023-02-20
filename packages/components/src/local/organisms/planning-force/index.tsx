@@ -4,6 +4,7 @@ import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import moment from 'moment'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
@@ -28,11 +29,11 @@ interface LocationBucket {
   assets: AssetRow[]
 }
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons, hideName }) => {
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons, hideName }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
-  const { assetsCache } = useContext(SupportPanelContext)
+  const { assetsCache, selectedAssets } = useContext(SupportPanelContext)
   const [rawRangeRings, setRawRangeRings] = useState<React.ReactElement[]>([])
   const [clusteredRangeRings, setClusteredRangeRings] = useState<React.ReactElement[]>([])
 
@@ -194,7 +195,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     } else {
       selectedAssets.push(assetId)
     }
-    setSelectedAssets([...selectedAssets])
+    setSelectedAssets && setSelectedAssets([...selectedAssets])
   }
 
   const getRawMarkerOption = (asset: AssetRow) => {
@@ -231,6 +232,8 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
         handleAssetClick(asset.id)
       }
     }
+
+    asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', asset.id, moment().toISOString())
 
     return (
       L.marker(new L.LatLng(loc.lat, loc.lng),
