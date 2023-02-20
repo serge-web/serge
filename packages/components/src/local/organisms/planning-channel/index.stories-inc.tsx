@@ -286,7 +286,16 @@ export const Planning = Template.bind({})
 Planning.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
-  phase: Phase.Planning
+  phase: Phase.Planning,
+  forcePlanningActivities: activities
+}
+
+export const Adjudication = Template.bind({})
+Adjudication.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[1],
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
 
 export const WithAreas = Template.bind({})
