@@ -13,7 +13,7 @@ import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
-console.clear()
+// console.clear()
 
 type ScriptDecoratorProps = {
   scripts: string[]

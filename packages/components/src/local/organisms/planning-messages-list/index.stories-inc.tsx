@@ -14,8 +14,8 @@ import { randomOrdersDocs } from '../support-panel/helpers/gen-order-data'
 import PlanningMessagesList from './index'
 import docs from './README.md'
 import MessageListPropTypes, { LocationEditCallbackHandler } from './types/props'
-
-console.clear()
+ 
+// console.clear()
 
 const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const wargame = P9BMock.data
