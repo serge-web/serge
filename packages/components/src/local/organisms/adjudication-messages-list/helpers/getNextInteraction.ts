@@ -562,7 +562,7 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
         force.assets && force.assets.forEach((asset) => {
           if (asset.attributes && airfields.includes(asset.attributes.a_Airfield as string)) {
             // TODO: check if the squadron are busy with other tasking (by searching through live orders)
-            squadronsAtAirfields.push({force, asset})
+            squadronsAtAirfields.push({ force, asset })
           }
         })
       })
