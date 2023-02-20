@@ -248,7 +248,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Effects' })
   acts.push({ uniqid: 'AreaActivity', title: 'Area Activity', events: all, forces: redBlue, domains: [cyber, space, info], acts: [activity], actDesc: ['Area of effect'], specific: 'AreaEffects' })
   acts.push({ uniqid: 'SOF Activity', title: 'Activity', events: end, forces: redBlue, domains: [sof], acts: thereBack, actDesc: ['Effect Location'], specific: 'SOFActivity', spatialP: true, spatialH: true })
-  acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] }),
+  acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] })
   acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'LAND', title: 'Land Close Combat', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Combat Location'], spatialP: true, spatialH: true })
 
@@ -266,7 +266,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
       console.error('failed to find this activity', act.uniqid)
     } else {
       act.intWith = inters.interactsWith
-    }    
+    }
   })
 
   if (acts.length !== actInteracts.length) {
