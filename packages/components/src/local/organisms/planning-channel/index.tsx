@@ -170,9 +170,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         console.log('forces', forces)
         const allForceIds = [allForces[1].uniqid, allForces[2].uniqid, allForces[3].uniqid]
         console.log('orders documents')
-        console.log(randomOrdersDocs(channelId, 200, allForces, allForceIds, forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
-        console.log(randomOrdersDocs(channelId, 30, allForces, allForceIds, forcePlanningActivities || [], adjudicationTemplate._id, gameDate))
-    }
+        if (forcePlanningActivities) {
+          console.log(randomOrdersDocs(channelId, 200, allForces, allForceIds, forcePlanningActivities, adjudicationTemplate._id, gameDate))
+          console.log(randomOrdersDocs(channelId, 30, allForces, allForceIds, forcePlanningActivities, adjudicationTemplate._id, gameDate))  
+        } else {
+          console.error('Cannot create docs, force activities missing')
+        }
+     }
   }
 
   useEffect(() => {
@@ -903,13 +907,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             <div className={cx('leaflet-control')}>
                               <Item title='Toggle clustering of icons' contentTheme={clusterIcons ? 'light' : 'dark'}
                                 onClick={() => setClusterIcons(!clusterIcons)}><FontAwesomeIcon size={'lg'} icon={faObjectUngroup} /></Item>
-                            </div>
-                          }
-                          {
-                            umpireInAdjudication &&
-                            <div className={cx('leaflet-control')}>
-                              <Item title='Toggle interaction generator' contentTheme={showInteractionGenerator ? 'light' : 'dark'}
-                                onClick={() => setShowIntegrationGenerator(!showInteractionGenerator)}><FontAwesomeIcon size={'lg'} icon={faCalculator} /></Item>
                             </div>
                           }
                           {showInteractionGenerator ? <div className={cx('leaflet-control')}>
