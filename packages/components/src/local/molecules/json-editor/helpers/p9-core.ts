@@ -80,7 +80,7 @@ export const coreTemplate = {
     title: 'Activity Description',
     propertyOrder: 55,
     options: {
-      grid_columns: 8
+      grid_columns: 6
     },
     type: 'string'
   },
@@ -147,7 +147,7 @@ export const coreTemplate = {
     propertyOrder: 80,
     format: 'table',
     minItems: 0,
-    title: 'Subject(s) of orders',
+    title: 'Opp Force',
     options: {
       grid_columns: 6,
       disable_array_reorder: true

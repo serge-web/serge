@@ -12,7 +12,7 @@ export const tmplMissileStrike = {
     propertyOrder: 70,
     title: 'Launchers',
     options: {
-      grid_columns: 7,
+      grid_columns: 6,
       enable_array_copy: true,
       disable_array_reorder: true
     },
@@ -81,7 +81,7 @@ export const tmplMissileStrike = {
     propertyOrder: 75,
     title: 'Targets',
     options: {
-      grid_columns: 7,
+      grid_columns: 6,
       enable_array_copy: true,
       disable_array_reorder: true
     },
