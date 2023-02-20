@@ -705,7 +705,11 @@ export const PostBulkMessages = (dbName: string, bulkData: MessagePlanning[]) =>
 
   const customBulkMessage: MessagePlanning[] = bulkData
 
-  return db.bulkDocs(customBulkMessage).catch(rejectDefault)
+  return db.bulkDocs(customBulkMessage)
+    .then(res => { 
+      console.log('res.data', res.data)   
+    })
+    .catch(rejectDefault)
 }
 
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {

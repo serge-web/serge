@@ -125,36 +125,6 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 }
               >
                 <button
-                  aria-label="Archive messages"
-                  aria-labelledby={null}
-                  className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
-                  data-mui-internal-clone-element={true}
-                  disabled={false}
-                  onBlur={[Function]}
-                  onClick={[Function]}
-                  onContextMenu={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseOver={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="button"
-                >
-                  <svg
-                    className="svg-inline--fa fa-trash-can"
-                  />
-                  <span
-                    className="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
-                </button>
-                <button
                   aria-label="Show filter controls"
                   aria-labelledby={null}
                   className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-zylse7-MuiButtonBase-root-MuiIconButton-root"
@@ -1169,7 +1139,7 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
               />
               <p
                 className="MuiTablePagination-selectLabel css-pdct74-MuiTablePagination-selectLabel"
-                id="mui-11"
+                id="mui-10"
               >
                 Rows per page:
               </p>
@@ -1180,9 +1150,9 @@ exports[`ChannelMessagesList component:  renders component correctly 1`] = `
                 <div
                   aria-expanded="false"
                   aria-haspopup="listbox"
-                  aria-labelledby="mui-11 mui-10"
+                  aria-labelledby="mui-10 mui-9"
                   className="MuiSelect-select MuiTablePagination-select MuiSelect-standard MuiInputBase-input css-194a1fa-MuiSelect-select-MuiInputBase-input"
-                  id="mui-10"
+                  id="mui-9"
                   onBlur={[Function]}
                   onFocus={[Function]}
                   onKeyDown={[Function]}
