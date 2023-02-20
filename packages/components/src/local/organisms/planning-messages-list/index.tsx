@@ -1,6 +1,6 @@
 import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column } from '@material-table/core'
+import MaterialTable, { Action, Column } from '@material-table/core'
 import { Phase } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
@@ -29,6 +29,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const messageValue = useRef<any>(null)
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
 
+  const [localSelectedOrders, setLocalSelectedOrders] = useState<OrderRow[]>([])
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
@@ -236,40 +237,49 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const onSelectionChange = (rows: OrderRow[]): void => {
+    setLocalSelectedOrders(rows)
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
   }
 
+  const tableActions = ():Action<OrderRow>[] => {
+    const res: Action<OrderRow>[] = [
+      {
+        icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
+        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+        isFreeAction: true,
+        onClick: (): void => setFilter(!filter)
+      },
+      {
+        icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+        iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+        tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
+        isFreeAction: true,
+        onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
+      }
+    ]
+    if (isUmpire) {
+      // also provide the `achive` button
+      res.unshift({
+        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
+        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        tooltip: 'Archive messages',
+        isFreeAction: false,
+        onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
+      })
+    }
+    return res
+  } 
+
+  console.log('is umpire', isUmpire)
   const TableData = useMemo(() => {
     return <MaterialTable
       title={'Orders'}
       columns={columns}
       data={rows}
       icons={materialIcons as any}
-      actions={[
-        {
-          icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
-          iconProps: filter ? { color: 'error' } : { color: 'action' },
-          tooltip: isUmpire ? 'Archive messages' : 'Only umpires can archive messages',
-          disabled: !isUmpire,
-          isFreeAction: false,
-          onClick: (_event, data): void => archiveSelected(data)
-        },
-        {
-          icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
-          iconProps: filter ? { color: 'error' } : { color: 'action' },
-          tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
-          isFreeAction: true,
-          onClick: (): void => setFilter(!filter)
-        },
-        {
-          icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
-          iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-          tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
-          isFreeAction: true,
-          onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
-        }
-      ]}
+      actions={tableActions()}
       options={{
         search: true,
         paging: true,
