@@ -194,9 +194,10 @@ export const UNSENT_CHAT_MESSAGE_TYPE = 'chat'
 export const UNSENT_SELECT_BY_DEFAULT_VALUE = 'BY_DEFAULT_VALUE'
 
 export const SUPPORT_PANEL_LAYOUT = {
-  OPENING_TAB: 'opening_tab',
-  SUPPORT_PANEL_WIDTH: 'support_panel_width',
-  VISIBLE_COLUMNS: 'visible_columns',
-  FILTERING: 'filtering',
-  SORT_COLUMNS: 'sort_columns'
+  OPENING_TAB: 'serge.planning.openingTab',
+  SUPPORT_PANEL_WIDTH: 'serge.planning.supportPanelWidth',
+  VISIBLE_COLUMNS: 'serge.planning.visibleColumns',
+  IS_FILTER: 'serge.planning.isFilter',
+  SORT_COLUMNS: 'serge.planning.sortColumns',
+  FILTER_APPLIED: 'serge.planning.filterApplied'
 }

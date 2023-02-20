@@ -1,13 +1,17 @@
 import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
-import { Phase } from '@serge/config'
+import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useContext } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
+import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
+import { SupportPanelContext } from '../support-panel'
+import { TAB_MY_ORDERS } from '../support-panel/constants'
+import { getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
 import { toColumn, toRow } from './helpers/genData'
@@ -30,10 +34,22 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
+  const { onSupportPanelLayoutChange } = useContext(SupportPanelContext)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
+
+  useEffect(() => {
+    const isFilterState = getIsFilterState()
+    if (isFilterState && isFilterState[TAB_MY_ORDERS]) {
+      if (isFilterState[TAB_MY_ORDERS] !== filter) {
+        setTimeout(() => {
+          setFilter(isFilterState[TAB_MY_ORDERS])
+        })
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
@@ -256,7 +272,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           iconProps: filter ? { color: 'error' } : { color: 'action' },
           tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
           isFreeAction: true,
-          onClick: (): void => setFilter(!filter)
+          onClick: (): void => {
+            setFilter(!filter)
+            const isFilterState = getIsFilterState()
+            if (isFilterState) {
+              isFilterState[TAB_MY_ORDERS] = !filter
+              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
+            }
+          }
         },
         {
           icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
@@ -277,6 +300,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }}
       onSelectionChange={onSelectionChange}
       detailPanel={detailPanel}
+      components={{
+        FilterRow: props => <CustomFilterRow {...props} forces={[]} cacheKey={TAB_MY_ORDERS} />
+      }}
     />
   }, [rows, filter])
 

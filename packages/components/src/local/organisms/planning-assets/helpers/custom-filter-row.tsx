@@ -1,19 +1,47 @@
 import { Column, MTableFilterRow } from '@material-table/core'
+import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { Asset, ForceData } from '@serge/custom-types'
 import { sortDictionaryByValue } from '@serge/helpers'
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { SupportPanelContext } from '../../support-panel'
+import { FilterObject, getFilterApplied } from '../../support-panel/helpers/caching-utils'
 
 type CustomFilterRowProps = {
   columns: Column<any>[]
   onFilterChanged: (columnId: number, value: string[]) => void
   forces: ForceData[]
+  cacheKey: string
 }
 
 const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElement => {
   const [localProps, setLocalProps] = useState<CustomFilterRowProps>(props)
+  const { onSupportPanelLayoutChange } = useContext(SupportPanelContext)
+
+  useEffect(() => {
+    const filters: FilterObject | undefined = getFilterApplied()
+    if (filters && filters[props.cacheKey]) {
+      filters[props.cacheKey].forEach(f => {
+        props.columns.some(col => {
+          if ((col as any).tableData.id === f.id && f.filterValue.length) {
+            props.onFilterChanged(f.id, f.filterValue)
+            return true
+          }
+          return false
+        })
+      })
+    }
+  }, [])
 
   const onFilterChanged = (columnId: number, filter: string[]) => {
     props.onFilterChanged(columnId, filter)
+
+    const filterApplied = localProps.columns.map(col => ({ id: (col as any).tableData.id, filterValue: (col as any).tableData.filterValue || [] }))
+    const filters: FilterObject | undefined = getFilterApplied()
+    if (filters) {
+      filters[props.cacheKey] = filterApplied
+      onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
+    }
+
     const platformTypeColIdx = props.columns.findIndex(col => col.field === 'platformType')
     if (platformTypeColIdx === -1 || columnId !== platformTypeColIdx) {
       return
