@@ -61628,6 +61628,7 @@ const game: Wargame = {
                                 {
                                     "name": "Area Activity",
                                     "actId": "AreaActivity",
+                                    "interactsWith": [],
                                     "uniqid": "f-blue-Cyber-Area Activity",
                                     "template": "Cyber--AreaEffects",
                                     "events": [
@@ -61664,6 +61665,7 @@ const game: Wargame = {
                                 {
                                     "name": "Area Activity",
                                     "actId": "AreaActivity",
+                                    "interactsWith": [],
                                     "uniqid": "f-blue-Space-Area Activity",
                                     "template": "Space--AreaEffects",
                                     "events": [
@@ -61700,6 +61702,7 @@ const game: Wargame = {
                                 {
                                     "name": "Area Activity",
                                     "actId": "AreaActivity",
+                                    "interactsWith": [],
                                     "uniqid": "f-blue-Info Ops-Area Activity",
                                     "template": "Info Ops--AreaEffects",
                                     "events": [
@@ -61734,11 +61737,13 @@ const game: Wargame = {
                             "category": "SOF",
                             "activities": [
                                 {
-                                    "name": "SOF Activity",
+                                    "name": "Activity",
                                     "actId": "SOF Activity",
-                                    "interactsWith": [],
-                                    "uniqid": "f-blue-SOF-SOF Activity",
-                                    "template": "SOF--Attack",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
+                                    "uniqid": "f-blue-SOF-Activity",
+                                    "template": "SOF--SOFActivity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -61747,19 +61752,19 @@ const game: Wargame = {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "SOF Activity-0"
+                                            "uniqid": "Activity-0"
                                         },
                                         {
                                             "aType": "Polygon",
                                             "name": "Effect Location",
                                             "optional": false,
-                                            "uniqid": "SOF Activity-1"
+                                            "uniqid": "Activity-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "SOF Activity-2"
+                                            "uniqid": "Activity-2"
                                         }
                                     ],
                                     "spatialPerception": true,
@@ -62827,6 +62832,7 @@ const game: Wargame = {
                                 {
                                     "name": "Area Activity",
                                     "actId": "AreaActivity",
+                                    "interactsWith": [],
                                     "uniqid": "f-red-Cyber-Area Activity",
                                     "template": "Cyber--AreaEffects",
                                     "events": [
@@ -62863,6 +62869,7 @@ const game: Wargame = {
                                 {
                                     "name": "Area Activity",
                                     "actId": "AreaActivity",
+                                    "interactsWith": [],
                                     "uniqid": "f-red-Space-Area Activity",
                                     "template": "Space--AreaEffects",
                                     "events": [
@@ -62899,6 +62906,7 @@ const game: Wargame = {
                                 {
                                     "name": "Area Activity",
                                     "actId": "AreaActivity",
+                                    "interactsWith": [],
                                     "uniqid": "f-red-Info Ops-Area Activity",
                                     "template": "Info Ops--AreaEffects",
                                     "events": [
@@ -62933,11 +62941,13 @@ const game: Wargame = {
                             "category": "SOF",
                             "activities": [
                                 {
-                                    "name": "SOF Activity",
+                                    "name": "Activity",
                                     "actId": "SOF Activity",
-                                    "interactsWith": [],
-                                    "uniqid": "f-red-SOF-SOF Activity",
-                                    "template": "SOF--Attack",
+                                    "interactsWith": [
+                                        "EW"
+                                    ],
+                                    "uniqid": "f-red-SOF-Activity",
+                                    "template": "SOF--SOFActivity",
                                     "events": [
                                         "i-end"
                                     ],
@@ -62946,19 +62956,19 @@ const game: Wargame = {
                                             "aType": "Polyline",
                                             "name": "Route out",
                                             "optional": false,
-                                            "uniqid": "SOF Activity-0"
+                                            "uniqid": "Activity-0"
                                         },
                                         {
                                             "aType": "Polygon",
                                             "name": "Effect Location",
                                             "optional": false,
-                                            "uniqid": "SOF Activity-1"
+                                            "uniqid": "Activity-1"
                                         },
                                         {
                                             "aType": "Polyline",
                                             "name": "Route back",
                                             "optional": false,
-                                            "uniqid": "SOF Activity-2"
+                                            "uniqid": "Activity-2"
                                         }
                                     ],
                                     "spatialPerception": true,
@@ -63261,7 +63271,6 @@ const game: Wargame = {
                     "details": {
                         "$id": "https://example.com/arrays.schema.json",
                         "$schema": "http://json-schema.org/draft-07/schema#",
-                        "description": "Outcomes from a set of orders",
                         "type": "object",
                         "title": "Adjudication Outcomes",
                         "format": "grid",
@@ -63634,7 +63643,7 @@ const game: Wargame = {
                     "_rev": "1-09ab7a18ff677cec5d9a56f02a45788d"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-blue--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -63652,7 +63661,6 @@ const game: Wargame = {
                             "activityCard",
                             "rulesOfEngagement",
                             "emconState",
-                            "targetType",
                             "ownAssets",
                             "otherAssets"
                         ],
@@ -63690,7 +63698,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -63709,7 +63718,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -63801,9 +63811,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -63834,14 +63846,6 @@ const game: Wargame = {
                                 "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 3
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "ownAssets": {
@@ -63988,10 +63992,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Land--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-blue--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64009,7 +64013,6 @@ const game: Wargame = {
                             "activityCard",
                             "rulesOfEngagement",
                             "emconState",
-                            "targetType",
                             "ownAssets",
                             "otherAssets"
                         ],
@@ -64047,7 +64050,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -64066,7 +64070,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -64158,9 +64163,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -64191,14 +64198,6 @@ const game: Wargame = {
                                 "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 3
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "ownAssets": {
@@ -64345,10 +64344,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Maritime--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-red--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64366,7 +64365,6 @@ const game: Wargame = {
                             "activityCard",
                             "rulesOfEngagement",
                             "emconState",
-                            "targetType",
                             "ownAssets",
                             "otherAssets"
                         ],
@@ -64404,7 +64402,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -64423,7 +64422,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -64515,9 +64515,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -64548,14 +64550,6 @@ const game: Wargame = {
                                 "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 3
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "ownAssets": {
@@ -64702,10 +64696,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Land--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-red--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -64723,7 +64717,6 @@ const game: Wargame = {
                             "activityCard",
                             "rulesOfEngagement",
                             "emconState",
-                            "targetType",
                             "ownAssets",
                             "otherAssets"
                         ],
@@ -64761,7 +64754,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -64780,7 +64774,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -64872,9 +64867,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -64905,14 +64902,6 @@ const game: Wargame = {
                                 "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 3
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "ownAssets": {
@@ -65059,10 +65048,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Maritime--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-green--Land--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65080,7 +65069,6 @@ const game: Wargame = {
                             "activityCard",
                             "rulesOfEngagement",
                             "emconState",
-                            "targetType",
                             "ownAssets",
                             "otherAssets"
                         ],
@@ -65118,7 +65106,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -65137,7 +65126,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -65229,9 +65219,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -65262,14 +65254,6 @@ const game: Wargame = {
                                 "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 3
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "ownAssets": {
@@ -65416,10 +65400,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-green--Land--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-green--Maritime--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -65437,7 +65421,6 @@ const game: Wargame = {
                             "activityCard",
                             "rulesOfEngagement",
                             "emconState",
-                            "targetType",
                             "ownAssets",
                             "otherAssets"
                         ],
@@ -65475,7 +65458,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -65494,7 +65478,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -65586,9 +65571,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -65619,14 +65606,6 @@ const game: Wargame = {
                                 "propertyOrder": 220,
                                 "options": {
                                     "grid_columns": 3
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "ownAssets": {
@@ -65773,10 +65752,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-green--Maritime--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Land--EWAttack",
                     "details": {
                         "format": "grid",
@@ -65833,7 +65812,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -65852,7 +65832,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -66033,9 +66014,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -66071,7 +66054,7 @@ const game: Wargame = {
                             "effect": {
                                 "type": "string",
                                 "title": "Effect Type",
-                                "propertyOrder": 305,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -66093,10 +66076,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--EWAttack",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Maritime--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66153,7 +66136,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -66172,7 +66156,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -66353,9 +66338,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -66391,7 +66378,7 @@ const game: Wargame = {
                             "effect": {
                                 "type": "string",
                                 "title": "Effect Type",
-                                "propertyOrder": 305,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -66413,10 +66400,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--EWAttack",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--EWAttack",
                     "details": {
                         "format": "grid",
@@ -66474,7 +66461,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -66493,7 +66481,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -66674,9 +66663,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -66721,7 +66712,7 @@ const game: Wargame = {
                             "effect": {
                                 "type": "string",
                                 "title": "Effect Type",
-                                "propertyOrder": 305,
+                                "propertyOrder": 303,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -66743,10 +66734,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--EWAttack",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Land--ISTAR",
                     "details": {
                         "format": "grid",
@@ -66767,7 +66758,6 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "domain",
-                            "method",
                             "location"
                         ],
                         "properties": {
@@ -66804,7 +66794,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -66823,7 +66814,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67004,9 +66996,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -67043,7 +67037,7 @@ const game: Wargame = {
                                 "type": "array",
                                 "uniqueItems": true,
                                 "title": "Target Domains",
-                                "propertyOrder": 301,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 2
                                 },
@@ -67054,14 +67048,6 @@ const game: Wargame = {
                                         "Air",
                                         "Land"
                                     ]
-                                }
-                            },
-                            "method": {
-                                "type": "string",
-                                "title": "Observation Method",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "location": {
@@ -67081,10 +67067,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--ISTAR",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Maritime--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67105,7 +67091,6 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "domain",
-                            "method",
                             "location"
                         ],
                         "properties": {
@@ -67142,7 +67127,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67161,7 +67147,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67342,9 +67329,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -67381,7 +67370,7 @@ const game: Wargame = {
                                 "type": "array",
                                 "uniqueItems": true,
                                 "title": "Target Domains",
-                                "propertyOrder": 301,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 2
                                 },
@@ -67392,14 +67381,6 @@ const game: Wargame = {
                                         "Air",
                                         "Land"
                                     ]
-                                }
-                            },
-                            "method": {
-                                "type": "string",
-                                "title": "Observation Method",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "location": {
@@ -67419,10 +67400,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--ISTAR",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--ISTAR",
                     "details": {
                         "format": "grid",
@@ -67444,7 +67425,6 @@ const game: Wargame = {
                             "emconState",
                             "requiresAirToAir",
                             "domain",
-                            "method",
                             "location"
                         ],
                         "properties": {
@@ -67481,7 +67461,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67500,7 +67481,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67681,9 +67663,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -67729,7 +67713,7 @@ const game: Wargame = {
                                 "type": "array",
                                 "uniqueItems": true,
                                 "title": "Target Domains",
-                                "propertyOrder": 301,
+                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 2
                                 },
@@ -67740,14 +67724,6 @@ const game: Wargame = {
                                         "Air",
                                         "Land"
                                     ]
-                                }
-                            },
-                            "method": {
-                                "type": "string",
-                                "title": "Observation Method",
-                                "propertyOrder": 302,
-                                "options": {
-                                    "grid_columns": 4
                                 }
                             },
                             "location": {
@@ -67767,10 +67743,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--ISTAR",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Land--Patrol",
                     "details": {
                         "format": "grid",
@@ -67826,7 +67802,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67845,7 +67822,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -67986,9 +67964,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -68046,10 +68026,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Patrol",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Maritime--Patrol",
                     "details": {
                         "format": "grid",
@@ -68105,7 +68085,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68124,7 +68105,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68265,9 +68247,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -68325,10 +68309,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Patrol",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--AirToAir",
                     "details": {
                         "format": "grid",
@@ -68385,7 +68369,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68404,7 +68389,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68545,9 +68531,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -68614,10 +68602,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--AirToAir",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Land--Resupply",
                     "details": {
                         "format": "grid",
@@ -68673,7 +68661,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68692,7 +68681,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68833,9 +68823,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -68893,10 +68885,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Resupply",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Maritime--Resupply",
                     "details": {
                         "format": "grid",
@@ -68952,7 +68944,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -68971,7 +68964,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69112,9 +69106,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -69172,10 +69168,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Resupply",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--Resupply",
                     "details": {
                         "format": "grid",
@@ -69232,7 +69228,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69251,7 +69248,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69392,9 +69390,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -69461,10 +69461,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Resupply",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Land--Transit",
                     "details": {
                         "format": "grid",
@@ -69520,7 +69520,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69539,7 +69540,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69680,9 +69682,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -69740,10 +69744,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Transit",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Maritime--Transit",
                     "details": {
                         "format": "grid",
@@ -69799,7 +69803,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69818,7 +69823,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -69959,9 +69965,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -70019,10 +70027,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Transit",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.290Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--Transit",
                     "details": {
                         "format": "grid",
@@ -70079,7 +70087,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -70098,7 +70107,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -70239,9 +70249,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -70308,10 +70320,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Transit",
-                    "_rev": "2023-02-20T14:45:26.290Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Maritime--Activity",
                     "details": {
                         "format": "grid",
@@ -70367,7 +70379,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -70386,7 +70399,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -70567,9 +70581,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -70619,10 +70635,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Maritime--Activity",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--Activity",
                     "details": {
                         "format": "grid",
@@ -70679,7 +70695,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -70698,7 +70715,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -70879,9 +70897,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -70940,10 +70960,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--Activity",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-blue--Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -70962,7 +70982,6 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "requiresAirToAir",
-                            "targetType",
                             "ownAssets",
                             "otherAssets",
                             "location"
@@ -71001,7 +71020,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -71020,7 +71040,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -71112,9 +71133,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -71152,14 +71175,6 @@ const game: Wargame = {
                                 "title": "Requires Air to Air refuelling",
                                 "format": "checkbox",
                                 "propertyOrder": 230,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -71319,10 +71334,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-blue--Air--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "f-red--Air--MissileStrike",
                     "details": {
                         "format": "grid",
@@ -71341,7 +71356,6 @@ const game: Wargame = {
                             "rulesOfEngagement",
                             "emconState",
                             "requiresAirToAir",
-                            "targetType",
                             "ownAssets",
                             "otherAssets",
                             "location"
@@ -71380,7 +71394,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -71399,7 +71414,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -71491,9 +71507,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -71531,14 +71549,6 @@ const game: Wargame = {
                                 "title": "Requires Air to Air refuelling",
                                 "format": "checkbox",
                                 "propertyOrder": 230,
-                                "options": {
-                                    "grid_columns": 4
-                                }
-                            },
-                            "targetType": {
-                                "type": "string",
-                                "title": "Target Type",
-                                "propertyOrder": 300,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -71698,10 +71708,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "f-red--Air--MissileStrike",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Air--TST",
                     "details": {
                         "format": "grid",
@@ -71759,7 +71769,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -71778,7 +71789,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -71959,9 +71971,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -72007,7 +72021,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Target Type Priority",
-                                "propertyOrder": 304,
+                                "propertyOrder": 302,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -72029,10 +72043,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Air--TST",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Cyber--Effects",
                     "details": {
                         "format": "grid",
@@ -72090,7 +72104,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -72109,7 +72124,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -72290,9 +72306,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -72302,7 +72320,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 307,
+                                "propertyOrder": 305,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72311,7 +72329,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 308,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72320,7 +72338,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 309,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72329,7 +72347,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72338,7 +72356,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 311,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -72349,10 +72367,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--Effects",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Space--Effects",
                     "details": {
                         "format": "grid",
@@ -72410,7 +72428,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -72429,7 +72448,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -72610,9 +72630,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -72622,7 +72644,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 307,
+                                "propertyOrder": 305,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72631,7 +72653,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 308,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72640,7 +72662,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 309,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72649,7 +72671,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72658,7 +72680,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 311,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -72669,10 +72691,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--Effects",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Info Ops--Effects",
                     "details": {
                         "format": "grid",
@@ -72730,7 +72752,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -72749,7 +72772,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -72930,9 +72954,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -72942,7 +72968,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 307,
+                                "propertyOrder": 305,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72951,7 +72977,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 308,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72960,7 +72986,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 309,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72969,7 +72995,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -72978,7 +73004,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 311,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -72989,10 +73015,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--Effects",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Cyber--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73051,7 +73077,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -73070,7 +73097,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -73251,9 +73279,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -73263,7 +73293,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 307,
+                                "propertyOrder": 305,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73272,7 +73302,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 308,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73281,7 +73311,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 309,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73290,7 +73320,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73299,7 +73329,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 311,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -73321,10 +73351,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Cyber--AreaEffects",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Space--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73383,7 +73413,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -73402,7 +73433,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -73583,9 +73615,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -73595,7 +73629,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 307,
+                                "propertyOrder": 305,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73604,7 +73638,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 308,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73613,7 +73647,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 309,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73622,7 +73656,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73631,7 +73665,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 311,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -73653,10 +73687,10 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Space--AreaEffects",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.345Z",
                     "title": "Info Ops--AreaEffects",
                     "details": {
                         "format": "grid",
@@ -73715,7 +73749,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -73734,7 +73769,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -73915,9 +73951,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -73927,7 +73965,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Has this been discussed with SMEs?",
                                 "format": "checkbox",
-                                "propertyOrder": 307,
+                                "propertyOrder": 305,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73936,7 +73974,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Is this pre-adjudicated?",
                                 "format": "checkbox",
-                                "propertyOrder": 308,
+                                "propertyOrder": 306,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73945,7 +73983,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Stand-Alone Activity?",
                                 "format": "checkbox",
-                                "propertyOrder": 309,
+                                "propertyOrder": 307,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73954,7 +73992,7 @@ const game: Wargame = {
                                 "type": "boolean",
                                 "title": "Does this require AS Discussion?",
                                 "format": "checkbox",
-                                "propertyOrder": 310,
+                                "propertyOrder": 308,
                                 "options": {
                                     "grid_columns": 3
                                 }
@@ -73963,7 +74001,7 @@ const game: Wargame = {
                                 "type": "string",
                                 "format": "textarea",
                                 "title": "Effect Description",
-                                "propertyOrder": 311,
+                                "propertyOrder": 309,
                                 "options": {
                                     "grid_columns": 6
                                 }
@@ -73985,11 +74023,11 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Info Ops--AreaEffects",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.345Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
-                    "title": "SOF--Attack",
+                    "lastUpdated": "2023-02-20T15:19:12.346Z",
+                    "title": "SOF--SOFActivity",
                     "details": {
                         "format": "grid",
                         "required": [
@@ -74043,7 +74081,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -74062,7 +74101,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -74243,9 +74283,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -74259,7 +74301,7 @@ const game: Wargame = {
                                 ],
                                 "title": "Activity Type",
                                 "type": "string",
-                                "propertyOrder": 306,
+                                "propertyOrder": 304,
                                 "options": {
                                     "grid_columns": 4
                                 }
@@ -74276,15 +74318,15 @@ const game: Wargame = {
                                 }
                             }
                         },
-                        "title": "SOF--Attack",
+                        "title": "SOF--SOFActivity",
                         "type": "object"
                     },
                     "completed": true,
-                    "_id": "SOF--Attack",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_id": "SOF--SOFActivity",
+                    "_rev": "2023-02-20T15:19:12.346Z"
                 },
                 {
-                    "lastUpdated": "2023-02-20T14:45:26.291Z",
+                    "lastUpdated": "2023-02-20T15:19:12.346Z",
                     "title": "Land--Activity",
                     "details": {
                         "format": "grid",
@@ -74340,7 +74382,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -74359,7 +74402,8 @@ const game: Wargame = {
                                         "enableTime": true,
                                         "altInput": true,
                                         "altFormat": "M dHi\\Z",
-                                        "dateFormat": "Z"
+                                        "dateFormat": "Z",
+                                        "defaultDate": "2024-05-01T00:00:00Z"
                                     }
                                 }
                             },
@@ -74540,9 +74584,11 @@ const game: Wargame = {
                                 "propertyOrder": 120,
                                 "type": "string",
                                 "enum": [
-                                    "Card - 1",
-                                    "Card - 2",
-                                    "Card - 3"
+                                    "None",
+                                    "FR Cyper Op 12 - Green Drain",
+                                    "DE Cyper Op 14 - Brain Smash",
+                                    "GR Space Op 16 - Ruby Spaniel",
+                                    "SP Info Op 18 - Orange Drawn"
                                 ],
                                 "options": {
                                     "grid_columns": 4
@@ -74592,7 +74638,7 @@ const game: Wargame = {
                     },
                     "completed": true,
                     "_id": "Land--Activity",
-                    "_rev": "2023-02-20T14:45:26.291Z"
+                    "_rev": "2023-02-20T15:19:12.346Z"
                 }
             ]
         },
