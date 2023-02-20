@@ -36,7 +36,7 @@ export const coreTemplate = {
     propertyOrder: 40,
     title: 'Start Date',
     options: {
-      grid_columns: 4,
+      grid_columns: 3,
       inputAttributes: {
         placeholder: 'Enter start date'
       },
@@ -49,7 +49,7 @@ export const coreTemplate = {
     propertyOrder: 45,
     title: 'End Date',
     options: {
-      grid_columns: 4,
+      grid_columns: 3,
       inputAttributes: {
         placeholder: 'Enter end date'
       },
@@ -67,7 +67,7 @@ export const coreTemplate = {
       'asymmetric'
     ],
     options: {
-      grid_columns: 4,
+      grid_columns: 6,
       enum_titles: [
         'Transit1',
         'Kinetic1',
@@ -80,7 +80,7 @@ export const coreTemplate = {
     title: 'Activity Description',
     propertyOrder: 55,
     options: {
-      grid_columns: 8
+      grid_columns: 6
     },
     type: 'string'
   },
@@ -147,7 +147,7 @@ export const coreTemplate = {
     propertyOrder: 80,
     format: 'table',
     minItems: 0,
-    title: 'Subject(s) of orders',
+    title: 'Opp Force',
     options: {
       grid_columns: 6,
       disable_array_reorder: true
@@ -233,12 +233,14 @@ export const coreTemplate = {
     propertyOrder: 120,
     type: 'string',
     enum: [
-      'Card - 1',
-      'Card - 2',
-      'Card - 3'
+      'None',
+      'FR Cyper Op 12 - Green Drain',
+      'DE Cyper Op 14 - Brain Smash',
+      'GR Space Op 16 - Ruby Spaniel',
+      'SP Info Op 18 - Orange Drawn'
     ],
     options: {
-      grid_columns: 3
+      grid_columns: 4
     }
   }
 }
