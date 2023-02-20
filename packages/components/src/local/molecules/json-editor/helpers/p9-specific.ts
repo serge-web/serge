@@ -4,7 +4,6 @@ let order = 300
 
 // note: this template is used for a range of types of strike
 export const tmplMissileStrike = {
-  targetType: textObject('Target Type', 4, order++),
   ownAssets: {
     type: 'array',
     format: 'table',
@@ -168,8 +167,7 @@ export const tmplResupply = {
 }
 
 export const tmplISTAR = {
-  domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++),
-  method: textObject('Observation Method', 4, order++)
+  domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++)
 }
 
 /** note: used for offensive and defensive operations */
@@ -185,7 +183,7 @@ export const tmplEWAttack = {
   effect: textObject('Effect Type', 4, order++)
 }
 
-export const tmplSOFAttack = {
+export const tmplSOFActivity = {
   activityType: dropDownObject('Activity Type', ['Support & Influence', 'Special Reconnaisance', 'Direct Action'], 4, order++)
 }
 
