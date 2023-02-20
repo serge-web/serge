@@ -129,8 +129,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [planningMessages, setPlanningMessages] = useState<MessagePlanning[]>([])
   const [interactionMessages, setInteractionMessages] = useState<MessageInteraction[]>([])
 
-  const [debugStep, setDebugStep] = useState<number>(0)
-
   const [activityBeingPlanned, setActivityBeingPlanned] = useState<PlanningActivity | undefined>(undefined)
   const [activityPlanned, setActivityPlanned] = useState<PlannedActivityGeometry[] | undefined>(undefined)
 
@@ -774,8 +772,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         </Fragment>
       </>
     )
-  }, [selectedAssets, debugStep,
-    planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
+  }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
     currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
 
   const duffDefinition: TileLayerDefinition = {
