@@ -7,7 +7,7 @@ import { coreTemplate } from './p9-core'
 import { landTemplate } from './p9-land'
 import { maritimeTemplate } from './p9-maritime'
 import { otherTemplate } from './p9-other'
-import { tmplActivity, tmplDuration, tmplEWAttack, tmplISTAR, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTST, tmplAirToAir, tmplTransit, tmplResupply } from './p9-specific'
+import { tmplActivity, tmplDuration, tmplEWAttack, tmplISTAR, tmplMissileStrike, tmplPatrol, tmplSOFAttack, tmplTST, tmplAirToAir, tmplTransit, tmplResupply, tmplSOFActivity } from './p9-specific'
 import p9StockTemplates from './p9-stock-messages'
 
 const locationComponent = {
@@ -29,7 +29,7 @@ const templateDict = {
   Duration: tmplDuration,
   TST: tmplTST,
   EWAttack: tmplEWAttack,
-  Attack: tmplSOFAttack,
+  SOFActivity: tmplSOFActivity,
   Effects: tmplActivity,
   AreaEffects: tmplActivity,
   AirToAir: tmplAirToAir,
@@ -214,13 +214,12 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   actInteracts.push({ uniqid: 'OCA', interactsWith: ['STRIKE', 'EW', 'ISTAR', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST'] })
   actInteracts.push({ uniqid: 'SEAD', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'TST', interactsWith: ['EW', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'CYB/SPA', interactsWith: [] })
-  actInteracts.push({ uniqid: 'SOF', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'Sea Denial', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'Raid', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'LAND', interactsWith: ['EW'] })
-  actInteracts.push({ uniqid: 'SOF Activity', interactsWith: [] })
+  actInteracts.push({ uniqid: 'SOF Activity', interactsWith: ['EW'] })
   actInteracts.push({ uniqid: 'Activity', interactsWith: [] })
+  actInteracts.push({ uniqid: 'AreaActivity', interactsWith: [] })
 
   // const strt = INTER_AT_START
   // const rnd = INTER_AT_RANDOM
@@ -248,7 +247,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   acts.push({ uniqid: 'TST', title: 'Time Sensitive Targeting (TST)', events: rnd, forces: redBlue, domains: [air], acts: thereBack, actDesc: ['TST Area'], specific: 'TST', spatialH: true })
   acts.push({ uniqid: 'Activity', title: 'Targeted Activity', events: all, forces: redBlue, domains: [cyber, space, info], specific: 'Effects' })
   acts.push({ uniqid: 'AreaActivity', title: 'Area Activity', events: all, forces: redBlue, domains: [cyber, space, info], acts: [activity], actDesc: ['Area of effect'], specific: 'AreaEffects' })
-  acts.push({ uniqid: 'SOF Activity', title: 'SOF Activity', events: end, forces: redBlue, domains: [sof], acts: thereBack, actDesc: ['Effect Location'], specific: 'Attack', spatialP: true, spatialH: true })
+  acts.push({ uniqid: 'SOF Activity', title: 'Activity', events: end, forces: redBlue, domains: [sof], acts: thereBack, actDesc: ['Effect Location'], specific: 'SOFActivity', spatialP: true, spatialH: true })
   acts.push({ uniqid: 'Sea Denial', title: 'Sea Denial', forces: [red], domains: [mar], acts: [activity], actDesc: ['Area'] }),
   acts.push({ uniqid: 'Raid', title: 'Raid', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Raid Location'], spatialP: true, spatialH: true })
   acts.push({ uniqid: 'LAND', title: 'Land Close Combat', events: end, forces: allForces, domains: [land], acts: thereBack, actDesc: ['Combat Location'], spatialP: true, spatialH: true })
@@ -267,8 +266,17 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
       console.error('failed to find this activity', act.uniqid)
     } else {
       act.intWith = inters.interactsWith
-    }
+    }    
   })
+
+  if (acts.length !== actInteracts.length) {
+    console.error('Activities and interactions are of different length', acts.length, actInteracts.length)
+  }
+  const actIds = acts.map((act) => act.uniqid).sort()
+  const interIds = actInteracts.map((inter) => inter.uniqid).sort()
+  if (!_.isEqual(actIds, interIds)) {
+    console.error('Activity and interaction ids do not match', actIds, interIds)
+  }
 
   // acts = []
   // acts.push({ title: 'Transit', forces: allForces, domains: seaAirLand, acts: oneWay, specific: 'Transit' })
