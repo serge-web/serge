@@ -233,9 +233,11 @@ export const coreTemplate = {
     propertyOrder: 120,
     type: 'string',
     enum: [
-      'Card - 1',
-      'Card - 2',
-      'Card - 3'
+      'None',
+      'FR Cyper Op 12 - Green Drain',
+      'DE Cyper Op 14 - Brain Smash',
+      'GR Space Op 16 - Ruby Spaniel',
+      'SP Info Op 18 - Orange Drawn',
     ],
     options: {
       grid_columns: 4
