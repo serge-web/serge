@@ -1,6 +1,8 @@
 import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
-import { AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet, 
-  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
+import {
+  AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet,
+  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity
+} from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
 import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, PathOptions } from 'leaflet'
@@ -489,29 +491,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     { selectedAssets, setCurrentAssets: setCurrentAssetIds, setCurrentOrders, setCurrentInteraction: setCurrentInteraction, assetsCache, onSupportPanelLayoutChange }
   ), [selectedAssets, setCurrentAssetIds, setCurrentOrders, setCurrentInteraction, assetsCache])
 
-  const incrementDebugStep = (): void => {
-    // do something
-    // const msgs = dummyMessages.map((plan: MessagePlanning) => {
-    //   const force = plan.details.from.forceId
-    //   if (!force) {
-    //     console.log('force', plan._id)
-    //     throw Error('force missing for:' + plan._id)
-    //   }
-    //   const forceActs = forcePlanningActivities && forcePlanningActivities.find((value) => value.force === force)
-    //   if (forceActs) {
-    //     const cats = forceActs.groupedActivities
-    //     const randType = cats[Math.floor(Math.random() * cats.length)]
-    //     const acts = randType.activities[Math.floor(randType.activities.length * Math.random())] as PlanningActivity
-    //     plan.message.activity = acts.uniqid
-    //   }
-    //   return plan
-    // })
-    // console.log(msgs)
-
-    console.log('debug step', debugStep)
-    setDebugStep(1 + debugStep)
-  }
-
   const handleAdjudication = (interDetails: InteractionDetails, outcomes: MessageAdjudicationOutcomes): void => {
     console.log('Apply some adjudication for', outcomes.Reference, outcomes)
     const from: MessageDetailsFrom = {
@@ -778,7 +757,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         {showStandardAreas && <AreaPlotter areas={myAreas} />}
         <Fragment>
           <Fragment key='selectedObjects'>
-            <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction} 
+            <MapPlanningOrders forceColors={forceColors} interactions={interactionMessages} selectedInteraction={currentInteraction}
               forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
               {perForceAssets.map((force) => {
