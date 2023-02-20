@@ -555,7 +555,19 @@ export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudic
   switch (activity.actId) {
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
-      kineticEventOutcomesFor(targetAssets, outcomes, activity)
+      // if airfields were targeted, also introduce child squadrons taht are not on other tasking
+      const airfields = targetAssets.filter((asset) => asset.asset.attributes && asset.asset.attributes.a_Type === 'Airfield').map((asset) => asset.asset.uniqid)
+      const squadronsAtAirfields: AssetWithForce[] = []
+      forces.forEach((force) => {
+        force.assets && force.assets.forEach((asset) => {
+          if (asset.attributes && airfields.includes(asset.attributes.a_Airfield as string)) {
+            squadronsAtAirfields.push({force, asset})
+          }
+        })
+      })
+      // TODO: create scenario to test this
+      const allTargets = targetAssets.concat(...squadronsAtAirfields)
+      kineticEventOutcomesFor(allTargets, outcomes, activity)
       break
     }
     case 'TST': {
