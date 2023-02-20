@@ -201,7 +201,7 @@ export const generateAllTemplates = (): TemplatesAndActivities => {
   const actInteracts: InteractsWithEntry[] = []
   actInteracts.push({ uniqid: 'STRIKE', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'RESUPP', 'TRANSIT', 'ASW-B', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'SoffS', interactsWith: ['EW', 'DCA', 'OCA'] })
-  actInteracts.push({ uniqid: 'EW', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'ISTAR', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'SOF', 'Sea Denial', 'Raid', 'LAND'] })
+  actInteracts.push({ uniqid: 'EW', interactsWith: ['SOF Activity', 'BMD-MEZ', 'SAM-MEZ', 'STRIKE', 'EW', 'ISTAR', 'PATRL', 'AAR', 'RESUPP', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA', 'SoffS', 'SEAD', 'TST', 'SOF', 'Sea Denial', 'Raid', 'LAND'] })
   actInteracts.push({ uniqid: 'ISTAR', interactsWith: ['BMD-MEZ', 'SAM-MEZ', 'EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'PATRL', interactsWith: ['EW', 'ISTAR', 'PATRL', 'TRANSIT', 'ASW-B', 'FIAC', 'M-Clr', 'M-Lay', 'DCA', 'OCA'] })
   actInteracts.push({ uniqid: 'AAR', interactsWith: ['EW', 'FIAC', 'DCA', 'OCA'] })
