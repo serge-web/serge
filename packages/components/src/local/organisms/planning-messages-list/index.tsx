@@ -55,7 +55,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
       if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
         // ok, it's an update
-        // remove the previous object of the save message
+        // remove the previous instance of the updated message
         const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
         const row = toRow(newMessage)
         // push a new row
