@@ -1,7 +1,7 @@
 import {
   databasePath, deletePath, replicate, serverPath, socketPath, wargameSettings
 } from '@serge/config'
-import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod } from '@serge/custom-types'
+import { Message, MessageCustom, MessageInfoType, PlayerLogEntries, Wargame, TurnPeriod, MessagePlanning } from '@serge/custom-types'
 import { io } from 'socket.io-client'
 import {
   DbProviderInterface,
@@ -110,9 +110,9 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  putPlayerLogs = (doc: PlayerLogEntries): Promise<{msg: string}> => {
+  bulkDocs = (doc: PlayerLogEntries | MessagePlanning[]): Promise<{msg: string}> => {
     return new Promise((resolve, reject) => {
-      fetch(serverPath + 'healthcheck' + '/' + this.getDbName(), {
+      fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

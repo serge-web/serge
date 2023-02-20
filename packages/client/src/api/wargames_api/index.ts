@@ -124,7 +124,7 @@ export const pingServer2 = async (log: ActivityLogsInterface, logAllActivity: bo
   // In addition to pushing data to the server, we're also checking the server is still alive
   // So, even if the log is empty, we should push an empty list, since still we want to get a 
   // 'success' back from the server
-  return db.putPlayerLogs(items).then(res => res.msg)
+  return db.bulkDocs(items).then(res => res.msg)
 }
  
 export const getPlayerActivityLogs = async (wargame: string, dbName: string, query: string): Promise<PlayerLogEntries> => {
@@ -700,12 +700,12 @@ const checkReference = (message: MessageCustom, db: ApiWargameDb, details: Messa
   })
 }
 
-export const PostBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {
+export const PostBulkMessages = (dbName: string, bulkData: MessagePlanning[]) => {
   const { db } = getWargameDbByName(dbName)
 
-  const customMessage: any = archiveMark
+  const customBulkMessage: MessagePlanning[] = bulkData
 
-  return db.put(customMessage).catch(rejectDefault)
+  return db.bulkDocs(customBulkMessage).catch(rejectDefault)
 }
 
 export const postNewMessage = async (dbName: string, details: MessageDetails, message: MessageStructure): Promise<MessageCustom> => {

@@ -82,6 +82,7 @@ const couchDb = (app, io, pouchOptions) => {
     }
 
     const retryUntilWritten = (db, doc) => {
+
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
         return db.put(doc).then(async () => {
@@ -108,7 +109,7 @@ const couchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
-  app.put('/healthcheck/:dbname', async (req, res) => {
+  app.put('/bulkDocs/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new CouchDB(couchDbURL(databaseName))
     const docs = req.body

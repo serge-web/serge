@@ -66,12 +66,6 @@ const pouchDb = (app, io, pouchOptions) => {
           res.send({ msg: 'Updated', data: doc })
         })
       }).catch(err => {
-        if (Array.isArray(doc)) {
-          return db.bulkDocs(doc).then(async () => {
-            await db.compact()
-            res.send({ msg: 'OK' })
-          })
-        }
         if (err.status === 409) {
           return retryUntilWritten(db, doc)
         } else { // new doc
@@ -92,7 +86,7 @@ const pouchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
-  app.put('/healthcheck/:dbname', async (req, res) => {
+  app.put('/bulkDocs/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new PouchDB(databaseName, pouchOptions)
     const docs = req.body
