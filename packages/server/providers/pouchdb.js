@@ -96,7 +96,8 @@ const pouchDb = (app, io, pouchOptions) => {
     } else {
       return db.bulkDocs(req.body).then(async () => {
         await db.compact()
-        res.send({ msg: 'OK', data: docs })
+        io.emit(req.params.dbname, docs)
+        res.send({ msg: 'OK' })
       }).catch(err => {
         res.send({ msg: 'err', data: err })
       })

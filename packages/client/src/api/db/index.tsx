@@ -110,7 +110,7 @@ export class DbProvider implements DbProviderInterface {
     })
   }
 
-  bulkDocs = (doc: PlayerLogEntries | MessagePlanning[]): Promise<{msg: string, data: PlayerLogEntries | MessagePlanning[]}> => {
+  bulkDocs = (doc: PlayerLogEntries | MessagePlanning[]): Promise<{msg: string}> => {
     return new Promise((resolve, reject) => {
       fetch(serverPath + 'bulkDocs' + '/' + this.getDbName(), {
         method: 'PUT',

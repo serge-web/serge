@@ -174,7 +174,8 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
-      if (anyPayload.activityTime) { 
+      if (anyPayload.activityTime || Array.isArray(anyPayload)) { 
+        console.log('BulkData:', anyPayload)
         return newState
       } else if (anyPayload.data) {
         // wargame change

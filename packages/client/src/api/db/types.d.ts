@@ -11,7 +11,7 @@ export interface DbProviderInterface {
   getTurnPeriods: () => Promise<TurnPeriod[]>
   lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>
-  bulkDocs: (docs: PlayerLogEntries | MessagePlanning[]) => Promise<{msg: string, data: PlayerLogEntries | MessagePlanning[]}> 
+  bulkDocs: (docs: PlayerLogEntries | MessagePlanning[]) => Promise<{msg: string}> 
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }
