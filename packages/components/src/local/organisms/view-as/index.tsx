@@ -24,7 +24,7 @@ export const ViewAs: React.FC<PropTypes> = ({
 
   return <>
     {isUmpire && forces.length > 0 && <div className={cx('leaflet-control')} data-tour="certain-force">
-      {forces.map((force: any): React.ReactElement => (
+      { forces.filter((force) => force.umpire || (force.assets && force.assets.length)).map((force: any): React.ReactElement => (
         <Item
           contentTheme={showAsSelected(force.uniqid)}
           key={`k_${force.uniqid}`}
