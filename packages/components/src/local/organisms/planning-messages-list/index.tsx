@@ -5,11 +5,10 @@ import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useContext } from 'react'
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import CustomFilterRow from '../planning-assets/helpers/custom-filter-row'
-import { SupportPanelContext } from '../support-panel'
 import { TAB_MY_ORDERS } from '../support-panel/constants'
 import { getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -23,7 +22,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   playerRoleId, selectedOrders, postBack, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  modifyForSave, phase
+  modifyForSave, phase, onSupportPanelLayoutChange
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
@@ -34,7 +33,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
-  const { onSupportPanelLayoutChange } = useContext(SupportPanelContext)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
 
@@ -301,7 +299,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       onSelectionChange={onSelectionChange}
       detailPanel={detailPanel}
       components={{
-        FilterRow: props => <CustomFilterRow {...props} forces={[]} cacheKey={TAB_MY_ORDERS} />
+        FilterRow: props => <CustomFilterRow {...props} forces={[]} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
       }}
     />
   }, [rows, filter])

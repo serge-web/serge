@@ -2,8 +2,7 @@ import { Column, MTableFilterRow } from '@material-table/core'
 import { SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { Asset, ForceData } from '@serge/custom-types'
 import { sortDictionaryByValue } from '@serge/helpers'
-import React, { useContext, useEffect, useState } from 'react'
-import { SupportPanelContext } from '../../support-panel'
+import React, { useEffect, useState } from 'react'
 import { FilterObject, getFilterApplied } from '../../support-panel/helpers/caching-utils'
 
 type CustomFilterRowProps = {
@@ -11,11 +10,11 @@ type CustomFilterRowProps = {
   onFilterChanged: (columnId: number, value: string[]) => void
   forces: ForceData[]
   cacheKey: string
+  onSupportPanelLayoutChange?: (key: string, value: string) => void
 }
 
 const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElement => {
   const [localProps, setLocalProps] = useState<CustomFilterRowProps>(props)
-  const { onSupportPanelLayoutChange } = useContext(SupportPanelContext)
 
   useEffect(() => {
     const filters: FilterObject | undefined = getFilterApplied()
@@ -37,9 +36,9 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
 
     const filterApplied = localProps.columns.map(col => ({ id: (col as any).tableData.id, filterValue: (col as any).tableData.filterValue || [] }))
     const filters: FilterObject | undefined = getFilterApplied()
-    if (filters) {
+    if (filters && props.onSupportPanelLayoutChange) {
       filters[props.cacheKey] = filterApplied
-      onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
+      props.onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
     }
 
     const platformTypeColIdx = props.columns.findIndex(col => col.field === 'platformType')
