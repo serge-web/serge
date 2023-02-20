@@ -36,7 +36,7 @@ export const coreTemplate = {
     propertyOrder: 40,
     title: 'Start Date',
     options: {
-      grid_columns: 4,
+      grid_columns: 3,
       inputAttributes: {
         placeholder: 'Enter start date'
       },
@@ -49,7 +49,7 @@ export const coreTemplate = {
     propertyOrder: 45,
     title: 'End Date',
     options: {
-      grid_columns: 4,
+      grid_columns: 3,
       inputAttributes: {
         placeholder: 'Enter end date'
       },
@@ -67,7 +67,7 @@ export const coreTemplate = {
       'asymmetric'
     ],
     options: {
-      grid_columns: 4,
+      grid_columns: 6,
       enum_titles: [
         'Transit1',
         'Kinetic1',
@@ -238,7 +238,7 @@ export const coreTemplate = {
       'Card - 3'
     ],
     options: {
-      grid_columns: 3
+      grid_columns: 4
     }
   }
 }

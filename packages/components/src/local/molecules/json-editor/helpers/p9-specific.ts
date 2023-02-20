@@ -10,7 +10,7 @@ export const tmplMissileStrike = {
     format: 'table',
     minItems: 0,
     propertyOrder: 70,
-    title: 'Launchers',
+    title: 'Own Assets (Launchers)',
     options: {
       grid_columns: 6,
       enable_array_copy: true,
@@ -146,12 +146,29 @@ export const tmplMissileStrike = {
 }
 
 export const tmplPatrol = {
-  patrolType: textObject('Patrol Type', 4, order++)
+  otherAssets: {
+    type: 'array',
+    readonly: 'readonly',
+    options: {
+      hidden: true
+    },
+    id: 'hiddenAssets'
+  }
+}
+
+export const tmplResupply = {
+  otherAssets: {
+    type: 'array',
+    readonly: 'readonly',
+    options: {
+      hidden: true
+    },
+    id: 'hiddenAssets'
+  }
 }
 
 export const tmplISTAR = {
   domain: multiSelectDropDownObject('Target Domains', ['Maritime', 'Air', 'Land'], 2, order++),
-  covert: booleanObject('Covert', 1, order++),
   method: textObject('Observation Method', 4, order++)
 }
 
@@ -164,17 +181,12 @@ export const tmplTST = {
   targetPriority: textAreaObject('Target Type Priority', 4, order++)
 }
 
-export const tmplASWBarrier = {
-  active: booleanObject('Active?', 4, order++)
-}
-
 export const tmplEWAttack = {
   effect: textObject('Effect Type', 4, order++)
 }
 
 export const tmplSOFAttack = {
-  activityType: dropDownObject('Activity Type', ['Support & Influence', 'Special Reconnaisance', 'Direct Action'], 4, order++),
-  intendedEffect: textAreaObject('Intended Effect', 4, order++)
+  activityType: dropDownObject('Activity Type', ['Support & Influence', 'Special Reconnaisance', 'Direct Action'], 4, order++)
 }
 
 // for generic cyber activities
@@ -187,6 +199,17 @@ export const tmplActivity = {
 }
 
 export const tmplAirToAir = {
+  otherAssets: {
+    type: 'array',
+    readonly: 'readonly',
+    options: {
+      hidden: true
+    },
+    id: 'hiddenAssets'
+  }
+}
+
+export const tmplTransit = {
   otherAssets: {
     type: 'array',
     readonly: 'readonly',
