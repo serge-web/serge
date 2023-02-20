@@ -60597,6 +60597,7 @@ const game: Wargame = {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
+                                        "SOF Activity",
                                         "BMD-MEZ",
                                         "SAM-MEZ",
                                         "STRIKE",
@@ -60929,6 +60930,7 @@ const game: Wargame = {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
+                                        "SOF Activity",
                                         "BMD-MEZ",
                                         "SAM-MEZ",
                                         "STRIKE",
@@ -61309,6 +61311,7 @@ const game: Wargame = {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
+                                        "SOF Activity",
                                         "BMD-MEZ",
                                         "SAM-MEZ",
                                         "STRIKE",
@@ -61784,6 +61787,7 @@ const game: Wargame = {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
+                                        "SOF Activity",
                                         "BMD-MEZ",
                                         "SAM-MEZ",
                                         "STRIKE",
@@ -62116,6 +62120,7 @@ const game: Wargame = {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
+                                        "SOF Activity",
                                         "BMD-MEZ",
                                         "SAM-MEZ",
                                         "STRIKE",
@@ -62513,6 +62518,7 @@ const game: Wargame = {
                                     "name": "EW Attack",
                                     "actId": "EW",
                                     "interactsWith": [
+                                        "SOF Activity",
                                         "BMD-MEZ",
                                         "SAM-MEZ",
                                         "STRIKE",
