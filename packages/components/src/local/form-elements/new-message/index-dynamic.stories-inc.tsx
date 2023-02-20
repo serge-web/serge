@@ -98,7 +98,9 @@ const Template: Story<StoryPropTypes> = (args) => {
   />)
 }
 
-const templates = generateAllTemplates().templates
+const data = generateAllTemplates()
+console.log('generated', data.activities, data.templates)
+const templates = data.templates
 
 export const P9Dynamic = Template.bind({})
 P9Dynamic.args = {
