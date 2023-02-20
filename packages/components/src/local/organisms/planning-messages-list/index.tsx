@@ -206,6 +206,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   }
 
   const archiveConfirmed = (): void => {
+    console.log('confirmed. Pending:', pendingArchive)
     if (pendingArchive) {
       const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
       if (actualMessages.length !== pendingArchive.length) {
@@ -230,6 +231,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
+    console.log('archive selected', data, rows)
     setPendingArchive(rows)
   }
 
