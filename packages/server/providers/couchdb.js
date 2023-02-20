@@ -82,7 +82,6 @@ const couchDb = (app, io, pouchOptions) => {
     }
 
     const retryUntilWritten = (db, doc) => {
-
       return db.get(doc._id).then((origDoc) => {
         doc._rev = origDoc._rev
         return db.put(doc).then(async () => {
