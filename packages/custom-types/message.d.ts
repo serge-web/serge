@@ -385,6 +385,7 @@ export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
 type Message = MessageCustom |
+  MessagePlanning |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |
