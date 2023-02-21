@@ -1,6 +1,6 @@
 import { faSearchMinus, faSearchPlus, faSkull, faBan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column, EditCellColumnDef, MTableBody, MTableBodyRow, MTableFilterRow, MTableToolbar } from '@material-table/core'
+import MaterialTable, { Column, EditCellColumnDef, MTableBody, MTableBodyRow, MTableToolbar } from '@material-table/core'
 import cx from 'classnames'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
@@ -251,8 +251,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           </div>
         ),
         Row: props => <MTableBodyRow id={props.data.id} {...props} /> //,
-//        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
-//        FilterRow: props =>  <MTableFilterRow {...props} onFilterChanged={onSupportPanelLayoutChange}/>
+        //        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
+        //        FilterRow: props =>  <MTableFilterRow {...props} onFilterChanged={onSupportPanelLayoutChange}/>
       }}
     />
   }, [rows, showColumnFilters, columns])
