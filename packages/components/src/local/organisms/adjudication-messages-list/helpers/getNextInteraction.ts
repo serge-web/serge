@@ -876,7 +876,7 @@ const insertOutcomes = (interaction: InteractionDetails, geom: GeomWithOrders, g
   }
   const activity = findActivity(activeName, forceActs)
   if (!activity) {
-    console.log('Failed to find activity for', activeName)
+    console.log('Failed to find activity for 2', activeName)
     return
   }
   const thisG = activity.geometries && activity.geometries.find((geo) => geo.uniqid === props.geomId)
