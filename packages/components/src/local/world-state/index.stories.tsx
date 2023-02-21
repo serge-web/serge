@@ -12,7 +12,7 @@ import { CHANNEL_MAPPING, Phase } from '@serge/config'
 import { WorldStatePanels } from './helpers/enums'
 import { ChannelMapping, ForceData, Role } from '@serge/custom-types'
 
-console.clear()
+// console.clear()
 
 const forces = cmdWkWargame.data.forces.forces
 const platformTypes = cmdWkWargame.data.platformTypes ? cmdWkWargame.data.platformTypes.platformTypes : []
