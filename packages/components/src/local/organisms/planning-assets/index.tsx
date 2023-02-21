@@ -5,12 +5,12 @@ import cx from 'classnames'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
-import { getColumns } from './helpers/collate-assets'
-import CustomFilterRow from './helpers/custom-filter-row'
+import { getColumns, getColumnSummary } from './helpers/collate-assets'
 import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
+import _ from 'lodash'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
@@ -32,18 +32,18 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   useEffect(() => {
     // we're getting too many visibleRows updates, plus
     // the content of visible rows will change if
-    // a row gets selected.  Our use of this callback however
-    // is to update the map if the page is changed or if a filter
-    // is applied
-    //
-    // So, cache the current ids, and compare that to the new
     // set of ids
     const visibleRowIds = visibleRows.map((item) => item.id)
-    if (visibleRowIds !== visibleRowsCache) {
+    if (!_.isEqual(visibleRowIds, visibleRowsCache)) {
       // fire the change
       setVisibleRowsCache(visibleRowIds)
       // fire the change
       onVisibleRowsChange && onVisibleRowsChange(visibleRows)
+      // also update the filters
+      const summary = getColumnSummary(forces, playerForce.uniqid, opFor, platformStyles)
+      console.log('summary', summary, columns)
+    } else {
+      console.log('Not updating visible rows')
     }
   }, [visibleRows])
 
@@ -73,6 +73,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     if (!showColumnFilters) {
       setRows(assetsOfInterest)
     }
+    console.log('set rows', assetsOfInterest.length)
   }, [assets, showColumnFilters, showDead, selectedAssets])
 
   useEffect(() => {
@@ -136,9 +137,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       onSelectionChange={onSelectionChangeLocal}
       components={{
         Body: (props): React.ReactElement => {
-          if (props.columns.length && onVisibleRowsChange) {
+          if (props.columns.length) {
             setTimeout(() => {
-              setVisibleRows(props.renderData)
+              setVisibleRows(props.data)
               onVisibleColumnsChange && onVisibleColumnsChange(props.columns)
             })
           }
@@ -154,8 +155,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
             <MTableToolbar {...props} />
           </div>
         ),
-        Row: props => <MTableBodyRow id={props.data.id} {...props} />,
-        FilterRow: props => <CustomFilterRow {...props} forces={forces} />
+        Row: props => <MTableBodyRow id={props.data.id} {...props} />
       }}
     />
   }, [rows, showColumnFilters])
