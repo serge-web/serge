@@ -12,6 +12,7 @@ import PropTypes, { AssetRow } from './types/props'
 import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
 import { getIsFilterState } from '../support-panel/helpers/caching-utils'
+import { isEqual } from 'lodash'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
@@ -50,7 +51,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     // So, cache the current ids, and compare that to the new
     // set of ids
     const visibleRowIds = visibleRows.map((item) => item.id)
-    if (visibleRowIds !== visibleRowsCache) {
+    if (!isEqual(visibleRowIds, visibleRowsCache)) {
       // fire the change
       setVisibleRowsCache(visibleRowIds)
       // fire the change
