@@ -89,6 +89,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
   const roleStr = selectedRoleStr.substring(ind + 3)
   const force = forces.find((f: ForceData) => f.uniqid === forceStr)
   const role = force && force.roles.find((r: Role) => r.roleId === roleStr)
+  const isUmpire = force && force.umpire
 
   let localMessages
   if (messages.length) {
@@ -160,7 +161,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     playerRoleId={role.roleId}
     onMarkAllAsRead={markAllAsRead}
     onRead={onRead}
-    isUmpire={true}
+    isUmpire={!!isUmpire}
     phase={phase}
     hideForcesInChannel={hideForcesInChannel}
     selectedOrders={[]}
