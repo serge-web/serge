@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
-import _ from 'lodash'
+import { isEqual, uniq } from 'lodash'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
@@ -35,7 +35,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     // the content of visible rows will change if
     // set of ids
     const visibleRowIds = visibleRows.map((item) => item.id)
-    if (!_.isEqual(visibleRowIds, visibleRowsCache)) {
+    if (!isEqual(visibleRowIds, visibleRowsCache)) {
       // fire the change
       setVisibleRowsCache(visibleRowIds)
       // fire the change
@@ -102,7 +102,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
               // ok, filter this column according to current rows
               const vals = visibleRows.map((row: AssetRow) => row[colId])
               if (vals.length) {
-                const uniqueVals = _.uniq(vals)
+                const uniqueVals = uniq(vals)
                 if (safeCol.lookup) {
                   const newDict = {}
                   Object.keys(safeCol.lookup).forEach((value) => {
