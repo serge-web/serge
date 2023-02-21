@@ -306,9 +306,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           header={'Archive orders'}
           cancelBtnText={'Cancel'}
           saveBtnText={'Archive'}
+          /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
           onClose={archiveCancelled}
           onSave={archiveConfirmed}
-        >
+          /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+          >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
       }
