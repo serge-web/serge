@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
 import { Asset, ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
-import { findAsset, forceColors } from '@serge/helpers'
+import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
 import moment from 'moment-timezone'

@@ -150,12 +150,12 @@ interface ProtectedTarget {
 }
 
 /**
- * 
+ *
  * @param targets all targets that are to be hit
  * @param secondaryTargets sub-set of the above that are to be included in `otherAssets` listing
  * @param outcomes the outcomes we append to
  * @param activity the activity being conducted
- * @returns 
+ * @returns
  */
 const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: AssetWithForce[], outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
@@ -227,9 +227,9 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: As
       if (!outcomes.otherAssets.includes(asset.uniqid)) {
         outcomes.otherAssets.push(asset.uniqid)
       }
-      const airfieldID = asset.attributes && asset.attributes.a_Airfield 
+      const airfieldID = asset.attributes && asset.attributes.a_Airfield
       if (airfieldID) {
-        const airfield = targets.find((item) => item.asset.uniqid === airfieldID)        
+        const airfield = targets.find((item) => item.asset.uniqid === airfieldID)
         return asset.name + ' stationed at ' + (airfield && airfield.asset.name) + '\n'
       } else {
         console.warn('Airfield not found', airfieldID)
@@ -369,8 +369,8 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
     })
     const oppForTargetAssets = notDetected.map((assetId): AssetWithForce => {
       return findForceAndAsset(forces, assetId)
-    }) 
-    
+    })
+
     const oppPerceptions = oppForTargetAssets.map((item: AssetWithForce): PerceptionOutcome => {
       return {
         force: plan.details.from.forceId || '',
