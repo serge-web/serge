@@ -40,12 +40,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const isFilterState = getIsFilterState()
-    if (isFilterState && isFilterState[TAB_MY_ORDERS]) {
-      if (isFilterState[TAB_MY_ORDERS] !== filter) {
-        setTimeout(() => {
-          setFilter(isFilterState[TAB_MY_ORDERS])
-        })
-      }
+    if (isFilterState[TAB_MY_ORDERS] && isFilterState[TAB_MY_ORDERS] !== filter) {
+      setTimeout(() => {
+        setFilter(isFilterState[TAB_MY_ORDERS])
+      })
     }
   }, [])
 
@@ -273,10 +271,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           onClick: (): void => {
             setFilter(!filter)
             const isFilterState = getIsFilterState()
-            if (isFilterState) {
-              isFilterState[TAB_MY_ORDERS] = !filter
-              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
-            }
+            isFilterState[TAB_MY_ORDERS] = !filter
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
           }
         },
         {

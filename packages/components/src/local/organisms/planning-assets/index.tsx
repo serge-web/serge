@@ -33,12 +33,10 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   useEffect(() => {
     const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
     const isFilterState = getIsFilterState()
-    if (isFilterState && isFilterState[key]) {
-      if (isFilterState[key] !== showColumnFilters) {
-        setTimeout(() => {
-          setFilter(isFilterState[key])
-        })
-      }
+    if (isFilterState[key] && isFilterState[key] !== showColumnFilters) {
+      setTimeout(() => {
+        setFilter(isFilterState[key])
+      })
     }
   }, [])
 
@@ -137,10 +135,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
             setFilter(!showColumnFilters)
             const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
             const isFilterState = getIsFilterState()
-            if (isFilterState) {
-              isFilterState[key] = !showColumnFilters
-              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
-            }
+            isFilterState[key] = !showColumnFilters
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
           }
         }
       ]}
@@ -176,7 +172,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           </div>
         ),
         Row: props => <MTableBodyRow id={props.data.id} {...props} />,
-        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} />
+        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
       }}
     />
   }, [rows, showColumnFilters])
