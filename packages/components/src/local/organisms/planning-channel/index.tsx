@@ -57,6 +57,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   markUnread,
   markAllAsRead,
   saveNewActivityTimeMessage,
+  saveArchiveMessage,
   openMessage,
   saveMessage,
   mapPostBack,
@@ -379,8 +380,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     const platIcons = platformIcons(platformTypes)
     const own = getOwnAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
     const opp = getOppAssets(allForces, forceCols, platIcons, currentForce, platformTypes, attributeTypes || [], moment.utc(gameDate).valueOf())
-    ownAssetsFiltered.current = []
-    opAssetsFiltered.current = []
+    // no - do not clear the filtered assets arrays.  They get assigned
+    // in a round-trip from the `visibleRows` handler from the assets table
+    // ownAssetsFiltered.current = []
+    // opAssetsFiltered.current = []
     setAllOwnAssets(own)
     setAllOppAssets(opp)
     setForceColors(forceCols)
@@ -808,6 +811,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
             adjudicationTemplate={adjudicationTemplate}
             activityTimeChanel={newActiveMessage}
             saveMessage={saveMessageLocal}
+            postBackArchive={saveArchiveMessage}
             mapPostBack={mapPostBack}
             saveNewActivityTimeMessage={saveNewActivityTimeMessage}
             dispatch={reduxDispatch}

@@ -59,6 +59,7 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
 
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
+  postBackArchive?: { (archiveMark: MessagePlanning[]): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
 
