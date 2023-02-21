@@ -98,7 +98,6 @@ Default.args = {
   render: noop,
   opFor: false
 }
-console.log('index opp', gameTime)
 export const OpFor = Template.bind({})
 OpFor.args = {
   forces: forces,
