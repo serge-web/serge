@@ -7,7 +7,9 @@ import {
   SetWargameMessage,
   Wargame,
   ChatMessage,
-  PlayerMessageLog
+  PlayerMessageLog,
+  MessagePlanning, 
+  PlayerUiChannels 
 } from '@serge/custom-types'
 import {
   handleChannelUpdates, handleAllInitialChannelMessages, setMessageState, 
@@ -171,4 +173,24 @@ export const markAllMessageState = (channel: string, newState: PlayerUi, msgStat
     unreadMessageCount: msgState === 'read' ? 0 : channelMessages.length,
     messages: channelMessages
   }
+}
+
+export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePlanning[]): PlayerUiChannels => {
+  const channelMessageTypes: string = anyPayload[0].details.channel
+  const copyChanels = newState.channels
+  const currentChannel = newState.channels[channelMessageTypes]
+  const channelMessage = currentChannel.messages 
+  if (channelMessage) {
+    anyPayload.forEach((data:any) => {
+      const findIndexs = channelMessage.findIndex(number => number._id !== data._id)
+      if (currentChannel && findIndexs !== -1) {
+        channelMessage.push(data) 
+      }
+    })
+
+    currentChannel.messages = channelMessage
+    copyChanels[channelMessageTypes] = currentChannel
+  }
+  
+  return copyChanels
 }

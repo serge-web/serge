@@ -43,6 +43,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   adjudicationTemplate,
   mapPostBack,
   saveMessage,
+  postBackArchive,
   saveNewActivityTimeMessage,
   saveCachedNewMessageValue,
   getCachedNewMessagevalue,
@@ -502,6 +503,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   customiseTemplate={localCustomiseTemplate}
                   selectedOrders={selectedOrders}
                   setSelectedOrders={setSelectedOrders}
+                  postBackArchive={postBackArchive}
                   postBack={postBack}
                   turnFilter={turnFilter}
                   editLocation={editLocation}
