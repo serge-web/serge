@@ -30,7 +30,7 @@ export const collapseLocation = (document: Record<string, any>, activities?: Per
           if (theAct) {
             name = theAct.name
           } else {
-            console.warn('failed to find activity for', name)
+            console.warn('failed to find activity for 4', name)
           }
         }
         str = str + '* ' + name + '\n'
