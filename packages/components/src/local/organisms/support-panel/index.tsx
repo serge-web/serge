@@ -269,7 +269,8 @@ export const SupportPanel: React.FC<PropTypes> = ({
     // sort out which orders are currently "live"
     const turnStart = moment(gameDate)
     const turnEnd = moment(gameTurnEndDate)
-    const liveOrders: MessagePlanning[] = planningMessages.filter((plan: MessagePlanning) => {
+    const myForceOrders = planningMessages.filter((plan) => plan.details.from.forceId === selectedForce.uniqid)
+    const liveOrders: MessagePlanning[] = myForceOrders.filter((plan: MessagePlanning) => {
       const startDate = plan.message.startDate
       const endDate = plan.message.endDate
       if (startDate && endDate) {

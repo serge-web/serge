@@ -116,17 +116,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
-    if (!myMessages.length) {
-      return
-    }
-
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message)
     })
     setRows(dataTable)
 
-    const columnData = toColumn(myMessages)
     if (!columns.length || !filter) {
+      const columnData = toColumn(myMessages)
       setColumns(columnData)
     }
   }, [turnFilter, filter, myMessages])
@@ -314,7 +310,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         FilterRow: props => <CustomFilterRow {...props} forces={[]} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
       }}
     />
-  }, [rows, filter, toolbarActions])
+  }, [rows, filter, toolbarActions, onlyShowMyOrders])
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>

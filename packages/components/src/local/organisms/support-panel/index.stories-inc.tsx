@@ -186,6 +186,16 @@ OrdersTab.args = {
   interactionMessages: newInter
 }
 
+const redForce = forces[2]
+export const OrdersForRedPlayer = Template.bind({})
+OrdersForRedPlayer.args = {
+  initialTab: TAB_MY_ORDERS,
+  planningMessages: newPlans,
+  interactionMessages: newInter,
+  selectedForce: redForce,
+  selectedRoleName: allRoles[10]
+}
+
 export const AdjudicationTab = Template.bind({})
 AdjudicationTab.args = {
   initialTab: TAB_ADJUDICATE,
