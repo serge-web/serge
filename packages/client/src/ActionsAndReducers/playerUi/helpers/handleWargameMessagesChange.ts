@@ -183,7 +183,6 @@ export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePla
   if (channelMessage) {
     anyPayload.forEach((data: any) => {
       const findIndexs = channelMessage.findIndex(number => number._id === data._id)
-      console.log('findIndexs', findIndexs)
       if (currentChannel && findIndexs !== -1) {
         channelMessage[findIndexs] = data
       }

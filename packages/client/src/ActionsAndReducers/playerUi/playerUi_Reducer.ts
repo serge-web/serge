@@ -174,7 +174,9 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
 
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
-      if (anyPayload.activityTime || Array.isArray(anyPayload)) { 
+      if (anyPayload.activityTime) { 
+        return newState
+      } else if (Array.isArray(anyPayload)) {
         const planningMessage = anyPayload as MessagePlanning[]
         const updateChannel = HandleUpdateBulksData(newState, planningMessage)
         console.log('updateChannel:', updateChannel)
