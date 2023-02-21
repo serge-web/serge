@@ -135,7 +135,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
   const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<PlannedActivityGeometryCallback | undefined>(undefined)
 
-  const [hideIconName, setHideIconName] = useState<boolean>(false)
+  const [hideIconName, setHideIconName] = useState<boolean>(true)
   const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
   const [clusterIcons, setClusterIcons] = useState<boolean>(true)
 
