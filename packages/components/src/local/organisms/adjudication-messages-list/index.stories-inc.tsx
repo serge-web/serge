@@ -298,7 +298,7 @@ if (greenMission) {
   const rndA = airfields.length > 2 && airfields[Math.floor(airfields.length / 2)]
   const other = greenMission.message.otherAssets
   if (other && rndA) {
-    other.push({asset: rndA.uniqid})
+    other.push({ asset: rndA.uniqid })
   }
 }
 
