@@ -75,8 +75,6 @@ const localCustomiseTemplate = (_document: MessageStructure | undefined, schema:
   }
   return schema
 }
-const mockMesage = { messageType: CUSTOM_MESSAGE, details: { messageType: 'Cyber--activity' } } as MessageCustom
-
 const Template: Story<StoryPropTypes> = (args) => {
   const { privateMessage, orderableChannel, confirmCancel, ...props } = args
 
@@ -100,18 +98,28 @@ const Template: Story<StoryPropTypes> = (args) => {
   />)
 }
 
-const templates = generateAllTemplates().templates
+const data = generateAllTemplates()
+console.log('generated', data.activities, data.templates)
+const templates = data.templates
 
 export const P9Dynamic = Template.bind({})
 P9Dynamic.args = {
   templates: templates
 }
 
-const cyberTemplate = templates.find((template) => template._id === 'Cyber--Effects')
+const cyberTemplate = templates.filter((template) => template._id === 'Cyber--Effects')
 export const cyberOpen = Template.bind({})
 cyberOpen.args = {
-  templates: cyberTemplate ? [cyberTemplate] : [],
-  draftMessage: mockMesage
+  templates: cyberTemplate || [],
+  draftMessage: { messageType: CUSTOM_MESSAGE, details: { messageType: 'Cyber--Effects' } } as MessageCustom
+}
+
+const strikeTemplate = 'f-blue--Maritime--MissileStrike'
+const strikeTemplates = templates.filter((template) => template._id === strikeTemplate)
+export const strikeOpen = Template.bind({})
+strikeOpen.args = {
+  templates: strikeTemplates || [],
+  draftMessage: { messageType: CUSTOM_MESSAGE, details: { messageType: strikeTemplate } } as MessageCustom
 }
 
 // if (marIstarTemplate) {

@@ -7,7 +7,6 @@ const p9StockTemplates: TemplateBody[] = [
     details: {
       $id: 'https://example.com/arrays.schema.json',
       $schema: 'http://json-schema.org/draft-07/schema#',
-      description: 'Outcomes from a set of orders',
       type: 'object',
       title: 'Adjudication Outcomes',
       format: 'grid',
