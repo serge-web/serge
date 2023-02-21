@@ -171,7 +171,7 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     case SET_LATEST_FEEDBACK_MESSAGE:
       newState.feedbackMessages.unshift(action.payload)
       break
-
+    
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
       if (anyPayload.activityTime) { 

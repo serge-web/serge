@@ -33,7 +33,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
-
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   useEffect(() => {
@@ -113,7 +112,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (!columns.length || !filter) {
       setColumns(columnData)
     }
-  }, [myMessages, turnFilter, filter])
+  }, [ turnFilter, filter, myMessages])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
@@ -244,10 +243,16 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.warn('failed to find actual version of some messages', rows, actualMessages)
       }
       const foundMessaes = actualMessages.filter((msg) => msg !== undefined) as MessagePlanning[]
-      const markArchived = foundMessaes.map((msg): MessagePlanning => {
-        // mark as archived
+      const markArchived = foundMessaes.map((msg, index): MessagePlanning => {
         msg.details.archived = true
-        return msg
+
+        const archivedMessage = {
+          ...msg,
+          _id: new Date().toISOString() + index,
+          _rev: undefined
+        }
+
+        return archivedMessage
       })
       console.log('Archiving:', markArchived)
       // if (markArchived.length === 0) return null

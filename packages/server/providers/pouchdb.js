@@ -24,7 +24,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit(wargameName, result.doc))
+    }).on('change', (result) => { io.emit(wargameName, result.doc)})
   }
 
   // check listeners queue to add a new listenr
@@ -94,9 +94,9 @@ const pouchDb = (app, io, pouchOptions) => {
       // nothing to do
       res.send({ msg: 'OK' })
     } else {
-      return db.bulkDocs(req.body).then(async () => {
-        await db.compact()
+      return db.bulkDocs(docs).then(async () => {
         io.emit(req.params.dbname, docs)
+        await db.compact()
         res.send({ msg: 'OK' })
       }).catch(err => {
         res.send({ msg: 'err', data: err })

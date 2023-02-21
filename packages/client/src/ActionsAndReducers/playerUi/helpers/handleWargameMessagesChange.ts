@@ -179,18 +179,18 @@ export const HandleUpdateBulksData = (newState: PlayerUi, anyPayload: MessagePla
   const channelMessageTypes: string = anyPayload[0].details.channel
   const copyChanels = newState.channels
   const currentChannel = newState.channels[channelMessageTypes]
-  const channelMessage = currentChannel.messages
+  const channelMessage = currentChannel.messages 
   if (channelMessage) {
-    anyPayload.forEach((data: any) => {
-      const findIndexs = channelMessage.findIndex(number => number._id === data._id)
+    anyPayload.forEach((data:any) => {
+      const findIndexs = channelMessage.findIndex(number => number._id !== data._id)
       if (currentChannel && findIndexs !== -1) {
-        channelMessage[findIndexs] = data
+        channelMessage.push(data) 
       }
     })
 
     currentChannel.messages = channelMessage
     copyChanels[channelMessageTypes] = currentChannel
   }
-
+  
   return copyChanels
 }
