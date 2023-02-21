@@ -18,7 +18,7 @@ const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 const forces = P9BMock.data.forces.forces
 
-console.clear()
+// console.clear()
 
 export default {
   title: 'local/organisms/AdjudicationMessagesList',
