@@ -5,7 +5,7 @@ import { Phase } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
 import moment from 'moment'
-import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
@@ -257,8 +257,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-  const archiveCancelledCallback = useCallback(() => setPendingArchive([]), [])
-  const archiveConfirmedCallback = useCallback(() => archiveConfirmed(), [])
 
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
@@ -300,8 +298,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           header={'Archive orders'}
           cancelBtnText={'Cancel'}
           saveBtnText={'Archive'}
-          onClose={archiveCancelledCallback}
-          onSave={archiveConfirmedCallback}
+          onClose={archiveConfirmed}
+          onSave={archiveConfirmed}
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
