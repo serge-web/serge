@@ -99,17 +99,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
-    if (!myMessages.length) {
-      return
-    }
-
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message)
     })
     setRows(dataTable)
 
-    const columnData = toColumn(myMessages)
     if (!columns.length || !filter) {
+      const columnData = toColumn(myMessages)
       setColumns(columnData)
     }
   }, [turnFilter, filter, myMessages])
@@ -256,9 +252,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         return archivedMessage
       })
       console.log('Archiving:', markArchived)
-      // if (markArchived.length === 0) return null
       postBackArchive && postBackArchive(markArchived)
-      // TODO: submit these new messages
       setPendingArchive([])
     }
   }
@@ -296,7 +290,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       onSelectionChange={onSelectionChange}
       detailPanel={detailPanel}
     />
-  }, [rows, filter, toolbarActions])
+  }, [rows, filter, toolbarActions, onlyShowMyOrders])
 
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
