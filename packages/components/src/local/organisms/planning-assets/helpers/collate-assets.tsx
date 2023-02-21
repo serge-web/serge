@@ -172,7 +172,7 @@ const renderIcon = (row: AssetRow, assetsCache: LRUCache<string, string>): React
   // test new asset icon component
   if (row.sidc) {
     // SGG*UCIN--
-    return <SymbolAssetIcon sidc={row.sidc} health={row.health} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />
+    return <span><SymbolAssetIcon sidc={row.sidc} health={row.health} hideName={true} force={row.force} iconName={icons[2]} assetsCache={assetsCache} />{row.name}</span>
   }
   // end
 
@@ -251,11 +251,14 @@ export const renderAttributes = (row: AssetRow): React.ReactElement => {
 export const getColumns = (opFor: boolean, forces: ForceData[], playerForce: ForceData['uniqid'], platformStyles: PlatformStyle[], assetsCache: LRUCache<string, string>): Column<any>[] => {
   const summaryData = getColumnSummary(forces, playerForce, opFor, platformStyles)
   const fixedColWidth = 100
+  const fixedColWidth2 = 200
+
+  const nameWidth = opFor ? fixedColWidth2 : fixedColWidth
 
   const ownAssets = !!(playerForce && !opFor)
 
   const columns: Column<any>[] = [
-    { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: fixedColWidth, minWidth: fixedColWidth },
+    { title: 'Icon', field: 'icon', render: (row: AssetRow) => renderIcon(row, assetsCache), width: nameWidth, minWidth: nameWidth },
     { title: 'Force', field: 'force', width: 'auto', hidden: ownAssets, lookup: arrToDict(summaryData.forces) },
     { title: 'Type', field: 'platformType', width: 'auto', render: (row: AssetRow): React.ReactElement => renderPlatformType(row, summaryData.platformTypes), lookup: summaryData.platformTypes },
     { title: 'SubType', type: 'string', width: 'auto', field: 'subType', lookup: arrToDict(summaryData.subTypes) },
