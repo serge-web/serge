@@ -250,7 +250,7 @@ const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => int
 // get an adjudication
 const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
 if (openInter2.details && openInter2.details.interaction) {
-//  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
+  //  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
   istarInterMessages.push(openInter2)
 }
 export const istarInteraction = Template.bind({})
@@ -267,7 +267,41 @@ CyberEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
 }
 
-const idsOfInterest = ['Red-9', 'Blue-24']
+// console.log('get ready')
+// console.table(planningMessages.map((msg) => {
+//   const opp = msg.message.otherAssets
+//   let marker = 'n/a'
+//   if (opp && opp.length) {
+//     marker = opp.map((item): string => {
+//       const asset = findAsset(forces, item.asset)
+// //      const keys = asset.attributes && Object.keys(asset.attributes).join(', ')
+//       if (asset.attributes && asset.attributes.a_Type === 'Airfield') {
+//         return asset.uniqid
+//       } else {
+//         return asset.attributes ? asset.attributes.a_Type as string : '.'
+//       }
+//     }).join(', ')
+//   }
+//   return {
+//     id: msg.message.Reference,
+//     msg: marker
+//   }
+// }))
+
+const idsOfInterest = ['Green-5']
+const greenMission = planningMessages.find((msg) => idsOfInterest.includes(msg.message.Reference))
+if (greenMission) {
+  greenMission.message.activity = 'f-red-Air-Stand Off Strike'
+  // mangle the opp assetsc
+  const blueF = forces[1].assets || []
+  const airfields = blueF.filter((asset) => asset.attributes && asset.attributes.a_Type === 'Airfield')
+  const rndA = airfields.length > 2 && airfields[Math.floor(airfields.length / 2)]
+  const other = greenMission.message.otherAssets
+  if (other && rndA) {
+    other.push({ asset: rndA.uniqid })
+  }
+}
+
 export const TestSubjects = Template.bind({})
 TestSubjects.args = {
   playerRoleId: umpireFole.roleId,
