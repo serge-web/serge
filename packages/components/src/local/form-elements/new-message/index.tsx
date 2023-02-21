@@ -47,13 +47,17 @@ const NewMessage: React.FC<PropTypes> = ({
     setSelectedSchema(templateData.details)
   }
 
-  const allTemplates: TemplateBody[] = (templates.length > 0 && templates[0] && templates) || []
+  if (!templates) {
+    console.warn('WARNING - <NewMessage> does not have templates')
+  }
+  const allTemplates: TemplateBody[] = (templates && templates.length > 0) ? templates : []
 
   const classes = `message-editor new-message-creator wrap ${orderableChannel ? 'new-message-orderable' : ''}`
 
   useEffect(() => {
+    const allTemplates: TemplateBody[] = (templates && templates.length > 0) ? templates : []
     if (!prevTemplates || updateNewMessage || draftMessage) {
-      if (templates.length) {
+      if (allTemplates.length) {
         if (schemaTitle) {
           const findColumn = templates.find(find => find.title === schemaTitle)
           if (findColumn) {
