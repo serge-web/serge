@@ -79,7 +79,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       //   }
       // }))
 
-
       columns.forEach((column) => {
         const safeCol = allColumns.find((item) => item.field === column.field)
         if (safeCol) {
@@ -98,7 +97,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
               //   column.lookup = safeCol.lookup
               // }
             } else {
-              // ok, no filter is applied 
+              // ok, no filter is applied
               const colId = colDef.field as string
               // ok, filter this column according to current rows
               const vals = visibleRows.map((row: AssetRow) => row[colId])
@@ -118,7 +117,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
                 }
               }
             }
-
           }
         }
       })

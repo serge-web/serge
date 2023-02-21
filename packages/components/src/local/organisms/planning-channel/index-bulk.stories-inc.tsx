@@ -12,8 +12,6 @@ import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
-// console.clear()
-
 type ScriptDecoratorProps = {
   scripts: string[]
   children: React.ReactElement
