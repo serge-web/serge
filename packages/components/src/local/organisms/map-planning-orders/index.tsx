@@ -45,7 +45,7 @@ export const MapPlanningOrders: React.FC<PropTypes> = ({ orders, activities, sel
             res.properties.name = activity.name + ' - ' + geometry.name
           }
         } else {
-          console.warn('failed to find activity for', act.uniqid, activities)
+          console.warn('failed to find activity for 3', act.uniqid, activities)
         }
         return res
       })
