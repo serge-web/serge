@@ -66,7 +66,7 @@ const GameChannelsWithTour: React.FC = () => {
     },
     {
       selector: '[data-tour="turn-phase-step"]',
-      content: 'This panel will indicate whether the game is currently in the planning or adjudication phase, and how much time is left when in a planning phase.'
+      content: 'This panel will indicate whether the game is currently in the planning or adjudication phase, and the bounds of the current turn.'
     },
     {
       selector: '[data-tour="third-step"]',
@@ -84,8 +84,7 @@ const GameChannelsWithTour: React.FC = () => {
       selector: '[data-tour="objectives-step"]',
       content: () => (<div className="close-tour-dialog">
         <span>
-          At any point you can check the objectives assigned to your force by clicking on the
-          circular icon to the right.
+          Just ask a host if you have any further questions about the user interface.
         </span>
         <span className="link link--noIcon" onClick={closeTour} data-qa-type="close-tour">Close the tour</span>
       </div>)

@@ -5,7 +5,7 @@ import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
-import { injectTimes, interactsWith, invertMessages, overlapsInTime, PlanningContact } from '../../support-panel/helpers/gen-order-data'
+import { PlanningContact, invertMessages, injectTimes, overlapsInTime, interactsWith } from '../../support-panel/helpers/gen-order-data'
 import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
@@ -51,7 +51,7 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
-!7 && console.log('dummy', overview, turn, shortPlanningMessages, forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
+!7 && console.log('dummy', !!generateAllTemplates, overview, turn, shortPlanningMessages, forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
 
 it('calculates search rate', () => {
   const istarAssets: Asset[] = []
@@ -81,7 +81,7 @@ it('generates movement outcomes', () => {
   const planWithReturn = shortPlanningMessages.find((plan) => {
     const loc = plan.message.location
     const act = plan.message.activity
-    const goodies = ['ASW', 'Patrol', 'Refuel']
+    const goodies = ['ASW', 'Patrol', 'Refuel', 'Raid']
     const goodPlan = goodies.some((item) => act.indexOf(item) !== -1)
     if (goodPlan && loc && loc.length > 0) {
       const lastLeg = loc[loc.length - 1]
@@ -105,7 +105,7 @@ it('generates movement outcomes', () => {
     const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities, turnPeriod, turn)
     expect(list2.length).toEqual(0)
   } else {
-    expect(false).toBeTruthy() // should have found plan to test
+    expect('Failed to find suitable plan to test against').toBeFalsy() // Failed to find suitable plan to test against
   }
 })
 
