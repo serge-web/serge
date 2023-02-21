@@ -10,7 +10,7 @@ import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import { getOppAssets, getOwnAssets } from './helpers/collate-assets'
 import PlanningAssets from './index'
 import docs from './README.md'
-import MessageListPropTypes from './types/props'
+import MessageListPropTypes, { AssetRow } from './types/props'
 import moment from 'moment'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
@@ -62,6 +62,10 @@ const forceCols = forceColors(forces)
 const platformStyles = (game.platformTypes && platformIcons(game.platformTypes.platformTypes)) || []
 const platIcons = platformIcons(platformTypes)
 
+const onVisibleRowsChange = (rows: AssetRow[]) => {
+  console.log('Story - vis rows updated', rows.length)
+}
+
 const Template: Story<MessageListPropTypes> = (args) => {
   const { forces, playerForce, render, opFor, assets } = args
 
@@ -86,6 +90,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     platformTypes={platformTypes}
     render={render}
     attributeTypes={attributeTypes}
+    onVisibleRowsChange={onVisibleRowsChange}
     opFor={opFor}
   />
 }
@@ -98,7 +103,6 @@ Default.args = {
   render: noop,
   opFor: false
 }
-console.log('index opp', gameTime)
 export const OpFor = Template.bind({})
 OpFor.args = {
   forces: forces,
@@ -106,14 +110,4 @@ OpFor.args = {
   playerForce: forces[0],
   render: noop,
   opFor: true
-}
-
-export const Bulk = Template.bind({})
-Bulk.args = {
-  forces: forces,
-  // supplying empty array is trigger to generate mock data
-  assets: [],
-  playerForce: forces[1],
-  render: noop,
-  opFor: false
 }
