@@ -149,7 +149,15 @@ interface ProtectedTarget {
   protectedBy: Asset[]
 }
 
-const kineticEventOutcomesFor = (targets: AssetWithForce[], outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
+/**
+ * 
+ * @param targets all targets that are to be hit
+ * @param secondaryTargets sub-set of the above that are to be included in `otherAssets` listing
+ * @param outcomes the outcomes we append to
+ * @param activity the activity being conducted
+ * @returns 
+ */
+const kineticEventOutcomesFor = (targets: AssetWithForce[], secondaryTargets: AssetWithForce[], outcomes: MessageAdjudicationOutcomes, activity: PlanningActivity): MessageAdjudicationOutcomes => {
   const protectedTargets: Array<ProtectedTarget> = []
   console.log('kinetic', targets.length)
   // loop through targets
@@ -211,6 +219,26 @@ const kineticEventOutcomesFor = (targets: AssetWithForce[], outcomes: MessageAdj
     })
     outcomes.otherAssets = otherAssets
   }
+
+  if (secondaryTargets.length) {
+    const message = secondaryTargets.map((item: AssetWithForce) => {
+      const asset = item.asset
+      outcomes.otherAssets = outcomes.otherAssets ? outcomes.otherAssets : []
+      if (!outcomes.otherAssets.includes(asset.uniqid)) {
+        outcomes.otherAssets.push(asset.uniqid)
+      }
+      const airfieldID = asset.attributes && asset.attributes.a_Airfield 
+      if (airfieldID) {
+        const airfield = targets.find((item) => item.asset.uniqid === airfieldID)        
+        return asset.name + ' stationed at ' + (airfield && airfield.asset.name) + '\n'
+      } else {
+        console.warn('Airfield not found', airfieldID)
+        return ''
+      }
+    }).join(', ')
+    outcomes.narrative = outcomes.narrative ? (outcomes.narrative + message) : message
+  }
+
   return outcomes
 }
 
@@ -334,13 +362,16 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
   const perceptions: PerceptionOutcomes = []
   const oppAssets = plan.message.otherAssets
   if (oppAssets) {
-    const oppIDs = oppAssets.map((item: { asset: Asset['uniqid'], number?: number, missileType?: string }) => item.asset)
+    const oppIDs = oppAssets.map((item: { asset: Asset['uniqid'] }) => item.asset)
     const detIDs = inAreaPerceptions.map((det): Asset['uniqid'] => det.asset)
     const notDetected = oppIDs.filter((id: Asset['uniqid']) => {
       return !detIDs.includes(id)
     })
-    const oppPerceptions = notDetected.map((assetId: string): PerceptionOutcome => {
-      const item = findForceAndAsset(forces, assetId)
+    const oppForTargetAssets = notDetected.map((assetId): AssetWithForce => {
+      return findForceAndAsset(forces, assetId)
+    }) 
+    
+    const oppPerceptions = oppForTargetAssets.map((item: AssetWithForce): PerceptionOutcome => {
       return {
         force: plan.details.from.forceId || '',
         asset: item.asset.uniqid,
@@ -355,6 +386,7 @@ const istarEventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicat
     if (oppPerceptions.length > 0) {
       perceptions.push(...oppPerceptions)
     }
+    // also do air squadrons for airfields
   }
 
   // now push in the in-area perceptions, since we want to see the subject ones first
@@ -549,33 +581,39 @@ export const assetsInArea = (plan: MessagePlanning, forces: ForceData[]): AssetW
   return targets
 }
 
+export const squadronsAtTheseAirfields = (targetAssets: Array<AssetWithForce>, forces: ForceData[]): AssetWithForce[] => {
+  // if airfields were targeted, also introduce child squadrons taht are not on other tasking
+  const airfields = targetAssets.filter((asset) => asset.asset.attributes && asset.asset.attributes.a_Type === 'Airfield').map((asset) => asset.asset.uniqid)
+  const squadronsAtAirfields: AssetWithForce[] = []
+  forces.forEach((force) => {
+    force.assets && force.assets.forEach((asset) => {
+      if (asset.attributes && airfields.includes(asset.attributes.a_Airfield as string)) {
+        // TODO: check if the squadron are busy with other tasking (by searching through live orders)
+        squadronsAtAirfields.push({ force, asset })
+      }
+    })
+  })
+  return squadronsAtAirfields
+}
+
 export const eventOutcomesFor = (plan: MessagePlanning, outcomes: MessageAdjudicationOutcomes,
   activity: PlanningActivity, forces: ForceData[], event: INTERACTION_SHORT_CIRCUIT | undefined): MessageAdjudicationOutcomes => {
   console.log('handle outcomes', activity.actId)
   switch (activity.actId) {
     case 'STRIKE': {
       const targetAssets = plan.message.otherAssets ? plan.message.otherAssets.map((item) => findForceAndAsset(forces, item.asset)) : []
-      // if airfields were targeted, also introduce child squadrons taht are not on other tasking
-      const airfields = targetAssets.filter((asset) => asset.asset.attributes && asset.asset.attributes.a_Type === 'Airfield').map((asset) => asset.asset.uniqid)
-      const squadronsAtAirfields: AssetWithForce[] = []
-      forces.forEach((force) => {
-        force.assets && force.assets.forEach((asset) => {
-          if (asset.attributes && airfields.includes(asset.attributes.a_Airfield as string)) {
-            // TODO: check if the squadron are busy with other tasking (by searching through live orders)
-            squadronsAtAirfields.push({ force, asset })
-          }
-        })
-      })
+      const squadronsAtAirfields = squadronsAtTheseAirfields(targetAssets, forces)
+      console.log('airfields', targetAssets, squadronsAtAirfields)
       // TODO: create scenario to test this
       const allTargets = targetAssets.concat(...squadronsAtAirfields)
-      kineticEventOutcomesFor(allTargets, outcomes, activity)
+      kineticEventOutcomesFor(allTargets, squadronsAtAirfields, outcomes, activity)
       break
     }
     case 'TST': {
       // find all op-for assets in the box
       const targetAssets = assetsInArea(plan, forces)
       console.log('TST assets in area', targetAssets)
-      kineticEventOutcomesFor(targetAssets, outcomes, activity)
+      kineticEventOutcomesFor(targetAssets, [], outcomes, activity)
       console.log('TST outcomes', outcomes)
       break
     }
