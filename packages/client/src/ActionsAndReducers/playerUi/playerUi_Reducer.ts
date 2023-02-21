@@ -3,13 +3,13 @@ import {
   MARK_ALL_AS_UNREAD, MARK_UNREAD, OPEN_MESSAGE, OPEN_MODAL, OPEN_TOUR, SET_ALL_MESSAGES, SET_ALL_TEMPLATES_PLAYERUI, SET_ALL_TURN_PERIOD, SET_CURRENT_WARGAME_PLAYER, SET_FEEDBACK_MESSAGES, SET_FORCE, SET_LATEST_FEEDBACK_MESSAGE,
   SET_LATEST_WARGAME_MESSAGE, SET_ROLE, SHOW_HIDE_OBJECTIVES, TurnFormats, UPDATE_MESSAGE_STATE
 } from '@serge/config'
-import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData } from '@serge/custom-types'
+import { ChannelMapping, ChannelTypes, PlayerUi, PlayerUiActionTypes, Wargame, WargameData, MessagePlanning } from '@serge/custom-types'
 import _ from 'lodash'
 import copyState from '../../Helpers/copyStateHelper'
 import chat from '../../Schemas/chat.json'
 import {
   closeMessage, handleNewMessage, handleSetAllMessages, handleWargameUpdate, markAllMessageState,
-  MarkAllPlayerMessageRead, markUnread, openMessage
+  MarkAllPlayerMessageRead, markUnread, openMessage, HandleUpdateBulksData
 } from './helpers/handleWargameMessagesChange'
 
 import {
@@ -175,8 +175,10 @@ export const playerUiReducer = (state: PlayerUi = initialState, action: PlayerUi
     case SET_LATEST_WARGAME_MESSAGE:
       const anyPayload = action.payload as any
       if (anyPayload.activityTime || Array.isArray(anyPayload)) { 
-        console.log('BulkData:', anyPayload)
-        return newState
+        const planningMessage = anyPayload as MessagePlanning[]
+        const updateChannel = HandleUpdateBulksData(newState, planningMessage)
+        console.log('updateChannel:', updateChannel)
+        newState.channels = updateChannel
       } else if (anyPayload.data) {
         // wargame change
         const wargame = anyPayload as Wargame

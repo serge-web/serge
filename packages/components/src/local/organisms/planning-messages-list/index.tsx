@@ -257,7 +257,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
-
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     console.log('archive selected', data, rows)
