@@ -1,11 +1,11 @@
 import { faSearchMinus, faSearchPlus, faSkull, faBan } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column, MTableBody, MTableBodyRow, MTableToolbar } from '@material-table/core'
+import MaterialTable, { Column, EditCellColumnDef, MTableBody, MTableBodyRow, MTableToolbar } from '@material-table/core'
 import cx from 'classnames'
 import React, { useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { SupportPanelContext } from '../support-panel'
 import { materialIcons } from '../support-panel/helpers/material-icons'
-import { getColumns, getColumnSummary } from './helpers/collate-assets'
+import { getColumns } from './helpers/collate-assets'
 import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
@@ -18,6 +18,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 }: PropTypes) => {
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column<any>[]>([])
+
   const [showColumnFilters, setFilter] = useState<boolean>(false)
   const [showDead, setShowDead] = useState<boolean>(false)
   const preventScroll = useRef<boolean>(false)
@@ -39,16 +40,95 @@ export const PlanningAssets: React.FC<PropTypes> = ({
       setVisibleRowsCache(visibleRowIds)
       // fire the change
       onVisibleRowsChange && onVisibleRowsChange(visibleRows)
+
       // also update the filters
-      const summary = getColumnSummary(forces, playerForce.uniqid, opFor, platformStyles)
-      console.log('summary', summary, columns)
-    } else {
-      console.log('Not updating visible rows')
+      // BIG PICTURE: for columns that have a filter, we will ensure it contains the full set of possible values for
+      // that column, so the user can expand the selection.  But, if the column does not have a filter applied,
+      // then restrict it to current values in the dataset.
+      console.time('get columns')
+      const allColumns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
+      console.timeEnd('get columns')
+      // const cached = cachedColumns
+      // // see if any filters have been relaxed. If they have, we need to relax the filters in other columns
+      // const relaxedColumns = columns.filter((column) => {
+      //   const currentColDef = column as EditCellColumnDef
+      //   const currentFilter = currentColDef.tableData.filterValue
+      //   const currentFiltersApplied = Array.isArray(currentFilter) ? (currentFilter as string[]).length : undefined
+      //   const cachedColumn = cached.find((item) => item.field === column.field)
+      //   if (cachedColumn) {
+      //     const cachedColDef = cachedColumn as EditCellColumnDef
+      //     const cachedFilter = cachedColDef.tableData.filterValue
+      //     const cachedFiltersApplied = Array.isArray(cachedFilter) ? (cachedFilter as string[]).length : undefined
+      //     console.log('column', column.field, currentFilter, currentFiltersApplied, cachedFiltersApplied)
+      //     if (currentFiltersApplied !== undefined && cachedFiltersApplied !== undefined) {
+      //       return cachedFiltersApplied > currentFiltersApplied
+      //     }
+      //   }
+      //   return false
+      // })
+      // const relaxedColumnIDs = relaxedColumns.map((item) => item.field)
+      // console.log('relaxed filters', relaxedColumnIDs)
+
+      // log current table lookups and filters
+      // console.table(columns.map((column) => {
+      //   const colDef = column as EditCellColumnDef
+      //   return {
+      //     id: column.field,
+      //     lookup: column.lookup ? Object.keys(column.lookup as {}).length : 'n/a',
+      //     filter: colDef.tableData.filterValue
+      //   }
+      // }))
+
+
+      columns.forEach((column) => {
+        const safeCol = allColumns.find((item) => item.field === column.field)
+        if (safeCol) {
+          // is filter applied?
+          const colDef = column as EditCellColumnDef
+          if (column.lookup) {
+            const filter = colDef.tableData.filterValue
+            const filterApplied = Array.isArray(filter) && (filter as string[]).length > 0
+            // this is a lookup column, sort out the values
+            if (filterApplied) {
+              // leave it as - is
+              // // only relax it if it is not one of the ones that got relaxed
+              // if (!relaxedColumnIDs.includes(column.field)) {
+              //   // ok, this column should have the full list, so it can be extended
+              //   console.log('restoring', column.field, relaxedColumnIDs, safeCol.lookup)
+              //   column.lookup = safeCol.lookup
+              // }
+            } else {
+              // ok, no filter is applied 
+              const colId = colDef.field as string
+              // ok, filter this column according to current rows
+              const vals = visibleRows.map((row: AssetRow) => row[colId])
+              if (vals.length) {
+                const uniqueVals = _.uniq(vals)
+                if (safeCol.lookup) {
+                  const newDict = {}
+                  Object.keys(safeCol.lookup).forEach((value) => {
+                    if (safeCol.lookup) {
+                      if (uniqueVals.includes(value)) {
+                        newDict[value] = safeCol.lookup[value]
+                      }
+                    }
+                  })
+                  // trim lookup
+                  column.lookup = newDict
+                }
+              }
+            }
+
+          }
+        }
+      })
+      setColumns(columns)
     }
   }, [visibleRows])
 
   useEffect(() => {
     if (!columns.length || !showColumnFilters) {
+      console.log('initialising columns')
       const columns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
       const cachedColumns = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS)
       if (cachedColumns) {
@@ -73,7 +153,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
     if (!showColumnFilters) {
       setRows(assetsOfInterest)
     }
-    console.log('set rows', assetsOfInterest.length)
   }, [assets, showColumnFilters, showDead, selectedAssets])
 
   useEffect(() => {
@@ -149,8 +228,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         },
         Toolbar: props => (
           <div>
-            { selectedAssets.length > 0 &&
-                <FontAwesomeIcon size='2x' title='Clear selection' onClick={clearSelectedAssets} icon={faBan} border />
+            {selectedAssets.length > 0 &&
+              <FontAwesomeIcon size='2x' title='Clear selection' onClick={clearSelectedAssets} icon={faBan} border />
             }
             <MTableToolbar {...props} />
           </div>
@@ -158,7 +237,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
         Row: props => <MTableBodyRow id={props.data.id} {...props} />
       }}
     />
-  }, [rows, showColumnFilters])
+  }, [rows, showColumnFilters, columns])
 
   return TableData
 }
