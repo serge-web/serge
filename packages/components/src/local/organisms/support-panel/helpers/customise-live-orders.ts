@@ -10,7 +10,7 @@ export const customiseLiveOrders = (_document: MessageStructure | undefined, sch
     const oldOrders = res.properties?.synchronisedWith?.items
     if (oldOrders) {
       oldOrders.enum = sortedOrders.map((order: MessagePlanning) => order.message.Reference)
-      oldOrders.options.enum_titles = sortedOrders.map((order: MessagePlanning) => order.message.title)
+      oldOrders.options.enum_titles = sortedOrders.map((order: MessagePlanning) => order.message.Reference + ' - ' + order.message.title)
     }
   }
   return res
