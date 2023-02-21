@@ -234,7 +234,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
     }
   }
-
+  
+  /*eslint-disable */
   const archiveConfirmed = (): void => {
     console.log('confirmed. Pending:', pendingArchive)
     if (pendingArchive) {
@@ -262,6 +263,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  const archiveCancelled = () => setPendingArchive([])
+  /* eslint-enable */
+  
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     console.log('archive selected', data, rows)
@@ -272,7 +276,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
   }
-
+ 
   const TableData = useMemo(() => {
     return <MaterialTable
       title={'Orders'}
@@ -302,7 +306,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           header={'Archive orders'}
           cancelBtnText={'Cancel'}
           saveBtnText={'Archive'}
-          onClose={archiveConfirmed}
+          onClose={archiveCancelled}
           onSave={archiveConfirmed}
         >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
