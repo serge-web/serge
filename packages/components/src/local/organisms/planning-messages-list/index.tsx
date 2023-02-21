@@ -112,7 +112,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     if (!columns.length || !filter) {
       setColumns(columnData)
     }
-  }, [ turnFilter, filter, myMessages])
+  }, [turnFilter, filter, myMessages])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
@@ -234,7 +234,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       }
     }
   }
-  
+
   /*eslint-disable */
   const archiveConfirmed = (): void => {
     console.log('confirmed. Pending:', pendingArchive)
@@ -265,7 +265,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const archiveCancelled = () => setPendingArchive([])
   /* eslint-enable */
-  
+
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
     console.log('archive selected', data, rows)
@@ -276,7 +276,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
   }
- 
+
   const TableData = useMemo(() => {
     return <MaterialTable
       title={'Orders'}
@@ -310,7 +310,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           onClose={archiveCancelled}
           onSave={archiveConfirmed}
           /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
-          >
+        >
           <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
         </CustomDialog>
       }
