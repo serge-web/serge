@@ -1,7 +1,7 @@
 import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import {
   AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet,
-  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity
+  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
 } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
@@ -9,7 +9,7 @@ import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, P
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
-import { faHistory, faObjectUngroup, faShapes, faTag } from '@fortawesome/free-solid-svg-icons'
+import { faHistory, faObjectUngroup, faShapes, faTag, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -50,6 +50,14 @@ type PerForceAssets = {
   rows: AssetRow[]
 }
 
+/** the extra labelling we use for timeline replay */
+type ReplayAnnotations = {
+  start: number
+  end: number
+  force: ForceData['name']
+  activity: PlanningActivityGeometry['name']
+}
+
 export const PlanningChannel: React.FC<PropTypes> = ({
   dispatch,
   reduxDispatch,
@@ -84,7 +92,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
-  const [zoom] = useState<number>(7)
+  const [zoom] = useState<number>((channel.constraints && channel.constraints.minZoom) || 5)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
   const [myAreas, setMyAreas] = useState<Array<AreaCategory>>([])
@@ -136,9 +144,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
   const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<PlannedActivityGeometryCallback | undefined>(undefined)
 
-  const [hideIconName, setHideIconName] = useState<boolean>(true)
+  const [showIconName, setShowIconName] = useState<boolean>(false)
   const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
   const [clusterIcons, setClusterIcons] = useState<boolean>(true)
+  const [showMezRings, setShowMezRings] = useState<boolean>(false)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
@@ -343,18 +352,30 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       myOrders.forEach((plan) => {
         if (plan.message.location) {
           // until we have times in features, we get it from the message
-          const startTime = plan.message.startDate
-          const endTime = plan.message.endDate
-          const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
-            // create the new props, if they are missing
-            if (geom.geometry && geom.geometry.properties) {
-              const props = geom.geometry.properties
-              props.start = moment(startTime).valueOf()
-              props.end = moment(endTime).valueOf()
-            }
-            return geom.geometry
-          })
-          features.push(...steps)
+          const msg = plan.message
+          const startTime = msg.startDate
+          const endTime = msg.endDate
+          // check plan has start & end dates
+          if (startTime && endTime) {
+            const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
+              // create the new props, if they are missing
+              if (geom.geometry && geom.geometry.properties) {
+                const propsReplay = geom.geometry.properties as ReplayAnnotations
+                const props = geom.geometry.properties as PlannedProps
+                if (props.startDate && props.endDate) {
+                  propsReplay.start = moment.utc(props.startDate).valueOf()
+                  propsReplay.end = moment.utc(props.endDate).valueOf()
+                } else {
+                  propsReplay.start = moment.utc(startTime).valueOf()
+                  propsReplay.end = moment.utc(endTime).valueOf()
+                }
+                propsReplay.force = plan.details.from.force
+                propsReplay.activity = geom.uniqid
+              }
+              return geom.geometry
+            })
+            features.push(...steps)
+          }
         }
       })
       const collection: FeatureCollection = {
@@ -698,18 +719,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
-    const forceName = thisForce ? thisForce.name : 'Force not found'
-    const label = forceName + ' - ' + props.id
+    const props = data.properties as ReplayAnnotations
+    console.log('props', data.properties)
+    const label = props.force + ' - ' + props.activity
     layer.bindPopup(label)
   }
 
   const timelineStyle = (data: Feature): PathOptions => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const props = data.properties as ReplayAnnotations
+    const forceName = props.force
+    const thisForce = allForces.find((force) => force.name === forceName)
     const color = thisForce ? thisForce.color : '#ff0'
     return {
       color: color
@@ -717,9 +736,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const timelinePointToLayer = (data: Feature<any>, latlng: LatLngExpression): Layer => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const props = data.properties as ReplayAnnotations
+    const forceName = props.force
+    const thisForce = allForces.find((force) => force.name === forceName)
     const thisCol = thisForce ? thisForce.color : '#f00'
     const geojsonMarkerOptions = {
       radius: 10,
@@ -762,8 +781,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
               {perForceAssets.map((force) => {
-                return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                  assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                return <PlanningForces showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                  assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
               })
               }
               {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
@@ -776,7 +795,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -874,8 +893,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             </div>
                           }
                           <div className={cx('leaflet-control')}>
-                            <Item title='Hide asset names' contentTheme={hideIconName ? 'light' : 'dark'}
-                              onClick={() => setHideIconName(!hideIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
+                            <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
+                              onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
+                          </div>
+
+                          <div className={cx('leaflet-control')}>
+                            <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
+                              onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
                           </div>
                           {
                             <div className={cx('leaflet-control')}>

@@ -83,7 +83,6 @@ export interface PlannedProps {
   toBeConsidered?: boolean
 }
 
-
 export type INTERACTION_SHORT_CIRCUIT = typeof INTER_AT_START | typeof INTER_AT_END | typeof INTER_AT_RANDOM
 
 /** object that describes the structure of
