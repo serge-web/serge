@@ -20,4 +20,6 @@ export default interface PropTypes {
   clusterIcons: boolean
   /** whether to hide asset name for icon */
   hideName?: boolean
+  /** whether to paint Mez rings */
+  showMezRings: boolean
 }

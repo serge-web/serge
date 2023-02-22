@@ -105,14 +105,14 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // also provide the `achive` button
       res.unshift({
         icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
-        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        iconProps: { color: 'action' },
         tooltip: 'Archive messages',
         isFreeAction: false,
         onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
       })
     }
     setToolbarActions(res)
-  }, [isUmpire])
+  }, [isUmpire, filter, onlyShowMyOrders])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
