@@ -484,6 +484,7 @@ export const findPlanningActivity = (id: string, forceId: string, activities: Pe
   // flatten the hierarchy, then do find
   const activity = force.groupedActivities.map((group) => group.activities).flat().find((plan) => plan.template === id)
   if (!activity) {
+    console.log('grouped activities', force.groupedActivities, forceId)
     throw Error('Failed to find group activities for this activity 2:' + id)
   }
   return activity as any as PlanningActivity
@@ -724,7 +725,8 @@ export const injectTimes = (orders: GeomWithOrders[]): GeomWithOrders[] => {
     if (order.geometry.properties) {
       const planned = order.geometry.properties as PlannedProps
       if (!planned.startTime) {
-        console.warn('Geometry time missing, injecting times for whole orders')
+        // the time values aren't stored in teh message. Inject them here, since they will be
+        // useful in subsequent interactions
         planned.startTime = moment(planned.startDate).valueOf()
         planned.endTime = moment(planned.endDate).valueOf()
       }
@@ -780,7 +782,7 @@ export const spatialBinning = (orders: GeomWithOrders[], binsPerSide: number): t
     })
   })
   const boxes: turf.Feature[] = []
-  if (bounds) {
+  if (bounds && bounds.isValid()) {
     const height = bounds.getNorth() - bounds.getSouth()
     const width = bounds.getEast() - bounds.getWest()
     const heightDelta = height / binsPerSide

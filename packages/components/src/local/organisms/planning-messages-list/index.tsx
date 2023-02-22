@@ -1,9 +1,12 @@
-import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Column } from '@material-table/core'
+import MaterialTable, { Action, Column } from '@material-table/core'
+import { Phase } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import moment from 'moment'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import CustomDialog from '../../atoms/custom-dialog'
 import JsonEditor from '../../molecules/json-editor'
 import { materialIcons } from '../support-panel/helpers/material-icons'
 import { collapseLocation } from './helpers/collapse-location'
@@ -13,10 +16,10 @@ import PropTypes, { OrderRow } from './types/props'
 
 export const PlanningMessagesList: React.FC<PropTypes> = ({
   messages, allTemplates, isUmpire, gameDate, customiseTemplate,
-  playerForceId, playerRoleId, selectedOrders, postBack, setSelectedOrders,
+  playerRoleId, selectedOrders, postBack, postBackArchive, setSelectedOrders,
   confirmCancel, channel, selectedForce, selectedRoleName, currentTurn, turnFilter,
   editLocation, forcePlanningActivities, onDetailPanelOpen, onDetailPanelClose,
-  modifyForSave
+  modifyForSave, phase
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
@@ -24,13 +27,16 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
+  const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
+  const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
+
+  const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
-
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
 
   useEffect(() => {
-    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === playerForceId)
+    const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     if (myMessages.length === 0) {
@@ -47,11 +53,9 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       const newMessage = myRoleMessages[0]
       // see if this is a new version of an existing message
       const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
-      console.log('row already present', rowAlreadyPresent)
-      rowAlreadyPresent && console.log('check message', rowAlreadyPresent.reference, rowAlreadyPresent.id, newMessage._id)
       if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
         // ok, it's an update
-        // remove the previous object of the save message
+        // remove the previous instance of the updated message
         const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
         const row = toRow(newMessage)
         // push a new row
@@ -61,7 +65,37 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         setMyMessages(myRoleMessages)
       }
     }
-  }, [messages, playerForceId, playerRoleId, onlyShowMyOrders])
+  }, [messages, selectedForce.uniqid, playerRoleId, onlyShowMyOrders])
+
+  useEffect(() => {
+    const res: Action<OrderRow>[] = [
+      {
+        icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
+        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+        isFreeAction: true,
+        onClick: (): void => setFilter(!filter)
+      },
+      {
+        icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+        iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+        tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
+        isFreeAction: true,
+        onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
+      }
+    ]
+    if (isUmpire) {
+      // also provide the `achive` button
+      res.unshift({
+        icon: () => <FontAwesomeIcon title='Archive selected messages' icon={faTrashAlt} className={cx({ [styles.selected]: filter })} />,
+        iconProps: filter ? { color: 'error' } : { color: 'action' },
+        tooltip: 'Archive messages',
+        isFreeAction: false,
+        onClick: (_event: any, data: OrderRow | OrderRow[]): void => archiveSelected(data)
+      })
+    }
+    setToolbarActions(res)
+  }, [isUmpire])
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
@@ -70,12 +104,11 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     })
     setRows(dataTable)
 
-    const columnData = toColumn(myMessages)
-
-    if (columns.length === 0) {
+    if (!columns.length || !filter) {
+      const columnData = toColumn(myMessages)
       setColumns(columnData)
     }
-  }, [myMessages, turnFilter])
+  }, [turnFilter, filter, myMessages])
 
   const editorValue = (val: { [property: string]: any }): void => {
     messageValue.current = val
@@ -87,10 +120,15 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
-    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value._id === rowData.id)
+    const message: MessagePlanning | undefined = messages.find((value: MessagePlanning) => value.message.Reference === rowData.rawRef)
     if (!message) {
-      console.error('message not found, id:', rowData.id, 'messages:', messages)
+      console.error('planning message not found, id:', rowData.reference, 'messages:', messages)
     } else {
+      // sort out if editable
+      const myMessageInPlanning = message.details.from.roleId === playerRoleId && phase === Phase.Planning
+      const adjInAdjuPhase = isUmpire && phase === Phase.Adjudication
+      const canEdit = myMessageInPlanning || adjInAdjuPhase
+
       // check if message is being edited
       const localTemplates = allTemplates || []
       const template = localTemplates.find((value: TemplateBody) => value.title === message.details.messageType)
@@ -98,8 +136,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         console.warn('template not found for', message.details.messageType, 'templates:', allTemplates)
       }
       if (message && template) {
-        const pendingLocationData: Array<PlannedActivityGeometry[]> = []
-
         const saveMessage = () => {
           if (messageValue.current) {
             const details: MessageDetails = {
@@ -108,13 +144,21 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
                 force: selectedForce.name,
                 forceColor: selectedForce.color,
                 roleName: selectedRoleName,
-                forceId: playerForceId,
+                forceId: selectedForce.uniqid,
                 roleId: playerRoleId,
                 iconURL: selectedForce.iconURL || selectedForce.icon || ''
               },
               messageType: message.details.messageType,
               timestamp: new Date().toISOString(),
               turnNumber: currentTurn
+            }
+
+            // special: if this is an edit from adju in adju phase, insert special note
+            if (adjInAdjuPhase) {
+              let privMsg = message.details.privateMessage || ''
+              const roleName = selectedForce.roles.find((role) => role.roleId === playerRoleId)
+              privMsg += '[Edited by ' + ((roleName && roleName.name) || playerRoleId) + ' ' + moment.utc().toISOString() + ']'
+              details.privateMessage = privMsg
             }
 
             if (messageValue.current.content === '') return
@@ -134,8 +178,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             messageValue.current = ''
           }
         }
-
-        const canEdit = message.details.from.roleId === playerRoleId
 
         const localEditLocation = (): void => {
           if (message.message.location) {
@@ -159,7 +201,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           return <></>
         }
         const editorRightValue = message.message ? message.message : undefined
-
         return <>
 
           <DetailPanelStateListener />
@@ -190,46 +231,84 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }
 
+  /*eslint-disable */
+  const archiveConfirmed = (): void => {
+    console.log('confirmed. Pending:', pendingArchive)
+    if (pendingArchive) {
+      const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
+      if (actualMessages.length !== pendingArchive.length) {
+        console.warn('failed to find actual version of some messages', rows, actualMessages)
+      }
+      const foundMessaes = actualMessages.filter((msg) => msg !== undefined) as MessagePlanning[]
+      const markArchived = foundMessaes.map((msg, index): MessagePlanning => {
+        msg.details.archived = true
+
+        const archivedMessage = {
+          ...msg,
+          _id: new Date().toISOString() + index,
+          _rev: undefined
+        }
+
+        return archivedMessage
+      })
+      console.log('Archiving:', markArchived)
+      postBackArchive && postBackArchive(markArchived)
+      setPendingArchive([])
+    }
+  }
+
+  const archiveCancelled = () => setPendingArchive([])
+  /* eslint-enable */
+
+  const archiveSelected = (data: OrderRow | OrderRow[]): void => {
+    const rows: OrderRow[] = Array.isArray(data) ? data : [data]
+    console.log('Request to archive', rows)
+    setPendingArchive(rows)
+  }
+
   const onSelectionChange = (rows: OrderRow[]): void => {
     const indices = rows.map((row: OrderRow): string => row.id)
     setSelectedOrders(indices)
   }
 
+  const TableData = useMemo(() => {
+    return <MaterialTable
+      title={'Orders'}
+      columns={columns}
+      data={rows}
+      icons={materialIcons as any}
+      actions={toolbarActions}
+      options={{
+        search: true,
+        paging: true,
+        pageSize: 20,
+        pageSizeOptions: [20, 50, 100],
+        filtering: filter,
+        selection: true,
+        rowStyle: { fontSize: '80%' }
+      }}
+      onSelectionChange={onSelectionChange}
+      detailPanel={detailPanel}
+    />
+  }, [rows, filter, toolbarActions, onlyShowMyOrders])
+
   return (
     <div className={styles['messages-list']} style={{ zIndex: 9 }}>
-      <MaterialTable
-        title={'Orders'}
-        columns={columns}
-        data={rows}
-        icons={materialIcons as any}
-        actions={[
-          {
-            icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} className={cx({ [styles.selected]: filter })} />,
-            iconProps: filter ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Show filter controls',
-            isFreeAction: true,
-            onClick: (): void => setFilter(!filter)
-          },
-          {
-            icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={faUser} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
-            iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-            tooltip: 'Only show orders created by me',
-            isFreeAction: true,
-            onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
-          }
-        ]}
-        options={{
-          search: true,
-          paging: true,
-          pageSize: 20,
-          pageSizeOptions: [5, 10, 15, 20, 50],
-          filtering: filter,
-          selection: true,
-          rowStyle: { fontSize: '80%' }
-        }}
-        onSelectionChange={onSelectionChange}
-        detailPanel={detailPanel}
-      />
+      {pendingArchive.length > 0 &&
+        <CustomDialog
+          isOpen={pendingArchive.length > 0}
+          header={'Archive orders'}
+          cancelBtnText={'Cancel'}
+          saveBtnText={'Archive'}
+          /* deepscan-disable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+          onClose={archiveCancelled}
+          onSave={archiveConfirmed}
+          /* deepscan-enable REACT_INEFFICIENT_PURE_COMPONENT_PROP */
+        >
+          <>Are you sure you wish to archive {pendingArchive.length} sets of orders?</>
+        </CustomDialog>
+      }
+      {TableData}
     </div>
   )
 }

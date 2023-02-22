@@ -3,9 +3,8 @@ import moment from 'moment-timezone'
 /** function to create a date in UTC timezone
  */
 const formatDate = (timestamp: string, format: string): string => {
-  const m = moment(timestamp)
-  const t = m.tz('UTC')
-  return t.format(format)
+  const m = moment.utc(timestamp)
+  return m.format(format)
 }
 
 /** format date as 'HH:mm' */

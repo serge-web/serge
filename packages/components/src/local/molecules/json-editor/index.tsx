@@ -1,5 +1,5 @@
 import { Editor, PlannedActivityGeometry, TemplateBody } from '@serge/custom-types'
-import { configDateTimeLocal, deepCopy, usePrevious } from '@serge/helpers'
+import { deepCopy, usePrevious } from '@serge/helpers'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import moment from 'moment'
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
@@ -7,6 +7,8 @@ import { Button } from '../../atoms/button'
 import { Confirm } from '../../atoms/confirm'
 import setupEditor from './helpers/setupEditor'
 import Props from './types/props'
+
+const alwaysShowEditorErrors = 'always'
 
 // keydown listener should works only for defined tags
 const keydowListenFor: string[] = ['TEXTAREA', 'INPUT']
@@ -24,6 +26,7 @@ export const JsonEditor: React.FC<Props> = ({
   expandHeight = true,
   gameDate,
   disableArrayToolsWithEditor = true,
+  clearForm,
   saveMessage,
   modifyForSave,
   confirmCancel = false,
@@ -50,6 +53,8 @@ export const JsonEditor: React.FC<Props> = ({
   const destroyEditor = (editorObject: Editor | null): void => {
     if (editorObject && (editorObject.ready || !editorObject.destroyed)) { editorObject.destroy() }
   }
+
+  console.log('Note: JSON Editor not pre-configuring game date. Do it via customiseTemplate helper', gameDate)
 
   const fixDate = (value: { [property: string]: any }): { [property: string]: any } => {
     const cleanDate = (date: string): string => {
@@ -123,14 +128,14 @@ export const JsonEditor: React.FC<Props> = ({
       : { disableArrayReOrder: false, disableArrayAdd: false, disableArrayDelete: false }
 
     // initialise date editors
-    const modSchema = configDateTimeLocal(template.details, gameDate)
+    const modSchema = template.details // configDateTimeLocal(template.details, gameDate)
 
     // apply any other template modifications
     const customizedSchema = customiseTemplate ? customiseTemplate(messageContent, modSchema) : modSchema
 
     // if a title was supplied, replace the title in the schema
     const schemaWithTitle = title ? { ...customizedSchema, title: title } : customizedSchema
-    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded)
+    const nextEditor = setupEditor(editor, schemaWithTitle, jsonEditorRef, jsonEditorConfig, localEditCallback, onEditorLoaded, alwaysShowEditorErrors)
 
     const changeListenter = (): void => {
       if (nextEditor) {
@@ -206,6 +211,14 @@ export const JsonEditor: React.FC<Props> = ({
   }
 
   useEffect(() => {
+    if (template.details && editor) {
+      return initEditor()
+    }
+
+    return (): void => destroyEditor(editor)
+  }, [template.details, clearForm])
+
+  useEffect(() => {
     if (editor) {
       setTimeout(() => {
         try {
@@ -253,7 +266,6 @@ export const JsonEditor: React.FC<Props> = ({
   }, [template.details, messageId, messageContent, prevTemplates, beingEdited, editor])
 
   useLayoutEffect(() => {
-    console.log('destoy', editor)
     if (editor) editor.destroy()
   }, [disableArrayToolsWithEditor && disabled])
 

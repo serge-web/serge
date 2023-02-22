@@ -1,4 +1,4 @@
-import { Forces, Message, PlayerLogEntries, TurnPeriod, Wargame } from '@serge/custom-types'
+import { Message, Forces, Wargame, PlayerLogEntries, TurnPeriod, MessagePlanning } from '@serge/custom-types'
 import DbProvider from '.'
 
 export interface DbProviderInterface {
@@ -11,7 +11,7 @@ export interface DbProviderInterface {
   getTurnPeriods: () => Promise<TurnPeriod[]>
   lastCounter: (roleId: string, id: string) => Promise<number>
   getPlayerLogs: (wargames: string, query: string) => Promise<PlayerLogEntries>
-  putPlayerLogs: (docs: PlayerLogEntries) => Promise<{msg: string}> 
+  bulkDocs: (docs: PlayerLogEntries | MessagePlanning[]) => Promise<{msg: string}> 
   replicate: (newDb: { name: string, db: ProviderDbInterface }) => Promise<DbProvider>
   name: string
 }

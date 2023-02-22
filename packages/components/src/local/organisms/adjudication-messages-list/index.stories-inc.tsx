@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 // Import component files
 import { INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE } from '@serge/config'
-import { ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
+import { Asset, ChannelPlanning, CoreMessage, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInfoTypeClipped, MessageInteraction, MessagePlanning, Role } from '@serge/custom-types'
 import { forceColors } from '@serge/helpers'
 import { P9BMock, planningMessages as planningChannelMessages, turnPeriod } from '@serge/mocks'
 import uniqBy from 'lodash/uniqBy'
@@ -18,7 +18,7 @@ const planningChannel = P9BMock.data.channels.channels[0] as ChannelPlanning
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
 const forces = P9BMock.data.forces.forces
 
-console.clear()
+// console.clear()
 
 export default {
   title: 'local/organisms/AdjudicationMessagesList',
@@ -147,6 +147,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     forces={forces}
     periods={turnPeriod}
     platformTypes={platformTypes}
+    currentTurn={1}
     interactionMessages={interactionMessages}
     planningMessages={planningMessages}
     forceColors={forceColors(forces)}
@@ -221,11 +222,27 @@ ZeroInteractions.args = {
   messages: planningMessages as CoreMessage[]
 }
 
-const istarIdsOfInterest = ['Red-5']
+// find an istar asset
+let istarAsset: Asset | undefined
+forces.some((force) => {
+  return force.assets && force.assets.some((asset) => {
+    if (asset.platformTypeId.toLowerCase().includes('istar')) {
+      istarAsset = asset
+      return true
+    } else {
+      return false
+    }
+  })
+})
+const istarEvent = planningMessages.find((msg) => msg.message.activity.includes('ISTAR') && msg.message.ownAssets && msg.message.ownAssets.length > 0)
+if (istarAsset && istarEvent && istarEvent.message.ownAssets) {
+  istarEvent.message.ownAssets.push({ asset: istarAsset.uniqid, number: 4 })
+}
+const eventIdsOfInterest = istarEvent ? [istarEvent.message.Reference] : []
 export const TestIstar = Template.bind({})
 TestIstar.args = {
   playerRoleId: umpireFole.roleId,
-  messages: planningMessages.filter((msg: MessagePlanning) => istarIdsOfInterest.includes(msg.message.Reference)) as CoreMessage[]
+  messages: planningMessages.filter((msg: MessagePlanning) => eventIdsOfInterest.includes(msg.message.Reference))
 }
 
 const interactionIdsOfInterest = ['Red-5', 'Blue-17']
@@ -233,7 +250,7 @@ const istarInterMessages = planningMessages.filter((msg: MessagePlanning) => int
 // get an adjudication
 const openInter2 = JSON.parse(JSON.stringify(interMessages[0])) as MessageInteraction
 if (openInter2.details && openInter2.details.interaction) {
-//  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
+  //  openInter2.details.interaction = { ...openInter2.details.interaction, id: 'm_f-red_9 i-random' }
   istarInterMessages.push(openInter2)
 }
 export const istarInteraction = Template.bind({})
@@ -250,7 +267,41 @@ CyberEvent.args = {
   messages: planningMessages.filter((msg: MessagePlanning) => cyberEvent.includes(msg.message.Reference)) as CoreMessage[]
 }
 
-const idsOfInterest = ['Red-9', 'Blue-24']
+// console.log('get ready')
+// console.table(planningMessages.map((msg) => {
+//   const opp = msg.message.otherAssets
+//   let marker = 'n/a'
+//   if (opp && opp.length) {
+//     marker = opp.map((item): string => {
+//       const asset = findAsset(forces, item.asset)
+// //      const keys = asset.attributes && Object.keys(asset.attributes).join(', ')
+//       if (asset.attributes && asset.attributes.a_Type === 'Airfield') {
+//         return asset.uniqid
+//       } else {
+//         return asset.attributes ? asset.attributes.a_Type as string : '.'
+//       }
+//     }).join(', ')
+//   }
+//   return {
+//     id: msg.message.Reference,
+//     msg: marker
+//   }
+// }))
+
+const idsOfInterest = ['Green-5']
+const greenMission = planningMessages.find((msg) => idsOfInterest.includes(msg.message.Reference))
+if (greenMission) {
+  greenMission.message.activity = 'f-red-Air-Stand Off Strike'
+  // mangle the opp assetsc
+  const blueF = forces[1].assets || []
+  const airfields = blueF.filter((asset) => asset.attributes && asset.attributes.a_Type === 'Airfield')
+  const rndA = airfields.length > 2 && airfields[Math.floor(airfields.length / 2)]
+  const other = greenMission.message.otherAssets
+  if (other && rndA) {
+    other.push({ asset: rndA.uniqid })
+  }
+}
+
 export const TestSubjects = Template.bind({})
 TestSubjects.args = {
   playerRoleId: umpireFole.roleId,

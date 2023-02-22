@@ -29,10 +29,9 @@ import { generateAllTemplates, generateTemplate } from './helpers/generate-p9-te
 import { coreTemplate } from './helpers/p9-core'
 import { otherTemplate } from './helpers/p9-other'
 import Props from './types/props'
+import { interactsWith } from '../../organisms/support-panel/helpers/gen-order-data'
 
 const wrapper: React.FC = (storyFn: any) => <div style={{ height: '600px' }}>{storyFn()}</div>
-
-console.clear()
 
 export default {
   title: 'local/molecules/JsonEditor',
@@ -57,6 +56,20 @@ const storeNewValue = (_value: { [property: string]: any }): void => {
   const data = generateAllTemplates()
   console.log('activities', data.activities)
   console.log('templates', data.templates)
+  const activities = data.activities
+  activities.forEach((force1) => {
+    force1.groupedActivities.forEach((group1) => {
+      group1.activities.forEach((act1) => {
+        activities.forEach((force2) => {
+          force2.groupedActivities.forEach((group2) => {
+            group2.activities.forEach((act2) => {
+              interactsWith(act1, act2, true)
+            })
+          })
+        })
+      })
+    })
+  })
 }
 
 const template = MessageTemplatesMoskByTitle[messageDataCollaborativeEditing[0].details.messageType]
@@ -130,7 +143,9 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
       health: 100,
       c4: 'Operational',
       domain: 'Land',
-      attributes: { word: 'text', number: 123 }
+      attributes: { word: 'text', number: 123 },
+      taskGroup: '',
+      lastUpdated: 'unk'
     }
     return row
   }
@@ -168,8 +183,6 @@ const localCustomise = (_document: MessageStructure | undefined, schema: Record<
   })
   return res
 }
-
-console.log('template', landActivityTemplate, templates, planningMessages[0].details.messageType)
 
 export const PlanningMessage = Template.bind({})
 PlanningMessage.args = {

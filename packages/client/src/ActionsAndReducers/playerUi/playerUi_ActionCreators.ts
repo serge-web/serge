@@ -9,7 +9,7 @@ import { addNotification } from '../Notification/Notification_ActionCreators'
 
 import {
   ChatMessage, Message, MessageChannel,
-  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame, PlatformTypeData, Forces
+  MessageCustom, MessageDetails, MessageDetailsFrom, MessageFeedback, MessageInfoType, MessagePlanning, MessageMap, PlayerUiActionTypes, Role, TemplateBodysByKey, TurnPeriod, Wargame, Forces
 } from '@serge/custom-types'
 
 export const setCurrentWargame = (wargame: Wargame): PlayerUiActionTypes => ({
@@ -198,12 +198,11 @@ export const saveMessage = (dbName: string, details: MessageDetails, message: ob
   }
 }
 
-export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean): Promise<Message> => {
-  // @ts-ignore
-  return wargamesApi.postNewMapForceMessage(dbName, details, message, platformType, wargameInitiated)
+export const saveBulkMessages = (dbName: string, archiveMark: MessagePlanning[]) => {
+  return wargamesApi.PostBulkMessages(dbName, archiveMark)
 }
 
-export const saveMapAnnotationMessage = (dbName: string, details: MessageDetails, message: MessageMap, platformType: PlatformTypeData[], wargameInitiated: boolean): Promise<Message> => {
+export const saveMapMessage = (dbName: string, details: MessageDetails, message: MessageMap): Promise<Message> => {
   // @ts-ignore
   return wargamesApi.postNewMapMessage(dbName, details, message, platformType, wargameInitiated)
 }

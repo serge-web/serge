@@ -1,4 +1,4 @@
-import { TurnFormats } from '@serge/config'
+import { Phase } from '@serge/config'
 import {
   ChannelPlanning, ForceData, MessageDetails, MessagePlanning, MessageStructure, PerForcePlanningActivitySet, PlannedActivityGeometry, Role, TemplateBody
 } from '@serge/custom-types'
@@ -7,6 +7,9 @@ import ForcesInChannelProps from '../../../molecules/forces-in-channel/types/pro
 
 export type OrderRow = {
   id: string
+  // the raw reference value
+  rawRef: string
+  // the combined reference and turn number
   reference: string
   title: string
   role: string
@@ -50,25 +53,22 @@ export default interface PropTypes extends Omit<ForcesInChannelProps, 'icons' | 
   onUnread?: (message: MessagePlanning) => void
 
   /**
-   * force for player
-   */
-  playerForceId: ForceData['uniqid']
-  /**
    * role of current player
    */
   playerRoleId: Role['roleId']
 
-  /** how to render the game turn  */
-  turnPresentation?: TurnFormats
-
   //* save the message
   postBack?: { (details: MessageDetails, message: any): void }
+  postBackArchive?: { (archiveMark: MessagePlanning[]): void }
   confirmCancel?: boolean
   onCancel?: { (event: React.MouseEvent<HTMLButtonElement>): void }
 
-  selectedForce?: ForceData
+  selectedForce: ForceData
   selectedRoleName: string
   currentTurn: number
+
+  /** current game phase */
+  phase: typeof Phase.Planning | typeof Phase.Adjudication
 
   isUmpire: boolean
   /** whether to hide the forces in the channel

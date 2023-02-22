@@ -108,7 +108,7 @@ const couchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
-  app.put('/healthcheck/:dbname', async (req, res) => {
+  app.put('/bulkDocs/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new CouchDB(couchDbURL(databaseName))
     const docs = req.body
@@ -116,9 +116,10 @@ const couchDb = (app, io, pouchOptions) => {
       // nothing to do
       res.send({ msg: 'OK' })
     } else {
-      return db.bulkDocs(req.body).then(async () => {
+      return db.bulkDocs(docs).then(async () => {
         await db.compact()
-        res.send({ msg: 'OK' })
+        io.emit(req.params.dbname, docs)
+        res.send({ msg: 'OK', data: docs })
       }).catch(err => {
         res.send({ msg: 'err', data: err })
       })

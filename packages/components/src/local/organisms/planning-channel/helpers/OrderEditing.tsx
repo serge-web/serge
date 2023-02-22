@@ -1,6 +1,6 @@
 import { faPlaneSlash, faSave } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Area, PlannedActivityGeometry } from '@serge/custom-types'
+import { PlannedActivityGeometry } from '@serge/custom-types'
 import { Feature } from 'geojson'
 import L, { LatLng, Layer, PM, Point } from 'leaflet'
 import 'leaflet-notifications'
@@ -20,8 +20,6 @@ interface OrderEditingProps {
   saved: { (activity: PlannedActivityGeometry[] | undefined): void }
   /** the activity to edit */
   activityBeingEdited: PlannedActivityGeometry[] | undefined
-  // set of standard areas
-  areas?: Area[]
 }
 
 interface GLayerObject {

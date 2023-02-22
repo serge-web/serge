@@ -5,9 +5,13 @@ import { booleanPointInPolygon, buffer } from '@turf/turf'
 import { Feature, Geometry, Polygon } from 'geojson'
 import { shuffle } from 'lodash'
 import moment from 'moment'
+import { DEFAULT_SEARCH_RATE } from '..'
+import { shortDate } from '../../planning-messages-list/helpers/genData'
 import { GeomWithOrders } from '../../support-panel/helpers/gen-order-data'
+import { istarSearchRate } from './getNextInteraction'
 
-const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
+/** check if the point provided is in the polygon provided */
+export const checkInArea = (area: Feature<Polygon>, point: [number, number]): boolean => {
   const otherPt = turf.point([point[1], point[0]])
   return booleanPointInPolygon(otherPt, area)
 }
@@ -58,6 +62,12 @@ export const calculateDetections = (ownFor: ForceData['uniqid'], forces: ForceDa
   const randomised = shuffle(assetsInArea)
   const numToTake = Math.floor(randomised.length * searchProb)
   const observedAssets = randomised.slice(0, numToTake)
+  const twoDP = (val: number) => {
+    return Math.floor(val * 100) / 100
+  }
+  const timePeriod = '[' + shortDate(moment.utc(startD).toISOString()) + ' - ' + shortDate(moment.utc(endD).toISOString()) + ']'
+  console.log('ISTAR detection calc', ' area (km2):', twoDP(areaKM2), ' time:', timePeriod, ' duration (hrs):', twoDP(durationHrs),
+    ' rate:', twoDP(searchRateKm2perHour), ' prob:', twoDP(searchProb), ' in area:', assetsInArea.length, ' detected:', numToTake)
 
   // create the perceptions
   const perceptions = observedAssets.map((item: {force: ForceData, asset: Asset}): PerceptionOutcome => {
@@ -110,11 +120,10 @@ export const insertIstarInteractionOutcomes = (interaction: InteractionDetails, 
   const ownFor = geom.force
 
   // calculate the search rate
-  // NOTE: for now, this is fixed
-  const searchRateKm2perHour = 200000
+  const combinedSearchRate = istarSearchRate(geom.plan.message.ownAssets || [], forces, DEFAULT_SEARCH_RATE)
 
   // run the calculator
-  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, searchRateKm2perHour, 'In interaction area')
+  const inAreaPerceptions = calculateDetections(ownFor, forces, interGeom, tStart, tEnd, combinedSearchRate, 'In interaction area')
 
   const targetPerceptions: PerceptionOutcomes = []
 

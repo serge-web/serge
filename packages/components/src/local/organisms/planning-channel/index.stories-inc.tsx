@@ -8,12 +8,13 @@ import { Story } from '@storybook/react/types-6-0'
 import { cloneDeep, noop, uniqBy } from 'lodash'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import { generateAllTemplates } from '../../molecules/json-editor/helpers/generate-p9-templates'
 import { generateTestData2 } from '../../mapping/helpers/gen-test-mapping-data'
 import PlanningChannel from './index'
 import docs from './README.md'
 import PlanningChannelProps from './types/props'
 
-console.clear()
+// console.clear()
 
 type ScriptDecoratorProps = {
   scripts: string[]
@@ -142,7 +143,9 @@ const Template: Story<PlanningChannelProps> = (args) => {
     messages,
     phase,
     allForces,
-    areas
+    areas,
+    allTemplates,
+    forcePlanningActivities
   } = args
 
   const attributeTypes = wargame.attributeTypes ? wargame.attributeTypes.attributes : []
@@ -195,7 +198,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
   return <PlanningChannel
     channel={planningChannel}
     messages={stateMessages}
-    allTemplates={templates}
+    allTemplates={allTemplates}
     allPeriods={turnPeriod}
     channelId={channels[0].uniqid}
     adjudicationTemplate={adjudicationTemplate}
@@ -219,7 +222,7 @@ const Template: Story<PlanningChannelProps> = (args) => {
     gameDate={P9BMock.data.overview.gameDate}
     currentTurn={P9BMock.gameTurn}
     gameTurnLength={P9BMock.data.overview.gameTurnTime}
-    forcePlanningActivities={activities}
+    forcePlanningActivities={forcePlanningActivities}
     areas={areas}
   />
 }
@@ -274,7 +277,27 @@ export const Default = Template.bind({})
 Default.args = {
   messages: channelMessages,
   selectedRoleId: allRoles[5],
-  phase: Phase.Adjudication
+  phase: Phase.Adjudication,
+  allTemplates: templates,
+  forcePlanningActivities: activities
+}
+
+export const Planning = Template.bind({})
+Planning.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[5],
+  phase: Phase.Planning,
+  allTemplates: templates,
+  forcePlanningActivities: activities
+}
+
+export const Adjudication = Template.bind({})
+Adjudication.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[1],
+  allTemplates: templates,
+  phase: Phase.Adjudication,
+  forcePlanningActivities: activities
 }
 
 export const WithAreas = Template.bind({})
@@ -283,6 +306,18 @@ WithAreas.args = {
   selectedRoleId: allRoles[5],
   phase: Phase.Planning,
   areas: areas
+}
+
+const liveData = generateAllTemplates()
+
+export const LiveTemplates = Template.bind({})
+LiveTemplates.args = {
+  messages: channelMessages,
+  selectedRoleId: allRoles[5],
+  phase: Phase.Planning,
+  areas: areas,
+  allTemplates: liveData.templates,
+  forcePlanningActivities: liveData.activities
 }
 
 const istarEvent = planningMessages.find((msg) => {
@@ -357,9 +392,11 @@ if (firstInter) {
     if (interCopy.details.interaction) {
       interCopy.details.interaction.complete = false
     }
-    tmpMessages.push(interCopy)
-    tmpMessages.push(...relevant)
-    tmpPlans = tmpMessages
+    // drop the message we are mangling
+    const cleanMessages = tmpMessages.filter((msg) => msg._id !== firstInter._id)
+    cleanMessages.push(interCopy)
+    cleanMessages.push(...relevant)
+    tmpPlans = cleanMessages
   }
 }
 

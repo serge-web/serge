@@ -1,9 +1,10 @@
 import { hexToRGBA } from '@serge/helpers'
 import cx from 'classnames'
-import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup } from 'leaflet'
+import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet'
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
+import moment from 'moment'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
@@ -14,19 +15,33 @@ import { SupportPanelContext } from '../support-panel'
 import styles from './styles.module.scss'
 import PropTypes from './types/props'
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, currentAssets, forceColor, setSelectedAssets, interactive }) => {
+/**
+ * organise assets into buckets, by location
+ */
+interface LocationBucket {
+  /**
+   * the location
+   */
+  index: L.LatLng
+  /**
+   *  assets at this location
+   */
+  assets: AssetRow[]
+}
+
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons, hideName }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
-  const { assetsCache } = useContext(SupportPanelContext)
+  const { assetsCache, selectedAssets } = useContext(SupportPanelContext)
   const [rawRangeRings, setRawRangeRings] = useState<React.ReactElement[]>([])
   const [clusteredRangeRings, setClusteredRangeRings] = useState<React.ReactElement[]>([])
 
   const map = useMap()
 
-  const createClusterIcon = () => {
+  const createClusterIcon = (): MarkerClusterGroupOptions => {
     return {
-      iconCreateFunction: function (cluster: MarkerCluster) {
+      iconCreateFunction: function (cluster: MarkerCluster): L.DivIcon {
         const markers = cluster.getAllChildMarkers()
         const size = markers.length / 5 + 40
         const color = styles.circle
@@ -37,7 +52,9 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: true,
       zoomToBoundsOnClick: true,
-      removeOutsideVisibleBounds: true
+      removeOutsideVisibleBounds: true,
+      spiderfyDistanceMultiplier: 4,
+      animate: true
     }
   }
 
@@ -66,31 +83,59 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       }
     }
     const clustered: AssetRow[] = []
-    const raw: AssetRow[] = []
+    let raw: AssetRow[] = []
     assets.forEach((asset) => {
       // check we have position
       if (asset.position) {
-        if (selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
+        if (!clusterIcons || selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
           raw.push(asset)
         } else {
           clustered.push(asset)
         }
       }
     })
+    // special processing. If there aren't too may assets, cluster any that share a location
+    if (raw.length < 2000) {
+      const cluster2 = clusterRawIcons(raw)
+      // pull the clustered ones out of the raw listing
+      raw = raw.filter((item) => !cluster2.includes(item))
+      // and add them to the clustered list
+      clustered.push(...cluster2)
+    }
     setClusteredMarkers(clustered)
     setRawMarkers(raw)
-  }, [assets, selectedAssets, currentAssets])
+  }, [assets, selectedAssets, currentAssets, clusterIcons])
 
-  useEffect(() => {
+  /** utility method to find assets at the same location, and cluster them */
+  const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {
+    const buckets: LocationBucket[] = []
+    // first put them into buckets
+    assets.forEach((asset: AssetRow) => {
+      const pos = asset.position
+      if (pos) {
+        const bucket = buckets.find((bucket) => bucket.index.equals(pos))
+        if (!bucket) {
+          buckets.push({ index: pos, assets: [asset] })
+        } else {
+          bucket.assets.push(asset)
+        }
+      }
+    })
+    const fullBuckets = buckets.filter((bucket) => bucket.assets.length > 1)
+    const toCluster = fullBuckets.map((bucket): AssetRow[] => bucket.assets).flat() as AssetRow[]
+    return toCluster
+  }
+
+  const getRingsFor = (assets: AssetRow[]): React.ReactElement[] => {
     // create a ring for each clustered marker
     const rings: React.ReactElement[] = []
-    clustereredMarkers.forEach((asset: AssetRow) => {
+    assets.forEach((asset: AssetRow) => {
       const attrs = asset.attributes
       // try for the two range attributes
       const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
       // only plot range rings for SAM sites
-      const isSAM = asset.platformType.indexOf('sam') >= 0
-      if (range && isSAM) {
+      // const isSAM = asset.platformType.indexOf('sam') >= 0
+      if (range) {
         const index = range.indexOf(' km')
         const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
         const centre = asset.position ? asset.position : latLng([0, 0])
@@ -100,32 +145,19 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
         }
       }
     })
+    return rings
+  }
+
+  useEffect(() => {
     // show rings for all current assets
-    setClusteredRangeRings(rings)
+    setClusteredRangeRings(getRingsFor(clustereredMarkers))
   }, [clustereredMarkers])
 
   useEffect(() => {
-    const rings: React.ReactElement[] = []
-    rawMarkers.forEach((asset: AssetRow) => {
-      const attrs = asset.attributes
-      // try for the two range attributes
-      const range: string = attrs['MEZ Range'] // just use mez range || attrs.Range
-      // only plot range rings for SAM sites
-      const isSAM = asset.platformType.indexOf('sam') >= 0
-      if (range && isSAM) {
-        const index = range.indexOf(' km')
-        const rangeKm = index > 0 ? parseFloat(range.substring(0, index)) : parseFloat(range)
-        const centre = asset.position ? asset.position : latLng([0, 0])
-        const rad = rangeKm * 1000
-        if (rad > 0) {
-          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor }} />)
-        }
-      }
-    })
-    setRawRangeRings(rings)
+    setRawRangeRings(getRingsFor(rawMarkers))
   }, [rawMarkers])
 
-  const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean): string => {
+  const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean, hideNameVal: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
 
     /** note: we only fill in the background for icons that require shading.  The NATO assets,
@@ -133,11 +165,10 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       */
     const shadeBackground = !imageSrc.startsWith('n_')
     const shadeBackgroundStyle = shadeBackground ? { backgroundColor: bgColor } : {}
-
     return (
       ReactDOMServer.renderToString(<div className={cx({ [styles.iconbase]: true, [styles.selected]: isSelected })} style={shadeBackgroundStyle}>
         {!asset.sidc && <AssetIcon imageSrc={imageSrc} destroyed={isDestroyed} isSelected={isSelected} health={asset.health} />}
-        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} isSelected={isSelected} assetsCache={assetsCache} />}
+        {asset.sidc && <SymbolAssetIcon force={asset.force} sidc={asset.sidc} iconName={asset.name} health={asset.health} isSelected={isSelected} hideName={hideNameVal} assetsCache={assetsCache} />}
       </div>)
     )
   }
@@ -164,12 +195,13 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     } else {
       selectedAssets.push(assetId)
     }
-    setSelectedAssets([...selectedAssets])
+    setSelectedAssets && setSelectedAssets([...selectedAssets])
   }
 
   const getRawMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
+    const isCurrent = currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
     return {
       eventHandlers: {
@@ -183,7 +215,7 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
       position: loc,
       icon: L.divIcon({
         iconSize: [30, 30],
-        html: getAssetIcon(asset, isSelected, !!isDestroyed),
+        html: getAssetIcon(asset, isSelected, !!isDestroyed, isCurrent ? false : !!hideName),
         className: styles['map-icon']
       })
     }
@@ -193,12 +225,15 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
+    const isCurrent = currentAssets.includes(asset.id)
 
     const interactiveIcon = (): void => {
       if (interactive) {
         handleAssetClick(asset.id)
       }
     }
+
+    asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', asset.id, moment().toISOString())
 
     return (
       L.marker(new L.LatLng(loc.lat, loc.lng),
@@ -207,33 +242,45 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, selectedAssets, cu
           interactive: interactive,
           icon: L.divIcon({
             iconSize: [30, 30],
-            html: getAssetIcon(asset, isSelected, !!isDestroyed),
+            html: getAssetIcon(asset, isSelected, !!isDestroyed, isCurrent ? false : !!hideName),
             className: styles['map-icon']
           })
         })
         .addTo(clusterGroup as MarkerClusterGroup)
-        .bindPopup(asset.name)
+        .bindPopup(labelFor(asset))
         .on('click', interactiveIcon)
         .on('mouseover', (ev: LeafletMouseEvent) => ev.target.openPopup())
     )
   }
 
+  const elapsed = (lastUpdate?: string): string => {
+    if (lastUpdate && lastUpdate !== 'unk') {
+      return '\n (' + lastUpdate + ')'
+    } else {
+      return ''
+    }
+  }
+
+  const labelFor = (asset: AssetRow): string => {
+    return asset.name + ', ' + asset.id + elapsed(asset.lastUpdated)
+  }
+
   return <>
     {
       <LayerGroup key={'force-' + label}>
+        {rawRangeRings}
+        {clusteredRangeRings}
         <MarkerCluster markers={clustereredMarkers} />
         {rawMarkers && rawMarkers.map((asset: AssetRow) => {
           const markerOption = getRawMarkerOption(asset)
           return <Marker
             pmIgnore
-            interactive={false}
+            interactive={interactive}
             {...markerOption}
           >
-            <Tooltip>{asset.name}</Tooltip>
+            <Tooltip>{labelFor(asset)}</Tooltip>
           </Marker>
         })}
-        {rawRangeRings}
-        {clusteredRangeRings}
       </LayerGroup >
     }
   </>

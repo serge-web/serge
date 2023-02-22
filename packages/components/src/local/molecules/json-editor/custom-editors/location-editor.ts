@@ -89,7 +89,7 @@ export const initLocationEditor = (editCallback: EditCallback, onLocationEditorL
             if (theAct) {
               name = theAct.name
             } else {
-              console.warn('failed to find activity for', name)
+              console.warn('failed to find activity for 1', name)
             }
           }
           this.textArea.innerHTML += `<li>${name} ${dateStr}</li>` + '\n'

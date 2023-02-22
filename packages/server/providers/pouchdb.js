@@ -24,7 +24,7 @@ const pouchDb = (app, io, pouchOptions) => {
       timeout: false,
       heartbeat: false,
       include_docs: true
-    }).on('change', (result) => io.emit(wargameName, result.doc))
+    }).on('change', (result) => { io.emit(wargameName, result.doc) })
   }
 
   // check listeners queue to add a new listenr
@@ -86,7 +86,7 @@ const pouchDb = (app, io, pouchOptions) => {
     retryUntilWritten(db, putData)
   })
 
-  app.put('/healthcheck/:dbname', async (req, res) => {
+  app.put('/bulkDocs/:dbname', async (req, res) => {
     const databaseName = checkSqliteExists(req.params.dbname)
     const db = new PouchDB(databaseName, pouchOptions)
     const docs = req.body
@@ -94,7 +94,8 @@ const pouchDb = (app, io, pouchOptions) => {
       // nothing to do
       res.send({ msg: 'OK' })
     } else {
-      return db.bulkDocs(req.body).then(async () => {
+      return db.bulkDocs(docs).then(async () => {
+        io.emit(req.params.dbname, docs)
         await db.compact()
         res.send({ msg: 'OK' })
       }).catch(err => {

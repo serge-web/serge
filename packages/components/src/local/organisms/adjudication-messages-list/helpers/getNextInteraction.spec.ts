@@ -1,25 +1,27 @@
-import { PLANNING_MESSAGE } from '@serge/config'
-import { GameTurnLength, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps } from '@serge/custom-types'
+import { ADJUDICATION_OUTCOMES, INFO_MESSAGE_CLIPPED, PLANNING_MESSAGE } from '@serge/config'
+import { Asset, GameTurnLength, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlannedProps, PlanningActivity } from '@serge/custom-types'
 import { deepCopy, findAsset, incrementGameTime, updateGeometryTimings } from '@serge/helpers'
 import { P9BMock, planningMessages, planningMessagesBulk } from '@serge/mocks'
 import { cloneDeep, sum } from 'lodash'
 import moment from 'moment'
 import { generateAllTemplates } from '../../../molecules/json-editor/helpers/generate-p9-templates'
-import { injectTimes, interactsWith, invertMessages, overlapsInTime } from '../../support-panel/helpers/gen-order-data'
-import { CompositeInteractionResults, getNextInteraction2, InteractionResults } from './getNextInteraction'
+import { PlanningContact, invertMessages, injectTimes, overlapsInTime, interactsWith } from '../../support-panel/helpers/gen-order-data'
+import { CompositeInteractionResults, emptyOutcomes, eventOutcomesFor, getEventList, getNextInteraction2, insertSpatialOutcomesFor, InteractionResults, istarSearchRate, TimedIntervention, trimPeriod, TurnTimes } from './getNextInteraction'
 
 const wargame = P9BMock.data
 const forces = wargame.forces.forces
 const activities = P9BMock.data.activities ? P9BMock.data.activities.activities : []
+const overview = P9BMock.data.overview
+const turn = P9BMock.gameTurn
 
 let dummy2: MessageDetails | MessageDetailsFrom | PlannedActivityGeometry | PlannedProps | CompositeInteractionResults | undefined
 
 const messages = planningMessagesBulk
 const planningMessages2 = messages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
-const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
+const shortPlanningMessages = planningMessages.filter((msg) => msg.messageType !== INFO_MESSAGE_CLIPPED && !msg.details.interaction) as MessagePlanning[]
 
-!7 && console.log('dummy', forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2)
+const shortPlans = planningMessages.filter(msg => msg.messageType === PLANNING_MESSAGE) as MessagePlanning[]
 
 const interactionFor = (data: CompositeInteractionResults): MessageInteraction => {
   const selectedForce = P9BMock.data.forces.forces[1]
@@ -49,21 +51,125 @@ const interactionFor = (data: CompositeInteractionResults): MessageInteraction =
   return msg
 }
 
+!7 && console.log('dummy', !!generateAllTemplates, overview, turn, shortPlanningMessages, forces, activities, deepCopy, sum, moment, updateGeometryTimings, findAsset, dummy2, planningMessages2.length, shortPlans, !!interactionFor)
+
+it('calculates search rate', () => {
+  const istarAssets: Asset[] = []
+  forces.some((force) => {
+    if (force.assets) {
+      const istar = force.assets.filter((asset) => asset.platformTypeId.toLowerCase().includes('istar'))
+      if (istar.length) {
+        istarAssets.push(...istar)
+      }
+    }
+  })
+  const list = istarAssets.slice(0, 4)
+  let ctr = 2
+  const items: Array<{ asset: Asset['uniqid'], number: number, missileType?: string }> = list.map((item) => {
+    return {
+      asset: item.uniqid,
+      number: ctr++
+    }
+  })
+  const emptyRate = istarSearchRate([], forces, 1000)
+  expect(emptyRate).toEqual(1000)
+  const rate = istarSearchRate(items, forces, 1000)
+  expect(rate).toEqual(1400) // TODO investigte, it should be 1540
+})
+
+it('generates movement outcomes', () => {
+  const planWithReturn = shortPlanningMessages.find((plan) => {
+    const loc = plan.message.location
+    const act = plan.message.activity
+    const goodies = ['ASW', 'Patrol', 'Refuel', 'Raid']
+    const goodPlan = goodies.some((item) => act.indexOf(item) !== -1)
+    if (goodPlan && loc && loc.length > 0) {
+      const lastLeg = loc[loc.length - 1]
+      return (lastLeg.geometry.geometry.type === 'LineString')
+    } else {
+      return false
+    }
+  })
+  if (planWithReturn) {
+    const cutOffTime = moment().valueOf()
+    const turnEnd = incrementGameTime(overview.gameDate, overview.gameTurnTime)
+    const turnEndVal = moment.utc(turnEnd).valueOf()
+    const turnPeriod: TurnTimes = { start: moment.utc(overview.gameDate).valueOf(), end: turnEndVal }
+    const list: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], [], activities, turnPeriod, turn)
+    expect(list).toBeTruthy()
+    expect(list.length).toBeGreaterThan(0)
+    const firstEvent = list[0]
+    const outcomes = eventOutcomesFor(planWithReturn, emptyOutcomes(), firstEvent.activity, forces, firstEvent.event)
+    expect(outcomes).toBeTruthy()
+    const listWithInteraction = [firstEvent.id]
+    const list2: TimedIntervention[] = getEventList(cutOffTime, [planWithReturn], listWithInteraction, activities, turnPeriod, turn)
+    expect(list2.length).toEqual(0)
+  } else {
+    expect('Failed to find suitable plan to test against').toBeFalsy() // Failed to find suitable plan to test against
+  }
+})
+
+it('handles spatial outcomes', () => {
+  let dca: PlanningActivity | undefined
+  const plan = planningMessages2.find((plan) => plan.message.activity === 'f-green-Land-Land Close Combat')
+  activities.find((force) => {
+    return force.groupedActivities.find((group) => group.activities.find((act) => {
+      if (act.uniqid === 'f-green-Land-Land Close Combat') {
+        dca = act
+        return true
+      } else {
+        return false
+      }
+    }))
+  })
+  expect(dca).toBeTruthy()
+  const outcomes: MessageAdjudicationOutcomes = {
+    messageType: ADJUDICATION_OUTCOMES,
+    healthOutcomes: [],
+    locationOutcomes: [],
+    perceptionOutcomes: [],
+    narrative: '',
+    Reference: plan ? plan.message.Reference : 'bb',
+    important: false
+  }
+  // find a plan using this activity
+  if (plan && dca) {
+    insertSpatialOutcomesFor(plan, outcomes, dca, forces)
+    expect(outcomes.healthOutcomes.length).toBeTruthy()
+    expect(outcomes.perceptionOutcomes.length).toBeTruthy()
+  } else {
+    expect(false).toBeTruthy() // failed to find plan and activity
+  }
+})
+
+it('trims period', () => {
+  const p1: TurnTimes = { start: 100, end: 200 }
+  const p2: TurnTimes = { start: 50, end: 250 }
+  const p3: TurnTimes = { start: 150, end: 180 }
+  const t1 = trimPeriod(p1, p2)
+  expect(t1.start).toEqual(100)
+  expect(t1.end).toEqual(200)
+
+  const t2 = trimPeriod(p1, p3)
+  expect(t2.start).toEqual(150)
+  expect(t2.end).toEqual(180)
+})
+
 it('gets count of', () => {
 //  console.clear()
   const interactions: MessageInteraction[] = []
   const gameStartTimeLocal = P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, true, turn)
   console.log('spec results', results1)
   expect(results1).toBeTruthy()
   expect(Array.isArray(results1)).toBeTruthy()
-  const resArr = results1 as [number, number]
-  expect(resArr[0]).toBeGreaterThan(0)
-  expect(resArr[1]).toBeGreaterThan(0)
+  const resArr = results1 as [TimedIntervention[], PlanningContact[]]
+  expect(resArr[0].length).toBeGreaterThan(0)
+  expect(resArr[1].length).toBeGreaterThan(0)
   // should be more events than interactions
-  expect(resArr[0]).toBeGreaterThan(resArr[1])
+  expect(resArr[0].length).toBeGreaterThan(resArr[1].length)
 })
 
 it('gets interactions (2)', () => {
@@ -72,18 +178,18 @@ it('gets interactions (2)', () => {
   const gameStartTimeLocal = '2022-05-01T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
   expect(results1).toBeTruthy()
   if (results1 !== undefined && !Array.isArray(results1)) {
     const res1Msg = results1 as CompositeInteractionResults
     const newTime = res1Msg.details.startTime
     console.log('new time', gameStartTimeLocal, newTime)
     interactions.push(interactionFor(res1Msg))
-    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
+    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false, turn)
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
     interactions.push(interactionFor(res2Msg))
-    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false)
+    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, newTime, turnEnd, forces, false, turn)
     expect(results3).toBeTruthy()
     const res3Msg = results3 as CompositeInteractionResults
     interactions.push(interactionFor(res3Msg))
@@ -103,19 +209,19 @@ it('avoids existing interactions', () => {
   const gameStartTimeLocal = '2022-11-14T00:00:00.000Z' // P9BMock.data.overview.gameDate
   const turnLen: GameTurnLength = { unit: 'millis', millis: 259200000 }
   const turnEnd = incrementGameTime(gameStartTimeLocal, turnLen)
-  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+  const results1: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
   expect(results1).toBeTruthy()
   if (results1 !== undefined) {
     const res1Msg = results1 as CompositeInteractionResults
     const res1Id = res1Msg.details.id
-    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+    const results2: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
     expect(results2).toBeTruthy()
     const res2Msg = results2 as CompositeInteractionResults
     // we haven't stored interaction, so it should return the same one
     expect(res2Msg.details.id).toEqual(res1Id)
     // now push the interaction and try again
     interactions.push(interactionFor(res1Msg))
-    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false)
+    const results3: InteractionResults = getNextInteraction2(planningMessages2, activities, interactions, 0, 30, gameStartTimeLocal, turnEnd, forces, false, turn)
     expect(results3).toBeTruthy()
     const res3Msg = results3 as CompositeInteractionResults
     // ok, this should not match the original one

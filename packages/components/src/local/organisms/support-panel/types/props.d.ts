@@ -1,4 +1,3 @@
-import { TurnFormats } from '@serge/config'
 import {
   AttributeTypes, ChannelPlanning, ForceData, GameTurnLength, InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessagePlanning,
   PerForcePlanningActivitySet, Phase, PlainInteraction, PlatformTypeData, Role, TemplateBody, TurnPeriods
@@ -12,7 +11,6 @@ import { LocationEditCallbackHandler } from '../../planning-messages-list/types/
 export default interface PropTypes {
   planningMessages: MessagePlanning[]
   interactionMessages: MessageInteraction[]
-  turnPresentation?: TurnFormats
   onRead: (message: MessagePlanning) => void
   onUnread: (message: MessagePlanning) => void
   onReadAll: () => void
@@ -31,6 +29,7 @@ export default interface PropTypes {
   platformTypes: PlatformTypeData[]
   activityTimeChanel: (role: string, message: string) => void
   saveMessage: (currentWargame: string, details: MessageDetails, message: any) => { (): void }
+  postBackArchive?: { (archiveMark: MessagePlanning[]): void }
   saveNewActivityTimeMessage: (role: string, activity: PlainInteraction, dbName: string) => void
   saveCachedNewMessageValue?: (editMessage: any, messageOption: string) => void
   getCachedNewMessagevalue?: (value: string) => string
@@ -46,12 +45,11 @@ export default interface PropTypes {
   currentTurn: number
   gameTurnLength: GameTurnLength
   currentWargame: string
-  selectedAssets: string[]
-  setSelectedAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setSelectedAssets: (assets: string[]) => void
   selectedOrders: string[]
   setSelectedOrders: React.Dispatch<React.SetStateAction<string[]>>
-  setOpForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
-  setOwnForcesForParent: React.Dispatch<React.SetStateAction<AssetRow[]>>
+  setOpForcesForParent: (assetRows: AssetRow[]) => void
+  setOwnForcesForParent: (assetRows: AssetRow[]) => void
   allOwnAssets: AssetRow[]
   allOppAssets: AssetRow[]
   onPanelWidthChange?: (width: number) => void
@@ -97,4 +95,5 @@ export type SupportPanelContextInterface = {
   setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>
+  onSupportPanelLayoutChange: (key: string, value: string) => void
 }

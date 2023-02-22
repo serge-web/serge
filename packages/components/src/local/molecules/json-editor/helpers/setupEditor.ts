@@ -8,7 +8,9 @@ export type EditCallback = (locations: PlannedActivityGeometry[]) => void
 export type OnLocationEditorLoaded = (editorElm: HTMLDivElement) => void
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>, jsonEditorConfig: any, editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded): Editor | null => {
+const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivElement>,
+  jsonEditorConfig: any, editCallback: EditCallback, onLocationEditorLoaded: OnLocationEditorLoaded,
+  showErrorsMode?: string): Editor | null => {
   if (editor !== null) {
     editor.destroy()
     editor = null
@@ -26,6 +28,8 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
   const disableArrayDeleteLastRow = 'disable_array_delete_last_row'
   const promptBeforeDelete = 'prompt_before_delete'
   const removeButtonLabel = 'remove_button_labels'
+  const showErrors = 'show_errors'
+
   if (schema && schema.type && ref.current) {
     if (schema.properties.location) {
       // setTimeout(() => {
@@ -64,6 +68,7 @@ const setupEditor = (editor: Editor | null, schema: any, ref: RefObject<HTMLDivE
       schema: schema,
       theme: 'bootstrap4',
       iconlib: 'fontawesome5',
+      [showErrors]: showErrorsMode,
       [removeButtonLabel]: true,
       [disableCollapse]: true,
       [disableEditJson]: true,

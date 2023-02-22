@@ -1,4 +1,4 @@
-import { ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
+import { Asset, ForceData, HealthOutcome, HealthOutcomes, InteractionDetails, MessageAdjudicationOutcomes } from '@serge/custom-types'
 import moment from 'moment'
 import findAsset from './find-asset'
 
@@ -49,12 +49,17 @@ export const injectRepairs = (interaction: InteractionDetails, payload: MessageA
  *
  */
 export default (interaction: InteractionDetails, payload: MessageAdjudicationOutcomes, allForces: ForceData[]): ForceData[] => {
-  // start off by injecting any repair outcomes
+  // start off by injecting any repair outcomes in the rest of the assets
   const withRepairs = injectRepairs(interaction, payload, allForces)
 
+  // we may apply observations to an asset in multiple lists. Cache the assets we find
+  const assetCache: Record<string, Asset> = {}
+
   withRepairs.healthOutcomes.forEach((health) => {
-    const asset = findAsset(allForces, health.asset)
-    asset.health = health.health
+    const asset = assetCache[health.asset] || findAsset(allForces, health.asset)
+    assetCache[health.asset] = asset
+    // note: next line converts possible string to number
+    asset.health = +health.health
     if (health.c4 && health.c4 !== 'Unchanged') {
       const attrs = asset.attributes
       if (attrs) {
@@ -81,7 +86,9 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
   })
 
   withRepairs.locationOutcomes.forEach((movement) => {
-    const asset = findAsset(allForces, movement.asset)
+    const asset = assetCache[movement.asset] || findAsset(allForces, movement.asset)
+    assetCache[movement.asset] = asset
+
     // double-check we're not using a dummy value
     if (Array.isArray(movement.location)) {
       asset.location = movement.location
@@ -91,7 +98,8 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
   })
 
   withRepairs.perceptionOutcomes.forEach((perception) => {
-    const asset = findAsset(allForces, perception.asset)
+    const asset = assetCache[perception.asset] || findAsset(allForces, perception.asset)
+    assetCache[perception.asset] = asset
     const by = perception.force
 
     // find/generate the perception for this force
@@ -100,6 +108,10 @@ export default (interaction: InteractionDetails, payload: MessageAdjudicationOut
       // not found, create new perception
       res = { by: by }
       asset.perceptions.push(res)
+    }
+    // store the last observed time
+    if (interaction.endTime && interaction.endTime.length > 0) {
+      res.lastUpdate = moment.utc(interaction.endTime).valueOf()
     }
 
     if (perception.perceivedForce) {

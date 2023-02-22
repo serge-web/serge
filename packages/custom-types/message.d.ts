@@ -266,7 +266,7 @@ export interface MessageAdjudicationOutcomes {
    * to InteractionDetails
    */
   otherAssets?: Array<Asset['uniqid']>
-  narrative: string
+  narrative?: string
 }
 
 /** message containing updated game status, could be one of:
@@ -389,6 +389,7 @@ export type MessageChannel = MessageInfoTypeClipped |
   MessageCustom
 
 type Message = MessageCustom |
+  MessagePlanning |
   ChatMessage |
   MessageFeedback |
   MessageInfoTypeClipped |
