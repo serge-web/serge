@@ -144,7 +144,7 @@ const PlanningForces: React.FC<PropTypes> = ({
         const centre = asset.position ? asset.position : latLng([0, 0])
         const rad = rangeKm * 1000
         if (rad > 0) {
-          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor }} />)
+          rings.push(<Circle center={centre} key={asset.id} radius={rad} pathOptions={{ color: forceColor, fillOpacity: 0.1 }} />)
         }
       }
     })
