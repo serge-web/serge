@@ -59,16 +59,21 @@ export const wargamesReducer = (state = initialState, action: WargameActionTypes
 
     case ActionConstant.SET_CURRENT_WARGAME:
       
+      const data = {
+        ...action.payload.data,
+        forces: newState.data.forces
+      }
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
-      newState.data = action.payload.data
+      newState.data = data
       newState.wargameInitiated = action.payload.wargameInitiated || false
-
+      console.log('newState.data', newState.data)
+      
       return newState
       
     case ActionConstant.SET_EXPORT_WARGAME:
-
-      newState.data = action.payload.data
+      
+      console.log('newState.data', newState.data)
       newState.currentWargame = action.payload.name
       newState.wargameTitle = action.payload.wargameTitle
       newState.exportMessagelist = action.payload.exportMessagelist
