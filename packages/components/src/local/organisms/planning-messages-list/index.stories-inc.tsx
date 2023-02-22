@@ -70,7 +70,7 @@ const nonInfoMessages = planningChannelMessages.filter((msg) => msg.messageType 
 const planningMessages = nonInfoMessages.filter((msg) => msg.messageType === PLANNING_MESSAGE) as Array<MessagePlanning>
 const adjudicationTemplate = templates.find((tmp) => tmp._id.includes('djudicat')) || ({} as TemplateBody)
 
-const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: {(newValue: PlannedActivityGeometry[]): void}): void => {
+const editLocation: LocationEditCallbackHandler = (plans: PlannedActivityGeometry[], callback: { (newValue: PlannedActivityGeometry[]): void }): void => {
   console.log('edit location', plans, !!callback)
 }
 
@@ -96,8 +96,8 @@ const Template: Story<MessageListPropTypes> = (args) => {
     localMessages = messages
   } else {
     // put data generation into this `if` side to only generate it if necessary
-    const docs: Array<MessagePlanning | MessageInteraction> = randomOrdersDocs(planningChannel.uniqid, 200, forces, [forces[1].uniqid,
-      forces[2].uniqid], activities, adjudicationTemplate._id, overview.gameDate)
+    const docs: Array<MessagePlanning | MessageInteraction> = randomOrdersDocs(planningChannel.uniqid, 200, forces, [forces[1].uniqid, forces[2].uniqid],
+      activities, adjudicationTemplate._id, overview.gameDate)
     localMessages = docs.filter((msg) => !msg.details.interaction) as MessagePlanning[]
   }
 
@@ -169,6 +169,7 @@ const Template: Story<MessageListPropTypes> = (args) => {
     turnFilter={turnFilter}
     editLocation={editLocation}
     forcePlanningActivities={filledInPerForcePlanningActivities}
+    onSupportPanelLayoutChange={noop}
   />
 }
 

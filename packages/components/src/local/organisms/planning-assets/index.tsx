@@ -10,7 +10,9 @@ import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
+import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { isEqual, uniq } from 'lodash'
+import CustomFilterRow from './helpers/custom-filter-row'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
@@ -22,7 +24,7 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const [showColumnFilters, setFilter] = useState<boolean>(false)
   const [showDead, setShowDead] = useState<boolean>(false)
   const preventScroll = useRef<boolean>(false)
-  const { selectedAssets, assetsCache } = useContext(SupportPanelContext)
+  const { selectedAssets, assetsCache, onSupportPanelLayoutChange } = useContext(SupportPanelContext)
 
   const [visibleRows, setVisibleRows] = useState<AssetRow[]>([])
   const [visibleRowsCache, setVisibleRowsCache] = useState<string[]>([])
@@ -31,11 +33,22 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   const tableRef = useRef<typeof MaterialTable | undefined>(null)
 
   useEffect(() => {
+    const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
+    const isFilterState = getIsFilterState()
+    if (isFilterState[key] && isFilterState[key] !== showColumnFilters) {
+      setTimeout(() => {
+        setFilter(isFilterState[key])
+      })
+    }
+  }, [])
+
+  useEffect(() => {
     // we're getting too many visibleRows updates, plus
     // the content of visible rows will change if
     // set of ids
     const visibleRowIds = visibleRows.map((item) => item.id)
     if (!isEqual(visibleRowIds, visibleRowsCache)) {
+      console.log('update visible rows', visibleRowIds.length)
       // fire the change
       setVisibleRowsCache(visibleRowIds)
       // fire the change
@@ -198,7 +211,19 @@ export const PlanningAssets: React.FC<PropTypes> = ({
           iconProps: showColumnFilters ? { color: 'action' } : { color: 'disabled' },
           tooltip: !showColumnFilters ? 'Show filter controls' : 'Hide filter controls',
           isFreeAction: true,
-          onClick: (): void => setFilter(!showColumnFilters)
+          onClick: (): void => {
+            setFilter(!showColumnFilters)
+            const key = opFor ? TAB_OPP_FOR : TAB_MY_FORCE
+            const isFilterState = getIsFilterState()
+            isFilterState[key] = !showColumnFilters
+            onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
+            // reset filters applied when toggle off filter state
+            if (showColumnFilters) {
+              const filtersApplied = getFilterApplied()
+              delete filtersApplied[key]
+              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
+            }
+          }
         }
       ]}
       icons={materialIcons as any}
@@ -232,7 +257,9 @@ export const PlanningAssets: React.FC<PropTypes> = ({
             <MTableToolbar {...props} />
           </div>
         ),
-        Row: props => <MTableBodyRow id={props.data.id} {...props} />
+        Row: props => <MTableBodyRow id={props.data.id} {...props} />,
+        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
+        //        FilterRow: props =>  <MTableFilterRow {...props} onFilterChanged={onSupportPanelLayoutChange}/>
       }}
     />
   }, [rows, showColumnFilters, columns])
