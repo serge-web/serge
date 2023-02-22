@@ -10,8 +10,9 @@ import styles from './styles.module.scss'
 import PropTypes, { AssetRow } from './types/props'
 import { expiredStorage, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { TAB_MY_FORCE, TAB_OPP_FOR } from '../support-panel/constants'
-import { getIsFilterState } from '../support-panel/helpers/caching-utils'
+import { getFilterApplied, getIsFilterState } from '../support-panel/helpers/caching-utils'
 import { isEqual, uniq } from 'lodash'
+import CustomFilterRow from './helpers/custom-filter-row'
 
 export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
@@ -216,6 +217,12 @@ export const PlanningAssets: React.FC<PropTypes> = ({
             const isFilterState = getIsFilterState()
             isFilterState[key] = !showColumnFilters
             onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
+            // reset filters applied when toggle off filter state
+            if (showColumnFilters) {
+              const filtersApplied = getFilterApplied()
+              delete filtersApplied[key]
+              onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filtersApplied))
+            }
           }
         }
       ]}
@@ -250,8 +257,8 @@ export const PlanningAssets: React.FC<PropTypes> = ({
             <MTableToolbar {...props} />
           </div>
         ),
-        Row: props => <MTableBodyRow id={props.data.id} {...props} /> //,
-        //        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
+        Row: props => <MTableBodyRow id={props.data.id} {...props} />,
+        FilterRow: props => <CustomFilterRow {...props} forces={forces} cacheKey={opFor ? TAB_OPP_FOR : TAB_MY_FORCE} onSupportPanelLayoutChange={onSupportPanelLayoutChange} />
         //        FilterRow: props =>  <MTableFilterRow {...props} onFilterChanged={onSupportPanelLayoutChange}/>
       }}
     />

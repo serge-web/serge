@@ -17,8 +17,8 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
   const [localProps, setLocalProps] = useState<CustomFilterRowProps>(props)
 
   useEffect(() => {
-    const filters: FilterObject | undefined = getFilterApplied()
-    if (filters && filters[props.cacheKey]) {
+    const filters: FilterObject = getFilterApplied()
+    if (filters[props.cacheKey]) {
       filters[props.cacheKey].forEach(f => {
         props.columns.some(col => {
           if ((col as any).tableData.id === f.id && f.filterValue.length) {
@@ -35,7 +35,7 @@ const CustomFilterRow: React.FC<CustomFilterRowProps> = (props): React.ReactElem
     props.onFilterChanged(columnId, filter)
 
     const filterApplied = localProps.columns.map(col => ({ id: (col as any).tableData.id, filterValue: (col as any).tableData.filterValue || [] }))
-    const filters: FilterObject = getFilterApplied() || {}
+    const filters: FilterObject = getFilterApplied()
     if (props.onSupportPanelLayoutChange) {
       filters[props.cacheKey] = filterApplied
       props.onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.FILTER_APPLIED, JSON.stringify(filters))
