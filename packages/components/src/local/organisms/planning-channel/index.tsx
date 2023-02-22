@@ -9,7 +9,7 @@ import L, { circleMarker, LatLngBounds, latLngBounds, LatLngExpression, Layer, P
 import _, { noop } from 'lodash'
 import React, { Fragment, useEffect, useMemo, useState, useRef } from 'react'
 
-import { faHistory, faObjectUngroup, faShapes, faTag } from '@fortawesome/free-solid-svg-icons'
+import { faHistory, faObjectUngroup, faShapes, faTag, faCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
@@ -84,7 +84,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
-  const [zoom] = useState<number>(7)
+  const [zoom, setZoom] = useState<number>(7)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
   const [myAreas, setMyAreas] = useState<Array<AreaCategory>>([])
@@ -136,9 +136,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   const [activityBeingEdited, setActivityBeingEdited] = useState<PlannedActivityGeometry[] | undefined>(undefined)
   const [activityBeingEditedCallback, setActivityBeingEditedCallback] = useState<PlannedActivityGeometryCallback | undefined>(undefined)
 
-  const [hideIconName, setHideIconName] = useState<boolean>(true)
+  const [showIconName, setShowIconName] = useState<boolean>(false)
   const [showStandardAreas, setShowStandardAreas] = useState<boolean>(false)
   const [clusterIcons, setClusterIcons] = useState<boolean>(true)
+  const [showMezRings, setShowMezRings] = useState<boolean>(false)
 
   const [forceColors, setForceColors] = useState<Array<ForceStyle>>([])
 
@@ -762,8 +763,8 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
               {perForceAssets.map((force) => {
-                return <PlanningForces clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
-                  assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={hideIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
+                return <PlanningForces showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                  assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
               })
               }
               {/* <RangeRingPlotter title={'Own range rings'} assets={filterApplied ? ownAssetsFiltered : allOwnAssets} forceCols={forceColors} /> */}
@@ -776,7 +777,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, hideIconName])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',
@@ -874,8 +875,13 @@ export const PlanningChannel: React.FC<PropTypes> = ({
                             </div>
                           }
                           <div className={cx('leaflet-control')}>
-                            <Item title='Hide asset names' contentTheme={hideIconName ? 'light' : 'dark'}
-                              onClick={() => setHideIconName(!hideIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
+                            <Item title={showMezRings ? 'Hide MEZ rings' : 'Show MEZ Rings'} contentTheme={showMezRings ? 'light' : 'dark'}
+                              onClick={() => setShowMezRings(!showMezRings)}><FontAwesomeIcon size={'lg'} icon={faCircle} /></Item>
+                          </div>
+
+                          <div className={cx('leaflet-control')}>
+                            <Item title={showIconName ? 'Hide asset names' : 'Show asset names'} contentTheme={showIconName ? 'light' : 'dark'}
+                              onClick={() => setShowIconName(!showIconName)}><FontAwesomeIcon size={'lg'} icon={faTag} /></Item>
                           </div>
                           {
                             <div className={cx('leaflet-control')}>

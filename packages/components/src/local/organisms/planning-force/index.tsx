@@ -29,7 +29,8 @@ interface LocationBucket {
   assets: AssetRow[]
 }
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, forceColor, setSelectedAssets, interactive, clusterIcons, hideName }) => {
+const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, forceColor, setSelectedAssets, 
+  interactive, clusterIcons, hideName, showMezRings }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
@@ -150,12 +151,12 @@ const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, for
 
   useEffect(() => {
     // show rings for all current assets
-    setClusteredRangeRings(getRingsFor(clustereredMarkers))
-  }, [clustereredMarkers])
+    setClusteredRangeRings(showMezRings ? getRingsFor(clustereredMarkers) : [])
+  }, [clustereredMarkers, showMezRings])
 
   useEffect(() => {
-    setRawRangeRings(getRingsFor(rawMarkers))
-  }, [rawMarkers])
+    setRawRangeRings(showMezRings ? getRingsFor(rawMarkers) : [])
+  }, [rawMarkers, showMezRings])
 
   const getAssetIcon = (asset: AssetRow, isSelected: boolean, isDestroyed: boolean, hideNameVal: boolean): string => {
     const [imageSrc, bgColor] = asset.icon.split(',')
