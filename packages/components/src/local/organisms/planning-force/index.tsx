@@ -29,8 +29,10 @@ interface LocationBucket {
   assets: AssetRow[]
 }
 
-const PlanningForces: React.FC<PropTypes> = ({ label, assets, currentAssets, forceColor, setSelectedAssets, 
-  interactive, clusterIcons, hideName, showMezRings }) => {
+const PlanningForces: React.FC<PropTypes> = ({
+  label, assets, currentAssets, forceColor, setSelectedAssets,
+  interactive, clusterIcons, hideName, showMezRings
+}) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
   const [rawMarkers, setRawMarkers] = useState<AssetRow[]>([])
