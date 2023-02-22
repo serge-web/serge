@@ -92,7 +92,7 @@ export type PanelActionTabsProps = {
 export type SupportPanelContextInterface = {
   selectedAssets: string[]
   assetsCache: LRUCache<string, string>
-  setCurrentAssets: React.Dispatch<React.SetStateAction<string[]>>
+  setCurrentAssets: React.Dispatch<React.SetStateAction<string[] | undefined>>
   setCurrentOrders: React.Dispatch<React.SetStateAction<string[]>>
   setCurrentInteraction: React.Dispatch<React.SetStateAction<string | undefined>>
   onSupportPanelLayoutChange: (key: string, value: string) => void

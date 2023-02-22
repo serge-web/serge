@@ -91,7 +91,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       assets.forEach((asset) => {
         // check we have position
         if (asset.position) {
-          if (!clusterIcons || selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
+          if (!clusterIcons || selectedAssets.includes(asset.id) || (currentAssets && currentAssets.includes(asset.id))) {
             raw.push(asset)
           } else {
             clustered.push(asset)
@@ -209,7 +209,7 @@ const PlanningForces: React.FC<PropTypes> = ({
   const getRawMarkerOption = (asset: AssetRow) => {
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
-    const isCurrent = currentAssets.includes(asset.id)
+    const isCurrent = currentAssets && currentAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
     return {
       eventHandlers: {
@@ -233,7 +233,7 @@ const PlanningForces: React.FC<PropTypes> = ({
     const loc: LatLng = asset.position ? asset.position : latLng([0, 0])
     const isSelected = selectedAssets.includes(asset.id)
     const isDestroyed = asset.health && asset.health === 0
-    const isCurrent = currentAssets.includes(asset.id)
+    const isCurrent = currentAssets && currentAssets.includes(asset.id)
 
     const interactiveIcon = (): void => {
       if (interactive) {

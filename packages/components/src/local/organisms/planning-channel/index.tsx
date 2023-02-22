@@ -127,8 +127,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   // the currently active assets and orders. i.e. if an order or adjudication is expanded,
   // show the child elements, regardless of what is selected
-  const [currentAssetIds, setCurrentAssetIds] = useState<string[]>([])
-  const [currentAssets, setCurrentAssets] = useState<AssetRow[]>([])
+  // NOTE: for current assets there is a separate meaning of a zero length list of current assets,
+  // and undefined list that indicates there we shouldn't focus on a specific set of assets
+  const [currentAssetIds, setCurrentAssetIds] = useState<string[] | undefined>(undefined)
+
   const [currentOrders, setCurrentOrders] = useState<string[]>([])
 
   const [mapWidth, setMapWidth] = useState<string>('calc(100% - 330px)')
@@ -344,8 +346,10 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       })
     }
-    if (currentAssets.length) {
-      // just group by force
+    if (currentAssetIds !== undefined) {
+      const currentOwn = allOwnAssets.filter((row) => currentAssetIds && currentAssetIds.includes(row.id))
+      const currentOpp = allOppAssets.filter((row) => currentAssetIds && currentAssetIds.includes(row.id))
+      const currentAssets = currentOwn.concat(currentOpp)
       doRows(currentAssets)
     } else {
       if (filterApplied) {
@@ -361,15 +365,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   useEffect(() => {
     buildForceAsssets()
-  }, [currentAssets, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied, selectedAssets])
-
-  /** we get current asset IDs, but having the rows would be more useful */
-  useEffect(() => {
-    const currentOwn = allOwnAssets.filter((row) => currentAssetIds.includes(row.id))
-    const currentOpp = allOppAssets.filter((row) => currentAssetIds.includes(row.id))
-    const allCurrent = currentOwn.concat(currentOpp)
-    setCurrentAssets(allCurrent)
-  }, [currentAssetIds])
+  }, [currentAssetIds, ownAssetsFiltered, opAssetsFiltered, allOppAssets, allOwnAssets, filterApplied, selectedAssets])
 
   useEffect(() => {
     const isUmpireForce = !!selectedForce.umpire
@@ -383,7 +379,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     if (!showTimeControl) {
       // find bounds of assets & orders
       let workingBounds: L.LatLngBounds | undefined
-      currentAssetIds.forEach((id) => {
+      currentAssetIds && currentAssetIds.forEach((id) => {
         const asset = findAsset(allForces, id)
         if (asset) {
           const loc = asset.location
