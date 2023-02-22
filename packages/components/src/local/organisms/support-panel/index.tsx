@@ -512,6 +512,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
                   onDetailPanelOpen={onDetailPanelOpen}
                   onDetailPanelClose={onDetailPanelClose}
                   editThisMessage={editThisMessage}
+                  onSupportPanelLayoutChange={onSupportPanelLayoutChange}
                 />
                 {localDraftMessage && <NewMessage
                   orderableChannel={true}
