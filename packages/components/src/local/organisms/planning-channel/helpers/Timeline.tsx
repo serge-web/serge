@@ -15,29 +15,24 @@ type TimelineProps = {
   onEachFeature?: (data: Feature, layer: L.Layer) => void
   /** provide a feature to use for point locations */
   pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => Layer
-  setCurrentOrders?: (ids: string[]) => void
   setCurrentInteractions?: (ids: string[]) => void
-  setCurrentAssets?: (ids: string[]) => void
 }
 
 const DATE_FORMAT = 'YY MMM DD HH:MM'
 
-const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer, setCurrentOrders }) => {
+const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer, setCurrentInteractions }) => {
   const map = useMap()
 
   const [timelineControl, setTimelineControl] = useState<TimelineType>()
   const [timelineData, setTimelineData] = useState<TimelineData>()
 
   const updated = (e: any): void => {
-  //      console.log('time 1', e.getLayers().length && e.getLayers()[0])
     const layers = e.getLayers()
     const currentOrders = layers.map((layer: any) => {
       const props = layer.feature.properties || {} as ReplayAnnotations
       return props.id
     })
-    setCurrentOrders && setCurrentOrders(currentOrders)
-    // const data = (timelineControl as any).getLayers()
-    // console.log(data.length)
+    setCurrentInteractions && setCurrentInteractions(currentOrders)
   }
 
   useEffect(() => {
