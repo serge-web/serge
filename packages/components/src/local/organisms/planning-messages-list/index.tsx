@@ -36,7 +36,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const [visibleRows, setVisibleRows] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
-  
+
   const [pendingMessages, setPendingMessages] = useState<MessagePlanning[]>([])
   const [updateMessages, setUpdateMessages] = useState<boolean>(false)
 
@@ -57,7 +57,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       setUpdateMessages(false)
       const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
       const showOrdersForAllRoles = !onlyShowMyOrders
-      const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)      
+      const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
       setMyMessages(myRoleMessages)
       setPendingMessages([])
     }
