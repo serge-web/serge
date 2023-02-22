@@ -9,7 +9,7 @@ import { Column } from '@material-table/core'
 import { noop } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useState, useRef } from 'react'
+import React, { createContext, useContext, useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -92,6 +92,9 @@ export const SupportPanel: React.FC<PropTypes> = ({
   const [activitiesForThisForce, setActivitiesForThisForce] = useState<PerForcePlanningActivitySet | undefined>(undefined)
   const [pendingLocationData, setPendingLocationData] = useState<PlannedActivityGeometry[]>([])
   const { setCurrentOrders, setCurrentAssets, setCurrentInteraction, onSupportPanelLayoutChange } = useContext(SupportPanelContext)
+
+  const [pendingDetailOpen, setPendingDetailOpen] = useState<undefined | OrderRow | AdjudicationRow>(undefined)
+  const [pendingDetailClose, setPendingDetailClose] = useState<boolean>(false)
 
   const onTabChange = (tab: string): void => {
     setShowPanel(activeTab !== tab || !isShowPanel)
@@ -332,49 +335,64 @@ export const SupportPanel: React.FC<PropTypes> = ({
     return res
   }
 
-  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
-    // if this is an orders item, or an adjudication, mark the relevant data
-    // as 'current
-    switch (activeTab) {
-      case TAB_MY_ORDERS: {
-        const order = rowData as OrderRow
-        const plan = planningMessages.find((msg) => msg._id === order.id)
-        if (plan) {
-          const mine = plan.message.ownAssets || []
-          const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
-          const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
-          const allIds = myIds.concat(others)
-          setCurrentAssets(allIds)
-          setCurrentOrders([plan._id])
+  useEffect(() => {
+    if (pendingDetailOpen) {
+      const rowData = pendingDetailOpen
+      setPendingDetailOpen(undefined)
+      switch (activeTab) {
+        case TAB_MY_ORDERS: {
+          const order = rowData as OrderRow
+          const plan = planningMessages.find((msg) => msg._id === order.id)
+          if (plan) {
+            const mine = plan.message.ownAssets || []
+            const myIds = mine.map((val: { asset: string, number: number }): string => val.asset)
+            const others = plan.message.otherAssets ? plan.message.otherAssets.map((val: { asset: string }): string => val.asset) : []
+            const allIds = myIds.concat(others)
+            setCurrentAssets(allIds)
+            setCurrentOrders([plan._id])
+          }
+          break
         }
-        break
-      }
-      case TAB_ADJUDICATE: {
-        const adj = rowData as AdjudicationRow
-
-        const doc = interactionMessages.find((doc) => doc._id === adj.id)
-        if (doc) {
-          const inter = doc.details.interaction
-          if (inter) {
-            // get the assets
-            const assets1 = assetsForOrders(inter.orders1)
-            const assets2 = assetsForOrders(inter.orders2)
-            const assets3 = inter.otherAssets || []
-            const allAssets = assets1.concat(assets2).concat(assets3)
-            setCurrentAssets(allAssets)
-            setCurrentInteraction(adj.reference)
+        case TAB_ADJUDICATE: {
+          const adj = rowData as AdjudicationRow
+  
+          const doc = interactionMessages.find((doc) => doc._id === adj.id)
+          if (doc) {
+            const inter = doc.details.interaction
+            if (inter) {
+              // get the assets
+              const assets1 = assetsForOrders(inter.orders1)
+              const assets2 = assetsForOrders(inter.orders2)
+              const assets3 = inter.otherAssets || []
+              const allAssets = assets1.concat(assets2).concat(assets3)
+              setCurrentAssets(allAssets)
+              setCurrentInteraction(adj.reference)
+            }
           }
         }
       }
     }
+  }, [planningMessages, interactionMessages, pendingDetailOpen, activeTab])
+
+  useEffect(() => {
+    if (pendingDetailClose) {
+      setPendingDetailClose(false)
+      setPendingDetailClose(true)
+      setCurrentAssets(undefined)
+      setCurrentOrders([])
+      if (activeTab === TAB_ADJUDICATE) {
+        setCurrentInteraction(undefined)
+      }  
+    }
+  }, [pendingDetailClose, activeTab])
+
+
+  const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
+    // we need the page state to handle this, so push into state
+    setPendingDetailOpen(rowData)
   }
 
   const onDetailPanelClose = () => {
-    setCurrentAssets(undefined)
-    setCurrentOrders([])
-    if (activeTab === TAB_ADJUDICATE) {
-      setCurrentInteraction(undefined)
-    }
   }
 
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
