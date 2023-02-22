@@ -13,7 +13,7 @@ import { faHistory, faObjectUngroup, faShapes, faTag, faCircle } from '@fortawes
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TileLayerDefinition } from '@serge/custom-types/mapping-constraints'
 import { InteractionDetails, MessageAdjudicationOutcomes, MessageDetails, MessageDetailsFrom, MessageInteraction, PlanningMessageStructureCore } from '@serge/custom-types/message'
-import { Feature, FeatureCollection } from 'geojson'
+import { Feature, FeatureCollection, Point } from 'geojson'
 import LRU from 'lru-cache'
 import moment from 'moment-timezone'
 import { LayerGroup, MapContainer } from 'react-leaflet-v4'
@@ -187,6 +187,56 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
+    if (showTimeControl) {
+      const isUmpire = selectedForce.umpire
+      const myOrders = isUmpire ? planningMessages : planningMessages.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
+      const features: Feature[] = []
+      myOrders.forEach((plan) => {
+        if (plan.message.location) {
+          // until we have times in features, we get it from the message
+          const msg = plan.message
+          const startTime = msg.startDate
+          const endTime = msg.endDate
+          // check plan has start & end dates
+          if (startTime && endTime) {
+            const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
+              const point: Feature<Point> = {
+                type: 'Feature',
+                properties: geom.geometry.properties,
+                geometry: {
+                  type: 'Point',
+                  coordinates: [60, 36]
+                }
+              }
+              // create the new props, if they are missing
+              const propsReplay = point.properties as ReplayAnnotations
+              const props = point.properties as PlannedProps
+              if (props.startDate && props.endDate) {
+                propsReplay.start = moment.utc(props.startDate).valueOf()
+                propsReplay.end = moment.utc(props.endDate).valueOf()
+              } else {
+                propsReplay.start = moment.utc(startTime).valueOf()
+                propsReplay.end = moment.utc(endTime).valueOf()
+              }
+              propsReplay.force = plan.details.from.force
+              propsReplay.activity = point.properties && point.properties.uniqid
+              return point
+            })
+            features.push(...steps)
+          }
+        }
+      })
+      const collection: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: features
+      }
+      setTimeControlEvents(collection)
+    } else {
+      setTimeControlEvents(undefined)
+    }
+  }, [showTimeControl, planningMessages, selectedForce])
+
+  useEffect(() => {
     // game date has changed, get updated periods
     onTurnPeriods && onTurnPeriods(currentWargame)(dispatch)
   }, [gameDate])
@@ -343,50 +393,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
     // update map bounds
   }, [currentAssetIds, currentOrders])
-
-  useEffect(() => {
-    if (showTimeControl) {
-      const isUmpire = selectedForce.umpire
-      const myOrders = isUmpire ? planningMessages : planningMessages.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
-      const features: Feature[] = []
-      myOrders.forEach((plan) => {
-        if (plan.message.location) {
-          // until we have times in features, we get it from the message
-          const msg = plan.message
-          const startTime = msg.startDate
-          const endTime = msg.endDate
-          // check plan has start & end dates
-          if (startTime && endTime) {
-            const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
-              // create the new props, if they are missing
-              if (geom.geometry && geom.geometry.properties) {
-                const propsReplay = geom.geometry.properties as ReplayAnnotations
-                const props = geom.geometry.properties as PlannedProps
-                if (props.startDate && props.endDate) {
-                  propsReplay.start = moment.utc(props.startDate).valueOf()
-                  propsReplay.end = moment.utc(props.endDate).valueOf()
-                } else {
-                  propsReplay.start = moment.utc(startTime).valueOf()
-                  propsReplay.end = moment.utc(endTime).valueOf()
-                }
-                propsReplay.force = plan.details.from.force
-                propsReplay.activity = geom.uniqid
-              }
-              return geom.geometry
-            })
-            features.push(...steps)
-          }
-        }
-      })
-      const collection: FeatureCollection = {
-        type: 'FeatureCollection',
-        features: features
-      }
-      setTimeControlEvents(collection)
-    } else {
-      setTimeControlEvents(undefined)
-    }
-  }, [showTimeControl, planningMessages, selectedForce])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
@@ -720,7 +726,6 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 
   const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
     const props = data.properties as ReplayAnnotations
-    console.log('props', data.properties)
     const label = props.force + ' - ' + props.activity
     layer.bindPopup(label)
   }
@@ -767,7 +772,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
     ownAssetsFiltered.current = assetRows
     buildForceAsssets()
   }
-
+  console.log('show time control', showTimeControl)
   const mapChildren = useMemo(() => {
     return (
       <>
@@ -781,7 +786,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
               forceColor={selectedForce.color} orders={planningMessages} selectedOrders={selectedOrders} activities={flattenedPlanningActivities} setSelectedOrders={noop} />
             <LayerGroup pmIgnore={true} key={'sel-own-forces'}>
               {perForceAssets.map((force) => {
-                return <PlanningForces showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
+                return <PlanningForces showData={!showTimeControl} showMezRings={showMezRings} clusterIcons={clusterIcons} label={force.force} key={force.force} interactive={!activityBeingPlanned} opFor={force.force !== selectedForce.name} forceColor={force.color}
                   assets={force.rows} setSelectedAssets={onSetSelectedAssets} hideName={!showIconName} selectedAssets={selectedAssets} currentAssets={currentAssetIds} />
               })
               }
@@ -795,7 +800,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       </>
     )
   }, [selectedAssets, planningMessages, selectedOrders, activityBeingPlanned, activityBeingEdited, playerInPlanning, timeControlEvents,
-    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings])
+    currentAssetIds, currentOrders, perForceAssets, showStandardAreas, myAreas, clusterIcons, showIconName, showMezRings, showTimeControl])
 
   const duffDefinition: TileLayerDefinition = {
     attribution: 'missing',

@@ -31,7 +31,7 @@ interface LocationBucket {
 
 const PlanningForces: React.FC<PropTypes> = ({
   label, assets, currentAssets, forceColor, setSelectedAssets,
-  interactive, clusterIcons, hideName, showMezRings
+  interactive, clusterIcons, hideName, showMezRings, showData
 }) => {
   const [clusterGroup, setClusterGroup] = useState<MarkerClusterGroup | undefined>(undefined)
   const [clustereredMarkers, setClusteredMarkers] = useState<AssetRow[]>([])
@@ -62,52 +62,57 @@ const PlanningForces: React.FC<PropTypes> = ({
   }
 
   useEffect(() => {
-    if (clusterGroup === undefined) {
-      // no cluster group. See if the map already has one for this force
-      let existingCluster: MarkerClusterGroup | undefined
-      map.eachLayer(function (layer) {
-        if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
-          // yes, this is a marker cluster for this force
-          existingCluster = layer as MarkerClusterGroup
+    if (showData) {
+      if (clusterGroup === undefined) {
+        // no cluster group. See if the map already has one for this force
+        let existingCluster: MarkerClusterGroup | undefined
+        map.eachLayer(function (layer) {
+          if ((layer instanceof L.MarkerClusterGroup) && ((layer as any).clusterId === forceColor)) {
+            // yes, this is a marker cluster for this force
+            existingCluster = layer as MarkerClusterGroup
+          }
+        })
+        if (!existingCluster) {
+          // no existing cluster found, generate one
+          existingCluster = L.markerClusterGroup(createClusterIcon())
+          const anyLayer = existingCluster as any
+          // store the force color in the cluster id
+          anyLayer.clusterId = forceColor
+          map.addLayer(existingCluster)
+        }
+        if (existingCluster) {
+          setClusterGroup(existingCluster)
+        } else {
+          console.warn('Failed to find or generate a cluster group')
+        }
+      }
+      const clustered: AssetRow[] = []
+      let raw: AssetRow[] = []
+      assets.forEach((asset) => {
+        // check we have position
+        if (asset.position) {
+          if (!clusterIcons || selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
+            raw.push(asset)
+          } else {
+            clustered.push(asset)
+          }
         }
       })
-      if (!existingCluster) {
-        // no existing cluster found, generate one
-        existingCluster = L.markerClusterGroup(createClusterIcon())
-        const anyLayer = existingCluster as any
-        // store the force color in the cluster id
-        anyLayer.clusterId = forceColor
-        map.addLayer(existingCluster)
+      // special processing. If there aren't too may assets, cluster any that share a location
+      if (raw.length < 2000) {
+        const cluster2 = clusterRawIcons(raw)
+        // pull the clustered ones out of the raw listing
+        raw = raw.filter((item) => !cluster2.includes(item))
+        // and add them to the clustered list
+        clustered.push(...cluster2)
       }
-      if (existingCluster) {
-        setClusterGroup(existingCluster)
-      } else {
-        console.warn('Failed to find or generate a cluster group')
-      }
+      setClusteredMarkers(clustered)
+      setRawMarkers(raw)
+    } else {
+      setClusteredMarkers([])
+      setRawMarkers([])
     }
-    const clustered: AssetRow[] = []
-    let raw: AssetRow[] = []
-    assets.forEach((asset) => {
-      // check we have position
-      if (asset.position) {
-        if (!clusterIcons || selectedAssets.includes(asset.id) || currentAssets.includes(asset.id)) {
-          raw.push(asset)
-        } else {
-          clustered.push(asset)
-        }
-      }
-    })
-    // special processing. If there aren't too may assets, cluster any that share a location
-    if (raw.length < 2000) {
-      const cluster2 = clusterRawIcons(raw)
-      // pull the clustered ones out of the raw listing
-      raw = raw.filter((item) => !cluster2.includes(item))
-      // and add them to the clustered list
-      clustered.push(...cluster2)
-    }
-    setClusteredMarkers(clustered)
-    setRawMarkers(raw)
-  }, [assets, selectedAssets, currentAssets, clusterIcons])
+  }, [assets, selectedAssets, currentAssets, clusterIcons, showData])
 
   /** utility method to find assets at the same location, and cluster them */
   const clusterRawIcons = (assets: AssetRow[]): AssetRow[] => {

@@ -24,6 +24,14 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
   const [timelineControl, setTimelineControl] = useState<TimelineType>()
   const [timelineData, setTimelineData] = useState<TimelineData>()
 
+  const updated = (e: any): void => {
+    if (timelineControl) {
+      console.log('timeline', e.getLayers(), timelineControl)
+      // const data = (timelineControl as any).getLayers()
+      // console.log(data.length)
+    }
+  }
+
   useEffect(() => {
     if (!timelineControl) {
       const timelineControl = L.timelineSliderControl({
@@ -40,6 +48,9 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
         pointToLayer: pointToLayer
       })
       setTimelineData(timeline)
+      timeline.on('change', function (e) {
+        updated(e.target)
+      })
     }
   }, [data])
 

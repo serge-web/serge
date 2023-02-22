@@ -22,4 +22,6 @@ export default interface PropTypes {
   hideName?: boolean
   /** whether to paint Mez rings */
   showMezRings: boolean
+  /** whether to show icons data (way of turning off this layer) */
+  showData: boolean
 }
