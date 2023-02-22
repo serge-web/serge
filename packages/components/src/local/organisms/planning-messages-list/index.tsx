@@ -1,6 +1,6 @@
 import { faSearchMinus, faSearchPlus, faTrashAlt, faUser, faUserLock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MaterialTable, { Action, Column } from '@material-table/core'
+import MaterialTable, { Action, Column, MTableBody } from '@material-table/core'
 import { Phase, SUPPORT_PANEL_LAYOUT } from '@serge/config'
 import { MessageDetails, MessagePlanning, PerForcePlanningActivitySet, PlannedActivityGeometry, PlanningMessageStructure, TemplateBody } from '@serge/custom-types'
 import cx from 'classnames'
@@ -33,8 +33,12 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   const messageValue = useRef<any>(null)
   const [pendingArchive, setPendingArchive] = useState<OrderRow[]>([])
   const [toolbarActions, setToolbarActions] = useState<Action<OrderRow>[]>([])
+  const [visibleRows, setVisibleRows] = useState<OrderRow[]>([])
 
   const [pendingLocationData] = useState<Array<PlannedActivityGeometry[]>>([])
+  
+  const [pendingMessages, setPendingMessages] = useState<MessagePlanning[]>([])
+  const [updateMessages, setUpdateMessages] = useState<boolean>(false)
 
   if (selectedForce === undefined) { throw new Error('selectedForce is undefined') }
   !7 && console.log('planning selectedOrders: ', selectedOrders, !!setSelectedOrders, messages.length)
@@ -48,6 +52,19 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }, [])
 
+  console.log('pending', pendingMessages.length, updateMessages)
+
+  useEffect(() => {
+    if (updateMessages && pendingMessages.length) {
+      setUpdateMessages(false)
+      const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
+      const showOrdersForAllRoles = !onlyShowMyOrders
+      const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)      
+      setMyMessages(myRoleMessages)
+      setPendingMessages([])
+    }
+  }, [pendingMessages, updateMessages])
+
   useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
     const showOrdersForAllRoles = !onlyShowMyOrders
@@ -59,22 +76,20 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       // no messages, clear list
       setMyMessages([])
     } else {
-      // Note: we have an issue here.  If the player filters their orders, then we'll have a reduced set of orders
-      // Note: but, the processing below will just inject the newest message.
-      // Note: I "think" we only do this following processing if the new messages is one longer than the previous list, and that
-      // Note: the first message has the reference of an existing message
-      const newMessage = myRoleMessages[0]
-      // see if this is a new version of an existing message
-      const rowAlreadyPresent = rows.find((row) => row.reference === newMessage.message.Reference)
-      if (rowAlreadyPresent && rowAlreadyPresent.id !== newMessage._id) {
-        // ok, it's an update
-        // remove the previous instance of the updated message
-        const otherMessage = rows.filter(findeIndex => !findeIndex.reference.includes(newMessage.message.Reference))
-        const row = toRow(newMessage)
-        // push a new row
-        setRows([...otherMessage, row])
+      // see if any rows are expanded
+      const inEdit = visibleRows.find((row) => {
+        const rowAny = row as any
+        if (rowAny.tableData && rowAny.tableData.showDetailPanel) {
+          return true
+        }
+        return false
+      })
+      if (inEdit) {
+        // a message is expanded. Don't update the UI - store the pending change
+        console.log('Planning Messages List - store pending messages', myRoleMessages.length)
+        setPendingMessages(myRoleMessages)
       } else {
-        // first row isn't an existing one
+        console.log('Planning Messages List - update messages')
         setMyMessages(myRoleMessages)
       }
     }
@@ -133,9 +148,10 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     messageValue.current = val
   }
 
-  // const editDocument = (docId: string): void => {
-  //   editThisMessage && editThisMessage(docId)
-  // }
+  const onLocalDetailPanelClose = (rowData: OrderRow) => {
+    onDetailPanelClose && onDetailPanelClose(rowData)
+    setUpdateMessages(true)
+  }
 
   const detailPanel = ({ rowData }: { rowData: OrderRow }): any => {
     // retrieve the message & template
@@ -195,6 +211,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
             }
             postBack && postBack(details, messageValue.current)
             messageValue.current = ''
+
+            setUpdateMessages(true)
           }
         }
 
@@ -214,7 +232,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           useEffect(() => {
             onDetailPanelOpen && onDetailPanelOpen(rowData)
             return () => {
-              onDetailPanelClose && onDetailPanelClose(rowData)
+              onLocalDetailPanelClose(rowData)
             }
           }, [])
           return <></>
@@ -252,7 +270,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   /*eslint-disable */
   const archiveConfirmed = (): void => {
-    console.log('confirmed. Pending:', pendingArchive)
     if (pendingArchive) {
       const actualMessages = pendingArchive.map((row): MessagePlanning | undefined => messages.find((msg) => msg.message.Reference === row.rawRef))
       if (actualMessages.length !== pendingArchive.length) {
@@ -281,7 +298,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   const archiveSelected = (data: OrderRow | OrderRow[]): void => {
     const rows: OrderRow[] = Array.isArray(data) ? data : [data]
-    console.log('Request to archive', rows)
     setPendingArchive(rows)
   }
 
@@ -309,6 +325,16 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       onSelectionChange={onSelectionChange}
       detailPanel={detailPanel}
       components={{
+        Body: (props): React.ReactElement => {
+          if (props.columns.length) {
+            setTimeout(() => {
+              setVisibleRows(props.data)
+            })
+          }
+          return (<MTableBody
+            {...props}
+          />)
+        },
         FilterRow: props => <CustomFilterRow {...props} forces={[]} onSupportPanelLayoutChange={onSupportPanelLayoutChange} cacheKey={TAB_MY_ORDERS} />
       }}
     />
