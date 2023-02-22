@@ -11,7 +11,7 @@ export default interface PropTypes {
   /** id of selected asset (not clustered, highlighted with pulsing) */
   selectedAssets: string[]
   /** current assets (not clustered) */
-  currentAssets: string[]
+  currentAssets: string[] | undefined
   setSelectedAssets: (assets: string[]) => void
   interactive?: boolean
   /** name of this force */

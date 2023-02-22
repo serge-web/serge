@@ -370,7 +370,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onDetailPanelClose = () => {
-    setCurrentAssets([])
+    setCurrentAssets(undefined)
     setCurrentOrders([])
     if (activeTab === TAB_ADJUDICATE) {
       setCurrentInteraction(undefined)
