@@ -93,7 +93,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
 }) => {
   const [channelTabClass, setChannelTabClass] = useState<string>('')
   const [position, setPosition] = useState<LatLngExpression | undefined>(undefined)
-  const [zoom] = useState<number>((channel && channel.constraints && channel.constraints.minZoom) || 5)
+  const [zoom] = useState<number>((channel.constraints && channel.constraints.minZoom) || 5)
   const [bounds, setBounds] = useState<LatLngBounds | undefined>(undefined)
 
   const [myAreas, setMyAreas] = useState<Array<AreaCategory>>([])
