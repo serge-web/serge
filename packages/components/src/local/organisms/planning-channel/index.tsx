@@ -1,7 +1,7 @@
 import { expiredStorage, INFO_MESSAGE_CLIPPED, INTERACTION_MESSAGE, PLANNING_MESSAGE, PLANNING_PHASE, UNKNOWN_TYPE } from '@serge/config'
 import {
   AreaCategory, Asset, ForceData, GroupedActivitySet, MessageInfoTypeClipped, MessagePlanning, PerForcePlanningActivitySet,
-  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity
+  PlainInteraction, PlannedActivityGeometry, PlannedProps, PlanningActivity, PlanningActivityGeometry
 } from '@serge/custom-types'
 import { clearUnsentMessage, findAsset, forceColors as getForceColors, ForceStyle, getUnsentMessage, platformIcons, saveUnsentMessage } from '@serge/helpers'
 import cx from 'classnames'
@@ -48,6 +48,14 @@ type PerForceAssets = {
   force: ForceData['uniqid']
   color: string
   rows: AssetRow[]
+}
+
+/** the extra labelling we use for timeline replay */
+type ReplayAnnotations = {
+  start: number
+  end: number
+  force: ForceData['name']
+  activity: PlanningActivityGeometry['name']
 }
 
 export const PlanningChannel: React.FC<PropTypes> = ({
@@ -344,18 +352,30 @@ export const PlanningChannel: React.FC<PropTypes> = ({
       myOrders.forEach((plan) => {
         if (plan.message.location) {
           // until we have times in features, we get it from the message
-          const startTime = plan.message.startDate
-          const endTime = plan.message.endDate
-          const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
-            // create the new props, if they are missing
-            if (geom.geometry && geom.geometry.properties) {
-              const props = geom.geometry.properties
-              props.start = moment(startTime).valueOf()
-              props.end = moment(endTime).valueOf()
-            }
-            return geom.geometry
-          })
-          features.push(...steps)
+          const msg = plan.message
+          const startTime = msg.startDate
+          const endTime = msg.endDate
+          // check plan has start & end dates
+          if (startTime && endTime) {
+            const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
+              // create the new props, if they are missing
+              if (geom.geometry && geom.geometry.properties) {
+                const propsReplay = geom.geometry.properties as ReplayAnnotations
+                const props = geom.geometry.properties as PlannedProps
+                if (props.startDate && props.endDate) {
+                  propsReplay.start = moment.utc(props.startDate).valueOf()
+                  propsReplay.end = moment.utc(props.endDate).valueOf()
+                } else {
+                  propsReplay.start = moment.utc(startTime).valueOf()
+                  propsReplay.end = moment.utc(endTime).valueOf()
+                }
+                propsReplay.force = plan.details.from.force
+                propsReplay.activity = geom.uniqid
+              }
+              return geom.geometry
+            })
+            features.push(...steps)
+          }
         }
       })
       const collection: FeatureCollection = {
@@ -699,18 +719,16 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const timelineOnEachFeature = (data: Feature, layer: L.Layer): void => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
-    const forceName = thisForce ? thisForce.name : 'Force not found'
-    const label = forceName + ' - ' + props.id
+    const props = data.properties as ReplayAnnotations
+    console.log('props', data.properties)
+    const label = props.force + ' - ' + props.activity
     layer.bindPopup(label)
   }
 
   const timelineStyle = (data: Feature): PathOptions => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const props = data.properties as ReplayAnnotations
+    const forceName = props.force
+    const thisForce = allForces.find((force) => force.name === forceName)
     const color = thisForce ? thisForce.color : '#ff0'
     return {
       color: color
@@ -718,9 +736,9 @@ export const PlanningChannel: React.FC<PropTypes> = ({
   }
 
   const timelinePointToLayer = (data: Feature<any>, latlng: LatLngExpression): Layer => {
-    const props = data.properties as PlannedProps
-    const forceId = props.force
-    const thisForce = allForces.find((force) => force.uniqid === forceId)
+    const props = data.properties as ReplayAnnotations
+    const forceName = props.force
+    const thisForce = allForces.find((force) => force.name === forceName)
     const thisCol = thisForce ? thisForce.color : '#f00'
     const geojsonMarkerOptions = {
       radius: 10,
