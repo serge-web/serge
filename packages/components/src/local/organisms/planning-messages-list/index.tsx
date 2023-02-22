@@ -68,7 +68,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         const showOrdersForAllRoles = !onlyShowMyOrders
         const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
         setMyMessages(myRoleMessages)
-        setPendingMessages([])  
+        setPendingMessages([])
       }
     }
   }, [pendingMessages, updateMessages, visibleRows])
@@ -94,7 +94,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
         }
         return false
       })
-//      const inEdit = (messageValue.current !== '') && (messageValue.current !== null)
+      //      const inEdit = (messageValue.current !== '') && (messageValue.current !== null)
       console.log('inEdit', inEdit)
       if (inEdit) {
         // a message is expanded. Don't update the UI - store the pending change
