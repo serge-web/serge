@@ -339,7 +339,12 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         }
       }
     })
-    setBounds(workingBounds)
+    // create a bit of a buffer around the bounds
+    if (workingBounds) {
+      setBounds(workingBounds.pad(0.2))
+    } else {
+      setBounds(workingBounds)
+    }
 
     // update map bounds
   }, [currentAssetIds, currentOrders])
