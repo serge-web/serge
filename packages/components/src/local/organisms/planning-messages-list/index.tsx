@@ -54,14 +54,24 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (updateMessages && pendingMessages.length) {
-      setUpdateMessages(false)
-      const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
-      const showOrdersForAllRoles = !onlyShowMyOrders
-      const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
-      setMyMessages(myRoleMessages)
-      setPendingMessages([])
+      // check there are no rows open
+      const inEdit = visibleRows.find((row) => {
+        const rowAny = row as any
+        if (rowAny.tableData && rowAny.tableData.showDetailPanel) {
+          return true
+        }
+        return false
+      })
+      if (!inEdit) {
+        setUpdateMessages(false)
+        const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
+        const showOrdersForAllRoles = !onlyShowMyOrders
+        const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
+        setMyMessages(myRoleMessages)
+        setPendingMessages([])  
+      }
     }
-  }, [pendingMessages, updateMessages])
+  }, [pendingMessages, updateMessages, visibleRows])
 
   useEffect(() => {
     const myForceMessages = messages.filter((message: MessagePlanning) => isUmpire || message.details.from.forceId === selectedForce.uniqid)
@@ -77,15 +87,15 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       setMyMessages([])
     } else {
       // // see if any rows are expanded
-      // const inEdit = visibleRows.find((row) => {
-      //   const rowAny = row as any
-      //   if (rowAny.tableData && rowAny.tableData.showDetailPanel) {
-      //     return true
-      //   }
-      //   return false
-      // })
-      const inEdit = (messageValue.current !== '') && (messageValue.current !== null)
-      console.log('inEdit', inEdit, messageValue.current, visibleRows.length)
+      const inEdit = visibleRows.find((row) => {
+        const rowAny = row as any
+        if (rowAny.tableData && rowAny.tableData.showDetailPanel) {
+          return true
+        }
+        return false
+      })
+//      const inEdit = (messageValue.current !== '') && (messageValue.current !== null)
+      console.log('inEdit', inEdit)
       if (inEdit) {
         // a message is expanded. Don't update the UI - store the pending change
         console.log('PlanningMessageList = update 3 - store pending messages', myRoleMessages.length)
