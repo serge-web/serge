@@ -9,7 +9,7 @@ import { Column } from '@material-table/core'
 import { noop } from 'lodash'
 import LRU from 'lru-cache'
 import moment from 'moment'
-import React, { createContext, useContext, useEffect, useState, useRef, useMemo, useCallback } from 'react'
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react'
 import { Rnd } from 'react-rnd'
 import NewMessage from '../../form-elements/new-message'
 import AdjudicationMessagesList from '../adjudication-messages-list'
@@ -355,7 +355,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
         }
         case TAB_ADJUDICATE: {
           const adj = rowData as AdjudicationRow
-  
+
           const doc = interactionMessages.find((doc) => doc._id === adj.id)
           if (doc) {
             const inter = doc.details.interaction
@@ -377,15 +377,13 @@ export const SupportPanel: React.FC<PropTypes> = ({
   useEffect(() => {
     if (pendingDetailClose) {
       setPendingDetailClose(false)
-      setPendingDetailClose(true)
       setCurrentAssets(undefined)
       setCurrentOrders([])
       if (activeTab === TAB_ADJUDICATE) {
         setCurrentInteraction(undefined)
-      }  
+      }
     }
   }, [pendingDetailClose, activeTab])
-
 
   const onDetailPanelOpen = (rowData: OrderRow | AdjudicationRow) => {
     // we need the page state to handle this, so push into state
@@ -393,6 +391,7 @@ export const SupportPanel: React.FC<PropTypes> = ({
   }
 
   const onDetailPanelClose = () => {
+    setPendingDetailClose(true)
   }
 
   const storeNewLocation = (geoms: PlannedActivityGeometry[]): void => {
