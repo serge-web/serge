@@ -3,6 +3,7 @@ import L, { Layer, PathOptions } from 'leaflet'
 import moment from 'moment-timezone'
 import React, { useEffect, useState } from 'react'
 import { useMap } from 'react-leaflet-v4'
+import { ReplayAnnotations } from '..'
 import { Timeline as TimelineType, TimelineData } from '../typings'
 
 type TimelineProps = {
@@ -14,15 +15,25 @@ type TimelineProps = {
   onEachFeature?: (data: Feature, layer: L.Layer) => void
   /** provide a feature to use for point locations */
   pointToLayer?: (data: Feature, latlng: L.LatLngExpression) => Layer
+  setCurrentInteractions?: (ids: string[]) => void
 }
 
 const DATE_FORMAT = 'YY MMM DD HH:MM'
 
-const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer }) => {
+const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFeature, pointToLayer, setCurrentInteractions }) => {
   const map = useMap()
 
   const [timelineControl, setTimelineControl] = useState<TimelineType>()
   const [timelineData, setTimelineData] = useState<TimelineData>()
+
+  const updated = (e: any): void => {
+    const layers = e.getLayers()
+    const currentOrders = layers.map((layer: any) => {
+      const props = layer.feature.properties || {} as ReplayAnnotations
+      return props.id
+    })
+    setCurrentInteractions && setCurrentInteractions(currentOrders)
+  }
 
   useEffect(() => {
     if (!timelineControl) {
@@ -40,6 +51,9 @@ const Timeline: React.FC<TimelineProps> = ({ showControl, data, style, onEachFea
         pointToLayer: pointToLayer
       })
       setTimelineData(timeline)
+      timeline.on('change', function (e) {
+        updated(e.target)
+      })
     }
   }, [data])
 
