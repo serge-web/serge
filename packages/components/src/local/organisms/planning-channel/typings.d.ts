@@ -80,6 +80,7 @@ class TimelineData extends Control {
   addTo(map: Map): this;
   // remove comes from the parent contrlol
   remove(): void;
+  on(event:string, func: { (e: any): void}): void
 }
 
 class Timeline extends Control {
