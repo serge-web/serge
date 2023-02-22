@@ -85,7 +85,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
       //   return false
       // })
       const inEdit = (messageValue.current !== '') && (messageValue.current !== null)
-      console.log('inEdit', inEdit, messageValue.current)
+      console.log('inEdit', inEdit, messageValue.current, visibleRows.length)
       if (inEdit) {
         // a message is expanded. Don't update the UI - store the pending change
         console.log('PlanningMessageList = update 3 - store pending messages', myRoleMessages.length)
