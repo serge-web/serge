@@ -18,10 +18,11 @@ export const PlanningAssets: React.FC<PropTypes> = ({
   assets, forces, playerForce, opFor, platformStyles,
   onSelectionChange, onVisibleRowsChange, onVisibleColumnsChange
 }: PropTypes) => {
+  const [initialised, setInitialised] = useState<boolean>(false)
   const [rows, setRows] = useState<AssetRow[]>([])
   const [columns, setColumns] = useState<Column<any>[]>([])
 
-  const [showColumnFilters, setFilter] = useState<boolean>(false)
+  const [showColumnFilters, setFilter] = useState<boolean>(true)
   const [showDead, setShowDead] = useState<boolean>(false)
   const preventScroll = useRef<boolean>(false)
   const { selectedAssets, assetsCache, onSupportPanelLayoutChange } = useContext(SupportPanelContext)
@@ -139,7 +140,6 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 
   useEffect(() => {
     if (!columns.length || !showColumnFilters) {
-      console.log('initialising columns')
       const columns = getColumns(opFor, forces, playerForce.uniqid, platformStyles, assetsCache)
       const cachedColumns = expiredStorage.getItem(SUPPORT_PANEL_LAYOUT.VISIBLE_COLUMNS)
       if (cachedColumns) {
@@ -161,10 +161,11 @@ export const PlanningAssets: React.FC<PropTypes> = ({
 
   useEffect(() => {
     const assetsOfInterest = showDead ? assets : assets.filter((asset) => asset.health && asset.health > 0)
-    if (!showColumnFilters) {
+    if (!showColumnFilters || !initialised) {
+      setInitialised(false)
       setRows(assetsOfInterest)
     }
-  }, [assets, showColumnFilters, showDead, selectedAssets])
+  }, [assets, showColumnFilters, showDead, selectedAssets, initialised])
 
   useEffect(() => {
     if (selectedAssets.length) {

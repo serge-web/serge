@@ -1,4 +1,4 @@
-import { faFilter, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faSearchMinus, faSearchPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MaterialTable, { Column } from '@material-table/core'
 import { Box, Chip, Table } from '@material-ui/core'
@@ -26,6 +26,7 @@ import { collateInteraction, InteractionData, updateForces, updatePlatformTypes,
 import { getNextInteraction2, InteractionResults } from './helpers/getNextInteraction'
 import styles from './styles.module.scss'
 import PropTypes, { AdjudicationRow } from './types/props'
+import cx from 'classnames'
 
 type ForceMessages = {
   forceName: string
@@ -769,18 +770,18 @@ export const AdjudicationMessagesList: React.FC<PropTypes> = ({
       icons={materialIcons as any}
       actions={[
         {
-          icon: () => <FontAwesomeIcon title='Show filter controls' icon={faFilter} />,
-          iconProps: filter ? { color: 'action' } : { color: 'disabled' },
-          tooltip: 'Show filter controls',
-          isFreeAction: true,
-          onClick: (): void => setFilter(!filter)
-        },
-        {
           icon: () => <FontAwesomeIcon title='Only show open interactions' icon={faUser} />,
           iconProps: onlyShowOpen ? { color: 'action' } : { color: 'disabled' },
           tooltip: 'Only show open interactions',
           isFreeAction: true,
           onClick: (): void => setOnlyShowOpwn(!onlyShowOpen)
+        },
+        {
+          icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
+          iconProps: filter ? { color: 'error' } : { color: 'action' },
+          tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
+          isFreeAction: true,
+          onClick: (): void => setFilter(!filter)
         }
       ]}
       options={{

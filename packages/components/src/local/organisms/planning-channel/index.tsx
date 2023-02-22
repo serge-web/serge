@@ -422,9 +422,88 @@ export const PlanningChannel: React.FC<PropTypes> = ({
           }
         }
       })
-      setBounds(workingBounds)
+      // create a bit of a buffer around the bounds
+      if (workingBounds) {
+        setBounds(workingBounds.pad(0.2))
+      } else {
+        setBounds(workingBounds)
+      }
     }
+    // update map bounds
   }, [currentAssetIds, currentOrders])
+
+  useEffect(() => {
+    if (showTimeControl) {
+      const isUmpire = selectedForce.umpire
+      const features: Feature[] = []
+      interactionMessages.forEach((iMessage) => {
+        // sort out the orders to show
+        const interaction = iMessage.details.interaction
+        if (interaction) {
+          // TODO: switch to generating block of interactions
+          // TODO: use valid start/end date for interactions,
+          // TODO: start date plus buffer for events
+          const orders = [interaction.orders1]
+          if (interaction.orders2) {
+            orders.push(interaction.orders2)
+          }
+          const populatedOrders = planningMessages.filter((msg) => orders.includes(msg._id))
+          const myOrders = isUmpire ? populatedOrders : populatedOrders.filter((msg) => msg.details.from.forceId === selectedForce.uniqid)
+          if (myOrders.length) {
+            myOrders.forEach((plan) => {
+              if (plan.message.location) {
+                // until we have times in features, we get it from the message
+                const msg = plan.message
+                const startTime = msg.startDate
+                const endTime = msg.endDate
+                // check plan has start & end dates
+                if (startTime && endTime) {
+                  const steps: Feature[] = plan.message.location.map((geom: PlannedActivityGeometry): Feature => {
+                    // note: we aren't generating a feature to plot (or using the feature stored in the location data)
+                    // that's because we already have renderers for orders, interactions, assets.
+                    // so, just generate series of time-stamped points for timeline to manage.
+                    // when timeline updates, it will spit out ids of interactions to display.
+                    const point: Feature<Point> = {
+                      type: 'Feature',
+                      properties: geom.geometry.properties,
+                      geometry: {
+                        type: 'Point',
+                        coordinates: [60, 36]
+                      }
+                    }
+                    // create the new props, if they are missing
+                    if (point.properties) {
+                      const propsReplay = point.properties as ReplayAnnotations
+                      const props = point.properties as PlannedProps
+                      if (props.startDate && props.endDate) {
+                        propsReplay.start = moment.utc(props.startDate).valueOf()
+                        propsReplay.end = moment.utc(props.endDate).valueOf()
+                      } else {
+                        propsReplay.start = moment.utc(startTime).valueOf()
+                        propsReplay.end = moment.utc(endTime).valueOf()
+                      }
+                      propsReplay.force = plan.details.from.force
+                      propsReplay.activity = point.properties.uniqid
+                      propsReplay.id = plan._id
+                    }
+                    return point
+                  })
+                  features.push(...steps)
+                }
+              }
+            })
+          }
+        }
+      })
+      const collection: FeatureCollection = {
+        type: 'FeatureCollection',
+        features: features
+      }
+      setTimeControlEvents(collection)
+    } else {
+      setTimeControlEvents(undefined)
+    }
+  }, [showTimeControl, planningMessages, selectedForce])
 
   useEffect(() => {
     const force = allForces.find((force: ForceData) => force.uniqid === viewAsForce)
