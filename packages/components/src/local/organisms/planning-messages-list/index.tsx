@@ -26,7 +26,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 }: PropTypes) => {
   const [rows, setRows] = useState<OrderRow[]>([])
   const [columns, setColumns] = useState<Column<OrderRow>[]>([])
-  const [filter, setFilter] = useState<boolean>(false)
+  const [filter, setFilter] = useState<boolean>(true)
+  const [initialised, setInitialised] = useState<boolean>(false)
   const [onlyShowMyOrders, setOnlyShowMyOrders] = useState<boolean>(false)
   const [myMessages, setMyMessages] = useState<MessagePlanning[]>([])
   const messageValue = useRef<any>(null)
@@ -82,6 +83,13 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
   useEffect(() => {
     const res: Action<OrderRow>[] = [
       {
+        icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
+        iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
+        tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
+        isFreeAction: true,
+        onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
+      },
+      {
         icon: () => <FontAwesomeIcon title='Show filter controls' icon={filter ? faSearchMinus : faSearchPlus} className={cx({ [styles.selected]: filter })} />,
         iconProps: filter ? { color: 'error' } : { color: 'action' },
         tooltip: !filter ? 'Show filter controls' : 'Hide filter controls',
@@ -92,13 +100,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
           isFilterState[TAB_MY_ORDERS] = !filter
           onSupportPanelLayoutChange(SUPPORT_PANEL_LAYOUT.IS_FILTER, JSON.stringify(isFilterState))
         }
-      },
-      {
-        icon: () => <FontAwesomeIcon title='Only show orders created by me' icon={onlyShowMyOrders ? faUser : faUserLock} className={cx({ [styles.selected]: onlyShowMyOrders })} />,
-        iconProps: onlyShowMyOrders ? { color: 'error' } : { color: 'action' },
-        tooltip: onlyShowMyOrders ? 'Show all orders' : 'Only show orders created by me',
-        isFreeAction: true,
-        onClick: (): void => setOnlyShowMyOrders(!onlyShowMyOrders)
       }
     ]
     if (isUmpire) {
@@ -121,7 +122,8 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     })
     setRows(dataTable)
 
-    if (!columns.length || !filter) {
+    if (!columns.length || !filter || !initialised) {
+      setInitialised(true)
       const columnData = toColumn(myMessages)
       setColumns(columnData)
     }
