@@ -52,8 +52,6 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     }
   }, [])
 
-  console.log('pending', pendingMessages.length, updateMessages)
-
   useEffect(() => {
     if (updateMessages && pendingMessages.length) {
       setUpdateMessages(false)
@@ -70,25 +68,30 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
     const showOrdersForAllRoles = !onlyShowMyOrders
     const myRoleMessages = myForceMessages.filter((message: MessagePlanning) => showOrdersForAllRoles || message.details.from.roleId === playerRoleId)
     if (myMessages.length === 0) {
+      console.log('PlanningMessageList = update 1')
       // initial load, just load them
       setMyMessages(myRoleMessages)
     } else if (myRoleMessages.length === 0) {
+      console.log('PlanningMessageList = update 2')
       // no messages, clear list
       setMyMessages([])
     } else {
-      // see if any rows are expanded
-      const inEdit = visibleRows.find((row) => {
-        const rowAny = row as any
-        if (rowAny.tableData && rowAny.tableData.showDetailPanel) {
-          return true
-        }
-        return false
-      })
+      // // see if any rows are expanded
+      // const inEdit = visibleRows.find((row) => {
+      //   const rowAny = row as any
+      //   if (rowAny.tableData && rowAny.tableData.showDetailPanel) {
+      //     return true
+      //   }
+      //   return false
+      // })
+      const inEdit = (messageValue.current !== '') && (messageValue.current !== null)
+      console.log('inEdit', inEdit, messageValue.current)
       if (inEdit) {
         // a message is expanded. Don't update the UI - store the pending change
-        console.log('Planning Messages List - store pending messages', myRoleMessages.length)
+        console.log('PlanningMessageList = update 3 - store pending messages', myRoleMessages.length)
         setPendingMessages(myRoleMessages)
       } else {
+        console.log('PlanningMessageList = update 4')
         console.log('Planning Messages List - update messages')
         setMyMessages(myRoleMessages)
       }
@@ -132,6 +135,7 @@ export const PlanningMessagesList: React.FC<PropTypes> = ({
 
   // useEffect hook serves asynchronously, whereas the useLayoutEffect hook works synchronously
   useLayoutEffect(() => {
+    console.log('PlanningMessageList update:', myMessages.length, myMessages.length && myMessages[0].message.title)
     const dataTable: OrderRow[] = myMessages.map((message) => {
       return toRow(message)
     })
