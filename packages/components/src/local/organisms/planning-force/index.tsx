@@ -4,7 +4,6 @@ import L, { LatLng, latLng, LeafletMouseEvent, MarkerCluster, MarkerClusterGroup
 import 'leaflet.markercluster/dist/leaflet.markercluster'
 import 'leaflet.markercluster/dist/MarkerCluster.css'
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css'
-import moment from 'moment'
 import React, { useContext, useEffect, useState } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { Circle, LayerGroup, Marker, Tooltip, useMap } from 'react-leaflet-v4'
@@ -241,7 +240,7 @@ const PlanningForces: React.FC<PropTypes> = ({
       }
     }
 
-    asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', asset.id, moment().toISOString())
+    // asset.id === 'Blue.6.94' && console.log('Debug. Rendering clustered marker id', asset.id, moment().toISOString())
 
     return (
       L.marker(new L.LatLng(loc.lat, loc.lng),
