@@ -145,8 +145,8 @@ export const getColumnSummary = (forces: ForceData[], playerForce: ForceData['un
   })
 
   // sort sub-types
-  const sortedSubTypes = subTypes.slice().sort()
-  const sortedTaskGroups = taskGroups.slice().sort()
+  const sortedSubTypes = subTypes.length ? subTypes.slice().sort() : []
+  const sortedTaskGroups = taskGroups.length ? taskGroups.slice().sort() : []
 
   const sortedPlatforms = sortDictionaryByValue(platformTypesDict)
 
