@@ -72,8 +72,8 @@ const activities = P9BMock.data.activities ? P9BMock.data.activities.activities 
 // produce the own and opp assets for this player force
 const forceCols = forceColors(forces)
 const platIcons = platformIcons(platformTypes)
-const own = getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime)
-const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime)
+const own = getOwnAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime, [])
+const opp = getOppAssets(forces, forceCols, platIcons, forces[1], platformTypes, attributeTypes, gameTime, [])
 
 const Template: Story<SupportPanelProps> = (args) => {
   const roleStr: string = args.selectedRoleName
