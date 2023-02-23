@@ -720,7 +720,7 @@ export const PlanningChannel: React.FC<PropTypes> = ({
         channel: channel.uniqid,
         from: from,
         messageType: activityBeingPlanned.template,
-        timestamp: moment().toISOString(),
+        timestamp: moment.utc().toISOString(),
         turnNumber: currentTurn
       }
       const timeBounds = activityBounds(activityPlanned)
